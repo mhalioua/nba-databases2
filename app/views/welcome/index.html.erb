@@ -1,0 +1,186 @@
+<%= select_tag :weeks, options_for_select(@week_dropdown, @game_index), :id => "select_weeks" %>
+<script>
+$(document).ready(function(){
+    $('#select_weeks').change(function() {
+        window.location.href = "/welcome/index/" + $(this).val()
+    });
+});
+</script>
+
+<div class="main">
+	<table class="game-index" border="1">
+  		<thead>
+  			<tr>
+  				<th width="40">Game #</th>
+  				<th width="50">Start Time</th>
+  				<th width="200">MATCH-UPS</th>
+  				<th width="30">1H score</th>
+  				<th width="30">FG score</th>
+  				<th width="100" style="font-size: 12px">TIME REMAINING IN 1ST HALF</th>
+  				<th width="100">15 min countdown</th>
+  				<th width="50">1H Total yards</th>
+  				<th width="50">1H Rushing yards</th>
+  				<th width="150">KICKED</th>
+  				<th width="200">FULL GAME <br> 2ND HALF LINES</th>
+  			</tr>
+  		</thead>
+		<tbody>
+		<% @games.each_with_index do |game, index| %>
+		<%
+			color = "royalblue"
+			if index % 2 == 1
+				color = "dodgerblue"
+			end
+			game_state = game.game_state.to_i
+
+			if game_state == 4
+				color = "rgb(156,225,104)"
+				if index % 2 == 1
+					color = "rgb(147,213,186)"
+				end
+			elsif game_state == 1 || game_state == 2
+				color = "lightyellow"
+				if index % 2 == 1
+					color = "yellow"
+				end
+			elsif game_state == 0
+				color = "red"
+				if index % 2 == 1
+					color = "palevioletred"
+				end
+			elsif game_state == 3
+				color = "orange"
+				if index % 2 == 1
+					color = "orangered"
+				end
+			end
+			style = "background:#{color}"
+			away_team_total = ""
+			away_team_rushing = ""
+			home_team_total = ""
+			home_team_rushing = ""
+			home_result = ""
+			away_result = ""
+			game_status = ""
+			score = game.scores.find_by(result: "Half")
+			if score
+				home_team_total = score.home_team_total
+				away_team_total = score.away_team_total
+				away_team_rushing = score.away_team_rushing
+				home_team_rushing = score.home_team_rushing
+				home_result = score.home_result
+				away_result = score.away_result
+				game_status = score.game_status
+				if game_status.size > 0 && game_status[0] == "0"
+					game_status.slice!(0)
+				end
+			end
+			home_full = ""
+			away_full = ""
+			full = game.scores.find_by(result: "Final")
+			if full
+				home_full = full.home_result
+				away_full = full.away_result
+			end
+			f_min = ""
+			if game_state == 0
+				diff = (game.updated_at + 15.minutes - Time.now).to_i
+				if diff > 0
+					f_min = (diff / 60).to_s + ":"
+					if (diff % 60) < 10
+						f_min = f_min + "0"
+					end
+					f_min = f_min + (diff % 60).to_s
+				end
+			end
+
+			if game_state == 6
+				home_result = game.game_status
+				away_result = game.game_status
+			end
+			pinnacle = ""
+			if game.home_pinnacle
+				index = game.home_pinnacle.index(" ")
+				pinnacle = index ? game.home_pinnacle[0..index] : ""
+				index = game.away_pinnacle.index(" ")
+				if index
+					if pinnacle != ""
+						pinnacle = pinnacle + " and "
+					end
+					pinnacle = pinnacle + game.away_pinnacle[0..index]
+				end
+			end
+			second_pinnacle = ""
+			if game.home_2nd_pinnacle
+				index = game.home_2nd_pinnacle.index(" ")
+				second_pinnacle = index ? game.home_2nd_pinnacle[0..index] : ""
+				index = game.away_2nd_pinnacle.index(" ")
+				if index
+					if second_pinnacle != ""
+						second_pinnacle = second_pinnacle + " and "
+					end
+					second_pinnacle = second_pinnacle + game.away_2nd_pinnacle[0..index]
+				end
+			end
+		%>
+			<tr style=<%= style %> >
+				<td class="borderTop"><%= game.away_number %></td>
+				<% game_date = game.game_date.strftime("%l:%M%P") %>
+				<td rowspan="2" class="borderTop"><%= game_date %></td>
+				<td class="borderTop"><%= game.away_team %></td>
+				<td class="borderTop"><%= away_result %></td>
+				<td class="borderTop"><%= away_full %></td>
+				<td rowspan="2" class="borderTop"><%= game_status %></td>
+				<td rowspan="2" class="borderTop main-time" ><%= f_min %></td>
+				<td class="borderTop"><%= away_team_total %></td>
+				<td class="borderTop"><%= away_team_rushing %></td>
+				<%
+					if game.kicked == "home"
+				%>
+					<td rowspan="2" class="borderTop" style = "text-transform: uppercase"> <%= game.home_team %> <br> kicked</td>
+				<%
+					elsif game.kicked == "away"
+				%>
+					<td rowspan="2" class="borderTop" style = "text-transform: uppercase"> <%= game.away_team %> <br> kicked</td>
+				<%
+					else
+				%>
+					<td rowspan="2" class="borderTop" style = "text-transform: uppercase"></td>
+				<%
+					end
+				%>
+				<td class="borderTop"><%= pinnacle %></td>
+			</tr>
+			<tr style=<%= style %> >
+				<td><%= game.home_number %></td>
+				<td><%= game.home_team %></td>
+				<td><%= home_result %></td>
+				<td><%= home_full %></td>
+				<td><%= home_team_total %></td>
+				<td><%= home_team_rushing %></td>
+				<td><%= second_pinnacle %></td>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+</div>
+
+<script>
+setInterval(repeat, 1000)
+function repeat() {
+	var list = $(".main-time")
+	for (var i = 0; i < list.length ; i++) {
+		var value = list[i].innerHTML
+		if (value !="") {
+			var se_index = value.indexOf(":")
+			min = parseInt(value.substring(0, se_index))
+			sec = parseInt(value.substring(se_index+1, value.length+1))
+			var time = min * 60 + sec - 1;
+			if (time == 0)
+				list[i].innerHTML = ""
+			else
+				list[i].innerHTML = Math.floor(time/60) + ":" + ("0" + time%60).slice(-2)
+		}
+	}
+}
+</script>
