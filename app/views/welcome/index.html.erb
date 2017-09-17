@@ -71,6 +71,10 @@ $(document).ready(function(){
 				home_result = score.home_result
 				away_result = score.away_result
 				game_status = score.game_status
+				if game.game_state == 3
+					game_status = "Final"
+				end
+				game_status = 
 				if game_status.size > 0 && game_status[0] == "0"
 					game_status.slice!(0)
 				end
