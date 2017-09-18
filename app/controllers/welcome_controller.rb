@@ -1,4 +1,7 @@
 class WelcomeController < ApplicationController
+	
+	before_action :confirm_logged_in
+
 	def index
 	  	unless params[:id]
 	  	  	params[:id] = Time.now.strftime("%Y-%m-%d")
