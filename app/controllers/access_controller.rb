@@ -8,14 +8,14 @@
 
   def attempt_login
   	if params[:username].present? && params[:password].present?
-  		found_user = User.where(:user => params[:username]).first
+  		found_user = User.where(:name => params[:username]).first
   		if found_user
   			authorized_user = found_user.authenticate(params[:password])
   		end
   	end
   	if authorized_user
   		session[:user_id] = authorized_user.id
-  		session[:username] = authorized_user.user
+  		session[:username] = authorized_user.name
   		flash[:notice] = "You are now logged in."
   		redirect_to(:controller => 'welcome', :action => 'index')
   	else
