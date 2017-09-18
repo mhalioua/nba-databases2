@@ -222,12 +222,18 @@ namespace :setup do
 				      away_name = @nicknames[away_name]
 				    end
 					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
-					matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && field.game_date == date }
+					matched = games.select{|field| field.home_team.include?(home_name) && field.away_team.include?(away_name) && field.game_date == date }
 					if matched.size > 0
 						update_game = matched.first
-						puts update_game.id
 						if update_game.game_state == 4
 							update_game.update(home_number: home_number, away_number: away_number, home_pinnacle: home_pinnacle, away_pinnacle: away_pinnacle)
+						end
+					end
+					matched = games.select{|field| field.home_team.include?(away_name) && field.away_team.include?(home_name) && field.game_date == date }
+					if matched.size > 0
+						update_game = matched.first
+						if update_game.game_state == 4
+							update_game.update(home_number: away_number, away_number: home_number, home_pinnacle: away_pinnacle, away_pinnacle:home_pinnacle )
 						end
 					end
 				end
@@ -253,15 +259,18 @@ namespace :setup do
 				away_number = element.children[0].children[3].children[1].text.to_i
 				home_2nd_pinnacle = element.children[0].children[9].children[1].text
 				away_2nd_pinnacle = element.children[0].children[9].children[0].text
-				puts home_number
-				puts away_number
-				puts home_2nd_pinnacle
-				puts away_2nd_pinnacle
-				matched = games.select{|field| ((field.home_number == home_number && field.away_number == away_number) || (field.home_number == away_number && field.away_number == home_number)) }
+				matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number) }
 				if matched.size > 0
 					update_game = matched.first
 					if update_game.game_state == 0
-						update_game.update(home_2nd_pinnacle: home_2nd_pinnacle, away_2nd_pinnacle: away_2nd_pinnacle, updated_at: update_game.updated_at)
+						update_game.update(home_2nd_pinnacle: home_2nd_pinnacle, away_2nd_pinnacle: away_2nd_pinnacle)
+					end
+				end
+				matched = games.select{|field| (field.home_number == away_number && field.away_number == home_number) }
+				if matched.size > 0
+					update_game = matched.first
+					if update_game.game_state == 0
+						update_game.update(home_2nd_pinnacle: away_2nd_pinnacle , away_2nd_pinnacle: home_2nd_pinnacle)
 					end
 				end
 			end

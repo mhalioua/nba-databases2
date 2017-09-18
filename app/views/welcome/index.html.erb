@@ -113,6 +113,13 @@ $(document).ready(function(){
 					pinnacle = pinnacle + game.away_pinnacle[0..index]
 				end
 			end
+			if pinnacle != ""
+				if game.home_pinnacle[0] == "-"
+					pinnacle = game.home_team + "is" + pinnacle
+				else
+					pinnacle = game.away_team + "is" + pinnacle
+				end
+			end
 			second_pinnacle = ""
 			if game.home_2nd_pinnacle
 				index = game.home_2nd_pinnacle.index(" ")
@@ -123,6 +130,13 @@ $(document).ready(function(){
 						second_pinnacle = second_pinnacle + " and "
 					end
 					second_pinnacle = second_pinnacle + game.away_2nd_pinnacle[0..index]
+				end
+			end
+			if second_pinnacle != ""
+				if game.home_2nd_pinnacle[0] == "-"
+					second_pinnacle = game.home_team + "is" + second_pinnacle
+				else
+					second_pinnacle = game.away_team + "is" + second_pinnacle
 				end
 			end
 		%>
