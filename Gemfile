@@ -58,3 +58,5 @@ gem 'nokogiri'
 gem 'jquery-ui-rails'
 
 gem 'jquery-rails'
+
+gem 'bcrypt'
