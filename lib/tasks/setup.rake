@@ -198,7 +198,7 @@ namespace :setup do
 		  		check_img = doc.css(".accordion-header img")
 		  		first_drive = 0
 		  		second_drive = 0
-		  		if game_state == 0
+		  		if game_state < 3
 		  			first_drive = check_img.size
 		  		elsif game_state == 5
 		  			second_drive = check_img.size

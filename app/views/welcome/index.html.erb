@@ -222,9 +222,9 @@ $(document).ready(function(){
 
 			first_drive = ""
 			second_drive = ""
-			if game_state == 0
+			first_drive = game.first_drive.to_s
+			if game_state == 5
 				first_drive = game.first_drive.to_s
-			elsif game_state == 5
 				second_drive = (game.second_drive.to_i - game.first_drive.to_i).to_s
 			end
 		%>
