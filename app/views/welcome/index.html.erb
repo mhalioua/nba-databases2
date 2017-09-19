@@ -206,15 +206,15 @@ $(document).ready(function(){
 					end
 				%>
 				<td class="borderTop"><%= pinnacle %></td>
-				<td class="borderTop"><%= score.away_car ? score.away_car : "" %></td>
-				<td class="borderTop"><%= score.away_ave_car ? score.away_ave_car : "" %></td>
-				<td class="borderTop"><%= score.away_c_att ? score.away_c_att : "" %></td>
-				<td class="borderTop"><%= score.away_ave_att ? score.away_ave_att : "" %></td>
-				<td class="borderTop"><%= score.away_total_play ? score.away_total_play : "" %></td>
-				<td class="borderTop"><%= score.away_play_yard ? score.away_play_yard : "" %></td>
-				<td class="borderTop"><%= score.away_pass_long ? score.away_pass_long : "" %></td>
-				<td class="borderTop"><%= score.away_rush_long ? score.away_rush_long : "" %></td>
-				<td class="borderTop"><%= score.away_sacks ? score.away_sacks : "" %></td>
+				<td class="borderTop"><%= (score.away_car ? score.away_car : "") %></td>
+				<td class="borderTop"><%= (score.away_ave_car ? score.away_ave_car : "") %></td>
+				<td class="borderTop"><%= (score.away_c_att ? score.away_c_att : "") %></td>
+				<td class="borderTop"><%= (score.away_ave_att ? score.away_ave_att : "") %></td>
+				<td class="borderTop"><%= (score.away_total_play ? score.away_total_play : "") %></td>
+				<td class="borderTop"><%= (score.away_play_yard ? score.away_play_yard : "") %></td>
+				<td class="borderTop"><%= (score.away_pass_long ? score.away_pass_long : "") %></td>
+				<td class="borderTop"><%= (score.away_rush_long ? score.away_rush_long : "") %></td>
+				<td class="borderTop"><%= (score.away_sacks ? score.away_sacks : "") %></td>
 				<td rowspan="2" class="borderTop">1st Half</td>
 				<td rowspan="2" class="borderTop">2nd Half</td>
 				<td class="borderTop"><%= away_full %></td>
@@ -226,15 +226,15 @@ $(document).ready(function(){
 				<td><%= home_team_total %></td>
 				<td><%= home_team_rushing %></td>
 				<td><%= second_pinnacle %></td>
-				<td><%= score.home_car ? score.home_car : "" %></td>
-				<td><%= score.home_ave_car ? score.home_ave_car : "" %></td>
-				<td><%= score.home_c_att ? score.home_c_att : "" %></td>
-				<td><%= score.home_ave_att ? score.home_ave_att : "" %></td>
-				<td><%= score.home_total_play ? score.home_total_play : "" %></td>
-				<td><%= score.home_play_yard ? score.home_play_yard : "" %></td>
-				<td><%= score.home_pass_long ? score.home_pass_long : "" %></td>
-				<td><%= score.home_rush_long ? score.home_rush_long : "" %></td>
-				<td><%= score.home_sacks ? score.home_sacks : "" %></td>
+				<td><%= (score.home_car ? score.home_car : "") %></td>
+				<td><%= (score.home_ave_car ? score.home_ave_car : "") %></td>
+				<td><%= (score.home_c_att ? score.home_c_att : "") %></td>
+				<td><%= (score.home_ave_att ? score.home_ave_att : "") %></td>
+				<td><%= (score.home_total_play ? score.home_total_play : "") %></td>
+				<td><%= (score.home_play_yard ? score.home_play_yard : "") %></td>
+				<td><%= (score.home_pass_long ? score.home_pass_long : "") %></td>
+				<td><%= (score.home_rush_long ? score.home_rush_long : "") %></td>
+				<td><%= (score.home_sacks ? score.home_sacks : "") %></td>
 				<td><%= home_full %></td>
 			</tr>
 		<% end %>
