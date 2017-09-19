@@ -208,7 +208,7 @@ namespace :setup do
 				  			puts index
 				  			puts element.children.size
 				  			if element.children.size == 3
-				  				first_drive = index - 1
+				  				first_drive = index
 				  				break
 				  			end
 				  		end
@@ -341,9 +341,10 @@ namespace :setup do
 	task test: :environment do
 		include Api
 
-  		url = "http://www.espn.com/college-football/playbyplay?gameId=400934503"
+  		url = "http://www.espn.com/nfl/playbyplay?gameId=400951643"
   		doc = download_document(url)
   		check_img = doc.css(".css-accordion .accordion-item")
+  		puts check_img.size
   		check_img.each_with_index do |element, index|
   			if element.children.size == 3
   				puts "aaaaaaaaa"
