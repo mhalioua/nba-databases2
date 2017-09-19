@@ -22,7 +22,8 @@ $(document).ready(function(){
   				<th width="150"></th>
   				<th width="200"></th>
   				<th colspan="9">1st Half</th>
-  				<th width="30">FG score</th>
+  				<th colspan="2">Drives</th>
+  				<th width="30"></th>
   			</tr>
   			<tr>
   				<th width="40">Game #</th>
@@ -44,6 +45,8 @@ $(document).ready(function(){
   				<th>LONGEST <br> PASS</th>
   				<th>LONGEST <br> RUSH</th>
   				<th>SACKS</th>
+  				<th>1st Half</th>
+  				<th>2nd Half</th>
   				<th width="30">FG score</th>
   			</tr>
   		</thead>
@@ -187,7 +190,6 @@ $(document).ready(function(){
 				<td rowspan="2" class="borderTop main-time" ><%= f_min %></td>
 				<td class="borderTop"><%= away_team_total %></td>
 				<td class="borderTop"><%= away_team_rushing %></td>
-				<td class="borderTop"><%= away_full %></td>
 				<%
 					if game.kicked == "home"
 				%>
@@ -204,6 +206,18 @@ $(document).ready(function(){
 					end
 				%>
 				<td class="borderTop"><%= pinnacle %></td>
+				<td class="borderTop">CAR</td>
+				<td class="borderTop">AVE</td>
+				<td class="borderTop">C/ATT</td>
+				<td class="borderTop">ATT</td>
+				<td class="borderTop">PLAYS</td>
+				<td class="borderTop">PLAYS/ <br> YARDS</td>
+				<td class="borderTop">PASS</td>
+				<td class="borderTop">RUSH</td>
+				<td class="borderTop">SACKS</td>
+				<td rowspan="2" class="borderTop">1st Half</td>
+				<td rowspan="2" class="borderTop">2nd Half</td>
+				<td class="borderTop"><%= away_full %></td>
 			</tr>
 			<tr style=<%= style %> >
 				<td><%= game.home_number %></td>
@@ -212,6 +226,15 @@ $(document).ready(function(){
 				<td><%= home_team_total %></td>
 				<td><%= home_team_rushing %></td>
 				<td><%= second_pinnacle %></td>
+				<td class="borderTop">CAR</td>
+				<td class="borderTop">AVE</td>
+				<td class="borderTop">C/ATT</td>
+				<td class="borderTop">ATT</td>
+				<td class="borderTop">PLAYS</td>
+				<td class="borderTop">PLAYS/ <br> YARDS</td>
+				<td class="borderTop">PASS</td>
+				<td class="borderTop">RUSH</td>
+				<td class="borderTop">SACKS</td>
 				<td><%= home_full %></td>
 			</tr>
 		<% end %>
