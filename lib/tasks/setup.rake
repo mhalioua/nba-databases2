@@ -206,6 +206,7 @@ namespace :setup do
 				  		check_img_detail.each_with_index do |element, index|
 				  			if element.children.size == 3
 				  				first_drive = index - 1
+				  				break
 				  			end
 				  		end
 		  				second_drive = check_img_detail.size - 1
