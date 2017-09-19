@@ -177,13 +177,13 @@ $(document).ready(function(){
 					away_pinnacle = temp
 				end
 				index = home_pinnacle.index(" ")
-				pinnacle = index ? home_pinnacle[0..index] : ""
+				pinnacle = index ? home_pinnacle[0..index-1] : ""
 				index = away_pinnacle.index(" ")
 				if index
 					if pinnacle != ""
 						pinnacle = pinnacle + " and "
 					end
-					pinnacle = pinnacle + away_pinnacle[0..index]
+					pinnacle = pinnacle + away_pinnacle[0..index-1]
 				end
 			end
 			if pinnacle != ""
@@ -203,13 +203,13 @@ $(document).ready(function(){
 					away_2nd_pinnacle = temp
 				end
 				index = home_2nd_pinnacle.index(" ")
-				second_pinnacle = index ? home_2nd_pinnacle[0..index] : ""
+				second_pinnacle = index ? home_2nd_pinnacle[0..index-1] : ""
 				index = away_2nd_pinnacle.index(" ")
 				if index
 					if second_pinnacle != ""
 						second_pinnacle = second_pinnacle + " and "
 					end
-					second_pinnacle = second_pinnacle + away_2nd_pinnacle[0..index]
+					second_pinnacle = second_pinnacle + away_2nd_pinnacle[0..index-1]
 				end
 			end
 			if second_pinnacle != ""
