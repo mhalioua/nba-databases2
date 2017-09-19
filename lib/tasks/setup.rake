@@ -196,8 +196,8 @@ namespace :setup do
 		  		doc = download_document(url)
 		  		away_img = doc.css(".away img")[1]['src'][-20..-1]
 		  		check_img = doc.css(".accordion-header img")
-		  		first_drive = 0
-		  		second_drive = 0
+		  		first_drive = game.first_drive
+		  		second_drive = game.second_drive
 		  		if game_state < 3
 		  			first_drive = check_img.size
 		  		elsif game_state == 5
@@ -205,8 +205,6 @@ namespace :setup do
 		  			if game.first_drive.to_i == 0
 				  		check_img_detail = doc.css(".css-accordion .accordion-item")
 				  		check_img_detail.each_with_index do |element, index|
-				  			puts index
-				  			puts element.children.size
 				  			if element.children.size == 3
 				  				first_drive = index
 				  				break
