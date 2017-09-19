@@ -196,6 +196,13 @@ namespace :setup do
 		  		doc = download_document(url)
 		  		away_img = doc.css(".away img")[1]['src'][-20..-1]
 		  		check_img = doc.css(".accordion-header img")
+		  		first_drive = 0
+		  		second_drive = 0
+		  		if game_state == 0
+		  			first_drive = check_img.size
+		  		elsif game_state == 5
+		  			second_drive = check_img.size
+		  		end
 		  		if check_img.size > 0
 		  			if game_state < 4
 		  				check_img = check_img[check_img.size-1]['src'][-20..-1]
@@ -208,8 +215,7 @@ namespace :setup do
 			  		end
 			  	end
 		  	end
-  			game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status)
-  			
+  			game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
 	  	end
 	end
 
