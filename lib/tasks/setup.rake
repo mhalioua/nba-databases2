@@ -202,7 +202,13 @@ namespace :setup do
 		  			first_drive = check_img.size
 		  		elsif game_state == 5
 		  			if game.first_drive == 0
-		  				second_drive = 0
+				  		check_img_detail = doc.css(".css-accordion .accordion-item")
+				  		check_img_detail.each_with_index do |element, index|
+				  			if element.children.size == 3
+				  				first_drive = index - 1
+				  			end
+				  		end
+		  				second_drive = check_img_detail.size - 1
 		  			else
 		  				second_drive = check_img.size
 		  			end
@@ -334,50 +340,16 @@ namespace :setup do
 	task test: :environment do
 		include Api
 
-  		url = "http://www.espn.com/college-football/boxscore?gameId=400934503"
+  		url = "http://www.espn.com/college-football/playbyplay?gameId=400934503"
   		doc = download_document(url)
-  		element = doc.css("#gamepackage-rushing .gamepackage-home-wrap .highlight td")
-  		home_car 		= element[1].text
-  		home_ave_car 	= element[3].text
-  		home_rush_long 	= element[5].text
-
-  		element = doc.css("#gamepackage-rushing .gamepackage-away-wrap .highlight td")
-  		away_car 		= element[1].text
-  		away_ave_car 	= element[3].text
-  		away_rush_long 	= element[5].text
-
-  		element = doc.css("#gamepackage-rushing .gamepackage-home-wrap .highlight td")
-  		home_pass_long 	= element[5].text
-
-  		element = doc.css("#gamepackage-receiving .gamepackage-away-wrap .highlight td")
-  		away_pass_long 	= element[5].text
-
-		element = doc.css("#gamepackage-passing .gamepackage-home-wrap .highlight td")
-		home_c_att 		= element[1].text
-		home_ave_att 	= element[3].text
-
-		element = doc.css("#gamepackage-passing .gamepackage-away-wrap .highlight td")
-		away_c_att 		= element[1].text
-		away_ave_att 	= element[3].text
-
-		home_att_index 	= home_c_att.index("/")
-		home_total_play = home_car.to_i + home_c_att[home_att_index+1..-1].to_i
-
-		away_att_index 	= away_c_att.index("/")
-		away_total_play = away_car.to_i + away_c_att[away_att_index+1..-1].to_i
-
-		home_team_total = "505"
-		away_team_total = "175"
-
-		home_play_yard 	= home_team_total.to_i / home_total_play
-		away_play_yard 	= away_team_total.to_i / away_total_play
-
-		element = doc.css("#gamepackage-defensive .gamepackage-home-wrap .highlight td")
-		home_sacks 		= element[3].text
-
-		element = doc.css("#gamepackage-defensive .gamepackage-away-wrap .highlight td")
-		away_sacks 		= element[3].text
-
+  		check_img = doc.css(".css-accordion .accordion-item")
+  		check_img.each_with_index do |element, index|
+  			if element.children.size == 3
+  				puts "aaaaaaaaa"
+  				break
+  			end
+  			puts index
+  		end
 	end
 
 	@nicknames = {
