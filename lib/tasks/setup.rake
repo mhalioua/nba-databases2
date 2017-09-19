@@ -121,7 +121,7 @@ namespace :setup do
 	            	end
 	            end
 
-	            url = "http://www.espn.com/college-football/boxscore?gameId=400934503"
+	            url = "http://www.espn.com/#{game_link}/boxscore?gameId=#{game_id}"
 		  		doc = download_document(url)
 		  		element = doc.css("#gamepackage-rushing .gamepackage-home-wrap .highlight td")
 		  		home_car 		= element[1].text
