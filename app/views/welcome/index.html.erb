@@ -27,7 +27,7 @@ $(document).ready(function(){
   			</tr>
   			<tr>
   				<th width="40">Game #</th>
-  				<th width="50">Start Time</th>
+  				<th width="30">Start Time</th>
   				<th width="200">MATCH-UPS</th>
   				<th width="30">1H score</th>
   				<th width="100" style="font-size: 12px">TIME REMAINING IN 1ST HALF</th>
@@ -222,7 +222,7 @@ $(document).ready(function(){
 		%>
 			<tr style=<%= style %> >
 				<td class="borderTop"><%= game.away_number %></td>
-				<% game_date = game.game_date.strftime("%l:%M%P") %>
+				<% game_date = game.game_date.strftime("%l:%M %P") %>
 				<td rowspan="2" class="borderTop"><%= game_date %></td>
 				<td class="borderTop"><%= game.away_team %></td>
 				<td class="borderTop"><%= away_result %></td>
