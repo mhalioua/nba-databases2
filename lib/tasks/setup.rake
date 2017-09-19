@@ -120,11 +120,54 @@ namespace :setup do
 	            		break
 	            	end
 	            end
+
+	            url = "http://www.espn.com/college-football/boxscore?gameId=400934503"
+		  		doc = download_document(url)
+		  		element = doc.css("#gamepackage-rushing .gamepackage-home-wrap .highlight td")
+		  		home_car 		= element[1].text
+		  		home_ave_car 	= element[3].text
+		  		home_rush_long 	= element[5].text
+
+		  		element = doc.css("#gamepackage-rushing .gamepackage-away-wrap .highlight td")
+		  		away_car 		= element[1].text
+		  		away_ave_car 	= element[3].text
+		  		away_rush_long 	= element[5].text
+
+		  		element = doc.css("#gamepackage-rushing .gamepackage-home-wrap .highlight td")
+		  		home_pass_long 	= element[5].text
+
+		  		element = doc.css("#gamepackage-receiving .gamepackage-away-wrap .highlight td")
+		  		away_pass_long 	= element[5].text
+
+				element = doc.css("#gamepackage-passing .gamepackage-home-wrap .highlight td")
+				home_c_att 		= element[1].text
+				home_ave_att 	= element[3].text
+
+				element = doc.css("#gamepackage-passing .gamepackage-away-wrap .highlight td")
+				away_c_att 		= element[1].text
+				away_ave_att 	= element[3].text
+
+				home_att_index 	= home_c_att.index("/")
+				home_total_play = home_car.to_i + home_c_att[home_att_index+1..-1].to_i
+
+				away_att_index 	= away_c_att.index("/")
+				away_total_play = away_car.to_i + away_c_att[away_att_index+1..-1].to_i
+
+				home_play_yard 	= home_team_total.to_i / home_total_play
+				away_play_yard 	= away_team_total.to_i / away_total_play
+
+				element = doc.css("#gamepackage-defensive .gamepackage-home-wrap .highlight td")
+				home_sacks 		= element[3].text
+
+				element = doc.css("#gamepackage-defensive .gamepackage-away-wrap .highlight td")
+				away_sacks 		= element[3].text
+
+
 	            if game_state == 5
 	  				unless score = game.scores.find_by(result: "Final")
 		              	score = game.scores.create(result: "Final")
 		            end
-		            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result)
+		            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result, home_car: home_car, home_ave_car: home_ave_car, home_rush_long: home_rush_long, home_c_att: home_c_att, home_ave_att: home_ave_att, home_total_play: home_total_play, home_play_yard: home_play_yard, home_sacks: home_sacks, away_car: away_car, away_ave_car: away_ave_car, away_rush_long: away_rush_long, away_c_att: away_c_att, away_ave_att: away_ave_att, away_total_play: away_total_play, away_play_yard: away_play_yard, away_sacks: away_sacks, home_pass_long: home_pass_long, away_pass_long: away_pass_long)
 	            elsif game_state < 3
 		            unless score = game.scores.find_by(result: "Half")
 		              	score = game.scores.create(result: "Half")
@@ -138,7 +181,7 @@ namespace :setup do
 		            		game_status = "0" + game_status
 		            	end
 		            end
-		            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result)
+		            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result, home_car: home_car, home_ave_car: home_ave_car, home_rush_long: home_rush_long, home_c_att: home_c_att, home_ave_att: home_ave_att, home_total_play: home_total_play, home_play_yard: home_play_yard, home_sacks: home_sacks, away_car: away_car, away_ave_car: away_ave_car, away_rush_long: away_rush_long, away_c_att: away_c_att, away_ave_att: away_ave_att, away_total_play: away_total_play, away_play_yard: away_play_yard, away_sacks: away_sacks, home_pass_long: home_pass_long, away_pass_long: away_pass_long)
 		       	end
   			end
 
@@ -281,54 +324,50 @@ namespace :setup do
 	task test: :environment do
 		include Api
 
-		games = Game.all
-	  	game_index = []
-		games.each do |game|
-			if game.game_date.to_s != "" && game.game_date < Time.now + 7.days
-				game_index << game.game_date.to_formatted_s(:number)[0..7]
-			end
-		end
-		game_index = game_index.uniq
-		game_index = game_index.sort
+  		url = "http://www.espn.com/college-football/boxscore?gameId=400934503"
+  		doc = download_document(url)
+  		element = doc.css("#gamepackage-rushing .gamepackage-home-wrap .highlight td")
+  		home_car 		= element[1].text
+  		home_ave_car 	= element[3].text
+  		home_rush_long 	= element[5].text
 
-		game_index.each do |game_day|
-			url = "https://www.sportsbookreview.com/betting-odds/nfl-football/?date=#{game_day}"
-			doc = download_document(url)
-			elements = doc.css(".event-holder")
-			elements.each do |element|
-				home_number = element.children[0].children[3].children[2].text
-				away_number = element.children[0].children[3].children[1].text
-				home_name = element.children[0].children[5].children[1].text
-				away_name = element.children[0].children[5].children[0].text
-				ind = home_name.index(") ")
-				home_name = ind ? home_name[ind+2..-1] : home_name
-				ind = away_name.index(") ")
-				away_name = ind ? away_name[ind+2..-1] : away_name
-				ind = home_name.index(" (")
-				home_name = ind ? home_name[0..ind-1] : home_name
-				ind = away_name.index(" (")
-				away_name = ind ? away_name[0..ind-1] : away_name
-				game_time = element.children[0].children[4].text
-				ind = game_time.index(":")
-				hour = ind ? game_time[0..ind-1].to_i : 0
-				min = ind ? game_time[ind+1..ind+3].to_i : 0
-				ap = game_time[-1]
-				if ap == "p" && hour != 12
-					hour = hour + 12
-				end
-				if ap == "a" && hour == 12
-					hour = 24
-				end
-				if @nicknames[home_name]
-			      home_name = @nicknames[home_name]
-			    end
-			    if @nicknames[away_name]
-			      away_name = @nicknames[away_name]
-			    end
-				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
-				matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && field.game_date == date }
-			end
-		end
+  		element = doc.css("#gamepackage-rushing .gamepackage-away-wrap .highlight td")
+  		away_car 		= element[1].text
+  		away_ave_car 	= element[3].text
+  		away_rush_long 	= element[5].text
+
+  		element = doc.css("#gamepackage-rushing .gamepackage-home-wrap .highlight td")
+  		home_pass_long 	= element[5].text
+
+  		element = doc.css("#gamepackage-receiving .gamepackage-away-wrap .highlight td")
+  		away_pass_long 	= element[5].text
+
+		element = doc.css("#gamepackage-passing .gamepackage-home-wrap .highlight td")
+		home_c_att 		= element[1].text
+		home_ave_att 	= element[3].text
+
+		element = doc.css("#gamepackage-passing .gamepackage-away-wrap .highlight td")
+		away_c_att 		= element[1].text
+		away_ave_att 	= element[3].text
+
+		home_att_index 	= home_c_att.index("/")
+		home_total_play = home_car.to_i + home_c_att[home_att_index+1..-1].to_i
+
+		away_att_index 	= away_c_att.index("/")
+		away_total_play = away_car.to_i + away_c_att[away_att_index+1..-1].to_i
+
+		home_team_total = "505"
+		away_team_total = "175"
+
+		home_play_yard 	= home_team_total.to_i / home_total_play
+		away_play_yard 	= away_team_total.to_i / away_total_play
+
+		element = doc.css("#gamepackage-defensive .gamepackage-home-wrap .highlight td")
+		home_sacks 		= element[3].text
+
+		element = doc.css("#gamepackage-defensive .gamepackage-away-wrap .highlight td")
+		away_sacks 		= element[3].text
+
 	end
 
 	@nicknames = {

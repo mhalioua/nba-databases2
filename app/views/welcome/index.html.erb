@@ -11,17 +11,40 @@ $(document).ready(function(){
 	<table class="game-index" border="1">
   		<thead>
   			<tr>
+  				<th width="40"></th>
+  				<th width="50"></th>
+  				<th width="200"></th>
+  				<th width="30"></th>
+  				<th width="100" style="font-size: 12px"></th>
+  				<th width="100"></th>
+  				<th width="50"></th>
+  				<th width="50"></th>
+  				<th width="150"></th>
+  				<th width="200"></th>
+  				<th colspan="9">1st Half</th>
+  				<th width="30">FG score</th>
+  			</tr>
+  			<tr>
   				<th width="40">Game #</th>
   				<th width="50">Start Time</th>
   				<th width="200">MATCH-UPS</th>
   				<th width="30">1H score</th>
-  				<th width="30">FG score</th>
   				<th width="100" style="font-size: 12px">TIME REMAINING IN 1ST HALF</th>
   				<th width="100">15 min countdown</th>
   				<th width="50">1H Total yards</th>
   				<th width="50">1H Rushing yards</th>
   				<th width="150">KICKED</th>
   				<th width="200">FULL GAME <br> 2ND HALF LINES</th>
+  				<th>CAR</th>
+  				<th>AVE <br> CAR</th>
+  				<th>C/ATT</th>
+  				<th>AVE <br> ATT</th>
+  				<th>TOTAL <br> PLAYS</th>
+  				<th>TOTAL <br> PLAYS/ <br> YARDS</th>
+  				<th>LONGEST <br> PASS</th>
+  				<th>LONGEST <br> RUSH</th>
+  				<th>SACKS</th>
+  				<th width="30">FG score</th>
   			</tr>
   		</thead>
 		<tbody>
@@ -160,11 +183,11 @@ $(document).ready(function(){
 				<td rowspan="2" class="borderTop"><%= game_date %></td>
 				<td class="borderTop"><%= game.away_team %></td>
 				<td class="borderTop"><%= away_result %></td>
-				<td class="borderTop"><%= away_full %></td>
 				<td rowspan="2" class="borderTop"><%= game_status %></td>
 				<td rowspan="2" class="borderTop main-time" ><%= f_min %></td>
 				<td class="borderTop"><%= away_team_total %></td>
 				<td class="borderTop"><%= away_team_rushing %></td>
+				<td class="borderTop"><%= away_full %></td>
 				<%
 					if game.kicked == "home"
 				%>
@@ -186,10 +209,10 @@ $(document).ready(function(){
 				<td><%= game.home_number %></td>
 				<td><%= game.home_team %></td>
 				<td><%= home_result %></td>
-				<td><%= home_full %></td>
 				<td><%= home_team_total %></td>
 				<td><%= home_team_rushing %></td>
 				<td><%= second_pinnacle %></td>
+				<td><%= home_full %></td>
 			</tr>
 		<% end %>
 		</tbody>
