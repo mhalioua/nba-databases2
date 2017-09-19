@@ -202,7 +202,7 @@ namespace :setup do
 		  			first_drive = check_img.size
 		  		elsif game_state == 5
 		  			second_drive = check_img.size
-		  			if game.first_drive == 0
+		  			if game.first_drive.to_i == 0
 				  		check_img_detail = doc.css(".css-accordion .accordion-item")
 				  		check_img_detail.each_with_index do |element, index|
 				  			puts index
