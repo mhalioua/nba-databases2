@@ -188,9 +188,9 @@ $(document).ready(function(){
 			end
 			if pinnacle != ""
 				if game.home_pinnacle[0] == "-"
-					pinnacle = game.home_team + " is " + pinnacle
+					pinnacle = game.home_abbr + " is " + pinnacle
 				else
-					pinnacle = game.away_team + " is " + pinnacle
+					pinnacle = game.away_abbr + " is " + pinnacle
 				end
 			end
 			second_pinnacle = ""
@@ -214,9 +214,9 @@ $(document).ready(function(){
 			end
 			if second_pinnacle != ""
 				if game.home_2nd_pinnacle[0] == "-"
-					second_pinnacle = game.home_team + " is " + second_pinnacle
+					second_pinnacle = game.home_abbr + " is " + second_pinnacle
 				else
-					second_pinnacle = game.away_team + " is " + second_pinnacle
+					second_pinnacle = game.away_abbr + " is " + second_pinnacle
 				end
 			end
 		%>
