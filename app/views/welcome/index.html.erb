@@ -220,12 +220,12 @@ $(document).ready(function(){
 				end
 			end
 
-			first_drive = 0
-			second_drive = 0
+			first_drive = ""
+			second_drive = ""
 			if game_state == 0
-				first_drive = game.first_drive.to_i
+				first_drive = game.first_drive.to_s
 			elsif game_state == 5
-				second_drive = game.second_drive.to_i - game.first_drive.to_i 
+				second_drive = (game.second_drive.to_i - game.first_drive.to_i).to_s
 			end
 		%>
 			<tr style=<%= style %> >
