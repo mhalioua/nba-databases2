@@ -201,7 +201,11 @@ namespace :setup do
 		  		if game_state == 0
 		  			first_drive = check_img.size
 		  		elsif game_state == 5
-		  			second_drive = check_img.size
+		  			if game.first_drive == 0
+		  				second_drive = 0
+		  			else
+		  				second_drive = check_img.size
+		  			end
 		  		end
 		  		if check_img.size > 0
 		  			if game_state < 4
