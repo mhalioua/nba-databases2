@@ -219,6 +219,14 @@ $(document).ready(function(){
 					second_pinnacle = game.away_abbr + " was " + second_pinnacle
 				end
 			end
+
+			first_drive = ""
+			second_drive = ""
+			if game_state == 0
+				first_drive = game.first_drive.to_s
+			elsif game_state == 5
+				second_drive = (game.second_drive - game.first_drive).to_s
+			end
 		%>
 			<tr style=<%= style %> >
 				<td class="borderTop"><%= game.away_number %></td>
@@ -255,8 +263,8 @@ $(document).ready(function(){
 				<td class="borderTop"><%= away_pass_long %></td>
 				<td class="borderTop"><%= away_rush_long %></td>
 				<td class="borderTop"><%= away_sacks %></td>
-				<td rowspan="2" class="borderTop">1st Half</td>
-				<td rowspan="2" class="borderTop">2nd Half</td>
+				<td rowspan="2" class="borderTop"><%= first_drive %></td>
+				<td rowspan="2" class="borderTop"><%= second_drive %></td>
 				<td class="borderTop"><%= away_full %></td>
 			</tr>
 			<tr style=<%= style %> >
