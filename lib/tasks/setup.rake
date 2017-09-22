@@ -332,7 +332,7 @@ namespace :setup do
 		include Api
 
 		games = Game.all
-		game_day = (Date.new(2017,9,21) - 4.hours).to_formatted_s(:number)[0..7]
+		game_day = (Date.new(2017,9,22) - 4.hours).to_formatted_s(:number)[0..7]
 
 		game_link = "college-football"
 		(0..1).each do |index|
