@@ -283,16 +283,12 @@ namespace :setup do
 					matched = games.select{|field| field.home_team.include?(home_name) && field.away_team.include?(away_name) && field.game_date == date }
 					if matched.size > 0
 						update_game = matched.first
-						if update_game.game_state == 4
-							update_game.update(home_number: home_number, away_number: away_number, home_pinnacle: home_pinnacle, away_pinnacle: away_pinnacle)
-						end
+						update_game.update(home_number: home_number, away_number: away_number, home_pinnacle: home_pinnacle, away_pinnacle: away_pinnacle)
 					end
 					matched = games.select{|field| field.home_team.include?(away_name) && field.away_team.include?(home_name) && field.game_date == date }
 					if matched.size > 0
 						update_game = matched.first
-						if update_game.game_state == 4
-							update_game.update(home_number: away_number, away_number: home_number, home_pinnacle: away_pinnacle, away_pinnacle:home_pinnacle )
-						end
+						update_game.update(home_number: away_number, away_number: home_number, home_pinnacle: away_pinnacle, away_pinnacle:home_pinnacle )
 					end
 				end
 			end
@@ -312,7 +308,6 @@ namespace :setup do
 			doc = download_document(url)
 			puts url
 			elements = doc.css(".event-holder")
-			puts elements.size
 			elements.each_with_index do |element, index|
 				home_number 		= element.children[0].children[3].children[2].text.to_i
 				away_number 		= element.children[0].children[3].children[1].text.to_i
@@ -320,24 +315,14 @@ namespace :setup do
 				away_2nd_pinnacle 	= element.children[0].children[9].children[0].text
 				matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number) }
 				if matched.size > 0
-					puts index
 					update_game = matched.first
-					if update_game.game_state == 0
-						update_game.update(home_2nd_pinnacle: home_2nd_pinnacle, away_2nd_pinnacle: away_2nd_pinnacle)
-					end
+					update_game.update(home_2nd_pinnacle: home_2nd_pinnacle, away_2nd_pinnacle: away_2nd_pinnacle)
 				end
 				matched = games.select{|field| (field.home_number == away_number && field.away_number == home_number) }
 				if matched.size > 0
-					puts index
 					update_game = matched.first
-					if update_game.game_state == 0
-						update_game.update(home_2nd_pinnacle: away_2nd_pinnacle , away_2nd_pinnacle: home_2nd_pinnacle)
-					end
+					update_game.update(home_2nd_pinnacle: away_2nd_pinnacle , away_2nd_pinnacle: home_2nd_pinnacle)
 				end
-				puts home_number
-				puts away_number
-				puts home_2nd_pinnacle
-				puts away_2nd_pinnacle
 			end
 			game_link = "nfl-football"
 		end
