@@ -313,12 +313,13 @@ namespace :setup do
 				away_number 		= element.children[0].children[3].children[1].text.to_i
 				home_2nd_pinnacle 	= element.children[0].children[9].children[1].text
 				away_2nd_pinnacle 	= element.children[0].children[9].children[0].text
-				matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number) }
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
+				matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number && field.game_date == date) }
 				if matched.size > 0
 					update_game = matched.first
 					update_game.update(home_2nd_pinnacle: home_2nd_pinnacle, away_2nd_pinnacle: away_2nd_pinnacle)
 				end
-				matched = games.select{|field| (field.home_number == away_number && field.away_number == home_number) }
+				matched = games.select{|field| (field.home_number == away_number && field.away_number == home_number && field.game_date == date) }
 				if matched.size > 0
 					update_game = matched.first
 					update_game.update(home_2nd_pinnacle: away_2nd_pinnacle , away_2nd_pinnacle: home_2nd_pinnacle)
@@ -345,12 +346,13 @@ namespace :setup do
 				away_number 		= element.children[0].children[3].children[1].text.to_i
 				home_2nd_pinnacle 	= element.children[0].children[9].children[1].text
 				away_2nd_pinnacle 	= element.children[0].children[9].children[0].text
-				matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number) }
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
+				matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number && field.game_date == date) }
 				if matched.size > 0
 					update_game = matched.first
 					update_game.update(home_2nd_pinnacle: home_2nd_pinnacle, away_2nd_pinnacle: away_2nd_pinnacle)
 				end
-				matched = games.select{|field| (field.home_number == away_number && field.away_number == home_number) }
+				matched = games.select{|field| (field.home_number == away_number && field.away_number == home_number && field.game_date == date) }
 				if matched.size > 0
 					update_game = matched.first
 					update_game.update(home_2nd_pinnacle: away_2nd_pinnacle , away_2nd_pinnacle: home_2nd_pinnacle)
