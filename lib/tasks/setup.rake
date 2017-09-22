@@ -312,6 +312,7 @@ namespace :setup do
 			doc = download_document(url)
 			puts url
 			elements = doc.css(".event-holder")
+			puts elements.size
 			elements.each do |element|
 				home_number 		= element.children[0].children[3].children[2].text.to_i
 				away_number 		= element.children[0].children[3].children[1].text.to_i
