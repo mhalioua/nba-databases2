@@ -61,11 +61,11 @@ namespace :setup do
   			game_status = element.text
 
             if slice.children[index[:home_team]].text == "TBD TBD"
-            	result = "TBD"
-            	home_team = "TBD"
-            	home_abbr = "TBD"
-            	away_abbr = "TBD"
-            	away_team = "TBD"
+            	result 		= "TBD"
+            	home_team 	= "TBD"
+            	home_abbr 	= "TBD"
+            	away_abbr 	= "TBD"
+            	away_team 	= "TBD"
             else
 	            if slice.children[index[:home_team]].children[0].children.size == 2
 		  			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
@@ -105,10 +105,10 @@ namespace :setup do
   				home_result = scores[1].text
 
 	            td_elements = doc.css("#gamepackage-matchup td")
-	            home_team_total = ""
-	            away_team_total = ""
-	            home_team_rushing = ""
-	            away_team_rushing = ""
+	            home_team_total 	= ""
+	            away_team_total 	= ""
+	            home_team_rushing 	= ""
+	            away_team_rushing 	= ""
 	            td_elements.each_slice(3) do |slice|
 	            	if slice[0].text.include?("Total Yards")
 	            		away_team_total = slice[1].text
@@ -133,7 +133,7 @@ namespace :setup do
 		  		away_ave_car 	= element[3].text
 		  		away_rush_long 	= element[5].text
 
-		  		element = doc.css("#gamepackage-rushing .gamepackage-home-wrap .highlight td")
+		  		element = doc.css("#gamepackage-receiving .gamepackage-home-wrap .highlight td")
 		  		home_pass_long 	= element[5].text
 
 		  		element = doc.css("#gamepackage-receiving .gamepackage-away-wrap .highlight td")
@@ -248,12 +248,12 @@ namespace :setup do
 				doc = download_document(url)
 				elements = doc.css(".event-holder")
 				elements.each do |element|
-					home_number = element.children[0].children[3].children[2].text
-					away_number = element.children[0].children[3].children[1].text
-					home_name = element.children[0].children[5].children[1].text
-					away_name = element.children[0].children[5].children[0].text
-					home_pinnacle = element.children[0].children[9].children[1].text
-					away_pinnacle = element.children[0].children[9].children[0].text
+					home_number 	= element.children[0].children[3].children[2].text
+					away_number 	= element.children[0].children[3].children[1].text
+					home_name 		= element.children[0].children[5].children[1].text
+					away_name 		= element.children[0].children[5].children[0].text
+					home_pinnacle 	= element.children[0].children[9].children[1].text
+					away_pinnacle 	= element.children[0].children[9].children[0].text
 					ind = home_name.index(") ")
 					home_name = ind ? home_name[ind+2..-1] : home_name
 					ind = away_name.index(") ")
@@ -313,10 +313,10 @@ namespace :setup do
 			puts url
 			elements = doc.css(".event-holder")
 			elements.each do |element|
-				home_number = element.children[0].children[3].children[2].text.to_i
-				away_number = element.children[0].children[3].children[1].text.to_i
-				home_2nd_pinnacle = element.children[0].children[9].children[1].text
-				away_2nd_pinnacle = element.children[0].children[9].children[0].text
+				home_number 		= element.children[0].children[3].children[2].text.to_i
+				away_number 		= element.children[0].children[3].children[1].text.to_i
+				home_2nd_pinnacle 	= element.children[0].children[9].children[1].text
+				away_2nd_pinnacle 	= element.children[0].children[9].children[0].text
 				matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number) }
 				if matched.size > 0
 					update_game = matched.first
@@ -339,17 +339,27 @@ namespace :setup do
 	task test: :environment do
 		include Api
 
-  		url = "http://www.espn.com/nfl/playbyplay?gameId=400951643"
-  		doc = download_document(url)
-  		check_img = doc.css(".css-accordion .accordion-item")
-  		puts check_img.size
-  		check_img.each_with_index do |element, index|
-  			if element.children.size == 3
-  				puts "aaaaaaaaa"
-  				break
-  			end
-  			puts index
-  		end
+		games = Game.all
+		game_day = (Time.now - 4.hours).to_formatted_s(:number)[0..7]
+
+		game_link = "college-football"
+		(0..1).each do |index|
+			url = "https://www.sportsbookreview.com/betting-odds/#{game_link}/merged/2nd-half/?date=20170921"
+			doc = download_document(url)
+			puts url
+			elements = doc.css(".event-holder")
+			elements.each do |element|
+				home_number 		= element.children[0].children[3].children[2].text.to_i
+				away_number 		= element.children[0].children[3].children[1].text.to_i
+				home_2nd_pinnacle 	= element.children[0].children[9].children[1].text
+				away_2nd_pinnacle 	= element.children[0].children[9].children[0].text
+				puts home_number
+				puts away_number
+				puts home_2nd_pinnacle
+				puts away_2nd_pinnacle
+			end
+			game_link = "nfl-football"
+		end
 	end
 
 	@nicknames = {
