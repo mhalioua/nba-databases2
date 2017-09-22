@@ -153,8 +153,8 @@ namespace :setup do
 				away_att_index 	= away_c_att.index("/")
 				away_total_play = away_car.to_i + away_c_att[away_att_index+1..-1].to_i
 
-				home_play_yard 	= home_team_total.to_i / home_total_play
-				away_play_yard 	= away_team_total.to_i / away_total_play
+				home_play_yard 	= home_team_total.to_f / home_total_play
+				away_play_yard 	= away_team_total.to_f / away_total_play
 
 				element = doc.css("#gamepackage-defensive .gamepackage-home-wrap .highlight td")
 				home_sacks 		= element[3].text
