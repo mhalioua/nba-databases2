@@ -313,7 +313,8 @@ namespace :setup do
 			puts url
 			elements = doc.css(".event-holder")
 			puts elements.size
-			elements.each do |element|
+			elements.each_with_index do |element, index|
+				puts index
 				home_number 		= element.children[0].children[3].children[2].text.to_i
 				away_number 		= element.children[0].children[3].children[1].text.to_i
 				home_2nd_pinnacle 	= element.children[0].children[9].children[1].text
