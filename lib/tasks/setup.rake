@@ -314,13 +314,13 @@ namespace :setup do
 			elements = doc.css(".event-holder")
 			puts elements.size
 			elements.each_with_index do |element, index|
-				puts index
 				home_number 		= element.children[0].children[3].children[2].text.to_i
 				away_number 		= element.children[0].children[3].children[1].text.to_i
 				home_2nd_pinnacle 	= element.children[0].children[9].children[1].text
 				away_2nd_pinnacle 	= element.children[0].children[9].children[0].text
 				matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number) }
 				if matched.size > 0
+					puts index
 					update_game = matched.first
 					if update_game.game_state == 0
 						update_game.update(home_2nd_pinnacle: home_2nd_pinnacle, away_2nd_pinnacle: away_2nd_pinnacle)
@@ -328,11 +328,16 @@ namespace :setup do
 				end
 				matched = games.select{|field| (field.home_number == away_number && field.away_number == home_number) }
 				if matched.size > 0
+					puts index
 					update_game = matched.first
 					if update_game.game_state == 0
 						update_game.update(home_2nd_pinnacle: away_2nd_pinnacle , away_2nd_pinnacle: home_2nd_pinnacle)
 					end
 				end
+				puts home_number
+				puts away_number
+				puts home_2nd_pinnacle
+				puts away_2nd_pinnacle
 			end
 			game_link = "nfl-football"
 		end
