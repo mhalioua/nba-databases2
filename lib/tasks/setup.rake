@@ -332,23 +332,29 @@ namespace :setup do
 		include Api
 
 		games = Game.all
-		game_day = (Time.now - 4.hours).to_formatted_s(:number)[0..7]
+		game_day = (Date.new(2017,9,21) - 4.hours).to_formatted_s(:number)[0..7]
 
 		game_link = "college-football"
 		(0..1).each do |index|
-			url = "https://www.sportsbookreview.com/betting-odds/#{game_link}/merged/2nd-half/?date=20170921"
+			url = "https://www.sportsbookreview.com/betting-odds/#{game_link}/merged/2nd-half/?date=#{game_day}"
 			doc = download_document(url)
 			puts url
 			elements = doc.css(".event-holder")
-			elements.each do |element|
+			elements.each_with_index do |element, index|
 				home_number 		= element.children[0].children[3].children[2].text.to_i
 				away_number 		= element.children[0].children[3].children[1].text.to_i
 				home_2nd_pinnacle 	= element.children[0].children[9].children[1].text
 				away_2nd_pinnacle 	= element.children[0].children[9].children[0].text
-				puts home_number
-				puts away_number
-				puts home_2nd_pinnacle
-				puts away_2nd_pinnacle
+				matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number) }
+				if matched.size > 0
+					update_game = matched.first
+					update_game.update(home_2nd_pinnacle: home_2nd_pinnacle, away_2nd_pinnacle: away_2nd_pinnacle)
+				end
+				matched = games.select{|field| (field.home_number == away_number && field.away_number == home_number) }
+				if matched.size > 0
+					update_game = matched.first
+					update_game.update(home_2nd_pinnacle: away_2nd_pinnacle , away_2nd_pinnacle: home_2nd_pinnacle)
+				end
 			end
 			game_link = "nfl-football"
 		end
