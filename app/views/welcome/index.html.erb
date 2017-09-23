@@ -161,7 +161,7 @@ $(document).ready(function(){
 			end
 			f_min = ""
 			if game_state == 0
-				diff = (DateTime.parse(game.game_status[0..19]) + 15.minutes - Time.now).to_i
+				diff = (DateTime.parse(game.game_status[0..18]) + 15.minutes - Time.now).to_i
 				if diff > 0
 					f_min = (diff / 60).to_s + ":"
 					if (diff % 60) < 10
