@@ -392,21 +392,6 @@ namespace :setup do
 
 	task test: :environment do
 		include Api
-
-		game_day = (Time.now - 4.hours).to_formatted_s(:number)[0..7]
-		puts game_day
-		game_day = (Time.now - 5.hours).to_formatted_s(:number)[0..7]
-		puts game_day
-		game_day = (Time.now - 6.hours).to_formatted_s(:number)[0..7]
-		puts game_day
-		game_day = (Time.now - 7.hours).to_formatted_s(:number)[0..7]
-		puts game_day
-		game_day = (Time.now - 8.hours).to_formatted_s(:number)[0..7]
-		puts game_day
-		game_day = (Time.now - 9.hours).to_formatted_s(:number)[0..7]
-		puts game_day
-		game_day = (Time.now - 10.hours).to_formatted_s(:number)[0..7]
-		puts game_day
 	end
 
 	@nicknames = {
