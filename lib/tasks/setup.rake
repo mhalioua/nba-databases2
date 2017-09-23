@@ -24,7 +24,12 @@ namespace :setup do
 			Rake::Task["setup:link"].reenable
 			game_link = "college-football"
 		end
-		Rake::Task["setup:second"].invoke
+		game_day = (Time.now - 4.hours).to_formatted_s(:number)[0..7]
+		Rake::Task["setup:second"].invoke(game_day)
+		Rake::Task["setup:second"].reenable
+		game_day = (Time.now - 28.hours).to_formatted_s(:number)[0..7]
+		Rake::Task["setup:second"].invoke(game_day)
+		Rake::Task["setup:second"].reenable
 	end
 
 	task :link, [:game_link, :week_index] => [:environment] do |t, args|
@@ -296,11 +301,11 @@ namespace :setup do
 		end
 	end
 
-	task :second => :environment do
+	task :second, [:game_day] => [:environment] do |t, args|
 		include Api
 
+		game_day = args[:game_day]
 		games = Game.all
-		game_day = (Time.now - 4.hours).to_formatted_s(:number)[0..7]
 
 		game_link = "college-football"
 		(0..1).each do |index|
