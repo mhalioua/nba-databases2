@@ -132,43 +132,77 @@ namespace :setup do
 		  		doc = download_document(url)
 				puts url
 		  		element = doc.css("#gamepackage-rushing .gamepackage-home-wrap .highlight td")
-		  		home_car 		= element[1].text
-		  		home_ave_car 	= element[3].text
-		  		home_rush_long 	= element[5].text
+		  		home_car 		= ""
+		  		home_ave_car 	= ""
+		  		home_rush_long 	= ""
+		  		if element.size > 5
+			  		home_car 		= element[1].text
+			  		home_ave_car 	= element[3].text
+			  		home_rush_long 	= element[5].text
+			  	end
 
 		  		element = doc.css("#gamepackage-rushing .gamepackage-away-wrap .highlight td")
-		  		away_car 		= element[1].text
-		  		away_ave_car 	= element[3].text
-		  		away_rush_long 	= element[5].text
+		  		away_car 		= ""
+		  		away_ave_car 	= ""
+		  		away_rush_long 	= ""
+		  		if element.size > 5
+			  		away_car 		= element[1].text
+			  		away_ave_car 	= element[3].text
+			  		away_rush_long 	= element[5].text
+			  	end
 
 		  		element = doc.css("#gamepackage-receiving .gamepackage-home-wrap .highlight td")
-		  		home_pass_long 	= element[5].text
+		  		home_pass_long 	= ""
+		  		if element.size > 5
+		  			home_pass_long 	= element[5].text
+		  		end
 
 		  		element = doc.css("#gamepackage-receiving .gamepackage-away-wrap .highlight td")
-		  		away_pass_long 	= element[5].text
+		  		away_pass_long 	= ""
+		  		if element.size > 5
+		  			away_pass_long 	= element[5].text
+		  		end
 
 				element = doc.css("#gamepackage-passing .gamepackage-home-wrap .highlight td")
-				home_c_att 		= element[1].text
-				home_ave_att 	= element[3].text
+				home_c_att 		= ""
+				home_ave_att 	= ""
+				home_total_play = ""
+				home_play_yard 	= ""
+
+		  		if element.size > 5
+					home_c_att 		= element[1].text
+					home_ave_att 	= element[3].text
+
+					home_att_index 	= home_c_att.index("/")
+					home_total_play = home_car.to_i + home_c_att[home_att_index+1..-1].to_i
+					home_play_yard 	= home_team_total.to_f / home_total_play
+				end
 
 				element = doc.css("#gamepackage-passing .gamepackage-away-wrap .highlight td")
-				away_c_att 		= element[1].text
-				away_ave_att 	= element[3].text
+				away_c_att 		= ""
+				away_ave_att 	= ""
+				away_total_play = ""
+				away_play_yard 	= ""
+		  		if element.size > 5
+					away_c_att 		= element[1].text
+					away_ave_att 	= element[3].text
 
-				home_att_index 	= home_c_att.index("/")
-				home_total_play = home_car.to_i + home_c_att[home_att_index+1..-1].to_i
-
-				away_att_index 	= away_c_att.index("/")
-				away_total_play = away_car.to_i + away_c_att[away_att_index+1..-1].to_i
-
-				home_play_yard 	= home_team_total.to_f / home_total_play
-				away_play_yard 	= away_team_total.to_f / away_total_play
+					away_att_index 	= away_c_att.index("/")
+					away_total_play = away_car.to_i + away_c_att[away_att_index+1..-1].to_i
+					away_play_yard 	= away_team_total.to_f / away_total_play
+				end
 
 				element = doc.css("#gamepackage-defensive .gamepackage-home-wrap .highlight td")
-				home_sacks 		= element[3].text
+				home_sacks = ""
+				if element.size > 3
+					home_sacks 		= element[3].text
+				end
 
 				element = doc.css("#gamepackage-defensive .gamepackage-away-wrap .highlight td")
-				away_sacks 		= element[3].text
+				away_sacks = ""
+				if element.size > 3
+					away_sacks 		= element[3].text
+				end
 
 
 	            if game_state == 5
