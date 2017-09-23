@@ -44,6 +44,7 @@ namespace :setup do
 
 		url = "http://www.espn.com/#{game_link}/schedule/_/week/#{week_index}"
 		doc = download_document(url)
+		puts url
 	  	index = { away_team: 0, home_team: 1, result: 2 }
 	  	elements = doc.css("tr")
 	  	elements.each do |slice|
@@ -62,6 +63,7 @@ namespace :setup do
 
             url = "http://www.espn.com/#{game_link}/matchup?gameId=#{game_id}"
   			doc = download_document(url)
+			puts url
   			element = doc.css(".game-time").first
   			game_status = element.text
 
@@ -128,6 +130,7 @@ namespace :setup do
 
 	            url = "http://www.espn.com/#{game_link}/boxscore?gameId=#{game_id}"
 		  		doc = download_document(url)
+				puts url
 		  		element = doc.css("#gamepackage-rushing .gamepackage-home-wrap .highlight td")
 		  		home_car 		= element[1].text
 		  		home_ave_car 	= element[3].text
@@ -192,12 +195,14 @@ namespace :setup do
 
   			url = "http://www.espn.com/#{game_link}/game?gameId=#{game_id}"
 	  		doc = download_document(url)
+			puts url
 	  		element = doc.css(".game-date-time").first
 	  		game_date = element.children[1]['data-date']
 
 	  		kicked = ""
 	  		if result != "" && result != "TBD" && result != "Canceled" && result != "Postponed"
 				url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
+				puts url
 		  		doc = download_document(url)
 		  		away_img = doc.css(".away img")[1]['src'][-20..-1]
 		  		check_img = doc.css(".accordion-header img")
