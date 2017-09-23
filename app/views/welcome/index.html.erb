@@ -235,6 +235,10 @@ $(document).ready(function(){
 				first_drive = game.first_drive.to_s
 				second_drive = (game.second_drive.to_i - game.first_drive.to_i).to_s
 			end
+			darkcolor = ""
+			if game_state == 0
+				darkcolor = "background:darkred;"
+			end
 		%>
 			<tr style=<%= style %> >
 				<td class="borderTop"><%= game.away_number %></td>
@@ -262,11 +266,11 @@ $(document).ready(function(){
 					end
 				%>
 				<td class="borderTop"><%= pinnacle %></td>
-				<td class="borderTop"><%= away_car %></td>
+				<td class="borderTop" style=<%= darkcolor %> ><%= away_car %></td>
 				<td class="borderTop"><%= away_ave_car %></td>
-				<td class="borderTop"><%= away_c_att %></td>
+				<td class="borderTop" style=<%= darkcolor %> ><%= away_c_att %></td>
 				<td class="borderTop"><%= away_ave_att %></td>
-				<td class="borderTop"><%= away_total_play %></td>
+				<td class="borderTop" style=<%= darkcolor %> ><%= away_total_play %></td>
 				<td class="borderTop"><%= away_play_yard %></td>
 				<td class="borderTop"><%= away_pass_long %></td>
 				<td class="borderTop"><%= away_rush_long %></td>
@@ -282,11 +286,11 @@ $(document).ready(function(){
 				<td><%= home_team_total %></td>
 				<td><%= home_team_rushing %></td>
 				<td><%= second_pinnacle %></td>
-				<td><%= home_car %></td>
+				<td style=<%= darkcolor %> ><%= home_car %></td>
 				<td><%= home_ave_car %></td>
-				<td><%= home_c_att %></td>
+				<td style=<%= darkcolor %> ><%= home_c_att %></td>
 				<td><%= home_ave_att %></td>
-				<td><%= home_total_play %></td>
+				<td style=<%= darkcolor %> ><%= home_total_play %></td>
 				<td><%= home_play_yard %></td>
 				<td><%= home_pass_long %></td>
 				<td><%= home_rush_long %></td>
