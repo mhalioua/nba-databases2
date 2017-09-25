@@ -150,10 +150,10 @@ $(document).ready(function(){
     			end
 
     			if  home_total_play.to_i > 2 && home_pass_long && home_rush_long && home_play_yard
-    				home_sacks = ((home_team_total.to_i - home_pass_long.to_i - home_rush_long.to_i) / (home_total_play.to_i - 2)).to_f.round(2)
+    				home_sacks = ((home_team_total.to_i - home_pass_long.to_i - home_rush_long.to_i).to_f / (home_total_play.to_i - 2)).round(2)
     			end
     			if  away_total_play.to_i > 2 && away_pass_long && away_rush_long && away_play_yard
-    				away_sacks = ((away_team_total.to_i - away_pass_long.to_i - away_rush_long.to_i) / (away_total_play.to_i - 2)).to_f.round(2)
+    				away_sacks = ((away_team_total.to_i - away_pass_long.to_i - away_rush_long.to_i).to_f / (away_total_play.to_i - 2)).round(2)
     			end
 
 			end
