@@ -244,6 +244,8 @@ $(document).ready(function(){
 			if game_state == 0
 				darkcolor = "background:darkred;"
 			end
+
+			sep_style = "border-left-width: 9px; border-left-style: solid; border-left-color: black;"
 		%>
 			<tr style=<%= style %> >
 				<td class="borderTop"><%= game.away_number %></td>
@@ -271,7 +273,7 @@ $(document).ready(function(){
 					end
 				%>
 				<td class="borderTop"><%= pinnacle %></td>
-				<td class="borderTop"><%= away_car %></td>
+				<td class="borderTop" style=<%= sep_style %> ><%= away_car %></td>
 				<td class="borderTop" style=<%= darkcolor %> ><%= away_ave_car %></td>
 				<td class="borderTop"><%= away_c_att %></td>
 				<td class="borderTop" style=<%= darkcolor %> ><%= away_ave_att %></td>
@@ -291,7 +293,7 @@ $(document).ready(function(){
 				<td><%= home_team_total %></td>
 				<td><%= home_team_rushing %></td>
 				<td><%= second_pinnacle %></td>
-				<td><%= home_car %></td>
+				<td style=<%= sep_style %> ><%= home_car %></td>
 				<td style=<%= darkcolor %> ><%= home_ave_car %></td>
 				<td><%= home_c_att %></td>
 				<td style=<%= darkcolor %> ><%= home_ave_att %></td>
