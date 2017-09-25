@@ -44,7 +44,7 @@ $(document).ready(function(){
   				<th>TOTAL <br> PLAYS/ <br> YARDS</th>
   				<th>LONGEST <br> PASS</th>
   				<th>LONGEST <br> RUSH</th>
-  				<th>SACKS</th>
+  				<th>TYPP</th>
   				<th>1st Half</th>
   				<th>2nd Half</th>
   				<th width="30">FG score</th>
@@ -136,7 +136,6 @@ $(document).ready(function(){
     				home_play_yard_index = home_play_yard.index(".")
     				home_play_yard = home_play_yard[0..home_play_yard_index+2]
     			end
-    			home_sacks = score.home_sacks
     			away_car = score.away_car
     			away_ave_car = score.away_ave_car
     			away_pass_long = score.away_pass_long
@@ -149,7 +148,13 @@ $(document).ready(function(){
     				away_play_yard_index = away_play_yard.index(".")
     				away_play_yard = away_play_yard[0..away_play_yard_index+2]
     			end
-    			away_sacks = score.away_sacks
+
+    			if  home_total_play > 2 && home_pass_long && home_rush_long && home_play_yard
+    				home_sacks = (home_team_total - home_pass_long - home_rush_long) / (home_total_play - 2)
+    			end
+    			if  away_total_play > 2 && away_pass_long && away_rush_long && away_play_yard
+    				away_sacks = (away_team_total - away_pass_long - away_rush_long) / (away_total_play - 2)
+    			end
 
 			end
 			home_full = ""
