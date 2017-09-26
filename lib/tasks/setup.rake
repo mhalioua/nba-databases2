@@ -1,6 +1,6 @@
 namespace :setup do
 	task :all => :environment do
-		(2014..2016).each do |year|
+		year = 2017
 			end_week = 15
 			game_link = "college-football"
 			(0..1).each do |index|
@@ -11,7 +11,6 @@ namespace :setup do
 				end_week = 17
 				game_link = "nfl"
 			end
-		end
 	end
 
 	task :min => :environment do
@@ -243,14 +242,14 @@ namespace :setup do
 	  		game_date = element.children[1]['data-date']
 
 	  		kicked = ""
+	  		first_drive = game.first_drive
+	  		second_drive = game.second_drive
 	  		if result != "" && result != "TBD" && result != "Canceled" && result != "Postponed"
 				url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
 				puts url
 		  		doc = download_document(url)
 		  		away_img = doc.css(".away img")[1]['src'][-20..-1]
 		  		check_img = doc.css(".accordion-header img")
-		  		first_drive = game.first_drive
-		  		second_drive = game.second_drive
 		  		if game_state < 3
 		  			first_drive = check_img.size
 		  		elsif game_state == 5
