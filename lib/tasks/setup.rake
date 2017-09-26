@@ -301,6 +301,7 @@ namespace :setup do
 		game_link = "college-football"
 		(0..1).each do |index|
 			game_index.each do |game_day|
+				puts game_day
 				url = "https://www.sportsbookreview.com/betting-odds/#{game_link}/merged/?date=#{game_day}"
 				doc = download_document(url)
 				elements = doc.css(".event-holder")
