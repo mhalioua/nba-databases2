@@ -1,14 +1,16 @@
 namespace :setup do
 	task :all => :environment do
-		end_week = 15
-		game_link = "college-football"
-		(0..1).each do |index|
-			(1..end_week).each do |week_index|
-				Rake::Task["setup:link"].invoke(game_link, week_index)
-				Rake::Task["setup:link"].reenable
+		(2014..2016).each do |year|
+			end_week = 15
+			game_link = "college-football"
+			(0..1).each do |index|
+				(1..end_week).each do |week_index|
+					Rake::Task["setup:link"].invoke(year, game_link, week_index)
+					Rake::Task["setup:link"].reenable
+				end
+				end_week = 17
+				game_link = "nfl"
 			end
-			end_week = 17
-			game_link = "nfl"
 		end
 	end
 
@@ -20,7 +22,7 @@ namespace :setup do
 
 		game_link = "nfl"
 		(0..1).each do |index|
-			Rake::Task["setup:link"].invoke(game_link, week_index+index)
+			Rake::Task["setup:link"].invoke(2017, game_link, week_index+index)
 			Rake::Task["setup:link"].reenable
 			game_link = "college-football"
 		end
@@ -32,17 +34,18 @@ namespace :setup do
 		Rake::Task["setup:second"].reenable
 	end
 
-	task :link, [:game_link, :week_index] => [:environment] do |t, args|
+	task :link, [:year, :game_link, :week_index] => [:environment] do |t, args|
 		include Api
 
 		game_link = args[:game_link]
 		week_index = args[:week_index]
+		year = args[:year]
 		game_type = "NFL"
 		if game_link == "college-football"
 			game_type = "CFB"
 		end
 
-		url = "http://www.espn.com/#{game_link}/schedule/_/week/#{week_index}"
+		url = "http://www.espn.com/#{game_link}/schedule/_/week/#{week_index}/year/#{year}"
 		doc = download_document(url)
 		puts url
 	  	index = { away_team: 0, home_team: 1, result: 2 }
@@ -270,7 +273,6 @@ namespace :setup do
 		  	end
 		  	if game.game_state == 1 && game_state == 0
 		  		game_status = Time.now
-		  		puts game_status
 		  	elsif game.game_state == 0 && game_state == 0
 		  		game_status = game.game_status
 		  	end
