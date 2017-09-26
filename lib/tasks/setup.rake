@@ -80,17 +80,23 @@ namespace :setup do
 	            if slice.children[index[:home_team]].children[0].children.size == 2
 		  			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
 		  			home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
-		  		elsif
+		  		elsif slice.children[index[:home_team]].children[0].children.size == 3
 		  			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text + slice.children[index[:home_team]].children[0].children[2].children[0].text
 		  			home_abbr = slice.children[index[:home_team]].children[0].children[2].children[2].text
+		  		elsif slice.children[index[:home_team]].children[0].children.size == 1
+		  			home_team = slice.children[index[:home_team]].children[0].children[0].text
+		  			home_abbr = slice.children[index[:home_team]].children[0].children[2].text
 		  		end
 
 		  		if slice.children[index[:away_team]].children.size == 2
 	  				away_abbr = slice.children[index[:away_team]].children[1].children[2].text
 		  			away_team = slice.children[index[:away_team]].children[1].children[0].text
-	  			elsif
+	  			elsif slice.children[index[:away_team]].children.size == 3
 	  				away_abbr = slice.children[index[:away_team]].children[2].children[2].text
 	  				away_team = slice.children[index[:away_team]].children[1].text + slice.children[index[:away_team]].children[2].children[0].text
+	  			elsif slice.children[index[:away_team]].children.size == 1
+	  				away_abbr = slice.children[index[:away_team]].children[0].children[2].text
+		  			away_team = slice.children[index[:away_team]].children[0].children[0].text
 	  			end
             	result = slice.children[index[:result]].text
 	  		end
