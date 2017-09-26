@@ -291,7 +291,7 @@ namespace :setup do
 		games = Game.all
 	  	game_index = []
 		games.each do |game|
-			if game.game_date.to_s != "" && game.game_date < Time.now + 7.days
+			if game.game_date.to_s != "" && game.game_date < Time.now + 7.days && game.game_date > Time.now - 2.days
 				game_index << game.game_date.to_formatted_s(:number)[0..7]
 			end
 		end
