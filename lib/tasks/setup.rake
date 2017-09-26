@@ -84,8 +84,8 @@ namespace :setup do
 		  			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text + slice.children[index[:home_team]].children[0].children[2].children[0].text
 		  			home_abbr = slice.children[index[:home_team]].children[0].children[2].children[2].text
 		  		elsif slice.children[index[:home_team]].children[0].children.size == 1
-		  			home_team = slice.children[index[:home_team]].children[0].children[0].text
-		  			home_abbr = slice.children[index[:home_team]].children[0].children[2].text
+		  			home_team = slice.children[index[:home_team]].children[0].children[0].children[0].text
+		  			home_abbr = slice.children[index[:home_team]].children[0].children[0].children[2].text
 		  		end
 
 		  		if slice.children[index[:away_team]].children.size == 2
