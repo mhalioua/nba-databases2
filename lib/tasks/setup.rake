@@ -400,11 +400,10 @@ namespace :setup do
 
 	task test: :environment do
 		include Api
-		url = "http://www.espn.com/nfl/schedule/_/week/1/year/2014"
-		doc = download_document(url)
-
-	  	elements = doc.css("tr")
-	  	puts elements
+		(1..17).each do |week_index|
+			Rake::Task["setup:link"].invoke(2014, "nfl", week_index)
+			Rake::Task["setup:link"].reenable
+		end
 	end
 
 	@nicknames = {
