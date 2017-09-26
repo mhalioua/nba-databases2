@@ -394,6 +394,11 @@ namespace :setup do
 
 	task test: :environment do
 		include Api
+		url = "http://www.espn.com/college-football/schedule/_/week/1/year/2014"
+		doc = download_document(url)
+
+	  	elements = doc.css("tr")
+	  	puts elements
 	end
 
 	@nicknames = {
