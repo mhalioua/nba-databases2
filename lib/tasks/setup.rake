@@ -424,13 +424,9 @@ namespace :setup do
 					away_number 	= element.children[0].children[3].children[1].text
 					puts away_number
 					home_name 		= element.children[0].children[5].children[1].text
-					puts home_name
 					away_name 		= element.children[0].children[5].children[0].text
-					puts away_name
 					home_pinnacle 	= element.children[0].children[9].children[1].text
-					puts home_pinnacle
 					away_pinnacle 	= element.children[0].children[9].children[0].text
-					puts away_pinnacle
 					ind = home_name.index(") ")
 					home_name = ind ? home_name[ind+2..-1] : home_name
 					ind = away_name.index(") ")
