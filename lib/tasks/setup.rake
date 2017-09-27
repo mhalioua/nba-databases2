@@ -491,6 +491,7 @@ namespace :setup do
 		"L.A. Chargers" => "Los Angeles",
 		"Los Angeles" => "St. Louis",
 		"SC State" => "South Carolina State",
-		"Brigham Young" => "BYU",
+		"Stephen F. Austin" => "Stephen F Austin",
+		"NC Central" => "North Carolina Central",
 	}
 end
