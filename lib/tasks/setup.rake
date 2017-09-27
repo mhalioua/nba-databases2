@@ -411,6 +411,8 @@ namespace :setup do
 		game_index = game_index.uniq
 		game_index = game_index.sort
 
+		game_index = ['20141108']
+
 		game_link = "college-football"
 		(0..1).each do |index|
 			game_index.each do |game_day|
@@ -450,13 +452,22 @@ namespace :setup do
 				    if @nicknames[away_name]
 				      away_name = @nicknames[away_name]
 				    end
+				    puts home_number
+					puts away_number
+					puts home_name
+					puts away_name
+					puts home_pinnacle
+					puts away_pinnacle
 					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
+					puts date
 					matched = games.select{|field| field.home_team.include?(home_name) && field.away_team.include?(away_name) && field.game_date == date }
+					puts matched.size
 					if matched.size > 0
 						update_game = matched.first
 						update_game.update(home_number: home_number, away_number: away_number, home_pinnacle: home_pinnacle, away_pinnacle: away_pinnacle)
 					end
 					matched = games.select{|field| field.home_team.include?(away_name) && field.away_team.include?(home_name) && field.game_date == date }
+					puts matched.size
 					if matched.size > 0
 						update_game = matched.first
 						update_game.update(home_number: away_number, away_number: home_number, home_pinnacle: away_pinnacle, away_pinnacle:home_pinnacle )
@@ -489,5 +500,6 @@ namespace :setup do
 		"L.A. Rams" => "Los Angeles",
 		"N.Y. Giants" => "New York",
 		"L.A. Chargers" => "Los Angeles",
+		"Los Angeles" => "St. Louis"
 	}
 end
