@@ -442,7 +442,7 @@ namespace :setup do
 						hour = hour + 12
 					end
 					if ap == "a" && hour == 12
-						hour = 24
+						hour = 0
 					end
 					if @nicknames[home_name]
 				      home_name = @nicknames[home_name]
@@ -502,7 +502,7 @@ namespace :setup do
 						hour = hour + 12
 					end
 					if ap == "a" && hour == 12
-						hour = 24
+						hour = 0
 					end
 					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
 					matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number && field.game_date == date) }
@@ -576,7 +576,7 @@ namespace :setup do
 						hour = hour + 12
 					end
 					if ap == "a" && hour == 12
-						hour = 24
+						hour = 0
 					end
 					if @nicknames[home_name]
 				      home_name = @nicknames[home_name]
@@ -591,7 +591,7 @@ namespace :setup do
 				    puts game_day[6..7]
 				    puts hour
 				    puts min
-				    
+
 					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
 					puts date
 					matched = games.select{|field| field.home_team.include?(home_name) && field.away_team.include?(away_name) && field.game_date == date }
