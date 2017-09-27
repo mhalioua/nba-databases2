@@ -589,13 +589,13 @@ namespace :setup do
 					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
 					puts date
 					matched = games.select{|field| field.home_team.include?(home_name) && field.away_team.include?(away_name) && field.game_date == date }
-					puts match.size
+					puts matched.size
 					if matched.size > 0
 						update_game = matched.first
 						update_game.update(home_number: home_number, away_number: away_number, home_pinnacle: home_pinnacle, away_pinnacle: away_pinnacle)
 					end
 					matched = games.select{|field| field.home_team.include?(away_name) && field.away_team.include?(home_name) && field.game_date == date }
-					puts match.size
+					puts matched.size
 					if matched.size > 0
 						update_game = matched.first
 						update_game.update(home_number: away_number, away_number: home_number, home_pinnacle: away_pinnacle, away_pinnacle:home_pinnacle )
