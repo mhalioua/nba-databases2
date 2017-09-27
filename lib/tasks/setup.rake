@@ -521,6 +521,14 @@ namespace :setup do
 		end
 	end
 
+	task :rest => :environment do
+		year = 2015
+		(1..17).each do |week_index|
+			Rake::Task["setup:link"].invoke(year, "nfl", week_index)
+			Rake::Task["setup:link"].reenable
+		end
+	end
+
 	@nicknames = {
     	"Hawaii" => "Hawai'i",
     	"San Jose State" => "San José State",
