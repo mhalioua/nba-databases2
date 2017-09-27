@@ -398,7 +398,7 @@ namespace :setup do
 		end
 	end
 
-	task gethourly: :environment do
+	task :gethourly => :environment do
 		include Api
 
 		games = Game.all
