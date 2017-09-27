@@ -555,5 +555,6 @@ namespace :setup do
 		"SC State" => "South Carolina State",
 		"Stephen F. Austin" => "Stephen F Austin",
 		"NC Central" => "North Carolina Central",
+		"Southern Methodist" => "SMU",
 	}
 end
