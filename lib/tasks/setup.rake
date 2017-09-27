@@ -411,8 +411,6 @@ namespace :setup do
 		game_index = game_index.uniq
 		game_index = game_index.sort
 
-		game_index = ['20141108']
-
 		game_link = "college-football"
 		(0..1).each do |index|
 			game_index.each do |game_day|
@@ -500,6 +498,8 @@ namespace :setup do
 		"L.A. Rams" => "Los Angeles",
 		"N.Y. Giants" => "New York",
 		"L.A. Chargers" => "Los Angeles",
-		"Los Angeles" => "St. Louis"
+		"Los Angeles" => "St. Louis",
+		"SC State" => "South Carolina State",
+		"Brigham Young" => "BYU",
 	}
 end
