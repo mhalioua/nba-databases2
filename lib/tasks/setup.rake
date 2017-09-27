@@ -398,7 +398,7 @@ namespace :setup do
 		end
 	end
 
-	task test: :environment do
+	task gethourly: :environment do
 		include Api
 
 		games = Game.all
@@ -460,6 +460,60 @@ namespace :setup do
 					if matched.size > 0
 						update_game = matched.first
 						update_game.update(home_number: away_number, away_number: home_number, home_pinnacle: away_pinnacle, away_pinnacle:home_pinnacle )
+					end
+				end
+			end
+			game_link = "nfl-football"
+		end
+	end
+
+	task :getsecond :environment do
+		include Api
+
+		games = Game.all
+	  	game_index = []
+		games.each do |game|
+			if game.game_date.to_s != "" && game.game_date < Time.new(2015,1,1) && game.game_date > Time.new(2014,1,1)
+				game_index << game.game_date.to_formatted_s(:number)[0..7]
+			end
+		end
+		game_index = game_index.uniq
+		game_index = game_index.sort
+
+		game_link = "college-football"
+		(0..1).each do |index|
+			game_index.each do |game_day|
+
+				url = "https://www.sportsbookreview.com/betting-odds/#{game_link}/merged/2nd-half/?date=#{game_day}"
+				doc = download_document(url)
+				puts url
+				elements = doc.css(".event-holder")
+				elements.each_with_index do |element, index|
+					home_number 		= element.children[0].children[3].children[2].text.to_i
+					away_number 		= element.children[0].children[3].children[1].text.to_i
+					home_2nd_pinnacle 	= element.children[0].children[9].children[1].text
+					away_2nd_pinnacle 	= element.children[0].children[9].children[0].text
+					game_time = element.children[0].children[4].text
+					ind = game_time.index(":")
+					hour = ind ? game_time[0..ind-1].to_i : 0
+					min = ind ? game_time[ind+1..ind+3].to_i : 0
+					ap = game_time[-1]
+					if ap == "p" && hour != 12
+						hour = hour + 12
+					end
+					if ap == "a" && hour == 12
+						hour = 24
+					end
+					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
+					matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number && field.game_date == date) }
+					if matched.size > 0
+						update_game = matched.first
+						update_game.update(home_2nd_pinnacle: home_2nd_pinnacle, away_2nd_pinnacle: away_2nd_pinnacle)
+					end
+					matched = games.select{|field| (field.home_number == away_number && field.away_number == home_number && field.game_date == date) }
+					if matched.size > 0
+						update_game = matched.first
+						update_game.update(home_2nd_pinnacle: away_2nd_pinnacle , away_2nd_pinnacle: home_2nd_pinnacle)
 					end
 				end
 			end
