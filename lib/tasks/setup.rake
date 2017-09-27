@@ -586,6 +586,12 @@ namespace :setup do
 				    end
 				    puts home_name
 				    puts away_name
+				    puts game_day[0..3]
+				    puts game_day[4..5]
+				    puts game_day[6..7]
+				    puts hour
+				    puts min
+				    
 					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
 					puts date
 					matched = games.select{|field| field.home_team.include?(home_name) && field.away_team.include?(away_name) && field.game_date == date }
