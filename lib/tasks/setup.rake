@@ -420,7 +420,9 @@ namespace :setup do
 				elements = doc.css(".event-holder")
 				elements.each do |element|
 					home_number 	= element.children[0].children[3].children[2].text
+					puts home_number
 					away_number 	= element.children[0].children[3].children[1].text
+					puts away_number
 					home_name 		= element.children[0].children[5].children[1].text
 					away_name 		= element.children[0].children[5].children[0].text
 					home_pinnacle 	= element.children[0].children[9].children[1].text
@@ -555,6 +557,5 @@ namespace :setup do
 		"SC State" => "South Carolina State",
 		"Stephen F. Austin" => "Stephen F Austin",
 		"NC Central" => "North Carolina Central",
-		"Southern Methodist" => "SMU",
 	}
 end
