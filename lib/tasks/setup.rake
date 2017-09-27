@@ -329,7 +329,7 @@ namespace :setup do
 						hour = hour + 12
 					end
 					if ap == "a" && hour == 12
-						hour = 0
+						hour = 24
 					end
 					if @nicknames[home_name]
 				      home_name = @nicknames[home_name]
@@ -380,7 +380,7 @@ namespace :setup do
 					hour = hour + 12
 				end
 				if ap == "a" && hour == 12
-					hour = 0
+					hour = 24
 				end
 				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
 				matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number && field.game_date == date) }
@@ -442,7 +442,7 @@ namespace :setup do
 						hour = hour + 12
 					end
 					if ap == "a" && hour == 12
-						hour = 0
+						hour = 24
 					end
 					if @nicknames[home_name]
 				      home_name = @nicknames[home_name]
@@ -502,7 +502,7 @@ namespace :setup do
 						hour = hour + 12
 					end
 					if ap == "a" && hour == 12
-						hour = 0
+						hour = 24
 					end
 					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
 					matched = games.select{|field| (field.home_number == home_number && field.away_number == away_number && field.game_date == date) }
@@ -546,18 +546,10 @@ namespace :setup do
 				elements.each do |element|
 					home_number 	= element.children[0].children[3].children[2].text
 					away_number 	= element.children[0].children[3].children[1].text
-					
 					home_name 		= element.children[0].children[5].children[1].text
 					away_name 		= element.children[0].children[5].children[0].text
 					home_pinnacle 	= element.children[0].children[9].children[1].text
 					away_pinnacle 	= element.children[0].children[9].children[0].text
-
-					puts home_number
-					puts away_number
-					puts home_name
-					puts away_name
-					puts home_pinnacle
-					puts away_pinnacle
 					ind = home_name.index(") ")
 					home_name = ind ? home_name[ind+2..-1] : home_name
 					ind = away_name.index(") ")
@@ -567,7 +559,6 @@ namespace :setup do
 					ind = away_name.index(" (")
 					away_name = ind ? away_name[0..ind-1] : away_name
 					game_time = element.children[0].children[4].text
-					puts game_time
 					ind = game_time.index(":")
 					hour = ind ? game_time[0..ind-1].to_i : 0
 					min = ind ? game_time[ind+1..ind+3].to_i : 0
@@ -576,7 +567,7 @@ namespace :setup do
 						hour = hour + 12
 					end
 					if ap == "a" && hour == 12
-						hour = 0
+						hour = 24
 					end
 					if @nicknames[home_name]
 				      home_name = @nicknames[home_name]
@@ -584,16 +575,7 @@ namespace :setup do
 				    if @nicknames[away_name]
 				      away_name = @nicknames[away_name]
 				    end
-				    puts home_name
-				    puts away_name
-				    puts game_day[0..3]
-				    puts game_day[4..5]
-				    puts game_day[6..7]
-				    puts hour
-				    puts min
-
-					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
-					puts date
+					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours + hour.hours
 					matched = games.select{|field| field.home_team.include?(home_name) && field.away_team.include?(away_name) && field.game_date == date }
 					puts matched.size
 					if matched.size > 0
