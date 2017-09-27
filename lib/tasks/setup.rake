@@ -420,9 +420,7 @@ namespace :setup do
 				elements = doc.css(".event-holder")
 				elements.each do |element|
 					home_number 	= element.children[0].children[3].children[2].text
-					puts home_number
 					away_number 	= element.children[0].children[3].children[1].text
-					puts away_number
 					home_name 		= element.children[0].children[5].children[1].text
 					away_name 		= element.children[0].children[5].children[0].text
 					home_pinnacle 	= element.children[0].children[9].children[1].text
@@ -523,11 +521,88 @@ namespace :setup do
 		end
 	end
 
-	task :rest => :environment do
-		year = 2015
-		(1..17).each do |week_index|
-			Rake::Task["setup:link"].invoke(year, "nfl", week_index)
-			Rake::Task["setup:link"].reenable
+	task :test => :environment do
+		include Api
+
+		games = Game.all
+	  	game_index = []
+		games.each do |game|
+			if game.game_date.to_s != "" && game.game_date < Time.new(2016,1,1) && game.game_date > Time.new(2015,1,1)
+				game_index << game.game_date.to_formatted_s(:number)[0..7]
+			end
+		end
+		game_index = game_index.uniq
+		game_index = game_index.sort
+
+		game_index = ['20151106']
+
+		game_link = "college-football"
+		(0..1).each do |index|
+			game_index.each do |game_day|
+				puts game_day
+				url = "https://www.sportsbookreview.com/betting-odds/#{game_link}/merged/?date=#{game_day}"
+				doc = download_document(url)
+				elements = doc.css(".event-holder")
+				elements.each do |element|
+					home_number 	= element.children[0].children[3].children[2].text
+					away_number 	= element.children[0].children[3].children[1].text
+					
+					home_name 		= element.children[0].children[5].children[1].text
+					away_name 		= element.children[0].children[5].children[0].text
+					home_pinnacle 	= element.children[0].children[9].children[1].text
+					away_pinnacle 	= element.children[0].children[9].children[0].text
+
+					puts home_number
+					puts away_number
+					puts home_name
+					puts away_name
+					puts home_pinnacle
+					puts away_pinnacle
+					ind = home_name.index(") ")
+					home_name = ind ? home_name[ind+2..-1] : home_name
+					ind = away_name.index(") ")
+					away_name = ind ? away_name[ind+2..-1] : away_name
+					ind = home_name.index(" (")
+					home_name = ind ? home_name[0..ind-1] : home_name
+					ind = away_name.index(" (")
+					away_name = ind ? away_name[0..ind-1] : away_name
+					game_time = element.children[0].children[4].text
+					puts game_time
+					ind = game_time.index(":")
+					hour = ind ? game_time[0..ind-1].to_i : 0
+					min = ind ? game_time[ind+1..ind+3].to_i : 0
+					ap = game_time[-1]
+					if ap == "p" && hour != 12
+						hour = hour + 12
+					end
+					if ap == "a" && hour == 12
+						hour = 24
+					end
+					if @nicknames[home_name]
+				      home_name = @nicknames[home_name]
+				    end
+				    if @nicknames[away_name]
+				      away_name = @nicknames[away_name]
+				    end
+				    puts home_name
+				    puts away_name
+					date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: hour, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours
+					puts date
+					matched = games.select{|field| field.home_team.include?(home_name) && field.away_team.include?(away_name) && field.game_date == date }
+					puts match.size
+					if matched.size > 0
+						update_game = matched.first
+						update_game.update(home_number: home_number, away_number: away_number, home_pinnacle: home_pinnacle, away_pinnacle: away_pinnacle)
+					end
+					matched = games.select{|field| field.home_team.include?(away_name) && field.away_team.include?(home_name) && field.game_date == date }
+					puts match.size
+					if matched.size > 0
+						update_game = matched.first
+						update_game.update(home_number: away_number, away_number: home_number, home_pinnacle: away_pinnacle, away_pinnacle:home_pinnacle )
+					end
+				end
+			end
+			game_link = "nfl-football"
 		end
 	end
 
