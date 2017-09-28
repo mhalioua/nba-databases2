@@ -248,7 +248,12 @@ namespace :setup do
 				url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
 				puts url
 		  		doc = download_document(url)
-		  		away_img = doc.css(".away img")[1]['src'][-20..-1]
+		  		away_img = doc.css(".away img")
+		  		if away_img.size > 0
+		  			away_img = away_img[1]['src'][-20..-1]
+		  		else
+		  			away_image = "NoImage"
+		  		end
 		  		check_img = doc.css(".accordion-header img")
 		  		if game_state < 3
 		  			first_drive = check_img.size
@@ -264,7 +269,7 @@ namespace :setup do
 				  		end
 		  			end
 		  		end
-		  		if check_img.size > 0
+		  		if check_img.size > 0 && away_image != "NoImage"
 		  			if game_state < 4
 		  				check_img = check_img[check_img.size-1]['src'][-20..-1]
 		  			else
