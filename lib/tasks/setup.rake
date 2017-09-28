@@ -1,6 +1,6 @@
 namespace :setup do
 	task :all => :environment do
-		year = 2013
+		year = 2012
 			end_week = 15
 			game_link = "college-football"
 			(0..1).each do |index|
@@ -404,7 +404,7 @@ namespace :setup do
 		games = Game.all
 	  	game_index = []
 		games.each do |game|
-			if game.game_date.to_s != "" && game.game_date < Time.new(2014,1,1) && game.game_date > Time.new(2013,1,1)
+			if game.game_date.to_s != "" && game.game_date < Time.new(2013,1,1) && game.game_date > Time.new(2012,1,1)
 				game_index << game.game_date.to_formatted_s(:number)[0..7]
 			end
 		end
@@ -473,7 +473,7 @@ namespace :setup do
 		games = Game.all
 	  	game_index = []
 		games.each do |game|
-			if game.game_date.to_s != "" && game.game_date < Time.new(2014,1,1) && game.game_date > Time.new(2013,1,1)
+			if game.game_date.to_s != "" && game.game_date < Time.new(2013,1,1) && game.game_date > Time.new(2012,1,1)
 				game_index << game.game_date.to_formatted_s(:number)[0..7]
 			end
 		end
