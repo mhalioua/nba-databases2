@@ -13,6 +13,13 @@ namespace :setup do
 			end
 	end
 
+	task :rest => :environment do
+		(14..17).each do |week_index|
+			Rake::Task["setup:link"].invoke(2010, "nfl", week_index)
+			Rake::Task["setup:link"].reenable
+		end
+	end
+
 	task :min => :environment do
 		day = Time.now
 		day_index = day.strftime("%j").to_i
