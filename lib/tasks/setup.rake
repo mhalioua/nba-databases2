@@ -568,7 +568,6 @@ namespace :setup do
 			puts url
   			element = doc.css(".game-time").first
   			game_status = element.text
-  			
 
             if slice.children[index[:home_team]].text == "TBD TBD"
             	result 		= "TBD"
