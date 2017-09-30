@@ -533,6 +533,174 @@ namespace :setup do
 		end
 	end
 
+	task :previous, [:year, :game_link, :week_index] => [:environment] do |t, args|
+		include Api
+
+		game_link = args[:game_link]
+		week_index = args[:week_index]
+		year = args[:year]
+		game_type = "NFL"
+		if game_link == "college-football"
+			game_type = "CFB"
+		end
+
+		url = "http://www.espn.com/#{game_link}/schedule/_/week/#{week_index}/year/#{year}"
+		doc = download_document(url)
+		puts url
+	  	index = { away_team: 0, home_team: 1, result: 2 }
+	  	elements = doc.css("tr")
+	  	elements.each do |slice|
+	  		if slice.children.size < 6
+	  			next
+	  		end
+	  		away_team = slice.children[index[:away_team]].text
+	  		if away_team == "matchup"
+	  			next
+	  		end
+	  		href = slice.children[index[:result]].child['href']
+	  		game_id = href[-9..-1]
+	  		unless game = Game.find_by(game_id: game_id)
+              	game = Game.create(game_id: game_id)
+            end
+
+            url = "http://www.espn.com/#{game_link}/matchup?gameId=#{game_id}"
+  			doc = download_document(url)
+			puts url
+  			element = doc.css(".game-time").first
+  			game_status = element.text
+
+            if slice.children[index[:home_team]].text == "TBD TBD"
+            	result 		= "TBD"
+            	home_team 	= "TBD"
+            	home_abbr 	= "TBD"
+            	away_abbr 	= "TBD"
+            	away_team 	= "TBD"
+            else
+	            if slice.children[index[:home_team]].children[0].children.size == 2
+		  			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
+		  			home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
+		  		elsif slice.children[index[:home_team]].children[0].children.size == 3
+		  			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text + slice.children[index[:home_team]].children[0].children[2].children[0].text
+		  			home_abbr = slice.children[index[:home_team]].children[0].children[2].children[2].text
+		  		elsif slice.children[index[:home_team]].children[0].children.size == 1
+		  			home_team = slice.children[index[:home_team]].children[0].children[0].children[0].text
+		  			home_abbr = slice.children[index[:home_team]].children[0].children[0].children[2].text
+		  		end
+
+		  		if slice.children[index[:away_team]].children.size == 2
+	  				away_abbr = slice.children[index[:away_team]].children[1].children[2].text
+		  			away_team = slice.children[index[:away_team]].children[1].children[0].text
+	  			elsif slice.children[index[:away_team]].children.size == 3
+	  				away_abbr = slice.children[index[:away_team]].children[2].children[2].text
+	  				away_team = slice.children[index[:away_team]].children[1].text + slice.children[index[:away_team]].children[2].children[0].text
+	  			elsif slice.children[index[:away_team]].children.size == 1
+	  				away_abbr = slice.children[index[:away_team]].children[0].children[2].text
+		  			away_team = slice.children[index[:away_team]].children[0].children[0].text
+	  			end
+            	result = slice.children[index[:result]].text
+	  		end
+	  		game_state = 4
+	  		if game_status.include?("Final")
+	  			game_state = 5
+  				scores = doc.css(".score")
+  				away_result = scores[0].text
+  				home_result = scores[1].text
+
+	            td_elements = doc.css("#gamepackage-matchup td")
+	            home_team_total 	= ""
+	            away_team_total 	= ""
+	            home_team_rushing 	= ""
+	            away_team_rushing 	= ""
+	            td_elements.each_slice(3) do |slice|
+	            	if slice[0].text.include?("Total Yards")
+	            		away_team_total = slice[1].text
+	            		home_team_total = slice[2].text
+	            	end
+	            	if slice[0].text.include?("Rushing") && !slice[0].text.include?("Rushing Attempts") && !slice[0].text.include?("Rushing 1st")
+	            		away_team_rushing = slice[1].text
+	            		home_team_rushing = slice[2].text
+	            		break
+	            	end
+	            end
+
+  				unless score = game.scores.find_by(result: "Final")
+	              	score = game.scores.create(result: "Final")
+	            end
+	            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result)
+
+	            kicked = ""
+		  		first_drive = game.first_drive
+		  		second_drive = game.second_drive
+
+		  		home_team_total = home_team_total
+		  		away_team_total =  away_team_total
+		  		home_team_rushing = home_team_rushing
+		  		away_team_rushing = away_team_rushing
+		  		home_result = home_result
+		  		away_result = away_result
+		  		home_car = home_car
+		  		home_ave_car = home_ave_car
+		  		home_rush_long = home_rush_long
+		  		home_c_att = home_c_att
+		  		home_ave_att = home_ave_att
+		  		home_total_play = home_total_play
+		  		home_play_yard = home_play_yard
+		  		home_sacks = home_sacks
+		  		away_car = away_car
+		  		away_ave_car = away_ave_car
+		  		away_rush_long = away_rush_long
+		  		away_c_att = away_c_att
+		  		away_ave_att = away_ave_att
+		  		away_total_play = away_total_play
+		  		away_play_yard = away_play_yard
+		  		away_sacks = away_sacks
+		  		home_pass_long = home_pass_long
+		  		away_pass_long = away_pass_long
+
+				url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
+				puts url
+		  		doc = download_document(url)
+		  		away_img = doc.css(".away img")
+		  		if away_img.size > 0
+		  			away_img = away_img[1]['src'][-20..-1]
+		  		else
+		  			away_image = "NoImage"
+		  		end
+		  		check_img = doc.css(".accordion-header img")
+	  			second_drive = check_img.size
+	  			if game.first_drive.to_i == 0
+			  		check_img_detail = doc.css(".css-accordion .accordion-item")
+			  		check_img_detail.each_with_index do |element, index|
+			  			if element.children.size == 3
+			  				first_drive = index
+			  				break
+			  			end
+			  		end
+	  			end
+		  		if check_img.size > 0 && away_image != "NoImage"
+	  				check_img = check_img[0]['src'][-20..-1]
+			  		kicked = "away"
+			  		if check_img == away_img
+			  			kicked = "home"
+			  		end
+			  	end
+
+			  	unless score = game.scores.find_by(result: "Half")
+	              	score = game.scores.create(result: "Half")
+	            end
+	            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result, home_car: home_car, home_ave_car: home_ave_car, home_rush_long: home_rush_long, home_c_att: home_c_att, home_ave_att: home_ave_att, home_total_play: home_total_play, home_play_yard: home_play_yard, home_sacks: home_sacks, away_car: away_car, away_ave_car: away_ave_car, away_rush_long: away_rush_long, away_c_att: away_c_att, away_ave_att: away_ave_att, away_total_play: away_total_play, away_play_yard: away_play_yard, away_sacks: away_sacks, home_pass_long: home_pass_long, away_pass_long: away_pass_long)
+			end
+
+			url = "http://www.espn.com/#{game_link}/game?gameId=#{game_id}"
+	  		doc = download_document(url)
+			puts url
+	  		element = doc.css(".game-date-time").first
+	  		game_date = element.children[1]['data-date']
+
+  			game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
+	  	end
+	end
+
 	@nicknames = {
     	"Hawaii" => "Hawai'i",
     	"San Jose State" => "San José State",
