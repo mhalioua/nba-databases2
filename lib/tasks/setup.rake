@@ -574,7 +574,7 @@ namespace :setup do
   				elsif header.include?(away_abbr)
   					team_abbr = 0
   				end
-  				if string.include?("pass complete")
+  				if string.include?(" pass complete ")
   					value = string[/\d+/].to_i
   					if team_abbr == 1
   						home_total_passing = home_total_passing + value
@@ -586,9 +586,9 @@ namespace :setup do
   					puts team_abbr
   					puts value
   				end
-  				if string.include?("run")
+  				if string.include?(" run ")
   					value = string[/\d+/].to_i
-  					if string.include?("loss")
+  					if string.include?(" loss ")
   						value = -value
   					end
   					if team_abbr == 1
