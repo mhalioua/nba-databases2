@@ -557,6 +557,11 @@ namespace :setup do
   			kicked = 0
   		end
   		elements.each_with_index do |element, index|
+  			puts element.children.length
+  			if element.children.length < 2
+  				next
+  			end
+
   			lists = element.children[1].children[0].children[0]
   			list_length = (lists.children.length-1)/2
   			(1..list_length).each do |list_index|
@@ -593,9 +598,14 @@ namespace :setup do
   			puts element.children[0].text
   			if element.children[0].text.include?("End of Half")
   				puts index + 1
+		  		puts home_total_passing
+		  		puts home_total_rushing
+		  		puts away_total_passing
+		  		puts away_total_rushing
   				break
   			end
   		end
+
   		puts home_total_passing
   		puts home_total_rushing
   		puts away_total_passing
