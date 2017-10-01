@@ -548,7 +548,6 @@ namespace :setup do
   			lists = element.children[1].children[0].children[0]
   			puts lists.children.length
   			if index == 0
-  				puts lists.children[1].inspect
   				keyword = lists.children[1].children[1].text
   				puts keyword
   			end
