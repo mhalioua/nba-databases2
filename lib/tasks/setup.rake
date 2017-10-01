@@ -551,7 +551,7 @@ namespace :setup do
   				keyword = lists.children[1].children[0].text
   				puts keyword
   			end
-  			puts lists.children[0]
+  			puts lists.inspect
   			(0..lists.children.length).each do |list_index|
   				list = lists.children[list_index]
   				puts "--------------header--------------"
