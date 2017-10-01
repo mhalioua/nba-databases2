@@ -551,7 +551,7 @@ namespace :setup do
 
   		elements = doc.css(".css-accordion .accordion-item")
   		puts elements.size
-  		keyword = element.children[1].children[0].children[0].children[3].children[1].text
+  		keyword = elements[0].children[1].children[0].children[0].children[3].children[1].text
   		puts keyword
   		if keyword.include?(away_abbr)
   			kicked = 0
