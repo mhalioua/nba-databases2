@@ -608,7 +608,6 @@ namespace :setup do
 		  		puts home_total_rushing
 		  		puts away_total_passing
 		  		puts away_total_rushing
-  				break
   			end
   		end
 
