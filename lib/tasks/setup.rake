@@ -557,7 +557,6 @@ namespace :setup do
   			kicked = 0
   		end
   		elements.each_with_index do |element, index|
-  			puts element.children.length
   			if element.children.length < 2
   				next
   			end
@@ -581,6 +580,9 @@ namespace :setup do
   					else
   						away_total_passing = away_total_passing + value
   					end
+  					puts "Passing"
+  					puts team_abbr
+  					puts value
   				end
   				if string.include?("run")
   					value = string.scan( /\d+$/ ).first.to_i
@@ -592,10 +594,11 @@ namespace :setup do
   					else
   						away_total_rushing = away_total_rushing + value
   					end
+  					puts "Rushing"
+  					puts team_abbr
+  					puts value
   				end
   			end
-  			puts element.children[0].inspect
-  			puts element.children[0].text
   			if element.children[0].text.include?("End of Half")
   				puts index + 1
 		  		puts home_total_passing
