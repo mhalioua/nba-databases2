@@ -551,15 +551,17 @@ namespace :setup do
   				keyword = lists.children[1].children[1].text
   				puts keyword
   			end
-  			(0..lists.children.length).each do |list_index|
-  				list = lists.children[list_index]
+  			list_length = (lists.children.length-1)/2
+  			(1..list_length).each do |list_index|
+  				list = lists.children[list_index*2]
   				puts "--------------header--------------"
-  				header = list.children[1].inspect
+  				header = list.children[1].text
   				puts header
   				puts "--------------string--------------"
-  				string = list.children[3].inspect
+  				string = list.children[3].children[1].text
   				puts string
   			end
+  			puts element.children[0].inspect
   			puts element.children[0].text
   			if element.children[0].text.include?("End of Half")
   				puts index
