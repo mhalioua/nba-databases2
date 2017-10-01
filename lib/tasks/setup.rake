@@ -574,7 +574,7 @@ namespace :setup do
   					team_abbr = 0
   				end
   				if string.include?("pass complete")
-  					value = string.scan( /\d+$/ ).first.to_i
+  					value = string[/\d+/].to_i
   					if team_abbr == 1
   						home_total_passing = home_total_passing + value
   					else
@@ -585,7 +585,7 @@ namespace :setup do
   					puts value
   				end
   				if string.include?("run")
-  					value = string.scan( /\d+$/ ).first.to_i
+  					value = string[/\d+/].first.to_i
   					if string.include?("loss")
   						value = -value
   					end
