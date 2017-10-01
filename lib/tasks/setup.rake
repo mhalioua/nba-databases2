@@ -553,7 +553,7 @@ namespace :setup do
   			end
   			list_length = (lists.children.length-1)/2
   			(1..list_length).each do |list_index|
-  				list = lists.children[list_index*2]
+  				list = lists.children[list_index*2-1]
   				puts "--------------header--------------"
   				header = list.children[1].inspect
   				puts header
