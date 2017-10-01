@@ -623,12 +623,25 @@ namespace :setup do
 	            	end
 	            end
 
-  				unless score = game.scores.find_by(result: "Final")
-	              	score = game.scores.create(result: "Final")
-	            end
-	            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result)
+	            if false
+	  				unless score = game.scores.find_by(result: "Final")
+		              	score = game.scores.create(result: "Final")
+		            end
+		            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result)
+		        end
 
-	            kicked = ""
+		        url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
+				puts url
+		  		doc = download_document(url)
+
+		  		elements = doc.css(".css-accordion li")
+		  		puts elements.size
+
+	            
+
+				if false
+
+					kicked = ""
 		  		first_drive = game.first_drive
 		  		second_drive = game.second_drive
 
@@ -657,38 +670,36 @@ namespace :setup do
 		  		home_pass_long = home_pass_long
 		  		away_pass_long = away_pass_long
 
-				url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
-				puts url
-		  		doc = download_document(url)
-		  		away_img = doc.css(".away img")
-		  		if away_img.size > 0
-		  			away_img = away_img[1]['src'][-20..-1]
-		  		else
-		  			away_image = "NoImage"
-		  		end
-		  		check_img = doc.css(".accordion-header img")
-	  			second_drive = check_img.size
-	  			if game.first_drive.to_i == 0
-			  		check_img_detail = doc.css(".css-accordion .accordion-item")
-			  		check_img_detail.each_with_index do |element, index|
-			  			if element.children.size == 3
-			  				first_drive = index
-			  				break
-			  			end
+			  		away_img = doc.css(".away img")
+			  		if away_img.size > 0
+			  			away_img = away_img[1]['src'][-20..-1]
+			  		else
+			  			away_image = "NoImage"
 			  		end
-	  			end
-		  		if check_img.size > 0 && away_image != "NoImage"
-	  				check_img = check_img[0]['src'][-20..-1]
-			  		kicked = "away"
-			  		if check_img == away_img
-			  			kicked = "home"
-			  		end
-			  	end
-
-			  	unless score = game.scores.find_by(result: "Half")
-	              	score = game.scores.create(result: "Half")
-	            end
-	            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result, home_car: home_car, home_ave_car: home_ave_car, home_rush_long: home_rush_long, home_c_att: home_c_att, home_ave_att: home_ave_att, home_total_play: home_total_play, home_play_yard: home_play_yard, home_sacks: home_sacks, away_car: away_car, away_ave_car: away_ave_car, away_rush_long: away_rush_long, away_c_att: away_c_att, away_ave_att: away_ave_att, away_total_play: away_total_play, away_play_yard: away_play_yard, away_sacks: away_sacks, home_pass_long: home_pass_long, away_pass_long: away_pass_long)
+			  		check_img = doc.css(".accordion-header img")
+		  			second_drive = check_img.size
+		  			if game.first_drive.to_i == 0
+				  		check_img_detail = doc.css(".css-accordion .accordion-item")
+				  		check_img_detail.each_with_index do |element, index|
+				  			if element.children.size == 3
+				  				first_drive = index
+				  				break
+				  			end
+				  		end
+		  			end
+			  		if check_img.size > 0 && away_image != "NoImage"
+		  				check_img = check_img[0]['src'][-20..-1]
+				  		kicked = "away"
+				  		if check_img == away_img
+				  			kicked = "home"
+				  		end
+				  	end
+			  	
+				  	unless score = game.scores.find_by(result: "Half")
+		              	score = game.scores.create(result: "Half")
+		            end
+		            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result, home_car: home_car, home_ave_car: home_ave_car, home_rush_long: home_rush_long, home_c_att: home_c_att, home_ave_att: home_ave_att, home_total_play: home_total_play, home_play_yard: home_play_yard, home_sacks: home_sacks, away_car: away_car, away_ave_car: away_ave_car, away_rush_long: away_rush_long, away_c_att: away_c_att, away_ave_att: away_ave_att, away_total_play: away_total_play, away_play_yard: away_play_yard, away_sacks: away_sacks, home_pass_long: home_pass_long, away_pass_long: away_pass_long)
+		        end
 			end
 
 			url = "http://www.espn.com/#{game_link}/game?gameId=#{game_id}"
@@ -696,8 +707,10 @@ namespace :setup do
 			puts url
 	  		element = doc.css(".game-date-time").first
 	  		game_date = element.children[1]['data-date']
-
-  			game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
+	  		puts game_date
+	  		if false
+  				game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
+  			end
 	  	end
 	end
 
