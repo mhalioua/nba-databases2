@@ -555,10 +555,10 @@ namespace :setup do
   			(1..list_length).each do |list_index|
   				list = lists.children[list_index*2]
   				puts "--------------header--------------"
-  				header = list.children[1].text
+  				header = list.children[1].inspect
   				puts header
   				puts "--------------string--------------"
-  				string = list.children[3].children[1].text
+  				string = list.children[3].children[1].inspect
   				puts string
   			end
   			puts element.children[0].inspect
