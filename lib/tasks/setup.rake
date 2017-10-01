@@ -554,10 +554,10 @@ namespace :setup do
   			(0..lists.children.length).each do |list_index|
   				list = lists.children[list_index]
   				puts "--------------header--------------"
-  				header = list.children[1].text
+  				header = list.children[1].inspect
   				puts header
   				puts "--------------string--------------"
-  				string = list.children[3].text
+  				string = list.children[3].inspect
   				puts string
   			end
   			puts element.children[0].text
