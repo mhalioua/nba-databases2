@@ -555,6 +555,7 @@ namespace :setup do
   		puts keyword
   		if keyword.include?(away_abbr)
   			kicked = 0
+  		end
   		elements.each_with_index do |element, index|
   			lists = element.children[1].children[0].children[0]
   			list_length = (lists.children.length-1)/2
