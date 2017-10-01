@@ -542,7 +542,7 @@ namespace :setup do
 		puts url
   		doc = download_document(url)
 
-  		elements = doc.css(".css-accordion li")
+  		elements = doc.css(".css-accordion .accordion-item")
   		puts elements.size
   		elements.each_with_index do |element, index|
   			lists = element.children[1].children[0].children[0]
