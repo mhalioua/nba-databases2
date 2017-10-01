@@ -534,6 +534,7 @@ namespace :setup do
 	end
 
 	task test: :environment do
+		include Api
 		game_link="nfl"
 		game_id = "400951669"
 		url = "http://www.espn.com/#{game_link}/matchup?gameId=#{game_id}"
