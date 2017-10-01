@@ -533,6 +533,85 @@ namespace :setup do
 		end
 	end
 
+	task test: :environment do
+		game_link="nfl"
+		game_id = "400951669"
+		url = "http://www.espn.com/#{game_link}/matchup?gameId=#{game_id}"
+			doc = download_document(url)
+		puts url
+			element = doc.css(".game-time").first
+			game_status = element.text
+
+        if slice.children[index[:home_team]].text == "TBD TBD"
+        	result 		= "TBD"
+        	home_team 	= "TBD"
+        	home_abbr 	= "TBD"
+        	away_abbr 	= "TBD"
+        	away_team 	= "TBD"
+        else
+            if slice.children[index[:home_team]].children[0].children.size == 2
+	  			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
+	  			home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
+	  		elsif slice.children[index[:home_team]].children[0].children.size == 3
+	  			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text + slice.children[index[:home_team]].children[0].children[2].children[0].text
+	  			home_abbr = slice.children[index[:home_team]].children[0].children[2].children[2].text
+	  		elsif slice.children[index[:home_team]].children[0].children.size == 1
+	  			home_team = slice.children[index[:home_team]].children[0].children[0].children[0].text
+	  			home_abbr = slice.children[index[:home_team]].children[0].children[0].children[2].text
+	  		end
+
+	  		if slice.children[index[:away_team]].children.size == 2
+  				away_abbr = slice.children[index[:away_team]].children[1].children[2].text
+	  			away_team = slice.children[index[:away_team]].children[1].children[0].text
+  			elsif slice.children[index[:away_team]].children.size == 3
+  				away_abbr = slice.children[index[:away_team]].children[2].children[2].text
+  				away_team = slice.children[index[:away_team]].children[1].text + slice.children[index[:away_team]].children[2].children[0].text
+  			elsif slice.children[index[:away_team]].children.size == 1
+  				away_abbr = slice.children[index[:away_team]].children[0].children[2].text
+	  			away_team = slice.children[index[:away_team]].children[0].children[0].text
+  			end
+        	result = slice.children[index[:result]].text
+  		end
+  		game_state = 4
+  		if game_status.include?("Final")
+  			game_state = 5
+				scores = doc.css(".score")
+				away_result = scores[0].text
+				home_result = scores[1].text
+
+            td_elements = doc.css("#gamepackage-matchup td")
+            home_team_total 	= ""
+            away_team_total 	= ""
+            home_team_rushing 	= ""
+            away_team_rushing 	= ""
+            td_elements.each_slice(3) do |slice|
+            	if slice[0].text.include?("Total Yards")
+            		away_team_total = slice[1].text
+            		home_team_total = slice[2].text
+            	end
+            	if slice[0].text.include?("Rushing") && !slice[0].text.include?("Rushing Attempts") && !slice[0].text.include?("Rushing 1st")
+            		away_team_rushing = slice[1].text
+            		home_team_rushing = slice[2].text
+            		break
+            	end
+            end
+
+            if false
+  				unless score = game.scores.find_by(result: "Final")
+	              	score = game.scores.create(result: "Final")
+	            end
+	            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result)
+	        end
+
+	        url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
+			puts url
+	  		doc = download_document(url)
+
+	  		elements = doc.css(".css-accordion li")
+	  		puts elements.size
+	  	end
+	end
+
 	task :previous, [:year, :game_link, :week_index] => [:environment] do |t, args|
 		include Api
 
