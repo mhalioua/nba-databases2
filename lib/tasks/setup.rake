@@ -535,8 +535,8 @@ namespace :setup do
 
 	task test: :environment do
 		include Api
-		game_link="nfl"
-		game_id = "400951669"
+		game_link="college-football"
+		game_id = "400935270"
 		away_abbr = "UCLA"
 		home_abbr = "MEM"
 		kicked = 1
