@@ -548,10 +548,11 @@ namespace :setup do
   			lists = element.children[1].children[0].children[0]
   			puts lists.children.length
   			if index == 0
+  				puts lists.children[1].children[0].inspect
   				keyword = lists.children[1].children[0].text
   				puts keyword
   			end
-  			puts lists.inspect
+  			puts lists.chilren[0].inspect
   			(0..lists.children.length).each do |list_index|
   				list = lists.children[list_index]
   				puts "--------------header--------------"
