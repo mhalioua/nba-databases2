@@ -546,13 +546,13 @@ namespace :setup do
   		puts elements.size
   		elements.each_with_index do |element, index|
   			lists = element.children[1].children[0].children[0]
-  			puts lists.length
+  			puts lists.children.length
   			if index == 0
   				keyword = lists.children[1].children[0].text
   				puts keyword
   			end
   			puts lists.children[0]
-  			(0..lists.length).each do |list_index|
+  			(0..lists.children.length).each do |list_index|
   				list = lists.children[list_index]
   				puts "--------------header--------------"
   				header = list.children[0].text
