@@ -537,6 +537,13 @@ namespace :setup do
 		include Api
 		game_link="nfl"
 		game_id = "400951669"
+		away_abbr = "UCLA"
+		home_abbr = "MEM"
+		kicked = 1
+		home_total_passing = 0
+		away_total_passing = 0
+		home_total_rushing = 0
+		away_total_rushing = 0
 
         url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
 		puts url
@@ -544,22 +551,42 @@ namespace :setup do
 
   		elements = doc.css(".css-accordion .accordion-item")
   		puts elements.size
+  		keyword = element.children[1].children[0].children[0].children[3].children[1].text
+  		puts keyword
+  		if keyword.include?(away_abbr)
+  			kicked = 0
   		elements.each_with_index do |element, index|
   			lists = element.children[1].children[0].children[0]
-  			puts lists.children.length
-  			if index == 0
-  				keyword = lists.children[3].children[0].inspect
-  				puts keyword
-  			end
   			list_length = (lists.children.length-1)/2
   			(1..list_length).each do |list_index|
   				list = lists.children[list_index*2-1]
-  				puts "--------------header--------------"
   				header = list.children[1].text
-  				puts header
-  				puts "--------------string--------------"
   				string = list.children[3].children[1].children[0].text
-  				puts string
+  				team_abbr = list_index % 2
+  				if header.include?(home_abbr)
+  					team_abbr = 1
+  				elsif header.include?(away_abbr)
+  					team_abbr = 0
+  				end
+  				if string.include?("pass complete")
+  					value = string.scan( /\d+$/ ).first.to_i
+  					if team_abbr == 1
+  						home_total_passing = home_total_passing + value
+  					else
+  						away_total_passing = away_total_passing + value
+  					end
+  				end
+  				if string.include?("run")
+  					value = string.scan( /\d+$/ ).first.to_i
+  					if string.include?("loss")
+  						value = -value
+  					end
+  					if team_abbr == 1
+  						home_total_rushing = home_total_rushing + value
+  					else
+  						away_total_rushing = away_total_rushing + value
+  					end
+  				end
   			end
   			puts element.children[0].inspect
   			puts element.children[0].text
@@ -568,6 +595,10 @@ namespace :setup do
   				break
   			end
   		end
+  		puts home_total_passing
+  		puts home_total_rushing
+  		puts away_total_passing
+  		puts away_total_rushing
 	end
 
 	task :previous, [:year, :game_link, :week_index] => [:environment] do |t, args|
