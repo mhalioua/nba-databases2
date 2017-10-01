@@ -567,6 +567,7 @@ namespace :setup do
   				list = lists.children[list_index*2-1]
   				header = list.children[1].text
   				string = list.children[3].children[1].children[0].text
+  				string = string[15..-1]
   				team_abbr = list_index % 2
   				if header.include?(home_abbr)
   					team_abbr = 1
@@ -581,11 +582,12 @@ namespace :setup do
   						away_total_passing = away_total_passing + value
   					end
   					puts "Passing"
+  					puts string
   					puts team_abbr
   					puts value
   				end
   				if string.include?("run")
-  					value = string[/\d+/].first.to_i
+  					value = string[/\d+/].to_i
   					if string.include?("loss")
   						value = -value
   					end
@@ -595,6 +597,7 @@ namespace :setup do
   						away_total_rushing = away_total_rushing + value
   					end
   					puts "Rushing"
+  					puts string
   					puts team_abbr
   					puts value
   				end
