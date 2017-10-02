@@ -160,7 +160,7 @@ $(document).ready(function(){
     				home_sacks = ((home_team_total.to_i - home_pass_long.to_i - home_rush_long.to_i).to_f / (home_total_play.to_i - 2)).round(2)
     			end
 
-    			if home_car.to_i > 1
+    			if home_car.to_i > 1 && home_team_rushing & home_rush_long
                     home_typc = home_car.to_i
                 end
 
