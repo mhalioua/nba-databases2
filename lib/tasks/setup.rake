@@ -378,7 +378,7 @@ namespace :setup do
 			doc = download_document(url)
 			puts url
 			elements = doc.css(".event-holder")
-			elements.each_with_index do |element, index|
+			elements.each do |element|
 				home_number 		= element.children[0].children[3].children[2].text.to_i
 				away_number 		= element.children[0].children[3].children[1].text.to_i
 				home_2nd_pinnacle 	= element.children[0].children[9].children[1].text
@@ -557,6 +557,7 @@ namespace :setup do
   			kicked = 0
   		end
   		elements.each_with_index do |element, index|
+  			puts element.children.length
   			if element.children.length < 2
   				next
   			end

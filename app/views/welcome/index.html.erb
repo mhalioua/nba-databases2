@@ -38,13 +38,15 @@ $(document).ready(function(){
   				<th>FULL GAME <br> 2ND HALF LINES</th>
   				<th>CAR</th>
   				<th>AVE <br> CAR</th>
+  				<th>TYPC</th>
   				<th>C/ATT</th>
   				<th>AVE <br> ATT</th>
+  				<th>TYPA</th>
   				<th>TOTAL <br> PLAYS</th>
   				<th>TOTAL <br> PLAYS/ <br> YARDS</th>
+  				<th>TYPP</th>
   				<th>LONGEST <br> PASS</th>
   				<th>LONGEST <br> RUSH</th>
-  				<th>TYPP</th>
   				<th>1st Half</th>
   				<th>2nd Half</th>
   				<th width="30">FG score</th>
@@ -151,9 +153,17 @@ $(document).ready(function(){
 
     			if  home_total_play.to_i > 2 && home_pass_long && home_rush_long && home_play_yard
     				home_sacks = ((home_team_total.to_i - home_pass_long.to_i - home_rush_long.to_i).to_f / (home_total_play.to_i - 2)).round(2)
+    				home_typc = (home_team_rushing - home_rush_long)/ (home_car -1)
+    				home_att_ind = home_c_att.index('/')
+    				home_att = home_c_att[home_att_ind..-1].to_i
+    				home_typa = (home_team_total - home_team_rushing - home_pass_long)/ (home_att -1)
     			end
     			if  away_total_play.to_i > 2 && away_pass_long && away_rush_long && away_play_yard
     				away_sacks = ((away_team_total.to_i - away_pass_long.to_i - away_rush_long.to_i).to_f / (away_total_play.to_i - 2)).round(2)
+    				away_typc = (away_team_rushing - away_rush_long)/ (away_car -1)
+    				away_att_ind = away_c_att.index('/')
+    				away_att = away_c_att[away_att_ind..-1].to_i
+    				away_typa = (away_team_total - away_team_rushing - away_pass_long)/ (away_att -1)
     			end
 
 			end
@@ -275,13 +285,15 @@ $(document).ready(function(){
 				<td class="borderTop"><%= pinnacle %></td>
 				<td class="borderTop" style=<%= sep_style %> ><%= away_car %></td>
 				<td class="borderTop" style=<%= darkcolor %> ><%= away_ave_car %></td>
+				<td class="borderTop" style=<%= darkcolor %> ><%= away_typc %></td>
 				<td class="borderTop" style=<%= sep_style %> ><%= away_c_att %></td>
 				<td class="borderTop" style=<%= darkcolor %> ><%= away_ave_att %></td>
+				<td class="borderTop" style=<%= darkcolor %> ><%= away_typa %></td>
 				<td class="borderTop" style=<%= sep_style %> ><%= away_total_play %></td>
 				<td class="borderTop" style=<%= darkcolor %> ><%= away_play_yard %></td>
+				<td class="borderTop" style=<%= sep_style %> ><%= away_sacks %></td>
 				<td class="borderTop" style=<%= sep_style %> ><%= away_pass_long %></td>
 				<td class="borderTop"><%= away_rush_long %></td>
-				<td class="borderTop" style=<%= sep_style %> ><%= away_sacks %></td>
 				<td rowspan="2" class="borderTop"><%= first_drive %></td>
 				<td rowspan="2" class="borderTop"><%= second_drive %></td>
 				<td class="borderTop"><%= away_full %></td>
@@ -295,13 +307,15 @@ $(document).ready(function(){
 				<td><%= second_pinnacle %></td>
 				<td style=<%= sep_style %> ><%= home_car %></td>
 				<td style=<%= darkcolor %> ><%= home_ave_car %></td>
+				<td style=<%= darkcolor %> ><%= home_typc %></td>
 				<td style=<%= sep_style %> ><%= home_c_att %></td>
 				<td style=<%= darkcolor %> ><%= home_ave_att %></td>
+				<td style=<%= darkcolor %> ><%= home_typa %></td>
 				<td style=<%= sep_style %> ><%= home_total_play %></td>
 				<td style=<%= darkcolor %> ><%= home_play_yard %></td>
+				<td style=<%= sep_style %> ><%= home_sacks %></td>
 				<td style=<%= sep_style %> ><%= home_pass_long %></td>
 				<td><%= home_rush_long %></td>
-				<td style=<%= sep_style %> ><%= home_sacks %></td>
 				<td><%= home_full %></td>
 			</tr>
 		<% end %>
