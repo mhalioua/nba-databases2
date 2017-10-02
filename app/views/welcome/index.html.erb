@@ -158,18 +158,31 @@ $(document).ready(function(){
 
     			if  home_total_play.to_i > 2 && home_pass_long && home_rush_long && home_play_yard
     				home_sacks = ((home_team_total.to_i - home_pass_long.to_i - home_rush_long.to_i).to_f / (home_total_play.to_i - 2)).round(2)
-    				home_typc = ((home_team_rushing.to_i - home_rush_long.to_i).to_f / (home_car.to_i -1)).round(2)
-    				home_att_ind = home_c_att.index('/')
-    				home_att = home_c_att[home_att_ind+1..-1].to_i
+    			end
+
+    			if home_car.to_i > 1 && home_team_rushing & home_rush_long
+	    			home_typc = ((home_team_rushing.to_i - home_rush_long.to_i).to_f / (home_car.to_i -1)).round(2)
+	    		end
+
+	    		home_att_ind = home_c_att.index('/')
+    			home_att = home_c_att[home_att_ind+1..-1].to_i
+    			if home_att > 1 && home_pass_long
     				home_typa = ((home_team_total.to_i - home_team_rushing.to_i - home_pass_long.to_i).to_f / (home_att -1)).round(2)
     			end
+
     			if  away_total_play.to_i > 2 && away_pass_long && away_rush_long && away_play_yard
     				away_sacks = ((away_team_total.to_i - away_pass_long.to_i - away_rush_long.to_i).to_f / (away_total_play.to_i - 2)).round(2)
-    				away_typc = ((away_team_rushing.to_i - away_rush_long.to_i).to_f / (away_car.to_i -1)).round(2)
-    				away_att_ind = away_c_att.index('/')
-    				away_att = away_c_att[away_att_ind+1..-1].to_i
-    				away_typa = ((away_team_total.to_i - away_team_rushing.to_i - away_pass_long.to_i).to_f / (away_att -1)).round(2)
     			end
+
+    			away_att_ind = away_c_att.index('/')
+    			away_att = away_c_att[away_att_ind+1..-1].to_i
+    			if away_att > 1 && away_pass_long
+	    			away_typa = ((away_team_total.to_i - away_team_rushing.to_i - away_pass_long.to_i).to_f / (away_att -1)).round(2)
+	    		end
+
+    			if away_car.to_i > 1 && away_team_rushing & away_rush_long
+	    			away_typc = ((away_team_rushing.to_i - away_rush_long.to_i).to_f / (away_car.to_i -1)).round(2)
+	    		end
 
 			end
 			home_full = ""
