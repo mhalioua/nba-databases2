@@ -161,7 +161,7 @@ $(document).ready(function(){
     			end
 
     			if home_car.to_i > 1 && home_team_rushing
-                    home_typc = home_team_rushing.to_i - home_rush_long.to_i
+                    home_typc = ((home_team_rushing.to_i - home_rush_long.to_i).to_f / (home_car.to_i -1)).round(2)
                 end
 
 
