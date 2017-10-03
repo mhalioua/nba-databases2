@@ -874,7 +874,6 @@ namespace :setup do
 		  				score = element.children[0].children[0].children[1]
 		  				away_result = score.children[0].children[1].text
 		  				home_result = score.children[1].children[1].text
-		  				break
 		  			end
 		  		end
 
