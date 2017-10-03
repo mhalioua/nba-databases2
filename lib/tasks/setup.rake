@@ -549,6 +549,20 @@ namespace :setup do
 		puts url
   		doc = download_document(url)
 
+  		away_img = doc.css(".away img")
+  		if away_img.size > 0
+  			away_img = away_img[1]['src'][-20..-1]
+  		else
+  			away_image = "NoImage"
+  		end
+
+  		home_img = doc.css(".home img")
+  		if away_img.size > 0
+  			away_img = away_img[1]['src'][-20..-1]
+  		else
+  			away_image = "NoImage"
+  		end
+
   		elements = doc.css(".css-accordion .accordion-item")
   		puts elements.size
   		keyword = elements[0].children[1].children[0].children[0].children[3].children[1].text
@@ -560,7 +574,15 @@ namespace :setup do
   			puts "aaaaaaaaa"
   			puts element.children.length
   			puts "aaaaaaaaa"
-  			puts element.children[0].children[0].children[0].children[0].children[0].attributes['src'].value
+  			image =  element.children[0].children[0].children[0].children[0].children[0].attributes['src'].value[-20..-1]
+  			team_abbr = 0
+  			if image == home_img
+  				team_abbr = 1
+  			elsif image == away_img
+  				team_abbr = 0
+  			else
+  				puts "Image Missing"
+  			end
 
   			lists = element.children[1].children[0].children[0]
   			list_length = (lists.children.length-1)/2
@@ -569,7 +591,6 @@ namespace :setup do
   				header = list.children[1].text
   				string = list.children[3].children[1].children[0].text
   				string = string[20..-1]
-  				team_abbr = index % 2
   				if string.include?(" pass complete ") && !string.include?("NO PLAY")
   					value = string[/\d+/].to_i
   					if string.include?(" loss ")
