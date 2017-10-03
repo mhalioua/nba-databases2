@@ -569,7 +569,7 @@ namespace :setup do
   			if element.children.length == 3
   				next
   			end
-  			image =  element.children[0].children[0].children[0].children[0].children[0].attributes['src'].value[-20..-1]
+  			image =  element.children[0].children[0].children[0].children[0].children[0]['src'].value[-20..-1]
   			puts image
   			team_abbr = 0
   			if image == home_img
@@ -781,7 +781,7 @@ namespace :setup do
 		  			if element.children.length == 3
 		  				next
 		  			end
-		  			image =  element.children[0].children[0].children[0].children[0].children[0].attributes['src'].value[-20..-1]
+		  			image =  element.children[0].children[0].children[0].children[0].children[0]['src'].value[-20..-1]
 		  			puts image
 		  			team_abbr = 0
 		  			if image == home_img
