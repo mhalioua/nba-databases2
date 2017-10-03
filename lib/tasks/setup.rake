@@ -560,7 +560,7 @@ namespace :setup do
   			puts "aaaaaaaaa"
   			puts element.children.length
   			puts "aaaaaaaaa"
-  			puts element.children[0].children[0].children[0].children[0].children[0].attributes[1].inspect
+  			puts element.children[0].children[0].children[0].children[0].children[0].inspect
 
   			lists = element.children[1].children[0].children[0]
   			list_length = (lists.children.length-1)/2
