@@ -574,6 +574,9 @@ namespace :setup do
   			puts "aaaaaaaaa"
   			puts element.children.length
   			puts "aaaaaaaaa"
+  			if element.children.length == 3
+  				next
+  			end
   			image =  element.children[0].children[0].children[0].children[0].children[0].attributes['src'].value[-20..-1]
   			puts image
   			team_abbr = 0
