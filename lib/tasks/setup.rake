@@ -557,16 +557,15 @@ namespace :setup do
   			kicked = 0
   		end
   		elements.each_with_index do |element, index|
+  			puts "aaaaaaaaa"
   			puts element.children.length
-  			if element.children.length < 2
-  				next
-  			end
+  			puts "aaaaaaaaa"
+  			puts element.children[0].children[0].children[0].children[0].src
 
   			lists = element.children[1].children[0].children[0]
   			list_length = (lists.children.length-1)/2
   			(1..list_length).each do |list_index|
   				list = lists.children[list_index*2-1]
-  				puts list.children[1].inspect
   				header = list.children[1].text
   				string = list.children[3].children[1].children[0].text
   				string = string[20..-1]
@@ -581,10 +580,6 @@ namespace :setup do
   					else
   						away_total_passing = away_total_passing + value
   					end
-  					puts "Passing"
-  					puts string
-  					puts team_abbr
-  					puts value
   				end
   				if string.include?(" run ") && !string.include?("NO PLAY")
   					value = string[/\d+/].to_i
@@ -596,10 +591,6 @@ namespace :setup do
   					else
   						away_total_rushing = away_total_rushing + value
   					end
-  					puts "Rushing"
-  					puts string
-  					puts team_abbr
-  					puts value
   				end
   				if string.include?(" sacked ") && string.include?(" loss ") && !string.include?("NO PLAY")
   					value = string[/\d+/].to_i
@@ -609,10 +600,6 @@ namespace :setup do
   					else
   						away_total_rushing = away_total_rushing + value
   					end
-  					puts "Rushing"
-  					puts string
-  					puts team_abbr
-  					puts value
   				end
   			end
   			if element.children[0].text.include?("End of Half")
