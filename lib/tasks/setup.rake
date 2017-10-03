@@ -611,6 +611,9 @@ namespace :setup do
   					if string.include?(" loss ")
   						value = -value
   					end
+  					if string.include?(" no gain ")
+  						value = 0
+  					end
   					if team_abbr == 1
   						home_total_rushing = home_total_rushing + value
   					else
