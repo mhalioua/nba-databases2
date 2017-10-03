@@ -730,11 +730,12 @@ namespace :setup do
 	            		break
 	            	end
 	            end
-
-  				unless score = game.scores.find_by(result: "Final")
-	              	score = game.scores.create(result: "Final")
-	            end
-	            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result)
+	            if false 
+	  				unless score = game.scores.find_by(result: "Final")
+		              	score = game.scores.create(result: "Final")
+		            end
+		            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result)
+		        end
 
 	            home_team_passing = 0
 				away_team_passing = 0
@@ -909,8 +910,9 @@ namespace :setup do
 			puts url
 	  		element = doc.css(".game-date-time").first
 	  		game_date = element.children[1]['data-date']
-	  		puts game_date
-  			game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
+	  		if false
+  				game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
+  			end
 	  	end
 	end
 
