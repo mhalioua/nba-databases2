@@ -576,7 +576,7 @@ namespace :setup do
   			puts "aaaaaaaaa"
   			image =  element.children[0].children[0].children[0].children[0].children[0].attributes['src'].value
   			puts image
-  			image = image[-20..-1]
+  			image = (image.to_s)[-20..-1]
   			team_abbr = 0
   			if image == home_img
   				team_abbr = 1
