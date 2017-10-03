@@ -553,14 +553,14 @@ namespace :setup do
   		if away_img.size > 0
   			away_img = away_img[1]['src'][-20..-1]
   		else
-  			away_image = "NoImage"
+  			away_img = "NoImage"
   		end
 
   		home_img = doc.css(".home img")
-  		if away_img.size > 0
-  			away_img = away_img[1]['src'][-20..-1]
+  		if home_img.size > 0
+  			home_img = home_img[1]['src'][-20..-1]
   		else
-  			away_image = "NoImage"
+  			home_img = "NoImage"
   		end
 
   		elements = doc.css(".css-accordion .accordion-item")
@@ -574,9 +574,8 @@ namespace :setup do
   			puts "aaaaaaaaa"
   			puts element.children.length
   			puts "aaaaaaaaa"
-  			image =  element.children[0].children[0].children[0].children[0].children[0].attributes['src'].value
+  			image =  element.children[0].children[0].children[0].children[0].children[0].attributes['src'].value[-20..-1]
   			puts image
-  			image = (image.to_s)[-20..-1]
   			team_abbr = 0
   			if image == home_img
   				team_abbr = 1
@@ -778,7 +777,7 @@ namespace :setup do
 			  		if away_img.size > 0
 			  			away_img = away_img[1]['src'][-20..-1]
 			  		else
-			  			away_image = "NoImage"
+			  			away_img = "NoImage"
 			  		end
 			  		check_img = doc.css(".accordion-header img")
 		  			second_drive = check_img.size
@@ -791,7 +790,7 @@ namespace :setup do
 				  			end
 				  		end
 		  			end
-			  		if check_img.size > 0 && away_image != "NoImage"
+			  		if check_img.size > 0 && away_img != "NoImage"
 		  				check_img = check_img[0]['src'][-20..-1]
 				  		kicked = "away"
 				  		if check_img == away_img
