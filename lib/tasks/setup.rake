@@ -781,6 +781,7 @@ namespace :setup do
 		  			if element.children.length == 3
 		  				next
 		  			end
+		  			puts element.children[0].children[0].children[0].children[0].inspect
 		  			image =  element.children[0].children[0].children[0].children[0]['src'].value[-20..-1]
 		  			puts image
 		  			team_abbr = 0
