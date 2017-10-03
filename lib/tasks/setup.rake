@@ -14,10 +14,7 @@ namespace :setup do
 	end
 
 	task :rest => :environment do
-		(14..17).each do |week_index|
-			Rake::Task["setup:link"].invoke(2010, "nfl", week_index)
-			Rake::Task["setup:link"].reenable
-		end
+		Rake::Task["setup:link"].invoke(2017, "college-football", 3)
 	end
 
 	task :min => :environment do
@@ -870,6 +867,7 @@ namespace :setup do
 		  				score = element.children[0].children[0].children[1]
 		  				away_result = score.children[0].children[1].text
 		  				home_result = score.children[1].children[1].text
+		  				break
 		  			end
 		  		end
 
@@ -899,8 +897,8 @@ namespace :setup do
 				away_total_play = away_car + away_attr
 				away_play_yard 	= away_team_total.to_f / away_total_play
 
-			  	unless score = game.scores.find_by(result: "Half")
-	              	score = game.scores.create(result: "Half")
+			  	unless score = game.scores.find_by(result: "previous")
+	              	score = game.scores.create(result: "previous")
 	            end
 	            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result, home_car: home_car, home_ave_car: home_ave_car, home_rush_long: home_rush_long, home_c_att: home_c_att, home_ave_att: home_ave_att, home_total_play: home_total_play, home_play_yard: home_play_yard, away_car: away_car, away_ave_car: away_ave_car, away_rush_long: away_rush_long, away_c_att: away_c_att, away_ave_att: away_ave_att, away_total_play: away_total_play, away_play_yard: away_play_yard, home_pass_long: home_pass_long, away_pass_long: away_pass_long)
 		        
@@ -912,9 +910,7 @@ namespace :setup do
 	  		element = doc.css(".game-date-time").first
 	  		game_date = element.children[1]['data-date']
 	  		puts game_date
-	  		if false
-  				game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
-  			end
+  			game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
 	  	end
 	end
 
