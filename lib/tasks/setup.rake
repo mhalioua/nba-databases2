@@ -633,8 +633,8 @@ namespace :setup do
   			if element.children[0].text.include?("End of Half")
   				puts index + 1
 		  		score = element.children[0].children[0].children[1]
-		  		puts score.children[0].children[1].text
-		  		puts score.children[1].children[1].text
+		  		away_result = score.children[0].children[1].text
+		  		home_result = score.children[1].children[1].text
   			end
   		end
 
@@ -866,8 +866,10 @@ namespace :setup do
 		  				end
 		  			end
 		  			if element.children[0].text.include?("End of Half")
-		  				puts element.children[0].inspect
 		  				first_drive = index + 1
+		  				score = element.children[0].children[0].children[1]
+		  				away_result = score.children[0].children[1].text
+		  				home_result = score.children[1].children[1].text
 		  			end
 		  		end
 
