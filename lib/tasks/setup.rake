@@ -632,7 +632,9 @@ namespace :setup do
   			end
   			if element.children[0].text.include?("End of Half")
   				puts index + 1
-		  		puts element.children[0].inspect
+		  		score = element.children[0].children[0].children[1]
+		  		puts score.children[0].children[1].text
+		  		puts score.children[1].children[1].text
   			end
   		end
 
