@@ -626,7 +626,6 @@ namespace :setup do
   			end
   			if element.children[0].text.include?("End of Half")
   				puts index + 1
-		  		break
   			end
   		end
 
