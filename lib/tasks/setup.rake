@@ -571,7 +571,7 @@ namespace :setup do
   				string = list.children[3].children[1].children[0].text
   				string = string[20..-1]
   				team_abbr = index % 2
-  				if string.include?(" pass complete ")
+  				if string.include?(" pass complete ") && !string.include?("NO PLAY")
   					value = string[/\d+/].to_i
   					if string.include?(" loss ")
   						value = -value
@@ -586,7 +586,7 @@ namespace :setup do
   					puts team_abbr
   					puts value
   				end
-  				if string.include?(" run ")
+  				if string.include?(" run ") && !string.include?("NO PLAY")
   					value = string[/\d+/].to_i
   					if string.include?(" loss ")
   						value = -value
@@ -601,7 +601,7 @@ namespace :setup do
   					puts team_abbr
   					puts value
   				end
-  				if string.include?(" sacked ") && string.include?(" loss ")
+  				if string.include?(" sacked ") && string.include?(" loss ") && !string.include?("NO PLAY")
   					value = string[/\d+/].to_i
   					value = -value
   					if team_abbr == 1
