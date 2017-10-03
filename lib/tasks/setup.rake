@@ -570,7 +570,7 @@ namespace :setup do
   				header = list.children[1].text
   				string = list.children[3].children[1].children[0].text
   				string = string[20..-1]
-  				team_abbr = list_index % 2
+  				team_abbr = index % 2
   				if string.include?(" pass complete ")
   					value = string[/\d+/].to_i
   					if string.include?(" loss ")
