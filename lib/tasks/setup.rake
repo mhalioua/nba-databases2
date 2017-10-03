@@ -566,6 +566,7 @@ namespace :setup do
   			list_length = (lists.children.length-1)/2
   			(1..list_length).each do |list_index|
   				list = lists.children[list_index*2-1]
+  				puts list.children[1].inspect
   				header = list.children[1].text
   				string = list.children[3].children[1].children[0].text
   				string = string[20..-1]
@@ -577,6 +578,9 @@ namespace :setup do
   				end
   				if string.include?(" pass complete ")
   					value = string[/\d+/].to_i
+  					if string.include?(" loss ")
+  						value = -value
+  					end
   					if team_abbr == 1
   						home_total_passing = home_total_passing + value
   					else
@@ -602,13 +606,23 @@ namespace :setup do
   					puts team_abbr
   					puts value
   				end
+  				if string.include?(" sacked ") && string.include?(" loss ")
+  					value = string[/\d+/].to_i
+  					value = -value
+  					if team_abbr == 1
+  						home_total_rushing = home_total_rushing + value
+  					else
+  						away_total_rushing = away_total_rushing + value
+  					end
+  					puts "Rushing"
+  					puts string
+  					puts team_abbr
+  					puts value
+  				end
   			end
   			if element.children[0].text.include?("End of Half")
   				puts index + 1
-		  		puts home_total_passing
-		  		puts home_total_rushing
-		  		puts away_total_passing
-		  		puts away_total_rushing
+		  		break
   			end
   		end
 
