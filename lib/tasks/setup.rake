@@ -782,7 +782,12 @@ namespace :setup do
 		  				next
 		  			end
 		  			puts element.children[0].children[0].children[0].children[0].inspect
-		  			image =  element.children[0].children[0].children[0].children[0].children[0]['src'][-20..-1]
+		  			image =  element.children[0].children[0].children[0].children[0]
+		  			if image.children.size == 0
+		  				image = "NoImage"
+		  			else
+		  				image = image.children[0]['src'][-20..-1]
+		  			end
 		  			puts image
 		  			team_abbr = 0
 		  			if image == home_img
