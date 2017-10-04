@@ -714,10 +714,10 @@ namespace :setup do
 		away_total_play = away_car + away_attr
 		away_play_yard 	= away_team_total.to_f / away_total_play
 
-  		puts home_total_passing
-  		puts home_total_rushing
-  		puts away_total_passing
-  		puts away_total_rushing
+  		puts home_team_passing
+		puts away_team_passing
+		puts home_team_rushing
+		puts away_team_rushing
   		puts home_car
   		puts away_car
   		puts first_drive
