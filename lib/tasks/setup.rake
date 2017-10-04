@@ -533,13 +533,27 @@ namespace :setup do
 	task test: :environment do
 		include Api
 		game_link="college-football"
-		game_id = "400935270"
-		away_abbr = "UCLA"
-		home_abbr = "MEM"
-		home_total_passing = 0
-		away_total_passing = 0
-		home_total_rushing = 0
-		away_total_rushing = 0
+		game_id = "400945256"
+		away_abbr = "UNM"
+		home_abbr = "BSU"
+		
+		home_team_passing = 0
+		away_team_passing = 0
+		home_team_rushing = 0
+		away_team_rushing = 0
+		home_car = 0
+		away_car = 0
+		home_attr = 2
+		away_attr = 2
+		home_rush_long = 0
+		away_rush_long = 0
+		home_pass_long = 0
+  		away_pass_long = 0
+  		home_c = 0
+  		away_c = 0
+  		home_result = 0
+  		away_result = 0
+
 
         url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
 		puts url
@@ -562,14 +576,18 @@ namespace :setup do
   		kicked = 2
 
   		elements = doc.css(".css-accordion .accordion-item")
+  		second_drive = elements.size
   		elements.each_with_index do |element, index|
-  			puts "aaaaaaaaa"
-  			puts element.children.length
-  			puts "aaaaaaaaa"
   			if element.children.length == 3
   				next
   			end
-  			image =  element.children[0].children[0].children[0].children[0].children[0]['src'][-20..-1]
+  			puts element.children[0].children[0].children[0].children[0].inspect
+  			image =  element.children[0].children[0].children[0].children[0]
+  			if image.children.size == 0
+  				image = "NoImage"
+  			else
+  				image = image.children[0]['src'][-20..-1]
+  			end
   			puts image
   			team_abbr = 0
   			if image == home_img
@@ -582,7 +600,6 @@ namespace :setup do
 
   			if kicked == 2
   				kicked = team_abbr
-  				puts kicked
   			end
 
   			lists = element.children[1].children[0].children[0]
@@ -598,10 +615,32 @@ namespace :setup do
   						value = -value
   					end
   					if team_abbr == 1
-  						home_total_passing = home_total_passing + value
+  						home_attr = home_attr + 1
+  						home_c = home_c + 1
+  						home_team_passing = home_team_passing + value
+  						if value > home_pass_long
+  							home_pass_long = value
+  						end
   					else
-  						away_total_passing = away_total_passing + value
+  						away_attr = away_attr + 1
+  						away_c = away_c + 1
+  						away_team_passing = away_team_passing + value
+  						if value > away_pass_long
+  							away_pass_long = value
+  						end
   					end
+  					puts team_abbr
+  					puts value
+  					puts "pass"
+  				end
+  				if string.include?(" pass incomplete ") && !string.include?("NO PLAY")
+  					if team_abbr == 1
+  						home_attr = home_attr + 1
+  					else
+  						away_attr = away_attr + 1
+  					end
+  					puts team_abbr
+  					puts "pass incomplete"
   				end
   				if string.include?(" run ") && !string.include?("NO PLAY")
   					value = string[/\d+/].to_i
@@ -612,33 +651,75 @@ namespace :setup do
   						value = 0
   					end
   					if team_abbr == 1
-  						home_total_rushing = home_total_rushing + value
+  						home_car = home_car + 1
+  						home_team_rushing = home_team_rushing + value
+  						if value > home_rush_long
+  							home_rush_long = value
+  						end
   					else
-  						away_total_rushing = away_total_rushing + value
+  						away_car = away_car + 1
+  						away_team_rushing = away_team_rushing + value
+  						if value > away_rush_long
+  							away_rush_long = value
+  						end
   					end
+  					puts team_abbr
+  					puts value
+  					puts "russ"
   				end
   				if string.include?(" sacked ") && string.include?(" loss ") && !string.include?("NO PLAY")
   					value = string[/\d+/].to_i
   					value = -value
   					if team_abbr == 1
-  						home_total_rushing = home_total_rushing + value
+  						home_team_rushing = home_team_rushing + value
   					else
-  						away_total_rushing = away_total_rushing + value
+  						away_team_rushing = away_team_rushing + value
   					end
+  					puts team_abbr
+  					puts value
+  					puts "sacked"
   				end
   			end
   			if element.children[0].text.include?("End of Half")
-  				puts index + 1
-		  		score = element.children[0].children[0].children[1]
-		  		away_result = score.children[0].children[1].text
-		  		home_result = score.children[1].children[1].text
+  				first_drive = index + 1
+  				score = element.children[0].children[0].children[1]
+  				away_result = score.children[0].children[1].text
+  				home_result = score.children[1].children[1].text
   			end
   		end
+
+  		if kicked == 1
+  			kicked = "home"
+  		elsif kicked == 0
+  			kicked = "away"
+  		else
+  			kicked = ""
+  		end
+
+  		home_team_total = home_team_rushing + home_team_passing
+  		away_team_total = away_team_rushing + away_team_passing
+
+        home_ave_car = (home_team_rushing.to_f / home_car).round(2)
+        away_ave_car = (away_team_rushing.to_f / away_car).round(2)
+
+        home_c_att = home_c.to_s + "/" + home_attr.to_s
+        away_c_att = away_c.to_s + "/" + away_attr.to_s
+
+        home_ave_att = (home_team_passing.to_f / home_attr).round(2)
+        away_ave_att = (away_team_passing.to_f / away_attr).round(2)
+
+        home_total_play = home_car + home_attr
+		home_play_yard 	= home_team_total.to_f / home_total_play
+
+		away_total_play = away_car + away_attr
+		away_play_yard 	= away_team_total.to_f / away_total_play
 
   		puts home_total_passing
   		puts home_total_rushing
   		puts away_total_passing
   		puts away_total_rushing
+  		puts home_car
+  		puts away_car
 	end
 
 	task :previous, [:year, :game_link, :week_index] => [:environment] do |t, args|
