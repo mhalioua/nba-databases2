@@ -645,7 +645,15 @@ namespace :setup do
   					puts team_abbr
   					puts "pass incomplete"
   				end
-  				if string.include?(" pass ") && !string.include?("NO PLAY") && !string.include?(" pass incomplete ") && !string.include?(" pass complete ")
+  				if string.include?(" pass intercepted ") && !string.include?("NO PLAY")
+  					if team_abbr == 1
+  						home_attr = home_attr + 1
+  					else
+  						away_attr = away_attr + 1
+  					end
+  				end
+  				
+  				if string.include?(" pass ") && !string.include?("NO PLAY") && !string.include?(" pass incomplete ") && !string.include?(" pass complete ") && !string.include?(" pass intercepted ")
   					value = string[/\d+/].to_i
   					if team_abbr == 1
   						home_attr = home_attr + 1
@@ -967,7 +975,15 @@ namespace :setup do
 		  						away_attr = away_attr + 1
 		  					end
 		  				end
-		  				if string.include?(" pass ") && !string.include?("NO PLAY") && !string.include?(" pass incomplete ") && !string.include?(" pass complete ")
+		  				if string.include?(" pass intercepted ") && !string.include?("NO PLAY")
+		  					if team_abbr == 1
+		  						home_attr = home_attr + 1
+		  					else
+		  						away_attr = away_attr + 1
+		  					end
+		  				end
+		  				
+		  				if string.include?(" pass ") && !string.include?("NO PLAY") && !string.include?(" pass incomplete ") && !string.include?(" pass complete ") && !string.include?(" pass intercepted ")
 		  					value = string[/\d+/].to_i
 		  					if team_abbr == 1
 		  						home_attr = home_attr + 1
