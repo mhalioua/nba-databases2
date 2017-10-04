@@ -662,12 +662,14 @@ namespace :setup do
   					value = string[/\d+/].to_i
   					if team_abbr == 1
   						home_attr = home_attr + 1
+  						home_c = home_c + 1
   						home_team_passing = home_team_passing + value
   						if value > home_pass_long
   							home_pass_long = value
   						end
   					else
   						away_attr = away_attr + 1
+  						away_c = away_c + 1
   						away_team_passing = away_team_passing + value
   						if value > away_pass_long
   							away_pass_long = value
@@ -997,12 +999,14 @@ namespace :setup do
 		  					value = string[/\d+/].to_i
 		  					if team_abbr == 1
 		  						home_attr = home_attr + 1
+  								home_c = home_c + 1
 		  						home_team_passing = home_team_passing + value
 		  						if value > home_pass_long
 		  							home_pass_long = value
 		  						end
 		  					else
 		  						away_attr = away_attr + 1
+		  						away_c = away_c + 1
 		  						away_team_passing = away_team_passing + value
 		  						if value > away_pass_long
 		  							away_pass_long = value
