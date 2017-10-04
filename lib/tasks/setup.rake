@@ -553,6 +553,8 @@ namespace :setup do
   		away_c = 0
   		home_result = 0
   		away_result = 0
+  		first_drive = 0
+  		second_drive = 0
 
 
         url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
@@ -581,14 +583,12 @@ namespace :setup do
   			if element.children.length == 3
   				next
   			end
-  			puts element.children[0].children[0].children[0].children[0].inspect
   			image =  element.children[0].children[0].children[0].children[0]
   			if image.children.size == 0
   				image = "NoImage"
   			else
   				image = image.children[0]['src'][-20..-1]
   			end
-  			puts image
   			team_abbr = 0
   			if image == home_img
   				team_abbr = 1
