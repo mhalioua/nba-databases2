@@ -582,6 +582,7 @@ namespace :setup do
   		elements.each_with_index do |element, index|
   			if element.children.length == 3
   				first_drive = index + 1
+  				element = elements[index-1]
   				score = element.children[0].children[0].children[1]
   				away_result = score.children[0].children[1].text
   				home_result = score.children[1].children[1].text
@@ -921,6 +922,7 @@ namespace :setup do
 		  		elements.each_with_index do |element, index|
 		  			if element.children.length == 3
 		  				first_drive = index + 1
+		  				element = elements[index-1]
 		  				score = element.children[0].children[0].children[1]
 		  				away_result = score.children[0].children[1].text
 		  				home_result = score.children[1].children[1].text
