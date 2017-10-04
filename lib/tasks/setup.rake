@@ -996,6 +996,7 @@ namespace :setup do
 		  				end
 		  				
 		  				if string.include?(" pass ") && string.exclude?("NO PLAY") && string.exclude?(" pass incomplete ") && string.exclude?(" pass complete ") && string.exclude?(" pass intercepted ")
+		  					puts string
 		  					value = string[/\d+/].to_i
 		  					if team_abbr == 1
 		  						home_attr = home_attr + 1
