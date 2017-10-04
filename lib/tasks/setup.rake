@@ -956,7 +956,7 @@ namespace :setup do
 		  				header = list.children[1].text
 		  				string = list.children[3].children[1].children[0].text
 		  				string = string[20..-1]
-		  				if string.include?(" pass complete ") && string.exclude?("NO PLAY")
+		  				if string.include?("pass complete") && string.exclude?("NO PLAY")
 		  					value = string[/\d+/].to_i
 		  					if string.include?(" loss ")
 		  						value = -value
@@ -980,14 +980,14 @@ namespace :setup do
 		  						end
 		  					end
 		  				end
-		  				if string.include?(" pass incomplete ") && string.exclude?("NO PLAY")
+		  				if string.include?("pass incomplete") && string.exclude?("NO PLAY")
 		  					if team_abbr == 1
 		  						home_attr = home_attr + 1
 		  					else
 		  						away_attr = away_attr + 1
 		  					end
 		  				end
-		  				if string.include?(" pass intercepted ") && string.exclude?("NO PLAY")
+		  				if string.include?("pass intercepted") && string.exclude?("NO PLAY")
 		  					if team_abbr == 1
 		  						home_attr = home_attr + 1
 		  					else
@@ -995,7 +995,7 @@ namespace :setup do
 		  					end
 		  				end
 		  				
-		  				if string.include?(" pass ") && string.exclude?("NO PLAY") && string.exclude?(" pass incomplete ") && string.exclude?(" pass complete ") && string.exclude?(" pass intercepted ")
+		  				if string.include?(" pass ") && string.exclude?("NO PLAY") && string.exclude?("pass incomplete") && string.exclude?("pass complete") && string.exclude?("pass intercepted")
 		  					puts string
 		  					value = string[/\d+/].to_i
 		  					if team_abbr == 1
