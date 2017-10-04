@@ -614,6 +614,9 @@ namespace :setup do
   					if string.include?(" loss ")
   						value = -value
   					end
+  					if string.include?(" no gain ")
+  						value = 0
+  					end
   					if team_abbr == 1
   						home_attr = home_attr + 1
   						home_c = home_c + 1
@@ -642,6 +645,27 @@ namespace :setup do
   					puts team_abbr
   					puts "pass incomplete"
   				end
+  				if string.include?(" pass ") && !string.include?("NO PLAY") && !string.include?(" pass incomplete ") && !string.include?(" pass complete ")
+  					value = string[/\d+/].to_i
+  					if team_abbr == 1
+  						home_attr = home_attr + 1
+  						home_c = home_c + 1
+  						home_team_passing = home_team_passing + value
+  						if value > home_pass_long
+  							home_pass_long = value
+  						end
+  					else
+  						away_attr = away_attr + 1
+  						away_c = away_c + 1
+  						away_team_passing = away_team_passing + value
+  						if value > away_pass_long
+  							away_pass_long = value
+  						end
+  					end
+  					puts team_abbr
+  					puts value
+  					puts "pass"
+  				end
   				if string.include?(" run ") && !string.include?("NO PLAY")
   					value = string[/\d+/].to_i
   					if string.include?(" loss ")
@@ -650,6 +674,26 @@ namespace :setup do
   					if string.include?(" no gain ")
   						value = 0
   					end
+  					if team_abbr == 1
+  						home_car = home_car + 1
+  						home_team_rushing = home_team_rushing + value
+  						if value > home_rush_long
+  							home_rush_long = value
+  						end
+  					else
+  						away_car = away_car + 1
+  						away_team_rushing = away_team_rushing + value
+  						if value > away_rush_long
+  							away_rush_long = value
+  						end
+  					end
+  					puts team_abbr
+  					puts value
+  					puts "russ"
+  				end
+
+  				if string.include?(" Run ") && !string.include?("NO PLAY")
+  					value = string[/\d+/].to_i
   					if team_abbr == 1
   						home_car = home_car + 1
   						home_team_rushing = home_team_rushing + value
@@ -897,6 +941,9 @@ namespace :setup do
 		  					if string.include?(" loss ")
 		  						value = -value
 		  					end
+		  					if string.include?(" no gain ")
+		  						value = 0
+		  					end
 		  					if team_abbr == 1
 		  						home_attr = home_attr + 1
 		  						home_c = home_c + 1
@@ -920,6 +967,24 @@ namespace :setup do
 		  						away_attr = away_attr + 1
 		  					end
 		  				end
+		  				if string.include?(" pass ") && !string.include?("NO PLAY") && !string.include?(" pass incomplete ") && !string.include?(" pass complete ")
+		  					value = string[/\d+/].to_i
+		  					if team_abbr == 1
+		  						home_attr = home_attr + 1
+		  						home_c = home_c + 1
+		  						home_team_passing = home_team_passing + value
+		  						if value > home_pass_long
+		  							home_pass_long = value
+		  						end
+		  					else
+		  						away_attr = away_attr + 1
+		  						away_c = away_c + 1
+		  						away_team_passing = away_team_passing + value
+		  						if value > away_pass_long
+		  							away_pass_long = value
+		  						end
+		  					end
+		  				end
 		  				if string.include?(" run ") && !string.include?("NO PLAY")
 		  					value = string[/\d+/].to_i
 		  					if string.include?(" loss ")
@@ -928,6 +993,23 @@ namespace :setup do
 		  					if string.include?(" no gain ")
 		  						value = 0
 		  					end
+		  					if team_abbr == 1
+		  						home_car = home_car + 1
+		  						home_team_rushing = home_team_rushing + value
+		  						if value > home_rush_long
+		  							home_rush_long = value
+		  						end
+		  					else
+		  						away_car = away_car + 1
+		  						away_team_rushing = away_team_rushing + value
+		  						if value > away_rush_long
+		  							away_rush_long = value
+		  						end
+		  					end
+		  				end
+
+		  				if string.include?(" Run ") && !string.include?("NO PLAY")
+		  					value = string[/\d+/].to_i
 		  					if team_abbr == 1
 		  						home_car = home_car + 1
 		  						home_team_rushing = home_team_rushing + value
