@@ -732,7 +732,7 @@ namespace :setup do
   					puts "sacked"
   				end
   			end
-  			if element.children[0].text.include?("End of")
+  			if element.children[0].text.include?("End of") && first_drive == 0
   				first_drive = index + 1
   				score = element.children[0].children[0].children[1]
   				away_result = score.children[0].children[1].text
@@ -888,6 +888,8 @@ namespace :setup do
 		  		away_c = 0
 		  		home_result = 0
 		  		away_result = 0
+		  		first_drive = 0
+		  		second_drive = 0
 
 
 		        url = "http://www.espn.com/#{game_link}/playbyplay?gameId=#{game_id}"
@@ -1050,7 +1052,7 @@ namespace :setup do
 		  					end
 		  				end
 		  			end
-		  			if element.children[0].text.include?("End of")
+		  			if element.children[0].text.include?("End of") && first_drive == 0
 		  				first_drive = index + 1
 		  				score = element.children[0].children[0].children[1]
 		  				away_result = score.children[0].children[1].text
