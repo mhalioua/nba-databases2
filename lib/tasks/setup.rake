@@ -720,6 +720,8 @@ namespace :setup do
   		puts away_total_rushing
   		puts home_car
   		puts away_car
+  		puts first_drive
+  		puts second_drive
 	end
 
 	task :previous, [:year, :game_link, :week_index] => [:environment] do |t, args|
