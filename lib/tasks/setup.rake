@@ -1050,7 +1050,7 @@ namespace :setup do
 		  					end
 		  				end
 		  			end
-		  			if element.children[0].text.include?("End of Half")
+		  			if element.children[0].text.include?("End of")
 		  				first_drive = index + 1
 		  				score = element.children[0].children[0].children[1]
 		  				away_result = score.children[0].children[1].text
