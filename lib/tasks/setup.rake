@@ -543,8 +543,8 @@ namespace :setup do
 		away_team_rushing = 0
 		home_car = 0
 		away_car = 0
-		home_attr = 2
-		away_attr = 2
+		home_attr = 0
+		away_attr = 0
 		home_rush_long = 0
 		away_rush_long = 0
 		home_pass_long = 0
@@ -581,7 +581,7 @@ namespace :setup do
   		second_drive = elements.size
   		elements.each_with_index do |element, index|
   			if element.children.length == 3
-  				first_drive = index + 1
+  				first_drive = index
   				element = elements[index-1]
   				score = element.children[0].children[0].children[1]
   				away_result = score.children[0].children[1].text
@@ -618,9 +618,19 @@ namespace :setup do
   					value = string[/\d+/].to_i
   					if string.include?(" loss ")
   						value = -value
+  						if team_abbr == 1
+  							home_c = home_c - 1
+  						else
+  							away_c = away_c - 1
+  						end
   					end
   					if string.include?(" no gain ")
   						value = 0
+  						if team_abbr == 1
+  							home_c = home_c - 1
+  						else
+  							away_c = away_c - 1
+  						end
   					end
   					if team_abbr == 1
   						home_attr = home_attr + 1
@@ -662,14 +672,12 @@ namespace :setup do
   					value = string[/\d+/].to_i
   					if team_abbr == 1
   						home_attr = home_attr + 1
-  						home_c = home_c + 1
   						home_team_passing = home_team_passing + value
   						if value > home_pass_long
   							home_pass_long = value
   						end
   					else
   						away_attr = away_attr + 1
-  						away_c = away_c + 1
   						away_team_passing = away_team_passing + value
   						if value > away_pass_long
   							away_pass_long = value
@@ -682,6 +690,11 @@ namespace :setup do
   				if string.include?(" run ") && !string.include?("NO PLAY")
   					value = string[/\d+/].to_i
   					if string.include?(" loss ")
+  						if team_abbr == 1
+  							home_car = home_car - 1
+  						else
+  							away_car = away_car - 1
+  						end
   						value = -value
   					end
   					if string.include?(" no gain ")
@@ -883,8 +896,8 @@ namespace :setup do
 				away_team_rushing = 0
 				home_car = 0
 				away_car = 0
-				home_attr = 2
-				away_attr = 2
+				home_attr = 0
+				away_attr = 0
 				home_rush_long = 0
 				away_rush_long = 0
 				home_pass_long = 0
@@ -921,21 +934,19 @@ namespace :setup do
 		  		second_drive = elements.size
 		  		elements.each_with_index do |element, index|
 		  			if element.children.length == 3
-		  				first_drive = index + 1
+		  				first_drive = index
 		  				element = elements[index-1]
 		  				score = element.children[0].children[0].children[1]
 		  				away_result = score.children[0].children[1].text
 		  				home_result = score.children[1].children[1].text
 		  				next
 		  			end
-		  			puts element.children[0].children[0].children[0].children[0].inspect
 		  			image =  element.children[0].children[0].children[0].children[0]
 		  			if image.children.size == 0
 		  				image = "NoImage"
 		  			else
 		  				image = image.children[0]['src'][-20..-1]
 		  			end
-		  			puts image
 		  			team_abbr = 0
 		  			if image == home_img
 		  				team_abbr = 1
@@ -960,9 +971,19 @@ namespace :setup do
 		  					value = string[/\d+/].to_i
 		  					if string.include?(" loss ")
 		  						value = -value
+		  						if team_abbr == 1
+		  							home_c = home_c - 1
+		  						else
+		  							away_c = away_c - 1
+		  						end
 		  					end
 		  					if string.include?(" no gain ")
 		  						value = 0
+		  						if team_abbr == 1
+		  							home_c = home_c - 1
+		  						else
+		  							away_c = away_c - 1
+		  						end
 		  					end
 		  					if team_abbr == 1
 		  						home_attr = home_attr + 1
@@ -1017,6 +1038,11 @@ namespace :setup do
 		  					value = string[/\d+/].to_i
 		  					if string.include?(" loss ")
 		  						value = -value
+		  						if team_abbr == 1
+		  							home_car = home_car - 1
+		  						else
+		  							away_car = away_car - 1
+		  						end
 		  					end
 		  					if string.include?(" no gain ")
 		  						value = 0
