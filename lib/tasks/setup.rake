@@ -954,7 +954,7 @@ namespace :setup do
 		  				header = list.children[1].text
 		  				string = list.children[3].children[1].children[0].text
 		  				string = string[20..-1]
-		  				if string.include?("pass complete") && string.exclude?("NO PLAY")
+		  				if string.include?("pass complete") && string.exclude?("NO PLAY") && string.exclude?("Penalty")
 		  					value = string[/\d+/].to_i
 		  					if string.include?(" loss ")
 		  						value = -value
