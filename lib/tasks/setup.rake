@@ -533,9 +533,7 @@ namespace :setup do
 	task test: :environment do
 		include Api
 		game_link="college-football"
-		game_id = "400945256"
-		away_abbr = "UNM"
-		home_abbr = "BSU"
+		game_id = "400945260"
 		
 		home_team_passing = 0
 		away_team_passing = 0
