@@ -656,7 +656,7 @@ namespace :setup do
   					end
   				end
   				
-  				if string.include?(" pass ") && string.exclude?("NO PLAY") && string.exclude?(" pass incomplete ") && string.exclude?(" pass complete ") && string.exclude?(" pass intercepted ")
+  				if string.include?(" pass ") && string.exclude?("NO PLAY") && string.exclude?(" pass incomplete ") && string.exclude?(" pass complete ") && string.exclude?(" pass intercepted ") && string.exclude?("pass interference")
   					value = string[/\d+/].to_i
   					if team_abbr == 1
   						home_attr = home_attr + 1
@@ -993,7 +993,7 @@ namespace :setup do
 		  					end
 		  				end
 		  				
-		  				if string.include?(" pass ") && string.exclude?("NO PLAY") && string.exclude?("pass incomplete") && string.exclude?("pass complete") && string.exclude?("pass intercepted")
+		  				if string.include?(" pass ") && string.exclude?("NO PLAY") && string.exclude?("pass incomplete") && string.exclude?("pass complete") && string.exclude?("pass intercepted") && string.exclude?("pass interference")
 		  					puts string
 		  					value = string[/\d+/].to_i
 		  					if team_abbr == 1
