@@ -14,7 +14,7 @@ namespace :setup do
 	end
 
 	task :rest => :environment do
-		Rake::Task["setup:previous"].invoke(2017, "college-football", 3)
+		Rake::Task["setup:previous"].invoke(2017, "college-football", 4)
 	end
 
 	task :min => :environment do
