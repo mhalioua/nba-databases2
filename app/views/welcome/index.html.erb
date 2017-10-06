@@ -27,6 +27,7 @@ $(document).ready(function() {
     function cb(start, end) {
     	window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }
+    $('.daterange').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
 });
 </script>
 
