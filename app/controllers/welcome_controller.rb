@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
 
 	def index
 	  	unless params[:id]
-	  	  	params[:id] = Time.now.strftime("%Y-%m-%d")
+	  	  	params[:id] = Time.now.strftime("%Y-%m-%d") + " - " + Time.now.strftime("%Y-%m-%d")
 	  	end
 	  	@game_index = params[:id]
 	  	@game_start_index = @game_index[0..10]
