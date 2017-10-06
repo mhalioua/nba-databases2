@@ -61,5 +61,6 @@ gem 'jquery-rails'
 
 gem 'bcrypt'
 
+gem 'bootstrap', '~> 4.0.0.beta'
 gem 'momentjs-rails'
 gem 'bootstrap-daterangepicker-rails'

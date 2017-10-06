@@ -10,29 +10,26 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
- *= require bootstrap
- *= require daterangepicker-bs3
  */
 
+@import "bootstrap";
+@import "daterangepicker-bs3";
 
 
-.main table {
+table {
     margin: 0 auto;
     text-align: center;
     border-collapse: collapse;
     border: 9px solid rgb(56, 87, 33);
 }
 
-.main th {
+th {
 	background-color: rgb(87, 135, 50);
 	color: white;
 	vertical-align: top;
 }
 
-.main .borderTop {
+.borderTop {
 	border-top-style: solid;
 	border-top-width: 9px;
 }
-
