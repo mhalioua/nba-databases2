@@ -14,10 +14,3 @@
 //= require turbolinks
 //= require_tree .
 //= require jquery
-//= require bootstrap-sprockets
-
-//= require bootstrap-datepicker
-
-//= require bootstrap-datepicker/core
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.es
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr
