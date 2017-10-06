@@ -11,9 +11,9 @@
  * It is generally better to create a new file per style scope.
  *
  */
-
+@import "bootstrap-sprockets";
 @import "bootstrap";
-@import "daterangepicker-bs4";
+@import "daterangepicker-bs3";
 
 
 .main table {
