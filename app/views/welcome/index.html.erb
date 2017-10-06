@@ -3,7 +3,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
   	var val = new Date(<%= @game_index %>);
-  	$('.datepicker').val(a.toDateString().substr(4));
+  	$('.datepicker').val(val.toDateString().substr(4));
     $('.datepicker').datepicker({ dateFormat: 'M d yy' });
   });
   $('.datepicker').change(function() {
