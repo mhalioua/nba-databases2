@@ -1,18 +1,13 @@
-<%= select_tag :weeks, options_for_select(@week_dropdown, @game_index), :id => "select_weeks" %>
-<script>
-$(document).ready(function(){
-    $('#select_weeks').change(function() {
-        window.location.href = "/welcome/index/" + $(this).val()
-    });
-});
-</script>
-
 <input type="text" class='datepicker' >
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker({ dateFormat: 'M d, y' });
   });
+  $('.datepicker').change(function() {
+  	var date = new Date($(this).val());
+    window.location.href = "/welcome/index/" + date.toISOString().substr(0,10);
+});
 </script>
 
 <div class="main">
