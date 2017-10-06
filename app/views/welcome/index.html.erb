@@ -162,15 +162,17 @@ $(document).ready(function(){
 
     			if home_car.to_i > 1 && home_team_rushing && home_rush_long
                     home_typc = ((home_team_rushing.to_i - home_rush_long.to_i).to_f / (home_car.to_i - 1))
+                    home_typc = home_typc.round(2)
                 end
-                home_typc = home_typc.round(2)
+                
 
                	home_att_index = home_c_att.index("/")
                	home_att = home_c_att[home_att_index+1..-1].to_i
                	if home_att > 1 && home_team_rushing && home_pass_long
                		home_typa = ((home_team_total.to_i - home_team_rushing.to_i - home_pass_long.to_i).to_f / (home_att - 1))
+               		home_typa = home_typa.round(2)
                	end
-               	home_typa = home_typa.round(2)
+               	
 
     			if  away_total_play.to_i > 2 && away_pass_long && away_rush_long && away_play_yard
     				away_sacks = ((away_team_total.to_i - away_pass_long.to_i - away_rush_long.to_i).to_f / (away_total_play.to_i - 2)).round(2)
@@ -178,15 +180,15 @@ $(document).ready(function(){
 
     			if away_car.to_i > 1 && away_team_rushing && away_rush_long
                     away_typc = ((away_team_rushing.to_i - away_rush_long.to_i).to_f / (away_car.to_i - 1))
+                	away_typc = away_typc.round(2)
                 end
-                away_typc = away_typc.round(2)
 
                 away_att_index = away_c_att.index("/")
                	away_att = away_c_att[away_att_index+1..-1].to_i
                	if away_att > 1 && away_team_rushing && away_pass_long
                		away_typa = ((away_team_total.to_i - away_team_rushing.to_i - away_pass_long.to_i).to_f / (away_att - 1))
+               		away_typa = away_typa.round(2)
                	end
-               	away_typa = away_typa.round(2)
 
 			end
 			home_full = ""
