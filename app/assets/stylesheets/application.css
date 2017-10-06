@@ -12,9 +12,10 @@
  *
  *= require_tree .
  *= require_self
+ *= require jquery-ui/datepicker
  */
 
-*= require jquery-ui/datepicker
+
 
 table {
     margin: 0 auto;
