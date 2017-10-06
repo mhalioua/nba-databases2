@@ -1,4 +1,4 @@
-<input type="text" class='datepicker' >
+<input type="text" class='datepicker' size="10">
 
 <script type="text/javascript">
   $(document).ready(function(){
@@ -6,6 +6,7 @@
   });
   $('.datepicker').change(function() {
   	var date = new Date($(this).val());
+  	$( ".datepicker" ).datepicker( "option", "dateFormat", $( this ).val() );
     window.location.href = "/welcome/index/" + date.toISOString().substr(0,10);
 });
 </script>
