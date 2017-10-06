@@ -2,11 +2,12 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('.datepicker').datepicker({ dateFormat: 'M d, y' });
+  	var val = <%= @game_index %>;
+  	$('.datepicker').val(val);
+    $('.datepicker').datepicker({ dateFormat: 'M d, yy' });
   });
   $('.datepicker').change(function() {
   	var date = new Date($(this).val());
-  	$( ".datepicker" ).datepicker( "option", "dateFormat", $( this ).val() );
     window.location.href = "/welcome/index/" + date.toISOString().substr(0,10);
 });
 </script>
