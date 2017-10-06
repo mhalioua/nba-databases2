@@ -14,6 +14,9 @@
  *= require_self
  */
 
+
+*= require bootstrap-datepicker
+
 table {
     margin: 0 auto;
     text-align: center;
@@ -31,3 +34,4 @@ th {
 	border-top-style: solid;
 	border-top-width: 9px;
 }
+

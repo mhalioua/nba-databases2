@@ -7,6 +7,15 @@ $(document).ready(function(){
 });
 </script>
 
+<%= f.text_field :date, :class => 'datepicker' %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+    console.log($('.datepicker').val())
+  });
+</script>
+
 <div class="main">
 	<table class="game-index" border="1">
   		<thead style="font-size: 0.7em">

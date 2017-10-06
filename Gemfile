@@ -60,3 +60,5 @@ gem 'jquery-ui-rails'
 gem 'jquery-rails'
 
 gem 'bcrypt'
+
+gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.4.1'
