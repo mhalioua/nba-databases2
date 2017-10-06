@@ -61,4 +61,5 @@ gem 'jquery-rails'
 
 gem 'bcrypt'
 
-gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.4.1'
+gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
+                              :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
