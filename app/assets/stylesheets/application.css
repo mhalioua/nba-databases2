@@ -12,7 +12,8 @@
  *
  *= require_tree .
  *= require_self
- *= require jquery-ui/datepicker
+ *= require bootstrap
+ *= require daterangepicker-bs3
  */
 
 
@@ -34,3 +35,4 @@
 	border-top-style: solid;
 	border-top-width: 9px;
 }
+

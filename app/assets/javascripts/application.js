@@ -16,4 +16,5 @@
 //= require jquery
 
 
-//= require jquery-ui/datepicker
+//= require moment
+//= require daterangepicker

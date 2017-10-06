@@ -55,8 +55,11 @@ gem 'mechanize', '~> 2.6.0'
 
 gem 'nokogiri'
 
-gem 'jquery-ui-rails', '5.0.5'
+gem 'jquery-ui-rails'
 
 gem 'jquery-rails'
 
 gem 'bcrypt'
+
+gem 'momentjs-rails'
+gem 'bootstrap-daterangepicker-rails'
