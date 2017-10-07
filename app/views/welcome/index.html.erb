@@ -9,8 +9,8 @@ $(document).ready(function() {
 	var end = moment("<%= @game_end_index %>");
 	$('.daterange').daterangepicker({
 		locale: {
-        	format: "MMM D, YYYY"
-        },
+			format: 'MMM D, YYYY'
+		},
         startDate: start,
         endDate: end,
         ranges: {
@@ -43,7 +43,7 @@ $(document).ready(function() {
 		var end = moment("<%= @game_end_index %>").add(1, 'days');
         window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }); 
-    $('.daterange').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+    $('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
 });
 </script>
 
