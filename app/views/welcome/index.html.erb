@@ -1,5 +1,8 @@
-<input type="text" class="daterange"/>
-
+<div class="dateselect" style="text-align: center; margin: 20px;">
+	<input type="text" class="daterange" style="width: 250px;">
+    <button class="btn btn-primary prev">Prev</button>
+    <button class="btn btn-primary next">Next</button>
+</div>
 <script type="text/javascript">
 $(document).ready(function() {
 	var start = moment("<%= @game_start_index %>");
@@ -27,6 +30,16 @@ $(document).ready(function() {
     function cb(start, end) {
     	window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }
+    $('.prev').click(function(){
+        var start = moment("<%= @game_start_index %>").subtract(1, 'days');
+		var end = moment("<%= @game_end_index %>").subtract(1, 'days');
+        window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+    }); 
+    $('.next').click(function(){
+        var start = moment("<%= @game_start_index %>").add(1, 'days');
+		var end = moment("<%= @game_end_index %>").add(1, 'days');
+        window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+    }); 
     $('.daterange').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
 });
 </script>
