@@ -210,7 +210,7 @@ $(document).ready(function() {
                 
 
                	home_att_index = home_c_att.index("/")
-               	home_att = home_c_att[home_att_index+1..-1].to_i
+               	home_att = home_att_index ? home_c_att[home_att_index+1..-1].to_i : 0
                	if home_att > 1 && home_team_rushing && home_pass_long
                		home_typa = ((home_team_total.to_i - home_team_rushing.to_i - home_pass_long.to_i).to_f / (home_att - 1))
                		home_typa = home_typa.round(2)
@@ -227,7 +227,7 @@ $(document).ready(function() {
                 end
 
                 away_att_index = away_c_att.index("/")
-               	away_att = away_c_att[away_att_index+1..-1].to_i
+               	away_att = away_att_index ? away_c_att[away_att_index+1..-1].to_i : 0
                	if away_att > 1 && away_team_rushing && away_pass_long
                		away_typa = ((away_team_total.to_i - away_team_rushing.to_i - away_pass_long.to_i).to_f / (away_att - 1))
                		away_typa = away_typa.round(2)
