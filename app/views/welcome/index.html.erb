@@ -330,7 +330,7 @@ $(document).ready(function() {
 		%>
 			<tr style=<%= style %> >
 				<td class="borderTop"><%= game.away_number %></td>
-				<% game_date = game.game_date.strftime("%l:%M %P") %>
+				<% game_date = game.game_date.strftime("%b %e, %Y %l:%M %P") %>
 				<td rowspan="2" class="borderTop"><%= game_date %></td>
 				<td class="borderTop"><%= game.away_team %></td>
 				<td class="borderTop"><%= away_result %></td>
