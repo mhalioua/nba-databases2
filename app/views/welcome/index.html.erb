@@ -8,6 +8,9 @@ $(document).ready(function() {
 	var start = moment("<%= @game_start_index %>");
 	var end = moment("<%= @game_end_index %>");
 	$('.daterange').daterangepicker({
+		locale: {
+        	format: "MMM D, YYYY"
+        },
         startDate: start,
         endDate: end,
         ranges: {
