@@ -31,22 +31,22 @@ $(document).ready(function() {
         }
     }, cb);
     function cb(start, end) {
-    	$('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+    	$('.daterange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
     	window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }
     $('.prev').click(function(){
         var start = moment("<%= @game_start_index %>").subtract(1, 'days');
 		var end = moment("<%= @game_end_index %>").subtract(1, 'days');
-		$('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+		$('.daterange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
         window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }); 
     $('.next').click(function(){
         var start = moment("<%= @game_start_index %>").add(1, 'days');
 		var end = moment("<%= @game_end_index %>").add(1, 'days');
-		$('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+		$('.daterange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
         window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }); 
-    $('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+    $('.daterange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
 });
 </script>
 
