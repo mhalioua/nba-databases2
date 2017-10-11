@@ -1,7 +1,7 @@
 <div class="dateselect" style="text-align: center; margin: 20px;">
 	<input type="text" class="daterange" style="width: 250px;">
-    <button class="btn btn-primary prev">Prev</button>
-    <button class="btn btn-primary next">Next</button>
+    <button class="btn btn-primary prevbutton">Prev</button>
+    <button class="btn btn-primary nextbutton">Next</button>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -30,20 +30,17 @@ $(document).ready(function() {
            'Last Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')]
         }
     }, cb);
-    function cb(startDate, endDate) {
-    	alert("Change");
-    	/*
-    		$('.daterange').val(startDate.format('MMM D, YYYY') + ' - ' + endDate.format('MMM D, YYYY'));
-    		window.location.href = "/welcome/index/" + startDate.format('YYYY-MM-DD') + ' - ' + endDate.format('YYYY-MM-DD');
-    	*/
+    function cb(start, end) {
+    	$('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+    	window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }
-    $('.prev').click(function(){
+    $('.prevbutton').click(function(){
         var start = moment("<%= @game_start_index %>").subtract(1, 'days');
 		var end = moment("<%= @game_end_index %>").subtract(1, 'days');
 		$('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
         window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }); 
-    $('.next').click(function(){
+    $('.nextbutton').click(function(){
         var start = moment("<%= @game_start_index %>").add(1, 'days');
 		var end = moment("<%= @game_end_index %>").add(1, 'days');
 		$('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
