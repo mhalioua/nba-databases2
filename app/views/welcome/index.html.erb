@@ -31,10 +31,11 @@ $(document).ready(function() {
         }
     }, cb);
     function cb(startDate, endDate) {
-    	if (start!= startDate ||  end!=endDate) {
+    	console.log("Change");
+    	/*
     		$('.daterange').val(startDate.format('MMM D, YYYY') + ' - ' + endDate.format('MMM D, YYYY'));
     		window.location.href = "/welcome/index/" + startDate.format('YYYY-MM-DD') + ' - ' + endDate.format('YYYY-MM-DD');
-    	}
+    	*/
     }
     $('.prev').click(function(){
         var start = moment("<%= @game_start_index %>").subtract(1, 'days');
