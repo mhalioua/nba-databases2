@@ -112,7 +112,7 @@ namespace :setup do
 		include Api
 		game_day = args[:game_day]
 
-  		games = Game.where("game_date between ? and ?", Date.strptime(game_day).beginning_of_day, Date.strptime(game_day).end_of_day)
+  		games = Game.where("game_date between ? and ?", Date.parse(game_day).beginning_of_day, Date.parse(game_day).end_of_day)
 		
 		games.each do |game|
 			game_link = "college-football"
