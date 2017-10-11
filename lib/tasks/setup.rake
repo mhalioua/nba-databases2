@@ -769,7 +769,7 @@ namespace :setup do
 	  			end
             	result = slice.children[index[:result]].text
 	  		end
-	  		game_state = 4
+	  		game_state = 6
 	  		if game_status.include?("Final")
 	  			game_state = 5
   				scores = doc.css(".score")
