@@ -419,19 +419,19 @@ namespace :setup do
 
 
 	task :all => :environment do
-		year = 2010
+		year = 2016
 		end_week = 15
 		game_link = "college-football"
 		(0..1).each do |index|
 			(1..end_week).each do |week_index|
-				Rake::Task["setup:getWeekly"].invoke(year, game_link, week_index)
-				Rake::Task["setup:getWeekly"].reenable
+				Rake::Task["setup:previous"].invoke(year, game_link, week_index)
+				Rake::Task["setup:previous"].reenable
 			end
 			end_week = 17
 			game_link = "nfl"
 		end
 
-		games = Game.where("game_date between ? and ?", Date.new(2010, 1, 1).beginning_of_day, Date.new(2011, 1, 1).end_of_day)
+		games = Game.where("game_date between ? and ?", Date.new(year, 1, 1).beginning_of_day, Date.new(year + 1, 1, 1).end_of_day)
 	  	game_index = []
 		games.each do |game|
 			game_index << game.game_date.to_formatted_s(:number)[0..7]
@@ -440,34 +440,12 @@ namespace :setup do
 		game_index = game_index.sort
 
 		game_index.each do |game_day|
-			Rake::Task["setup:getGameState"].invoke(game_day)
-			Rake::Task["setup:getGameState"].reenable
-
 			Rake::Task["setup:first"].invoke(game_day)
 			Rake::Task["setup:first"].reenable
 			
 			Rake::Task["setup:second"].invoke(game_day)
 			Rake::Task["setup:second"].reenable
 		end
-	end
-
-	task gethourly: :environment do
-		include Api
-
-		games = Game.all
-	  	game_index = []
-		games.each do |game|
-			if game.game_date.to_s != "" && game.game_date < Time.new(2011,1,1) && game.game_date > Time.new(2010,1,1)
-				game_index << game.game_date.to_formatted_s(:number)[0..7]
-			end
-		end
-		game_index = game_index.uniq
-		game_index = game_index.sort
-
-	end
-
-	task :rest => :environment do
-		Rake::Task["setup:previous"].invoke(2017, "college-football", 4)
 	end
 
 
@@ -811,12 +789,11 @@ namespace :setup do
 	            		break
 	            	end
 	            end
-	            if false 
-	  				unless score = game.scores.find_by(result: "Final")
-		              	score = game.scores.create(result: "Final")
-		            end
-		            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result)
-		        end
+
+  				unless score = game.scores.find_by(result: "Final")
+	              	score = game.scores.create(result: "Final")
+	            end
+	            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result)
 
 	            home_team_passing = 0
 				away_team_passing = 0
@@ -867,7 +844,7 @@ namespace :setup do
 		  				score = element.children[0].children[0].children[1]
 		  				away_result = score.children[0].children[1].text
 		  				home_result = score.children[1].children[1].text
-		  				next
+		  				break
 		  			end
 		  			image =  element.children[0].children[0].children[0].children[0]
 		  			if image.children.size == 0
@@ -1009,6 +986,7 @@ namespace :setup do
 		  				score = element.children[0].children[0].children[1]
 		  				away_result = score.children[0].children[1].text
 		  				home_result = score.children[1].children[1].text
+		  				break
 		  			end
 		  		end
 
@@ -1038,8 +1016,8 @@ namespace :setup do
 				away_total_play = away_car + away_attr
 				away_play_yard 	= away_team_total.to_f / away_total_play
 
-			  	unless score = game.scores.find_by(result: "previous")
-	              	score = game.scores.create(result: "previous")
+			  	unless score = game.scores.find_by(result: "half")
+	              	score = game.scores.create(result: "half")
 	            end
 	            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result, home_car: home_car, home_ave_car: home_ave_car, home_rush_long: home_rush_long, home_c_att: home_c_att, home_ave_att: home_ave_att, home_total_play: home_total_play, home_play_yard: home_play_yard, away_car: away_car, away_ave_car: away_ave_car, away_rush_long: away_rush_long, away_c_att: away_c_att, away_ave_att: away_ave_att, away_total_play: away_total_play, away_play_yard: away_play_yard, home_pass_long: home_pass_long, away_pass_long: away_pass_long)
 		        
@@ -1050,9 +1028,9 @@ namespace :setup do
 			puts url
 	  		element = doc.css(".game-date-time").first
 	  		game_date = element.children[1]['data-date']
-	  		if false
-  				game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
-  			end
+
+  			game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
+  			
 	  	end
 	end
 
