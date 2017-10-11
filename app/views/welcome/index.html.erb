@@ -184,7 +184,7 @@ $(document).ready(function() {
     			home_play_yard = score.home_play_yard
     			if home_play_yard != ""
     				home_play_yard_index = home_play_yard.index(".")
-    				home_play_yard = home_play_yard[0..home_play_yard_index+2]
+    				home_play_yard = home_play_yard_index ? home_play_yard[0..home_play_yard_index+2] : ""
     			end
     			away_car = score.away_car
     			away_ave_car = score.away_ave_car
@@ -196,7 +196,7 @@ $(document).ready(function() {
     			away_play_yard = score.away_play_yard
     			if away_play_yard != ""
     				away_play_yard_index = away_play_yard.index(".")
-    				away_play_yard = away_play_yard[0..away_play_yard_index+2]
+    				away_play_yard = away_play_yard_index ? away_play_yard[0..away_play_yard_index+2] : ""
     			end
 
     			if  home_total_play.to_i > 2 && home_pass_long && home_rush_long && home_play_yard
