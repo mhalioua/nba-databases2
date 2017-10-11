@@ -1004,20 +1004,38 @@ namespace :setup do
 		  		home_team_total = home_team_rushing + home_team_passing
 		  		away_team_total = away_team_rushing + away_team_passing
 
-	            home_ave_car = (home_team_rushing.to_f / home_car).round(2)
-	            away_ave_car = (away_team_rushing.to_f / away_car).round(2)
+	            home_ave_car = 0
+	            if home_car != 0
+	            	home_ave_car = (home_team_rushing.to_f / home_car).round(2)
+	            end
+	            away_ave_car = 0
+	            if away_car != 0
+	            	away_ave_car = (away_team_rushing.to_f / away_car).round(2)
+	            end
 
 	            home_c_att = home_c.to_s + "/" + home_attr.to_s
 	            away_c_att = away_c.to_s + "/" + away_attr.to_s
 
-	            home_ave_att = (home_team_passing.to_f / home_attr).round(2)
-	            away_ave_att = (away_team_passing.to_f / away_attr).round(2)
+	            home_ave_att = 0
+	            if home_attr != 0
+	            	home_ave_att = (home_team_passing.to_f / home_attr).round(2)
+	            end
+	            away_ave_att = 0
+	            if away_attr != 0
+	            	away_ave_att = (away_team_passing.to_f / away_attr).round(2)
+	            end
 
 	            home_total_play = home_car + home_attr
-				home_play_yard 	= home_team_total.to_f / home_total_play
+	            home_play_yard 	= 0
+	            if home_total_play != 0
+					home_play_yard 	= home_team_total.to_f / home_total_play
+				end
 
 				away_total_play = away_car + away_attr
-				away_play_yard 	= away_team_total.to_f / away_total_play
+				away_play_yard 	= 0
+				if away_total_play != 0
+					away_play_yard 	= away_team_total.to_f / away_total_play
+				end
 
 			  	unless score = game.scores.find_by(result: "Half")
 	              	score = game.scores.create(result: "Half")
