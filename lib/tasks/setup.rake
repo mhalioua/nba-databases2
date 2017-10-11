@@ -309,7 +309,7 @@ namespace :setup do
 		  	elsif game.game_state == 0 && game_state == 0
 		  		game_status = game.game_status
 		  	end
-  			game.update(away_team: away_team, home_team: home_team, game_type: game_type, game_date: game_date, home_abbr: home_abbr, away_abbr: away_abbr, kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
+  			game.update(kicked: kicked, game_state: game_state, game_status: game_status, first_drive: first_drive, second_drive: second_drive)
 	  	end
 	end
 
