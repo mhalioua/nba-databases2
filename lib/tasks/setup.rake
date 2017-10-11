@@ -317,6 +317,7 @@ namespace :setup do
 
 		include Api
 		game_day = args[:game_day]
+		games = Game.all
 
 		game_link = "college-football"
 		(0..1).each do |index|
