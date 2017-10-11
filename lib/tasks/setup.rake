@@ -14,7 +14,7 @@ namespace :setup do
 		end
 	end
 
-	task :twoMin => :environment do
+	task :min => :environment do
 		game_day = (Time.now - 4.hours).to_formatted_s(:number)[0..7]
 
 		Rake::Task["setup:getGameState"].invoke(game_day)
@@ -28,7 +28,7 @@ namespace :setup do
 		Rake::Task["setup:second"].reenable
 	end
 
-	task :hour => :environment do
+	task :hourly => :environment do
 		game_day = (Time.now - 4.hours).to_formatted_s(:number)[0..7]
 		Rake::Task["setup:first"].invoke(game_day)
 		Rake::Task["setup:first"].reenable
