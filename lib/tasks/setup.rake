@@ -29,6 +29,9 @@ namespace :setup do
 	end
 
 	task :hourly => :environment do
+		Rake::Task["setup:daily"].invoke
+		Rake::Task["setup:daily"].reenable
+
 		game_day = (Time.now - 4.hours).to_formatted_s(:number)[0..7]
 		Rake::Task["setup:first"].invoke(game_day)
 		Rake::Task["setup:first"].reenable
@@ -1016,8 +1019,8 @@ namespace :setup do
 				away_total_play = away_car + away_attr
 				away_play_yard 	= away_team_total.to_f / away_total_play
 
-			  	unless score = game.scores.find_by(result: "half")
-	              	score = game.scores.create(result: "half")
+			  	unless score = game.scores.find_by(result: "Half")
+	              	score = game.scores.create(result: "Half")
 	            end
 	            score.update(game_status: game_status, home_team_total: home_team_total, away_team_total: away_team_total, home_team_rushing: home_team_rushing, away_team_rushing: away_team_rushing, home_result: home_result, away_result: away_result, home_car: home_car, home_ave_car: home_ave_car, home_rush_long: home_rush_long, home_c_att: home_c_att, home_ave_att: home_ave_att, home_total_play: home_total_play, home_play_yard: home_play_yard, away_car: away_car, away_ave_car: away_ave_car, away_rush_long: away_rush_long, away_c_att: away_c_att, away_ave_att: away_ave_att, away_total_play: away_total_play, away_play_yard: away_play_yard, home_pass_long: home_pass_long, away_pass_long: away_pass_long)
 		        
