@@ -329,6 +329,12 @@ namespace :setup do
 			doc = download_document(url)
 			elements = doc.css(".event-holder")
 			elements.each do |element|
+				if element.children[0].children[3].children.size < 3
+					next
+				end
+				if element.children[0].children[5].children.size < 5
+					next
+				end
 				home_number 	= element.children[0].children[3].children[2].text
 				away_number 	= element.children[0].children[3].children[1].text
 				home_name 		= element.children[0].children[5].children[1].text
@@ -389,6 +395,9 @@ namespace :setup do
 			puts url
 			elements = doc.css(".event-holder")
 			elements.each do |element|
+				if element.children[0].children[3].children.size < 3
+					next
+				end
 				home_number 		= element.children[0].children[3].children[2].text.to_i
 				away_number 		= element.children[0].children[3].children[1].text.to_i
 				home_2nd_pinnacle 	= element.children[0].children[9].children[1].text
