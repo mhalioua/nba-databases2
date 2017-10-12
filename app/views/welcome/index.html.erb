@@ -5,8 +5,8 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
-	var start = moment("<%= @game_start_index %>");
-	var end = moment("<%= @game_end_index %>");
+	var start = moment("<%= @game_start_index %>").format('MMM D, YYYY');
+	var end = moment("<%= @game_end_index %>").format('MMM D, YYYY') ;
 	$('.daterange').daterangepicker({
 		locale: {
 			format: 'MMM D, YYYY'
@@ -31,7 +31,6 @@ $(document).ready(function() {
         }
     }, cb);
     function cb(start, end) {
-    	$('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
     	window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }
     $('.prevbutton').click(function(){
@@ -46,7 +45,7 @@ $(document).ready(function() {
 		$('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
         window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }); 
-    $('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+    $('.daterange').val(start + ' - ' + end);
 });
 </script>
 
