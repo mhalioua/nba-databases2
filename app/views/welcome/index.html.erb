@@ -5,11 +5,13 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
-	var start = moment("<%= @game_start_index %>").format('MMM D, YYYY');
-	var end = moment("<%= @game_end_index %>").format('MMM D, YYYY') ;
+	var start = moment("<%= @game_start_index %>").format('MMM DD, YYYY');
+	var end = moment("<%= @game_end_index %>").format('MMM DD, YYYY') ;
+	console.log(start);
+	console.log(end);
 	$('.daterange').daterangepicker({
 		locale: {
-			format: 'MMM D, YYYY'
+			format: 'MMM DD, YYYY'
 		},
         startDate: start,
         endDate: end,
@@ -31,18 +33,22 @@ $(document).ready(function() {
         }
     }, cb);
     function cb(start, end) {
+    	console.log(start);
+    	console.log(end);
     	window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }
     $('.prevbutton').click(function(){
         var start = moment("<%= @game_start_index %>").subtract(1, 'days');
 		var end = moment("<%= @game_end_index %>").subtract(1, 'days');
-		$('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+		console.log(start);
+    	console.log(end);
         window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     }); 
     $('.nextbutton').click(function(){
         var start = moment("<%= @game_start_index %>").add(1, 'days');
 		var end = moment("<%= @game_end_index %>").add(1, 'days');
-		$('.daterange').val(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+		console.log(start);
+    	console.log(end);
         window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
     });
 });
