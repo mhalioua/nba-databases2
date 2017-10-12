@@ -16,20 +16,20 @@ $(document).ready(function() {
         startDate: start,
         endDate: end,
         ranges: {
-           'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Next 7 Days': [moment(), moment().add(6, 'days')],
-           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-           'Last 60 Days': [moment().subtract(59, 'days'), moment()],
-           'Last 90 Days': [moment().subtract(89, 'days'), moment()],
-           'Last 180 Days': [moment().subtract(179, 'days'), moment()],
-           'This Week': [moment().startOf('week'), moment().endOf('week')],
-           'Last Week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-           'This Year': [moment().startOf('year'), moment().endOf('year')],
-           'Last Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')]
+           'Today': [moment().format('MMM DD, YYYY'), moment().format('MMM DD, YYYY')],
+           'Yesterday': [moment().subtract(1, 'days').format('MMM DD, YYYY'), moment().subtract(1, 'days').format('MMM DD, YYYY')],
+           'Last 7 Days': [moment().subtract(6, 'days').format('MMM DD, YYYY'), moment().format('MMM DD, YYYY')],
+           'Next 7 Days': [moment().format('MMM DD, YYYY'), moment().add(6, 'days').format('MMM DD, YYYY')],
+           'Last 30 Days': [moment().subtract(29, 'days').format('MMM DD, YYYY'), moment().format('MMM DD, YYYY')],
+           'Last 60 Days': [moment().subtract(59, 'days').format('MMM DD, YYYY'), moment().format('MMM DD, YYYY')],
+           'Last 90 Days': [moment().subtract(89, 'days').format('MMM DD, YYYY'), moment().format('MMM DD, YYYY')],
+           'Last 180 Days': [moment().subtract(179, 'days').format('MMM DD, YYYY'), moment().format('MMM DD, YYYY')],
+           'This Week': [moment().startOf('week').format('MMM DD, YYYY'), moment().endOf('week').format('MMM DD, YYYY')],
+           'Last Week': [moment().subtract(1, 'week').startOf('week').format('MMM DD, YYYY'), moment().subtract(1, 'week').endOf('week').format('MMM DD, YYYY')],
+           'This Month': [moment().startOf('month').format('MMM DD, YYYY'), moment().endOf('month').format('MMM DD, YYYY')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month').format('MMM DD, YYYY'), moment().subtract(1, 'month').endOf('month').format('MMM DD, YYYY')],
+           'This Year': [moment().startOf('year').format('MMM DD, YYYY'), moment().endOf('year').format('MMM DD, YYYY')],
+           'Last Year': [moment().subtract(1, 'year').startOf('year').format('MMM DD, YYYY'), moment().subtract(1, 'year').endOf('year').format('MMM DD, YYYY')]
         }
     }, cb);
     function cb(start, end) {
