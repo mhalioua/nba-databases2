@@ -933,7 +933,7 @@ namespace :setup do
 		  						end
 		  					end
 		  				end
-		  				if string.include?(" run ") && string.exclude?("NO PLAY")
+		  				if (string.include?(" run ") || string.include?(" rush ")) && string.exclude?("NO PLAY")
 		  					value = string[/\d+/].to_i
 		  					if string.include?(" loss ")
 		  						value = -value
