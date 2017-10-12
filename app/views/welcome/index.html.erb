@@ -1,5 +1,5 @@
 <div class="dateselect" style="text-align: center;">
-	<input type="text" class="daterange" style="width: 250px;">
+	<input class="form-control" type="text" data-toggle="daterangepicker" maxlength="23" name="timestamp" data-filter-type="date-range" style="width: 250px;">  
     <button class="btn btn-primary prevbutton">Prev</button>
     <button class="btn btn-primary nextbutton">Next</button>
 </div>
@@ -7,7 +7,7 @@
 $(document).ready(function() {
 	var start = moment("<%= @game_start_index %>").format('MMM DD, YYYY');
 	var end = moment("<%= @game_end_index %>").format('MMM DD, YYYY') ;
-	$('.daterange').daterangepicker({
+	$('[data-filter-type="date-range"]').daterangepicker({
 		showDropdowns: true,
         ranges: {
            'Today': [moment(), moment()],
