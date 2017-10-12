@@ -63,7 +63,6 @@ gem 'bcrypt'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
-gem 'momentjs-rails'
 gem 'bootstrap-daterangepicker-rails'
 
 gem 'rufus-scheduler'

@@ -17,5 +17,4 @@
 
 //= require bootstrap-sprockets
 
-//= require moment
 //= require daterangepicker
