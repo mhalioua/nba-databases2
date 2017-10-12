@@ -451,6 +451,25 @@ namespace :setup do
 		end
 	end
 
+	task :rest => :environment do
+		year = 2009
+		games = Game.where("game_date between ? and ?", Date.new(year, 1, 1).beginning_of_day, Date.new(year + 1, 1, 1).end_of_day)
+	  	game_index = []
+		games.each do |game|
+			game_index << game.game_date.to_formatted_s(:number)[0..7]
+		end
+		game_index = game_index.uniq
+		game_index = game_index.sort
+
+		game_index.each do |game_day|
+			Rake::Task["setup:first"].invoke(game_day)
+			Rake::Task["setup:first"].reenable
+			
+			Rake::Task["setup:second"].invoke(game_day)
+			Rake::Task["setup:second"].reenable
+		end
+	end
+
 
 	task test: :environment do
 		include Api
