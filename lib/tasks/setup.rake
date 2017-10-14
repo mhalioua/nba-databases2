@@ -451,9 +451,9 @@ namespace :setup do
 			element = doc.css(".game-time").first
 			game_status = element.text
 
-	  		game_state = 1
-	  		if game_status.include?("Half")
-	  			game_state = 0
+	  		game_state = 0
+	  		if game_status.include?("2nd")
+	  			game_state = 1
 	  		end
 
 			scores = doc.css(".score")
