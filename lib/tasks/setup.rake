@@ -135,7 +135,7 @@ namespace :setup do
   			game_status = element.text
 
 	  		game_state = 4
-	  		if game_status.include?("Canceled") || game_status.include?("TBD") || game_status.include?("Postponed")
+	  		if game_status.include?("Canceled") || game_status.include?("TBD") || game_status.include?("Postponed") || game_status.include?("Delayed")
 	  			game_state = 6
 	  		elsif game_status.include?("Final")
 	  			game_state = 5
