@@ -270,7 +270,7 @@ namespace :setup do
 		       	end
   			end
 
-	  		kicked = ""
+	  		kicked = game.kicked
 	  		first_drive = game.first_drive
 	  		second_drive = game.second_drive
 	  		if game_state < 3 || game_state == 5
