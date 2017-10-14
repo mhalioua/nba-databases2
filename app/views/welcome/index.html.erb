@@ -1,7 +1,7 @@
 <div class="dateselect" style="text-align: center;">
-	<input type="text" data-toggle="daterangepicker" name="timestamp" data-filter-type="date-range" style="width: 250px;" class="daterange">  
-    <button class="btn btn-primary prevbutton">Prev</button>
-    <button class="btn btn-primary nextbutton">Next</button>
+	<button class="btn btn-primary prevbutton" style="margin:10px;">Prev Day</button>
+    <button class="btn btn-primary nextbutton" style="margin:10px;">Next Day</button>
+	<input type="text" data-toggle="daterangepicker" name="timestamp" data-filter-type="date-range" style="width: 250px;" class="daterange" style="text-align:center; margin: 20px;">
 </div>
 <script type="text/javascript">
 	var start = moment("<%= @game_start_index %>").format('MMM DD, YYYY');
