@@ -4,7 +4,7 @@ scheduler = Rufus::Scheduler::singleton
 
 scheduler.every '10s' do
 	include Api
-  	games = Game.where(game_state : "6")
+  	games = Game.where(game_state: "6")
   	Rails.logger.info "10secs - #{games.size}"
 
   	games = []

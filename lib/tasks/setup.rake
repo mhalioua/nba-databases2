@@ -434,7 +434,7 @@ namespace :setup do
 
 	task :tensecond => :environment do
 		include Api
-	  	games = Game.where(game_state : "1")
+	  	games = Game.where(game_state: "1")
 	  	Rails.logger.info "10secs - #{games.size}"
 			
 		games.each do |game|
