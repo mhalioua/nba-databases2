@@ -436,6 +436,7 @@ namespace :setup do
 		include Api
 	  	games = Game.where(game_state: "1")
 	  	puts "10secs - #{games.size}"
+	  	games = []
 			
 		games.each do |game|
 			game_link = "college-football"
