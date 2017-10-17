@@ -696,7 +696,7 @@ namespace :setup do
   					if string.include?(" loss ")
   						value = -value
   					end
-  					if string.include?(" no gain ")
+  					if string.include?("no gain")
   						value = 0
   					end
   					if team_abbr == 1
@@ -764,7 +764,7 @@ namespace :setup do
   					if string.include?(" loss ")
   						value = -value
   					end
-  					if string.include?(" no gain ")
+  					if string.include?("no gain")
   						value = 0
   					end
   					if team_abbr == 1
@@ -860,7 +860,7 @@ namespace :setup do
 	task nfl: :environment do
 		include Api
 		game_link="nfl"
-		game_id = "400951776"
+		game_id = "400874543"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -940,7 +940,7 @@ namespace :setup do
   				string = list.children[3].children[1].children[0].text
   				string = string[20..-1].downcase
   				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced")) && string.exclude?("intercepted")
-  					if string.include?(" no gain ")
+  					if string.include?("no gain")
   						value = 0
   					else
   						value_end_index = string.index('yard')
@@ -971,7 +971,7 @@ namespace :setup do
   				end
 
   				if string.include?("sacked at") && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced")) && string.exclude?("intercepted")
-  					if string.include?(" no gain ")
+  					if string.include?("no gain")
   						value = 0
   					else
   						value_end_index = string.index('yard')
@@ -1022,7 +1022,7 @@ namespace :setup do
   				end
   				
   				if string.include?("pass from") && string.exclude?("no play") && (string.exclude?("penalty") || string.exclude?("enforced"))
-  					if string.include?(" no gain ")
+  					if string.include?("no gain")
   						value = 0
   					else
   						value_end_index = string.index('yrd')
@@ -1054,8 +1054,8 @@ namespace :setup do
   					puts value
   					puts "pass"
   				end
-  				if ( string.include?(" right tackle ") || string.include?(" right guard ") || string.include?(" left tackle ") || string.include?(" left guard ") || string.include?(" up the middle to ") || string.include?(" right end ") || string.include?(" left end "))&& string.exclude?("no play") &&  (string.exclude?("penalty") || string.exclude?("enforced"))
-  					if string.include?(" no gain ")
+  				if ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") &&  (string.exclude?("penalty") || string.exclude?("enforced"))
+  					if string.include?("no gain")
   						value = 0
   					else
   						value_end_index = string.index('yard')
@@ -1401,7 +1401,7 @@ namespace :setup do
 			  					if string.include?(" loss ")
 			  						value = -value
 			  					end
-			  					if string.include?(" no gain ")
+			  					if string.include?("no gain")
 			  						value = 0
 			  					end
 			  					if team_abbr == 1
@@ -1459,7 +1459,7 @@ namespace :setup do
 			  					if string.include?(" loss ")
 			  						value = -value
 			  					end
-			  					if string.include?(" no gain ")
+			  					if string.include?("no gain")
 			  						value = 0
 			  					end
 			  					if team_abbr == 1
@@ -1491,7 +1491,7 @@ namespace :setup do
 			  				end
 			  			else
 			  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced")) && string.exclude?("intercepted")
-			  					if string.include?(" no gain ")
+			  					if string.include?("no gain")
 			  						value = 0
 			  					else
 			  						value_end_index = string.index('yard')
@@ -1519,7 +1519,7 @@ namespace :setup do
 			  				end
 
 			  				if string.include?("sacked at") && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced")) && string.exclude?("intercepted")
-			  					if string.include?(" no gain ")
+			  					if string.include?("no gain")
 			  						value = 0
 			  					else
 			  						value_end_index = string.index('yard')
@@ -1563,7 +1563,7 @@ namespace :setup do
 			  				end
 			  				
 			  				if string.include?("pass from") && string.exclude?("no play") && (string.exclude?("penalty") || string.exclude?("enforced"))
-			  					if string.include?(" no gain ")
+			  					if string.include?("no gain")
 			  						value = 0
 			  					else
 			  						value_end_index = string.index('yrd')
@@ -1592,8 +1592,8 @@ namespace :setup do
 			  						end
 			  					end
 			  				end
-			  				if ( string.include?(" right tackle ") || string.include?(" right guard ") || string.include?(" left tackle ") || string.include?(" left guard ") || string.include?(" up the middle to ") || string.include?(" right end ") || string.include?(" left end "))&& string.exclude?("no play") &&  (string.exclude?("penalty") || string.exclude?("enforced"))
-			  					if string.include?(" no gain ")
+			  				if ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") &&  (string.exclude?("penalty") || string.exclude?("enforced"))
+			  					if string.include?("no gain")
 			  						value = 0
 			  					else
 			  						value_end_index = string.index('yard')
