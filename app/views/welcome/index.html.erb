@@ -56,6 +56,9 @@
   				<th colspan="11">1st Half</th>
   				<th colspan="2">Drives</th>
   				<th width="30"></th>
+  				<th width="50"></th>
+  				<th width="50"></th>
+  				<th colspan="9">1st Half</th>
   			</tr>
   			<tr>
   				<th width="40">Game #</th>
@@ -82,6 +85,17 @@
   				<th>1st Half</th>
   				<th>2nd Half</th>
   				<th width="30">FG score</th>
+  				<th width="50">2H Total yards</th>
+  				<th width="50">2H Rushing yards</th>
+  				<th>CAR</th>
+  				<th>AVE <br> CAR</th>
+  				<th>TYPC</th>
+  				<th>C/ATT</th>
+  				<th>AVE <br> ATT</th>
+  				<th>TYPA</th>
+  				<th>TOTAL <br> PLAYS</th>
+  				<th>TOTAL <br> PLAYS/ <br> YARDS</th>
+  				<th>TYPP</th>
   			</tr>
   		</thead>
 		<tbody>
@@ -229,6 +243,70 @@
 			if full
 				home_full = full.home_result
 				away_full = full.away_result
+
+				full_home_team_total = full.home_team_total
+				full_away_team_total = full.away_team_total
+				full_away_team_rushing = full.away_team_rushing
+				full_home_team_rushing = full.home_team_rushing
+
+				full_home_car = full.home_car
+    			full_home_ave_car = full.home_ave_car
+    			full_home_pass_long = full.home_pass_long
+    			full_home_rush_long = full.home_rush_long
+    			full_home_c_att = full.home_c_att
+    			full_home_ave_att = full.home_ave_att
+    			full_home_total_play = full.home_total_play
+    			full_home_play_yard = full.home_play_yard
+    			if full_home_play_yard != ""
+    				full_home_play_yard_index = full_home_play_yard.index(".")
+    				full_home_play_yard = full_home_play_yard_index ? full_home_play_yard[0..full_home_play_yard_index+2] : ""
+    			end
+    			full_away_car = full.away_car
+    			full_away_ave_car = full.away_ave_car
+    			full_away_pass_long = full.away_pass_long
+    			full_away_rush_long = full.away_rush_long
+    			full_away_c_att = full.away_c_att
+    			full_away_ave_att = full.away_ave_att
+    			full_away_total_play = full.away_total_play
+    			full_away_play_yard = full.away_play_yard
+    			if full_away_play_yard != ""
+    				full_away_play_yard_index = full_away_play_yard.index(".")
+    				full_away_play_yard = full_away_play_yard_index ? full_away_play_yard[0..full_away_play_yard_index+2] : ""
+    			end
+
+    			if  full_home_total_play.to_i > 2 && full_home_pass_long && full_home_rush_long && full_home_play_yard
+    				full_home_sacks = ((full_home_team_total.to_i - full_home_pass_long.to_i - full_home_rush_long.to_i).to_f / (full_home_total_play.to_i - 2)).round(2)
+    			end
+
+    			if full_home_car.to_i > 1 && full_home_team_rushing && full_home_rush_long
+                    full_home_typc = ((full_home_team_rushing.to_i - full_home_rush_long.to_i).to_f / (full_home_car.to_i - 1))
+                    full_home_typc = full_home_typc.round(2)
+                end
+                
+
+               	full_home_att_index = full_home_c_att.index("/")
+               	full_home_att = full_home_att_index ? full_home_c_att[full_home_att_index+1..-1].to_i : 0
+               	if full_home_att > 1 && full_home_team_rushing && full_home_pass_long
+               		full_home_typa = ((full_home_team_total.to_i - full_home_team_rushing.to_i - full_home_pass_long.to_i).to_f / (full_home_att - 1))
+               		full_home_typa = full_home_typa.round(2)
+               	end
+               	
+
+    			if  full_away_total_play.to_i > 2 && full_away_pass_long && full_away_rush_long && full_away_play_yard
+    				full_away_sacks = ((full_away_team_total.to_i - full_away_pass_long.to_i - full_away_rush_long.to_i).to_f / (full_away_total_play.to_i - 2)).round(2)
+    			end
+
+    			if full_away_car.to_i > 1 && full_away_team_rushing && full_away_rush_long
+                    full_away_typc = ((full_away_team_rushing.to_i - full_away_rush_long.to_i).to_f / (full_away_car.to_i - 1))
+                	full_away_typc = full_away_typc.round(2)
+                end
+
+                full_away_att_index = full_away_c_att.index("/")
+               	full_away_att = full_away_att_index ? full_away_c_att[full_away_att_index+1..-1].to_i : 0
+               	if full_away_att > 1 && full_away_team_rushing && full_away_pass_long
+               		full_away_typa = ((full_away_team_total.to_i - full_away_team_rushing.to_i - full_away_pass_long.to_i).to_f / (full_away_att - 1))
+               		full_away_typa = full_away_typa.round(2)
+               	end
 			end
 			f_min = ""
 			if game_state == 0
@@ -357,6 +435,17 @@
 				<td rowspan="2" class="borderTop"><%= first_drive %></td>
 				<td rowspan="2" class="borderTop"><%= second_drive %></td>
 				<td class="borderTop"><%= away_full %></td>
+				<td class="borderTop"><%= full_away_team_total %></td>
+				<td class="borderTop"><%= full_away_team_rushing %></td>
+				<td class="borderTop" style=<%= sep_style %> ><%= full_away_car %></td>
+				<td class="borderTop" style=<%= darkcolor %> ><%= full_away_ave_car %></td>
+				<td class="borderTop" style=<%= bluedark %> ><%= full_away_typc %></td>
+				<td class="borderTop" style=<%= sep_style %> ><%= full_away_c_att %></td>
+				<td class="borderTop" style=<%= darkcolor %> ><%= full_away_ave_att %></td>
+				<td class="borderTop" style=<%= bluedark %> ><%= full_away_typa %></td>
+				<td class="borderTop" style=<%= sep_style %> ><%= full_away_total_play %></td>
+				<td class="borderTop" style=<%= darkcolor %> ><%= full_away_play_yard %></td>
+				<td class="borderTop" style=<%= bluedark %> ><%= full_away_sacks %></td>
 			</tr>
 			<tr style=<%= style %> >
 				<td><%= game.home_number %></td>
@@ -377,6 +466,17 @@
 				<td style=<%= sep_style %> ><%= home_pass_long %></td>
 				<td><%= home_rush_long %></td>
 				<td><%= home_full %></td>
+				<td><%= full_home_team_total %></td>
+				<td><%= full_home_team_rushing %></td>
+				<td style=<%= sep_style %> ><%= full_home_car %></td>
+				<td style=<%= darkcolor %> ><%= full_home_ave_car %></td>
+				<td style=<%= bluedark %> ><%= full_home_typc %></td>
+				<td style=<%= sep_style %> ><%= full_home_c_att %></td>
+				<td style=<%= darkcolor %> ><%= full_home_ave_att %></td>
+				<td style=<%= bluedark %> ><%= full_home_typa %></td>
+				<td style=<%= sep_style %> ><%= full_home_total_play %></td>
+				<td style=<%= darkcolor %> ><%= full_home_play_yard %></td>
+				<td style=<%= bluedark %> ><%= full_home_sacks %></td>
 			</tr>
 		<% end %>
 		</tbody>
