@@ -582,6 +582,7 @@ namespace :setup do
 	task :all => :environment do
 		year = 2016
 		end_week = 15
+		end_week = 0
 		game_link = "college-football"
 		(0..1).each do |index|
 			(1..end_week).each do |week_index|
@@ -860,7 +861,7 @@ namespace :setup do
 	task nfl: :environment do
 		include Api
 		game_link="nfl"
-		game_id = "400874543"
+		game_id = "400874545"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -1028,6 +1029,9 @@ namespace :setup do
   						value_end_index = string.index('yrd')
   						if !value_end_index
   							value_end_index = string.index('yd')
+  						end
+  						if !value_end_index
+  							value_end_index = string.index('yard')
   						end
 	  					value_start_index = string.rindex(' ', value_end_index-2)
 	  					value = string[value_start_index..value_end_index].to_i
@@ -1569,6 +1573,9 @@ namespace :setup do
 			  						value_end_index = string.index('yrd')
 			  						if !value_end_index
 			  							value_end_index = string.index('yd')
+			  						end
+			  						if !value_end_index
+			  							value_end_index = string.index('yard')
 			  						end
 				  					value_start_index = string.rindex(' ', value_end_index-2)
 				  					value = string[value_start_index..value_end_index].to_i
