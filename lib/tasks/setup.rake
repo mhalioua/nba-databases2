@@ -1595,9 +1595,6 @@ namespace :setup do
 			  							away_pass_long = value
 			  						end
 			  					end
-			  					puts team_abbr
-			  					puts value
-			  					puts "pass"
 			  				end
 
 			  				if string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted")
@@ -1643,9 +1640,6 @@ namespace :setup do
 			  							away_pass_long = value
 			  						end
 			  					end
-			  					puts team_abbr
-			  					puts value
-			  					puts "sacked at"
 			  				end
 
 			  				if string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted")
@@ -1654,8 +1648,6 @@ namespace :setup do
 			  					else
 			  						away_attr = away_attr + 1
 			  					end
-			  					puts team_abbr
-			  					puts "pass incomplete"
 			  				end
 			  				
 			  				if string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted")
@@ -1707,9 +1699,6 @@ namespace :setup do
 			  							away_pass_long = value
 			  						end
 			  					end
-			  					puts team_abbr
-			  					puts value
-			  					puts "pass"
 			  				end
 			  				if ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play")
 			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
@@ -1753,9 +1742,6 @@ namespace :setup do
 			  							away_rush_long = value
 			  						end
 			  					end
-			  					puts team_abbr
-			  					puts value
-			  					puts "russ"
 			  				end
 			  			end
 		  			end
