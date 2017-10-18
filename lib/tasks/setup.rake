@@ -580,7 +580,7 @@ namespace :setup do
 
 
 	task :all => :environment do
-		year = 2014
+		year = 2016
 		end_week = 15
 		game_link = "college-football"
 		(0..1).each do |index|
@@ -860,7 +860,7 @@ namespace :setup do
 	task nfl: :environment do
 		include Api
 		game_link="nfl"
-		game_id = "400874545"
+		game_id = "400951697"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -936,20 +936,37 @@ namespace :setup do
   			list_length = (lists.children.length-1)/2
   			(1..list_length).each do |list_index|
   				list = lists.children[list_index*2-1]
-  				header = list.children[1].text
+  				header = list.children[1].text.downcase
   				string = list.children[3].children[1].children[0].text
   				string = string[20..-1].downcase
-  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced")) && string.exclude?("intercepted")
-  					if string.include?("no gain")
-  						value = 0
-  					else
-  						value_end_index = string.index('yard')
+  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted")
+  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
+	  					if string.include?("no gain")
+	  						value = 0
+	  					else
+	  						value_end_index = string.index('yard')
+		  					value_start_index = string.rindex(' ', value_end_index-2)
+		  					value = string[value_start_index..value_end_index].to_i
+		  					if string.include?(" loss ")
+		  						value = -value
+		  					end
+	  					end
+	  				else
+	  					value_end_index = string.rindex(/\d+/)
 	  					value_start_index = string.rindex(' ', value_end_index-2)
 	  					value = string[value_start_index..value_end_index].to_i
-	  					if string.include?(" loss ")
-	  						value = -value
+	  					abbr_end_index = value_start_index - 1
+	  					abbr_start_index = string.rindex(' ', abbr_end_index-2)
+	  					header_value = header.scan(/\d+/).last.to_i
+	  					if header.include?(string[abbr_start_index..abbr_end_index])
+	  						value = header_value - value
+	  						if value < 0
+	  							value = -value
+	  						end
+	  					else
+	  						value = 100 - value - header_value
 	  					end
-  					end
+	  				end
   					if team_abbr == 1
   						home_attr = home_attr + 1
   						home_c = home_c + 1
@@ -970,17 +987,34 @@ namespace :setup do
   					puts "pass"
   				end
 
-  				if string.include?("sacked at") && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced")) && string.exclude?("intercepted")
-  					if string.include?("no gain")
-  						value = 0
-  					else
-  						value_end_index = string.index('yard')
+  				if string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted")
+  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
+	  					if string.include?("no gain")
+	  						value = 0
+	  					else
+	  						value_end_index = string.index('yard')
+		  					value_start_index = string.rindex(' ', value_end_index-2)
+		  					value = string[value_start_index..value_end_index].to_i
+		  					if string.include?(" loss ")
+		  						value = -value
+		  					end
+	  					end
+	  				else
+	  					value_end_index = string.rindex(/\d+/)
 	  					value_start_index = string.rindex(' ', value_end_index-2)
 	  					value = string[value_start_index..value_end_index].to_i
-	  					if string.include?(" loss ")
-	  						value = -value
+	  					abbr_end_index = value_start_index - 1
+	  					abbr_start_index = string.rindex(' ', abbr_end_index-2)
+	  					header_value = header.scan(/\d+/).last.to_i
+	  					if header.include?(string[abbr_start_index..abbr_end_index])
+	  						value = header_value - value
+	  						if value < 0
+	  							value = -value
+	  						end
+	  					else
+	  						value = 100 - value - header_value
 	  					end
-  					end
+	  				end
   					if team_abbr == 1
   						home_attr = home_attr + 1
   						home_c = home_c + 1
@@ -1001,17 +1035,7 @@ namespace :setup do
   					puts "sacked at"
   				end
 
-  				if string.include?("pass incomplete") && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced"))
-  					if team_abbr == 1
-  						home_attr = home_attr + 1
-  					else
-  						away_attr = away_attr + 1
-  					end
-  					puts team_abbr
-  					puts "pass incomplete"
-  				end
-
-  				if string.include?("pass") &&  string.include?("intercepted") && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced"))
+  				if string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted")
   					if team_abbr == 1
   						home_attr = home_attr + 1
   					else
@@ -1021,23 +1045,40 @@ namespace :setup do
   					puts "pass incomplete"
   				end
   				
-  				if string.include?("pass from") && string.exclude?("no play") && (string.exclude?("penalty") || string.exclude?("enforced"))
-  					if string.include?("no gain")
-  						value = 0
-  					else
-  						value_end_index = string.index('yrd')
-  						if !value_end_index
-  							value_end_index = string.index('yd')
-  						end
-  						if !value_end_index
-  							value_end_index = string.index('yard')
-  						end
+  				if string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted")
+  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
+	  					if string.include?("no gain")
+	  						value = 0
+	  					else
+	  						value_end_index = string.index('yrd')
+	  						if !value_end_index
+	  							value_end_index = string.index('yd')
+	  						end
+	  						if !value_end_index
+	  							value_end_index = string.index('yard')
+	  						end
+		  					value_start_index = string.rindex(' ', value_end_index-2)
+		  					value = string[value_start_index..value_end_index].to_i
+		  					if string.include?(" loss ")
+		  						value = -value
+		  					end
+	  					end
+	  				else
+	  					value_end_index = string.rindex(/\d+/)
 	  					value_start_index = string.rindex(' ', value_end_index-2)
 	  					value = string[value_start_index..value_end_index].to_i
-	  					if string.include?(" loss ")
-	  						value = -value
+	  					abbr_end_index = value_start_index - 1
+	  					abbr_start_index = string.rindex(' ', abbr_end_index-2)
+	  					header_value = header.scan(/\d+/).last.to_i
+	  					if header.include?(string[abbr_start_index..abbr_end_index])
+	  						value = header_value - value
+	  						if value < 0
+	  							value = -value
+	  						end
+	  					else
+	  						value = 100 - value - header_value
 	  					end
-  					end
+	  				end
   					if team_abbr == 1
   						home_attr = home_attr + 1
   						home_c = home_c + 1
@@ -1057,17 +1098,35 @@ namespace :setup do
   					puts value
   					puts "pass"
   				end
-  				if ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") &&  (string.exclude?("penalty") || string.exclude?("enforced"))
-  					if string.include?("no gain")
-  						value = 0
-  					else
-  						value_end_index = string.index('yard')
+  				if ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play")
+  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
+	  					if string.include?("no gain")
+	  						value = 0
+	  					else
+	  						value_end_index = string.index('yard')
+		  					value_start_index = string.rindex(' ', value_end_index-2)
+		  					value = string[value_start_index..value_end_index].to_i
+		  					if string.include?(" loss ")
+		  						value = -value
+		  					end
+	  					end
+	  				else
+	  					value_end_index = string.rindex(/\d+/)
 	  					value_start_index = string.rindex(' ', value_end_index-2)
 	  					value = string[value_start_index..value_end_index].to_i
-	  					if string.include?(" loss ")
-	  						value = -value
+	  					abbr_end_index = value_start_index - 1
+	  					abbr_start_index = string.rindex(' ', abbr_end_index-2)
+	  					header_value = header.scan(/\d+/).last.to_i
+	  					if header.include?(string[abbr_start_index..abbr_end_index])
+	  						value = header_value - value
+	  						if value < 0
+	  							value = -value
+	  						end
+	  					else
+	  						value = 100 - value - header_value
 	  					end
-  					end
+	  				end
+
   					if team_abbr == 1
   						home_car = home_car + 1
   						home_team_rushing = home_team_rushing + value
@@ -1395,7 +1454,7 @@ namespace :setup do
 		  			list_length = (lists.children.length-1)/2
 		  			(1..list_length).each do |list_index|
 		  				list = lists.children[list_index*2-1]
-		  				header = list.children[1].text
+		  				header = list.children[1].text.downcase
 		  				string = list.children[3].children[1].children[0].text
 		  				string = string[20..-1].downcase
 		  				if game_link == "college-football"
@@ -1493,17 +1552,34 @@ namespace :setup do
 			  					end
 			  				end
 			  			else
-			  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced")) && string.exclude?("intercepted")
-			  					if string.include?("no gain")
-			  						value = 0
-			  					else
-			  						value_end_index = string.index('yard')
+			  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted")
+			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
+				  					if string.include?("no gain")
+				  						value = 0
+				  					else
+				  						value_end_index = string.index('yard')
+					  					value_start_index = string.rindex(' ', value_end_index-2)
+					  					value = string[value_start_index..value_end_index].to_i
+					  					if string.include?(" loss ")
+					  						value = -value
+					  					end
+				  					end
+				  				else
+				  					value_end_index = string.rindex(/\d+/)
 				  					value_start_index = string.rindex(' ', value_end_index-2)
 				  					value = string[value_start_index..value_end_index].to_i
-				  					if string.include?(" loss ")
-				  						value = -value
+				  					abbr_end_index = value_start_index - 1
+				  					abbr_start_index = string.rindex(' ', abbr_end_index-2)
+				  					header_value = header.scan(/\d+/).last.to_i
+				  					if header.include?(string[abbr_start_index..abbr_end_index])
+				  						value = header_value - value
+				  						if value < 0
+				  							value = -value
+				  						end
+				  					else
+				  						value = 100 - value - header_value
 				  					end
-			  					end
+				  				end
 			  					if team_abbr == 1
 			  						home_attr = home_attr + 1
 			  						home_c = home_c + 1
@@ -1519,19 +1595,39 @@ namespace :setup do
 			  							away_pass_long = value
 			  						end
 			  					end
+			  					puts team_abbr
+			  					puts value
+			  					puts "pass"
 			  				end
 
-			  				if string.include?("sacked at") && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced")) && string.exclude?("intercepted")
-			  					if string.include?("no gain")
-			  						value = 0
-			  					else
-			  						value_end_index = string.index('yard')
+			  				if string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted")
+			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
+				  					if string.include?("no gain")
+				  						value = 0
+				  					else
+				  						value_end_index = string.index('yard')
+					  					value_start_index = string.rindex(' ', value_end_index-2)
+					  					value = string[value_start_index..value_end_index].to_i
+					  					if string.include?(" loss ")
+					  						value = -value
+					  					end
+				  					end
+				  				else
+				  					value_end_index = string.rindex(/\d+/)
 				  					value_start_index = string.rindex(' ', value_end_index-2)
 				  					value = string[value_start_index..value_end_index].to_i
-				  					if string.include?(" loss ")
-				  						value = -value
+				  					abbr_end_index = value_start_index - 1
+				  					abbr_start_index = string.rindex(' ', abbr_end_index-2)
+				  					header_value = header.scan(/\d+/).last.to_i
+				  					if header.include?(string[abbr_start_index..abbr_end_index])
+				  						value = header_value - value
+				  						if value < 0
+				  							value = -value
+				  						end
+				  					else
+				  						value = 100 - value - header_value
 				  					end
-			  					end
+				  				end
 			  					if team_abbr == 1
 			  						home_attr = home_attr + 1
 			  						home_c = home_c + 1
@@ -1547,41 +1643,55 @@ namespace :setup do
 			  							away_pass_long = value
 			  						end
 			  					end
+			  					puts team_abbr
+			  					puts value
+			  					puts "sacked at"
 			  				end
 
-			  				if string.include?("pass incomplete") && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced"))
+			  				if string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted")
 			  					if team_abbr == 1
 			  						home_attr = home_attr + 1
 			  					else
 			  						away_attr = away_attr + 1
 			  					end
-			  				end
-
-			  				if string.include?("pass") &&  string.include?("intercepted") && string.exclude?("no play") && (string.exclude?("penalty") ||  string.exclude?("enforced"))
-			  					if team_abbr == 1
-			  						home_attr = home_attr + 1
-			  					else
-			  						away_attr = away_attr + 1
-			  					end
+			  					puts team_abbr
+			  					puts "pass incomplete"
 			  				end
 			  				
-			  				if string.include?("pass from") && string.exclude?("no play") && (string.exclude?("penalty") || string.exclude?("enforced"))
-			  					if string.include?("no gain")
-			  						value = 0
-			  					else
-			  						value_end_index = string.index('yrd')
-			  						if !value_end_index
-			  							value_end_index = string.index('yd')
-			  						end
-			  						if !value_end_index
-			  							value_end_index = string.index('yard')
-			  						end
+			  				if string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted")
+			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
+				  					if string.include?("no gain")
+				  						value = 0
+				  					else
+				  						value_end_index = string.index('yrd')
+				  						if !value_end_index
+				  							value_end_index = string.index('yd')
+				  						end
+				  						if !value_end_index
+				  							value_end_index = string.index('yard')
+				  						end
+					  					value_start_index = string.rindex(' ', value_end_index-2)
+					  					value = string[value_start_index..value_end_index].to_i
+					  					if string.include?(" loss ")
+					  						value = -value
+					  					end
+				  					end
+				  				else
+				  					value_end_index = string.rindex(/\d+/)
 				  					value_start_index = string.rindex(' ', value_end_index-2)
 				  					value = string[value_start_index..value_end_index].to_i
-				  					if string.include?(" loss ")
-				  						value = -value
+				  					abbr_end_index = value_start_index - 1
+				  					abbr_start_index = string.rindex(' ', abbr_end_index-2)
+				  					header_value = header.scan(/\d+/).last.to_i
+				  					if header.include?(string[abbr_start_index..abbr_end_index])
+				  						value = header_value - value
+				  						if value < 0
+				  							value = -value
+				  						end
+				  					else
+				  						value = 100 - value - header_value
 				  					end
-			  					end
+				  				end
 			  					if team_abbr == 1
 			  						home_attr = home_attr + 1
 			  						home_c = home_c + 1
@@ -1597,18 +1707,39 @@ namespace :setup do
 			  							away_pass_long = value
 			  						end
 			  					end
+			  					puts team_abbr
+			  					puts value
+			  					puts "pass"
 			  				end
-			  				if ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") &&  (string.exclude?("penalty") || string.exclude?("enforced"))
-			  					if string.include?("no gain")
-			  						value = 0
-			  					else
-			  						value_end_index = string.index('yard')
+			  				if ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play")
+			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
+				  					if string.include?("no gain")
+				  						value = 0
+				  					else
+				  						value_end_index = string.index('yard')
+					  					value_start_index = string.rindex(' ', value_end_index-2)
+					  					value = string[value_start_index..value_end_index].to_i
+					  					if string.include?(" loss ")
+					  						value = -value
+					  					end
+				  					end
+				  				else
+				  					value_end_index = string.rindex(/\d+/)
 				  					value_start_index = string.rindex(' ', value_end_index-2)
 				  					value = string[value_start_index..value_end_index].to_i
-				  					if string.include?(" loss ")
-				  						value = -value
+				  					abbr_end_index = value_start_index - 1
+				  					abbr_start_index = string.rindex(' ', abbr_end_index-2)
+				  					header_value = header.scan(/\d+/).last.to_i
+				  					if header.include?(string[abbr_start_index..abbr_end_index])
+				  						value = header_value - value
+				  						if value < 0
+				  							value = -value
+				  						end
+				  					else
+				  						value = 100 - value - header_value
 				  					end
-			  					end
+				  				end
+
 			  					if team_abbr == 1
 			  						home_car = home_car + 1
 			  						home_team_rushing = home_team_rushing + value
@@ -1622,6 +1753,9 @@ namespace :setup do
 			  							away_rush_long = value
 			  						end
 			  					end
+			  					puts team_abbr
+			  					puts value
+			  					puts "russ"
 			  				end
 			  			end
 		  			end
