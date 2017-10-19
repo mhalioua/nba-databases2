@@ -582,7 +582,7 @@ namespace :setup do
 	task :all => :environment do
 		year = 2009
 		end_week = 15
-		start_week = 6
+		start_week = 13
 		game_link = "college-football"
 		(0..1).each do |index|
 			(start_week..end_week).each do |week_index|
