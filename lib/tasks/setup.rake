@@ -860,7 +860,7 @@ namespace :setup do
 	task nfl: :environment do
 		include Api
 		game_link="nfl"
-		game_id = "400554309"
+		game_id = "330919021"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -939,7 +939,7 @@ namespace :setup do
   				header = list.children[1].text.downcase
   				string = list.children[3].children[1].children[0].text
   				string = string[20..-1].downcase
-  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted")  && string.exclude?("safety")
+  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted")  && string.exclude?("safety") && string.exclude?("attempt")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 	  					if string.include?("no gain")
 	  						value = 0
@@ -986,7 +986,7 @@ namespace :setup do
   					puts value
   					puts "pass"
 
-  				elsif string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+  				elsif string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety") && string.exclude?("attempt")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 	  					if string.include?("no gain")
 	  						value = 0
@@ -1033,7 +1033,7 @@ namespace :setup do
   					puts value
   					puts "sacked at"
 
-  				elsif string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+  				elsif string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety") && string.exclude?("attempt")
   					if team_abbr == 1
   						home_attr = home_attr + 1
   					else
@@ -1042,7 +1042,7 @@ namespace :setup do
   					puts team_abbr
   					puts "pass incomplete"
 
-  				elsif string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+  				elsif string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety") && string.exclude?("attempt")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 	  					if string.include?("no gain")
 	  						value = 0
@@ -1095,7 +1095,7 @@ namespace :setup do
   					puts value
   					puts "pass"
 
-  				elsif ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") && string.exclude?("safety")
+  				elsif ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") && string.exclude?("safety") && string.exclude?("attempt")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 	  					if string.include?("no gain")
 	  						value = 0
@@ -1549,7 +1549,7 @@ namespace :setup do
 			  					end
 			  				end
 			  			else
-			  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+			  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety") && string.exclude?("attempt")
 			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 				  					if string.include?("no gain")
 				  						value = 0
@@ -1594,7 +1594,7 @@ namespace :setup do
 			  					end
 			  				
 
-			  				elsif string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+			  				elsif string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety") && string.exclude?("attempt")
 			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 				  					if string.include?("no gain")
 				  						value = 0
@@ -1639,14 +1639,14 @@ namespace :setup do
 			  					end
 			  				
 
-			  				elsif string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+			  				elsif string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety") && string.exclude?("attempt")
 			  					if team_abbr == 1
 			  						home_attr = home_attr + 1
 			  					else
 			  						away_attr = away_attr + 1
 			  					end
 			  				
-			  				elsif string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+			  				elsif string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety") && string.exclude?("attempt")
 			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 				  					if string.include?("no gain")
 				  						value = 0
@@ -1697,7 +1697,7 @@ namespace :setup do
 			  					end
 			  				
 
-			  				elsif ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") && string.exclude?("safety")
+			  				elsif ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") && string.exclude?("safety") && string.exclude?("attempt")
 			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 				  					if string.include?("no gain")
 				  						value = 0
