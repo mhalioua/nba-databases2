@@ -580,16 +580,13 @@ namespace :setup do
 
 
 	task :all => :environment do
-		year = 2009
+		year = 2013
 
 		(1..15).each do |week_index|
-			game_link =  "college-football"
-		end
-		
-		(1..17).each do |week_index|
-			Rake::Task["setup:previous"].invoke(year, "nfl", week_index)
+			Rake::Task["setup:previous"].invoke(year, "college-football", week_index)
 			Rake::Task["setup:previous"].reenable
 		end
+		
 
 		games = Game.where("game_date between ? and ?", Date.new(year, 1, 1).beginning_of_day, Date.new(year + 1, 1, 1).end_of_day)
 	  	game_index = []
@@ -610,8 +607,8 @@ namespace :setup do
 
 	task college: :environment do
 		include Api
-		game_link="nfl"
-		game_id = "400951776"
+		game_link="college-football"
+		game_id = "332900153"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -758,7 +755,7 @@ namespace :setup do
   					puts value
   					puts "pass"
   				end
-  				if string.include?(" run ") && string.exclude?("no play")
+  				if (string.include?(" run ") || string.include?(" rush ")) && string.exclude?("no play")
   					value = string[/\d+/].to_i
   					if string.include?(" loss ")
   						value = -value
@@ -859,7 +856,7 @@ namespace :setup do
 	task nfl: :environment do
 		include Api
 		game_link="nfl"
-		game_id = "320923007"
+		game_id = "331017022"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -1514,7 +1511,7 @@ namespace :setup do
 			  						end
 			  					end
 			  				end
-			  				if string.include?(" run ") && string.exclude?("no play")
+			  				if (string.include?(" run ") || string.include?(" rush ")) && string.exclude?("no play")
 			  					value = string[/\d+/].to_i
 			  					if string.include?(" loss ")
 			  						value = -value
