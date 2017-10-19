@@ -860,7 +860,7 @@ namespace :setup do
 	task nfl: :environment do
 		include Api
 		game_link="nfl"
-		game_id = "330919021"
+		game_id = "331222020"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -938,7 +938,7 @@ namespace :setup do
   				list = lists.children[list_index*2-1]
   				header = list.children[1].text.downcase
   				string = list.children[3].children[1].children[0].text
-  				string = string[20..-1].downcase
+  				string = string[25..-1].downcase
   				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted")  && string.exclude?("safety") && string.exclude?("attempt")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 	  					if string.include?("no gain")
@@ -1101,7 +1101,9 @@ namespace :setup do
 	  						value = 0
 	  					else
 	  						value_end_index = string.index('yard')
+	  						puts value_end_index
 		  					value_start_index = string.rindex(' ', value_end_index-2)
+		  					puts value_start_index
 		  					value = string[value_start_index..value_end_index].to_i
 		  					if string.include?(" loss ")
 		  						value = -value
@@ -1453,7 +1455,7 @@ namespace :setup do
 		  				list = lists.children[list_index*2-1]
 		  				header = list.children[1].text.downcase
 		  				string = list.children[3].children[1].children[0].text
-		  				string = string[20..-1].downcase
+		  				string = string[25..-1].downcase
 		  				if game_link == "college-football"
 			  				if string.include?("pass complete") && string.exclude?("no play")
 			  					value = string[/\d+/].to_i
