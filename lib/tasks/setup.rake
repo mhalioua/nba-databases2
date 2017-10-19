@@ -580,13 +580,13 @@ namespace :setup do
 
 
 	task :all => :environment do
-		year = 2013
+		year = 2012
 
 		(1..15).each do |week_index|
 			Rake::Task["setup:previous"].invoke(year, "college-football", week_index)
 			Rake::Task["setup:previous"].reenable
 		end
-		
+
 
 		games = Game.where("game_date between ? and ?", Date.new(year, 1, 1).beginning_of_day, Date.new(year + 1, 1, 1).end_of_day)
 	  	game_index = []
