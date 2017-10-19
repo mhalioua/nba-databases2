@@ -582,6 +582,7 @@ namespace :setup do
 	task :all => :environment do
 		year = 2012
 		end_week = 15
+		end_week = 0
 		game_link = "college-football"
 		(0..1).each do |index|
 			(1..end_week).each do |week_index|
@@ -860,7 +861,7 @@ namespace :setup do
 	task nfl: :environment do
 		include Api
 		game_link="nfl"
-		game_id = "331222020"
+		game_id = "320923007"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -939,9 +940,9 @@ namespace :setup do
   				header = list.children[1].text.downcase
   				string = list.children[3].children[1].children[0].text
   				string = string[25..-1].downcase
-  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted")  && string.exclude?("safety") && string.exclude?("attempt")
+  				if (string.include?("pass complete ") || string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted")  && string.exclude?("safety") && string.exclude?("attempt")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
-	  					if string.include?("no gain")
+	  					if string.include?("no gain") || string.include?("incomplete")
 	  						value = 0
 	  					else
 	  						value_end_index = string.index('yard')
@@ -1551,9 +1552,9 @@ namespace :setup do
 			  					end
 			  				end
 			  			else
-			  				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety") && string.exclude?("attempt")
+			  				if (string.include?("pass complete ") || string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety") && string.exclude?("attempt")
 			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
-				  					if string.include?("no gain")
+				  					if string.include?("no gain") || string.include?("incomplete")
 				  						value = 0
 				  					else
 				  						value_end_index = string.index('yard')
