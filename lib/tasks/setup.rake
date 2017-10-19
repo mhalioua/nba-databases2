@@ -860,7 +860,7 @@ namespace :setup do
 	task nfl: :environment do
 		include Api
 		game_link="nfl"
-		game_id = "400554244"
+		game_id = "400554309"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -935,9 +935,11 @@ namespace :setup do
   			lists = element.children[1].children[0].children[0]
   			list_length = (lists.children.length-1)/2
   			(1..list_length).each do |list_index|
+  				puts list_index
   				list = lists.children[list_index*2-1]
   				header = list.children[1].text.downcase
   				string = list.children[3].children[1].children[0].text
+  				puts string
   				string = string[20..-1].downcase
   				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted")  && string.exclude?("safety")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
@@ -985,9 +987,8 @@ namespace :setup do
   					puts team_abbr
   					puts value
   					puts "pass"
-  				end
 
-  				if string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+  				elsif string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 	  					if string.include?("no gain")
 	  						value = 0
@@ -1033,9 +1034,8 @@ namespace :setup do
   					puts team_abbr
   					puts value
   					puts "sacked at"
-  				end
 
-  				if string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+  				elsif string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
   					if team_abbr == 1
   						home_attr = home_attr + 1
   					else
@@ -1043,9 +1043,8 @@ namespace :setup do
   					end
   					puts team_abbr
   					puts "pass incomplete"
-  				end
-  				
-  				if string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+
+  				elsif string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 	  					if string.include?("no gain")
 	  						value = 0
@@ -1097,8 +1096,8 @@ namespace :setup do
   					puts team_abbr
   					puts value
   					puts "pass"
-  				end
-  				if ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") && string.exclude?("safety")
+
+  				elsif ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") && string.exclude?("safety")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 	  					if string.include?("no gain")
 	  						value = 0
@@ -1595,9 +1594,9 @@ namespace :setup do
 			  							away_pass_long = value
 			  						end
 			  					end
-			  				end
+			  				
 
-			  				if string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+			  				elsif string.include?("sacked at") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
 			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 				  					if string.include?("no gain")
 				  						value = 0
@@ -1640,9 +1639,9 @@ namespace :setup do
 			  							away_pass_long = value
 			  						end
 			  					end
-			  				end
+			  				
 
-			  				if string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+			  				elsif string.include?("pass incomplete") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
 			  					if team_abbr == 1
 			  						home_attr = home_attr + 1
 			  					else
@@ -1699,8 +1698,9 @@ namespace :setup do
 			  							away_pass_long = value
 			  						end
 			  					end
-			  				end
-			  				if ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") && string.exclude?("safety")
+			  				
+
+			  				elsif ( string.include?("right tackle") || string.include?("right guard") || string.include?("left tackle") || string.include?("left guard") || string.include?("up the middle to") || string.include?("right end") || string.include?("left end"))&& string.exclude?("no play") && string.exclude?("safety")
 			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 				  					if string.include?("no gain")
 				  						value = 0
