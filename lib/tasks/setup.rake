@@ -580,7 +580,7 @@ namespace :setup do
 
 
 	task :all => :environment do
-		year = 2014
+		year = 2013
 		end_week = 15
 		end_week = 0
 		game_link = "college-football"
