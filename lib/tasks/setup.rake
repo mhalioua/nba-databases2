@@ -936,11 +936,9 @@ namespace :setup do
   			lists = element.children[1].children[0].children[0]
   			list_length = (lists.children.length-1)/2
   			(1..list_length).each do |list_index|
-  				puts list_index
   				list = lists.children[list_index*2-1]
   				header = list.children[1].text.downcase
   				string = list.children[3].children[1].children[0].text
-  				puts string
   				string = string[20..-1].downcase
   				if (string.include?("pass short") || string.include?("pass deep")) && string.exclude?("no play") && string.exclude?("intercepted")  && string.exclude?("safety")
   					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
@@ -1648,9 +1646,8 @@ namespace :setup do
 			  					else
 			  						away_attr = away_attr + 1
 			  					end
-			  				end
 			  				
-			  				if string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
+			  				elsif string.include?("pass from") && string.exclude?("no play") && string.exclude?("intercepted") && string.exclude?("safety")
 			  					if (string.exclude?("penalty") ||  string.exclude?("enforced"))
 				  					if string.include?("no gain")
 				  						value = 0
