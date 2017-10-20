@@ -608,7 +608,7 @@ namespace :setup do
 	task college: :environment do
 		include Api
 		game_link="college-football"
-		game_id = "332900153"
+		game_id = "292960349"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -797,6 +797,7 @@ namespace :setup do
   					puts "sacked"
   				end
   			end
+  			puts element.children[0].text
   			if element.children[0].text.include?("End of") && first_drive == 0
   				first_drive = index + 1
   				score = element.children[0].children[0].children[1]
@@ -856,7 +857,7 @@ namespace :setup do
 	task nfl: :environment do
 		include Api
 		game_link="nfl"
-		game_id = "331017022"
+		game_id = "301024003"
 		
 		home_team_passing = 0
 		away_team_passing = 0
@@ -1362,9 +1363,9 @@ namespace :setup do
 					away_sacks 		= element[3].text
 				end
 		       
-		        unless score = game.scores.find_by(result: "Half")
-		          	score = game.scores.create(result: "Half")
-		        end
+		        unless score = game.scores.find_by(result: "Final")
+	              	score = game.scores.create(result: "Final")
+	            end
 
 		        if game_state == 1
 		        	game_time_index = game_status.index(" ")
