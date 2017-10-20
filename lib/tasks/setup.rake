@@ -587,6 +587,11 @@ namespace :setup do
 			Rake::Task["setup:previous"].reenable
 		end
 
+		(1..17).each do |week_index|
+			Rake::Task["setup:previous"].invoke(year, "nfl", week_index)
+			Rake::Task["setup:previous"].reenable
+		end
+
 
 		games = Game.where("game_date between ? and ?", Date.new(year, 1, 1).beginning_of_day, Date.new(year + 1, 1, 1).end_of_day)
 	  	game_index = []
