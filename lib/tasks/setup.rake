@@ -582,7 +582,7 @@ namespace :setup do
 	task :all => :environment do
 		year = 2009
 
-		(3..15).each do |week_index|
+		(6..15).each do |week_index|
 			Rake::Task["setup:previous"].invoke(year, "college-football", week_index)
 			Rake::Task["setup:previous"].reenable
 		end
