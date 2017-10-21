@@ -130,7 +130,8 @@ namespace :nba do
 				start_index = value.index("-")
 				home_ot_quarter = value[start_index..-1].to_i
 			end
-			game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter - away_first_quarter, home_second_quarter: home_second_quarter - home_first_quarter, away_third_quarter: away_third_quarter - away_second_quarter, home_third_quarter: home_third_quarter - home_second_quarter, away_forth_quarter: away_forth_quarter - away_third_quarter, home_forth_quarter: home_forth_quarter - home_third_quarter, away_ot_quarter: away_ot_quarter - away_forth_quarter, home_ot_quarter: home_ot_quarter - home_forth_quarter)
+
+			game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter - away_first_quarter, home_second_quarter: home_second_quarter - home_first_quarter, away_third_quarter: away_third_quarter - away_second_quarter, home_third_quarter: home_third_quarter - home_second_quarter, away_forth_quarter: away_forth_quarter - away_third_quarter, home_forth_quarter: home_forth_quarter - home_third_quarter, away_ot_quarter: away_ot_quarter - away_forth_quarter, home_ot_quarter: home_ot_quarter - home_forth_quarter, away_score: away_ot_quarter, home_score: home_ot_quarter, total_score: away_ot_quarter + home_ot_quarter, first_point: home_second_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter - home_second_quarter - away_second_quarter, total_point: home_forth_quarter + away_forth_quarter)
 		end
 	end
 end
