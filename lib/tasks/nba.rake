@@ -83,7 +83,7 @@ namespace :nba do
 				value = element.last.text
 				end_index = value.index(" ")
 				away_first_quarter = value[0..end_index].to_i
-				start_index = value.index("-")
+				start_index = value.index("-") + 2
 				home_first_quarter = value[start_index..-1].to_i
 			end
 
@@ -94,7 +94,7 @@ namespace :nba do
 				value = element.last.text
 				end_index = value.index(" ")
 				away_second_quarter = value[0..end_index].to_i
-				start_index = value.index("-")
+				start_index = value.index("-") + 2
 				home_second_quarter = value[start_index..-1].to_i
 			end
 
@@ -105,7 +105,7 @@ namespace :nba do
 				value = element.last.text
 				end_index = value.index(" ")
 				away_third_quarter = value[0..end_index].to_i
-				start_index = value.index("-")
+				start_index = value.index("-") + 2
 				home_third_quarter = value[start_index..-1].to_i
 			end
 
@@ -116,7 +116,7 @@ namespace :nba do
 				value = element.last.text
 				end_index = value.index(" ")
 				away_forth_quarter = value[0..end_index].to_i
-				start_index = value.index("-")
+				start_index = value.index("-") + 2
 				home_forth_quarter = value[start_index..-1].to_i
 			end
 
@@ -127,7 +127,7 @@ namespace :nba do
 				value = element.last.text
 				end_index = value.index(" ")
 				away_ot_quarter = value[0..end_index].to_i
-				start_index = value.index("-")
+				start_index = value.index("-") + 2
 				home_ot_quarter = value[start_index..-1].to_i
 			end
 
