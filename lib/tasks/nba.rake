@@ -134,4 +134,47 @@ namespace :nba do
 			game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter - away_first_quarter, home_second_quarter: home_second_quarter - home_first_quarter, away_third_quarter: away_third_quarter - away_second_quarter, home_third_quarter: home_third_quarter - home_second_quarter, away_forth_quarter: away_forth_quarter - away_third_quarter, home_forth_quarter: home_forth_quarter - home_third_quarter, away_ot_quarter: away_ot_quarter - away_forth_quarter, home_ot_quarter: home_ot_quarter - home_forth_quarter, away_score: away_ot_quarter, home_score: home_ot_quarter, total_score: away_ot_quarter + home_ot_quarter, first_point: home_second_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter - home_second_quarter - away_second_quarter, total_point: home_forth_quarter + away_forth_quarter)
 		end
 	end
+
+	task :getLinkGame => [:environment] do
+		include Api
+
+		Time.zone = 'Eastern Time (US & Canada)'
+
+		games = Nba.where("game_id = 400899482")
+		games.each do |game|
+			home_team = game.home_team
+			away_team = game.away_team
+			game_date = game.game_date
+			puts DateTime.parse(game_date).in_time_zone.to_date
+
+			away_last_game = -1
+			away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).first
+			if away_team_prev
+				away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i
+			end
+			puts away_last_game
+
+
+			away_next_game = -1
+			away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
+			if away_team_next
+				away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i 
+			end
+			puts away_next_game
+
+			home_last_game = -1
+			home_team_prev = Nba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).first
+			if home_team_prev
+				home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i 
+			end
+			puts home_last_game
+
+			home_next_game = -1
+			home_team_next = Nba.where("home_team = ? AND game_date > ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
+			if home_team_next
+				home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i 
+			end
+			puts home_next_game
+		end
+	end
 end
