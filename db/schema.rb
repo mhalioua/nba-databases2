@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020220919) do
+ActiveRecord::Schema.define(version: 20171021135451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,34 @@ ActiveRecord::Schema.define(version: 20171020220919) do
     t.string "away_abbr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "away_last_game"
+    t.integer "away_next_game"
+    t.integer "away_first_quarter"
+    t.integer "away_second_quarter"
+    t.integer "away_third_quarter"
+    t.integer "away_forth_quarter"
+    t.integer "away_ot_quarter"
+    t.integer "home_last_game"
+    t.string "home_last_fly"
+    t.integer "home_next_game"
+    t.string "home_next_fly"
+    t.integer "home_first_quarter"
+    t.integer "home_second_quarter"
+    t.integer "home_third_quarter"
+    t.integer "home_forth_quarter"
+    t.integer "home_ot_quarter"
+    t.integer "away_score"
+    t.integer "home_score"
+    t.integer "total_score"
+    t.integer "first_point"
+    t.integer "second_point"
+    t.integer "total_point"
+    t.float "first_line"
+    t.float "second_line"
+    t.float "full_line"
+    t.float "first_side"
+    t.float "second_side"
+    t.float "full_side"
   end
 
   create_table "scores", force: :cascade do |t|

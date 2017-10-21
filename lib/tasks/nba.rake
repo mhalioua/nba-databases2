@@ -68,7 +68,7 @@ namespace :nba do
 	task :getScore => [:environment] do
 		include Api
 
-		games = Game.all
+		games = Nba.all
 		games.each do |game|
 			game_id = game.game_id
 
@@ -88,8 +88,8 @@ namespace :nba do
 			end
 
 			element = doc.css("#gp-quarter-2 tr .combined-score")
-	  		away_second_quarter = 0
-	  		home_second_quarter = 0
+	  		away_second_quarter = away_first_quarter
+	  		home_second_quarter = home_first_quarter
 	  		if element.size != 0
 				value = element.last.text
 				end_index = value.index(" ")
@@ -99,8 +99,8 @@ namespace :nba do
 			end
 
 			element = doc.css("#gp-quarter-3 tr .combined-score")
-	  		away_third_quarter = 0
-	  		home_third_quarter = 0
+	  		away_third_quarter = away_second_quarter
+	  		home_third_quarter = home_second_quarter
 	  		if element.size != 0
 				value = element.last.text
 				end_index = value.index(" ")
@@ -110,8 +110,8 @@ namespace :nba do
 			end
 
 			element = doc.css("#gp-quarter-4 tr .combined-score")
-	  		away_forth_quarter = 0
-	  		home_forth_quarter = 0
+	  		away_forth_quarter = away_third_quarter
+	  		home_forth_quarter = home_third_quarter
 	  		if element.size != 0
 				value = element.last.text
 				end_index = value.index(" ")
@@ -121,8 +121,8 @@ namespace :nba do
 			end
 
 			element = doc.css("#gp-quarter-5 tr .combined-score")
-	  		away_ot_quarter = 0
-	  		home_ot_quarter = 0
+	  		away_ot_quarter = away_forth_quarter
+	  		home_ot_quarter = home_forth_quarter
 	  		if element.size != 0
 				value = element.last.text
 				end_index = value.index(" ")
@@ -130,7 +130,7 @@ namespace :nba do
 				start_index = value.index("-")
 				home_ot_quarter = value[start_index..-1].to_i
 			end
-			game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter, home_second_quarter: home_second_quarter, away_third_quarter: away_third_quarter, home_third_quarter: home_third_quarter, away_forth_quarter: away_forth_quarter, home_forth_quarter: home_forth_quarter, away_ot_quarter: away_ot_quarter, home_ot_quarter: home_ot_quarter)
+			game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter - away_first_quarter, home_second_quarter: home_second_quarter - home_first_quarter, away_third_quarter: away_third_quarter - away_second_quarter, home_third_quarter: home_third_quarter - home_second_quarter, away_forth_quarter: away_forth_quarter - away_third_quarter, home_forth_quarter: home_forth_quarter - home_third_quarter, away_ot_quarter: away_ot_quarter - away_forth_quarter, home_ot_quarter: home_ot_quarter - home_forth_quarter)
 		end
 	end
 end
