@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918094344) do
+ActiveRecord::Schema.define(version: 20171020220919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(version: 20170918094344) do
     t.string "away_pinnacle"
     t.string "home_2nd_pinnacle"
     t.string "away_2nd_pinnacle"
+    t.integer "first_drive"
+    t.integer "second_drive"
+  end
+
+  create_table "nbas", force: :cascade do |t|
+    t.string "home_team"
+    t.string "away_team"
+    t.integer "game_id"
+    t.string "game_date"
+    t.string "home_abbr"
+    t.string "away_abbr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "scores", force: :cascade do |t|
@@ -48,6 +61,24 @@ ActiveRecord::Schema.define(version: 20170918094344) do
     t.datetime "updated_at", null: false
     t.string "home_result"
     t.string "away_result"
+    t.string "home_car"
+    t.string "home_ave_car"
+    t.string "home_pass_long"
+    t.string "home_rush_long"
+    t.string "home_c_att"
+    t.string "home_ave_att"
+    t.string "home_total_play"
+    t.string "home_play_yard"
+    t.string "home_sacks"
+    t.string "away_car"
+    t.string "away_ave_car"
+    t.string "away_pass_long"
+    t.string "away_rush_long"
+    t.string "away_c_att"
+    t.string "away_ave_att"
+    t.string "away_total_play"
+    t.string "away_play_yard"
+    t.string "away_sacks"
   end
 
   create_table "users", force: :cascade do |t|

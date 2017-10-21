@@ -19,7 +19,8 @@ development:
   adapter: postgresql
   host: localhost
   username: postgres
-  database: football_database_development
+  database: mydb
+  password: a
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

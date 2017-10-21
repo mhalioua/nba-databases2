@@ -1,0 +1,2 @@
+class Nba < ApplicationRecord
+end
