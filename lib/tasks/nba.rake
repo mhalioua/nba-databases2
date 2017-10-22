@@ -7,8 +7,6 @@ namespace :nba do
 			Rake::Task["nba:getDate"].reenable
 			date = date + 7.days
 		end
-
-		
 	end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
@@ -62,7 +60,7 @@ namespace :nba do
 	  		element = doc.css(".game-date-time").first
 	  		game_date = element.children[1]['data-date']
 	  		date = DateTime.parse(game_date)
-	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: game_date, year: date.strftime("%Y"), date: date.strftime("%b %e"))
+	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: date.strftime("%Y"), date: date.strftime("%b %e"))
 	  	end
 	end
 
@@ -186,4 +184,95 @@ namespace :nba do
 			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly)
 		end
 	end
+
+	task :getLines => [:environment] do
+		include Api
+		games = Nba.all
+
+		date = Date.new(2016, 10, 25)
+		date = Date.new(2016, 11, 11)
+		while date < Date.new(2017, 6, 12)  do
+			game_day = date.strftime("%Y%m%d")
+			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/1st-half/?date=#{game_day}"
+			doc = download_document(url)
+			elements = doc.css(".event-holder")
+			elements.each do |element|
+				if element.children[0].children[3].children.size < 3
+					next
+				end
+				if element.children[0].children[5].children.size < 5
+					next
+				end
+				home_name 		= element.children[0].children[5].children[1].text
+				away_name 		= element.children[0].children[5].children[0].text
+				home_pinnacle 	= element.children[0].children[9].children[1].text
+				away_pinnacle 	= element.children[0].children[9].children[0].text
+				
+				game_time = element.children[0].children[4].text
+				ind = game_time.index(":")
+				hour = ind ? game_time[0..ind-1].to_i : 0
+				min = ind ? game_time[ind+1..ind+3].to_i : 0
+				ap = game_time[-1]
+				if ap == "p" && hour != 12
+					hour = hour + 12
+				end
+				if ap == "a" && hour == 12
+					hour = 24
+				end
+
+				if @nicknames[home_name]
+			      home_name = @nicknames[home_name]
+			    end
+			    if @nicknames[away_name]
+			      away_name = @nicknames[away_name]
+			    end
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
+
+				line_one = home_pinnacle.index(" ")
+				line_one = line_one ? home_pinnacle[0..line_one] : ""
+				line_two = away_pinnacle.index(" ")
+				line_two = line_two ? away_pinnacle[0..line_two] : ""
+				if line_one[0] == "-" || line_one[0] == "P"
+					first_line = line_two
+					first_side = line_one[1..-1]
+					if line_one[0] == "P"
+						first_side = line_one
+					end
+				else 
+					first_line = line_one
+					first_side = line_two[1..-1]
+					if line_two[0] == "P"
+						first_side = line_two
+					end
+				end
+
+				puts home_name
+				puts away_name
+				puts date
+
+				matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
+				if matched.size > 0
+					update_game = matched.first
+					if first_line.include?('½')
+						first_line = first_line[0..-1].to_f + 0.5
+					else
+						first_line = first_line.to_f
+					end
+					if first_side.include?('½')
+						first_side = first_side[0..-1].to_f + 0.5
+					else
+						first_side = first_side.to_f
+					end
+					puts first_line
+					puts first_side
+				end
+			end
+
+			date = date + 1.days
+			break
+		end
+	end
+
+	@nicknames = {
+	}
 end
