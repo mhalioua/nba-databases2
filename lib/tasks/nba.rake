@@ -55,6 +55,13 @@ namespace :nba do
   			end
         	result = slice.children[index[:result]].text
 
+        	if @nba_nicknames[home_team]
+		      home_team = @nba_nicknames[home_team]
+		    end
+		    if @nba_nicknames[away_team]
+		      away_team = @nba_nicknames[away_team]
+		    end
+
 	  		url = "http://www.espn.com/nba/game?gameId=#{game_id}"
 	  		doc = download_document(url)
 			puts url
@@ -554,7 +561,9 @@ namespace :nba do
 
 
 	@nba_nicknames = {
-		"L.A. Lakers" => "Los Angeles",
-		"L.A. Clippers" => "LA"
+		"L.A. Lakers" => "LAL",
+		"Los Angeles" => "LAL",
+		"L.A. Clippers" => "LAC",
+		"LA" => "LAC"
 	}
 end
