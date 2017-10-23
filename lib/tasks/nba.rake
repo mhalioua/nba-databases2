@@ -2,7 +2,7 @@ namespace :nba do
 
 	task :daily => :environment do
 		date = Date.new(2016, 10, 25)
-		while date < Date.new(2017, 6, 12)  do
+		while date < Date.new(2017, 6, 13)  do
 			Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
 			Rake::Task["nba:getDate"].reenable
 			date = date + 7.days
@@ -190,7 +190,7 @@ namespace :nba do
 		games = Nba.all
 
 		date = Date.new(2016, 10, 25)
-		while date < Date.new(2017, 6, 12)  do
+		while date < Date.new(2017, 6, 13)  do
 			game_day = date.strftime("%Y%m%d")
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/1st-half/?date=#{game_day}"
 			doc = download_document(url)
@@ -306,7 +306,7 @@ namespace :nba do
 		games = Nba.all
 
 		date = Date.new(2016, 10, 25)
-		while date < Date.new(2017, 6, 12)  do
+		while date < Date.new(2017, 6, 13)  do
 			game_day = date.strftime("%Y%m%d")
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/2nd-half/?date=#{game_day}"
 			doc = download_document(url)
@@ -421,7 +421,7 @@ namespace :nba do
 		games = Nba.all
 
 		date = Date.new(2016, 10, 25)
-		while date < Date.new(2017, 6, 12)  do
+		while date < Date.new(2017, 6, 13)  do
 			game_day = date.strftime("%Y%m%d")
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/?date=#{game_day}"
 			doc = download_document(url)
