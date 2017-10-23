@@ -199,10 +199,49 @@ namespace :nba do
 				if element.children[0].children[5].children.size < 5
 					next
 				end
+
+				score_element = element.children[0].children[9]
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[13]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[11]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[12]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[10]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[17]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[18]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[14]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[15]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[16]
+				end
+
 				home_name 		= element.children[0].children[5].children[1].text
 				away_name 		= element.children[0].children[5].children[0].text
-				home_pinnacle 	= element.children[0].children[9].children[1].text
-				away_pinnacle 	= element.children[0].children[9].children[0].text
+				home_pinnacle 	= score_element.children[1].text
+				away_pinnacle 	= score_element.children[0].text
 				
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
@@ -276,10 +315,48 @@ namespace :nba do
 				if element.children[0].children[5].children.size < 5
 					next
 				end
+				score_element = element.children[0].children[9]
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[13]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[11]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[12]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[10]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[17]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[18]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[14]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[15]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[16]
+				end
+
 				home_name 		= element.children[0].children[5].children[1].text
 				away_name 		= element.children[0].children[5].children[0].text
-				home_pinnacle 	= element.children[0].children[9].children[1].text
-				away_pinnacle 	= element.children[0].children[9].children[0].text
+				home_pinnacle 	= score_element.children[1].text
+				away_pinnacle 	= score_element.children[0].text
 				
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
@@ -339,7 +416,7 @@ namespace :nba do
 		end
 	end
 
-	task :getSecondLines => [:environment] do
+	task :getFullLines => [:environment] do
 		include Api
 		games = Nba.all
 
@@ -353,10 +430,48 @@ namespace :nba do
 				if element.children[0].children[5].children.size < 5
 					next
 				end
+				score_element = element.children[0].children[9]
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[13]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[11]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[12]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[10]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[17]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[18]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[14]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[15]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[16]
+				end
+
 				home_name 		= element.children[0].children[5].children[1].text
 				away_name 		= element.children[0].children[5].children[0].text
-				home_pinnacle 	= element.children[0].children[9].children[1].text
-				away_pinnacle 	= element.children[0].children[9].children[0].text
+				home_pinnacle 	= score_element.children[1].text
+				away_pinnacle 	= score_element.children[0].text
 				
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
@@ -415,6 +530,22 @@ namespace :nba do
 			date = date + 1.days
 		end
 	end
+
+	task :test => [:environment] do
+		include Api
+		games = Nba.all
+
+		date = Date.new(2016, 11, 11)
+		game_day = date.strftime("%Y%m%d")
+		url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/?date=#{game_day}"
+		doc = download_document(url)
+		elements = doc.css(".event-holder")
+		elements.each do |element|
+			puts element.children[0].inspect
+			break
+		end
+	end
+
 
 	@nicknames = {
 	}
