@@ -11,6 +11,7 @@ namespace :nba do
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
 		include Api
+		Time.zone = 'Eastern Time (US & Canada)'
 		game_date = args[:game_date]
 		url = "http://www.espn.com/nba/schedule/_/date/#{game_date}"
 		doc = download_document(url)
@@ -59,7 +60,7 @@ namespace :nba do
 			puts url
 	  		element = doc.css(".game-date-time").first
 	  		game_date = element.children[1]['data-date']
-	  		date = DateTime.parse(game_date)
+	  		date = DateTime.parse(game_date).in_time_zone
 	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: date.strftime("%Y"), date: date.strftime("%b %e"))
 	  	end
 	end
