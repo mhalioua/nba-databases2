@@ -190,7 +190,6 @@ namespace :nba do
 		games = Nba.all
 
 		date = Date.new(2016, 10, 25)
-		date = Date.new(2017, 6, 12)
 		while date < Date.new(2017, 6, 13)  do
 			game_day = date.strftime("%Y%m%d")
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/1st-half/?date=#{game_day}"
@@ -310,6 +309,7 @@ namespace :nba do
 		games = Nba.all
 
 		date = Date.new(2016, 10, 25)
+		date = Date.new(2017, 6, 12)
 		while date < Date.new(2017, 6, 13)  do
 			game_day = date.strftime("%Y%m%d")
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/2nd-half/?date=#{game_day}"
