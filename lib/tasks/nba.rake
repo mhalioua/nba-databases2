@@ -548,5 +548,7 @@ namespace :nba do
 
 
 	@nicknames = {
+		"L.A. Lakers" => "Los Angeles",
+		"L.A. Clippers" => "LA"
 	}
 end
