@@ -165,9 +165,9 @@ namespace :nba do
 			if home_team_prev
 				home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
 				if home_team_prev.home_team == home_team
-					home_last_fly = "YES"
-				else
 					home_last_fly = "NO"
+				else
+					home_last_fly = "YES"
 				end
 			end
 
@@ -177,9 +177,9 @@ namespace :nba do
 			if home_team_next
 				home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
 				if home_team_next.home_team == home_team
-					home_next_fly = "YES"
-				else
 					home_next_fly = "NO"
+				else
+					home_next_fly = "YES"
 				end
 			end
 			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly)
