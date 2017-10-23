@@ -190,11 +190,14 @@ namespace :nba do
 		games = Nba.all
 
 		date = Date.new(2016, 10, 25)
+		date = Date.new(2017, 6, 12)
 		while date < Date.new(2017, 6, 13)  do
 			game_day = date.strftime("%Y%m%d")
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/1st-half/?date=#{game_day}"
+			puts url
 			doc = download_document(url)
 			elements = doc.css(".event-holder")
+			puts elements.size
 			elements.each do |element|
 				if element.children[0].children[5].children.size < 5
 					next
@@ -242,6 +245,11 @@ namespace :nba do
 				away_name 		= element.children[0].children[5].children[0].text
 				home_pinnacle 	= score_element.children[1].text
 				away_pinnacle 	= score_element.children[0].text
+
+				puts home_name
+				puts away_name
+				puts home_pinnacle
+				puts away_pinnacle
 				
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
@@ -262,6 +270,8 @@ namespace :nba do
 			      away_name = @nba_nicknames[away_name]
 			    end
 				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
+
+				puts date
 
 				line_one = home_pinnacle.index(" ")
 				line_one = line_one ? home_pinnacle[0..line_one] : ""
