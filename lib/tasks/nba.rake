@@ -82,63 +82,29 @@ namespace :nba do
 			url = "http://www.espn.com/nba/playbyplay?gameId=#{game_id}"
 	  		doc = download_document(url)
 			puts url
+			elements = doc.css("#linescore tbody tr")
+			if elements[0].children > 5
+				away_first_quarter 	= elements[0].children[1].text.to_i
+				away_second_quarter = elements[0].children[2].text.to_i
+				away_third_quarter 	= elements[0].children[3].text.to_i
+				away_forth_quarter 	= elements[0].children[4].text.to_i
+				away_ot_quarter 	= 0
 
-	  		element = doc.css("#gp-quarter-1 tr .combined-score")
-	  		away_first_quarter = 0
-	  		home_first_quarter = 0
-	  		if element.size != 0
-				value = element.last.text
-				end_index = value.index(" ")
-				away_first_quarter = value[0..end_index].to_i
-				start_index = value.index("-") + 2
-				home_first_quarter = value[start_index..-1].to_i
+				home_first_quarter 	= elements[1].children[1].text.to_i
+				home_second_quarter = elements[1].children[2].text.to_i
+				home_third_quarter 	= elements[1].children[3].text.to_i
+				home_forth_quarter 	= elements[1].children[4].text.to_i
+				home_ot_quarter 	= 0
+
+				if elements[0].children > 6
+					away_ot_quarter = elements[0].children[5].text.to_i
+	  				home_ot_quarter = elements[1].children[5].text.to_i
+				end
 			end
+			away_score = away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + away_ot_quarter
+			home_score = home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter + home_ot_quarter
 
-			element = doc.css("#gp-quarter-2 tr .combined-score")
-	  		away_second_quarter = away_first_quarter
-	  		home_second_quarter = home_first_quarter
-	  		if element.size != 0
-				value = element.last.text
-				end_index = value.index(" ")
-				away_second_quarter = value[0..end_index].to_i
-				start_index = value.index("-") + 2
-				home_second_quarter = value[start_index..-1].to_i
-			end
-
-			element = doc.css("#gp-quarter-3 tr .combined-score")
-	  		away_third_quarter = away_second_quarter
-	  		home_third_quarter = home_second_quarter
-	  		if element.size != 0
-				value = element.last.text
-				end_index = value.index(" ")
-				away_third_quarter = value[0..end_index].to_i
-				start_index = value.index("-") + 2
-				home_third_quarter = value[start_index..-1].to_i
-			end
-
-			element = doc.css("#gp-quarter-4 tr .combined-score")
-	  		away_forth_quarter = away_third_quarter
-	  		home_forth_quarter = home_third_quarter
-	  		if element.size != 0
-				value = element.last.text
-				end_index = value.index(" ")
-				away_forth_quarter = value[0..end_index].to_i
-				start_index = value.index("-") + 2
-				home_forth_quarter = value[start_index..-1].to_i
-			end
-
-			element = doc.css("#gp-quarter-5 tr .combined-score")
-	  		away_ot_quarter = away_forth_quarter
-	  		home_ot_quarter = home_forth_quarter
-	  		if element.size != 0
-				value = element.last.text
-				end_index = value.index(" ")
-				away_ot_quarter = value[0..end_index].to_i
-				start_index = value.index("-") + 2
-				home_ot_quarter = value[start_index..-1].to_i
-			end
-
-			game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter - away_first_quarter, home_second_quarter: home_second_quarter - home_first_quarter, away_third_quarter: away_third_quarter - away_second_quarter, home_third_quarter: home_third_quarter - home_second_quarter, away_forth_quarter: away_forth_quarter - away_third_quarter, home_forth_quarter: home_forth_quarter - home_third_quarter, away_ot_quarter: away_ot_quarter - away_forth_quarter, home_ot_quarter: home_ot_quarter - home_forth_quarter, away_score: away_ot_quarter, home_score: home_ot_quarter, total_score: away_ot_quarter + home_ot_quarter, first_point: home_second_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter - home_second_quarter - away_second_quarter, total_point: home_forth_quarter + away_forth_quarter)
+			game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter, home_second_quarter: home_second_quarter, away_third_quarter: away_third_quarter, home_third_quarter: home_third_quarter, away_forth_quarter: away_forth_quarter, home_forth_quarter: home_forth_quarter, away_ot_quarter: away_ot_quarter, home_ot_quarter: home_ot_quarter, away_score: away_score, home_score: home_score, total_score: home_score + away_score, first_point: home_first_quarter + home_second_quarter + away_first_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter + away_third_quarter + home_third_quarter, total_point: away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter)
 		end
 	end
 
@@ -551,12 +517,11 @@ namespace :nba do
 
 	task :test => [:environment] do
 		include Api
-		games = Nba.all
-		url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/2nd-half/?date=20161130"
-		doc = download_document(url)
-		elements = doc.css(".event-holder")
-		element = elements[0]
-		puts element.children[0].children[1].children[2].children[1].children.size
+		url = "http://www.espn.com/nba/game?gameId=400952527"
+  		doc = download_document(url)
+		puts url
+		elements = doc.css("#linescore tbody tr")
+		puts elements[0].children.size
 	end
 
 	@nba_nicknames = {
