@@ -177,7 +177,7 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		date = Date.new(2007, 5, 30)
+		date = Date.new(2007, 6, 1)
 		while date < Date.new(2017, 6, 13)  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
