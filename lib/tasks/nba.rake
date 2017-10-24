@@ -177,7 +177,7 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		date = Date.new(2011, 2, 21)
+		date = Date.new(2012, 3, 21)
 		while date < Date.new(2017, 6, 13)  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
@@ -268,7 +268,10 @@ namespace :nba do
 					if line_one[0] == "P"
 						first_side = line_one
 					end
-				else 
+				elsif line_two == ""
+					first_line = line_one
+					first_side = ""
+				else
 					first_line = line_one
 					first_side = line_two[1..-1]
 					if line_two[0] == "P"
