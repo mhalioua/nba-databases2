@@ -1,7 +1,7 @@
 namespace :nba do
 
 	task :daily => :environment do
-		date = Date.new(2000, 10, 30)
+		date = Date.new(2003, 05, 25)
 		while date < Date.new(2017, 6, 13)  do
 			Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
 			Rake::Task["nba:getDate"].reenable
