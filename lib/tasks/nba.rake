@@ -393,7 +393,10 @@ namespace :nba do
 					if line_one[0] == "P"
 						first_side = line_one
 					end
-				else 
+				elsif line_two == ""
+					first_line = line_one
+					first_side = ""
+				else
 					first_line = line_one
 					first_side = line_two[1..-1]
 					if line_two[0] == "P"
@@ -515,7 +518,10 @@ namespace :nba do
 					if line_one[0] == "P"
 						first_side = line_one
 					end
-				else 
+				elsif line_two == ""
+					first_line = line_one
+					first_side = ""
+				else
 					first_line = line_one
 					first_side = line_two[1..-1]
 					if line_two[0] == "P"
