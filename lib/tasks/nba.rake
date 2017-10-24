@@ -177,7 +177,7 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		date = Date.new(2008, 11, 6)
+		date = Date.new(2011, 2, 21)
 		while date < Date.new(2017, 6, 13)  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
@@ -381,7 +381,10 @@ namespace :nba do
 				line_one = line_one ? home_pinnacle[0..line_one] : ""
 				line_two = away_pinnacle.index(" ")
 				line_two = line_two ? away_pinnacle[0..line_two] : ""
-				if line_one[0] == "-" || line_one[0] == "P"
+				if line_one == ""
+					first_line = line_two
+					first_side = ""
+				elsif line_one[0] == "-" || line_one[0] == "P"
 					first_line = line_two
 					first_side = line_one[1..-1]
 					if line_one[0] == "P"
@@ -500,7 +503,10 @@ namespace :nba do
 				line_one = line_one ? home_pinnacle[0..line_one] : ""
 				line_two = away_pinnacle.index(" ")
 				line_two = line_two ? away_pinnacle[0..line_two] : ""
-				if line_one[0] == "-" || line_one[0] == "P"
+				if line_one == ""
+					first_line = line_two
+					first_side = ""
+				elsif line_one[0] == "-" || line_one[0] == "P"
 					first_line = line_two
 					first_side = line_one[1..-1]
 					if line_one[0] == "P"
