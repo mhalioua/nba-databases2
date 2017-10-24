@@ -311,7 +311,7 @@ namespace :nba do
 			doc = download_document(url)
 			elements = doc.css(".event-holder")
 			elements.each do |element|
-				if element.children[0].children[1].children[2].children[1].children.size == 1
+				if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
 					next
 				end
 				if element.children[0].children[5].children.size < 5
@@ -436,7 +436,7 @@ namespace :nba do
 			doc = download_document(url)
 			elements = doc.css(".event-holder")
 			elements.each do |element|
-				if element.children[0].children[1].children[2].children[1].children.size == 1
+				if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
 					next
 				end
 				if element.children[0].children[5].children.size < 5
