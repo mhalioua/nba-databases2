@@ -83,24 +83,37 @@ namespace :nba do
 	  		doc = download_document(url)
 			puts url
 			elements = doc.css("#linescore tbody tr")
+			if elements.size > 1
+				if elements[0].children.size > 5
+					away_first_quarter 	= elements[0].children[1].text.to_i
+					away_second_quarter = elements[0].children[2].text.to_i
+					away_third_quarter 	= elements[0].children[3].text.to_i
+					away_forth_quarter 	= elements[0].children[4].text.to_i
+					away_ot_quarter 	= 0
 
-			if elements[0].children.size > 5
-				away_first_quarter 	= elements[0].children[1].text.to_i
-				away_second_quarter = elements[0].children[2].text.to_i
-				away_third_quarter 	= elements[0].children[3].text.to_i
-				away_forth_quarter 	= elements[0].children[4].text.to_i
+					home_first_quarter 	= elements[1].children[1].text.to_i
+					home_second_quarter = elements[1].children[2].text.to_i
+					home_third_quarter 	= elements[1].children[3].text.to_i
+					home_forth_quarter 	= elements[1].children[4].text.to_i
+					home_ot_quarter 	= 0
+
+					if elements[0].children.size > 6
+						away_ot_quarter = elements[0].children[5].text.to_i
+		  				home_ot_quarter = elements[1].children[5].text.to_i
+					end
+				end
+			else
+				away_first_quarter 	= 0
+				away_second_quarter = 0
+				away_third_quarter 	= 0
+				away_forth_quarter 	= 0
 				away_ot_quarter 	= 0
 
-				home_first_quarter 	= elements[1].children[1].text.to_i
-				home_second_quarter = elements[1].children[2].text.to_i
-				home_third_quarter 	= elements[1].children[3].text.to_i
-				home_forth_quarter 	= elements[1].children[4].text.to_i
+				home_first_quarter 	= 0
+				home_second_quarter = 0
+				home_third_quarter 	= 0
+				home_forth_quarter 	= 0
 				home_ot_quarter 	= 0
-
-				if elements[0].children.size > 6
-					away_ot_quarter = elements[0].children[5].text.to_i
-	  				home_ot_quarter = elements[1].children[5].text.to_i
-				end
 			end
 			away_score = away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + away_ot_quarter
 			home_score = home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter + home_ot_quarter
