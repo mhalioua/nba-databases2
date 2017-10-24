@@ -1,5 +1,13 @@
 namespace :nba do
 
+	task :rest => :environment do
+		Rake::Task["nba:getSecondLines"].invoke
+		Rake::Task["nba:getSecondLines"].reenable
+
+		Rake::Task["nba:getFullLines"].invoke
+		Rake::Task["nba:getFullLines"].reenable
+	end
+
 	task :daily => :environment do
 		date = Date.new(2014, 10, 16)
 		while date < Date.new(2017, 6, 13)  do
@@ -303,7 +311,7 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		date = Date.new(2011, 2, 21)
+		date = Date.new(2012, 10, 10)
 		while date < Date.new(2017, 6, 13)  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
