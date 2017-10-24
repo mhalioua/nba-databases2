@@ -83,7 +83,8 @@ namespace :nba do
 	  		doc = download_document(url)
 			puts url
 			elements = doc.css("#linescore tbody tr")
-			if elements[0].children > 5
+
+			if elements[0].children.size > 5
 				away_first_quarter 	= elements[0].children[1].text.to_i
 				away_second_quarter = elements[0].children[2].text.to_i
 				away_third_quarter 	= elements[0].children[3].text.to_i
@@ -96,7 +97,7 @@ namespace :nba do
 				home_forth_quarter 	= elements[1].children[4].text.to_i
 				home_ot_quarter 	= 0
 
-				if elements[0].children > 6
+				if elements[0].children.size > 6
 					away_ot_quarter = elements[0].children[5].text.to_i
 	  				home_ot_quarter = elements[1].children[5].text.to_i
 				end
