@@ -75,7 +75,7 @@ namespace :nba do
 	task :getScore => [:environment] do
 		include Api
 
-		games = Nba.all
+		games = Nba.where("away_first_quarter IS null")
 		games.each do |game|
 			game_id = game.game_id
 
