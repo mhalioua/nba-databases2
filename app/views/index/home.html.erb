@@ -3,8 +3,8 @@
 </div>
 
 <ul>
-	<li><%= link_to @yesterday.date.strftime("%B %e"),  { action: 'game', id: @yesterday.date.strftime("%Y%m%d") } %> </li>
-	<li><%= link_to @today.date.strftime("%B %e"),      { action: 'game', id: @today.date.strftime("%Y%m%d") } %> </li>
-	<li><%= link_to @tomorrow.date.strftime("%B %e"),   { action: 'game', id: @tomorrow.date.strftime("%Y%m%d") } %> </li>
+	<li><%= link_to @yesterday.strftime("%B %e"),  { action: 'game', id: @yesterday.strftime("%Y%m%d") } %> </li>
+	<li><%= link_to @today.strftime("%B %e"),      { action: 'game', id: @today.strftime("%Y%m%d") } %> </li>
+	<li><%= link_to @tomorrow.strftime("%B %e"),   { action: 'game', id: @tomorrow.strftime("%Y%m%d") } %> </li>
 	<li><%= link_to 'Logout', 					  		{ controller: 'access', action: 'logout' } %> </li>
 </ul>
