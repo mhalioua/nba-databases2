@@ -1,6 +1,5 @@
 require 'rufus-scheduler'
 scheduler = Rufus::Scheduler::singleton
 
-scheduler.every '30s' do
-	system("rake setup:tensecond")
+scheduler.every '10d' do
 end
