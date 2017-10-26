@@ -1,16 +1,9 @@
 namespace :nba do
 
-	task :rest => :environment do
-		Rake::Task["nba:getSecondLines"].invoke
-		Rake::Task["nba:getSecondLines"].reenable
-
-		Rake::Task["nba:getFullLines"].invoke
-		Rake::Task["nba:getFullLines"].reenable
-	end
 
 	task :daily => :environment do
-		date = Date.new(2014, 10, 16)
-		while date < Date.new(2017, 6, 13)  do
+		date = Date.new(2017, 6, 10)
+		while date < Time.now  do
 			Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
 			Rake::Task["nba:getDate"].reenable
 			date = date + 7.days
@@ -135,7 +128,7 @@ namespace :nba do
 
 		Time.zone = 'Eastern Time (US & Canada)'
 
-		games = Nba.all
+		games = Nba.where("away_next_game IS null").or(Nba.where("home_next_game IS null"))
 		games.each do |game|
 			home_team = game.home_team
 			away_team = game.away_team
@@ -185,8 +178,8 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		date = Date.new(2012, 3, 21)
-		while date < Date.new(2017, 6, 13)  do
+		date = Date.new(2017, 6, 10)
+		while date < Time.now  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/1st-half/?date=#{game_day}"
@@ -311,8 +304,8 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		date = Date.new(2012, 10, 10)
-		while date < Date.new(2017, 6, 13)  do
+		date = Date.new(2017, 6, 10)
+		while date < Time.now  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/2nd-half/?date=#{game_day}"
@@ -436,8 +429,8 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		date = Date.new(2006, 10, 1)
-		while date < Date.new(2017, 6, 13)  do
+		date = Date.new(2017, 6, 10)
+		while date < Time.now  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/?date=#{game_day}"
