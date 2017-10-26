@@ -10,6 +10,8 @@ class IndexController < ApplicationController
 	  	  	params[:id] = Time.now.strftime("%Y%m%d")
 	  	end
 	  	
-		@games = params[:id]
+		@game_index = params[:id]
+		@games = Nba.where("game_date between ? and ?", Date.strptime(@game_index).beginning_of_day, Date.strptime(@game_index).end_of_day)
+	  				.order("game_date")
 	end
 end

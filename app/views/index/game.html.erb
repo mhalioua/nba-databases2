@@ -1,1 +1,37 @@
-<%= @games %>
+<table class="game-index">
+  	<thead>
+  		<tr>
+	  		<th></th>
+	      	<th></th>
+	      	<th>Days rest</th>
+	  		<th colspan="5">TODAYS GAMES</th>
+	  		<th>Days rest</th>
+	    </tr>
+	  	<tr>
+	  		<th>Game ID</th>
+	      	<th>Time</th>
+	      	<th></th>
+	      	<th>Away Team</th>
+	  		<th>Next Game</th>
+	  		<th></th>
+	  		<th>Next Game</th>
+	  		<th>Home Team</th>
+	  		<th></th>
+	    </tr>
+  	</thead>
+  	<tbody>
+    <% @games.each_with_index do |game, index| %>
+    <tr>
+      <td>Game <%= index %></td>
+      <td><%= game.game_date.strftime("%I:%M%p") %></td>
+      <td><%= game.away_last_game %></td>
+      <td><%= game.away_team %></td>
+      <td><%= game.away_next_game %></td>
+      <td>@</td>
+      <td><%= game.home_next_game %></td>
+      <td><%= game.home_team %></td>
+      <td><%= game.home_last_game %></td>
+    </tr>
+    <% end %>
+  	</tbody>
+</table>
