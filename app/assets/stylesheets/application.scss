@@ -38,4 +38,11 @@ table {
     margin: 0 auto;
     text-align: center;
     border-collapse: collapse;
+    border: 9px solid rgb(56, 87, 33);
+}
+
+th {
+  background-color: rgb(87, 135, 50);
+  color: white;
+  text-align: center;
 }
