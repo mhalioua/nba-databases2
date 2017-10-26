@@ -35,7 +35,7 @@ ul {
 }
 
 table {
-    margin: 0 auto;
+    margin: 20px auto;
     text-align: center;
     border-collapse: collapse;
     border: 9px solid rgb(56, 87, 33);
@@ -45,4 +45,11 @@ th {
   background-color: rgb(87, 135, 50);
   color: white;
   text-align: center;
+}
+
+table tr:nth-child(even) {
+    background:rgb(156,225,104);
+}
+table tr:nth-child(odd) {
+    background:rgb(147,213,186);
 }
