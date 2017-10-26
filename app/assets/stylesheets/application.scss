@@ -54,12 +54,8 @@ ul {
 }
 
 table {
-  border-collapse: collapse;
-  border: 1px solid #666666;
-  font: normal 11px verdana, arial, helvetica, sans-serif;
-  color: #363636;
-  background: #f6f6f6;
-  text-align: center;
-  float: left;
-  clear: left;
+    margin: 0 auto;
+    text-align: center;
+    border-collapse: collapse;
+    border: 9px solid rgb(56, 87, 33);
 }
