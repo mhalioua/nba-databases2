@@ -22,7 +22,7 @@
   	<tbody>
     <% @games.each_with_index do |game, index| %>
     <tr>
-      <td>Game <%= index %></td>
+      <td>Game <%= (index + 1) %></td>
       <td><%= DateTime.parse(game.game_date).strftime("%I:%M%p") %></td>
       <td><%= game.away_last_game %></td>
       <td><%= game.away_team %></td>

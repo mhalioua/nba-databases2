@@ -2,7 +2,7 @@ namespace :nba do
 
 
 	task :daily => :environment do
-		date = Date.new(2017, 6, 10)
+		date = Date.yesterday
 		while date < Time.now  do
 			Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
 			Rake::Task["nba:getDate"].reenable
@@ -178,7 +178,7 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		date = Date.new(2017, 6, 10)
+		date = Date.yesterday
 		while date < Time.now  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
@@ -304,7 +304,7 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		date = Date.new(2017, 6, 10)
+		date = Date.yesterday
 		while date < Time.now  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
@@ -429,7 +429,7 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		date = Date.new(2017, 6, 10)
+		date = Date.yesterday
 		while date < Time.now  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
