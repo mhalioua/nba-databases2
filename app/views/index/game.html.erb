@@ -23,9 +23,9 @@
 	    </tr>
   	</thead>
   	<tbody>
-    <% @games.each_with_index do |game, index| %>
+    <% @games.each do |game| %>
     <tr>
-      <td class="green">Game <%= (index + 1) %></td>
+      <td class="green"><%= game.home_number + "/" + game.away_number %></td>
       <td class="grey"><%= DateTime.parse(game.game_date).strftime("%I:%M%p") %></td>
       <td class="yellow"><%= game.away_last_game %></td>
       <td><%= game.away_team %></td>
