@@ -25,7 +25,7 @@
   	<tbody>
     <% @games.each do |game| %>
     <tr>
-      <td class="green"><%= game.home_number %> / <%= game.away_number %></td>
+      <td class="green"><%= game.away_number %> / <%= game.home_number %></td>
       <td class="grey"><%= DateTime.parse(game.game_date).strftime("%I:%M%p") %></td>
       <td class="yellow"><%= game.away_last_game %></td>
       <td><%= game.away_team %></td>
