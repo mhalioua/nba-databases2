@@ -43,17 +43,21 @@ table {
 
 td, th {
     padding: 5px 20px;
+    text-align: center;
 }
 
-th {
-  background-color: rgb(87, 135, 50);
-  color: white;
-  text-align: center;
+th, .green {
+    background-color: rgb(156, 225, 104);
 }
 
-table tr:nth-child(even) {
-    background:rgb(156,225,104);
+.red {
+    background-color: rgb(255, 24, 37);
 }
-table tr:nth-child(odd) {
-    background:rgb(147,213,186);
+
+.yellow {
+    background-color: rgb(255, 223, 11);
+}
+
+.grey {
+    background-color: rgb(220, 220, 220);
 }

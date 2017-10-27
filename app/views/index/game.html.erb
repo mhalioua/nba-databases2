@@ -10,32 +10,32 @@
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
-	      	<th>Time</th>
-	      	<th>Last Game</th>
-	      	<th>Away Team</th>
-	  		<th>Next Game</th>
-	  		<th></th>
-	  		<th>Next Game</th>
+	      	<th class="red">Time</th>
+	      	<th class="red">Last Game</th>
+	      	<th class="red">Away Team</th>
+	  		<th class="red">Next Game</th>
+	  		<th class="red"></th>
+	  		<th class="red">Next Game</th>
         <th>FLY</th>
-	  		<th>Home Team</th>
-	  		<th>Last Game</th>
+	  		<th class="red">Home Team</th>
+	  		<th class="red">Last Game</th>
         <th>FLY</th>
 	    </tr>
   	</thead>
   	<tbody>
     <% @games.each_with_index do |game, index| %>
     <tr>
-      <td>Game <%= (index + 1) %></td>
-      <td><%= DateTime.parse(game.game_date).strftime("%I:%M%p") %></td>
-      <td><%= game.away_last_game %></td>
+      <td class="green">Game <%= (index + 1) %></td>
+      <td class="grey"><%= DateTime.parse(game.game_date).strftime("%I:%M%p") %></td>
+      <td class="yellow"><%= game.away_last_game %></td>
       <td><%= game.away_team %></td>
-      <td><%= game.away_next_game %></td>
-      <td>@</td>
-      <td><%= game.home_next_game %></td>
-      <td><%= game.home_next_fly %></td>
+      <td class="yellow"><%= game.away_next_game %></td>
+      <td class="red">@</td>
+      <td class="yellow"><%= game.home_next_game %></td>
+      <td class="green"><%= game.home_next_fly %></td>
       <td><%= game.home_team %></td>
-      <td><%= game.home_last_game %></td>
-      <td><%= game.home_last_fly %></td>
+      <td class="yellow"><%= game.home_last_game %></td>
+      <td class="green"><%= game.home_last_fly %></td>
     </tr>
     <% end %>
   	</tbody>
