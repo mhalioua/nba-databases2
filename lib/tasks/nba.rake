@@ -196,9 +196,9 @@ namespace :nba do
 		games = Nba.all
 		puts "----------Get First Lines----------"
 
-		date = Date.yesterday
-		while date <= Date.tomorrow  do
-			game_day = date.strftime("%Y%m%d")
+		index_date = Date.yesterday
+		while index_date <= Date.tomorrow  do
+			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/1st-half/?date=#{game_day}"
 			doc = download_document(url)
@@ -314,7 +314,7 @@ namespace :nba do
 					update_game.update(first_line: first_line, first_side: first_side)
 				end
 			end
-			date = date + 1.days
+			index_date = index_date + 1.days
 		end
 	end
 
@@ -323,9 +323,9 @@ namespace :nba do
 		games = Nba.all
 		puts "----------Get Second Lines----------"
 
-		date = Date.yesterday
-		while date <= Date.tomorrow  do
-			game_day = date.strftime("%Y%m%d")
+		index_date = Date.yesterday
+		while index_date <= Date.tomorrow  do
+			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/2nd-half/?date=#{game_day}"
 			doc = download_document(url)
@@ -440,7 +440,7 @@ namespace :nba do
 					update_game.update(second_line: first_line, second_side: first_side)
 				end
 			end
-			date = date + 1.days
+			index_date = index_date + 1.days
 		end
 	end
 
@@ -449,9 +449,9 @@ namespace :nba do
 		games = Nba.all
 		puts "----------Get Full Lines----------"
 
-		date = Date.yesterday
-		while date <= Date.tomorrow  do
-			game_day = date.strftime("%Y%m%d")
+		index_date = Date.yesterday
+		while index_date <= Date.tomorrow  do
+			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/?date=#{game_day}"
 			doc = download_document(url)
@@ -566,17 +566,17 @@ namespace :nba do
 					update_game.update(full_line: first_line, full_side: first_side)
 				end
 			end
-			date = date + 1.days
+			index_date = index_date + 1.days
 		end
 	end
 
 	task :test => [:environment] do
-		include Api
-		url = "http://www.espn.com/nba/game?gameId=400952527"
-  		doc = download_document(url)
-		puts url
-		elements = doc.css("#linescore tbody tr")
-		puts elements[0].children.size
+		date = Date.yesterday
+		while date <= Date.tomorrow  do
+			game_day = date.strftime("%Y%m%d")
+			puts game_day
+			date = date + 1.days
+		end
 	end
 
 	@nba_nicknames = {
