@@ -585,7 +585,7 @@ namespace :nba do
 		include Api
 		games = Nba.all
 
-		index_date = Date.new(2000, 11, 6)
+		index_date = Date.new(2006, 10, 30)
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
