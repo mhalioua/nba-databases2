@@ -582,11 +582,139 @@ namespace :nba do
 	end
 
 	task :test => [:environment] do
-		date = Date.yesterday
-		while date <= Date.tomorrow  do
-			game_day = date.strftime("%Y%m%d")
+		include Api
+		games = Nba.all
+
+		index_date = Date.new(2000, 11, 6)
+		while index_date <= Date.tomorrow  do
+			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
-			date = date + 1.days
+			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/1st-half/?date=#{game_day}"
+			doc = download_document(url)
+			elements = doc.css(".event-holder")
+			elements.each do |element|
+				if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
+					next
+				end
+				if element.children[0].children[5].children.size < 5
+					next
+				end
+
+				if element.children[0].children[3].children.size < 3
+					next
+				end
+
+				score_element = element.children[0].children[9]
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[13]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[11]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[12]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[10]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[17]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[18]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[14]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[15]
+				end
+
+				if score_element.children[1].text == ""
+					score_element = element.children[0].children[16]
+				end
+
+				home_name 		= element.children[0].children[5].children[1].text
+				away_name 		= element.children[0].children[5].children[0].text
+				home_number 	= element.children[0].children[3].children[2].text
+				away_number 	= element.children[0].children[3].children[1].text
+				home_pinnacle 	= score_element.children[1].text
+				away_pinnacle 	= score_element.children[0].text
+				
+				game_time = element.children[0].children[4].text
+				ind = game_time.index(":")
+				hour = ind ? game_time[0..ind-1].to_i : 0
+				min = ind ? game_time[ind+1..ind+3].to_i : 0
+				ap = game_time[-1]
+				if ap == "p" && hour != 12
+					hour = hour + 12
+				end
+				if ap == "a" && hour == 12
+					hour = 24
+				end
+
+				if @nba_nicknames[home_name]
+			      home_name = @nba_nicknames[home_name]
+			    end
+			    if @nba_nicknames[away_name]
+			      away_name = @nba_nicknames[away_name]
+			    end
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
+
+				line_one = home_pinnacle.index(" ")
+				line_one = line_one ? home_pinnacle[0..line_one] : ""
+				line_two = away_pinnacle.index(" ")
+				line_two = line_two ? away_pinnacle[0..line_two] : ""
+				if line_one == ""
+					first_line = line_two
+					first_side = ""
+				elsif line_one[0] == "-" || line_one[0] == "P"
+					first_line = line_two
+					first_side = line_one[1..-1]
+					if line_one[0] == "P"
+						first_side = line_one
+					end
+				elsif line_two == ""
+					first_line = line_one
+					first_side = ""
+				else
+					first_line = line_one
+					first_side = line_two[1..-1]
+					if line_two[0] == "P"
+						first_side = line_two
+					end
+				end
+
+				matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
+				if matched.size > 0
+					update_game = matched.first
+					if first_line.include?('½')
+						first_line = first_line[0..-1].to_f + 0.5
+					else
+						first_line = first_line.to_f
+					end
+					if first_side.include?('½')
+						first_side = first_side[0..-1].to_f + 0.5
+					else
+						first_side = first_side.to_f
+					end
+					update_game.update(first_line: first_line, first_side: first_side)
+					if update_game.home_team.include?(home_name)
+						update_game.update(home_number: home_number, away_number: away_number)
+					else
+						update_game.update(away_number: home_number, home_number: away_number)
+					end
+				end
+			end
+			index_date = index_date + 1.days
 		end
 	end
 
