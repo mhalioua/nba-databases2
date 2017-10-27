@@ -4,19 +4,22 @@
 	  		<th></th>
 	      	<th></th>
 	      	<th>Days rest</th>
-	  		<th colspan="5">TODAYS GAMES</th>
+	  		<th colspan="6">TODAYS GAMES</th>
 	  		<th>Days rest</th>
+        <th></th>
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
 	      	<th>Time</th>
-	      	<th></th>
+	      	<th>Last Game</th>
 	      	<th>Away Team</th>
 	  		<th>Next Game</th>
 	  		<th></th>
 	  		<th>Next Game</th>
+        <th>FLY</th>
 	  		<th>Home Team</th>
-	  		<th></th>
+	  		<th>Last Game</th>
+        <th>FLY</th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -29,8 +32,10 @@
       <td><%= game.away_next_game %></td>
       <td>@</td>
       <td><%= game.home_next_game %></td>
+      <td><%= game.home_next_fly %></td>
       <td><%= game.home_team %></td>
       <td><%= game.home_last_game %></td>
+      <td><%= game.home_last_fly %></td>
     </tr>
     <% end %>
   	</tbody>
