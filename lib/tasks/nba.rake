@@ -211,6 +211,10 @@ namespace :nba do
 					next
 				end
 
+				if element.children[0].children[3].children.size < 3
+					next
+				end
+
 				score_element = element.children[0].children[9]
 
 				if score_element.children[1].text == ""
@@ -251,6 +255,8 @@ namespace :nba do
 
 				home_name 		= element.children[0].children[5].children[1].text
 				away_name 		= element.children[0].children[5].children[0].text
+				home_number 	= element.children[0].children[3].children[2].text
+				away_number 	= element.children[0].children[3].children[1].text
 				home_pinnacle 	= score_element.children[1].text
 				away_pinnacle 	= score_element.children[0].text
 				
@@ -312,6 +318,11 @@ namespace :nba do
 						first_side = first_side.to_f
 					end
 					update_game.update(first_line: first_line, first_side: first_side)
+					if update_game.home_team.include?(home_name)
+						update_game.update(home_number: home_number, away_number: away_number)
+					else
+						update_game.update(away_number: home_number, home_number: away_number)
+					end
 				end
 			end
 			index_date = index_date + 1.days
