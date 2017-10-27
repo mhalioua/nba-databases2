@@ -3,14 +3,27 @@ namespace :nba do
 
 	task :daily => :environment do
 		date = Date.yesterday
-		while date < Time.now  do
-			Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
-			Rake::Task["nba:getDate"].reenable
-			date = date + 7.days
-		end
+		Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
+		Rake::Task["nba:getDate"].reenable
+
+		Rake::Task["nba:getScore"].invoke
+		Rake::Task["nba:getScore"].reenable
+
+		Rake::Task["nba:getLinkGame"].invoke
+		Rake::Task["nba:getLinkGame"].reenable
+
+		Rake::Task["nba:getFirstLines"].invoke
+		Rake::Task["nba:getFirstLines"].reenable
+
+		Rake::Task["nba:getSecondLines"].invoke
+		Rake::Task["nba:getSecondLines"].reenable
+
+		Rake::Task["nba:getFullLines"].invoke
+		Rake::Task["nba:getFullLines"].reenable
 	end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
+		puts "----------Get Games----------"
 		include Api
 		Time.zone = 'Eastern Time (US & Canada)'
 		game_date = args[:game_date]
@@ -75,8 +88,10 @@ namespace :nba do
 
 	task :getScore => [:environment] do
 		include Api
+		puts "----------Get Score----------"
 
-		games = Nba.where("away_first_quarter IS null")
+		games = Nba.where("game_date between ? and ?", Date.yesterday.beginning_of_day, Date.today.end_of_day)
+		puts games.size
 		games.each do |game|
 			game_id = game.game_id
 
@@ -125,10 +140,12 @@ namespace :nba do
 
 	task :getLinkGame => [:environment] do
 		include Api
+		puts "----------Get Link Games----------"
 
 		Time.zone = 'Eastern Time (US & Canada)'
 
-		games = Nba.where("away_next_game IS null").or(Nba.where("home_next_game IS null"))
+		games = Nba.where("game_date between ? and ?", (Date.today - 10.days).beginning_of_day, (Date.today + 10.days).end_of_day)
+		puts games.size
 		games.each do |game|
 			home_team = game.home_team
 			away_team = game.away_team
@@ -177,9 +194,10 @@ namespace :nba do
 	task :getFirstLines => [:environment] do
 		include Api
 		games = Nba.all
+		puts "----------Get First Lines----------"
 
 		date = Date.yesterday
-		while date < Time.now  do
+		while date <= Date.tomorrow  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/1st-half/?date=#{game_day}"
@@ -303,9 +321,10 @@ namespace :nba do
 	task :getSecondLines => [:environment] do
 		include Api
 		games = Nba.all
+		puts "----------Get Second Lines----------"
 
 		date = Date.yesterday
-		while date < Time.now  do
+		while date <= Date.tomorrow  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/2nd-half/?date=#{game_day}"
@@ -428,9 +447,10 @@ namespace :nba do
 	task :getFullLines => [:environment] do
 		include Api
 		games = Nba.all
+		puts "----------Get Full Lines----------"
 
 		date = Date.yesterday
-		while date < Time.now  do
+		while date <= Date.tomorrow  do
 			game_day = date.strftime("%Y%m%d")
 			puts game_day
 			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/?date=#{game_day}"
