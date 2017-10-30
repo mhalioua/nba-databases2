@@ -726,7 +726,7 @@ namespace :nba do
 
 		games = Nba.all
 		games.each do |game|
-			date = game.game_date
+			date = DateTime.parse(game.game_date)
 	  		game.update(time: date.strftime("%I:%M%p"), week: date.strftime("%a"))
 	  	end
 	end
