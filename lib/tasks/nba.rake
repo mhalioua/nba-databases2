@@ -735,6 +735,58 @@ namespace :nba do
 	  	end
 	end
 
+	task :linkfix => [:environment] do
+		include Api
+
+		Time.zone = 'Eastern Time (US & Canada)'
+
+		games = Nba.all
+		puts games.size
+		games.each do |game|
+			home_team = game.home_team
+			away_team = game.away_team
+			game_date = game.game_date
+			puts DateTime.parse(game_date).in_time_zone.to_date
+
+			away_last_game = ""
+			away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
+			if away_team_prev
+				away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+			end
+
+			away_next_game = ""
+			away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
+			if away_team_next
+				away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+			end
+
+			home_last_game = ""
+			home_last_fly = ""
+			home_team_prev = Nba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
+			if home_team_prev
+				home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+				if home_team_prev.home_team == home_team
+					home_last_fly = "NO"
+				else
+					home_last_fly = "YES"
+				end
+			end
+
+			home_next_game = ""
+			home_next_fly = ""
+			home_team_next = Nba.where("home_team = ? AND game_date > ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
+			if home_team_next
+				home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+				if home_team_next.home_team == home_team
+					home_next_fly = "NO"
+				else
+					home_next_fly = "YES"
+				end
+			end
+			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly)
+		end
+	end
+
 	@nba_nicknames = {
 		"L.A. Lakers" => "LAL",
 		"L.A. Clippers" => "LAC"
