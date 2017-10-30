@@ -718,6 +718,19 @@ namespace :nba do
 		end
 	end
 
+	task :getTimeWeek => [:environment] do
+		include Api
+		puts "----------Get Time and Week----------"
+
+		Time.zone = 'Eastern Time (US & Canada)'
+
+		games = Nba.all
+		games.each do |game|
+			date = game.game_date
+	  		game.update(time: date.strftime("%I:%M%p"), week: date.strftime("%a"))
+	  	end
+	end
+
 	@nba_nicknames = {
 		"L.A. Lakers" => "LAL",
 		"Los Angeles" => "LAL",
