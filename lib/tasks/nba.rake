@@ -69,11 +69,11 @@ namespace :nba do
   			end
         	result = slice.children[index[:result]].text
 
-        	if @nba_nicknames[home_team]
-		      home_team = @nba_nicknames[home_team]
+        	if home_team == "Los Angeles" ||  home_team == "LA"
+		      home_team = home_abbr
 		    end
-		    if @nba_nicknames[away_team]
-		      away_team = @nba_nicknames[away_team]
+		    if away_team == "Los Angeles" ||  away_team == "LA"
+		      away_team = away_abbr
 		    end
 
 	  		url = "http://www.espn.com/nba/game?gameId=#{game_id}"
@@ -82,7 +82,7 @@ namespace :nba do
 	  		element = doc.css(".game-date-time").first
 	  		game_date = element.children[1]['data-date']
 	  		date = DateTime.parse(game_date).in_time_zone
-	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: date.strftime("%Y"), date: date.strftime("%b %e"))
+	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: date.strftime("%Y"), date: date.strftime("%b %e"), time: date.strftime("%I:%M%p"), week: date.strftime("%a"))
 	  	end
 	end
 
@@ -733,8 +733,6 @@ namespace :nba do
 
 	@nba_nicknames = {
 		"L.A. Lakers" => "LAL",
-		"Los Angeles" => "LAL",
-		"L.A. Clippers" => "LAC",
-		"LA" => "LAC"
+		"L.A. Clippers" => "LAC"
 	}
 end
