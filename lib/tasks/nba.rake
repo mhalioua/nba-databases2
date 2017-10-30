@@ -726,8 +726,12 @@ namespace :nba do
 
 		games = Nba.all
 		games.each do |game|
-			date = DateTime.parse(game.game_date)
-	  		game.update(time: date.strftime("%I:%M%p"), week: date.strftime("%a"))
+			if game.home_team == "LAL" || game.home_team == "LAC"
+				game.update(home_team: game.home_abbr)
+			end
+			if game.away_team == "LAL" || game.away_team == "LAC"
+				game.update(away_team: game.away_abbr)
+			end
 	  	end
 	end
 
