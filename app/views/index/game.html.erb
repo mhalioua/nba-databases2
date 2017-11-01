@@ -5,6 +5,10 @@
 <ul>
   <li><%= link_to 'Home', { action: 'home' }%></li>
 </ul>
+<div class="dateselect" style="text-align: center;">
+  <button class="btn btn-primary prevbutton" style="margin:10px; padding: 5px 20px;">Prev Day</button>
+  <button class="btn btn-primary nextbutton" style="margin:10px; padding: 5px 20px;">Next Day</button>
+</div>
 <table border="1">
   	<thead>
   		<tr>
@@ -47,3 +51,12 @@
     <% end %>
   	</tbody>
 </table>
+
+<script type="text/javascript">
+    $('.prevbutton').click(function(){
+      window.location.href = "/index/game/" + <%= @prev %>;
+    }); 
+    $('.nextbutton').click(function(){
+      window.location.href = "/index/game/" + <%= @next %>;
+    });
+</script>
