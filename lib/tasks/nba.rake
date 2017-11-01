@@ -804,6 +804,9 @@ namespace :nba do
 			end
 			(1..end_inex).each do |index|
 				slice = away_players[index]
+				if slice.children.size < 15
+					next
+				end
 				player_name = slice.children[0].children[0].children[0].text
 				position = slice.children[0].children[1].text
 				unless player = game.players.find_by(player_name: player_name)
@@ -819,6 +822,9 @@ namespace :nba do
 			end
 			(1..end_inex).each do |index|
 				slice = home_players[index]
+				if slice.children.size < 15
+					next
+				end
 				player_name = slice.children[0].children[0].children[0].text
 				position = slice.children[0].children[1].text
 				unless player = game.players.find_by(player_name: player_name)
