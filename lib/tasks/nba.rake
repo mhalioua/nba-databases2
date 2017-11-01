@@ -789,8 +789,8 @@ namespace :nba do
 
 	task :getPlayer => [:environment] do
 		include Api
-		game_start = Date.new(2013, 10, 28)
-		game_end = Date.new(2014, 10, 30)
+		game_start = Date.new(2014, 10, 28)
+		game_end = Date.new(2015, 10, 30)
 		games = Nba.where("game_date between ? and ?", game_start, game_end)
 		puts games.size
 		games.each do |game|
