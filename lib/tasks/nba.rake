@@ -805,8 +805,8 @@ namespace :nba do
 				position = slice.children[0].children[1].text
 				puts player_name
 				puts position
-				unless player = Nba.player.find_by(player_name: player_name)
-		           	player = Nba.player.create(player_name: player_name)
+				unless player = game.players.find_by(player_name: player_name)
+		           	player = game.players.create(player_name: player_name)
 	            end
 	            player.update(position: position, team_abbr: team_abbr)
 			end
@@ -819,8 +819,8 @@ namespace :nba do
 				position = slice.children[0].children[1].text
 				puts player_name
 				puts position
-				unless player = Nba.players.find_by(player_name: player_name)
-		           	player = Nba.players.create(player_name: player_name)
+				unless player = game.players.find_by(player_name: player_name)
+		           	player = game.players.create(player_name: player_name)
 	            end
 	            player.update(position: position, team_abbr: team_abbr)
 			end
