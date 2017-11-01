@@ -795,6 +795,7 @@ namespace :nba do
 			puts game_id
 			url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
 			doc = download_document(url)
+			
 
 			away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
 			team_abbr = 0
