@@ -819,7 +819,7 @@ namespace :nba do
 			team_abbr = 1
 			end_index = 5
 			if home_players.size < 5
-				end_index = away_players.size
+				end_index = home_players.size
 			end
 			(1..end_index).each do |index|
 				slice = home_players[index]
