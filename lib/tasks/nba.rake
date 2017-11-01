@@ -795,6 +795,9 @@ namespace :nba do
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
+			if game_id == 400489686
+				next
+			end
 			puts game_id
 			if game.players.size == 10
 				next
