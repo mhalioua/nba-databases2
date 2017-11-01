@@ -792,6 +792,7 @@ namespace :nba do
 		games = Nba.all
 		games.each do |game|
 			game_id = game.game_id
+			puts game_id
 			url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
 			doc = download_document(url)
 
