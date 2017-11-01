@@ -800,8 +800,8 @@ namespace :nba do
 			team_abbr = 0
 			(1..5).each do |index|
 				slice = away_players[index]
-				player_name = slice.children[0].children[0].text
-				position = slice.children[1].text
+				player_name = slice.children[0].children[0].children[0].text
+				position = slice.children[0].children[1].text
 				puts player_name
 				puts position
 				if false
@@ -816,8 +816,8 @@ namespace :nba do
 			team_abbr = 1
 			(1..5).each do |index|
 				slice = home_players[index]
-				player_name = slice.children[0].children[0].text
-				position = slice.children[1].text
+				player_name = slice.children[0].children[0].children[0].text
+				position = slice.children[0].children[1].text
 				puts player_name
 				puts position
 				if false
