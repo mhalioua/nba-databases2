@@ -798,7 +798,8 @@ namespace :nba do
 
 			away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
 			team_abbr = 0
-			away_players.each do |slice|
+			(1..5).each do |index|
+				slice = away_players[index]
 				player_name = slice.children[0].children[0].text
 				position = slice.children[1].text
 				puts player_name
@@ -811,10 +812,10 @@ namespace :nba do
 		        end
 			end
 
-			away_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
+			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
 			team_abbr = 1
 			(1..5).each do |index|
-				slice = away_players[index]
+				slice = home_players[index]
 				player_name = slice.children[0].children[0].text
 				position = slice.children[1].text
 				puts player_name
