@@ -787,6 +787,47 @@ namespace :nba do
 		end
 	end
 
+	task :getPlayer => [:environment] do
+		include Api
+		games = Nba.all
+		games.each do |game|
+			game_id = game.game_id
+			url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
+			doc = download_document(url)
+
+			away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
+			team_abbr = 0
+			away_players.each do |slice|
+				player_name = slice.children[0].children[0].text
+				position = slice.children[1].text
+				puts player_name
+				puts position
+				if false
+					unless player = Nba.players.find_by(player_name: player_name)
+			           	player = Nba.players.create(player_name: player_name)
+		            end
+		            player.update(position: position, team_abbr: team_abbr)
+		        end
+			end
+
+			away_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
+			team_abbr = 1
+			(1..5).each do |index|
+				slice = away_players[index]
+				player_name = slice.children[0].children[0].text
+				position = slice.children[1].text
+				puts player_name
+				puts position
+				if false
+					unless player = Nba.players.find_by(player_name: player_name)
+			           	player = Nba.players.create(player_name: player_name)
+		            end
+		            player.update(position: position, team_abbr: team_abbr)    
+		        end
+			end
+		end
+	end
+
 	@nba_nicknames = {
 		"L.A. Lakers" => "LAL",
 		"L.A. Clippers" => "LAC"
