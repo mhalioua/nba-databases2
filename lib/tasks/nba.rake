@@ -792,6 +792,7 @@ namespace :nba do
 		game_start = Date.new(2003, 10, 28)
 		game_end = Date.new(2006, 10, 28)
 		games = Nba.where("game_date between ? and ?", game_start, game_end)
+		puts games.size
 		games.each do |game|
 			game_id = game.game_id
 			puts game_id
