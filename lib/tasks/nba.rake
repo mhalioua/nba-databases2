@@ -789,7 +789,8 @@ namespace :nba do
 
 	task :getPlayer => [:environment] do
 		include Api
-		games = Nba.all
+		game_date = Date.new(2006, 10, 30)
+		games = Nba.where("game_date < ?", game_date)
 		games.each do |game|
 			game_id = game.game_id
 			puts game_id
