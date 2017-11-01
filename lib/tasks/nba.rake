@@ -795,7 +795,7 @@ namespace :nba do
 			puts game_id
 			url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
 			doc = download_document(url)
-			
+
 
 			away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
 			team_abbr = 0
@@ -805,12 +805,10 @@ namespace :nba do
 				position = slice.children[0].children[1].text
 				puts player_name
 				puts position
-				if false
-					unless player = Nba.players.find_by(player_name: player_name)
-			           	player = Nba.players.create(player_name: player_name)
-		            end
-		            player.update(position: position, team_abbr: team_abbr)
-		        end
+				unless player = Nba.players.find_by(player_name: player_name)
+		           	player = Nba.players.create(player_name: player_name)
+	            end
+	            player.update(position: position, team_abbr: team_abbr)
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -821,12 +819,10 @@ namespace :nba do
 				position = slice.children[0].children[1].text
 				puts player_name
 				puts position
-				if false
-					unless player = Nba.players.find_by(player_name: player_name)
-			           	player = Nba.players.create(player_name: player_name)
-		            end
-		            player.update(position: position, team_abbr: team_abbr)    
-		        end
+				unless player = Nba.players.find_by(player_name: player_name)
+		           	player = Nba.players.create(player_name: player_name)
+	            end
+	            player.update(position: position, team_abbr: team_abbr)
 			end
 		end
 	end
