@@ -808,7 +808,10 @@ namespace :nba do
 					next
 				end
 				player_name = slice.children[0].children[0].children[0].text
-				position = slice.children[0].children[1].text
+				position = ""
+				if slice.children[0].children.size > 1
+					position = slice.children[0].children[1].text
+				end
 				unless player = game.players.find_by(player_name: player_name)
 		           	player = game.players.create(player_name: player_name)
 	            end
@@ -827,7 +830,10 @@ namespace :nba do
 					next
 				end
 				player_name = slice.children[0].children[0].children[0].text
-				position = slice.children[0].children[1].text
+				position = ""
+				if slice.children[0].children.size > 1
+					position = slice.children[0].children[1].text
+				end
 				unless player = game.players.find_by(player_name: player_name)
 		           	player = game.players.create(player_name: player_name)
 	            end
