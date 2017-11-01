@@ -798,11 +798,11 @@ namespace :nba do
 
 			away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
 			team_abbr = 0
-			end_inex = 5
+			end_index = 5
 			if away_players.size < 5
-				end_inex = away_players.size
+				end_index = away_players.size
 			end
-			(1..end_inex).each do |index|
+			(1..end_index).each do |index|
 				slice = away_players[index]
 				if slice.children.size < 15
 					next
@@ -817,10 +817,11 @@ namespace :nba do
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
 			team_abbr = 1
+			end_index = 5
 			if home_players.size < 5
-				end_inex = away_players.size
+				end_index = away_players.size
 			end
-			(1..end_inex).each do |index|
+			(1..end_index).each do |index|
 				slice = home_players[index]
 				if slice.children.size < 15
 					next
