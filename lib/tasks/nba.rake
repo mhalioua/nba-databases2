@@ -802,7 +802,7 @@ namespace :nba do
 			if away_players.size < 5
 				end_index = away_players.size
 			end
-			(1..end_index).each do |index|
+			(0..end_index-1).each do |index|
 				slice = away_players[index]
 				if slice.children.size < 15
 					next
@@ -821,7 +821,7 @@ namespace :nba do
 			if home_players.size < 5
 				end_index = home_players.size
 			end
-			(1..end_index).each do |index|
+			(0..end_index-1).each do |index|
 				slice = home_players[index]
 				if slice.children.size < 15
 					next
