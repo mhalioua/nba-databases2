@@ -1,4 +1,5 @@
 class IndexController < ApplicationController
+	before_action :confirm_logged_in
 	def home
 		@yesterday = Time.now - 1.days
     	@today = Time.now
