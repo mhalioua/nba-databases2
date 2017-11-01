@@ -793,6 +793,9 @@ namespace :nba do
 		games.each do |game|
 			game_id = game.game_id
 			puts game_id
+			if game.players.size == 10
+				next
+			end
 			url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
 			doc = download_document(url)
 
