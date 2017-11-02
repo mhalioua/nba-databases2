@@ -18,4 +18,11 @@ class IndexController < ApplicationController
 		@games = Nba.where("game_date between ? and ?", Date.strptime(@game_index, '%Y%m%d').beginning_of_day, Date.strptime(@game_index, '%Y%m%d').end_of_day)
 	  				.order("game_date")
 	end
+
+	def detail
+		@game_id = params[:id]
+		@game = Nba.where("game_date = ?", @game_id)
+		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
+	end
+
 end
