@@ -846,6 +846,88 @@ namespace :nba do
 		end
 	end
 
+	task :gettg => [:environment] do
+		include Api
+		@basket_abbr.each do |team_abbr|
+			(2001..2018).each do |year|
+				url = "https://www.basketball-reference.com/teams/#{team_abbr}/#{year}.html"
+				doc = download_document(url)
+				players = doc.css('#div_per_poss tbody tr')
+				puts players.size
+				break
+			end
+		end
+	end
+
+	@basket_abbr = [
+		'ATL',
+		'BOS',
+		'CHA',
+		'CHI',
+		'CLE',
+		'DAL',
+		'DEN',
+		'DET',
+		'HOU',
+		'IND',
+		'LAC',
+		'LAL',
+		'MEM',
+		'MIA',
+		'MIL',
+		'MIN',
+		'OKC',
+		'ORL',
+		'PHI',
+		'POR',
+		'SAC',
+		'TOR',
+		'NJN',
+		'GSW',
+		'NOH',
+		'NYK',
+		'PHO',
+		'SAS',
+		'UTA',
+		'WAS'
+	]
+
+	@team_nicknames = {
+		'ATL' => 'ATL',
+		'BOS' => 'BOS',
+		'CHA' => 'CHA',
+		'CHI' => 'CHI',
+		'CLE' => 'CLE',
+		'DAL' => 'DAL',
+		'DEN' => 'DEN',
+		'DET' => 'DET',
+		'HOU' => 'HOU',
+		'IND' => 'IND',
+		'LAC' => 'LAC',
+		'LAL' => 'LAL',
+		'MEM' => 'MEM',
+		'MIA' => 'MIA',
+		'MIL' => 'MIL',
+		'MIN' => 'MIN',
+		'OKC' => 'OKC',
+		'ORL' => 'ORL',
+		'PHI' => 'PHI',
+		'POR' => 'POR',
+		'SAC' => 'SAC',
+		'TOR' => 'TOR',
+		'BKN' => 'NJN',
+		'NJ' => 'NJN',
+		'GS' => 'GSW',
+		'NO' => 'NOH',
+		'NY' => 'NYK',
+		'PHX' => 'PHO',
+		'SA' => 'SAS',
+		'UTAH' => 'UTA',
+		'WSH' => 'WAS',
+		'SEA' => 'OKC',
+		'VAN' => 'MEM'
+	}
+
 	@nba_nicknames = {
 		"L.A. Lakers" => "LAL",
 		"L.A. Clippers" => "LAC"
