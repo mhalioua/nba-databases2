@@ -856,20 +856,25 @@ namespace :nba do
 			links.each_with_index do |link, index|
 				href = "https://www.basketball-reference.com#{link.child['href']}"
 				puts href
+				year = href[-9..-6].to_i
 				doc = download_document(href)
 				doc.xpath('//comment()').each { |comment| comment.replace(comment.text) }
 				players = doc.css('#div_per_poss tbody tr')
 				players.each do |player|
-					puts player.children[1].children[0].text
+					player_name = player.children[1].children[0].text
+					player_index = player_name.index(' ')
+					player_name = player_index ? player_name[player_index+1..-1] : ""
+					puts player_name
 					puts player.children[28].text
 					puts player.children[29].text
-					break
+					unless player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
+			           	player_element = Tg.create(player_name: player_name, team_abbr: team_abbr, year: year)
+		            end
 				end
 				if index == 18
 					break
 				end
 			end
-			break
 		end
 	end
 
