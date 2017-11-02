@@ -858,6 +858,7 @@ namespace :nba do
 				puts href
 				doc = download_document(href)
 				players = doc.css('#div_per_poss tbody tr')
+				puts players.size
 				players.each do |player|
 					puts player.children[28].text
 					puts player.children[29].text
