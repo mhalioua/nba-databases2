@@ -41,7 +41,7 @@
       <td class="yellow"><%= game.away_last_game %></td>
       <td><%= game.away_team %></td>
       <td class="yellow"><%= game.away_next_game %></td>
-      <td class="red"><%= link_to '@', { action: 'detail', id: <%= game.game_id %> }%></td>
+      <td class="red"><%= link_to '@', { action: 'detail', id: game.game_id }%></td>
       <td class="yellow"><%= game.home_next_game %></td>
       <td class="green"><%= game.home_next_fly %></td>
       <td><%= game.home_team %></td>
