@@ -889,39 +889,56 @@ namespace :nba do
 				year = 2000
 				if date > Date.new(2000, 10, 30)
 	            	year = 2001
-				elsif date > Date.new(2001, 10, 29)
+	            end
+				if date > Date.new(2001, 10, 29)
 	            	year = 2002
-				elsif date > Date.new(2002, 10, 28)
+				end
+				if date > Date.new(2002, 10, 28)
 	            	year = 2003
-				elsif date > Date.new(2003, 10, 27)
+				end
+				if date > Date.new(2003, 10, 27)
 	            	year = 2004
-				elsif date > Date.new(2004, 11, 1)
+				end
+				if date > Date.new(2004, 11, 1)
 	            	year = 2005
-				elsif date > Date.new(2005, 10, 31)
+				end
+				if date > Date.new(2005, 10, 31)
 	            	year = 2006
-				elsif date > Date.new(2006, 10, 30)
+				end
+				if date > Date.new(2006, 10, 30)
 	            	year = 2007
-				elsif date > Date.new(2007, 10, 29)
+				end
+				if date > Date.new(2007, 10, 29)
 	            	year = 2008
-				elsif date > Date.new(2008, 10, 27)
+				end
+				if date > Date.new(2008, 10, 27)
 	            	year = 2009
-				elsif date > Date.new(2009, 10, 26)
+				end
+				if date > Date.new(2009, 10, 26)
 	            	year = 2010
-				elsif date > Date.new(2010, 10, 25)
+				end
+				if date > Date.new(2010, 10, 25)
 	            	year = 2011
-				elsif date > Date.new(2011, 12, 24)
+				end
+				if date > Date.new(2011, 12, 24)
 	            	year = 2012
-				elsif date > Date.new(2012, 10, 29)
+				end
+				if date > Date.new(2012, 10, 29)
 	            	year = 2013
-	            elsif date > Date.new(2013, 10, 28)
+	            end
+				if date > Date.new(2013, 10, 28)
 	            	year = 2014
-	            elsif date > Date.new(2014, 10, 27)
+	            end
+				if date > Date.new(2014, 10, 27)
 	            	year = 2015
-		        elsif date > Date.new(2015, 10, 26)
+		        end
+				if date > Date.new(2015, 10, 26)
 		            year = 2016
-		        elsif date > Date.new(2016, 10, 24)
+		        end
+				if date > Date.new(2016, 10, 24)
 		            year = 2017
-		        elsif date > Date.new(2017, 10, 19)
+		        end
+				if date > Date.new(2017, 10, 19)
 		            year = 2018
 		        end
 		        puts game.game_date
