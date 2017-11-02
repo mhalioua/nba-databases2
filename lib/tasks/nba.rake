@@ -860,13 +860,16 @@ namespace :nba do
 				doc.xpath('//comment()').each { |comment| comment.replace(comment.text) }
 				players = doc.css('#div_per_poss tbody tr')
 				players.each do |player|
+					puts player.children[1].children[0].text
 					puts player.children[28].text
 					puts player.children[29].text
+					break
 				end
 				if index == 18
 					break
 				end
 			end
+			break
 		end
 	end
 
