@@ -925,15 +925,17 @@ namespace :nba do
 			        when date > Date.new(2017, 10, 19)
 			            year = 2018
 		        end
-				team_abbr = game.home_abbr
-				player_name = player.player_name
-				player_name_index = player_name.index(". ")
-				player_name = player_name_index ? player_name[player_name_index+1..-1] : ""
-				if player.team_abbr == 0
-					team_abbr = game.away_abbr
-				end
-				if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
-					player.update(ortg: player_element.ortg, drtg: player_element.drtg)
+		        if @team_nicknames[game.home_abbr]
+					team_abbr = @team_nicknames[game.home_abbr]
+					player_name = player.player_name
+					player_name_index = player_name.index(". ")
+					player_name = player_name_index ? player_name[player_name_index+1..-1] : ""
+					if player.team_abbr == 0
+						team_abbr = game.away_abbr
+					end
+					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
+						player.update(ortg: player_element.ortg, drtg: player_element.drtg)
+					end
 				end
 			end
 		end
