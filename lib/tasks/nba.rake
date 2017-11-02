@@ -865,11 +865,12 @@ namespace :nba do
 					player_index = player_name.index(' ')
 					player_name = player_index ? player_name[player_index+1..-1] : ""
 					puts player_name
-					puts player.children[28].text
-					puts player.children[29].text
+					ortg = player.children[28].text
+					drtg = player.children[29].text
 					unless player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
 			           	player_element = Tg.create(player_name: player_name, team_abbr: team_abbr, year: year)
 		            end
+		            player_element.update(ortg: ortg, drtg: drtg)
 				end
 				if index == 18
 					break
