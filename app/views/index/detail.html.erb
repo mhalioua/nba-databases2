@@ -1,5 +1,5 @@
 <div class="header">
-  <h1><%= @head + " Matchups"%></h1>
+  <h1><%= @head %></h1>
 </div>
 
 <ul>
@@ -9,30 +9,57 @@
 <table border="1">
   	<thead>
   		<tr>
-	  		<th></th>
-	      	<th></th>
-	      	<th>Days rest</th>
-	  		<th colspan="6">TODAYS GAMES</th>
-	  		<th>Days rest</th>
+	  		<th><%= @game.away_team %> <br> Starters</th>
+	      <th>POS</th>
+	      <th>PLAYER <br> POSS %</th>
+        <th>PRO RATE</th>
+	  		<th>ORTG</th>
         <th></th>
-	    </tr>
-	  	<tr>
-	  		<th>Game ID</th>
-	      	<th class="red">Time</th>
-	      	<th class="red">Last Game</th>
-	      	<th class="red">Away Team</th>
-	  		<th class="red">Next Game</th>
-	  		<th class="red"></th>
-	  		<th class="red">Next Game</th>
-        <th>FLY</th>
-	  		<th class="red">Home Team</th>
-	  		<th class="red">Last Game</th>
-        <th>FLY</th>
+        <th>DRTG</th>
+        <th></th>
 	    </tr>
   	</thead>
   	<tbody>
-    <tr>
-     
-    </tr>
+    <% @away_players.each do |player| %>
+      <tr>
+        <td><%= player.player_name %></td>
+        <td><%= player.position %></td>
+        <td></td>
+        <td></td>
+        <td><%= player.ortg %></td>
+        <td></td>
+        <td><%= player.drtg %></td>
+        <td></td>
+      </tr>
+    <% end %>
   	</tbody>
+</table>
+
+<table border="1">
+    <thead>
+      <tr>
+        <th><%= @game.home_team %> <br> Starters</th>
+        <th>POS</th>
+        <th>PLAYER <br> POSS %</th>
+        <th>PRO RATE</th>
+        <th>ORTG</th>
+        <th></th>
+        <th>DRTG</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @home_players.each do |player| %>
+      <tr>
+        <td><%= player.player_name %></td>
+        <td><%= player.position %></td>
+        <td></td>
+        <td></td>
+        <td><%= player.ortg %></td>
+        <td></td>
+        <td><%= player.drtg %></td>
+        <td></td>
+      </tr>
+    <% end %>
+    </tbody>
 </table>
