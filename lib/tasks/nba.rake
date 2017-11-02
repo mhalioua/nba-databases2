@@ -864,7 +864,6 @@ namespace :nba do
 					player_name = player.children[1].children[0].text
 					player_index = player_name.index(' ')
 					player_name = player_index ? player_name[player_index+1..-1] : ""
-					puts player_name
 					ortg = player.children[28].text
 					drtg = player.children[29].text
 					unless player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
@@ -874,6 +873,67 @@ namespace :nba do
 				end
 				if index == 18
 					break
+				end
+			end
+		end
+	end
+
+	task :gettg => [:environment] do
+		include Api
+		games = Nba.all
+		puts games.size
+		games.each do |game|
+			players = game.players.all
+			players.each do |player|
+				date = game.game_date
+				year = 2000
+				case date
+					when date > Date.new(2000, 10, 30)
+		            	year = 2001
+					when date > Date.new(2001, 10, 29)
+		            	year = 2002
+					when date > Date.new(2002, 10, 28)
+		            	year = 2003
+					when date > Date.new(2003, 10, 27)
+		            	year = 2004
+					when date > Date.new(2004, 11, 1)
+		            	year = 2005
+					when date > Date.new(2005, 10, 31)
+		            	year = 2006
+					when date > Date.new(2006, 10, 30)
+		            	year = 2007
+					when date > Date.new(2007, 10, 29)
+		            	year = 2008
+					when date > Date.new(2008, 10, 27)
+		            	year = 2009
+					when date > Date.new(2009, 10, 26)
+		            	year = 2010
+					when date > Date.new(2010, 10, 25)
+		            	year = 2011
+					when date > Date.new(2011, 12, 24)
+		            	year = 2012
+					when date > Date.new(2012, 10, 29)
+		            	year = 2013
+		            when date > Date.new(2013, 10, 28)
+		            	year = 2014
+		            when date > Date.new(2014, 10, 27)
+		            	year = 2015
+			        when date > Date.new(2015, 10, 26)
+			            year = 2016
+			        when date > Date.new(2016, 10, 24)
+			            year = 2017
+			        when date > Date.new(2017, 10, 19)
+			            year = 2018
+		        end
+				team_abbr = game.home_abbr
+				player_name = player.player_name
+				player_name_index = player_name.index(". ")
+				player_name = player_name_index ? player_name[player_name_index+1..-1] : ""
+				if player.team_abbr == 0
+					team_abbr = game.away_abbr
+				end
+				if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
+					player.update(ortg: player_element.ortg, drtg: player_element.drtg)
 				end
 			end
 		end
