@@ -854,7 +854,7 @@ namespace :nba do
 			doc = download_document(url)
 			links = doc.css('.stats_table tbody tr th')
 			links.each do |link|
-				href = link.children[0].child['href']
+				href = link.child['href']
 				puts href
 			end
 		end
