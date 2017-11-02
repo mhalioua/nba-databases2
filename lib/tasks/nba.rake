@@ -885,7 +885,7 @@ namespace :nba do
 		games.each do |game|
 			players = game.players.all
 			players.each do |player|
-				date = game.game_date
+				date = Date.strptime(game.game_date)
 				year = 2000
 				case date
 					when date > Date.new(2000, 10, 30)
