@@ -929,7 +929,7 @@ namespace :nba do
 					team_abbr = @team_nicknames[game.home_abbr]
 					player_name = player.player_name
 					player_name_index = player_name.index(". ")
-					player_name = player_name_index ? player_name[player_name_index+1..-1] : ""
+					player_name = player_name_index ? player_name[player_name_index+2..-1] : ""
 					if player.team_abbr == 0
 						team_abbr = game.away_abbr
 					end
