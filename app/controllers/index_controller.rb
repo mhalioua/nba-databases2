@@ -23,6 +23,7 @@ class IndexController < ApplicationController
 		@game_id = params[:id]
 		@game = Nba.find_by(game_id: @game_id)
 		@head = @game.home_team + " @ " + @game.away_team
+		
 		@away_players = @game.players.where('team_abbr = 0')
 		@home_players = @game.players.where('team_abbr = 1')
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
