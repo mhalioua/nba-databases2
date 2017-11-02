@@ -925,6 +925,8 @@ namespace :nba do
 			        when date > Date.new(2017, 10, 19)
 			            year = 2018
 		        end
+		        puts game.game_date
+		        puts year
 		        if @team_nicknames[game.home_abbr]
 					team_abbr = @team_nicknames[game.home_abbr]
 					player_name = player.player_name
