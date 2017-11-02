@@ -857,9 +857,8 @@ namespace :nba do
 				href = "https://www.basketball-reference.com#{link.child['href']}"
 				puts href
 				doc = download_document(href)
-				players = doc.css('#all_per_poss')
-				puts players.inspect
-				break
+				doc.xpath('//comment()').each { |comment| comment.replace(comment.text) }
+				players = doc.css('#div_per_poss tbody tr')
 				players.each do |player|
 					puts player.children[28].text
 					puts player.children[29].text
@@ -868,7 +867,6 @@ namespace :nba do
 					break
 				end
 			end
-			break
 		end
 	end
 
