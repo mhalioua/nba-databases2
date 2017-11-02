@@ -849,12 +849,13 @@ namespace :nba do
 	task :gettg => [:environment] do
 		include Api
 		@basket_abbr.each do |team_abbr|
-			(2001..2018).each do |year|
-				url = "https://www.basketball-reference.com/teams/#{team_abbr}/#{year}.html"
-				doc = download_document(url)
-				players = doc.css('#div_per_poss tbody tr')
-				puts players.size
-				break
+			url = "https://www.basketball-reference.com/teams/#{team_abbr}/"
+			puts url
+			doc = download_document(url)
+			links = doc.css('.stats_table tbody tr th')
+			links.each do |link|
+				href = link.children[0].child['href']
+				puts href
 			end
 		end
 	end
