@@ -721,7 +721,7 @@ namespace :nba do
 	task :getPlayer => [:environment] do
 		include Api
 		puts "----------Get Players----------"
-		games = Nba.where("game_date between ? and ?", Date.yesterday.beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
@@ -748,10 +748,10 @@ namespace :nba do
 				if slice.children[0].children.size > 1
 					position = slice.children[0].children[1].text
 				end
-				unless player = game.players.find_by(player_name: player_name)
-		           	player = game.players.create(player_name: player_name)
+				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
+		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
-	            player.update(position: position, team_abbr: team_abbr)
+	            player.update(position: position)
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -770,8 +770,8 @@ namespace :nba do
 				if slice.children[0].children.size > 1
 					position = slice.children[0].children[1].text
 				end
-				unless player = game.players.find_by(player_name: player_name)
-		           	player = game.players.create(player_name: player_name)
+				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
+		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
 	            player.update(position: position, team_abbr: team_abbr)
 			end
@@ -812,67 +812,12 @@ namespace :nba do
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.all
+		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			players = game.players.all
 			players.each do |player|
-				date = Date.strptime(game.game_date)
-				year = 2000
-				if date > Date.new(2000, 10, 30)
-	            	year = 2001
-	            end
-				if date > Date.new(2001, 10, 29)
-	            	year = 2002
-				end
-				if date > Date.new(2002, 10, 28)
-	            	year = 2003
-				end
-				if date > Date.new(2003, 10, 27)
-	            	year = 2004
-				end
-				if date > Date.new(2004, 11, 1)
-	            	year = 2005
-				end
-				if date > Date.new(2005, 10, 31)
-	            	year = 2006
-				end
-				if date > Date.new(2006, 10, 30)
-	            	year = 2007
-				end
-				if date > Date.new(2007, 10, 29)
-	            	year = 2008
-				end
-				if date > Date.new(2008, 10, 27)
-	            	year = 2009
-				end
-				if date > Date.new(2009, 10, 26)
-	            	year = 2010
-				end
-				if date > Date.new(2010, 10, 25)
-	            	year = 2011
-				end
-				if date > Date.new(2011, 12, 24)
-	            	year = 2012
-				end
-				if date > Date.new(2012, 10, 29)
-	            	year = 2013
-	            end
-				if date > Date.new(2013, 10, 28)
-	            	year = 2014
-	            end
-				if date > Date.new(2014, 10, 27)
-	            	year = 2015
-		        end
-				if date > Date.new(2015, 10, 26)
-		            year = 2016
-		        end
-				if date > Date.new(2016, 10, 24)
-		            year = 2017
-		        end
-				if date > Date.new(2017, 10, 19)
-		            year = 2018
-		        end
+				year = 2018
 		        team_abbr = game.home_abbr
 		        if player.team_abbr == 0
 					team_abbr = game.away_abbr
