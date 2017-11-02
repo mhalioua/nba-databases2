@@ -20,6 +20,12 @@ namespace :nba do
 
 		Rake::Task["nba:getFullLines"].invoke
 		Rake::Task["nba:getFullLines"].reenable
+
+		Rake::Task["nba:getPlayer"].invoke
+		Rake::Task["nba:getPlayer"].reenable
+
+		Rake::Task["nba:getUpdateTG"].invoke
+		Rake::Task["nba:getUpdateTG"].reenable
 	end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
