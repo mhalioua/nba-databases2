@@ -853,9 +853,18 @@ namespace :nba do
 			puts url
 			doc = download_document(url)
 			links = doc.css('.stats_table tbody tr th')
-			links.each do |link|
-				href = link.child['href']
+			links.each_with_index do |link, index|
+				href = "https://www.basketball-reference.com#{link.child['href']}"
 				puts href
+				doc = download_document(href)
+				players = doc.css('#div_per_poss tbody tr')
+				players.each do |player|
+					puts player.children[28].text
+					puts player.children[29].text
+				end
+				if index == 18
+					break
+				end
 			end
 		end
 	end
