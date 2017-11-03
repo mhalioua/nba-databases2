@@ -41,7 +41,7 @@ class IndexController < ApplicationController
 			@away_players = @away_last.players.where('team_abbr = 1')
 		end
 
-		if @home_abbr == @away_last.away_abbr
+		if @home_abbr == @home_last.away_abbr
 			@away_players = @home_last.players.where('team_abbr = 0')
 		else
 			@away_players = @home_last.players.where('team_abbr = 1')
