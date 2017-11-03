@@ -24,9 +24,14 @@ class IndexController < ApplicationController
 		@game = Nba.find_by(game_id: @game_id)
 		@head = @game.home_team + " @ " + @game.away_team
 		
-		@away_players = @game.players.where('team_abbr = 0')
-		@home_players = @game.players.where('team_abbr = 1')
+		@home_abbr = @game.home_abbr
+		@away_abbr = @game.away_abbr
+
+		away_team_prev = Nba.where("home_abbr = ? AND game_date < ?", @away_abbr, Date.strptime(@game.game_date)).or(Nba.where("away_abbr = ? AND game_date < ?", @away_abbr, Date.strptime(@game.game_date))).order(:game_date).last
+		home_team_prev = Nba.where("home_team = ? AND game_date < ?", @home_abbr, Date.strptime(@game.game_date)).or(Nba.where("away_abbr = ? AND game_date < ?", @home_abbr, Date.strptime(@game.game_date))).order(:game_date).last
+		
+		@away_players = @away_last.players.where('team_abbr = 0')
+		@home_players = @home_last.players.where('team_abbr = 1')
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 	end
-
 end
