@@ -27,8 +27,13 @@ class IndexController < ApplicationController
 		@home_abbr = @game.home_abbr
 		@away_abbr = @game.away_abbr
 
-		@away_last = Nba.where("home_abbr = ? AND game_date < ?", @away_abbr, Time.now).or(Nba.where("away_abbr = ? AND game_date < ?", @away_abbr, Time.now)).order(:game_date).last
-		@home_last = Nba.where("home_abbr = ? AND game_date < ?", @home_abbr, Time.now).or(Nba.where("away_abbr = ? AND game_date < ?", @home_abbr, Time.now)).order(:game_date).last
+		@now = Date.strptime(@game.game_date)
+		if @now > Time.now
+			@now = Time.now
+		end
+
+		@away_last = Nba.where("home_abbr = ? AND game_date < ?", @away_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ?", @away_abbr, @now)).order(:game_date).last
+		@home_last = Nba.where("home_abbr = ? AND game_date < ?", @home_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ?", @home_abbr, @now)).order(:game_date).last
 		
 		if @away_abbr == @away_last.away_abbr
 			@away_players = @away_last.players.where('team_abbr = 0')

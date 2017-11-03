@@ -849,8 +849,8 @@ namespace :nba do
 		puts @game.inspect
 		@home_abbr = @game.home_abbr
 		@away_abbr = @game.away_abbr
-		away_last = Nba.where("home_abbr = ? AND game_date < ?", @away_abbr, Time.now).or(Nba.where("away_abbr = ? AND game_date < ?", @away_abbr, Time.now)).order(:game_date).last
-		home_last = Nba.where("home_abbr = ? AND game_date < ?", @home_abbr, Time.now).or(Nba.where("away_abbr = ? AND game_date < ?", @home_abbr, Time.now)).order(:game_date).last
+		away_last = Nba.where("home_abbr = ? AND game_date < ?", @away_abbr, Date.strptime(@game.game_date)).or(Nba.where("away_abbr = ? AND game_date < ?", @away_abbr, Date.strptime(@game.game_date))).order(:game_date).last
+		home_last = Nba.where("home_abbr = ? AND game_date < ?", @home_abbr, Date.strptime(@game.game_date)).or(Nba.where("away_abbr = ? AND game_date < ?", @home_abbr, Date.strptime(@game.game_date))).order(:game_date).last
 		puts away_last.inspect
 		puts home_last.inspect
 	end
