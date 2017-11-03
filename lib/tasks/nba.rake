@@ -818,12 +818,12 @@ namespace :nba do
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date > ?", Date.new(2017, 10, 19))
 		puts games.size
 		games.each do |game|
 			players = game.players.all
 			players.each do |player|
-				year = 2018
+				year = 2017
 		        team_abbr = game.home_abbr
 		        if player.team_abbr == 0
 					team_abbr = game.away_abbr
