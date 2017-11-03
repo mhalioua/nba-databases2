@@ -42,9 +42,9 @@ class IndexController < ApplicationController
 		end
 
 		if @home_abbr == @home_last.away_abbr
-			@away_players = @home_last.players.where('team_abbr = 0')
+			@home_players = @home_last.players.where('team_abbr = 0')
 		else
-			@away_players = @home_last.players.where('team_abbr = 1')
+			@home_players = @home_last.players.where('team_abbr = 1')
 		end
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 	end
