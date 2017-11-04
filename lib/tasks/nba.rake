@@ -882,14 +882,14 @@ namespace :nba do
 				player_name = slice.children[0].text
 			end
 			position = ""
-			fga_value = slice.children[2]
+			fga_value = slice.children[2].text
 			fga_index = fga_value.index('-')
 			fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
-			to_value = slice.children[11].to_i
-			fta_value = slice.children[4]
+			to_value = slice.children[11].text.to_i
+			fta_value = slice.children[4].text
 			fta_index = fta_value.index('-')
 			fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
-			or_value = slice.children[5].to_i
+			or_value = slice.children[5].text.to_i
 			poss = fga_value + to_value + (fta_value / 2) - or_value
 			if slice.children[0].children.size > 1
 				position = slice.children[0].children[1].text
@@ -913,14 +913,14 @@ namespace :nba do
 				player_name = slice.children[0].text
 			end
 			position = ""
-			fga_value = slice.children[2]
+			fga_value = slice.children[2].text
 			fga_index = fga_value.index('-')
 			fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
-			to_value = slice.children[11].to_i
-			fta_value = slice.children[4]
+			to_value = slice.children[11].text.to_i
+			fta_value = slice.children[4].text
 			fta_index = fta_value.index('-')
 			fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
-			or_value = slice.children[5].to_i
+			or_value = slice.children[5].text.to_i
 			poss = fga_value + to_value + (fta_value / 2) - or_value
 			if slice.children[0].children.size > 1
 				position = slice.children[0].children[1].text
