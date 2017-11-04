@@ -861,6 +861,7 @@ namespace :nba do
 	end
 
 	task :atest => [:environment] do
+		include Api
 		game = Nba.where("game_id = ?", 400974852).last
 		game_id = game.game_id
 		puts game_id
