@@ -833,6 +833,52 @@ namespace :nba do
 		end
 	end
 
+	task :getUpdatePoss => [:environment] do
+		include Api
+		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
+		puts games.size
+		games = Nba.where("game_id = ?", 400974852)
+		games.each do |game|
+			last_games = Nba.where("home_team = ? AND game_date < ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.home_team, game.game_date)).order(:game_date).limit(10)
+			(1..5).each do |index|
+				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
+				poss = 0
+				team_poss = 0
+				last_games.each do |last_game|
+					last_players = last_game.players.where("player_name = ?",player.player_name)
+					if last_players.size > 0
+						poss = poss + last_players.first.poss
+						last_team = last_game.players.where("player_name = ?", "TEAM")
+						team_poss = team_poss + last_team.first.poss
+					end
+				end
+				puts game.game_id
+				puts player.player_name
+				puts poss
+				puts team_poss
+			end
+
+			last_games = Nba.where("home_team = ? AND game_date < ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.away_team, game.game_date)).order(:game_date).limit(10)
+			(1..5).each do |index|
+				player = game.players.where("state = ? AND team_abbr = ?", index, 0).first
+				poss = 0
+				team_poss = 0
+				last_games.each do |last_game|
+					last_players = last_game.players.where("player_name = ?",player.player_name)
+					if last_players.size > 0
+						poss = poss + last_players.first.poss
+						last_team = last_game.players.where("player_name = ?", "TEAM")
+						team_poss = team_poss + last_team.first.poss
+					end
+				end
+				puts game.game_id
+				puts player.player_name
+				puts poss
+				puts team_poss
+			end
+		end
+	end
+
 	task :getUpdateTG => [:environment] do
 		include Api
 		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
