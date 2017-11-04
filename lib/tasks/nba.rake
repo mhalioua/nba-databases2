@@ -743,20 +743,20 @@ namespace :nba do
 				if slice.children.size < 15
 					next
 				end
-				if slice.children[0].children.size > 0
+				if slice.children[0].children.size > 1
 					player_name = slice.children[0].children[0].children[0].text
 				else
 					player_name = slice.children[0].text
 				end
 				position = ""
-				fga_value = slice.children[2]
+				fga_value = slice.children[2].text
 				fga_index = fga_value.index('-')
 				fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
-				to_value = slice.children[11].to_i
-				fta_value = slice.children[4]
+				to_value = slice.children[11].text.to_i
+				fta_value = slice.children[4].text
 				fta_index = fta_value.index('-')
 				fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
-				or_value = slice.children[5].to_i
+				or_value = slice.children[5].text.to_i
 				poss = fga_value + to_value + (fta_value / 2) - or_value
 				if slice.children[0].children.size > 1
 					position = slice.children[0].children[1].text
@@ -775,20 +775,20 @@ namespace :nba do
 				if slice.children.size < 15
 					next
 				end
-				if slice.children[0].children.size > 0
+				if slice.children[0].children.size > 1
 					player_name = slice.children[0].children[0].children[0].text
 				else
 					player_name = slice.children[0].text
 				end
 				position = ""
-				fga_value = slice.children[2]
+				fga_value = slice.children[2].text
 				fga_index = fga_value.index('-')
 				fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
-				to_value = slice.children[11].to_i
-				fta_value = slice.children[4]
+				to_value = slice.children[11].text.to_i
+				fta_value = slice.children[4].text
 				fta_index = fta_value.index('-')
 				fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
-				or_value = slice.children[5].to_i
+				or_value = slice.children[5].text.to_i
 				poss = fga_value + to_value + (fta_value / 2) - or_value
 				if slice.children[0].children.size > 1
 					position = slice.children[0].children[1].text
@@ -860,78 +860,7 @@ namespace :nba do
 		end
 	end
 
-	task :atest => [:environment] do
-		include Api
-		game = Nba.where("game_id = ?", 400974852).last
-		game_id = game.game_id
-		puts game_id
-		url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
-		doc = download_document(url)
-
-		away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
-		team_abbr = 0
-		end_index = away_players.size - 2
-		(0..end_index).each_with_index do |element, index|
-			slice = away_players[element]
-			if slice.children.size < 15
-				next
-			end
-			if slice.children[0].children.size > 1
-				player_name = slice.children[0].children[0].children[0].text
-			else
-				player_name = slice.children[0].text
-			end
-			position = ""
-			fga_value = slice.children[2].text
-			fga_index = fga_value.index('-')
-			fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
-			to_value = slice.children[11].text.to_i
-			fta_value = slice.children[4].text
-			fta_index = fta_value.index('-')
-			fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
-			or_value = slice.children[5].text.to_i
-			poss = fga_value + to_value + (fta_value / 2) - or_value
-			if slice.children[0].children.size > 1
-				position = slice.children[0].children[1].text
-			end
-			puts player_name
-			puts index
-			puts poss
-		end
-
-		home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
-		team_abbr = 1
-		end_index = home_players.size - 2
-		(0..end_index).each_with_index do |element, index|
-			slice = home_players[element]
-			if slice.children.size < 15
-				next
-			end
-			if slice.children[0].children.size > 1
-				player_name = slice.children[0].children[0].children[0].text
-			else
-				player_name = slice.children[0].text
-			end
-			position = ""
-			fga_value = slice.children[2].text
-			fga_index = fga_value.index('-')
-			fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
-			to_value = slice.children[11].text.to_i
-			fta_value = slice.children[4].text
-			fta_index = fta_value.index('-')
-			fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
-			or_value = slice.children[5].text.to_i
-			poss = fga_value + to_value + (fta_value / 2) - or_value
-			if slice.children[0].children.size > 1
-				position = slice.children[0].children[1].text
-			end
-			puts player_name
-			puts index
-			puts poss
-		end
-	end
-
-	@basket_abbr = [
+		@basket_abbr = [
 		'ATL',
 		'BOS',
 		'CHA',
