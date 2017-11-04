@@ -895,7 +895,7 @@ namespace :nba do
 				position = slice.children[0].children[1].text
 			end
 			puts player_name
-			puts state
+			puts index
 			puts poss
 		end
 
@@ -926,7 +926,7 @@ namespace :nba do
 				position = slice.children[0].children[1].text
 			end
 			puts player_name
-			puts state
+			puts index
 			puts poss
 		end
 	end
