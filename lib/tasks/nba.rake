@@ -876,7 +876,7 @@ namespace :nba do
 			if slice.children.size < 15
 				next
 			end
-			if slice.children[0].children.size > 0
+			if slice.children[0].children.size > 1
 				player_name = slice.children[0].children[0].children[0].text
 			else
 				player_name = slice.children[0].text
@@ -907,7 +907,7 @@ namespace :nba do
 			if slice.children.size < 15
 				next
 			end
-			if slice.children[0].children.size > 0
+			if slice.children[0].children.size > 1
 				player_name = slice.children[0].children[0].children[0].text
 			else
 				player_name = slice.children[0].text
