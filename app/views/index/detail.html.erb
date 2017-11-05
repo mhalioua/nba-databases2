@@ -20,7 +20,7 @@
 	    </tr>
   	</thead>
   	<tbody>
-    <% @away_players.each do |player| %>
+    <% @away_players.each_with_index do |player, index| %>
       <tr>
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
@@ -35,6 +35,11 @@
         <td><%= player.drtg %></td>
         <td></td>
       </tr>
+      <% if index == 5 %>
+      <tr style="background: grey">
+        <td>BENCH</td>
+      </tr>
+      <% end %>
     <% end %>
   	</tbody>
 </table>
@@ -53,7 +58,7 @@
       </tr>
     </thead>
     <tbody>
-    <% @home_players.each do |player| %>
+    <% @home_players.each_with_index do |player, index| %>
       <tr>
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
@@ -68,6 +73,11 @@
         <td><%= player.drtg %></td>
         <td></td>
       </tr>
+      <% if index == 5 %>
+      <tr style="background: grey">
+        <td>BENCH</td>
+      </tr>
+      <% end %>
     <% end %>
     </tbody>
 </table>
