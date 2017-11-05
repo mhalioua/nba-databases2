@@ -837,11 +837,12 @@ namespace :nba do
 		include Api
 		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
-		now = game.game_date
-		if now > Time.now
-			now = Time.now
-		end
+
 		games.each do |game|
+			now = game.game_date
+			if now > Time.now
+				now = Time.now
+			end
 			last_games = Nba.where("home_team = ? AND game_date < ?", game.home_team, now).or(Nba.where("away_team = ? AND game_date < ?", game.home_team, now)).order('game_date DESC').limit(5)
 			(1..5).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
