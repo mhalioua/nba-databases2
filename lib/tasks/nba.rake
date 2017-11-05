@@ -839,7 +839,7 @@ namespace :nba do
 		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
 			last_games = Nba.where("home_team = ? AND game_date < ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.home_team, game.game_date)).order('game_date DESC').limit(5)
-			count = game.players.where("team_abbr = ?", 1).size
+			count = game.players.where("team_abbr = ?", 1).size - 1
 			(1..count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
 				sum_poss = 0
@@ -856,7 +856,7 @@ namespace :nba do
 			end
 
 			last_games = Nba.where("home_team = ? AND game_date < ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.away_team, game.game_date)).order('game_date DESC').limit(5)
-			count = game.players.where("team_abbr = ?", 1).size
+			count = game.players.where("team_abbr = ?", 1).size - 1
 			(1..count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 0).first
 				sum_poss = 0
