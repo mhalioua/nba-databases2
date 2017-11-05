@@ -835,7 +835,7 @@ namespace :nba do
 
 	task :getUpdatePoss => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Time.now)
 		puts games.size
 
 		games.each do |game|
