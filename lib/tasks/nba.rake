@@ -840,10 +840,12 @@ namespace :nba do
 		puts games.size
 
 		games.each do |game|
+			puts game.game_date
 			now = game.game_date
 			if now > Time.now
 				now = Time.now
 			end
+			puts now
 			last_games = Nba.where("home_team = ? AND game_date < ?", game.home_team, now).or(Nba.where("away_team = ? AND game_date < ?", game.home_team, now)).order('game_date DESC').limit(5)
 			(1..5).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
