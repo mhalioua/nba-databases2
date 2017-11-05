@@ -856,7 +856,7 @@ namespace :nba do
 			end
 
 			last_games = Nba.where("home_team = ? AND game_date < ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.away_team, game.game_date)).order('game_date DESC').limit(5)
-			count = game.players.where("team_abbr = ?", 1).size - 1
+			count = game.players.where("team_abbr = ?", 0).size - 1
 			(1..count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 0).first
 				sum_poss = 0
