@@ -25,7 +25,7 @@
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
-        <td><%= player.sum_poss/player.team_poss %></td>
+        <td><%= 100 * player.sum_poss.to_f/player.team_poss %></td>
         <% else %>
         <td></td>
         <% end %>
@@ -58,7 +58,7 @@
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
-        <td><%= player.sum_poss/player.team_poss %></td>
+        <td><%= 100 * player.sum_poss.to_f/player.team_poss %></td>
         <% else %>
         <td></td>
         <% end %>
