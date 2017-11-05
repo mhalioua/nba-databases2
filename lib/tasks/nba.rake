@@ -26,6 +26,10 @@ namespace :nba do
 
 		Rake::Task["nba:getUpdateTG"].invoke
 		Rake::Task["nba:getUpdateTG"].reenable
+
+		Rake::Task["nba:getUpdatePoss"].invoke
+		Rake::Task["nba:getUpdatePoss"].reenable
+		
 	end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
@@ -727,7 +731,7 @@ namespace :nba do
 	task :getPlayer => [:environment] do
 		include Api
 		puts "----------Get Players----------"
-		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
@@ -836,7 +840,7 @@ namespace :nba do
 	task :getUpdatePoss => [:environment] do
 		include Api
 		Time.zone = 'Eastern Time (US & Canada)'
-		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Time.now-5.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
 			last_games = Nba.where("home_team = ? AND game_date < ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.home_team, game.game_date)).order('game_date DESC').limit(5)
 			count = game.players.where("team_abbr = ?", 1).size - 1
@@ -876,7 +880,7 @@ namespace :nba do
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			players = game.players.all
