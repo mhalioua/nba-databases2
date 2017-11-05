@@ -835,6 +835,7 @@ namespace :nba do
 
 	task :getUpdatePoss => [:environment] do
 		include Api
+		Time.zone = 'Eastern Time (US & Canada)'
 		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Time.now)
 		puts games.size
 
