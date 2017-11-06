@@ -32,7 +32,7 @@ namespace :nba do
 		
 	end
 
-	task :daily => :environment do
+	task :fix => :environment do
 		Rake::Task["nba:getPlayer"].invoke
 		Rake::Task["nba:getPlayer"].reenable
 
