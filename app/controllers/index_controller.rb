@@ -40,14 +40,14 @@ class IndexController < ApplicationController
 		else
 			@away_players = @away_last.players.where('team_abbr = 1').order(:state)
 		end
-		@away_players.pop()
+		@away_players.first @away_players.size-1
 
 		if @home_abbr == @home_last.away_abbr
 			@home_players = @home_last.players.where('team_abbr = 0').order(:state)
 		else
 			@home_players = @home_last.players.where('team_abbr = 1').order(:state)
 		end
-		@home_players.pop()
+		@home_players.first @home_players.size-1
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 	end
 end
