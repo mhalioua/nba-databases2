@@ -33,7 +33,7 @@ namespace :nba do
 	end
 
 	task :fix => :environment do
-		game = Nba.find_by(game_id: @400974890)
+		game = Nba.find_by(game_id: 400974890)
 		
 		home_abbr = game.home_abbr
 		away_abbr = game.away_abbr
