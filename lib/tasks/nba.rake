@@ -845,6 +845,7 @@ namespace :nba do
 				if index == 18
 					break
 				end
+				break
 			end
 		end
 	end
