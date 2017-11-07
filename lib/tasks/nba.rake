@@ -33,14 +33,35 @@ namespace :nba do
 	end
 
 	task :fix => :environment do
-		Rake::Task["nba:getPlayer"].invoke
-		Rake::Task["nba:getPlayer"].reenable
+		game = Nba.find_by(game_id: @400974890)
+		
+		home_abbr = game.home_abbr
+		away_abbr = game.away_abbr
 
-		Rake::Task["nba:getUpdateTG"].invoke
-		Rake::Task["nba:getUpdateTG"].reenable
+		now = Date.strptime(game.game_date)
+		if now > Time.now
+			now = Time.now
+		end
 
-		Rake::Task["nba:getUpdatePoss"].invoke
-		Rake::Task["nba:getUpdatePoss"].reenable
+		away_last = Nba.where("home_abbr = ? AND game_date < ?", away_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", away_abbr, now)).order(:game_date).last
+		home_last = Nba.where("home_abbr = ? AND game_date < ?", home_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", home_abbr, now)).order(:game_date).last
+		puts away_last.id
+		puts home_last.id
+		
+		if away_abbr == away_last.away_abbr
+			away_players = away_last.players.where('team_abbr = 0').order(:state)
+		else
+			away_players = away_last.players.where('team_abbr = 1').order(:state)
+		end
+		away_players = away_players[0..-2]
+
+		if home_abbr == home_last.away_abbr
+			home_players = home_last.players.where('team_abbr = 0').order(:state)
+		else
+			home_players = home_last.players.where('team_abbr = 1').order(:state)
+		end
+		home_players = home_players[0..-2]
+		date_id = Date.strptime(game.game_date).strftime("%Y%m%d")
 		
 	end
 
