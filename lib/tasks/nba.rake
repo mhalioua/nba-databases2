@@ -912,6 +912,9 @@ namespace :nba do
 					player_name_index = player_name.index(" Jr.")
 					player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
 
+					player_name_index = player_name.index(" III")
+					player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
+
 					if @player_name[player_name]
 						player_name = @player_name[player_name]
 					end
