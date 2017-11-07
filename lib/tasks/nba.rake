@@ -905,12 +905,13 @@ namespace :nba do
 					team_abbr = @team_nicknames[team_abbr]
 					
 					player_name = player.player_name
+					player_name_index = player_name.index(". ")
+					player_name = player_name_index ? player_name[player_name_index+2..-1] : ""
+
 					if @player_name[player_name]
 						player_name = @player_name[player_name]
 					end
-					player_name_index = player_name.index(". ")
-					player_name = player_name_index ? player_name[player_name_index+2..-1] : ""
-					
+										
 					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2017)
 						player.update(ortg: player_element.ortg, drtg: player_element.drtg)
 					elsif player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2018)
