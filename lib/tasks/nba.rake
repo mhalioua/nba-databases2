@@ -892,12 +892,11 @@ namespace :nba do
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			players = game.players.all
 			players.each do |player|
-				year = 2017
 		        team_abbr = game.home_abbr
 		        if player.team_abbr == 0
 					team_abbr = game.away_abbr
@@ -909,7 +908,11 @@ namespace :nba do
 					player_name_index = player_name.index(". ")
 					player_name = player_name_index ? player_name[player_name_index+2..-1] : ""
 					
-					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
+					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2017)
+						player.update(ortg: player_element.ortg, drtg: player_element.drtg)
+					elsif player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2018)
+						player.update(ortg: player_element.ortg, drtg: player_element.drtg)
+					elsif player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2016)
 						player.update(ortg: player_element.ortg, drtg: player_element.drtg)
 					end
 				end
