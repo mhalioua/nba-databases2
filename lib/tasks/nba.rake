@@ -905,8 +905,8 @@ namespace :nba do
 					team_abbr = @team_nicknames[team_abbr]
 					
 					player_name = player.player_name
-					if @player_nicknames[player_name]
-						player_name = @team_nicknames[player_name]
+					if @player_name[player_name]
+						player_name = @player_name[player_name]
 					end
 					player_name_index = player_name.index(". ")
 					player_name = player_name_index ? player_name[player_name_index+2..-1] : ""
