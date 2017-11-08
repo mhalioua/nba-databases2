@@ -31,7 +31,7 @@
             count = player.possession.scan(/,/).count
           end
         %>
-        <td><%= player.mins/count %></td>
+        <td><%= player.sum_mins/count %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -78,7 +78,7 @@
             count = player.possession.scan(/,/).count
           end
         %>
-        <td><%= player.mins/count %></td>
+        <td><%= player.sum_mins/count %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
