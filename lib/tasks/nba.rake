@@ -992,7 +992,7 @@ namespace :nba do
 		    end
 
 		    away_players.each_with_index do |player, index| 
-		    	player.update(prorate: player.poss / away_total_poss)
+		    	player.update(prorate: 100 * player.poss / away_total_poss)
 		    end
 
 		    home_players = game.players.where(team_abbr: 1)
@@ -1011,7 +1011,7 @@ namespace :nba do
 		    end
 
 		    home_players.each_with_index do |player, index|
-		    	player.update(prorate: player.poss / home_total_poss)
+		    	player.update(prorate: 100 * player.poss / home_total_poss)
 		    end
 		end
 	end
