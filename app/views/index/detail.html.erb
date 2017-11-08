@@ -28,7 +28,7 @@
         <%
           count = 1
           if player.possession
-            count = player.possession.scan(/,/).count
+            count = player.possession.scan(/,/).count + 1
           end
         %>
         <td><%= player.sum_mins/count %></td>
@@ -78,7 +78,7 @@
         <%
           count = 1
           if player.possession
-            count = player.possession.scan(/,/).count
+            count = player.possession.scan(/,/).count + 1
           end
         %>
         <td><%= player.sum_mins/count %></td>
