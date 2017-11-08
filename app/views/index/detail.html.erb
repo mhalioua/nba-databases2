@@ -37,7 +37,7 @@
         <% else %>
         <td></td>
         <% end %>
-        <td><%= player.prorate %></td>
+        <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
         <td></td>
         <td><%= player.drtg %></td>
@@ -52,6 +52,17 @@
     <% end %>
       <tr style="background: grey">
         <td colspan="9"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td><%= '%.2f' % @away_total_min %>%</td>
+        <td><%= '%.2f' % @away_total_poss %>%</td>
+        <td>100%</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
   	</tbody>
 </table>
@@ -87,7 +98,7 @@
         <% else %>
         <td></td>
         <% end %>
-        <td><%= player.prorate %></td>
+        <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
         <td></td>
         <td><%= player.drtg %></td>
@@ -102,6 +113,17 @@
     <% end %>
       <tr style="background: grey">
         <td colspan="9"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td><%= '%.2f' % @home_total_min %>%</td>
+        <td><%= '%.2f' % @home_total_poss %>%</td>
+        <td>100%</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </tbody>
 </table>
