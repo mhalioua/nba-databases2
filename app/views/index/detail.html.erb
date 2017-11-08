@@ -35,7 +35,7 @@
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
-        <td></td>
+        <td><%= player.prorate %></td>
         <% end %>
         <td></td>
         <td><%= player.ortg %></td>
@@ -50,6 +50,9 @@
       </tr>
       <% end %>
     <% end %>
+      <tr style="background: grey">
+        <td colspan="9"></td>
+      </tr>
   	</tbody>
 </table>
 
@@ -82,7 +85,7 @@
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
-        <td></td>
+        <td><%= player.prorate %></td>
         <% end %>
         <td></td>
         <td><%= player.ortg %></td>
@@ -97,5 +100,8 @@
       </tr>
       <% end %>
     <% end %>
+      <tr style="background: grey">
+        <td colspan="9"></td>
+      </tr>
     </tbody>
 </table>
