@@ -786,6 +786,7 @@ namespace :nba do
 					player_name = slice.children[0].text
 				end
 				position = ""
+				mins_value = slice.children[1].text.to_i
 				fga_value = slice.children[2].text
 				fga_index = fga_value.index('-')
 				fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
@@ -801,7 +802,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
 		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
-	            player.update(position: position, state: index + 1, poss: poss)
+	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value )
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -818,6 +819,7 @@ namespace :nba do
 					player_name = slice.children[0].text
 				end
 				position = ""
+				mins_value = slice.children[1].text.to_i
 				fga_value = slice.children[2].text
 				fga_index = fga_value.index('-')
 				fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
@@ -833,7 +835,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
 		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
-	            player.update(position: position, state: index + 1, poss: poss)
+	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value )
 			end
 		end
 	end
@@ -876,38 +878,52 @@ namespace :nba do
 		Time.zone = 'Eastern Time (US & Canada)'
 		games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
-			last_games = Nba.where("home_team = ? AND game_date <= ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.home_team, game.game_date)).order('game_date DESC').limit(5)
-			count = game.players.where("team_abbr = ?", 1).size - 1
-			(1..count).each do |index|
+			last_games = Nba.where("home_team = ? AND game_date <= ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.home_team, game.game_date)).order('game_date DESC')
+			player_count = game.players.where("team_abbr = ?", 1).size - 1
+			(1..player_count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
+				possession = []
 				sum_poss = 0
 				team_poss = 0
+				count = 0
 				last_games.each do |last_game|
+					if count == 10
+						break
+					end
 					last_players = last_game.players.where("player_name = ?",player.player_name)
 					if last_players.size > 0
+						possession.push(last_game.id)
 						sum_poss = sum_poss + last_players.first.poss
 						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
+						count ++
 					end
 				end
-				player.update(sum_poss: sum_poss, team_poss: team_poss)
+				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","))
 			end
 
-			last_games = Nba.where("home_team = ? AND game_date <= ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.away_team, game.game_date)).order('game_date DESC').limit(5)
-			count = game.players.where("team_abbr = ?", 0).size - 1
-			(1..count).each do |index|
+			last_games = Nba.where("home_team = ? AND game_date <= ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.away_team, game.game_date)).order('game_date DESC')
+			player_count = game.players.where("team_abbr = ?", 0).size - 1
+			(1..player_count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 0).first
+				possession = []
 				sum_poss = 0
+				count = 0
 				team_poss = 0
 				last_games.each do |last_game|
+					if count == 10
+						break
+					end
 					last_players = last_game.players.where("player_name = ?",player.player_name)
 					if last_players.size > 0
+						possession.push(last_game.id)
 						sum_poss = sum_poss + last_players.first.poss
 						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
+						count ++
 					end
 				end
-				player.update(sum_poss: sum_poss, team_poss: team_poss)
+				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","))
 			end
 		end
 	end
