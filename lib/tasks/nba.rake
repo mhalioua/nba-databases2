@@ -876,7 +876,7 @@ namespace :nba do
 	task :getUpdatePoss => [:environment] do
 		include Api
 		Time.zone = 'Eastern Time (US & Canada)'
-		games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Time.now-5.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
 			last_games = Nba.where("home_team = ? AND game_date <= ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.home_team, game.game_date)).order('game_date DESC').limit(20)
 			player_count = game.players.where("team_abbr = ?", 1).size - 1
