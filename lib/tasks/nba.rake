@@ -973,7 +973,7 @@ namespace :nba do
 	end
 
 	task :getUpdateRate => [:environment] do
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now)
+		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
 		puts games.size
 		games.each do |game|
 			away_players = game.players.where(team_abbr: 0)
