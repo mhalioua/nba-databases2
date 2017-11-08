@@ -878,7 +878,7 @@ namespace :nba do
 		Time.zone = 'Eastern Time (US & Canada)'
 		games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
-			last_games = Nba.where("home_team = ? AND game_date <= ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.home_team, game.game_date)).order('game_date DESC')
+			last_games = Nba.where("home_team = ? AND game_date <= ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.home_team, game.game_date)).order('game_date DESC').limit(20)
 			player_count = game.players.where("team_abbr = ?", 1).size - 1
 			(1..player_count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
@@ -902,7 +902,7 @@ namespace :nba do
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","))
 			end
 
-			last_games = Nba.where("home_team = ? AND game_date <= ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.away_team, game.game_date)).order('game_date DESC')
+			last_games = Nba.where("home_team = ? AND game_date <= ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.away_team, game.game_date)).order('game_date DESC').limit(20)
 			player_count = game.players.where("team_abbr = ?", 0).size - 1
 			(1..player_count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 0).first
