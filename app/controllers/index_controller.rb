@@ -49,37 +49,6 @@ class IndexController < ApplicationController
 		end
 		@home_players = @home_players[0..-2]
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
-
-	    @away_total_poss = 0
-	    @away_total_min = 0
-	    @away_total_prorate = 100
-	    @away_players.each_with_index do |player, index| 
-	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
-	        count = 1
-	        if player.possession
-	          	count = player.possession.scan(/,/).count
-	        end
-	        @away_total_min = @away_total_min + player.sum_mins/count
-	    end
-
-	    @away_players.each_with_index do |player, index| 
-	    	player.prorate = player.poss / @away_total_poss
-	    end
-
-	    @home_total_poss = 0
-	    @home_total_min = 0
-	    @home_total_prorate = 100
-	    @home_players.each_with_index do |player, index| 
-	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
-	        count = 1
-	        if player.possession
-	          	count = player.possession.scan(/,/).count
-	        end
-	        @home_total_min = @home_total_min + player.sum_mins/count
-	    end
-
-	    @home_players.each_with_index do |player, index| 
-	    	player.prorate = player.poss / @home_total_poss
-	    end
+	   
 	end
 end

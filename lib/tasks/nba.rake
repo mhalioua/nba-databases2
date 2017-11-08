@@ -972,6 +972,38 @@ namespace :nba do
 		end
 	end
 
+	task :getUpdateTG => [:environment] do
+	 	away_total_poss = 0
+	    away_total_min = 0
+	    away_players.each_with_index do |player, index| 
+	        away_total_poss = away_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count
+	        end
+	        away_total_min = away_total_min + player.sum_mins/count
+	    end
+
+	    away_players.each_with_index do |player, index| 
+	    	player.update(prorate: player.poss / @away_total_poss)
+	    end
+
+	    home_total_poss = 0
+	    home_total_min = 0
+	    home_players.each_with_index do |player, index| 
+	        home_total_poss = home_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count
+	        end
+	        home_total_min = @home_total_min + player.sum_mins/count
+	    end
+
+	    home_players.each_with_index do |player, index|
+	    	player.update(prorate: player.poss / @away_total_poss)
+	    end
+	end
+
 		@basket_abbr = [
 		'ATL',
 		'BOS',
