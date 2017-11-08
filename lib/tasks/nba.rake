@@ -986,7 +986,7 @@ namespace :nba do
 		        away_total_poss = away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 		        count = 1
 		        if player.possession
-		          	count = player.possession.scan(/,/).count
+		          	count = player.possession.scan(/,/).count + 1
 		        end
 		        away_total_min = away_total_min + player.sum_mins/count
 		    end
@@ -1005,7 +1005,7 @@ namespace :nba do
 		        home_total_poss = home_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
 		        count = 1
 		        if player.possession
-		          	count = player.possession.scan(/,/).count
+		          	count = player.possession.scan(/,/).count + 1
 		        end
 		        home_total_min = home_total_min + player.sum_mins/count
 		    end
