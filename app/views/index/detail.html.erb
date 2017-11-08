@@ -11,6 +11,7 @@
   		<tr>
 	  		<th><%= @game.away_team %> <br> Starters</th>
 	      <th>POS</th>
+        <th>MIN</th>
 	      <th>PLAYER <br> POSS %</th>
         <th>PRO RATE</th>
 	  		<th>ORTG</th>
@@ -24,6 +25,10 @@
       <tr>
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
+        <%
+          count = player.possession.scan(/,/).count
+        %>
+        <td><%= player.min/count %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -50,6 +55,7 @@
       <tr>
         <th><%= @game.home_team %> <br> Starters</th>
         <th>POS</th>
+        <th>MIN</th>
         <th>PLAYER <br> POSS %</th>
         <th>PRO RATE</th>
         <th>ORTG</th>
@@ -63,6 +69,10 @@
       <tr>
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
+        <%
+          count = player.possession.scan(/,/).count
+        %>
+        <td><%= player.min/count %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
