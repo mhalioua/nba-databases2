@@ -896,7 +896,7 @@ namespace :nba do
 						sum_poss = sum_poss + last_players.first.poss
 						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
-						count++
+						count = count + 1
 					end
 				end
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","))
@@ -920,7 +920,7 @@ namespace :nba do
 						sum_poss = sum_poss + last_players.first.poss
 						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
-						count++
+						count = count + 1
 					end
 				end
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","))
