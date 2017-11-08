@@ -1007,7 +1007,7 @@ namespace :nba do
 		        if player.possession
 		          	count = player.possession.scan(/,/).count
 		        end
-		        home_total_min = @home_total_min + player.sum_mins/count
+		        home_total_min = home_total_min + player.sum_mins/count
 		    end
 
 		    home_players.each_with_index do |player, index|
