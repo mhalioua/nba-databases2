@@ -764,7 +764,7 @@ namespace :nba do
 	task :getPlayer => [:environment] do
 		include Api
 		puts "----------Get Players----------"
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
@@ -896,7 +896,7 @@ namespace :nba do
 						sum_poss = sum_poss + last_players.first.poss
 						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
-						count ++
+						count++
 					end
 				end
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","))
@@ -920,7 +920,7 @@ namespace :nba do
 						sum_poss = sum_poss + last_players.first.poss
 						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
-						count ++
+						count++
 					end
 				end
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","))
