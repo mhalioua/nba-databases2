@@ -63,7 +63,7 @@ class IndexController < ApplicationController
 	    end
 
 	    @away_players.each_with_index do |player, index| 
-	    	player.prorate = player.poss / total_poss
+	    	player.prorate = player.poss / @away_total_poss
 	    end
 
 	    @home_total_poss = 0
@@ -79,7 +79,7 @@ class IndexController < ApplicationController
 	    end
 
 	    @home_players.each_with_index do |player, index| 
-	    	player.prorate = player.poss / total_poss
+	    	player.prorate = player.poss / @home_total_poss
 	    end
 	end
 end
