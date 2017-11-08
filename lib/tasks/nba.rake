@@ -992,6 +992,9 @@ namespace :nba do
 		    end
 
 		    away_players.each_with_index do |player, index| 
+		    	if player.player_name == "TEAM"
+		    		next
+		    	end
 		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / away_total_poss)
 		    end
 
@@ -1011,6 +1014,9 @@ namespace :nba do
 		    end
 
 		    home_players.each_with_index do |player, index|
+		    	if player.player_name == "TEAM"
+		    		next
+		    	end
 		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / home_total_poss)
 		    end
 		end
