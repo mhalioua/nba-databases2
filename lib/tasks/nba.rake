@@ -883,6 +883,7 @@ namespace :nba do
 			(1..player_count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
 				possession = []
+				sum_mins = 0
 				sum_poss = 0
 				team_poss = 0
 				count = 0
@@ -894,12 +895,13 @@ namespace :nba do
 					if last_players.size > 0
 						possession.push(last_game.id)
 						sum_poss = sum_poss + last_players.first.poss
+						sum_mins = sum_mins + last_players.first.mins
 						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
 						count = count + 1
 					end
 				end
-				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","))
+				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins)
 			end
 
 			last_games = Nba.where("home_team = ? AND game_date <= ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.away_team, game.game_date)).order('game_date DESC').limit(20)
@@ -910,6 +912,7 @@ namespace :nba do
 				sum_poss = 0
 				count = 0
 				team_poss = 0
+				sum_mins = 0
 				last_games.each do |last_game|
 					if count == 10
 						break
@@ -918,12 +921,13 @@ namespace :nba do
 					if last_players.size > 0
 						possession.push(last_game.id)
 						sum_poss = sum_poss + last_players.first.poss
+						sum_mins = sum_mins + last_players.first.mins
 						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
 						count = count + 1
 					end
 				end
-				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","))
+				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins)
 			end
 		end
 	end
