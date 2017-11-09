@@ -763,6 +763,7 @@ namespace :nba do
 					next
 				end
 				link = slice.children[0].children[0]['href']
+				puts link
 				page = download_document(link)
 				height = page.css(".general-info")[0].children[1].text
 
