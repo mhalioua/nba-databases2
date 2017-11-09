@@ -762,16 +762,16 @@ namespace :nba do
 				if slice.children.size < 15
 					next
 				end
-				link = slice.children[0].children[0]['href']
-				puts link
-				page = download_document(link)
-				height = page.css(".general-info")[0].children[1].text
-
 
 				if slice.children[0].children.size > 1
 					player_name = slice.children[0].children[0].children[0].text
+					link = slice.children[0].children[0]['href']
+					puts link
+					page = download_document(link)
+					height = page.css(".general-info")[0].children[1].text
 				else
 					player_name = slice.children[0].text
+					height = 0
 				end
 				position = ""
 				mins_value = slice.children[1].text.to_i
