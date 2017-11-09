@@ -68,6 +68,44 @@
   	</tbody>
 </table>
 
+<% @away_players.each_with_index do |player, index| %>
+<div style="display:none" class="boxes box<%= player.id %>">
+<p style="text-align: center;"> <%= player.player_name %> </p>
+  <table border="1">
+      <thead>
+        <tr>
+          <th>GameID</th>
+          <th>MIN</th>
+          <th>FGA</th>
+          <th>FTA</th>
+          <th>TO</th>
+          <th>OR</th>
+          <th>POSS</th>
+        </tr>
+      </thead>
+      <tbody>
+     
+        <%
+          game_list = player.possession.split(/,/)
+          game_list.each do |game_id|
+            game = Nba.where(id: game_id).first
+            search_player = game.players.where(player_name: player.player_name).first
+        %>
+        <tr>
+          <td><%= game.id %></td>
+          <td><%= search_player.mins %></td>
+          <td><%= search_player.fga %></td>
+          <td><%= search_player.fta %></td>
+          <td><%= search_player.toValue %></td>
+          <td><%= search_player.orValue %></td>
+          <td><%= search_player.poss %></td>
+        </tr>
+        <% end %>
+      </tbody>
+  </table>
+</div>
+<% end %>
+
 <table border="1">
     <thead>
       <tr>
@@ -165,43 +203,7 @@
   </table>
 </div>
 <% end %>
-<% @away_players.each_with_index do |player, index| %>
-<div style="display:none" class="boxes box<%= player.id %>">
-<p style="text-align: center;"> <%= player.player_name %> </p>
-  <table border="1">
-      <thead>
-        <tr>
-          <th>GameID</th>
-          <th>MIN</th>
-          <th>FGA</th>
-          <th>FTA</th>
-          <th>TO</th>
-          <th>OR</th>
-          <th>POSS</th>
-        </tr>
-      </thead>
-      <tbody>
-     
-        <%
-          game_list = player.possession.split(/,/)
-          game_list.each do |game_id|
-            game = Nba.where(id: game_id).first
-            search_player = game.players.where(player_name: player.player_name).first
-        %>
-        <tr>
-          <td><%= game.id %></td>
-          <td><%= search_player.mins %></td>
-          <td><%= search_player.fga %></td>
-          <td><%= search_player.fta %></td>
-          <td><%= search_player.toValue %></td>
-          <td><%= search_player.orValue %></td>
-          <td><%= search_player.poss %></td>
-        </tr>
-        <% end %>
-      </tbody>
-  </table>
-</div>
-<% end %>
+
 <script>
 $(".lists").hover(function() {
   $(".boxes").css("display", "none");
