@@ -127,32 +127,37 @@
       </tr>
     </tbody>
 </table>
-
+ <% @home_players.each_with_index do |player, index| %>
 <table border="1">
     <thead>
       <tr>
         <th>GameID</th>
-        <th>POS</th>
         <th>MIN</th>
-        <th>PLAYER <br> POSS %</th>
-        <th>PRO RATE</th>
-        <th>ORTG</th>
-        <th></th>
-        <th>DRTG</th>
-        <th></th>
+        <th>FGA</th>
+        <th>FTA</th>
+        <th>TO</th>
+        <th>OR</th>
+        <th>POSS</th>
       </tr>
     </thead>
     <tbody>
-    <% @home_players.each_with_index do |player, index| %>
+   
       <%
         game_list = player.possession.split(/,/)
         game_list.each do |game_id|
           game = Nba.where(id: game_id).first
+          search_player = game.players.where(player_name: player.player_name).first
       %>
       <tr>
         <td><%= game.id %></td>
+        <td><%= search_player.mins %></td>
+        <td><%= search_player.fga %></td>
+        <td><%= search_player.fta %></td>
+        <td><%= search_player.to_value %></td>
+        <td><%= search_player.or_value %></td>
+        <td><%= search_player.poss %></td>
       </tr>
       <% end %>
-    <% end %>
     </tbody>
 </table>
+<% end %>
