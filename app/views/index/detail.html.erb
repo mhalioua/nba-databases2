@@ -130,6 +130,7 @@
       <tr>
         <th><%= @game.home_team %> <br> Starters</th>
         <th>POS</th>
+        <th>HT</th>
         <th>MIN</th>
         <th>PLAYER <br> POSS %</th>
         <th>PRO RATE</th>
@@ -144,6 +145,7 @@
       <tr class="lists list<%= player.id %>">
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
+        <td><%= player.height %></td>
         <%
           count = 1
           if player.possession
