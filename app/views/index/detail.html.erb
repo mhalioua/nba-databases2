@@ -6,7 +6,7 @@
   <li><%= link_to 'Back', { action: 'game', id: @date_id }%></li>
 </ul>
 <div class="tableBody">
-<table border="1">
+<table border="1" class="tableSide">
   	<thead>
   		<tr>
 	  		<th><%= @game.away_team %> <br> Starters</th>
@@ -125,7 +125,7 @@
   	</tbody>
 </table>
 
-<table border="1">
+<table border="1" class="tableSide">
     <thead>
       <tr>
         <th><%= @game.home_team %> <br> Starters</th>

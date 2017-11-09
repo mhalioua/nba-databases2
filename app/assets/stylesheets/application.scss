@@ -39,10 +39,15 @@ ul {
 }
 
 table {
-    display: inline-table;
+    display: table;
+    margin: 0 auto;
     text-align: center;
     border-collapse: collapse;
     border: 9px solid rgb(56, 87, 33);
+}
+
+.tableSide {
+    display: inline-table;
 }
 
 td, th {
