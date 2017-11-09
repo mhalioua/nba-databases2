@@ -67,65 +67,6 @@
   	</tbody>
 </table>
 
-<% @away_players.each_with_index do |player, index| %>
-<div style="display:none" class="boxes box<%= player.id %>">
-<p style="text-align: center;"> <%= player.player_name %> </p>
-  <table border="1">
-      <thead>
-        <tr>
-          <th>GameID</th>
-          <th>MIN</th>
-          <th>FGA</th>
-          <th>FTA</th>
-          <th>TO</th>
-          <th>OR</th>
-          <th>POSS</th>
-        </tr>
-      </thead>
-      <tbody>
-     
-        <%
-          game_list = player.possession.split(/,/)
-          total_mins = 0
-          total_fga = 0
-          total_fta = 0
-          total_toValue = 0
-          total_orValue = 0
-          total_poss = 0
-          game_list.each do |game_id|
-            game = Nba.where(id: game_id).first
-            search_player = game.players.where(player_name: player.player_name).first
-            total_mins = total_mins + search_player.mins
-            total_fga = total_fga + search_player.fga
-            total_fta = total_fta + search_player.fta
-            total_toValue = total_toValue + search_player.toValue
-            total_orValue = total_orValue + search_player.orValue
-            total_poss = total_poss + search_player.poss
-        %>
-        <tr>
-          <td><%= game.date %>, <%= game.year %></td>
-          <td><%= search_player.mins %></td>
-          <td><%= search_player.fga %></td>
-          <td><%= search_player.fta %></td>
-          <td><%= search_player.toValue %></td>
-          <td><%= search_player.orValue %></td>
-          <td><%= search_player.poss %></td>
-        </tr>
-        <% end %>
-        <tr>
-          <td>Total</td>
-          <td><%= total_mins %></td>
-          <td><%= total_fga %></td>
-          <td><%= total_fta %></td>
-          <td><%= total_toValue %></td>
-          <td><%= total_orValue %></td>
-          <td><%= total_poss %></td>
-        </tr>
-      </tbody>
-  </table>
-</div>
-<% end %>
-
 <table border="1">
     <thead>
       <tr>
@@ -186,6 +127,68 @@
       </tr>
     </tbody>
 </table>
+
+
+<% @away_players.each_with_index do |player, index| %>
+<div style="display:none" class="boxes box<%= player.id %>">
+<p style="text-align: center;"> <%= player.player_name %> </p>
+  <table border="1">
+      <thead>
+        <tr>
+          <th>GameID</th>
+          <th>MIN</th>
+          <th>FGA</th>
+          <th>FTA</th>
+          <th>TO</th>
+          <th>OR</th>
+          <th>POSS</th>
+        </tr>
+      </thead>
+      <tbody>
+     
+        <%
+          game_list = player.possession.split(/,/)
+          total_mins = 0
+          total_fga = 0
+          total_fta = 0
+          total_toValue = 0
+          total_orValue = 0
+          total_poss = 0
+          game_list.each do |game_id|
+            game = Nba.where(id: game_id).first
+            search_player = game.players.where(player_name: player.player_name).first
+            total_mins = total_mins + search_player.mins
+            total_fga = total_fga + search_player.fga
+            total_fta = total_fta + search_player.fta
+            total_toValue = total_toValue + search_player.toValue
+            total_orValue = total_orValue + search_player.orValue
+            total_poss = total_poss + search_player.poss
+        %>
+        <tr>
+          <td><%= game.date %>, <%= game.year %></td>
+          <td><%= search_player.mins %></td>
+          <td><%= search_player.fga %></td>
+          <td><%= search_player.fta %></td>
+          <td><%= search_player.toValue %></td>
+          <td><%= search_player.orValue %></td>
+          <td><%= search_player.poss %></td>
+        </tr>
+        <% end %>
+        <tr>
+          <td>Total</td>
+          <td><%= total_mins %></td>
+          <td><%= total_fga %></td>
+          <td><%= total_fta %></td>
+          <td><%= total_toValue %></td>
+          <td><%= total_orValue %></td>
+          <td><%= total_poss %></td>
+        </tr>
+      </tbody>
+  </table>
+</div>
+<% end %>
+
+
 <% @home_players.each_with_index do |player, index| %>
 <div style="display:none" class="boxes box<%= player.id %>">
 <p style="text-align: center;"> <%= player.player_name %> </p>
