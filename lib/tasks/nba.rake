@@ -36,8 +36,8 @@ namespace :nba do
 	end
 
 	task :fix => :environment do
-		Rake::Task["nba:getUpdateTG"].invoke
-		Rake::Task["nba:getUpdateTG"].reenable
+		Rake::Task["nba:getPlayer"].invoke
+		Rake::Task["nba:getPlayer"].reenable
 
 		Rake::Task["nba:getUpdatePoss"].invoke
 		Rake::Task["nba:getUpdatePoss"].reenable
@@ -746,7 +746,7 @@ namespace :nba do
 	task :getPlayer => [:environment] do
 		include Api
 		puts "----------Get Players----------"
-		games = Nba.where("game_date between ? and ?", (Date.today - 1.years).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 5.years).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
