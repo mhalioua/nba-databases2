@@ -36,11 +36,11 @@ class IndexController < ApplicationController
 		@home_last = Nba.where("home_abbr = ? AND game_date < ?", @home_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ?", @home_abbr, @now)).order(:game_date).last
 		
 		if @away_abbr == @away_last.away_abbr
-			@away_players = @away_last.players.where('team_abbr = 0').order(:state)
+			@away_flag = 0
 		else
-			@away_players = @away_last.players.where('team_abbr = 1').order(:state)
+			@away_flag = 1
 		end
-		@away_players = @away_players[0..-2]
+		
 
 		if @home_abbr == @home_last.away_abbr
 			@home_players = @home_last.players.where('team_abbr = 0').order(:state)
@@ -50,9 +50,10 @@ class IndexController < ApplicationController
 		@home_players = @home_players[0..-2]
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 
-		@away_players_group1 = @away_players.where("state < 6 AND pos = PG").or(Nba.where("state < 6 AND pos = SG")).order(:state)
-		@away_players_group2 = @away_players.where("state < 6 AND pos = C").or(Nba.where("state < 6 AND pos = SF").or(Nba.where("state < 6 AND pos = PF"))).order(:state)
-		@away_players_group3 = @away_players.where("state > 5").order(:state)
+		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND pos = PG", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND pos = SG", @away_flag)).order(:state)
+		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND pos = C", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND pos = SF", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND pos = PF", @away_flag))).order(:state)
+		@away_players_group3 = @away_last.players.where("team_abbr = ? AND state > 5", @away_flag).order(:state)
+		@away_players_group3 = @away_players_group3[0..-2]
 
 		@away_total_poss = 0
 	    @away_total_min = 0
