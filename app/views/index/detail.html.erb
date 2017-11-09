@@ -147,7 +147,7 @@
       <%
         game_list = player.possession.split(/,/)
         game_list.each do |game_id|
-          game = Nba.where(id: game_id)
+          game = Nba.where(game_id: game_id)
       %>
       <tr>
         <td><%= game.id %></td>
