@@ -245,11 +245,11 @@
 </table>
 
 <script>
-$(".lists").mouseout(function() {
-  $(".boxes").css("display", "none");
-});
 $(".lists").hover(function() {
   $(".boxes").css("display", "none");
   $(".box" + $(this)[0].className.substr(10)).css("display", "table-row");
+},
+function() {
+  $(".boxes").css("display", "none");
 });
 </script>
