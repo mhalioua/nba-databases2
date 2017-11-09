@@ -23,7 +23,7 @@
   	</thead>
   	<tbody>
     <% @away_players.each_with_index do |player, index| %>
-      <tr class="list<%= player.player_name %> lists">
+      <tr class="list<%= player.id %> lists">
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
         <%
@@ -84,7 +84,7 @@
     </thead>
     <tbody>
     <% @home_players.each_with_index do |player, index| %>
-      <tr class="list<%= player.player_name %>">
+      <tr class="list<%= player.id %> lists">
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
         <%
@@ -129,7 +129,7 @@
     </tbody>
 </table>
 <% @home_players.each_with_index do |player, index| %>
-<div style="display:none" class="boxes box<%= player.player_name %>">
+<div style="display:none" class="boxes box<%= player.id %>">
 <p> <%= player.player_name %> </p>
   <table border="1">
       <thead>
@@ -168,6 +168,6 @@
 <script>
 $(".lists").hover(function() {
   $(".boxes").css("display", "none");
-  console.log($(this));
+  console.log($(this)[0].className);
 });
 </script>
