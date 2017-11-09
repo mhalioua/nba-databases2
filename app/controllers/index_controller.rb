@@ -50,8 +50,8 @@ class IndexController < ApplicationController
 		@home_players = @home_players[0..-2]
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 
-		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND pos = PG", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND pos = SG", @away_flag)).order(:state)
-		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND pos = C", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND pos = SF", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND pos = PF", @away_flag))).order(:state)
+		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = PG", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND position = SG", @away_flag)).order(:state)
+		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = C", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND position = SF", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND position = PF", @away_flag))).order(:state)
 		@away_players_group3 = @away_last.players.where("team_abbr = ? AND state > 5", @away_flag).order(:state)
 		@away_players_group3 = @away_players_group3[0..-2]
 
