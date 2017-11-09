@@ -34,8 +34,12 @@ ul {
     overflow: auto;
 }
 
+.tableBody {
+    text-align: center;
+}
+
 table {
-    margin: 20px auto;
+    display: inline-table;
     text-align: center;
     border-collapse: collapse;
     border: 9px solid rgb(56, 87, 33);

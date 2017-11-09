@@ -5,8 +5,7 @@
 <ul>
   <li><%= link_to 'Back', { action: 'game', id: @date_id }%></li>
 </ul>
-
-<p id="name"> <p>
+<div class="tableBody">
 <table border="1">
   	<thead>
   		<tr>
@@ -247,6 +246,7 @@
   </table>
 </div>
 <% end %>
+</div>
 
 <script>
 $(".lists").hover(function() {
