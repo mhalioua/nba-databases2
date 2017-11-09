@@ -22,7 +22,7 @@
 	    </tr>
   	</thead>
   	<tbody>
-    <% @away_players.each_with_index do |player, index| %>
+    <% @away_players_group1.each_with_index do |player, index| %>
       <tr class="lists list<%= player.id %>">
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
@@ -51,7 +51,7 @@
         <td></td>
       </tr>
       <tr style="display:none" class="boxes box<%= player.id %>">
-      <td colspan="9">
+        <td colspan="10">
           <p style="text-align: center;"> <%= player.player_name %> </p>
             <table border="1">
                 <thead>
@@ -108,12 +108,185 @@
             </table>
         </td>
       </tr>
-      <% if index == 4 %>
+    <% end %>
+
+    <% @away_players_group2.each_with_index do |player, index| %>
+      <tr class="lists list<%= player.id %>">
+        <td><%= player.player_name %></td>
+        <td><%= player.position %></td>
+        <% 
+        if player.height
+          height_index = player.height.index(",")
+        end
+        %>
+        <td><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <%
+          count = 1
+          if player.possession
+            count = player.possession.scan(/,/).count + 1
+          end
+        %>
+        <td><%= player.sum_mins/count %></td>
+        <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
+        <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <% else %>
+        <td></td>
+        <% end %>
+        <td><%= '%.2f' % player.prorate %>%</td>
+        <td><%= player.ortg %></td>
+        <td></td>
+        <td><%= player.drtg %></td>
+        <td></td>
+      </tr>
+      <tr style="display:none" class="boxes box<%= player.id %>">
+        <td colspan="10">
+          <p style="text-align: center;"> <%= player.player_name %> </p>
+            <table border="1">
+                <thead>
+                  <tr>
+                    <th>GameID</th>
+                    <th>MIN</th>
+                    <th>FGA</th>
+                    <th>FTA</th>
+                    <th>TO</th>
+                    <th>OR</th>
+                    <th>POSS</th>
+                  </tr>
+                </thead>
+                <tbody>
+               
+                  <%
+                    game_list = player.possession.split(/,/)
+                    total_mins = 0
+                    total_fga = 0
+                    total_fta = 0
+                    total_toValue = 0
+                    total_orValue = 0
+                    total_poss = 0
+                    game_list.each do |game_id|
+                      game = Nba.where(id: game_id).first
+                      search_player = game.players.where(player_name: player.player_name).first
+                      total_mins = total_mins + search_player.mins
+                      total_fga = total_fga + search_player.fga
+                      total_fta = total_fta + search_player.fta
+                      total_toValue = total_toValue + search_player.toValue
+                      total_orValue = total_orValue + search_player.orValue
+                      total_poss = total_poss + search_player.poss
+                  %>
+                  <tr>
+                    <td><%= game.date %>, <%= game.year %></td>
+                    <td><%= search_player.mins %></td>
+                    <td><%= search_player.fga %></td>
+                    <td><%= search_player.fta %></td>
+                    <td><%= search_player.toValue %></td>
+                    <td><%= search_player.orValue %></td>
+                    <td><%= search_player.poss %></td>
+                  </tr>
+                  <% end %>
+                  <tr>
+                    <td>Total</td>
+                    <td><%= total_mins %></td>
+                    <td><%= total_fga %></td>
+                    <td><%= total_fta %></td>
+                    <td><%= total_toValue %></td>
+                    <td><%= total_orValue %></td>
+                    <td><%= total_poss %></td>
+                  </tr>
+                </tbody>
+            </table>
+        </td>
+      </tr>
+    <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
         <td colspan="9"></td>
       </tr>
-      <% end %>
+    <% @away_players_group3.each_with_index do |player, index| %>
+      <tr class="lists list<%= player.id %>">
+        <td><%= player.player_name %></td>
+        <td><%= player.position %></td>
+        <% 
+        if player.height
+          height_index = player.height.index(",")
+        end
+        %>
+        <td><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <%
+          count = 1
+          if player.possession
+            count = player.possession.scan(/,/).count + 1
+          end
+        %>
+        <td><%= player.sum_mins/count %></td>
+        <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
+        <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <% else %>
+        <td></td>
+        <% end %>
+        <td><%= '%.2f' % player.prorate %>%</td>
+        <td><%= player.ortg %></td>
+        <td></td>
+        <td><%= player.drtg %></td>
+        <td></td>
+      </tr>
+      <tr style="display:none" class="boxes box<%= player.id %>">
+        <td colspan="10">
+          <p style="text-align: center;"> <%= player.player_name %> </p>
+            <table border="1">
+                <thead>
+                  <tr>
+                    <th>GameID</th>
+                    <th>MIN</th>
+                    <th>FGA</th>
+                    <th>FTA</th>
+                    <th>TO</th>
+                    <th>OR</th>
+                    <th>POSS</th>
+                  </tr>
+                </thead>
+                <tbody>
+               
+                  <%
+                    game_list = player.possession.split(/,/)
+                    total_mins = 0
+                    total_fga = 0
+                    total_fta = 0
+                    total_toValue = 0
+                    total_orValue = 0
+                    total_poss = 0
+                    game_list.each do |game_id|
+                      game = Nba.where(id: game_id).first
+                      search_player = game.players.where(player_name: player.player_name).first
+                      total_mins = total_mins + search_player.mins
+                      total_fga = total_fga + search_player.fga
+                      total_fta = total_fta + search_player.fta
+                      total_toValue = total_toValue + search_player.toValue
+                      total_orValue = total_orValue + search_player.orValue
+                      total_poss = total_poss + search_player.poss
+                  %>
+                  <tr>
+                    <td><%= game.date %>, <%= game.year %></td>
+                    <td><%= search_player.mins %></td>
+                    <td><%= search_player.fga %></td>
+                    <td><%= search_player.fta %></td>
+                    <td><%= search_player.toValue %></td>
+                    <td><%= search_player.orValue %></td>
+                    <td><%= search_player.poss %></td>
+                  </tr>
+                  <% end %>
+                  <tr>
+                    <td>Total</td>
+                    <td><%= total_mins %></td>
+                    <td><%= total_fga %></td>
+                    <td><%= total_fta %></td>
+                    <td><%= total_toValue %></td>
+                    <td><%= total_orValue %></td>
+                    <td><%= total_poss %></td>
+                  </tr>
+                </tbody>
+            </table>
+        </td>
+      </tr>
     <% end %>
       <tr style="background: grey">
         <td colspan="10"></td>

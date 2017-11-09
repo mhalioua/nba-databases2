@@ -50,6 +50,10 @@ class IndexController < ApplicationController
 		@home_players = @home_players[0..-2]
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 
+		@away_players_group1 = @away_players.where("state < 6 AND pos = PG").or(Nba.where("state < 6 AND pos = SG")).order(:state)
+		@away_players_group2 = @away_players.where("state < 6 AND pos = C").or(Nba.where("state < 6 AND pos = SF").or(Nba.where("state < 6 AND pos = PF"))).order(:state)
+		@away_players_group3 = @away_players.where("state > 5").order(:state)
+
 		@away_total_poss = 0
 	    @away_total_min = 0
 	    @away_players.each_with_index do |player, index| 
