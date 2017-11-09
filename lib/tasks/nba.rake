@@ -29,6 +29,9 @@ namespace :nba do
 
 		Rake::Task["nba:getUpdatePoss"].invoke
 		Rake::Task["nba:getUpdatePoss"].reenable
+
+		Rake::Task["nba:getUpdateRate"].invoke
+		Rake::Task["nba:getUpdateRate"].reenable
 		
 	end
 
