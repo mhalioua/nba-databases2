@@ -40,20 +40,24 @@ class IndexController < ApplicationController
 		else
 			@away_flag = 1
 		end
-		
 
 		if @home_abbr == @home_last.away_abbr
-			@home_players = @home_last.players.where('team_abbr = 0').order(:state)
+			@home_flag = 0
 		else
-			@home_players = @home_last.players.where('team_abbr = 1').order(:state)
+			@home_flag = 1
 		end
-		@home_players = @home_players[0..-2]
+
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 
 		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @away_flag)).order(:state)
 		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @away_flag))).order(:state)
 		@away_players_group3 = @away_last.players.where("team_abbr = ? AND state > 5", @away_flag).order(:state)
 		@away_players_group3 = @away_players_group3[0..-2]
+
+		@home_players_group1 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @home_flag)).order(:state)
+		@home_players_group2 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @home_flag))).order(:state)
+		@home_players_group3 = @home_last.players.where("team_abbr = ? AND state > 5", @home_flag).order(:state)
+		@home_players_group3 = @home_players_group3[0..-2]
 
 		@away_total_poss = 0
 	    @away_total_min = 0
@@ -86,16 +90,31 @@ class IndexController < ApplicationController
 
 	    @home_total_poss = 0
 	    @home_total_min = 0
-	    @home_players.each_with_index do |player, index| 
-	    	if player.player_name == "TEAM"
-	    		next
-	    	end
-	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
+	    @home_players_group1.each_with_index do |player, index| 
+	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	        count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/count
-	    end	   
+	    end
+
+	    @home_players_group2.each_with_index do |player, index| 
+	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        @home_total_min = @home_total_min + player.sum_mins/count
+	    end
+
+	    @home_players_group3.each_with_index do |player, index|
+	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        @home_total_min = @home_total_min + player.sum_mins/count
+	    end 
 	end
 end
