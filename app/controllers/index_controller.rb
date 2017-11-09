@@ -57,10 +57,25 @@ class IndexController < ApplicationController
 
 		@away_total_poss = 0
 	    @away_total_min = 0
-	    @away_players.each_with_index do |player, index| 
-	    	if player.player_name == "TEAM"
-	    		next
-	    	end
+	    @away_players_group1.each_with_index do |player, index| 
+	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        @away_total_min = @away_total_min + player.sum_mins/count
+	    end
+
+	    @away_players_group2.each_with_index do |player, index| 
+	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        @away_total_min = @away_total_min + player.sum_mins/count
+	    end
+
+	    @away_players_group3.each_with_index do |player, index| 
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	        count = 1
 	        if player.possession
