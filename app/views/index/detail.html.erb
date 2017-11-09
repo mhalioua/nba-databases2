@@ -87,12 +87,24 @@
      
         <%
           game_list = player.possession.split(/,/)
+          total_mins = 0
+          total_fga = 0
+          total_fta = 0
+          total_toValue = 0
+          total_orValue = 0
+          total_poss = 0
           game_list.each do |game_id|
             game = Nba.where(id: game_id).first
             search_player = game.players.where(player_name: player.player_name).first
+            total_mins = total_mins + search_player.mins
+            total_fga = total_fga + search_player.fga
+            total_fta = total_fta + search_player.fta
+            total_toValue = total_toValue + search_player.toValue
+            total_orValue = total_orValue + search_player.orValue
+            total_poss = total_poss + search_player.poss
         %>
         <tr>
-          <td><%= game.id %></td>
+          <td><%= game.date %>, <%= game.year %></td>
           <td><%= search_player.mins %></td>
           <td><%= search_player.fga %></td>
           <td><%= search_player.fta %></td>
@@ -101,6 +113,15 @@
           <td><%= search_player.poss %></td>
         </tr>
         <% end %>
+        <tr>
+          <td>Total</td>
+          <td><%= total_mins %></td>
+          <td><%= total_fga %></td>
+          <td><%= total_fta %></td>
+          <td><%= total_toValue %></td>
+          <td><%= total_orValue %></td>
+          <td><%= total_poss %></td>
+        </tr>
       </tbody>
   </table>
 </div>
@@ -185,12 +206,24 @@
      
         <%
           game_list = player.possession.split(/,/)
+          total_mins = 0
+          total_fga = 0
+          total_fta = 0
+          total_toValue = 0
+          total_orValue = 0
+          total_poss = 0
           game_list.each do |game_id|
             game = Nba.where(id: game_id).first
             search_player = game.players.where(player_name: player.player_name).first
+            total_mins = total_mins + search_player.mins
+            total_fga = total_fga + search_player.fga
+            total_fta = total_fta + search_player.fta
+            total_toValue = total_toValue + search_player.toValue
+            total_orValue = total_orValue + search_player.orValue
+            total_poss = total_poss + search_player.poss
         %>
         <tr>
-          <td><%= game.id %></td>
+          <td><%= game.date %>, <%= game.year %></td>
           <td><%= search_player.mins %></td>
           <td><%= search_player.fga %></td>
           <td><%= search_player.fta %></td>
@@ -199,6 +232,17 @@
           <td><%= search_player.poss %></td>
         </tr>
         <% end %>
+        <tr>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td><%= total_mins %></td>
+          <td><%= total_fga %></td>
+          <td><%= total_fta %></td>
+          <td><%= total_toValue %></td>
+          <td><%= total_orValue %></td>
+          <td><%= total_poss %></td>
+        </tr>
       </tbody>
   </table>
 </div>
