@@ -27,7 +27,9 @@
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
-        height_index = player.height.index(",")
+        if player.height
+          height_index = player.height.index(",")
+        end
         %>
         <td><%= height_index ? player.height[0..height_index-1] : "" %></td>
         <%
@@ -152,7 +154,9 @@
         <td><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
-        height_index = player.height.index(",")
+        if player.height
+          height_index = player.height.index(",")
+        end
         %>
         <td><%= height_index ? player.height[0..height_index-1] : "" %></td>
         <%
