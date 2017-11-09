@@ -50,8 +50,8 @@ class IndexController < ApplicationController
 		@home_players = @home_players[0..-2]
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 
-		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND position = 'SG'", @away_flag)).order(:state)
-		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND position = 'SF'", @away_flag).or(Nba.where("team_abbr = ? AND state < 6 AND position = 'PF'", @away_flag))).order(:state)
+		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @away_flag)).order(:state)
+		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @away_flag))).order(:state)
 		@away_players_group3 = @away_last.players.where("team_abbr = ? AND state > 5", @away_flag).order(:state)
 		@away_players_group3 = @away_players_group3[0..-2]
 
@@ -76,9 +76,6 @@ class IndexController < ApplicationController
 	    end
 
 	    @away_players_group3.each_with_index do |player, index|
-	    	if player.player_name == "TEAM"
-	    		next
-	    	end
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	        count = 1
 	        if player.possession
