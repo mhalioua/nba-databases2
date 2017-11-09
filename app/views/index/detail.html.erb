@@ -253,7 +253,7 @@ $(".lists").hover(function() {
   $(".boxes").css("display", "none");
   $(".box" + $(this)[0].className.substr(10)).css("display", "block");
 });
-$(".lists").onfocusout(function() {
+$(".lists").mouseout(function() {
   $(".boxes").css("display", "none");
 });
 </script>
