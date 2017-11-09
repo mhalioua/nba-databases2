@@ -762,6 +762,11 @@ namespace :nba do
 				if slice.children.size < 15
 					next
 				end
+				link = slice.children[0].children[0]['href']
+				page = download_document(link)
+				height = page.css(".general-info")[0].children[1].text
+
+
 				if slice.children[0].children.size > 1
 					player_name = slice.children[0].children[0].children[0].text
 				else
@@ -784,7 +789,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
 		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
-	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value )
+	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height )
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
