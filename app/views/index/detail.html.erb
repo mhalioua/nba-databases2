@@ -19,6 +19,7 @@
         <th></th>
         <th>DRTG</th>
         <th></th>
+        <th></th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -48,6 +49,9 @@
         <td><%= player.ortg %></td>
         <td></td>
         <td><%= player.drtg %></td>
+        <% if index == 0 %>
+        <td rowspan="<%= @away_players_group1.size %>"><%= @away_drtg_one %><td>
+        <% end %>
         <td></td>
       </tr>
       <tr style="display:none" class="boxes box<%= player.id %>">
@@ -604,7 +608,7 @@
         <td></td>
       </tr>
     </tbody>
-</table>
+  </table>
 </div>
 <script>
 $(".lists").hover(function() {
