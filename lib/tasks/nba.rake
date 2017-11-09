@@ -36,35 +36,14 @@ namespace :nba do
 	end
 
 	task :fix => :environment do
-		game = Nba.find_by(game_id: 400974890)
-		
-		home_abbr = game.home_abbr
-		away_abbr = game.away_abbr
+		Rake::Task["nba:getUpdateTG"].invoke
+		Rake::Task["nba:getUpdateTG"].reenable
 
-		now = Date.strptime(game.game_date)
-		if now > Time.now
-			now = Time.now
-		end
+		Rake::Task["nba:getUpdatePoss"].invoke
+		Rake::Task["nba:getUpdatePoss"].reenable
 
-		away_last = Nba.where("home_abbr = ? AND game_date < ?", away_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", away_abbr, now)).order(:game_date).last
-		home_last = Nba.where("home_abbr = ? AND game_date < ?", home_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", home_abbr, now)).order(:game_date).last
-		puts away_last.id
-		puts home_last.id
-		
-		if away_abbr == away_last.away_abbr
-			away_players = away_last.players.where('team_abbr = 0').order(:state)
-		else
-			away_players = away_last.players.where('team_abbr = 1').order(:state)
-		end
-		away_players = away_players[0..-2]
-
-		if home_abbr == home_last.away_abbr
-			home_players = home_last.players.where('team_abbr = 0').order(:state)
-		else
-			home_players = home_last.players.where('team_abbr = 1').order(:state)
-		end
-		home_players = home_players[0..-2]
-		date_id = Date.strptime(game.game_date).strftime("%Y%m%d")
+		Rake::Task["nba:getUpdateRate"].invoke
+		Rake::Task["nba:getUpdateRate"].reenable
 		
 	end
 
@@ -879,7 +858,7 @@ namespace :nba do
 	task :getUpdatePoss => [:environment] do
 		include Api
 		Time.zone = 'Eastern Time (US & Canada)'
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 1.years).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
 			last_games = Nba.where("home_team = ? AND game_date <= ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.home_team, game.game_date)).order('game_date DESC').limit(80)
 			player_count = game.players.where("team_abbr = ?", 1).size - 1
@@ -937,7 +916,7 @@ namespace :nba do
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 1.years).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			players = game.players.all
@@ -976,7 +955,7 @@ namespace :nba do
 	end
 
 	task :getUpdateRate => [:environment] do
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 1.years).beginning_of_day, Time.now-5.hours)
 		puts games.size
 		games.each do |game|
 			away_players = game.players.where(team_abbr: 0)
