@@ -444,8 +444,8 @@ $('.awayPossessions').on('input', function() {
       end 
     end
     %>
-    console.log(sum1);
-    console.log(sum2);
+    sum1 = Math.round(sum1*100)/100;
+    sum2 = Math.round(sum2*100)/100;
     $('#awayortg').html(sum1);
     $('#awaydrtg').html(sum2);
 });
@@ -476,8 +476,8 @@ $('.homePossessions').on('input', function() {
       end 
     end
     %>
-    console.log(sum1);
-    console.log(sum2);
+    sum1 = Math.round(sum1*100)/100;
+    sum2 = Math.round(sum2*100)/100;
     $('#homeortg').html(sum1);
     $('#homedrtg').html(sum2);
 });
