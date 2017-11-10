@@ -424,6 +424,7 @@ $('.awayPossessions').on('input', function() {
     <% end %>
 });
 $('.homePossessions').on('input', function() { 
+  var value = $(this).val();
    <% @home_players.each_with_index do |player, index| %>
     $(".changeOrtg<%= player.id %>").val(value * <%= player.prorate %> * <%= player.ortg %>);
     <% end %>
