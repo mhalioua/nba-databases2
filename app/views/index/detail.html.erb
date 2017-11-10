@@ -143,10 +143,10 @@
         <td><%= @away_total_min %></td>
         <td>100%</td>
         <td></td>
+        <td id="awayortg"></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
+        <td id="awaydrtg"></td>
       </tr>
   	</tbody>
 </table>
@@ -278,10 +278,10 @@
         <td><%= @home_total_min %></td>
         <td>100%</td>
         <td></td>
+        <td id="homeortg"></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
+        <td id="homedrtg"></td>
       </tr>
     </tbody>
 </table>
@@ -419,61 +419,66 @@ function() {
 });
 $('.awayPossessions').on('input', function() { 
   var value = $(this).val();
-  var sum = 0;
+  var sum1 = 0, sum2 = 0;
   <% @away_players.each_with_index do |player, index| %>
     $(".changeOrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0  %> * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
-    sum += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= player.ortg ? player.ortg : 0 %>;
+    sum1 += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= player.ortg ? player.ortg : 0 %>;
     <% end %>
     <% @away_players_group1.each_with_index do |player, index| %>
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_one %>)/100 + '%');
-    sum += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_one %>;
+    sum2 += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_one %>;
     <% end %>
     <% @away_players_group2.each_with_index do |player, index| %>
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_two %>)/100 + '%');
-     sum += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_two %>;
+     sum2 += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_two %>;
     <% end %>
     <% @away_players_group3.each_with_index do |player, index|
       if player.position == 'SG' || player.position == 'PG'
     %>
       $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_one %>)/100 + '%');
-      sum += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_one %>;
+      sum2 += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_one %>;
       <% else %>
       $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_two %>)/100 + '%');
-      sum += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_two %>;
+      sum2 += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_two %>;
     <%
       end 
     end
     %>
-    sum /= <%= @away_players.count %> * 2;
-    console.log(sum);
+    sum1 /= <%= @away_players.count %>;
+    sum2 /= <%= @away_players.count %>;
+    $('#awayortg').val(sum1);
+    $('#awaydrtg').val(sum2);
 });
 $('.homePossessions').on('input', function() { 
   var value = $(this).val();
+  var sum1 = 0, sum2 = 0;
    <% @home_players.each_with_index do |player, index| %>
     $(".changeOrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0 %> * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
-    sum += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= player.ortg ? player.ortg : 0 %>;
+    sum1 += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= player.ortg ? player.ortg : 0 %>;
     <% end %>
     <% @home_players_group1.each_with_index do |player, index| %>
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0  %> * <%= @away_drtg_one %>)/100 + '%');
-    sum += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_one %>;
+    sum2 += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_one %>;
     <% end %>
     <% @home_players_group2.each_with_index do |player, index| %>
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0  %> * <%= @away_drtg_two %>)/100 + '%');
-    sum += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_two %>;
+    sum2 += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_two %>;
     <% end %>
     <% @home_players_group3.each_with_index do |player, index|
       if player.position == 'SG' || player.position == 'PG'
     %>
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0  %> * <%= @away_drtg_one %>)/100 + '%');
-    sum += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_one %>;
+    sum2 += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_one %>;
     <% else %>
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0  %> * <%= @away_drtg_two %>)/100 + '%');
-    sum += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_two %>;
+    sum2 += value/10000 * <%= player.prorate ? player.prorate : 0  %> * <%= @home_drtg_two %>;
     <%
       end 
     end
     %>
-    sum /= <%= @home_players.count %> * 2;
-    console.log(sum);
+    sum1 /= <%= @home_players.count %>;
+    sum2 /= <%= @home_players.count %>;
+    $('#homeortg').val(sum1);
+    $('#homedrtg').val(sum2);
 });
 </script>
