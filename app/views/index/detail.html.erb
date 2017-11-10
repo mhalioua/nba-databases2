@@ -393,7 +393,7 @@
       <% end %>
 <script>
 $(".lists").hover(function() {
-  if ($(".box" + $(this)[0].className.substr(10)).css("display") != "block")
+  if ($(".box" + $(this)[0].className.substr(10)).css("display") == "none")
   {
     $(".boxes").css("display", "none");
     $(".box" + $(this)[0].className.substr(10)).css("display", "block");
@@ -401,6 +401,7 @@ $(".lists").hover(function() {
     $(".box" + $(this)[0].className.substr(10)).css("position", "absolute");
     $(".box" + $(this)[0].className.substr(10)).css("top", position.top);
     $(".box" + $(this)[0].className.substr(10)).css("left", position.left);
+    $(".box" + $(this)[0].className.substr(10)).css("background", "white");
   }
 },
 function() {
