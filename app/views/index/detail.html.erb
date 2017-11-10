@@ -12,8 +12,8 @@
 	  		<th><%= @game.away_team %> <br> Starters</th>
 	      <th>POS</th>
         <th>HT</th>
-        <th>MIN</th>
 	      <th>PLAYER <br> POSS %</th>
+        <th>MINS PER GM LAST 10</th>
         <th>PRO RATE</th>
 	  		<th>ORTG</th>
         <th></th>
@@ -39,12 +39,12 @@
             count = player.possession.scan(/,/).count + 1
           end
         %>
-        <td><%= player.sum_mins/count %></td>
-        <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
+         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
         <td></td>
         <% end %>
+        <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
         <td></td>
@@ -72,12 +72,12 @@
             count = player.possession.scan(/,/).count + 1
           end
         %>
-        <td><%= player.sum_mins/count %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
         <td></td>
         <% end %>
+        <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
         <td></td>
@@ -108,12 +108,12 @@
             count = player.possession.scan(/,/).count + 1
           end
         %>
-        <td><%= player.sum_mins/count %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
         <td></td>
         <% end %>
+        <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
         <td></td>
@@ -147,8 +147,8 @@
         <th><%= @game.home_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
-        <th>MIN</th>
         <th>PLAYER <br> POSS %</th>
+        <th>MINS PER GM LAST 10</th>
         <th>PRO RATE</th>
         <th>ORTG</th>
         <th></th>
@@ -174,12 +174,12 @@
             count = player.possession.scan(/,/).count + 1
           end
         %>
-        <td><%= player.sum_mins/count %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
         <td></td>
         <% end %>
+        <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
         <td></td>
@@ -207,12 +207,12 @@
             count = player.possession.scan(/,/).count + 1
           end
         %>
-        <td><%= player.sum_mins/count %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
         <td></td>
         <% end %>
+        <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
         <td></td>
@@ -243,12 +243,12 @@
             count = player.possession.scan(/,/).count + 1
           end
         %>
-        <td><%= player.sum_mins/count %></td>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
         <td></td>
         <% end %>
+        <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
         <td></td>
