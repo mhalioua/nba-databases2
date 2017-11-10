@@ -420,13 +420,13 @@ function() {
 $('.awayPossessions').on('input', function() { 
   var value = $(this).val();
   <% @away_players.each_with_index do |player, index| %>
-    $(".changeOrtg<%= player.id %>").html(Math.round(value * <%= player.prorate ? player.prorate : 0  %> * <%= player.ortg ? player.ortg : 0 %>)/10000 + '%');
+    $(".changeOrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0  %> * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
     <% end %>
 });
 $('.homePossessions').on('input', function() { 
   var value = $(this).val();
    <% @home_players.each_with_index do |player, index| %>
-    $(".changeOrtg<%= player.id %>").html(Math.round(value * <%= player.prorate ? player.prorate : 0 %> * <%= player.ortg ? player.ortg : 0 %>)/10000 + '%');
+    $(".changeOrtg<%= player.id %>").html(Math.round(value/100 * <%= player.prorate ? player.prorate : 0 %> * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
     <% end %>
 });
 </script>
