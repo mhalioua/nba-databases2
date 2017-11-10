@@ -22,7 +22,7 @@ class IndexController < ApplicationController
 	def detail
 		@game_id = params[:id]
 		@game = Nba.find_by(game_id: @game_id)
-		@head = @game.home_team + " @ " + @game.away_team
+		@head = @game.away_team + " @ " + @game.home_team
 		
 		@home_abbr = @game.home_abbr
 		@away_abbr = @game.away_abbr
