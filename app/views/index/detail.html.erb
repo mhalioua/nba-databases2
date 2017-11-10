@@ -444,8 +444,6 @@ $('.awayPossessions').on('input', function() {
       end 
     end
     %>
-    sum1 /= <%= @away_players.count %>;
-    sum2 /= <%= @away_players.count %>;
     $('#awayortg').val(sum1);
     $('#awaydrtg').val(sum2);
 });
@@ -476,8 +474,6 @@ $('.homePossessions').on('input', function() {
       end 
     end
     %>
-    sum1 /= <%= @home_players.count %>;
-    sum2 /= <%= @home_players.count %>;
     $('#homeortg').val(sum1);
     $('#homedrtg').val(sum2);
 });
