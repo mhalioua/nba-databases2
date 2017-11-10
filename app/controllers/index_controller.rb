@@ -49,14 +49,14 @@ class IndexController < ApplicationController
 
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 
-		@away_players = @away_last.players.where("team_abbr = ?", @away_flag)
+		@away_players = @away_last.players.where("team_abbr = ?", @away_flag).order(:state)
 		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @away_flag)).order(:state)
 		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @away_flag))).order(:state)
 		@away_players_group3 = @away_last.players.where("team_abbr = ? AND state > 5", @away_flag).order(:state)
 		@away_players_group3 = @away_players_group3[0..-2]
 		@away_players = @away_players[0..-2]
 
-		@home_players = @home_last.players.where("team_abbr = ?", @home_flag)
+		@home_players = @home_last.players.where("team_abbr = ?", @home_flag).order(:state)
 		@home_players_group1 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @home_flag)).order(:state)
 		@home_players_group2 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @home_flag))).order(:state)
 		@home_players_group3 = @home_last.players.where("team_abbr = ? AND state > 5", @home_flag).order(:state)
