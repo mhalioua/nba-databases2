@@ -30,7 +30,6 @@
         <th>DRTG</th>
         <th></th>
         <th></th>
-        <th></th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -60,7 +59,6 @@
         <td><%= player.ortg %></td>
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
-        <td></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group1.size %>"><%= '%.2f' % @away_drtg_one %></td>
         <% end %>
@@ -94,7 +92,6 @@
         <td><%= player.ortg %></td>
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
-        <td></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @away_drtg_two %></td>
         <% end %>
@@ -103,7 +100,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="11"></td>
+        <td colspan="10"></td>
       </tr>
     <% @away_players_group3.each_with_index do |player, index| %>
       <tr class="lists list<%= player.id %>">
@@ -132,12 +129,11 @@
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
         <td></td>
-        <td></td>
         <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="12"></td>
+        <td colspan="11"></td>
       </tr>
       <tr>
         <td></td>
@@ -146,7 +142,6 @@
         <td><%= '%.2f' % @away_total_poss %>%</td>
         <td><%= @away_total_min %></td>
         <td>100%</td>
-        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -168,7 +163,6 @@
         <th>ORTG</th>
         <th></th>
         <th>DRTG</th>
-        <th></th>
         <th></th>
         <th></th>
       </tr>
@@ -200,7 +194,6 @@
         <td><%= player.ortg %></td>
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
-        <td></td>
         <% if index == 0 %>
         <td rowspan="<%= @home_players_group1.size %>"><%= '%.2f' % @home_drtg_one %></td>
         <% end %>
@@ -234,7 +227,6 @@
         <td><%= player.ortg %></td>
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
-        <td></td>
         <% if index == 0 %>
         <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @home_drtg_two %></td>
         <% end %>
@@ -243,7 +235,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="11"></td>
+        <td colspan="10"></td>
       </tr>
     <% @home_players_group3.each_with_index do |player, index| %>
       <tr class="lists list<%= player.id %>">
@@ -272,12 +264,11 @@
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
         <td></td>
-        <td></td>
         <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="12"></td>
+        <td colspan="11"></td>
       </tr>
       <tr>
         <td></td>
@@ -286,7 +277,6 @@
         <td><%= '%.2f' % @home_total_poss %>%</td>
         <td><%= @home_total_min %></td>
         <td>100%</td>
-        <td></td>
         <td></td>
         <td></td>
         <td></td>
