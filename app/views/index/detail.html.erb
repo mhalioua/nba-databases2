@@ -1,14 +1,14 @@
 <div class="header row">
   <div class="col-md-1 col-md-offset-2">
     <p>POSSESSIONS</p>
-    <input type="text" />
+    <input type="text" class="awayPossessions"/>
   </div>
   <div class="col-md-4  col-md-offset-1">
     <h1><%= @head %></h1>
   </div>
   <div class="col-md-1 col-md-offset-1">
     <p>POSSESSIONS</p>
-    <input type="text" />
+    <input type="text"  class="homePossessions"/>
   </div>
 </div>
 
@@ -57,12 +57,12 @@
         <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
-        <td></td>
+        <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group1.size %>"><%= '%.2f' % @away_drtg_one %></td>
         <% end %>
-        <td></td>
+        <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
 
@@ -90,12 +90,12 @@
         <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
-        <td></td>
+        <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @away_drtg_two %></td>
         <% end %>
-        <td></td>
+        <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -126,10 +126,10 @@
         <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
-        <td></td>
+        <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
         <td></td>
-        <td></td>
+        <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -192,12 +192,12 @@
         <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
-        <td></td>
+        <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @home_players_group1.size %>"><%= '%.2f' % @home_drtg_one %></td>
         <% end %>
-        <td></td>
+        <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
 
@@ -225,12 +225,12 @@
         <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
-        <td></td>
+        <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @home_drtg_two %></td>
         <% end %>
-        <td></td>
+        <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -261,10 +261,10 @@
         <td><%= player.sum_mins/count %></td>
         <td><%= '%.2f' % player.prorate %>%</td>
         <td><%= player.ortg %></td>
-        <td></td>
+        <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
         <td></td>
-        <td></td>
+        <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -416,5 +416,16 @@ $(".lists").hover(function() {
 },
 function() {
   $(".boxes").css("display", "none");
+});
+$('.awayPossessions').on('input', function() { 
+  var value = $(this).val();
+  <% @away_players.each_with_index do |player, index| %>
+    $(".changeOrtg<%= player.id %>").val(value * <%= player.prorate %> * <%= player.ortg %>);
+    <% end %>
+});
+$('.homePossessions').on('input', function() { 
+   <% @home_players.each_with_index do |player, index| %>
+    $(".changeOrtg<%= player.id %>").val(value * <%= player.prorate %> * <%= player.ortg %>);
+    <% end %>
 });
 </script>
