@@ -238,7 +238,7 @@
         <td></td>
       </tr>
       <tr style="display:none" class="boxes box<%= player.id %>">
-        <td colspan="10">
+        <td colspan="11">
           <p style="text-align: center;"> <%= player.player_name %> </p>
             <table border="1">
                 <thead>
@@ -357,10 +357,13 @@
         <td><%= player.ortg %></td>
         <td></td>
         <td><%= player.drtg %></td>
+        <% if index == 0 %>
+        <td rowspan="<%= @home_players_group1.size %>"><%= '%.2f' % @home_drtg_one %></td>
+        <% end %>
         <td></td>
       </tr>
       <tr style="display:none" class="boxes box<%= player.id %>">
-        <td colspan="10">
+        <td colspan="11">
           <p style="text-align: center;"> <%= player.player_name %> </p>
             <table border="1">
                 <thead>
@@ -445,10 +448,13 @@
         <td><%= player.ortg %></td>
         <td></td>
         <td><%= player.drtg %></td>
+        <% if index == 0 %>
+        <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @home_drtg_two %></td>
+        <% end %>
         <td></td>
       </tr>
       <tr style="display:none" class="boxes box<%= player.id %>">
-        <td colspan="10">
+        <td colspan="11">
           <p style="text-align: center;"> <%= player.player_name %> </p>
             <table border="1">
                 <thead>
@@ -508,7 +514,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="9"></td>
+        <td colspan="10"></td>
       </tr>
     <% @home_players_group3.each_with_index do |player, index| %>
       <tr class="lists list<%= player.id %>">
@@ -537,9 +543,10 @@
         <td></td>
         <td><%= player.drtg %></td>
         <td></td>
+        <td></td>
       </tr>
       <tr style="display:none" class="boxes box<%= player.id %>">
-        <td colspan="10">
+        <td colspan="11">
           <p style="text-align: center;"> <%= player.player_name %> </p>
             <table border="1">
                 <thead>
@@ -598,7 +605,7 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="10"></td>
+        <td colspan="11"></td>
       </tr>
       <tr>
         <td></td>
@@ -611,9 +618,10 @@
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
       </tr>
     </tbody>
-  </table>
+</table>
 </div>
 <script>
 $(".lists").hover(function() {
