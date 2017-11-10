@@ -71,7 +71,7 @@ class IndexController < ApplicationController
 	        @away_total_min = @away_total_min + player.sum_mins/count
 	        @away_drtg_one = @away_drtg_one + player.drtg
 	    end
-	    @away_drtg_one = @away_drtg_one / @away_players_group1.size
+	    @away_drtg_one = @away_drtg_one.to_f / @away_players_group1.size
 
 	    @away_drtg_two = 0
 	    @away_players_group2.each_with_index do |player, index| 
@@ -83,7 +83,7 @@ class IndexController < ApplicationController
 	        @away_total_min = @away_total_min + player.sum_mins/count
 	        @away_drtg_two = @away_drtg_two + player.drtg
 	    end
-	    @away_drtg_two = @away_drtg_two / @away_players_group2.size
+	    @away_drtg_two = @away_drtg_two.to_f / @away_players_group2.size
 
 	    @away_players_group3.each_with_index do |player, index|
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
@@ -106,7 +106,7 @@ class IndexController < ApplicationController
 	        @home_total_min = @home_total_min + player.sum_mins/count
 	        @home_drtg_one = @home_drtg_one + player.drtg
 	    end
-	    @home_drtg_one = @home_drtg_one / @home_players_group1.size
+	    @home_drtg_one = @home_drtg_one.to_f / @home_players_group1.size
 
 	    @home_drtg_two = 0
 	    @home_players_group2.each_with_index do |player, index| 
@@ -118,7 +118,7 @@ class IndexController < ApplicationController
 	        @home_total_min = @home_total_min + player.sum_mins/count
 	        @home_drtg_two = @home_drtg_two + player.drtg
 	    end
-	    @home_drtg_two = @home_drtg_two / @home_players_group2.size
+	    @home_drtg_two = @home_drtg_two.to_f / @home_players_group2.size
 
 	    @home_players_group3.each_with_index do |player, index|
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
