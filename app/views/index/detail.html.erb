@@ -399,7 +399,7 @@ $(".lists").hover(function() {
     $(".box" + $(this)[0].className.substr(10)).css("display", "block");
     var position = $(this).position();
     $(".box" + $(this)[0].className.substr(10)).css("position", "absolute");
-    $(".box" + $(this)[0].className.substr(10)).css("top", position.top);
+    $(".box" + $(this)[0].className.substr(10)).css("top", position.top + 30);
     $(".box" + $(this)[0].className.substr(10)).css("left", position.left);
     $(".box" + $(this)[0].className.substr(10)).css("background", "white");
   }
