@@ -54,64 +54,6 @@
         <% end %>
         <td></td>
       </tr>
-      <tr style="display:none" class="boxes box<%= player.id %>">
-        <td colspan="11">
-          <p style="text-align: center;"> <%= player.player_name %> </p>
-            <table border="1">
-                <thead>
-                  <tr>
-                    <th>GameID</th>
-                    <th>MIN</th>
-                    <th>FGA</th>
-                    <th>FTA</th>
-                    <th>TO</th>
-                    <th>OR</th>
-                    <th>POSS</th>
-                  </tr>
-                </thead>
-                <tbody>
-               
-                  <%
-                    game_list = player.possession.split(/,/)
-                    total_mins = 0
-                    total_fga = 0
-                    total_fta = 0
-                    total_toValue = 0
-                    total_orValue = 0
-                    total_poss = 0
-                    game_list.each do |game_id|
-                      game = Nba.where(id: game_id).first
-                      search_player = game.players.where(player_name: player.player_name).first
-                      total_mins = total_mins + search_player.mins
-                      total_fga = total_fga + search_player.fga
-                      total_fta = total_fta + search_player.fta
-                      total_toValue = total_toValue + search_player.toValue
-                      total_orValue = total_orValue + search_player.orValue
-                      total_poss = total_poss + search_player.poss
-                  %>
-                  <tr>
-                    <td><%= game.date %>, <%= game.year %></td>
-                    <td><%= search_player.mins %></td>
-                    <td><%= search_player.fga %></td>
-                    <td><%= search_player.fta %></td>
-                    <td><%= search_player.toValue %></td>
-                    <td><%= search_player.orValue %></td>
-                    <td><%= search_player.poss %></td>
-                  </tr>
-                  <% end %>
-                  <tr>
-                    <td>Total</td>
-                    <td><%= total_mins %></td>
-                    <td><%= total_fga %></td>
-                    <td><%= total_fta %></td>
-                    <td><%= total_toValue %></td>
-                    <td><%= total_orValue %></td>
-                    <td><%= total_poss %></td>
-                  </tr>
-                </tbody>
-            </table>
-        </td>
-      </tr>
     <% end %>
 
     <% @away_players_group2.each_with_index do |player, index| %>
@@ -144,64 +86,6 @@
         <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @away_drtg_two %></td>
         <% end %>
         <td></td>
-      </tr>
-      <tr style="display:none" class="boxes box<%= player.id %>">
-        <td colspan="11">
-          <p style="text-align: center;"> <%= player.player_name %> </p>
-            <table border="1">
-                <thead>
-                  <tr>
-                    <th>GameID</th>
-                    <th>MIN</th>
-                    <th>FGA</th>
-                    <th>FTA</th>
-                    <th>TO</th>
-                    <th>OR</th>
-                    <th>POSS</th>
-                  </tr>
-                </thead>
-                <tbody>
-               
-                  <%
-                    game_list = player.possession.split(/,/)
-                    total_mins = 0
-                    total_fga = 0
-                    total_fta = 0
-                    total_toValue = 0
-                    total_orValue = 0
-                    total_poss = 0
-                    game_list.each do |game_id|
-                      game = Nba.where(id: game_id).first
-                      search_player = game.players.where(player_name: player.player_name).first
-                      total_mins = total_mins + search_player.mins
-                      total_fga = total_fga + search_player.fga
-                      total_fta = total_fta + search_player.fta
-                      total_toValue = total_toValue + search_player.toValue
-                      total_orValue = total_orValue + search_player.orValue
-                      total_poss = total_poss + search_player.poss
-                  %>
-                  <tr>
-                    <td><%= game.date %>, <%= game.year %></td>
-                    <td><%= search_player.mins %></td>
-                    <td><%= search_player.fga %></td>
-                    <td><%= search_player.fta %></td>
-                    <td><%= search_player.toValue %></td>
-                    <td><%= search_player.orValue %></td>
-                    <td><%= search_player.poss %></td>
-                  </tr>
-                  <% end %>
-                  <tr>
-                    <td>Total</td>
-                    <td><%= total_mins %></td>
-                    <td><%= total_fga %></td>
-                    <td><%= total_fta %></td>
-                    <td><%= total_toValue %></td>
-                    <td><%= total_orValue %></td>
-                    <td><%= total_poss %></td>
-                  </tr>
-                </tbody>
-            </table>
-        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -236,64 +120,6 @@
         <td><%= player.drtg %></td>
         <td></td>
         <td></td>
-      </tr>
-      <tr style="display:none" class="boxes box<%= player.id %>">
-        <td colspan="11">
-          <p style="text-align: center;"> <%= player.player_name %> </p>
-            <table border="1">
-                <thead>
-                  <tr>
-                    <th>GameID</th>
-                    <th>MIN</th>
-                    <th>FGA</th>
-                    <th>FTA</th>
-                    <th>TO</th>
-                    <th>OR</th>
-                    <th>POSS</th>
-                  </tr>
-                </thead>
-                <tbody>
-               
-                  <%
-                    game_list = player.possession.split(/,/)
-                    total_mins = 0
-                    total_fga = 0
-                    total_fta = 0
-                    total_toValue = 0
-                    total_orValue = 0
-                    total_poss = 0
-                    game_list.each do |game_id|
-                      game = Nba.where(id: game_id).first
-                      search_player = game.players.where(player_name: player.player_name).first
-                      total_mins = total_mins + search_player.mins
-                      total_fga = total_fga + search_player.fga
-                      total_fta = total_fta + search_player.fta
-                      total_toValue = total_toValue + search_player.toValue
-                      total_orValue = total_orValue + search_player.orValue
-                      total_poss = total_poss + search_player.poss
-                  %>
-                  <tr>
-                    <td><%= game.date %>, <%= game.year %></td>
-                    <td><%= search_player.mins %></td>
-                    <td><%= search_player.fga %></td>
-                    <td><%= search_player.fta %></td>
-                    <td><%= search_player.toValue %></td>
-                    <td><%= search_player.orValue %></td>
-                    <td><%= search_player.poss %></td>
-                  </tr>
-                  <% end %>
-                  <tr>
-                    <td>Total</td>
-                    <td><%= total_mins %></td>
-                    <td><%= total_fga %></td>
-                    <td><%= total_fta %></td>
-                    <td><%= total_toValue %></td>
-                    <td><%= total_orValue %></td>
-                    <td><%= total_poss %></td>
-                  </tr>
-                </tbody>
-            </table>
-        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -362,64 +188,6 @@
         <% end %>
         <td></td>
       </tr>
-      <tr style="display:none" class="boxes box<%= player.id %>">
-        <td colspan="11">
-          <p style="text-align: center;"> <%= player.player_name %> </p>
-            <table border="1">
-                <thead>
-                  <tr>
-                    <th>GameID</th>
-                    <th>MIN</th>
-                    <th>FGA</th>
-                    <th>FTA</th>
-                    <th>TO</th>
-                    <th>OR</th>
-                    <th>POSS</th>
-                  </tr>
-                </thead>
-                <tbody>
-               
-                  <%
-                    game_list = player.possession.split(/,/)
-                    total_mins = 0
-                    total_fga = 0
-                    total_fta = 0
-                    total_toValue = 0
-                    total_orValue = 0
-                    total_poss = 0
-                    game_list.each do |game_id|
-                      game = Nba.where(id: game_id).first
-                      search_player = game.players.where(player_name: player.player_name).first
-                      total_mins = total_mins + search_player.mins
-                      total_fga = total_fga + search_player.fga
-                      total_fta = total_fta + search_player.fta
-                      total_toValue = total_toValue + search_player.toValue
-                      total_orValue = total_orValue + search_player.orValue
-                      total_poss = total_poss + search_player.poss
-                  %>
-                  <tr>
-                    <td><%= game.date %>, <%= game.year %></td>
-                    <td><%= search_player.mins %></td>
-                    <td><%= search_player.fga %></td>
-                    <td><%= search_player.fta %></td>
-                    <td><%= search_player.toValue %></td>
-                    <td><%= search_player.orValue %></td>
-                    <td><%= search_player.poss %></td>
-                  </tr>
-                  <% end %>
-                  <tr>
-                    <td>Total</td>
-                    <td><%= total_mins %></td>
-                    <td><%= total_fga %></td>
-                    <td><%= total_fta %></td>
-                    <td><%= total_toValue %></td>
-                    <td><%= total_orValue %></td>
-                    <td><%= total_poss %></td>
-                  </tr>
-                </tbody>
-            </table>
-        </td>
-      </tr>
     <% end %>
 
     <% @home_players_group2.each_with_index do |player, index| %>
@@ -452,64 +220,6 @@
         <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @home_drtg_two %></td>
         <% end %>
         <td></td>
-      </tr>
-      <tr style="display:none" class="boxes box<%= player.id %>">
-        <td colspan="11">
-          <p style="text-align: center;"> <%= player.player_name %> </p>
-            <table border="1">
-                <thead>
-                  <tr>
-                    <th>GameID</th>
-                    <th>MIN</th>
-                    <th>FGA</th>
-                    <th>FTA</th>
-                    <th>TO</th>
-                    <th>OR</th>
-                    <th>POSS</th>
-                  </tr>
-                </thead>
-                <tbody>
-               
-                  <%
-                    game_list = player.possession.split(/,/)
-                    total_mins = 0
-                    total_fga = 0
-                    total_fta = 0
-                    total_toValue = 0
-                    total_orValue = 0
-                    total_poss = 0
-                    game_list.each do |game_id|
-                      game = Nba.where(id: game_id).first
-                      search_player = game.players.where(player_name: player.player_name).first
-                      total_mins = total_mins + search_player.mins
-                      total_fga = total_fga + search_player.fga
-                      total_fta = total_fta + search_player.fta
-                      total_toValue = total_toValue + search_player.toValue
-                      total_orValue = total_orValue + search_player.orValue
-                      total_poss = total_poss + search_player.poss
-                  %>
-                  <tr>
-                    <td><%= game.date %>, <%= game.year %></td>
-                    <td><%= search_player.mins %></td>
-                    <td><%= search_player.fga %></td>
-                    <td><%= search_player.fta %></td>
-                    <td><%= search_player.toValue %></td>
-                    <td><%= search_player.orValue %></td>
-                    <td><%= search_player.poss %></td>
-                  </tr>
-                  <% end %>
-                  <tr>
-                    <td>Total</td>
-                    <td><%= total_mins %></td>
-                    <td><%= total_fga %></td>
-                    <td><%= total_fta %></td>
-                    <td><%= total_toValue %></td>
-                    <td><%= total_orValue %></td>
-                    <td><%= total_poss %></td>
-                  </tr>
-                </tbody>
-            </table>
-        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -545,8 +255,28 @@
         <td></td>
         <td></td>
       </tr>
-      <tr style="display:none" class="boxes box<%= player.id %>">
-        <td colspan="11">
+    <% end %>
+      <tr style="background: grey">
+        <td colspan="11"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= @home_total_min %></td>
+        <td><%= '%.2f' % @home_total_poss %>%</td>
+        <td>100%</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+</table>
+</div>
+<% @away_players.each_with_index do |player, index| %>
+<div style="display:none" class="boxes box<%= player.id %>">
           <p style="text-align: center;"> <%= player.player_name %> </p>
             <table border="1">
                 <thead>
@@ -601,28 +331,67 @@
                   </tr>
                 </tbody>
             </table>
-        </td>
-      </tr>
-    <% end %>
-      <tr style="background: grey">
-        <td colspan="11"></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><%= @home_total_min %></td>
-        <td><%= '%.2f' % @home_total_poss %>%</td>
-        <td>100%</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-</table>
-</div>
+      </div>
+      <% end %>
+
+      <% @home_players.each_with_index do |player, index| %>
+<div style="display:none" class="boxes box<%= player.id %>">
+          <p style="text-align: center;"> <%= player.player_name %> </p>
+            <table border="1">
+                <thead>
+                  <tr>
+                    <th>GameID</th>
+                    <th>MIN</th>
+                    <th>FGA</th>
+                    <th>FTA</th>
+                    <th>TO</th>
+                    <th>OR</th>
+                    <th>POSS</th>
+                  </tr>
+                </thead>
+                <tbody>
+               
+                  <%
+                    game_list = player.possession.split(/,/)
+                    total_mins = 0
+                    total_fga = 0
+                    total_fta = 0
+                    total_toValue = 0
+                    total_orValue = 0
+                    total_poss = 0
+                    game_list.each do |game_id|
+                      game = Nba.where(id: game_id).first
+                      search_player = game.players.where(player_name: player.player_name).first
+                      total_mins = total_mins + search_player.mins
+                      total_fga = total_fga + search_player.fga
+                      total_fta = total_fta + search_player.fta
+                      total_toValue = total_toValue + search_player.toValue
+                      total_orValue = total_orValue + search_player.orValue
+                      total_poss = total_poss + search_player.poss
+                  %>
+                  <tr>
+                    <td><%= game.date %>, <%= game.year %></td>
+                    <td><%= search_player.mins %></td>
+                    <td><%= search_player.fga %></td>
+                    <td><%= search_player.fta %></td>
+                    <td><%= search_player.toValue %></td>
+                    <td><%= search_player.orValue %></td>
+                    <td><%= search_player.poss %></td>
+                  </tr>
+                  <% end %>
+                  <tr>
+                    <td>Total</td>
+                    <td><%= total_mins %></td>
+                    <td><%= total_fga %></td>
+                    <td><%= total_fta %></td>
+                    <td><%= total_toValue %></td>
+                    <td><%= total_orValue %></td>
+                    <td><%= total_poss %></td>
+                  </tr>
+                </tbody>
+            </table>
+      </div>
+      <% end %>
 <script>
 $(".lists").hover(function() {
   $(".boxes").css("display", "none");
