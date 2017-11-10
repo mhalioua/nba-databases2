@@ -419,18 +419,14 @@ function() {
 });
 $('.awayPossessions').on('input', function() { 
   var value = $(this).val();
-  console.log(value);
   <% @away_players.each_with_index do |player, index| %>
     $(".changeOrtg<%= player.id %>").val(value * <%= player.prorate ? player.prorate : 0  %> * <%= player.ortg ? player.ortg : 0 %>);
-    console.log(value * <%= player.prorate ? player.prorate : 0  %> * <%= player.ortg ? player.ortg : 0 %>);
     <% end %>
 });
 $('.homePossessions').on('input', function() { 
   var value = $(this).val();
-  console.log(value);
    <% @home_players.each_with_index do |player, index| %>
     $(".changeOrtg<%= player.id %>").val(value * <%= player.prorate ? player.prorate : 0 %> * <%= player.ortg ? player.ortg : 0 %>);
-    console.log(value * <%= player.prorate ? player.prorate : 0  %> * <%= player.ortg ? player.ortg : 0 %>);
     <% end %>
 });
 </script>
