@@ -30,6 +30,7 @@
         <th>DRTG</th>
         <th></th>
         <th></th>
+        <th></th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -59,6 +60,7 @@
         <td><%= player.ortg %></td>
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
+        <td></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group1.size %>"><%= '%.2f' % @away_drtg_one %></td>
         <% end %>
@@ -92,6 +94,7 @@
         <td><%= player.ortg %></td>
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
+        <td></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @away_drtg_two %></td>
         <% end %>
@@ -129,6 +132,7 @@
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
         <td></td>
+        <td></td>
         <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
@@ -142,6 +146,7 @@
         <td><%= '%.2f' % @away_total_poss %>%</td>
         <td><%= @away_total_min %></td>
         <td>100%</td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -163,6 +168,7 @@
         <th>ORTG</th>
         <th></th>
         <th>DRTG</th>
+        <th></th>
         <th></th>
         <th></th>
       </tr>
@@ -194,6 +200,7 @@
         <td><%= player.ortg %></td>
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
+        <td></td>
         <% if index == 0 %>
         <td rowspan="<%= @home_players_group1.size %>"><%= '%.2f' % @home_drtg_one %></td>
         <% end %>
@@ -227,6 +234,7 @@
         <td><%= player.ortg %></td>
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
+        <td></td>
         <% if index == 0 %>
         <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @home_drtg_two %></td>
         <% end %>
@@ -264,6 +272,7 @@
         <td class="changeOrtg<%= player.id %>"></td>
         <td><%= player.drtg %></td>
         <td></td>
+        <td></td>
         <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
@@ -277,6 +286,7 @@
         <td><%= '%.2f' % @home_total_poss %>%</td>
         <td><%= @home_total_min %></td>
         <td>100%</td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
