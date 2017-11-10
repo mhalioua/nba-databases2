@@ -446,8 +446,8 @@ $('.awayPossessions').on('input', function() {
     %>
     console.log(sum1);
     console.log(sum2);
-    $('#awayortg').val(sum1);
-    $('#awaydrtg').val(sum2);
+    $('#awayortg').html(sum1);
+    $('#awaydrtg').html(sum2);
 });
 $('.homePossessions').on('input', function() { 
   var value = $(this).val();
@@ -478,7 +478,7 @@ $('.homePossessions').on('input', function() {
     %>
     console.log(sum1);
     console.log(sum2);
-    $('#homeortg').val(sum1);
-    $('#homedrtg').val(sum2);
+    $('#homeortg').html(sum1);
+    $('#homedrtg').html(sum2);
 });
 </script>
