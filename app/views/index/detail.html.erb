@@ -395,13 +395,15 @@
       <% end %>
 <script>
 $(".lists").hover(function() {
-  $(".boxes").css("display", "none");
-  $(".box" + $(this)[0].className.substr(10)).css("display", "block");
-  var position = $(this).position();
-  $(".box" + $(this)[0].className.substr(10)).css("position", "absolute");
-  $(".box" + $(this)[0].className.substr(10)).css("top", position.top);
-  $(".box" + $(this)[0].className.substr(10)).css("left", position.left);
-
+  if ($(".box" + $(this)[0].className.substr(10)).css("display") != "block")
+  {
+    $(".boxes").css("display", "none");
+    $(".box" + $(this)[0].className.substr(10)).css("display", "block");
+    var position = $(this).position();
+    $(".box" + $(this)[0].className.substr(10)).css("position", "absolute");
+    $(".box" + $(this)[0].className.substr(10)).css("top", position.top);
+    $(".box" + $(this)[0].className.substr(10)).css("left", position.left);
+  }
 },
 function() {
   $(".boxes").css("display", "none");
