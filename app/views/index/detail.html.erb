@@ -396,7 +396,7 @@
 <script>
 $(".lists").hover(function() {
   $(".boxes").css("display", "none");
-  $(".box" + $(this)[0].className.substr(10)).css("display", "table-row");
+  $(".box" + $(this)[0].className.substr(10)).css("display", "block");
   var position = $(this).position();
   $(".box" + $(this)[0].className.substr(10)).css("position", "absolute");
   $(".box" + $(this)[0].className.substr(10)).css("top", position.top);
