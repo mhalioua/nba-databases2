@@ -34,8 +34,8 @@
   	</thead>
   	<tbody>
     <% @away_players_group1.each_with_index do |player, index| %>
-      <tr class="lists list<%= player.id %>">
-        <td><%= player.player_name %></td>
+      <tr>
+        <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
         if player.height
@@ -67,8 +67,8 @@
     <% end %>
 
     <% @away_players_group2.each_with_index do |player, index| %>
-      <tr class="lists list<%= player.id %>">
-        <td><%= player.player_name %></td>
+      <tr>
+        <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
         if player.height
@@ -103,8 +103,8 @@
         <td colspan="10"></td>
       </tr>
     <% @away_players_group3.each_with_index do |player, index| %>
-      <tr class="lists list<%= player.id %>">
-        <td><%= player.player_name %></td>
+      <tr>
+        <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
         if player.height
@@ -165,8 +165,8 @@
     </thead>
     <tbody>
     <% @home_players_group1.each_with_index do |player, index| %>
-      <tr class="lists list<%= player.id %>">
-        <td><%= player.player_name %></td>
+      <tr>
+        <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
         if player.height
@@ -198,8 +198,8 @@
     <% end %>
 
     <% @home_players_group2.each_with_index do |player, index| %>
-      <tr class="lists list<%= player.id %>">
-        <td><%= player.player_name %></td>
+      <tr>
+        <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
         if player.height
@@ -234,8 +234,8 @@
         <td colspan="10"></td>
       </tr>
     <% @home_players_group3.each_with_index do |player, index| %>
-      <tr class="lists list<%= player.id %>">
-        <td><%= player.player_name %></td>
+      <tr>
+        <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
         if player.height
