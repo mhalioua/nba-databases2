@@ -884,7 +884,7 @@ namespace :nba do
 						break
 					end
 					last_players = last_game.players.where("player_name = ?",player.player_name)
-					if last_players.size > 0
+					if last_players.size > 0 && last_players.first.mins > 5
 						possession.push(last_game.id)
 						sum_poss = sum_poss + last_players.first.poss
 						sum_mins = sum_mins + last_players.first.mins
@@ -910,7 +910,7 @@ namespace :nba do
 						break
 					end
 					last_players = last_game.players.where("player_name = ?",player.player_name)
-					if last_players.size > 0
+					if last_players.size > 0 && last_players.first.mins > 5
 						possession.push(last_game.id)
 						sum_poss = sum_poss + last_players.first.poss
 						sum_mins = sum_mins + last_players.first.mins
