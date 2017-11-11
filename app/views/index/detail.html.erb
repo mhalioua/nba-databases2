@@ -397,8 +397,8 @@
 $(".lists").hover(function() {
   if ($(".box" + $(this)[0].className.substr(10)).css("display") == "none")
   {
-    $(".boxes").fadeOut(2000);
-    $(".box" + $(this)[0].className.substr(10)).fadeIn(2000);
+    $(".boxes").css("display", "none");
+    $(".box" + $(this)[0].className.substr(10)).fadeIn(750);
     var position = $(this).position();
     $(".box" + $(this)[0].className.substr(10)).css("position", "absolute");
     $(".box" + $(this)[0].className.substr(10)).css("top", position.top + 20);
@@ -407,7 +407,7 @@ $(".lists").hover(function() {
   }
 },
 function() {
-  $(".boxes").fadeOut(2000);
+  $(".boxes").css("display", "none");
 });
 $('.awayPossessions').on('input', function() { 
   var value = $(this).val();
