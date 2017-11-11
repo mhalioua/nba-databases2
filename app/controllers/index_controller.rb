@@ -63,6 +63,70 @@ class IndexController < ApplicationController
 		@home_players_group3 = @home_players_group3[0..-2]
 		@home_players = @home_players[0..-2]
 
+		@away_players_group1 = @away_players_group1.reject{|player|
+			count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        player.sum_mins/count < 5
+		}
+
+		@away_players_group2 = @away_players_group2.reject{|player|
+			count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        player.sum_mins/count < 5
+		}
+
+		@away_players_group3 = @away_players_group3.reject{|player|
+			count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        player.sum_mins/count < 5
+		}
+
+		@away_players = @away_players.reject{|player|
+			count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        player.sum_mins/count < 5
+		}
+
+		@home_players = @home_players.reject{|player|
+			count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        player.sum_mins/count < 5
+		}
+
+		@home_players_group1 = @home_players_group1.reject{|player|
+			count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        player.sum_mins/count < 5
+		}
+
+		@home_players_group2 = @home_players_group2.reject{|player|
+			count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        player.sum_mins/count < 5
+		}
+
+		@home_players_group3 = @home_players_group3.reject{|player|
+			count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        player.sum_mins/count < 5
+		}
+
 		@away_total_poss = 0
 	    @away_total_min = 0
 	    @away_drtg_one = 0

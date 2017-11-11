@@ -1014,15 +1014,13 @@ namespace :nba do
 		end
 	end
 
-	task :test => :environment do
+	task :atest => :environment do
 		a = [ 1, 2, 0, 3, 4]
-		a.each_with_index do |element, index|
-			if element == 0
-				a.delete(index)
-				next
-			end
-			puts element
-		end
+		a = a.reject {|x| 
+			value = x
+			value==0
+		}
+		puts a
 	end
 
 		@basket_abbr = [
