@@ -397,17 +397,17 @@
 $(".lists").hover(function() {
   if ($(".box" + $(this)[0].className.substr(10)).css("display") == "none")
   {
-    $(".boxes").css("display", "none");
-    $(".box" + $(this)[0].className.substr(10)).css("display", "block");
+    $(".boxes").fadeOut(2000);
+    $(".box" + $(this)[0].className.substr(10)).fadeIn(2000);
     var position = $(this).position();
     $(".box" + $(this)[0].className.substr(10)).css("position", "absolute");
-    $(".box" + $(this)[0].className.substr(10)).css("top", position.top + 30);
+    $(".box" + $(this)[0].className.substr(10)).css("top", position.top + 20);
     $(".box" + $(this)[0].className.substr(10)).css("left", position.left);
     $(".box" + $(this)[0].className.substr(10)).css("background", "white");
   }
 },
 function() {
-  $(".boxes").css("display", "none");
+  $(".boxes").fadeOut(2000);
 });
 $('.awayPossessions').on('input', function() { 
   var value = $(this).val();
