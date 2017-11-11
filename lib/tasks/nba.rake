@@ -44,7 +44,6 @@ namespace :nba do
 
 		Rake::Task["nba:getUpdateRate"].invoke
 		Rake::Task["nba:getUpdateRate"].reenable
-		
 	end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
@@ -1012,6 +1011,17 @@ namespace :nba do
 		    	end
 		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / home_total_poss)
 		    end
+		end
+	end
+
+	task :test => :environment do
+		a = [ 1, 2, 0, 3, 4]
+		a.each_with_index do |element, index|
+			if element == 0
+				a.delete(index)
+				next
+			end
+			puts element
 		end
 	end
 

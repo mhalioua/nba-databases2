@@ -49,17 +49,17 @@ class IndexController < ApplicationController
 
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 
-		@away_players = @away_last.players.where("team_abbr = ?", @away_flag).order(:state)
-		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @away_flag)).order(:state)
-		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @away_flag))).order(:state)
-		@away_players_group3 = @away_last.players.where("team_abbr = ? AND state > 5", @away_flag).order(:state)
+		@away_players = @away_last.players.where("team_abbr = ? AND mins > 5", @away_flag).order(:state)
+		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG' AND mins > 5", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG' AND mins > 5", @away_flag)).order(:state)
+		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'C' AND mins > 5", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF' AND mins > 5", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF' AND mins > 5", @away_flag))).order(:state)
+		@away_players_group3 = @away_last.players.where("team_abbr = ? AND state > 5 AND mins > 5", @away_flag).order(:state)
 		@away_players_group3 = @away_players_group3[0..-2]
 		@away_players = @away_players[0..-2]
 
-		@home_players = @home_last.players.where("team_abbr = ?", @home_flag).order(:state)
-		@home_players_group1 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @home_flag)).order(:state)
-		@home_players_group2 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @home_flag))).order(:state)
-		@home_players_group3 = @home_last.players.where("team_abbr = ? AND state > 5", @home_flag).order(:state)
+		@home_players = @home_last.players.where("team_abbr = ? AND mins > 5", @home_flag).order(:state)
+		@home_players_group1 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG' AND mins > 5", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG' AND mins > 5", @home_flag)).order(:state)
+		@home_players_group2 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'C' AND mins > 5", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF' AND mins > 5", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF' AND mins > 5", @home_flag))).order(:state)
+		@home_players_group3 = @home_last.players.where("team_abbr = ? AND state > 5 AND mins > 5", @home_flag).order(:state)
 		@home_players_group3 = @home_players_group3[0..-2]
 		@home_players = @home_players[0..-2]
 
@@ -67,25 +67,33 @@ class IndexController < ApplicationController
 	    @away_total_min = 0
 	    @away_drtg_one = 0
 	    @away_players_group1.each_with_index do |player, index| 
-	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	        count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
+	        if player.sum_mins/count < 5
+	        	@away_players_group1.delete(index)
+	        	next
+	        end
 	        @away_total_min = @away_total_min + player.sum_mins/count
 	        @away_drtg_one = @away_drtg_one + player.drtg
+	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    @away_drtg_one = @away_drtg_one.to_f / @away_players_group1.size
 
 	    @away_drtg_two = 0
-	    @away_players_group2.each_with_index do |player, index| 
-	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	    @away_players_group2.each_with_index do |player, index|
 	        count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
+	        if player.sum_mins/count < 5
+	        	@away_players_group2.delete(index)
+	        	next
+	        end
 	        @away_total_min = @away_total_min + player.sum_mins/count
 	        @away_drtg_two = @away_drtg_two + player.drtg
+	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    @away_drtg_two = @away_drtg_two.to_f / @away_players_group2.size
 
