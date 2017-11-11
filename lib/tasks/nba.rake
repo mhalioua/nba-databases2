@@ -879,6 +879,8 @@ namespace :nba do
 				sum_poss = 0
 				team_poss = 0
 				count = 0
+				mins_min = 100
+				mins_max = 0
 				last_games.each do |last_game|
 					if count == 10
 						break
@@ -888,11 +890,18 @@ namespace :nba do
 						possession.push(last_game.id)
 						sum_poss = sum_poss + last_players.first.poss
 						sum_mins = sum_mins + last_players.first.mins
+						if mins_min > last_players.first.mins
+							mins_min = last_players.first.mins
+						end
+						if mins_max < last_players.first.mins
+							mins_max = last_players.first.mins
+						end
 						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
 						count = count + 1
 					end
 				end
+				sum_mins = sum_mins - mins_min - mins_max
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins)
 			end
 
@@ -905,6 +914,8 @@ namespace :nba do
 				count = 0
 				team_poss = 0
 				sum_mins = 0
+				mins_min = 100
+				mins_max = 0
 				last_games.each do |last_game|
 					if count == 10
 						break
@@ -914,11 +925,18 @@ namespace :nba do
 						possession.push(last_game.id)
 						sum_poss = sum_poss + last_players.first.poss
 						sum_mins = sum_mins + last_players.first.mins
+						if mins_min > last_players.first.mins
+							mins_min = last_players.first.mins
+						end
+						if mins_max < last_players.first.mins
+							mins_max = last_players.first.mins
+						end
 						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
 						count = count + 1
 					end
 				end
+				sum_mins = sum_mins - mins_min - mins_max
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins)
 			end
 		end
@@ -980,7 +998,7 @@ namespace :nba do
 		        if player.possession
 		          	count = player.possession.scan(/,/).count + 1
 		        end
-		        away_total_min = away_total_min + player.sum_mins/count
+		        away_total_min = away_total_min + player.sum_mins/(count - 2)
 		    end
 
 		    away_players.each_with_index do |player, index| 
@@ -1002,7 +1020,7 @@ namespace :nba do
 		        if player.possession
 		          	count = player.possession.scan(/,/).count + 1
 		        end
-		        home_total_min = home_total_min + player.sum_mins/count
+		        home_total_min = home_total_min + player.sum_mins/(count - 2)
 		    end
 
 		    home_players.each_with_index do |player, index|
