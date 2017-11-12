@@ -1021,7 +1021,7 @@ namespace :nba do
 	end
 
 	task :atest => :environment do
-		game = Nba.where("game_id = 400974939").first
+		game = Nba.where("game_id = 400974916").first
 			away_players = game.players.where("team_abbr = 0 AND mins > 5")
 		 	away_total_poss = 0
 		    away_players.each_with_index do |player, index| 
