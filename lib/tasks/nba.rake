@@ -988,17 +988,11 @@ namespace :nba do
 		games.each do |game|
 			away_players = game.players.where("team_abbr = 0 AND mins > 5")
 		 	away_total_poss = 0
-		    away_total_min = 0
 		    away_players.each_with_index do |player, index| 
 		    	if player.player_name == "TEAM"
 		    		next
 		    	end
 		        away_total_poss = away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
-		        count = 1
-		        if player.possession
-		          	count = player.possession.scan(/,/).count + 1
-		        end
-		        away_total_min = away_total_min + player.sum_mins/(count - 2)
 		    end
 
 		    away_players.each_with_index do |player, index| 
@@ -1010,17 +1004,11 @@ namespace :nba do
 
 		    home_players = game.players.where("team_abbr = 1 AND mins > 5")
 		    home_total_poss = 0
-		    home_total_min = 0
 		    home_players.each_with_index do |player, index| 
 		    	if player.player_name == "TEAM"
 		    		next
 		    	end
 		        home_total_poss = home_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
-		        count = 1
-		        if player.possession
-		          	count = player.possession.scan(/,/).count + 1
-		        end
-		        home_total_min = home_total_min + player.sum_mins/(count - 2)
 		    end
 
 		    home_players.each_with_index do |player, index|
