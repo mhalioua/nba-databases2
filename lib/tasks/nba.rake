@@ -1028,6 +1028,7 @@ namespace :nba do
 		    	if player.player_name == "TEAM"
 		    		next
 		    	end
+		    	puts (100 * player.sum_poss.to_f / player.team_poss)
 		        away_total_poss = away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 		    end
 		    puts away_total_poss
@@ -1046,6 +1047,7 @@ namespace :nba do
 		    	if player.player_name == "TEAM"
 		    		next
 		    	end
+		    	puts (100 * player.sum_poss.to_f / player.team_poss)
 		        home_total_poss = home_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
 		    end
 		    puts home_total_poss
