@@ -1021,12 +1021,42 @@ namespace :nba do
 	end
 
 	task :atest => :environment do
-		a = [ 1, 2, 0, 3, 4]
-		a = a.reject {|x| 
-			value = x
-			value==0
-		}
-		puts a
+		game = Nba.where("game_id = 400974939")
+			away_players = game.players.where("team_abbr = 0 AND mins > 5")
+		 	away_total_poss = 0
+		    away_players.each_with_index do |player, index| 
+		    	if player.player_name == "TEAM"
+		    		next
+		    	end
+		        away_total_poss = away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+		    end
+		    puts away_total_poss
+
+		    away_players.each_with_index do |player, index| 
+		    	if player.player_name == "TEAM"
+		    		next
+		    	end
+		    	puts 100 * (100 * player.sum_poss.to_f/player.team_poss) / away_total_poss
+		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / away_total_poss)
+		    end
+
+		    home_players = game.players.where("team_abbr = 1 AND mins > 5")
+		    home_total_poss = 0
+		    home_players.each_with_index do |player, index| 
+		    	if player.player_name == "TEAM"
+		    		next
+		    	end
+		        home_total_poss = home_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
+		    end
+		    puts home_total_poss
+
+		    home_players.each_with_index do |player, index|
+		    	if player.player_name == "TEAM"
+		    		next
+		    	end
+		    	puts 100 * (100 * player.sum_poss.to_f/player.team_poss) / home_total_poss
+		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / home_total_poss)
+		    end
 	end
 
 		@basket_abbr = [
