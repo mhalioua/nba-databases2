@@ -68,7 +68,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        player.sum_mins/count < 5
+	        player.sum_mins/(count - 2) < 5
 		}
 
 		@away_players_group2 = @away_players_group2.reject{|player|
@@ -76,7 +76,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        player.sum_mins/count < 5
+	        player.sum_mins/(count - 2) < 5
 		}
 
 		@away_players_group3 = @away_players_group3.reject{|player|
@@ -84,7 +84,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        player.sum_mins/count < 5
+	        player.sum_mins/(count - 2) < 5
 		}
 
 		@away_players = @away_players.reject{|player|
@@ -92,7 +92,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        player.sum_mins/count < 5
+	        player.sum_mins/(count - 2) < 5
 		}
 
 		@home_players = @home_players.reject{|player|
@@ -100,7 +100,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        player.sum_mins/count < 5
+	        player.sum_mins/(count - 2) < 5
 		}
 
 		@home_players_group1 = @home_players_group1.reject{|player|
@@ -108,7 +108,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        player.sum_mins/count < 5
+	        player.sum_mins/(count - 2) < 5
 		}
 
 		@home_players_group2 = @home_players_group2.reject{|player|
@@ -116,7 +116,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        player.sum_mins/count < 5
+	        player.sum_mins/(count - 2) < 5
 		}
 
 		@home_players_group3 = @home_players_group3.reject{|player|
@@ -124,7 +124,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        player.sum_mins/count < 5
+	        player.sum_mins/(count - 2) < 5
 		}
 
 		@away_total_poss = 0
@@ -135,7 +135,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        @away_total_min = @away_total_min + player.sum_mins/count
+	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        @away_drtg_one = @away_drtg_one + player.drtg
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
@@ -147,7 +147,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        @away_total_min = @away_total_min + player.sum_mins/count
+	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        @away_drtg_two = @away_drtg_two + player.drtg
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
@@ -159,7 +159,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        @away_total_min = @away_total_min + player.sum_mins/count
+	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	    end
 
 	    @home_total_poss = 0
@@ -171,7 +171,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        @home_total_min = @home_total_min + player.sum_mins/count
+	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        @home_drtg_one = @home_drtg_one + player.drtg
 	    end
 	    @home_drtg_one = @home_drtg_one.to_f / @home_players_group1.size
@@ -183,7 +183,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        @home_total_min = @home_total_min + player.sum_mins/count
+	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        @home_drtg_two = @home_drtg_two + player.drtg
 	    end
 	    @home_drtg_two = @home_drtg_two.to_f / @home_players_group2.size
@@ -194,7 +194,7 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
-	        @home_total_min = @home_total_min + player.sum_mins/count
+	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	    end 
 	end
 end
