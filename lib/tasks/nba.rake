@@ -986,7 +986,7 @@ namespace :nba do
 		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
 		puts games.size
 		games.each do |game|
-			away_players = game.players.where(team_abbr: 0)
+			away_players = game.players.where("team_abbr = 0 AND min > 5")
 		 	away_total_poss = 0
 		    away_total_min = 0
 		    away_players.each_with_index do |player, index| 
@@ -1008,7 +1008,7 @@ namespace :nba do
 		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / away_total_poss)
 		    end
 
-		    home_players = game.players.where(team_abbr: 1)
+		    home_players = game.players.where("team_abbr = 1 AND min > 5")
 		    home_total_poss = 0
 		    home_total_min = 0
 		    home_players.each_with_index do |player, index| 
