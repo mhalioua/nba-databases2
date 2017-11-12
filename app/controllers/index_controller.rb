@@ -195,6 +195,6 @@ class IndexController < ApplicationController
 	          	count = player.possession.scan(/,/).count + 1
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
-	    end 
+	    end
 	end
 end
