@@ -991,7 +991,9 @@ namespace :nba do
 					page = download_document(url)
 					trs = page.css(".mod-player-stats table:first .oddrow, .mod-player-stats table:first .evenrow")
 					last_element = trs[trs.length - 2]
-					this_element = trs[trs.length - 2]
+					this_element = trs[trs.length - 1]
+					puts last_element.inspect
+					puts this_element.inspect
 					last_count = last_element.children[3].to_i
 					this_count = this_element.children[3].to_i
 
