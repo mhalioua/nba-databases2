@@ -1108,6 +1108,8 @@ namespace :nba do
 					last_fga = last_fga_index ? last_fga[last_fga_index+1..-1] : ""
 					this_fga_index = this_fga.index("-")
 					this_fga = this_fga_index ? this_fga[this_fga_index+1..-1] : ""
+					puts last_fga
+					puts this_fga
 
 					last_fta = last_element.children[9].text
 					this_fta = this_element.children[9].text
@@ -1115,6 +1117,8 @@ namespace :nba do
 					last_fta = last_fta_index ? last_fta[last_fta_index+1..-1] : ""
 					this_fta_index = this_fta.index("-")
 					this_fta = this_fta_index ? this_fta[this_fta_index+1..-1] : ""
+					puts last_fta
+					puts this_fta
 
 					last_or = last_element.children[11].text
 					this_or = this_element.children[11].text
@@ -1124,9 +1128,13 @@ namespace :nba do
 
 					last_poss = last_fga.to_f + (last_fta.to_f * 0.44) + last_to.to_f - last_or.to_f
 					this_poss = this_fga.to_f + (this_fta.to_f * 0.44) + this_to.to_f - this_or.to_f
+					puts last_poss
+					puts this_poss
 
 					ortg = (last_count * last_poss * last_ortg + this_count * this_poss * this_ortg) / (last_count * last_poss + this_count * this_poss)
 					drtg = (last_count * last_poss * last_drtg + this_count * this_poss * this_drtg) / (last_count * last_poss + this_count * this_poss)
+					puts ortg
+					puts drtg
 	end
 
 		@basket_abbr = [
