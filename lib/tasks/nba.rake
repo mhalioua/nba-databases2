@@ -745,7 +745,7 @@ namespace :nba do
 	task :getPlayer => [:environment] do
 		include Api
 		puts "----------Get Players----------"
-		games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
@@ -809,6 +809,7 @@ namespace :nba do
 					height = page.css(".general-info")[0].children[1].text
 				else
 					player_name = slice.children[0].text
+					link = ""
 					height = 0
 				end
 				position = ""
@@ -828,7 +829,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
 		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
-	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height )
+	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link  )
 			end
 		end
 	end
