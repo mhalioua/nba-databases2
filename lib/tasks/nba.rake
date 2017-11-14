@@ -1080,7 +1080,6 @@ namespace :nba do
 		include Api
 		player = Player.find_by(player_name: "A. Bogut", nba_id: 24029)
 		player_name = player.player_name
-		team_abbr = "LAL"
 
 		ortg = ""
 					drtg = ""
@@ -1088,13 +1087,13 @@ namespace :nba do
 					last_drtg = 0
 					this_ortg = 0
 					this_drtg = 0
-					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2017)
+					if player_element = Tg.find_by(player_name: player_name, year: 2017)
 						last_ortg = player_element.ortg
 						last_drtg = player_element.drtg
 						puts last_ortg
 						puts last_drtg
 					end
-					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2018)
+					if player_element = Tg.find_by(player_name: player_name, year: 2018)
 						this_ortg = player_element.ortg
 						this_drtg = player_element.drtg
 						puts this_ortg
