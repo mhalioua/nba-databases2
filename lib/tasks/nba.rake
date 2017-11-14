@@ -980,11 +980,15 @@ namespace :nba do
 					this_drtg = 0
 					if player_element = Tg.find_by(player_name: player_name, year: 2017)
 						last_ortg = player_element.ortg
+						last_ortg = 0 unless last_ortg
 						last_drtg = player_element.drtg
+						last_drtg = 0 unless last_drtg
 					end
 					if player_element = Tg.find_by(player_name: player_name, year: 2018)
 						this_ortg = player_element.ortg
 						this_drtg = player_element.drtg
+						this_ortg = 0 unless this_ortg
+						this_drtg = 0 unless this_drtg
 					end
 					url = player.link
 					url = url.gsub(/player/,'player/stats')
