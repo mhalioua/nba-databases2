@@ -1071,44 +1071,62 @@ namespace :nba do
 	end
 
 	task :atest => :environment do
-		game = Nba.where("game_id = 400974916").first
-			away_players = game.players.where("team_abbr = 0 AND mins > 5")
-		 	away_total_poss = 0
-		    away_players.each_with_index do |player, index| 
-		    	if player.player_name == "TEAM"
-		    		next
-		    	end
-		    	puts (100 * player.sum_poss.to_f / player.team_poss)
-		        away_total_poss = away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
-		    end
-		    puts away_total_poss
+		player = Player.find_by(player_name: "T. Frazier", nba_id: 23880)
 
-		    away_players.each_with_index do |player, index| 
-		    	if player.player_name == "TEAM"
-		    		next
-		    	end
-		    	puts 100 * (100 * player.sum_poss.to_f/player.team_poss) / away_total_poss
-		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / away_total_poss)
-		    end
+		ortg = ""
+					drtg = ""
+					last_ortg = 0
+					last_drtg = 0
+					this_ortg = 0
+					this_drtg = 0
+					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2017)
+						last_ortg = player_element.ortg
+						last_drtg = player_element.drtg
+					end
+					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2018)
+						this_ortg = player_element.ortg
+						this_drtg = player_element.drtg
+					end
+					url = player.link
+					url = url.gsub(/player/,'player/stats')
+					puts url
+					page = download_document(url)
+					trs = page.css(".mod-player-stats table .oddrow, .mod-player-stats table .evenrow")
+					if trs.length != 3
+						last_element = trs[trs.length/3 - 2]
+					else
+						last_element = trs[trs.length/3 - 1]
+					end
+					this_element = trs[trs.length/3 - 1]
 
-		    home_players = game.players.where("team_abbr = 1 AND mins > 5")
-		    home_total_poss = 0
-		    home_players.each_with_index do |player, index| 
-		    	if player.player_name == "TEAM"
-		    		next
-		    	end
-		    	puts (100 * player.sum_poss.to_f / player.team_poss)
-		        home_total_poss = home_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
-		    end
-		    puts home_total_poss
+					last_count = last_element.children[3].text.to_i
+					this_count = this_element.children[3].text.to_i
 
-		    home_players.each_with_index do |player, index|
-		    	if player.player_name == "TEAM"
-		    		next
-		    	end
-		    	puts 100 * (100 * player.sum_poss.to_f/player.team_poss) / home_total_poss
-		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / home_total_poss)
-		    end
+					last_fga = last_element.children[5].text
+					this_fga = this_element.children[5].text
+					last_fga_index = last_fga.index("-")
+					last_fga = last_fga_index ? last_fga[last_fga_index+1..-1] : ""
+					this_fga_index = this_fga.index("-")
+					this_fga = this_fga_index ? this_fga[this_fga_index+1..-1] : ""
+
+					last_fta = last_element.children[9].text
+					this_fta = this_element.children[9].text
+					last_fta_index = last_fta.index("-")
+					last_fta = last_fta_index ? last_fta[last_fta_index+1..-1] : ""
+					this_fta_index = this_fta.index("-")
+					this_fta = this_fta_index ? this_fta[this_fta_index+1..-1] : ""
+
+					last_or = last_element.children[11].text
+					this_or = this_element.children[11].text
+
+					last_to = last_element.children[18].text
+					this_to = this_element.children[18].text
+
+					last_poss = last_fga.to_f + (last_fta.to_f * 0.44) + last_to.to_f - last_or.to_f
+					this_poss = this_fga.to_f + (this_fta.to_f * 0.44) + this_to.to_f - this_or.to_f
+
+					ortg = (last_count * last_poss * last_ortg + this_count * this_poss * this_ortg) / (last_count * last_poss + this_count * this_poss)
+					drtg = (last_count * last_poss * last_drtg + this_count * this_poss * this_drtg) / (last_count * last_poss + this_count * this_poss)
 	end
 
 		@basket_abbr = [
