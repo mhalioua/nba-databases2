@@ -997,25 +997,25 @@ namespace :nba do
 					last_count = last_element.children[3].to_i
 					this_count = this_element.children[3].to_i
 
-					last_fga = last_element.children[5]
-					this_fga = this_element.children[5]
+					last_fga = last_element.children[5].text
+					this_fga = this_element.children[5].text
 					last_fga_index = last_fga.index("-")
 					last_fga = last_fga_index ? last_fga[last_fga_index+1..-1] : ""
 					this_fga_index = this_fga.index("-")
 					this_fga = this_fga_index ? this_fga[this_fga_index+1..-1] : ""
 
-					last_fta = last_element.children[9]
-					this_fta = this_element.children[9]
+					last_fta = last_element.children[9].text
+					this_fta = this_element.children[9].text
 					last_fta_index = last_fta.index("-")
 					last_fta = last_fta_index ? last_fta[last_fta_index+1..-1] : ""
 					this_fta_index = this_fta.index("-")
 					this_fta = this_fta_index ? this_fta[this_fta_index+1..-1] : ""
 
-					last_or = last_element.children[11]
-					this_or = this_element.children[11]
+					last_or = last_element.children[11].text
+					this_or = this_element.children[11].text
 
-					last_to = last_element.children[18]
-					this_to = this_element.children[18]
+					last_to = last_element.children[18].text
+					this_to = this_element.children[18].text
 
 					last_poss = last_fga.to_f + (last_fta.to_f * 0.44) + last_to.to_f - last_or.to_f
 					this_poss = this_fga.to_f + (this_fta.to_f * 0.44) + this_to.to_f - this_or.to_f
