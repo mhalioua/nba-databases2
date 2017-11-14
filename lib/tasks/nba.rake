@@ -1000,6 +1000,12 @@ namespace :nba do
 
 					last_count = last_element.children[3].text.to_i
 					this_count = this_element.children[3].text.to_i
+					if last_drtg == 0
+						last_count = 0
+					end
+					if this_drtg == 0
+						this_count = 0
+					end
 
 					last_fga = last_element.children[5].text
 					this_fga = this_element.children[5].text
