@@ -1082,10 +1082,14 @@ namespace :nba do
 					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2017)
 						last_ortg = player_element.ortg
 						last_drtg = player_element.drtg
+						puts last_ortg
+						puts last_drtg
 					end
 					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2018)
 						this_ortg = player_element.ortg
 						this_drtg = player_element.drtg
+						puts this_ortg
+						puts this_drtg
 					end
 					url = player.link
 					url = url.gsub(/player/,'player/stats')
@@ -1101,6 +1105,8 @@ namespace :nba do
 
 					last_count = last_element.children[3].text.to_i
 					this_count = this_element.children[3].text.to_i
+					puts last_count
+					puts this_count
 
 					last_fga = last_element.children[5].text
 					this_fga = this_element.children[5].text
