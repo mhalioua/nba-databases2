@@ -1136,6 +1136,6 @@ namespace :nba do
 	}
 
 	@player_name = {
-		"Prince" => "Waller-Prince"
+		"T. Prince" => "T. Waller-Prince"
 	}
 end
