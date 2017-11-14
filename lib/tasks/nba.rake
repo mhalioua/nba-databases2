@@ -986,7 +986,8 @@ namespace :nba do
 						this_ortg = player_element.ortg
 						this_drtg = player_element.drtg
 					end
-					url = player.link[0..30] + "stats/" + player.link[31..-1]
+					url = player.link
+					url = url.gsub(/player/,'player/stats')
 					puts url
 					page = download_document(url)
 					trs = page.css(".mod-player-stats table .oddrow, .mod-player-stats table .evenrow")
