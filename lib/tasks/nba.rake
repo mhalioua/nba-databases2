@@ -849,7 +849,7 @@ namespace :nba do
 				players.each do |player|
 					player_name = player.children[1].children[0].text
 					player_index = player_name.index(' ')
-					player_name = player_index ? player_name[player_index+1..-1] : ""
+					player_name = player_index ? player_name[0] + ". " + player_name[player_index+1..-1] : ""
 					ortg = player.children[28].text
 					drtg = player.children[29].text
 					unless player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
@@ -860,7 +860,6 @@ namespace :nba do
 				if index == 18
 					break
 				end
-				break
 			end
 		end
 	end
@@ -957,8 +956,6 @@ namespace :nba do
 					team_abbr = @team_nicknames[team_abbr]
 					
 					player_name = player.player_name
-					player_name_index = player_name.index(". ")
-					player_name = player_name_index ? player_name[player_name_index+2..-1] : ""
 
 					player_name_index = player_name.index(" Jr.")
 					player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
@@ -969,14 +966,20 @@ namespace :nba do
 					if @player_name[player_name]
 						player_name = @player_name[player_name]
 					end
-										
+					
+					ortg = ""
+					drtg = ""
 					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2017)
-						player.update(ortg: player_element.ortg, drtg: player_element.drtg)
+						ortg = player_element.ortg
+						drtg = player_element.drtg
 					elsif player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2018)
-						player.update(ortg: player_element.ortg, drtg: player_element.drtg)
+						ortg = player_element.ortg
+						drtg = player_element.drtg
 					elsif player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2016)
-						player.update(ortg: player_element.ortg, drtg: player_element.drtg)
-					end
+						ortg = player_element.ortg
+						drtg = player_element.drtg
+					end					
+					player.update(ortg: ortg, drtg: drtg)
 				end
 			end
 		end
