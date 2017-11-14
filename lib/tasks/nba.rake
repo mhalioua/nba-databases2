@@ -990,9 +990,13 @@ namespace :nba do
 					puts url
 					page = download_document(url)
 					trs = page.css(".mod-player-stats table .oddrow, .mod-player-stats table .evenrow")
-					last_element = trs[trs.length/3 - 2]
+					if trs.length != 3
+						last_element = trs[trs.length/3 - 2]
+					else
+						last_element = trs[trs.length/3 - 1]
+					end
 					this_element = trs[trs.length/3 - 1]
-					
+
 					last_count = last_element.children[3].text.to_i
 					this_count = this_element.children[3].text.to_i
 
