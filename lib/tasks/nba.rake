@@ -989,9 +989,9 @@ namespace :nba do
 					url = player.link
 					puts url
 					page = download_document(url)
-					trs = page.css(".mod-player-stats table:first .oddrow, .mod-player-stats table:first .evenrow")
-					last_element = trs[trs.length - 2]
-					this_element = trs[trs.length - 1]
+					trs = page.css(".mod-player-stats table .oddrow, .mod-player-stats table .evenrow")
+					last_element = trs[trs.length/3 - 2]
+					this_element = trs[trs.length/3 - 1]
 					puts last_element.inspect
 					puts this_element.inspect
 					last_count = last_element.children[3].to_i
