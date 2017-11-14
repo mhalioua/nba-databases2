@@ -949,6 +949,9 @@ namespace :nba do
 		games.each do |game|
 			players = game.players.all
 			players.each do |player|
+				if player.player_name == "TEAM"
+					next
+				end
 		        team_abbr = game.home_abbr
 		        if player.team_abbr == 0
 					team_abbr = game.away_abbr
