@@ -1078,7 +1078,7 @@ namespace :nba do
 
 	task :atest => :environment do
 		include Api
-		player = Player.find_by(player_name: "T. Frazier", nba_id: 23880)
+		player = Player.find_by(player_name: "A. Bogut", nba_id: 24029)
 		player_name = player.player_name
 		team_abbr = "NOH"
 
