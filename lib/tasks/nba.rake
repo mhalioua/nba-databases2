@@ -992,10 +992,9 @@ namespace :nba do
 					trs = page.css(".mod-player-stats table .oddrow, .mod-player-stats table .evenrow")
 					last_element = trs[trs.length/3 - 2]
 					this_element = trs[trs.length/3 - 1]
-					puts last_element.inspect
-					puts this_element.inspect
-					last_count = last_element.children[3].to_i
-					this_count = this_element.children[3].to_i
+					
+					last_count = last_element.children[3].text.to_i
+					this_count = this_element.children[3].text.to_i
 
 					last_fga = last_element.children[5].text
 					this_fga = this_element.children[5].text
