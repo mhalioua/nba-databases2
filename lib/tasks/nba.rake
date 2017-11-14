@@ -983,7 +983,7 @@ namespace :nba do
 						this_drtg = player_element.drtg
 					end
 					url = player.link
-					page = download_document(link)
+					page = download_document(url)
 					trs = page.css(".mod-player-stats table:first .oddrow, .mod-player-stats table:first .evenrow")
 					last_element = trs[trs.length - 2]
 					this_element = trs[trs.length - 2]
