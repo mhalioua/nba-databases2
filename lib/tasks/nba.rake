@@ -975,9 +975,6 @@ namespace :nba do
 					elsif player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2018)
 						ortg = player_element.ortg
 						drtg = player_element.drtg
-					elsif player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2016)
-						ortg = player_element.ortg
-						drtg = player_element.drtg
 					end					
 					player.update(ortg: ortg, drtg: drtg)
 				end
