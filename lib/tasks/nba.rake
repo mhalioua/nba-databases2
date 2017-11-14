@@ -770,6 +770,7 @@ namespace :nba do
 					height = page.css(".general-info")[0].children[1].text
 				else
 					player_name = slice.children[0].text
+					link = ""
 					height = 0
 				end
 				position = ""
@@ -789,7 +790,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
 		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
-	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height )
+	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link )
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -943,7 +944,7 @@ namespace :nba do
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			players = game.players.all
@@ -969,13 +970,51 @@ namespace :nba do
 					
 					ortg = ""
 					drtg = ""
+					last_ortg = 0
+					last_drtg = 0
+					this_ortg = 0
+					this_drtg = 0
 					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2017)
-						ortg = player_element.ortg
-						drtg = player_element.drtg
-					elsif player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2018)
-						ortg = player_element.ortg
-						drtg = player_element.drtg
-					end					
+						last_ortg = player_element.ortg
+						last_drtg = player_element.drtg
+					end
+					if player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: 2018)
+						this_ortg = player_element.ortg
+						this_drtg = player_element.drtg
+					end
+					url = player.link
+					page = download_document(link)
+					trs = page.css(".mod-player-stats table:first .oddrow, .mod-player-stats table:first .evenrow")
+					last_element = trs[trs.length - 2]
+					this_element = trs[trs.length - 2]
+					last_count = last_element.children[3].to_i
+					this_count = this_element.children[3].to_i
+
+					last_fga = last_element.children[5]
+					this_fga = this_element.children[5]
+					last_fga_index = last_fga.index("-")
+					last_fga = last_fga_index ? last_fga[last_fga_index+1..-1] : ""
+					this_fga_index = this_fga.index("-")
+					this_fga = this_fga_index ? this_fga[this_fga_index+1..-1] : ""
+
+					last_fta = last_element.children[9]
+					this_fta = this_element.children[9]
+					last_fta_index = last_fta.index("-")
+					last_fta = last_fta_index ? last_fta[last_fta_index+1..-1] : ""
+					this_fta_index = this_fta.index("-")
+					this_fta = this_fta_index ? this_fta[this_fta_index+1..-1] : ""
+
+					last_or = last_element.children[11]
+					this_or = this_element.children[11]
+
+					last_to = last_element.children[18]
+					this_to = this_element.children[18]
+
+					last_poss = last_fga.to_f + (last_fta.to_f * 0.44) + last_to.to_f - last_or.to_f
+					this_poss = this_fga.to_f + (this_fta.to_f * 0.44) + this_to.to_f - this_or.to_f
+
+					ortg = (last_count * last_poss * last_ortg + this_count * this_poss * this_ortg) / (last_count * last_poss + this_count * this_poss)
+					drtg = (last_count * last_poss * last_drtg + this_count * this_poss * this_drtg) / (last_count * last_poss + this_count * this_poss)
 					player.update(ortg: ortg, drtg: drtg)
 				end
 			end
