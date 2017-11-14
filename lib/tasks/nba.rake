@@ -1080,7 +1080,7 @@ namespace :nba do
 		include Api
 		player = Player.find_by(player_name: "A. Bogut", nba_id: 24029)
 		player_name = player.player_name
-		team_abbr = "NOH"
+		team_abbr = "LAL"
 
 		ortg = ""
 					drtg = ""
