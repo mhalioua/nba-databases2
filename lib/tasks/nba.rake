@@ -891,7 +891,7 @@ namespace :nba do
 						break
 					end
 					last_players = last_game.players.where("player_name = ?",player.player_name)
-					if last_players.size > 0 && last_players.first.mins > 5
+					if last_players.size > 0 && last_players.first.mins > 10
 						possession.push(last_game.id)
 						sum_poss = sum_poss + last_players.first.poss
 						sum_mins = sum_mins + last_players.first.mins
@@ -926,7 +926,7 @@ namespace :nba do
 						break
 					end
 					last_players = last_game.players.where("player_name = ?",player.player_name)
-					if last_players.size > 0 && last_players.first.mins > 5
+					if last_players.size > 0 && last_players.first.mins > 10
 						possession.push(last_game.id)
 						sum_poss = sum_poss + last_players.first.poss
 						sum_mins = sum_mins + last_players.first.mins
@@ -1051,13 +1051,20 @@ namespace :nba do
 		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
 		puts games.size
 		games.each do |game|
-			away_players = game.players.where("team_abbr = 0 AND mins > 5")
-		    home_players = game.players.where("team_abbr = 1 AND mins > 5")
+			away_players = game.players.where("team_abbr = 0 AND mins > 10")
+		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
 		 	away_total_poss = 0
 		    away_players.each_with_index do |player, index| 
 		    	if player.player_name == "TEAM"
 		    		next
 		    	end
+		    	if player.possession
+		            count = player.possession.scan(/,/).count + 1
+		        end
+		    	count = 1
+		        if count < 10
+		        	next
+		        end
 		        away_total_poss = away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 		    end
 
@@ -1065,6 +1072,13 @@ namespace :nba do
 		    	if player.player_name == "TEAM"
 		    		next
 		    	end
+		    	if player.possession
+		            count = player.possession.scan(/,/).count + 1
+		        end
+		    	count = 1
+		        if count < 10
+		        	next
+		        end
 		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / away_total_poss)
 		    end
 
@@ -1073,6 +1087,13 @@ namespace :nba do
 		    	if player.player_name == "TEAM"
 		    		next
 		    	end
+		    	if player.possession
+		            count = player.possession.scan(/,/).count + 1
+		        end
+		    	count = 1
+		        if count < 10
+		        	next
+		        end
 		        home_total_poss = home_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
 		    end
 
@@ -1080,6 +1101,13 @@ namespace :nba do
 		    	if player.player_name == "TEAM"
 		    		next
 		    	end
+		    	count = 1
+		    	if player.possession
+		            count = player.possession.scan(/,/).count + 1
+		        end
+		        if count < 10
+		        	next
+		        end
 		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / home_total_poss)
 		    end
 		end
