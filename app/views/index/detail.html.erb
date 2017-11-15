@@ -48,6 +48,9 @@
           if player.possession
             count = player.possession.scan(/,/).count + 1
           end
+          if count == 2
+            count = 1
+          end
         %>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
@@ -80,6 +83,9 @@
           count = 1
           if player.possession
             count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
           end
         %>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
@@ -116,6 +122,9 @@
           count = 1
           if player.possession
             count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
           end
         %>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
@@ -179,6 +188,9 @@
           if player.possession
             count = player.possession.scan(/,/).count + 1
           end
+          if count == 2
+            count = 1
+          end
         %>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
@@ -211,6 +223,9 @@
           count = 1
           if player.possession
             count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
           end
         %>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
@@ -247,6 +262,9 @@
           count = 1
           if player.possession
             count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
           end
         %>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
