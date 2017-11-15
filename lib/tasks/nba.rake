@@ -1119,8 +1119,8 @@ namespace :nba do
 					end
 					this_element = trs[trs.length/3 - 1]
 
-					last_count = last_element.children[3].text.to_i
-					this_count = this_element.children[3].text.to_i
+					last_count = last_element.children[2].text.to_i
+					this_count = this_element.children[2].text.to_i
 					puts last_count
 					puts this_count
 
