@@ -103,7 +103,6 @@ class IndexController < ApplicationController
 	    @away_drtg_two = @away_drtg_two.to_f / @away_players_group2.size
 
 	    @away_players_group3.each_with_index do |player, index|
-	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	        count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
@@ -115,13 +114,13 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
+	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
 	    @home_total_poss = 0
 	    @home_total_min = 0
 	    @home_drtg_one = 0
 	    @home_players_group1.each_with_index do |player, index| 
-	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	        count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
@@ -134,12 +133,12 @@ class IndexController < ApplicationController
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        @home_drtg_one = @home_drtg_one + player.drtg
+	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    @home_drtg_one = @home_drtg_one.to_f / @home_players_group1.size
 
 	    @home_drtg_two = 0
 	    @home_players_group2.each_with_index do |player, index| 
-	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	        count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
@@ -152,11 +151,11 @@ class IndexController < ApplicationController
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        @home_drtg_two = @home_drtg_two + player.drtg
+	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    @home_drtg_two = @home_drtg_two.to_f / @home_players_group2.size
 
 	    @home_players_group3.each_with_index do |player, index|
-	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	        count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
@@ -168,6 +167,7 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
+	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	end
 end
