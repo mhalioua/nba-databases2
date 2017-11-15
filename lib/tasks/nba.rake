@@ -850,7 +850,7 @@ namespace :nba do
 				players = doc.css('#div_per_poss tbody tr')
 				players.each do |player|
 					player_name = player.children[1].children[0].text
-					player_index = player_name.index(' ')
+					player_index = player_name.rindex(' ')
 					player_name = player_index ? player_name[0] + ". " + player_name[player_index+1..-1] : ""
 					ortg = player.children[28].text
 					drtg = player.children[29].text
