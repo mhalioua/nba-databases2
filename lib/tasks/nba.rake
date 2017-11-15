@@ -1008,12 +1008,6 @@ namespace :nba do
 
 					last_count = last_element.children[2].text.to_i
 					this_count = this_element.children[2].text.to_i
-					if last_drtg == 0
-						last_count = 0
-					end
-					if this_drtg == 0
-						this_count = 0
-					end
 
 					last_fga = last_element.children[5].text
 					this_fga = this_element.children[5].text
@@ -1094,7 +1088,7 @@ namespace :nba do
 	task :atest => :environment do
 		include Api
 		player = Player.find_by(player_name: "T. Cavanaugh", nba_id: 24028)
-		player_name = "O. Anunoby"
+		player_name = "T. Cavanaugh"
 
 		ortg = ""
 					drtg = ""
