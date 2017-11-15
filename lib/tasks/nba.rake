@@ -21,6 +21,9 @@ namespace :nba do
 		Rake::Task["nba:getFullLines"].invoke
 		Rake::Task["nba:getFullLines"].reenable
 
+		Rake::Task["nba:gettg"].invoke
+		Rake::Task["nba:gettg"].reenable
+
 		Rake::Task["nba:getPlayer"].invoke
 		Rake::Task["nba:getPlayer"].reenable
 
@@ -862,6 +865,7 @@ namespace :nba do
 				if index == 18
 					break
 				end
+				break
 			end
 		end
 	end
