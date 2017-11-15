@@ -1234,6 +1234,7 @@ namespace :nba do
 
 	@player_name = {
 		"T. Prince" => "T. Waller-Prince",
-		"T.J. McConnell" => "T. McConnell"
+		"T.J. McConnell" => "T. McConnell",
+		"J.J. Barea" => "J. Barea"
 	}
 end

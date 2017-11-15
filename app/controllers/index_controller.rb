@@ -68,6 +68,9 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
+	        if count == 2
+	        	count = 1
+	        end
 	        player.sum_mins/(count - 2) < 5
 		}
 
@@ -75,6 +78,9 @@ class IndexController < ApplicationController
 			count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
 	        end
 	        player.sum_mins/(count - 2) < 5
 		}
@@ -84,6 +90,9 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
+	        if count == 2
+	        	count = 1
+	        end
 	        player.sum_mins/(count - 2) < 5
 		}
 
@@ -91,6 +100,9 @@ class IndexController < ApplicationController
 			count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
 	        end
 	        player.sum_mins/(count - 2) < 5
 		}
@@ -100,6 +112,9 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
+	        if count == 2
+	        	count = 1
+	        end
 	        player.sum_mins/(count - 2) < 5
 		}
 
@@ -107,6 +122,9 @@ class IndexController < ApplicationController
 			count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
 	        end
 	        player.sum_mins/(count - 2) < 5
 		}
@@ -116,6 +134,9 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
+	        if count == 2
+	        	count = 1
+	        end
 	        player.sum_mins/(count - 2) < 5
 		}
 
@@ -123,6 +144,9 @@ class IndexController < ApplicationController
 			count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
 	        end
 	        player.sum_mins/(count - 2) < 5
 		}
@@ -134,6 +158,9 @@ class IndexController < ApplicationController
 	        count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
 	        end
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        @away_drtg_one = @away_drtg_one + player.drtg
@@ -147,6 +174,9 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
+	        if count == 2
+	        	count = 1
+	        end
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        @away_drtg_two = @away_drtg_two + player.drtg
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
@@ -158,6 +188,9 @@ class IndexController < ApplicationController
 	        count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
 	        end
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	    end
@@ -171,6 +204,9 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
+	        if count == 2
+	        	count = 1
+	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        @home_drtg_one = @home_drtg_one + player.drtg
 	    end
@@ -183,6 +219,9 @@ class IndexController < ApplicationController
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
 	        end
+	        if count == 2
+	        	count = 1
+	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        @home_drtg_two = @home_drtg_two + player.drtg
 	    end
@@ -193,6 +232,9 @@ class IndexController < ApplicationController
 	        count = 1
 	        if player.possession
 	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	    end
