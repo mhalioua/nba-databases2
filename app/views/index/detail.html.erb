@@ -33,8 +33,20 @@
 	    </tr>
   	</thead>
   	<tbody>
-    <% @away_players_group1.each_with_index do |player, index| %>
-      <tr>
+    <% @away_players_group1.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if player.sum_mins/(count - 2) < 10 || count < 10
+            style="red"
+          end
+      %>
+      <tr class=<%= style %> >
         <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
@@ -69,8 +81,20 @@
       </tr>
     <% end %>
 
-    <% @away_players_group2.each_with_index do |player, index| %>
-      <tr>
+    <% @away_players_group2.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if player.sum_mins/(count - 2) < 10 || count < 10
+            style="red"
+          end
+      %>
+      <tr class=<%= style %> >
         <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
@@ -108,8 +132,20 @@
         <td>BENCH</td>
         <td colspan="10"></td>
       </tr>
-    <% @away_players_group3.each_with_index do |player, index| %>
-      <tr>
+    <% @away_players_group3.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if player.sum_mins/(count - 2) < 10 || count < 10
+            style="red"
+          end
+      %>
+      <tr class=<%= style %> >
         <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
@@ -173,8 +209,20 @@
       </tr>
     </thead>
     <tbody>
-    <% @home_players_group1.each_with_index do |player, index| %>
-      <tr>
+    <% @home_players_group1.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if player.sum_mins/(count - 2) < 10 || count < 10
+            style="red"
+          end
+      %>
+      <tr class=<%= style %> >
         <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
@@ -209,8 +257,20 @@
       </tr>
     <% end %>
 
-    <% @home_players_group2.each_with_index do |player, index| %>
-      <tr>
+    <% @home_players_group2.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if player.sum_mins/(count - 2) < 10 || count < 10
+            style="red"
+          end
+      %>
+      <tr class=<%= style %> >
         <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
@@ -248,8 +308,20 @@
         <td>BENCH</td>
         <td colspan="10"></td>
       </tr>
-    <% @home_players_group3.each_with_index do |player, index| %>
-      <tr>
+    <% @home_players_group3.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if player.sum_mins/(count - 2) < 10 || count < 10
+            style="red"
+          end
+      %>
+      <tr class=<%= style %> >
         <td class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td><%= player.position %></td>
         <% 
