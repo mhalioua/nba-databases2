@@ -1037,6 +1037,13 @@ namespace :nba do
 
 					last_poss = last_fga.to_f + (last_fta.to_f * 0.44) + last_to.to_f - last_or.to_f
 					this_poss = this_fga.to_f + (this_fta.to_f * 0.44) + this_to.to_f - this_or.to_f
+					if this_ortg == 0
+						this_count = 0
+					end
+
+					if last_ortg == 0
+						last_count = 0
+					end
 
 					ortg = (last_count * last_poss * last_ortg + this_count * this_poss * this_ortg) / (last_count * last_poss + this_count * this_poss)
 					drtg = (last_count * last_poss * last_drtg + this_count * this_poss * this_drtg) / (last_count * last_poss + this_count * this_poss)
@@ -1097,15 +1104,15 @@ namespace :nba do
 					this_drtg = 0
 					if player_element = Tg.find_by(player_name: player_name, year: 2017)
 						last_ortg = player_element.ortg
+						last_ortg = 0 unless last_ortg
 						last_drtg = player_element.drtg
-						puts last_ortg
-						puts last_drtg
+						last_drtg = 0 unless last_drtg
 					end
 					if player_element = Tg.find_by(player_name: player_name, year: 2018)
 						this_ortg = player_element.ortg
 						this_drtg = player_element.drtg
-						puts this_ortg
-						puts this_drtg
+						this_ortg = 0 unless this_ortg
+						this_drtg = 0 unless this_drtg
 					end
 					url = player.link
 					url = url.gsub(/player/,'player/stats')
@@ -1155,6 +1162,15 @@ namespace :nba do
 					this_poss = this_fga.to_f + (this_fta.to_f * 0.44) + this_to.to_f - this_or.to_f
 					puts last_poss
 					puts this_poss
+
+					if this_ortg == 0
+						this_count = 0
+					end
+
+					if last_ortg == 0
+						last_count = 0
+					end
+
 
 					ortg = (last_count * last_poss * last_ortg + this_count * this_poss * this_ortg) / (last_count * last_poss + this_count * this_poss)
 					drtg = (last_count * last_poss * last_drtg + this_count * this_poss * this_drtg) / (last_count * last_poss + this_count * this_poss)
