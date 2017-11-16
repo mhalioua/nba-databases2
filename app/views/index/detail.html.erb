@@ -329,7 +329,7 @@
           height_index = player.height.index(",")
         end
         %>
-        <td style=<%= style %> ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td><%= height_index ? player.height[0..height_index-1] : "" %></td>
         <%
           count = 1
           if player.possession
@@ -340,17 +340,17 @@
           end
         %>
         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
-        <td style=<%= style %> ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <td><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
-        <td style=<%= style %> ></td>
+        <td></td>
         <% end %>
-        <td style=<%= style %> ><%= player.sum_mins/(count - 2) %></td>
-        <td style=<%= style %> ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>%</td>
-        <td style=<%= style %> ><%= player.ortg %></td>
-        <td style=<%= style %>  class="changeOrtg<%= player.id %>"></td>
-        <td style=<%= style %> ><%= player.drtg %></td>
-        <td style=<%= style %> ></td>
-        <td style=<%= style %>  class="changeDrtg<%= player.id %>"></td>
+        <td><%= player.sum_mins/(count - 2) %></td>
+        <td><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>%</td>
+        <td><%= player.ortg %></td>
+        <td class="changeOrtg<%= player.id %>"></td>
+        <td><%= player.drtg %></td>
+        <td></td>
+        <td class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
