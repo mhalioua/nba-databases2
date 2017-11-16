@@ -166,6 +166,7 @@ namespace :nba do
 	end
 
 	task :getLinkGame => [:environment] do
+		include Api
 		puts "----------Get Link Games----------"
 
 		Time.zone = 'Eastern Time (US & Canada)'
@@ -209,6 +210,7 @@ namespace :nba do
 				home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
 				if home_team_next.home_team == home_team
 					home_next_fly = "NO"
+				else
 					home_next_fly = "YES"
 				end
 			end
@@ -252,6 +254,7 @@ namespace :nba do
 
 				if score_element.children[1].text == ""
 					score_element = element.children[0].children[12]
+				end
 
 				if score_element.children[1].text == ""
 					score_element = element.children[0].children[10]
@@ -295,6 +298,7 @@ namespace :nba do
 				if ap == "a" && hour == 12
 					hour = 24
 				end
+
 				if @nba_nicknames[home_name]
 			      home_name = @nba_nicknames[home_name]
 			    end
@@ -338,7 +342,8 @@ namespace :nba do
 					if first_side.include?('½')
 						first_side = first_side[0..-1].to_f + 0.5
 					else
-					end		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+						first_side = first_side.to_f
+					end
 					update_game.update(first_line: first_line, first_side: first_side)
 					if update_game.home_team.include?(home_name)
 						update_game.update(home_number: home_number, away_number: away_number)
@@ -381,7 +386,8 @@ namespace :nba do
 				end
 
 				if score_element.children[1].text == ""
-				end		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+					score_element = element.children[0].children[12]
+				end
 
 				if score_element.children[1].text == ""
 					score_element = element.children[0].children[10]
@@ -424,7 +430,8 @@ namespace :nba do
 					hour = 24
 				end
 
-			      home_name = @nba_nicknames[home_name]		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+				if @nba_nicknames[home_name]
+			      home_name = @nba_nicknames[home_name]
 			    end
 			    if @nba_nicknames[away_name]
 			      away_name = @nba_nicknames[away_name]
@@ -467,7 +474,8 @@ namespace :nba do
 						first_side = first_side[0..-1].to_f + 0.5
 					else
 						first_side = first_side.to_f
-					update_game.update(second_line: first_line, second_side: first_side)		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+					end
+					update_game.update(second_line: first_line, second_side: first_side)
 				end
 			end
 			index_date = index_date + 1.days
@@ -510,7 +518,8 @@ namespace :nba do
 				if score_element.children[1].text == ""
 					score_element = element.children[0].children[10]
 				end
-				if score_element.children[1].text == ""		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+
+				if score_element.children[1].text == ""
 					score_element = element.children[0].children[17]
 				end
 
@@ -553,7 +562,8 @@ namespace :nba do
 			    if @nba_nicknames[away_name]
 			      away_name = @nba_nicknames[away_name]
 			    end
-		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
+
 				line_one = home_pinnacle.index(" ")
 				line_one = line_one ? home_pinnacle[0..line_one] : ""
 				line_two = away_pinnacle.index(" ")
@@ -596,7 +606,8 @@ namespace :nba do
 			end
 			index_date = index_date + 1.days
 		end
-		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+	end
+
 	task :test => [:environment] do
 		include Api
 		games = Nba.all
@@ -639,7 +650,8 @@ namespace :nba do
 				end
 
 				if score_element.children[1].text == ""
-				end		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+					score_element = element.children[0].children[17]
+				end
 
 				if score_element.children[1].text == ""
 					score_element = element.children[0].children[18]
@@ -682,7 +694,8 @@ namespace :nba do
 			    if @nba_nicknames[away_name]
 			      away_name = @nba_nicknames[away_name]
 			    end
-		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
+
 				line_one = home_pinnacle.index(" ")
 				line_one = line_one ? home_pinnacle[0..line_one] : ""
 				line_two = away_pinnacle.index(" ")
@@ -725,7 +738,8 @@ namespace :nba do
 						update_game.update(home_number: home_number, away_number: away_number)
 					else
 						update_game.update(away_number: home_number, home_number: away_number)
-				end		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+					end
+				end
 			end
 			index_date = index_date + 1.days
 		end
@@ -768,7 +782,8 @@ namespace :nba do
 				fga_index = fga_value.index('-')
 				fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
 				to_value = slice.children[11].text.to_i
-				fta_index = fta_value.index('-')		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+				fta_value = slice.children[4].text
+				fta_index = fta_value.index('-')
 				fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
 				or_value = slice.children[5].text.to_i
 				poss = fga_value + to_value + (fta_value / 2) - or_value
@@ -811,7 +826,8 @@ namespace :nba do
 				fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
 				or_value = slice.children[5].text.to_i
 				poss = fga_value + to_value + (fta_value / 2) - or_value
-					position = slice.children[0].children[1].text		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+				if slice.children[0].children.size > 1
+					position = slice.children[0].children[1].text
 				end
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
 		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
@@ -834,11 +850,13 @@ namespace :nba do
 				year = href[-9..-6].to_i
 				doc = download_document(href)
 				doc.xpath('//comment()').each { |comment| comment.replace(comment.text) }
+				players = doc.css('#div_per_poss tbody tr')
 				players.each do |player|
 					player_name = player.children[1].children[0].text
 					player_index = player_name.rindex(' ')
 					player_name = player_index ? player_name[0] + ". " + player_name[player_index+1..-1] : ""
 					ortg = player.children[28].text
+					drtg = player.children[29].text
 					unless player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
 			           	player_element = Tg.create(player_name: player_name, team_abbr: team_abbr, year: year)
 		            end
@@ -854,12 +872,14 @@ namespace :nba do
 
 	task :getUpdatePoss => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+		Time.zone = 'Eastern Time (US & Canada)'
+		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
 			last_games = Nba.where("home_team = ? AND game_date <= ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.home_team, game.game_date)).order('game_date DESC').limit(80)
 			player_count = game.players.where("team_abbr = ?", 1).size - 1
 			(1..player_count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
+				possession = []
 				sum_mins = 0
 				sum_poss = 0
 				team_poss = 0
@@ -878,7 +898,10 @@ namespace :nba do
 						if mins_min > last_players.first.mins
 							mins_min = last_players.first.mins
 						end
+						if mins_max < last_players.first.mins
+							mins_max = last_players.first.mins
 						end
+						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
 						count = count + 1
 					end
@@ -897,7 +920,8 @@ namespace :nba do
 				team_poss = 0
 				sum_mins = 0
 				mins_min = 100
-				last_games.each do |last_game|		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+				mins_max = 0
+				last_games.each do |last_game|
 					if count == 10
 						break
 					end
@@ -940,7 +964,8 @@ namespace :nba do
 		        if @team_nicknames[team_abbr]
 					team_abbr = @team_nicknames[team_abbr]
 					
-		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
+					player_name = player.player_name
+
 					player_name_index = player_name.index(" Jr.")
 					player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
 
@@ -983,6 +1008,7 @@ namespace :nba do
 
 					last_count = last_element.children[2].text.to_i
 					this_count = this_element.children[2].text.to_i
+
 					last_fga = last_element.children[5].text
 					this_fga = this_element.children[5].text
 					last_fga_index = last_fga.index("-")
