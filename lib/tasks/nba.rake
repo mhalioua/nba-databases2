@@ -166,7 +166,6 @@ namespace :nba do
 	end
 
 	task :getLinkGame => [:environment] do
-		include Api
 		puts "----------Get Link Games----------"
 
 		Time.zone = 'Eastern Time (US & Canada)'
@@ -210,7 +209,6 @@ namespace :nba do
 				home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
 				if home_team_next.home_team == home_team
 					home_next_fly = "NO"
-				else
 					home_next_fly = "YES"
 				end
 			end
@@ -254,7 +252,6 @@ namespace :nba do
 
 				if score_element.children[1].text == ""
 					score_element = element.children[0].children[12]
-				end
 
 				if score_element.children[1].text == ""
 					score_element = element.children[0].children[10]
@@ -298,7 +295,6 @@ namespace :nba do
 				if ap == "a" && hour == 12
 					hour = 24
 				end
-
 				if @nba_nicknames[home_name]
 			      home_name = @nba_nicknames[home_name]
 			    end
@@ -850,13 +846,11 @@ namespace :nba do
 				year = href[-9..-6].to_i
 				doc = download_document(href)
 				doc.xpath('//comment()').each { |comment| comment.replace(comment.text) }
-				players = doc.css('#div_per_poss tbody tr')
 				players.each do |player|
 					player_name = player.children[1].children[0].text
 					player_index = player_name.rindex(' ')
 					player_name = player_index ? player_name[0] + ". " + player_name[player_index+1..-1] : ""
 					ortg = player.children[28].text
-					drtg = player.children[29].text
 					unless player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
 			           	player_element = Tg.create(player_name: player_name, team_abbr: team_abbr, year: year)
 		            end
@@ -879,7 +873,6 @@ namespace :nba do
 			player_count = game.players.where("team_abbr = ?", 1).size - 1
 			(1..player_count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
-				possession = []
 				sum_mins = 0
 				sum_poss = 0
 				team_poss = 0
@@ -898,10 +891,7 @@ namespace :nba do
 						if mins_min > last_players.first.mins
 							mins_min = last_players.first.mins
 						end
-						if mins_max < last_players.first.mins
-							mins_max = last_players.first.mins
 						end
-						last_team = last_game.players.where("player_name = ?", "TEAM")
 						team_poss = team_poss + last_team.first.poss
 						count = count + 1
 					end
