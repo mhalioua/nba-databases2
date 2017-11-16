@@ -879,7 +879,7 @@ namespace :nba do
 			player_count = game.players.where("team_abbr = ?", 1).size - 1
 			(1..player_count).each do |index|
 				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
-				possession = []
+				possession = [] 
 				sum_mins = 0
 				sum_poss = 0
 				team_poss = 0
