@@ -875,10 +875,8 @@ namespace :nba do
 		Time.zone = 'Eastern Time (US & Canada)'
 		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
-			last_games = Nba.where("home_team = ? AND game_date <= ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.home_team, game.game_date)).order('game_date DESC')
-			player_count = game.players.where("team_abbr = ?", 1).size - 1
-			(1..player_count).each do |index|
-				player = game.players.where("state = ? AND team_abbr = ?", index, 1).first
+			players = game.players.where("player_name <> TEAM")
+			players.each do |player|
 				possession = []
 				sum_mins = 0
 				sum_poss = 0
@@ -886,22 +884,22 @@ namespace :nba do
 				count = 0
 				mins_min = 100
 				mins_max = 0
-				last_games.each do |last_game|
+				last_players = Player.where("game_date <= ? AND player_name =", player.game_date, player.player_name).order('game_date DESC')
+				last_players.each do |last_player|
 					if count == 10
 						break
 					end
-					last_players = last_game.players.where("player_name = ?",player.player_name)
-					if last_players.size > 0 && last_players.first.mins > 10
-						possession.push(last_game.id)
-						sum_poss = sum_poss + last_players.first.poss
-						sum_mins = sum_mins + last_players.first.mins
-						if mins_min > last_players.first.mins
-							mins_min = last_players.first.mins
+					if last_player.mins > 10
+						possession.push(last_player.nba_id)
+						sum_poss = sum_poss + last_player.poss
+						sum_mins = sum_mins + last_player.mins
+						if mins_min > last_player.mins
+							mins_min = last_player.mins
 						end
-						if mins_max < last_players.first.mins
-							mins_max = last_players.first.mins
+						if mins_max < last_player.mins
+							mins_max = last_player.mins
 						end
-						last_team = last_game.players.where("player_name = ?", "TEAM")
+						last_team = Players.where("nba_id = ? AND team_abbr = ? AND player_name = ?",last_player.nba_id, last_player.team_abbr, "TEAM")
 						team_poss = team_poss + last_team.first.poss
 						count = count + 1
 					end
@@ -909,40 +907,15 @@ namespace :nba do
 				sum_mins = sum_mins - mins_min - mins_max
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins)
 			end
+		end
+	end
 
-			last_games = Nba.where("home_team = ? AND game_date <= ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date <= ?", game.away_team, game.game_date)).order('game_date DESC')
-			player_count = game.players.where("team_abbr = ?", 0).size - 1
-			(1..player_count).each do |index|
-				player = game.players.where("state = ? AND team_abbr = ?", index, 0).first
-				possession = []
-				sum_poss = 0
-				count = 0
-				team_poss = 0
-				sum_mins = 0
-				mins_min = 100
-				mins_max = 0
-				last_games.each do |last_game|
-					if count == 10
-						break
-					end
-					last_players = last_game.players.where("player_name = ?",player.player_name)
-					if last_players.size > 0 && last_players.first.mins > 10
-						possession.push(last_game.id)
-						sum_poss = sum_poss + last_players.first.poss
-						sum_mins = sum_mins + last_players.first.mins
-						if mins_min > last_players.first.mins
-							mins_min = last_players.first.mins
-						end
-						if mins_max < last_players.first.mins
-							mins_max = last_players.first.mins
-						end
-						last_team = last_game.players.where("player_name = ?", "TEAM")
-						team_poss = team_poss + last_team.first.poss
-						count = count + 1
-					end
-				end
-				sum_mins = sum_mins - mins_min - mins_max
-				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins)
+	task :getDate => [:environment] do
+		games = Nba.where("game_date between ? and ?", (Date.today - 2.years).beginning_of_day, Time.now-5.hours)
+		games.each do |game|
+			players= game.players.all
+			players.each do |player|
+				player.update(game_date: game.game_date)
 			end
 		end
 	end
