@@ -49,17 +49,17 @@ class IndexController < ApplicationController
 
 		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
 
-		@away_players = @away_last.players.where("team_abbr = ? AND mins > 10", @away_flag).order(:state)
-		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG' AND mins > 10", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG' AND mins > 10", @away_flag)).order(:state)
-		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'C' AND mins > 10", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF' AND mins > 10", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF' AND mins > 10", @away_flag))).order(:state)
-		@away_players_group3 = @away_last.players.where("team_abbr = ? AND state > 5 AND mins > 10", @away_flag).order(:state)
+		@away_players = @away_last.players.where("team_abbr = ?", @away_flag).order(:state)
+		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @away_flag)).order(:state)
+		@away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @away_flag))).order(:state)
+		@away_players_group3 = @away_last.players.where("team_abbr = ? AND state > 5", @away_flag).order(:state)
 		@away_players_group3 = @away_players_group3[0..-2]
 		@away_players = @away_players[0..-2]
 
-		@home_players = @home_last.players.where("team_abbr = ? AND mins > 10", @home_flag).order(:state)
-		@home_players_group1 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG' AND mins > 10", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG' AND mins > 10", @home_flag)).order(:state)
-		@home_players_group2 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'C' AND mins > 10", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF' AND mins > 10", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF' AND mins > 10", @home_flag))).order(:state)
-		@home_players_group3 = @home_last.players.where("team_abbr = ? AND state > 5 AND mins > 10", @home_flag).order(:state)
+		@home_players = @home_last.players.where("team_abbr = ?", @home_flag).order(:state)
+		@home_players_group1 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @home_flag)).order(:state)
+		@home_players_group2 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @home_flag))).order(:state)
+		@home_players_group3 = @home_last.players.where("team_abbr = ? AND state > 5", @home_flag).order(:state)
 		@home_players_group3 = @home_players_group3[0..-2]
 		@home_players = @home_players[0..-2]
 
@@ -76,7 +76,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
 	        	remove_count = remove_count + 1
 	        	next
 	        end
@@ -96,7 +96,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
 	        	remove_count = remove_count + 1
 	        	next
 	        end
@@ -114,7 +114,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
 	        	next
 	        end
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
@@ -133,7 +133,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
 	        	remove_count = remove_count + 1
 	        	next
 	        end
@@ -153,7 +153,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
 	        	remove_count = remove_count + 1
 	        	next
 	        end
@@ -171,7 +171,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
 	        	next
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
