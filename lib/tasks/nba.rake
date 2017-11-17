@@ -145,9 +145,6 @@ namespace :nba do
 			home_or_value = home_value.children[5].text.to_i
 			home_poss = home_fga_value + home_to_value + (home_fta_value / 2) - home_or_value
 
-	  		game_date = element.children[1]['data-date']
-	  		date = DateTime.parse(game_date).in_time_zone
-
 	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: date.strftime("%Y"), date: date.strftime("%b %e"), time: date.strftime("%I:%M%p"), week: date.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
 	  	end
 	end
