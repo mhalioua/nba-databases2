@@ -121,7 +121,7 @@ namespace :nba do
 	  		doc = download_document(url)
 			puts url
 	  		element = doc.css(".highlight")
-	  		if element.size > 3
+	  		if element.size > 4
 		  		away_value = element[0]
 		  		home_value = element[2]
 
