@@ -793,7 +793,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
 		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
-	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link )
+	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date )
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -832,7 +832,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
 		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
-	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link  )
+	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date  )
 			end
 		end
 	end
