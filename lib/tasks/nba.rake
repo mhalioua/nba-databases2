@@ -899,7 +899,7 @@ namespace :nba do
 						if mins_max < last_player.mins
 							mins_max = last_player.mins
 						end
-						last_team = Players.where("nba_id = ? AND team_abbr = ? AND player_name = ?",last_player.nba_id, last_player.team_abbr, "TEAM")
+						last_team = Player.where("nba_id = ? AND team_abbr = ? AND player_name = ?",last_player.nba_id, last_player.team_abbr, "TEAM")
 						team_poss = team_poss + last_team.first.poss
 						count = count + 1
 					end
