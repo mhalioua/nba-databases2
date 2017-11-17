@@ -875,7 +875,7 @@ namespace :nba do
 		Time.zone = 'Eastern Time (US & Canada)'
 		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
-			players = game.players.where("player_name <> TEAM")
+			players = game.players.where("player_name <> 'TEAM'")
 			players.each do |player|
 				possession = []
 				sum_mins = 0
