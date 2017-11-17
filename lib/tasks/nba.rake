@@ -910,7 +910,7 @@ namespace :nba do
 		end
 	end
 
-	task :getDate => [:environment] do
+	task :setDate => [:environment] do
 		games = Nba.where("game_date between ? and ?", (Date.today - 2.years).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
 			players= game.players.all
