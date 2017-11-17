@@ -4,6 +4,7 @@ namespace :nba do
 		while date >= Date.new(2009, 12, 30)
 			Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
 			Rake::Task["nba:getDate"].reenable
+			date = date - 6.days
 		end
 	end
 
