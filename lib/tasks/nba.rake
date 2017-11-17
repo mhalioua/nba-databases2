@@ -76,6 +76,9 @@ namespace :nba do
 	  		end
 	  		href = slice.children[index[:result]].child['href']
 	  		game_id = href[-9..-1]
+	  		if game_id == '400489736'
+	  			next
+	  		end
 	  		unless game = Nba.find_by(game_id: game_id)
               	game = Nba.create(game_id: game_id)
             end
