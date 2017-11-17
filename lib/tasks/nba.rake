@@ -884,7 +884,7 @@ namespace :nba do
 				count = 0
 				mins_min = 100
 				mins_max = 0
-				last_players = Player.where("game_date <= ? AND player_name =", player.game_date, player.player_name).order('game_date DESC')
+				last_players = Player.where("game_date <= ? AND player_name = ?", player.game_date, player.player_name).order('game_date DESC')
 				last_players.each do |last_player|
 					if count == 10
 						break
