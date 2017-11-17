@@ -1,5 +1,11 @@
 namespace :nba do
-
+	task :previous => :environment do
+		date = Date.yesterday
+		while date >= Date.new(2009, 12, 30)
+			Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
+			Rake::Task["nba:getDate"].reenable
+		end
+	end
 
 	task :daily => :environment do
 		date = Date.yesterday
@@ -109,7 +115,40 @@ namespace :nba do
 	  		element = doc.css(".game-date-time").first
 	  		game_date = element.children[1]['data-date']
 	  		date = DateTime.parse(game_date).in_time_zone
-	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: date.strftime("%Y"), date: date.strftime("%b %e"), time: date.strftime("%I:%M%p"), week: date.strftime("%a"))
+
+	  		url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
+	  		doc = download_document(url)
+			puts url
+	  		element = doc.css(".highlight")
+	  		away_value = element[0]
+	  		home_value = element[2]
+
+	  		away_mins_value = away_value.children[1].text.to_i
+			away_fga_value = away_value.children[2].text
+			away_fga_index = away_fga_value.index('-')
+			away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
+			away_to_value = away_value.children[11].text.to_i
+			away_fta_value = away_value.children[4].text
+			away_fta_index = away_fta_value.index('-')
+			away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
+			away_or_value = away_value.children[5].text.to_i
+			away_poss = away_fga_value + away_to_value + (away_fta_value / 2) - away_or_value
+
+			home_mins_value = home_value.children[1].text.to_i
+			home_fga_value = home_value.children[2].text
+			home_fga_index = home_fga_value.index('-')
+			home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
+			home_to_value = home_value.children[11].text.to_i
+			home_fta_value = home_value.children[4].text
+			home_fta_index = home_fta_value.index('-')
+			home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
+			home_or_value = home_value.children[5].text.to_i
+			home_poss = home_fga_value + home_to_value + (home_fta_value / 2) - home_or_value
+
+	  		game_date = element.children[1]['data-date']
+	  		date = DateTime.parse(game_date).in_time_zone
+
+	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: date.strftime("%Y"), date: date.strftime("%b %e"), time: date.strftime("%I:%M%p"), week: date.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
 	  	end
 	end
 
