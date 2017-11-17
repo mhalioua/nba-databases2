@@ -76,7 +76,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	remove_count = remove_count + 1
 	        	next
 	        end
@@ -96,7 +96,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	remove_count = remove_count + 1
 	        	next
 	        end
@@ -114,7 +114,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
@@ -133,7 +133,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	remove_count = remove_count + 1
 	        	next
 	        end
@@ -153,7 +153,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	remove_count = remove_count + 1
 	        	next
 	        end
@@ -171,7 +171,7 @@ class IndexController < ApplicationController
 	        if count == 2
 	        	count = 1
 	        end
-	        if player.sum_mins/(count - 2) < 10 || count < 10 || player.mins < 10
+	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
