@@ -2,6 +2,8 @@
 	<h1>History</h1>
 </div>
 
+<input type="text" data-toggle="daterangepicker" name="timestamp" data-filter-type="date-range" style="width: 400px; text-align:center; margin: 20px;" class="daterange">
+
 <script type="text/javascript">
 	var start = moment("<%= @game_start_index %>").format('MMM DD, YYYY');
 	var end = moment("<%= @game_end_index %>").format('MMM DD, YYYY') ;
