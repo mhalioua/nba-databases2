@@ -399,6 +399,7 @@
                     total_toValue = 0
                     total_orValue = 0
                     total_poss = 0
+                    total_team_poss = 0
                     game_list.each do |game_id|
                       game = Nba.where(id: game_id).first
                       search_player = game.players.where(player_name: player.player_name).first
