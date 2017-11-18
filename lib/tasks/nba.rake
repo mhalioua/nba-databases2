@@ -258,7 +258,7 @@ namespace :nba do
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
-			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/1st-half/?date=#{game_day}"
+			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
 			doc = download_document(url)
 			elements = doc.css(".event-holder")
 			elements.each do |element|
@@ -389,7 +389,7 @@ namespace :nba do
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
-			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/2nd-half/?date=#{game_day}"
+			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/2nd-half/?date=#{game_day}"
 			doc = download_document(url)
 			elements = doc.css(".event-holder")
 			elements.each do |element|
@@ -508,7 +508,7 @@ namespace :nba do
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
-			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/merged/?date=#{game_day}"
+			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/?date=#{game_day}"
 			doc = download_document(url)
 			elements = doc.css(".event-holder")
 			elements.each do |element|
