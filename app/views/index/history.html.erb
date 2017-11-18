@@ -2,9 +2,33 @@
 	<h1>History</h1>
 </div>
 
+<script type="text/javascript">
+	var start = moment("<%= @game_start_index %>").format('MMM DD, YYYY');
+	var end = moment("<%= @game_end_index %>").format('MMM DD, YYYY') ;
+	$('.daterange').daterangepicker({
+		showDropdowns: true,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Next 7 Days': [moment(), moment().add(6, 'days')],
+           'This Week': [moment().startOf('week'), moment().endOf('week')],
+           'Last Week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')]
+        },
+        locale: {
+			format: 'MMM DD, YYYY'
+		},
+        startDate: start,
+        endDate: end,
+    }, cb);
+    function cb(start, end) {
+    	window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+    }
+</script>
+
 <ul>
 	<li><%= link_to 'Home', { action: 'home' }%></li>
-	<li><%= link_to @first.strftime("%B %e"),  { action: 'game', id: @first.strftime("%Y%m%d") } %> </li>
-	<li><%= link_to @second.strftime("%B %e"),  { action: 'game', id: @second.strftime("%Y%m%d") } %> </li>
-	<li><%= link_to @third.strftime("%B %e"),  { action: 'game', id: @third.strftime("%Y%m%d") } %> </li>
+	<% @game_date.each do |date|
+	<li><%= link_to date.strftime("%B %e"),  { action: 'game', id: date.strftime("%Y%m%d") } %> </li>
+	<% end %>
 </ul>

@@ -183,5 +183,17 @@ class IndexController < ApplicationController
 		@first = Time.now - 1.days
 		@second = Time.now - 2.days
 		@third = Time.now - 3.days
+		unless params[:id]
+	  	  	params[:id] = Time.now.strftime("%Y-%m-%d") + " - " + (Time.now - 10.days).strftime("%Y-%m-%d")
+	  	end
+	  	@game_index = params[:id]
+	  	@game_start_index = @game_index[0..9]
+	  	@game_end_index = @game_index[13..23]
+	  	@game_date = []
+	  	date = Date.strptime(@game_start_index)
+	  	while date <= Date.strptime(@game_end_index)
+	  		@game_date.push(date)
+	  		date = date + 1.days
+	  	end
   	end
 end
