@@ -28,7 +28,7 @@
 
 <ul>
 	<li><%= link_to 'Home', { action: 'home' }%></li>
-	<% @game_date.each do |date|
+	<% @game_date.each do |date| %>
 	<li><%= link_to date.strftime("%B %e"),  { action: 'game', id: date.strftime("%Y%m%d") } %> </li>
 	<% end %>
 </ul>
