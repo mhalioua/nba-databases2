@@ -713,7 +713,6 @@ namespace :nba do
 			    if @nba_nicknames[away_name]
 			      away_name = @nba_nicknames[away_name]
 			    end
-				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
 				line_one = opener.index(" ")
 				line_one = line_one ? opener[0..line_one] : ""
