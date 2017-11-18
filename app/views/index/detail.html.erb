@@ -187,7 +187,10 @@
         <td><%= '%.2f' % @away_total_poss %>%</td>
         <td><%= @away_total_min %></td>
         <td>100%</td>
-        <td colspan="5" id="awayortg"></td>
+        <td></td>
+        <td id="awaysum1"></td>
+        <td colspan="2" id="awaysum"></td>
+        <td id="awaysum2"></td>
       </tr>
   	</tbody>
 </table>
@@ -363,7 +366,10 @@
         <td><%= '%.2f' % @home_total_poss %>%</td>
         <td><%= @home_total_min %></td>
         <td>100%</td>
-        <td colspan="5" id="homeortg"></td>
+        <td></td>
+        <td id="homesum1"></td>
+        <td colspan="2" id="homesum"></td>
+        <td id="homesum2"></td>
       </tr>
     </tbody>
 </table>
@@ -533,7 +539,11 @@ $('.awayPossessions').on('input', function() {
     %>
     sum = (sum1+sum2)/2
     sum = Math.round(sum*100)/100;
-    $('#awayortg').html(sum);
+    sum1 = Math.round(sum1*100)/100;
+    sum2 = Math.round(sum2*100)/100;
+    $('#awaysum').html(sum);
+    $('#awaysum1').html(sum1);
+    $('#awaysum2').html(sum2);
 });
 $('.homePossessions').on('input', function() { 
   var value = $(this).val();
@@ -569,6 +579,10 @@ $('.homePossessions').on('input', function() {
     %>
     sum = (sum1+sum2)/2
     sum = Math.round(sum*100)/100;
-    $('#homeortg').html(sum);
+    sum1 = Math.round(sum1*100)/100;
+    sum2 = Math.round(sum2*100)/100;
+    $('#homesum').html(sum);
+    $('#homesum1').html(sum1);
+    $('#homesum2').html(sum2);
 });
 </script>
