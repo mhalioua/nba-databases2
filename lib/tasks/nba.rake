@@ -315,8 +315,8 @@ namespace :nba do
 				away_name 		= element.children[0].children[5].children[0].text
 				home_number 	= element.children[0].children[3].children[2].text
 				away_number 	= element.children[0].children[3].children[1].text
-				home_pinnacle 	= score_element.children[1].text
-				away_pinnacle 	= score_element.children[0].text
+				opener 	= score_element.children[1].text
+				closer 	= element.children[0].children[7].children[1].text
 				
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
@@ -338,44 +338,37 @@ namespace :nba do
 			    end
 				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
-				line_one = home_pinnacle.index(" ")
-				line_one = line_one ? home_pinnacle[0..line_one] : ""
-				line_two = away_pinnacle.index(" ")
-				line_two = line_two ? away_pinnacle[0..line_two] : ""
-				if line_one == ""
-					first_line = line_two
-					first_side = ""
-				elsif line_one[0] == "-" || line_one[0] == "P"
-					first_line = line_two
-					first_side = line_one[1..-1]
-					if line_one[0] == "P"
-						first_side = line_one
-					end
-				elsif line_two == ""
-					first_line = line_one
-					first_side = ""
-				else
-					first_line = line_one
-					first_side = line_two[1..-1]
-					if line_two[0] == "P"
-						first_side = line_two
-					end
-				end
+				line_one = opener.index(" ")
+				opener_side = line_one ? opener[0..line_one] : ""
+				opener_total = line_one ? opener[line_one+2..-1] : ""
+				line_two = closer.index(" ")
+				closer_side = line_two ? closer[0..line_two] : ""
+				closer_total = line_two ? closer[line_two+2..-1] : ""
 
 				matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
 				if matched.size > 0
 					update_game = matched.first
-					if first_line.include?('½')
-						first_line = first_line[0..-1].to_f + 0.5
+					if opener_side.include?('½')
+						opener_side = opener_side[0..-1].to_f + 0.5
 					else
-						first_line = first_line.to_f
+						opener_side = opener_side.to_f
 					end
-					if first_side.include?('½')
-						first_side = first_side[0..-1].to_f + 0.5
+					if closer_side.include?('½')
+						closer_side = closer_side[0..-1].to_f + 0.5
 					else
-						first_side = first_side.to_f
+						closer_side = closer_side.to_f
 					end
-					update_game.update(first_line: first_line, first_side: first_side)
+					if opener_total.include?('½')
+						opener_total = opener_total[0..-1].to_f + 0.5
+					else
+						opener_total = opener_total.to_f
+					end
+					if closer_total.include?('½')
+						closer_total = closer_total[0..-1].to_f + 0.5
+					else
+						closer_total = closer_total.to_f
+					end
+					update_game.update(first_opener_side: opener_side, first_closer_side: closer_side, first_opener_total: opener_total, first_closer_total: closer_total)
 					if update_game.home_team.include?(home_name)
 						update_game.update(home_number: home_number, away_number: away_number)
 					else
@@ -446,8 +439,8 @@ namespace :nba do
 
 				home_name 		= element.children[0].children[5].children[1].text
 				away_name 		= element.children[0].children[5].children[0].text
-				home_pinnacle 	= score_element.children[1].text
-				away_pinnacle 	= score_element.children[0].text
+				opener 	= score_element.children[1].text
+				closer 	= element.children[0].children[7].children[1].text
 				
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
@@ -469,44 +462,37 @@ namespace :nba do
 			    end
 				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
-				line_one = home_pinnacle.index(" ")
-				line_one = line_one ? home_pinnacle[0..line_one] : ""
-				line_two = away_pinnacle.index(" ")
-				line_two = line_two ? away_pinnacle[0..line_two] : ""
-				if line_one == ""
-					first_line = line_two
-					first_side = ""
-				elsif line_one[0] == "-" || line_one[0] == "P"
-					first_line = line_two
-					first_side = line_one[1..-1]
-					if line_one[0] == "P"
-						first_side = line_one
-					end
-				elsif line_two == ""
-					first_line = line_one
-					first_side = ""
-				else
-					first_line = line_one
-					first_side = line_two[1..-1]
-					if line_two[0] == "P"
-						first_side = line_two
-					end
-				end
+				line_one = opener.index(" ")
+				opener_side = line_one ? opener[0..line_one] : ""
+				opener_total = line_one ? opener[line_one+2..-1] : ""
+				line_two = closer.index(" ")
+				closer_side = line_two ? closer[0..line_two] : ""
+				closer_total = line_two ? closer[line_two+2..-1] : ""
 
 				matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
 				if matched.size > 0
 					update_game = matched.first
-					if first_line.include?('½')
-						first_line = first_line[0..-1].to_f + 0.5
+					if opener_side.include?('½')
+						opener_side = opener_side[0..-1].to_f + 0.5
 					else
-						first_line = first_line.to_f
+						opener_side = opener_side.to_f
 					end
-					if first_side.include?('½')
-						first_side = first_side[0..-1].to_f + 0.5
+					if closer_side.include?('½')
+						closer_side = closer_side[0..-1].to_f + 0.5
 					else
-						first_side = first_side.to_f
+						closer_side = closer_side.to_f
 					end
-					update_game.update(second_line: first_line, second_side: first_side)
+					if opener_total.include?('½')
+						opener_total = opener_total[0..-1].to_f + 0.5
+					else
+						opener_total = opener_total.to_f
+					end
+					if closer_total.include?('½')
+						closer_total = closer_total[0..-1].to_f + 0.5
+					else
+						closer_total = closer_total.to_f
+					end
+					update_game.update(second_opener_side: opener_side, second_closer_side: closer_side, second_opener_total: opener_total, second_closer_total: closer_total)
 				end
 			end
 			index_date = index_date + 1.days
@@ -572,8 +558,8 @@ namespace :nba do
 
 				home_name 		= element.children[0].children[5].children[1].text
 				away_name 		= element.children[0].children[5].children[0].text
-				home_pinnacle 	= score_element.children[1].text
-				away_pinnacle 	= score_element.children[0].text
+				opener 	= score_element.children[1].text
+				closer 	= element.children[0].children[7].children[1].text
 				
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
@@ -595,44 +581,37 @@ namespace :nba do
 			    end
 				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
-				line_one = home_pinnacle.index(" ")
-				line_one = line_one ? home_pinnacle[0..line_one] : ""
-				line_two = away_pinnacle.index(" ")
-				line_two = line_two ? away_pinnacle[0..line_two] : ""
-				if line_one == ""
-					first_line = line_two
-					first_side = ""
-				elsif line_one[0] == "-" || line_one[0] == "P"
-					first_line = line_two
-					first_side = line_one[1..-1]
-					if line_one[0] == "P"
-						first_side = line_one
-					end
-				elsif line_two == ""
-					first_line = line_one
-					first_side = ""
-				else
-					first_line = line_one
-					first_side = line_two[1..-1]
-					if line_two[0] == "P"
-						first_side = line_two
-					end
-				end
+				line_one = opener.index(" ")
+				opener_side = line_one ? opener[0..line_one] : ""
+				opener_total = line_one ? opener[line_one+2..-1] : ""
+				line_two = closer.index(" ")
+				closer_side = line_two ? closer[0..line_two] : ""
+				closer_total = line_two ? closer[line_two+2..-1] : ""
 
 				matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
 				if matched.size > 0
 					update_game = matched.first
-					if first_line.include?('½')
-						first_line = first_line[0..-1].to_f + 0.5
+					if opener_side.include?('½')
+						opener_side = opener_side[0..-1].to_f + 0.5
 					else
-						first_line = first_line.to_f
+						opener_side = opener_side.to_f
 					end
-					if first_side.include?('½')
-						first_side = first_side[0..-1].to_f + 0.5
+					if closer_side.include?('½')
+						closer_side = closer_side[0..-1].to_f + 0.5
 					else
-						first_side = first_side.to_f
+						closer_side = closer_side.to_f
 					end
-					update_game.update(full_line: first_line, full_side: first_side)
+					if opener_total.include?('½')
+						opener_total = opener_total[0..-1].to_f + 0.5
+					else
+						opener_total = opener_total.to_f
+					end
+					if closer_total.include?('½')
+						closer_total = closer_total[0..-1].to_f + 0.5
+					else
+						closer_total = closer_total.to_f
+					end
+					update_game.update(full_opener_side: opener_side, full_closer_side: closer_side, full_opener_total: opener_total, full_closer_total: closer_total)
 				end
 			end
 			index_date = index_date + 1.days
@@ -715,10 +694,10 @@ namespace :nba do
 			    end
 
 				line_one = opener.index(" ")
-				opener_side = line_one ? opener[1..line_one] : ""
+				opener_side = line_one ? opener[0..line_one] : ""
 				opener_total = line_one ? opener[line_one+2..-1] : ""
 				line_two = closer.index(" ")
-				closer_side = line_two ? closer[1..line_two] : ""
+				closer_side = line_two ? closer[0..line_two] : ""
 				closer_total = line_two ? closer[line_two+2..-1] : ""
 				puts line_one
 				puts line_two
