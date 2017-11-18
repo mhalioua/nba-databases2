@@ -817,7 +817,7 @@ namespace :nba do
 				fta_index = fta_value.index('-')
 				fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
 				or_value = slice.children[5].text.to_i
-				poss = fga_value + to_value + (fta_value / 2) - or_value
+				poss = fga_value + to_value + (fta_value * 0.4) - or_value
 				if slice.children[0].children.size > 1
 					position = slice.children[0].children[1].text
 				end
@@ -856,7 +856,7 @@ namespace :nba do
 				fta_index = fta_value.index('-')
 				fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
 				or_value = slice.children[5].text.to_i
-				poss = fga_value + to_value + (fta_value / 2) - or_value
+				poss = fga_value + to_value + (fta_value *0.4) - or_value
 				if slice.children[0].children.size > 1
 					position = slice.children[0].children[1].text
 				end
@@ -1033,8 +1033,8 @@ namespace :nba do
 					last_to = last_element.children[18].text
 					this_to = this_element.children[18].text
 
-					last_poss = last_fga.to_f + (last_fta.to_f * 0.44) + last_to.to_f - last_or.to_f
-					this_poss = this_fga.to_f + (this_fta.to_f * 0.44) + this_to.to_f - this_or.to_f
+					last_poss = last_fga.to_f + (last_fta.to_f * 0.4) + last_to.to_f - last_or.to_f
+					this_poss = this_fga.to_f + (this_fta.to_f * 0.4) + this_to.to_f - this_or.to_f
 					if this_ortg == 0
 						this_count = 0
 					end
@@ -1184,8 +1184,8 @@ namespace :nba do
 					last_to = last_element.children[18].text
 					this_to = this_element.children[18].text
 
-					last_poss = last_fga.to_f + (last_fta.to_f * 0.44) + last_to.to_f - last_or.to_f
-					this_poss = this_fga.to_f + (this_fta.to_f * 0.44) + this_to.to_f - this_or.to_f
+					last_poss = last_fga.to_f + (last_fta.to_f * 0.4) + last_to.to_f - last_or.to_f
+					this_poss = this_fga.to_f + (this_fta.to_f * 0.4) + this_to.to_f - this_or.to_f
 					puts last_poss
 					puts this_poss
 
