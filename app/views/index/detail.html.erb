@@ -386,6 +386,7 @@
                     <th>TO</th>
                     <th>OR</th>
                     <th>POSS</th>
+                    <th>TEAM POSS</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -401,12 +402,14 @@
                     game_list.each do |game_id|
                       game = Nba.where(id: game_id).first
                       search_player = game.players.where(player_name: player.player_name).first
+                      team_player = game.players.where(player_name: player.player_name, team_abbr: search_player.team_abbr).first
                       total_mins = total_mins + search_player.mins
                       total_fga = total_fga + search_player.fga
                       total_fta = total_fta + search_player.fta
                       total_toValue = total_toValue + search_player.toValue
                       total_orValue = total_orValue + search_player.orValue
                       total_poss = total_poss + search_player.poss
+                      total_team_poss = total_team_poss + team_player.poss
                   %>
                   <tr>
                     <td><%= game.date %>, <%= game.year %></td>
@@ -416,6 +419,7 @@
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
                     <td><%= search_player.poss %></td>
+                    <td><%= team_player.poss %></td>
                   </tr>
                   <% end %>
                   <tr>
@@ -426,6 +430,8 @@
                     <td><%= total_toValue %></td>
                     <td><%= total_orValue %></td>
                     <td><%= total_poss %></td>
+                    <td><%= team_player.poss %></td>
+                    <td><%= total_team_poss %></td>
                   </tr>
                 </tbody>
             </table>
@@ -444,6 +450,7 @@
                     <th>TO</th>
                     <th>OR</th>
                     <th>POSS</th>
+                    <th>TEAM POSS</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -456,15 +463,18 @@
                     total_toValue = 0
                     total_orValue = 0
                     total_poss = 0
+                    total_team_poss = 0
                     game_list.each do |game_id|
                       game = Nba.where(id: game_id).first
                       search_player = game.players.where(player_name: player.player_name).first
+                      team_player = game.players.where(player_name: player.player_name, team_abbr: search_player.team_abbr).first
                       total_mins = total_mins + search_player.mins
                       total_fga = total_fga + search_player.fga
                       total_fta = total_fta + search_player.fta
                       total_toValue = total_toValue + search_player.toValue
                       total_orValue = total_orValue + search_player.orValue
                       total_poss = total_poss + search_player.poss
+                      total_team_poss = total_team_poss + team_player.poss
                   %>
                   <tr>
                     <td><%= game.date %>, <%= game.year %></td>
@@ -474,6 +484,7 @@
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
                     <td><%= search_player.poss %></td>
+                    <td><%= team_player.poss %></td>
                   </tr>
                   <% end %>
                   <tr>
@@ -484,6 +495,7 @@
                     <td><%= total_toValue %></td>
                     <td><%= total_orValue %></td>
                     <td><%= total_poss %></td>
+                    <td><%= total_team_poss %></td>
                   </tr>
                 </tbody>
             </table>
