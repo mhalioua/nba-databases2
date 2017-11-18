@@ -1021,8 +1021,13 @@ namespace :nba do
 						last_count = 0
 					end
 
-					ortg = (last_count * last_ortg + this_count * this_ortg) / (last_count + this_count)
-					drtg = (last_count * last_drtg + this_count * this_drtg) / (last_count + this_count)
+					ortg = 0
+					drtg = 0
+
+					if last_count + this_count != 0
+						ortg = (last_count * last_ortg + this_count * this_ortg) / (last_count + this_count)
+						drtg = (last_count * last_drtg + this_count * this_drtg) / (last_count + this_count)
+					end
 					player.update(ortg: ortg, drtg: drtg)
 				end
 			end
