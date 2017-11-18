@@ -715,11 +715,15 @@ namespace :nba do
 			    end
 
 				line_one = opener.index(" ")
-				line_one = line_one ? opener[0..line_one] : ""
+				opener_side = line_one ? opener[1..line_one] : ""
+				opener_total = line_one ? opener[line_one+1..-1] : ""
 				line_two = closer.index(" ")
-				line_two = line_two ? closer[0..line_two] : ""
+				closer_side = line_two ? closer[1..line_two] : ""
+				closer_total = line_two ? closer[line_two+1..-1] : ""
 				puts line_one
 				puts line_two
+				puts opener_total
+				puts closer_total
 			end
 	end
 
