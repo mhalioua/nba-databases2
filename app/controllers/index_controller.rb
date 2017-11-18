@@ -180,9 +180,6 @@ class IndexController < ApplicationController
 	end
 
 	def history
-		@first = Time.now - 1.days
-		@second = Time.now - 2.days
-		@third = Time.now - 3.days
 		unless params[:id]
 	  	  	params[:id] = Time.now.strftime("%Y-%m-%d") + " - " + (Time.now - 10.days).strftime("%Y-%m-%d")
 	  	end
@@ -192,7 +189,7 @@ class IndexController < ApplicationController
 	  	@game_date = []
 	  	date = Date.strptime(@game_start_index)
 	  	while date <= Date.strptime(@game_end_index)
-	  		@game_date.push(date)
+	  		@game_date << date
 	  		date = date + 1.days
 	  	end
   	end
