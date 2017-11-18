@@ -42,7 +42,7 @@
           if count == 2
             count = 1
           end
-          if player.sum_mins/(count - 2) < 10 || count < 10 
+          if count < 10 || player.sum_mins/(count - 2) < 10 
             style="background:red;"
           end
       %>
@@ -90,7 +90,7 @@
           if count == 2
             count = 1
           end
-          if player.sum_mins/(count - 2) < 10 || count < 10
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
       %>
@@ -141,7 +141,7 @@
           if count == 2
             count = 1
           end
-          if player.sum_mins/(count - 2) < 10 || count < 10
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
       %>
@@ -221,7 +221,7 @@
           if count == 2
             count = 1
           end
-          if player.sum_mins/(count - 2) < 10 || count < 10
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
       %>
@@ -269,7 +269,7 @@
           if count == 2
             count = 1
           end
-          if player.sum_mins/(count - 2) < 10 || count < 10
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
       %>
@@ -320,7 +320,7 @@
           if count == 2
             count = 1
           end
-          if player.sum_mins/(count - 2) < 10 || count < 10
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
       %>
@@ -513,7 +513,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if player.sum_mins/(count - 2) < 10 || count < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -526,7 +526,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if player.sum_mins/(count - 2) < 10 || count < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -539,7 +539,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if player.sum_mins/(count - 2) < 10 || count < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -552,7 +552,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if player.sum_mins/(count - 2) < 10 || count < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -585,7 +585,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if player.sum_mins/(count - 2) < 10 || count < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -598,7 +598,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if player.sum_mins/(count - 2) < 10 || count < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -611,7 +611,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if player.sum_mins/(count - 2) < 10 || count < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -624,7 +624,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if player.sum_mins/(count - 2) < 10 || count < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
