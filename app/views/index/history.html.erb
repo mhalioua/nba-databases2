@@ -1,0 +1,9 @@
+<div class="header row">
+	<h1>History</h1>
+</div>
+
+<ul>
+	<li><%= link_to @first.strftime("%B %e"),  { action: 'game', id: @first.strftime("%Y%m%d") } %> </li>
+	<li><%= link_to @second.strftime("%B %e"),  { action: 'game', id: @second.strftime("%Y%m%d") } %> </li>
+	<li><%= link_to @third.strftime("%B %e"),  { action: 'game', id: @third.strftime("%Y%m%d") } %> </li>
+</ul>

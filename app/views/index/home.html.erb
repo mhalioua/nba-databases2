@@ -6,6 +6,6 @@
 	<li><%= link_to @yesterday.strftime("%B %e"),  { action: 'game', id: @yesterday.strftime("%Y%m%d") } %> </li>
 	<li><%= link_to @today.strftime("%B %e"),      { action: 'game', id: @today.strftime("%Y%m%d") } %> </li>
 	<li><%= link_to @tomorrow.strftime("%B %e"),   { action: 'game', id: @tomorrow.strftime("%Y%m%d") } %> </li>
-	<li><%= link_to 'History', 					   { action: 'game', id: @today.strftime("%Y%m%d") } %> </li>
+	<li><%= link_to 'History', 					   { action: 'game', id: @yesterday.strftime("%Y%m%d") } %> </li>
 	<li><%= link_to 'Logout', 					   { controller: 'access', action: 'logout' } %> </li>
 </ul>

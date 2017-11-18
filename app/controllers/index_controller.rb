@@ -178,4 +178,10 @@ class IndexController < ApplicationController
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	end
+
+	def history
+		@first = Time.now - 1.days
+		@second = Time.now - 2.days
+		@third = Time.now - 3.days
+  	end
 end
