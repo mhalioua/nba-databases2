@@ -45,17 +45,6 @@ namespace :nba do
 		
 	end
 
-	task :fix => :environment do
-		Rake::Task["nba:getPlayer"].invoke
-		Rake::Task["nba:getPlayer"].reenable
-
-		Rake::Task["nba:getUpdatePoss"].invoke
-		Rake::Task["nba:getUpdatePoss"].reenable
-
-		Rake::Task["nba:getUpdateRate"].invoke
-		Rake::Task["nba:getUpdateRate"].reenable
-	end
-
 	task :getDate, [:game_date] => [:environment] do |t, args|
 		puts "----------Get Games----------"
 		include Api
