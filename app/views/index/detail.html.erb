@@ -508,22 +508,54 @@ function() {
 $('.awayPossessions').on('input', function() { 
   var value = $(this).val();
   var sum1 = 0, sum2 = 0;
-  <% @away_players.each_with_index do |player, index| %>
+  <% @away_players.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if player.sum_mins/(count - 2) < 10 || count < 10
+      next
+    end
+  %>
   var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
     $(".changeOrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
     sum1 += value/10000 * prorate * <%= player.ortg ? player.ortg : 0 %>;
     <% end %>
-    <% @away_players_group1.each_with_index do |player, index| %>
+    <% @away_players_group1.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if player.sum_mins/(count - 2) < 10 || count < 10
+      next
+    end
+  %>
     var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @home_drtg_one %>)/100 + '%');
     sum2 += value/10000 * prorate * <%= @home_drtg_one %>;
     <% end %>
-    <% @away_players_group2.each_with_index do |player, index| %>
+    <% @away_players_group2.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if player.sum_mins/(count - 2) < 10 || count < 10
+      next
+    end
+  %>
     var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @home_drtg_two %>)/100 + '%');
      sum2 += value/10000 * prorate * <%= @home_drtg_two %>;
     <% end %>
-    <% @away_players_group3.each_with_index do |player, index| %>
+    <% @away_players_group3.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if player.sum_mins/(count - 2) < 10 || count < 10
+      next
+    end
+  %>
     var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
     <%
       if player.position == 'SG' || player.position == 'PG'
@@ -548,22 +580,54 @@ $('.awayPossessions').on('input', function() {
 $('.homePossessions').on('input', function() { 
   var value = $(this).val();
   var sum1 = 0, sum2 = 0;
-   <% @home_players.each_with_index do |player, index| %>
+   <% @home_players.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if player.sum_mins/(count - 2) < 10 || count < 10
+      next
+    end
+  %>
    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>
     $(".changeOrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
     sum1 += value/10000 * prorate * <%= player.ortg ? player.ortg : 0 %>;
     <% end %>
-    <% @home_players_group1.each_with_index do |player, index| %>
+    <% @home_players_group1.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if player.sum_mins/(count - 2) < 10 || count < 10
+      next
+    end
+  %>
     var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @away_drtg_one %>)/100 + '%');
     sum2 += value/10000 * prorate * <%= @home_drtg_one %>;
     <% end %>
-    <% @home_players_group2.each_with_index do |player, index| %>
+    <% @home_players_group2.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if player.sum_mins/(count - 2) < 10 || count < 10
+      next
+    end
+  %>
     var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @away_drtg_two %>)/100 + '%');
     sum2 += value/10000 * prorate * <%= @home_drtg_two %>;
     <% end %>
-    <% @home_players_group3.each_with_index do |player, index| %>
+    <% @home_players_group3.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if player.sum_mins/(count - 2) < 10 || count < 10
+      next
+    end
+  %>
     var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
     <%
       if player.position == 'SG' || player.position == 'PG'
