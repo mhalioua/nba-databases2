@@ -45,6 +45,17 @@ namespace :nba do
 		
 	end
 
+	task :fix => :environment do
+		Rake::Task["nba:getFirstLines"].invoke
+		Rake::Task["nba:getFirstLines"].reenable
+
+		Rake::Task["nba:getSecondLines"].invoke
+		Rake::Task["nba:getSecondLines"].reenable
+
+		Rake::Task["nba:getFullLines"].invoke
+		Rake::Task["nba:getFullLines"].reenable
+	end
+
 	task :getDate, [:game_date] => [:environment] do |t, args|
 		puts "----------Get Games----------"
 		include Api
@@ -254,7 +265,7 @@ namespace :nba do
 		games = Nba.all
 		puts "----------Get First Lines----------"
 
-		index_date = Date.yesterday
+		index_date = Date.new(2009, 12, 30)
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
@@ -393,7 +404,7 @@ namespace :nba do
 		games = Nba.all
 		puts "----------Get Second Lines----------"
 
-		index_date = Date.yesterday
+		index_date = Date.new(2009, 12, 30)
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
@@ -520,7 +531,7 @@ namespace :nba do
 		games = Nba.all
 		puts "----------Get Full Lines----------"
 
-		index_date = Date.yesterday
+		index_date = Date.new(2009, 12, 30)
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
