@@ -265,7 +265,7 @@ namespace :nba do
 		games = Nba.all
 		puts "----------Get First Lines----------"
 
-		index_date = Date.new(2009, 12, 30)
+		index_date = Date.yesterday
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
@@ -404,7 +404,7 @@ namespace :nba do
 		games = Nba.all
 		puts "----------Get Second Lines----------"
 
-		index_date = Date.new(2009, 12, 30)
+		index_date = Date.new(2013, 11, 28)
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
