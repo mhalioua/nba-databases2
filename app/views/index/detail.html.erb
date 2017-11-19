@@ -578,6 +578,7 @@ $('.awayPossessions').on('input', function() {
     end
   %>
   var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+  console.log(prorate);
     $(".changeOrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
     sum1 += value/10000 * prorate * <%= player.ortg ? player.ortg : 0 %>;
     <% end %>
@@ -591,6 +592,7 @@ $('.awayPossessions').on('input', function() {
     end
   %>
     var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+    console.log(prorate);
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @home_drtg_one %>)/100 + '%');
     sum2 += value/10000 * prorate * <%= @home_drtg_one %>;
     <% end %>
@@ -604,6 +606,7 @@ $('.awayPossessions').on('input', function() {
     end
   %>
     var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+    console.log(prorate);
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @home_drtg_two %>)/100 + '%');
      sum2 += value/10000 * prorate * <%= @home_drtg_two %>;
     <% end %>
@@ -617,6 +620,7 @@ $('.awayPossessions').on('input', function() {
     end
   %>
     var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+    console.log(prorate);
     <%
       if player.position == 'SG' || player.position == 'PG'
     %>
@@ -650,6 +654,7 @@ $('.homePossessions').on('input', function() {
     end
   %>
    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>
+   console.log(prorate);
     $(".changeOrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
     sum1 += value/10000 * prorate * <%= player.ortg ? player.ortg : 0 %>;
     <% end %>
@@ -662,7 +667,8 @@ $('.homePossessions').on('input', function() {
       next
     end
   %>
-    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>
+    console.log(prorate);
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @away_drtg_one %>)/100 + '%');
     sum2 += value/10000 * prorate * <%= @home_drtg_one %>;
     <% end %>
@@ -675,7 +681,8 @@ $('.homePossessions').on('input', function() {
       next
     end
   %>
-    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>
+    console.log(prorate);
     $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @away_drtg_two %>)/100 + '%');
     sum2 += value/10000 * prorate * <%= @home_drtg_two %>;
     <% end %>
@@ -688,7 +695,8 @@ $('.homePossessions').on('input', function() {
       next
     end
   %>
-    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>
+    console.log(prorate);
     <%
       if player.position == 'SG' || player.position == 'PG'
     %>
