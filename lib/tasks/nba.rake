@@ -315,8 +315,8 @@ namespace :nba do
 				away_name 		= element.children[0].children[5].children[0].text
 				home_number 	= element.children[0].children[3].children[2].text
 				away_number 	= element.children[0].children[3].children[1].text
-				opener 	= score_element.children[1].text
-				closer 	= element.children[0].children[7].children[1].text
+				closer 			= score_element.children[1].text
+				opener 			= element.children[0].children[7].children[1].text
 				
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
@@ -447,8 +447,8 @@ namespace :nba do
 
 				home_name 		= element.children[0].children[5].children[1].text
 				away_name 		= element.children[0].children[5].children[0].text
-				opener 	= score_element.children[1].text
-				closer 	= element.children[0].children[7].children[1].text
+				closer 			= score_element.children[1].text
+				opener 			= element.children[0].children[7].children[1].text
 				
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
@@ -574,8 +574,8 @@ namespace :nba do
 
 				home_name 		= element.children[0].children[5].children[1].text
 				away_name 		= element.children[0].children[5].children[0].text
-				opener 	= score_element.children[1].text
-				closer 	= element.children[0].children[7].children[1].text
+				closer 			= score_element.children[1].text
+				opener 			= element.children[0].children[7].children[1].text
 				
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
