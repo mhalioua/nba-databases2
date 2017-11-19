@@ -349,12 +349,20 @@ namespace :nba do
 				if matched.size > 0
 					update_game = matched.first
 					if opener_side.include?('½')
-						opener_side = opener_side[0..-1].to_f + 0.5
+						if opener_side[0] == '-'
+							opener_side = opener_side[0..-1].to_f - 0.5
+						elsif
+							opener_side = opener_side[0..-1].to_f + 0.5
+						end
 					else
 						opener_side = opener_side.to_f
 					end
 					if closer_side.include?('½')
-						closer_side = closer_side[0..-1].to_f + 0.5
+						if closer_side[0] == '-'
+							closer_side = closer_side[0..-1].to_f - 0.5
+						elsif
+							closer_side = closer_side[0..-1].to_f + 0.5
+						end
 					else
 						closer_side = closer_side.to_f
 					end
@@ -473,12 +481,20 @@ namespace :nba do
 				if matched.size > 0
 					update_game = matched.first
 					if opener_side.include?('½')
-						opener_side = opener_side[0..-1].to_f + 0.5
+						if opener_side[0] == '-'
+							opener_side = opener_side[0..-1].to_f - 0.5
+						elsif
+							opener_side = opener_side[0..-1].to_f + 0.5
+						end
 					else
 						opener_side = opener_side.to_f
 					end
 					if closer_side.include?('½')
-						closer_side = closer_side[0..-1].to_f + 0.5
+						if closer_side[0] == '-'
+							closer_side = closer_side[0..-1].to_f - 0.5
+						elsif
+							closer_side = closer_side[0..-1].to_f + 0.5
+						end
 					else
 						closer_side = closer_side.to_f
 					end
@@ -592,12 +608,20 @@ namespace :nba do
 				if matched.size > 0
 					update_game = matched.first
 					if opener_side.include?('½')
-						opener_side = opener_side[0..-1].to_f + 0.5
+						if opener_side[0] == '-'
+							opener_side = opener_side[0..-1].to_f - 0.5
+						elsif
+							opener_side = opener_side[0..-1].to_f + 0.5
+						end
 					else
 						opener_side = opener_side.to_f
 					end
 					if closer_side.include?('½')
-						closer_side = closer_side[0..-1].to_f + 0.5
+						if closer_side[0] == '-'
+							closer_side = closer_side[0..-1].to_f - 0.5
+						elsif
+							closer_side = closer_side[0..-1].to_f + 0.5
+						end
 					else
 						closer_side = closer_side.to_f
 					end
