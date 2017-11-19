@@ -699,8 +699,8 @@ namespace :nba do
 				line_two = closer.index(" ")
 				closer_side = line_two ? closer[0..line_two] : ""
 				closer_total = line_two ? closer[line_two+2..-1] : ""
-				puts line_one
-				puts line_two
+				puts opener_side
+				puts closer_side
 				puts opener_total
 				puts closer_total
 			end
