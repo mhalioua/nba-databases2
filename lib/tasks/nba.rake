@@ -63,7 +63,7 @@ namespace :nba do
 		puts elements.size
 		
 		elements.each do |slice|
-			team 		= 	slice.children[index[:team]].text
+			team 		= 	slice.children[index[:team]].children[0].text
 			current 	= 	slice.children[index[:current]].text.to_f
 			last_three	= 	slice.children[index[:last_three]].text.to_f
 			last_one	= 	slice.children[index[:last_one]].text.to_f
@@ -83,7 +83,7 @@ namespace :nba do
 		puts elements.size
 
 		elements.each do |slice|
-			team 		= 	slice.children[index[:team]].text
+			team 		= 	slice.children[index[:team]].children[0].text
 			current 	= 	slice.children[index[:current]].text.to_f
 			last_three	= 	slice.children[index[:last_three]].text.to_f
 			last_one	= 	slice.children[index[:last_one]].text.to_f
