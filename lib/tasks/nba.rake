@@ -1108,90 +1108,10 @@ namespace :nba do
 	end
 
 	task :atest => :environment do
-		include Api
-		player = Player.find_by(player_name: "T. Cavanaugh", nba_id: 24028)
-		player_name = "T. Cavanaugh"
-
-		ortg = ""
-					drtg = ""
-					last_ortg = 0
-					last_drtg = 0
-					this_ortg = 0
-					this_drtg = 0
-					if player_element = Tg.find_by(player_name: player_name, year: 2017)
-						last_ortg = player_element.ortg
-						last_ortg = 0 unless last_ortg
-						last_drtg = player_element.drtg
-						last_drtg = 0 unless last_drtg
-					end
-					if player_element = Tg.find_by(player_name: player_name, year: 2018)
-						this_ortg = player_element.ortg
-						this_drtg = player_element.drtg
-						this_ortg = 0 unless this_ortg
-						this_drtg = 0 unless this_drtg
-					end
-					url = player.link
-					url = url.gsub(/player/,'player/stats')
-					puts url
-					page = download_document(url)
-					trs = page.css(".mod-player-stats table .oddrow, .mod-player-stats table .evenrow")
-					if trs.length != 3
-						last_element = trs[trs.length/3 - 2]
-					else
-						last_element = trs[trs.length/3 - 1]
-					end
-					this_element = trs[trs.length/3 - 1]
-
-					last_count = last_element.children[2].text.to_i
-					this_count = this_element.children[2].text.to_i
-					puts last_count
-					puts this_count
-
-					last_fga = last_element.children[5].text
-					this_fga = this_element.children[5].text
-
-					last_fga_index = last_fga.index("-")
-					last_fga = last_fga_index ? last_fga[last_fga_index+1..-1] : ""
-					this_fga_index = this_fga.index("-")
-					this_fga = this_fga_index ? this_fga[this_fga_index+1..-1] : ""
-					puts last_fga
-					puts this_fga
-
-					last_fta = last_element.children[9].text
-					this_fta = this_element.children[9].text
-
-					last_fta_index = last_fta.index("-")
-					last_fta = last_fta_index ? last_fta[last_fta_index+1..-1] : ""
-
-					this_fta_index = this_fta.index("-")
-					this_fta = this_fta_index ? this_fta[this_fta_index+1..-1] : ""
-					puts last_fta
-					puts this_fta
-
-					last_or = last_element.children[11].text
-					this_or = this_element.children[11].text
-
-					last_to = last_element.children[18].text
-					this_to = this_element.children[18].text
-
-					last_poss = last_fga.to_f + (last_fta.to_f * 0.44) + last_to.to_f - last_or.to_f
-					this_poss = this_fga.to_f + (this_fta.to_f * 0.44) + this_to.to_f - this_or.to_f
-					puts last_poss
-					puts this_poss
-
-					if this_ortg == 0
-						this_count = 0
-					end
-
-					if last_ortg == 0
-						last_count = 0
-					end
-
-
-					ortg = (last_count * last_poss * last_ortg + this_count * this_poss * this_ortg) / (last_count * last_poss + this_count * this_poss)
-					drtg = (last_count * last_poss * last_drtg + this_count * this_poss * this_drtg) / (last_count * last_poss + this_count * this_poss)
-					puts ortg
-					puts drtg
+		home_team_info = Team.find_by(abbr: "OKC")
+	    away_team_info = Team.find_by(abbr: "CHA")
+	    puts home_team_info.inspect
+	    puts away_team_info.inspect
 	end
 
 		@basket_abbr = [
