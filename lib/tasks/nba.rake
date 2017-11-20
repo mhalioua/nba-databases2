@@ -48,13 +48,13 @@ namespace :nba do
 	task :fix => :environment do
 		include Api
 		index = {
-			team: 1, 
-			current: 2,
-			last_three: 3,
-			last_one: 4,
-			home: 5,
-			away: 6,
-			last: 7
+			team: 2, 
+			current: 3,
+			last_three: 4,
+			last_one: 5,
+			home: 6,
+			away: 7,
+			last: 8
 		}
 
 		url = "https://www.teamrankings.com/nba/stat/offensive-rebounds-per-game"
