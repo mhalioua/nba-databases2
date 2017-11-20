@@ -46,14 +46,54 @@ namespace :nba do
 	end
 
 	task :fix => :environment do
-		Rake::Task["nba:getFirstLines"].invoke
-		Rake::Task["nba:getFirstLines"].reenable
+		include Api
+		index = {
+			team: 1, 
+			current: 2,
+			last_three: 3,
+			last_one: 4,
+			home: 5,
+			away: 6,
+			last: 7
+		}
 
-		Rake::Task["nba:getSecondLines"].invoke
-		Rake::Task["nba:getSecondLines"].reenable
+		url = "https://www.teamrankings.com/nba/stat/offensive-rebounds-per-game"
+		doc = download_document(url)
+		elements = doc.css(".dataTables_wrapper tbody tr")
+		
+		elements.each do |slice|
+			team 		= 	slice.children[index[:team]].text
+			current 	= 	slice.children[index[:current]].text.to_f
+			last_three	= 	slice.children[index[:last_three]].text.to_f
+			last_one	= 	slice.children[index[:last_one]].text.to_f
+			home 		= 	slice.children[index[:home]].text.to_f
+			away 		= 	slice.children[index[:away]].text.to_f
+			last 		= 	slice.children[index[:last]].text.to_f
+		
+			unless element = Team.find_by(team: team)
+	          	element = Team.create(team: team)
+	        end
+	        element.update(rebound_current: current, rebound_last_three: last_three, rebound_last_one: last_one, rebound_home: home, rebound_away: away, rebound_last: last)
+		end
 
-		Rake::Task["nba:getFullLines"].invoke
-		Rake::Task["nba:getFullLines"].reenable
+		url = "https://www.teamrankings.com/nba/stat/possessions-per-game"
+		doc = download_document(url)
+		elements = doc.css(".dataTables_wrapper tbody tr")
+		
+		elements.each do |slice|
+			team 		= 	slice.children[index[:team]].text
+			current 	= 	slice.children[index[:current]].text.to_f
+			last_three	= 	slice.children[index[:last_three]].text.to_f
+			last_one	= 	slice.children[index[:last_one]].text.to_f
+			home 		= 	slice.children[index[:home]].text.to_f
+			away 		= 	slice.children[index[:away]].text.to_f
+			last 		= 	slice.children[index[:last]].text.to_f
+		
+			unless element = Team.find_by(team: team)
+	          	element = Team.create(team: team)
+	        end
+	        element.update(possessions_current: current, possessions_last_three: last_three, possessions_last_one: last_one, possessions_home: home, possessions_away: away, possessions_last: last)
+		end
 	end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
