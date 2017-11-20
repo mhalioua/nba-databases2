@@ -549,6 +549,70 @@
             </table>
       </div>
       <% end %>
+      <div class="tableBody">
+        <table border="1">
+          <thead>
+            <th>TEAM</th>
+            <th>2017</th>
+            <th>LAST 3</th>
+            <th>LAST 1</th>
+            <th>HOME</th>
+            <th>AWAY</th>
+            <th>2016</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td> <% @home_team_info.team %> </td>
+              <td> <% @home_team_info.rebound_current %> </td>
+              <td> <% @home_team_info.rebound_last_three %> </td>
+              <td> <% @home_team_info.rebound_last_one %> </td>
+              <td> <% @home_team_info.rebound_home %> </td>
+              <td> <% @home_team_info.rebound_away %> </td>
+              <td> <% @home_team_info.rebound_last %> </td>
+            </tr>
+            <tr>
+              <td> <% @away_team_info.team %> </td>
+              <td> <% @away_team_info.rebound_current %> </td>
+              <td> <% @away_team_info.rebound_last_three %> </td>
+              <td> <% @away_team_info.rebound_last_one %> </td>
+              <td> <% @away_team_info.rebound_home %> </td>
+              <td> <% @away_team_info.rebound_away %> </td>
+              <td> <% @away_team_info.rebound_last %> </td>
+            </tr>
+          </tbody>
+        </table>
+        <table border="1">
+          <thead>
+            <th>TEAM</th>
+            <th>2017</th>
+            <th>LAST 3</th>
+            <th>LAST 1</th>
+            <th>HOME</th>
+            <th>AWAY</th>
+            <th>2016</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td> <% @home_team_info.team %> </td>
+              <td> <% @home_team_info.possessions_current %> </td>
+              <td> <% @home_team_info.possessions_last_three %> </td>
+              <td> <% @home_team_info.possessions_last_one %> </td>
+              <td> <% @home_team_info.possessions_home %> </td>
+              <td> <% @home_team_info.possessions_away %> </td>
+              <td> <% @home_team_info.possessions_last %> </td>
+            </tr>
+            <tr>
+              <td> <% @away_team_info.team %> </td>
+              <td> <% @away_team_info.possessions_current %> </td>
+              <td> <% @away_team_info.possessions_last_three %> </td>
+              <td> <% @away_team_info.possessions_last_one %> </td>
+              <td> <% @away_team_info.possessions_home %> </td>
+              <td> <% @away_team_info.possessions_away %> </td>
+              <td> <% @away_team_info.possessions_last %> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 <script>
 $(".lists").hover(function() {
   if ($(".box" + $(this)[0].className.substr(10)).css("display") == "none")
