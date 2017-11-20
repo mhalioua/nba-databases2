@@ -48,20 +48,53 @@ namespace :nba do
 	task :fix => :environment do
 		include Api
 		index = {
-			team: 2, 
-			current: 3,
-			last_three: 4,
-			last_one: 5,
-			home: 6,
-			away: 7,
-			last: 8
+			team: 3, 
+			current: 5,
+			last_three: 7,
+			last_one: 9,
+			home: 11,
+			away: 13,
+			last: 15
 		}
 
 		url = "https://www.teamrankings.com/nba/stat/offensive-rebounds-per-game"
 		doc = download_document(url)
 		elements = doc.css(".datatable tbody tr")
 		puts elements.size
-		puts elements[0].inspect
+		elements.each do |slice|
+			team 		= 	slice.children[index[:team]].children[0].text
+			current 	= 	slice.children[index[:current]].text.to_f
+			last_three	= 	slice.children[index[:last_three]].text.to_f
+			last_one	= 	slice.children[index[:last_one]].text.to_f
+			home 		= 	slice.children[index[:home]].text.to_f
+			away 		= 	slice.children[index[:away]].text.to_f
+			last 		= 	slice.children[index[:last]].text.to_f
+		
+			unless element = Team.find_by(team: team)
+	          	element = Team.create(team: team)
+	        end
+	        element.update(rebound_current: current, rebound_last_three: last_three, rebound_last_one: last_one, rebound_home: home, rebound_away: away, rebound_last: last)
+		end
+
+		url = "https://www.teamrankings.com/nba/stat/possessions-per-game"
+		doc = download_document(url)
+		elements = doc.css(".datatable tbody tr")
+		puts elements.size
+
+		elements.each do |slice|
+			team 		= 	slice.children[index[:team]].children[0].text
+			current 	= 	slice.children[index[:current]].text.to_f
+			last_three	= 	slice.children[index[:last_three]].text.to_f
+			last_one	= 	slice.children[index[:last_one]].text.to_f
+			home 		= 	slice.children[index[:home]].text.to_f
+			away 		= 	slice.children[index[:away]].text.to_f
+			last 		= 	slice.children[index[:last]].text.to_f
+		
+			unless element = Team.find_by(team: team)
+	          	element = Team.create(team: team)
+	        end
+	        element.update(possessions_current: current, possessions_last_three: last_three, possessions_last_one: last_one, possessions_home: home, possessions_away: away, possessions_last: last)
+		end
 	
 	end
 
