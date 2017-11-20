@@ -27,9 +27,6 @@ class IndexController < ApplicationController
 		@home_abbr = @game.home_abbr
 		@away_abbr = @game.away_abbr
 
-	    @home_team_info = Team.find_by(abbr: @home_abbr)
-	    @away_team_info = Team.find_by(abbr: @away_abbr)
-
 		@now = Date.strptime(@game.game_date)
 		if @now > Time.now
 			@now = Time.now
@@ -180,6 +177,9 @@ class IndexController < ApplicationController
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
+	    
+   	    @home_team_info = Team.find_by(abbr: @home_abbr)
+	    @away_team_info = Team.find_by(abbr: @away_abbr)
 	end
 
 	def history
