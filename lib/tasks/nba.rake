@@ -71,8 +71,8 @@ namespace :nba do
 			away 		= 	slice.children[index[:away]].text.to_f
 			last 		= 	slice.children[index[:last]].text.to_f
 		
-			unless element = Teams.find_by(team: team)
-	          	element = Teams.create(team: team)
+			unless element = Team.find_by(team: team)
+	          	element = Team.create(team: team)
 	        end
 	        element.update(rebound_current: current, rebound_last_three: last_three, rebound_last_one: last_one, rebound_home: home, rebound_away: away, rebound_last: last)
 		end
@@ -91,8 +91,8 @@ namespace :nba do
 			away 		= 	slice.children[index[:away]].text.to_f
 			last 		= 	slice.children[index[:last]].text.to_f
 		
-			unless element = Teams.find_by(team: team)
-	          	element = Teams.create(team: team)
+			unless element = Team.find_by(team: team)
+	          	element = Team.create(team: team)
 	        end
 	        element.update(possessions_current: current, possessions_last_three: last_three, possessions_last_one: last_one, possessions_home: home, possessions_away: away, possessions_last: last)
 		end
