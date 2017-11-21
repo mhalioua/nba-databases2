@@ -517,6 +517,8 @@ namespace :nba do
 					else
 						closer_side = closer_side.to_f
 					end
+					puts opener_side
+					puts closer_side
 					if type == "second"
 						update_game.update(second_opener_side: opener_side, second_closer_side: closer_side)
 					elsif type == "full"
