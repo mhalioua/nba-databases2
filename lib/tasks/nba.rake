@@ -60,13 +60,6 @@ namespace :nba do
 	end
 
 	task :fix => :environment do
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
-		Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
-		Rake::Task["nba:getSecondLines"].reenable
-
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="		
-		Rake::Task["nba:getSecondLines"].invoke("secondTotal", link)
-		Rake::Task["nba:getSecondLines"].reenable
 
 		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
 		Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
