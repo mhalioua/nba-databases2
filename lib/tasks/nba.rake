@@ -522,15 +522,15 @@ namespace :nba do
 					elsif type == "firstTotal"
 						puts opener_side
 						puts closer_side
-						update_game.update(first_opener_total: opener_total, first_closer_total: closer_total)
+						update_game.update(first_opener_total: opener_side, first_closer_total: closer_side)
 					elsif type == "secondTotal"
 						puts opener_side
 						puts closer_side
-						update_game.update(second_opener_total: opener_total, second_closer_total: closer_total)
+						update_game.update(second_opener_total: opener_side, second_closer_total: closer_side)
 					elsif type == "fullTotal"
 						puts opener_side
 						puts closer_side
-						update_game.update(full_opener_total: opener_total, full_closer_total: closer_total)
+						update_game.update(full_opener_total: opener_side, full_closer_total: closer_side)
 					end
 				end
 			end
