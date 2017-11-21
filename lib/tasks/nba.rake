@@ -49,7 +49,7 @@ namespace :nba do
 		include Api
 		puts "----------Get Score----------"
 
-		games = Nba.where("year = 2017 AND date = 'Oct 30'")
+		games = Nba.where("year='2017' AND date='Oct 30'")
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
