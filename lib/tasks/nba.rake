@@ -400,7 +400,7 @@ namespace :nba do
 		type = args[:type]
 		puts "----------Get Second Lines----------"
 
-		index_date = Date.new(2013, 11, 28)
+		index_date = Date.yesterday
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
