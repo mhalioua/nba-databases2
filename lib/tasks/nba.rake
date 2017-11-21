@@ -30,6 +30,18 @@ namespace :nba do
 		Rake::Task["nba:getSecondLines"].invoke("full", link)
 		Rake::Task["nba:getSecondLines"].reenable
 
+		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
+		Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
+		Rake::Task["nba:getSecondLines"].reenable
+
+		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
+		Rake::Task["nba:getSecondLines"].invoke("secondTotal", link)
+		Rake::Task["nba:getSecondLines"].reenable
+
+		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
+		Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
+		Rake::Task["nba:getSecondLines"].reenable
+
 		Rake::Task["nba:gettg"].invoke
 		Rake::Task["nba:gettg"].reenable
 
@@ -48,17 +60,6 @@ namespace :nba do
 	end
 
 	task :fix => :environment do
-		Rake::Task["nba:getFirstLines"].invoke
-		Rake::Task["nba:getFirstLines"].reenable
-
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/2nd-half/?date="
-		Rake::Task["nba:getSecondLines"].invoke("second", link)
-		Rake::Task["nba:getSecondLines"].reenable
-
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/?date="
-		Rake::Task["nba:getSecondLines"].invoke("full", link)
-		Rake::Task["nba:getSecondLines"].reenable
-
 		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
 		Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
 		Rake::Task["nba:getSecondLines"].reenable
@@ -412,7 +413,7 @@ namespace :nba do
 		type = args[:type]
 		puts "----------Get #{type} Lines----------"
 
-		index_date = Date.yesterday
+		index_date = Date.new(2009, 12, 30)
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
