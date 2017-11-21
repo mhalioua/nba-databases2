@@ -59,15 +59,15 @@ namespace :nba do
 		Rake::Task["nba:getSecondLines"].invoke("full", link)
 		Rake::Task["nba:getSecondLines"].reenable
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
+		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
 		Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
 		Rake::Task["nba:getSecondLines"].reenable
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
+		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="		
 		Rake::Task["nba:getSecondLines"].invoke("secondTotal", link)
 		Rake::Task["nba:getSecondLines"].reenable
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
+		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
 		Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
 		Rake::Task["nba:getSecondLines"].reenable
 	end
