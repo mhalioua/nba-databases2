@@ -58,6 +58,18 @@ namespace :nba do
 		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/?date="
 		Rake::Task["nba:getSecondLines"].invoke("full", link)
 		Rake::Task["nba:getSecondLines"].reenable
+
+		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
+		Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
+		Rake::Task["nba:getSecondLines"].reenable
+
+		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
+		Rake::Task["nba:getSecondLines"].invoke("secondTotal", link)
+		Rake::Task["nba:getSecondLines"].reenable
+
+		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
+		Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
+		Rake::Task["nba:getSecondLines"].reenable
 	end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
@@ -398,7 +410,7 @@ namespace :nba do
 		games = Nba.all
 		game_link = args[:game_link]
 		type = args[:type]
-		puts "----------Get Second Lines----------"
+		puts "----------Get #{type} Lines----------"
 
 		index_date = Date.yesterday
 		while index_date <= Date.tomorrow  do
@@ -509,6 +521,12 @@ namespace :nba do
 						update_game.update(second_opener_side: opener_side, second_closer_side: closer_side)
 					elsif type == "full"
 						update_game.update(full_opener_side: opener_side, full_closer_side: closer_side)
+					elsif type == "firstTotal"
+						update_game.update(first_opener_total: opener_total, first_closer_total: closer_total)
+					elsif type == "secondTotal"
+						update_game.update(second_opener_total: opener_total, second_closer_total: closer_total)
+					elsif type == "fullTotal"
+						update_game.update(full_opener_total: opener_total, full_closer_total: closer_total)
 					end
 				end
 			end
