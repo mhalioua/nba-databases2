@@ -511,17 +511,25 @@ namespace :nba do
 					else
 						closer_side = closer_side.to_f
 					end
-					puts opener_side
-					puts closer_side
 					if type == "second"
+						puts opener_side
+						puts closer_side
 						update_game.update(second_opener_side: opener_side, second_closer_side: closer_side)
 					elsif type == "full"
+						puts opener_side
+						puts closer_side
 						update_game.update(full_opener_side: opener_side, full_closer_side: closer_side)
 					elsif type == "firstTotal"
+						puts opener_side
+						puts closer_side
 						update_game.update(first_opener_total: opener_total, first_closer_total: closer_total)
 					elsif type == "secondTotal"
+						puts opener_side
+						puts closer_side
 						update_game.update(second_opener_total: opener_total, second_closer_total: closer_total)
 					elsif type == "fullTotal"
+						puts opener_side
+						puts closer_side
 						update_game.update(full_opener_total: opener_total, full_closer_total: closer_total)
 					end
 				end
