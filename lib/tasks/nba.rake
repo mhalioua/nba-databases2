@@ -414,7 +414,7 @@ namespace :nba do
 		type = args[:type]
 		puts "----------Get #{type} Lines----------"
 
-		index_date = Date.new(2009, 12, 30)
+		index_date = Date.yesterday
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
