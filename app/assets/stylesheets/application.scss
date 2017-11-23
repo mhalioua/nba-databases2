@@ -94,5 +94,14 @@ th, .green {
 }
 
 .totalAverage {
-    border: 1px solid black;
+    border: 2px solid black;
+}
+
+.totalAverage .gameDate{
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.totalAverage .gameTeam{
+    text-transform: uppercase;
 }

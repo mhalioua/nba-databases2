@@ -792,9 +792,9 @@ $('.homePossessions').on('input', function() {
     <table border="1" class="totalAverage">
         <tbody>
             <tr>
-                <td><%= Date.strptime(@game.game_date).strftime("%^A %^b #{Date.strptime(@game.game_date).day.ordinalize} %Y")%></td>
+                <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y")%></td>
                 <td></td>
-                <td colspan="7"><%= @head %></td>
+                <td colspan="7"><h1 class="gameTeam"><%= @head %></h1></td>
                 <td></td>
                 <td>1H LINE</td>
                 <td>2H LINE</td>
