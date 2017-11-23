@@ -787,3 +787,56 @@ $('.homePossessions').on('input', function() {
     $('#homesum2').html(sum2);
 });
 </script>
+
+<div>
+    <table border="1" class="totalAverage">
+        <tbody>
+            <tr>
+                <td><%= Date.strptime(@game.game_date).strftime("%^A %^b #{Date.strptime(@game.game_date).day.ordinalize} %Y")%></td>
+                <td></td>
+                <td colspan="7"><%= @head %></td>
+                <td></td>
+                <td>1H LINE</td>
+                <td>2H LINE</td>
+                <td>FG LINE</td>
+                <td></td>
+            </tr>
+        </tbody>
+        <thead>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
