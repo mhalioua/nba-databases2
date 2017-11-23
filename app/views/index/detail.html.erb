@@ -830,21 +830,21 @@ $('.homePossessions').on('input', function() {
                 <td></td>
                 <td></td>
             </tr>
-            <tr>
+            <tr class="gameDate">
+                <td><%= @game.away_abbr + " VS " + @game.home_abbr %></td>
                 <td></td>
+                <td><%= @game.away_last_game %></td>
+                <td><%= @game.away_next_game %></td>
+                <td><%= @game.home_next_game %></td>
+                <td><%= @game.home_last_game %></td>
                 <td></td>
+                <td><%= @game.home_next_fly %></td>
+                <td><%= @game.home_last_fly %></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>1ST<br>HALF</td>
+                <td>2ND<br>HALF</td>
+                <td>FULL<br>GAME</td>
+                <td>GAMES</td>
             </tr>
         </tbody>
     </table>
