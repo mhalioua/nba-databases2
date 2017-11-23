@@ -95,13 +95,19 @@ th, .green {
 
 .totalAverage {
     border: 2px solid black;
-}
+    .gameDate, .lineValue{
+        font-size: 16px;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
 
-.totalAverage .gameDate{
-    font-weight: 800;
-    text-transform: uppercase;
-}
+    .gameTeam{
+        font-weight: 800;
+        text-transform: uppercase;
+    }
 
-.totalAverage .gameTeam{
-    text-transform: uppercase;
+    .line{
+        font-size: 14px;
+        text-transform: uppercase;
+    }
 }
