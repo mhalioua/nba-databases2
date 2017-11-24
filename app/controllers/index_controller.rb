@@ -180,6 +180,77 @@ class IndexController < ApplicationController
 	    
    	    @home_team_info = Team.find_by(abbr: @home_abbr)
 	    @away_team_info = Team.find_by(abbr: @away_abbr)
+	    @filters = [
+			[true, false, false, true, true, true],
+			[false, true, true, false, true, true],
+			[true, true, false, false, true, true],
+			[false, false, true, true, true, true],
+
+			[true, false, false, true, true, false],
+			[false, true, true, false, true, false],
+			[true, true, false, false, true, false],
+			[false, false, true, true, true, false],
+
+			[true, false, false, true, false, true],
+			[false, true, true, false, false, true],
+			[true, true, false, false, false, true],
+			[false, false, true, true, false, true],
+
+			[false, false, true, false, true, true],
+			[false, true, false, false, true, true],
+
+			[false, true, true, true, true, true],
+			[true, false, true, true, true, true],
+			[true, true, false, true, true, true],
+			[true, true, true, false, true, true],
+
+			[false, true, true, true, true, false],
+			[true, false, true, true, true, false],
+			[true, true, false, true, true, false],
+			[true, true, true, false, true, false],
+
+			[false, true, true, true, false, true],
+			[true, false, true, true, false, true],
+			[true, true, false, true, false, true],
+			[true, true, true, false, false, true],
+
+			[false, true, true, false, false, false],
+
+			[true, true, true, true, true, true],
+
+			[true, true, true, true, false, false]
+		]
+		@filterResult = []
+		@filters.each do |filter|
+			search_string = []
+			if filter[0]
+				search_string.push("away_last_game = #{@game.away_last_game}")
+			end
+			if filter[1]
+				search_string.push("away_next_game = #{@game.away_next_game}")
+			end
+			if filter[2]
+				search_string.push("home_next_game = #{@game.home_next_game}")
+			end
+			if filter[3]
+				search_string.push("home_last_game = #{@game.home_last_game}")
+			end
+			if filter[4]
+				search_string.push("home_next_fly = #{@game.home_next_fly}")
+			end
+			if filter[5]
+				search_string.push("home_last_fly = #{@game.home_last_fly}")
+			end
+			search_string = search_string.join(" AND ")
+			filter_element = Nba.where(search_string)
+			result_element = {
+				first: filter_element.average(:first_point),
+				second: filter_element.average(:second_point),
+				full: filter_element.average(:total_point),
+				count: filter_element.count(:total_point)
+			}
+			@filterResult.push(result_element)
+		end
 	end
 
 	def history
