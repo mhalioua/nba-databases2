@@ -943,7 +943,7 @@ $('.homePossessions').on('input', function() {
                 <td></td>
             </tr>
             <% 
-                @filters.each do |filter|
+                @filters.each_with_index do |filter, index|
                     first_one = []
                     filter.each do |element|
                         first_one.push(element ? element : "ANY")
