@@ -224,22 +224,22 @@ class IndexController < ApplicationController
 		@filters.each do |filter|
 			search_string = []
 			if filter[0]
-				search_string.push("away_last_game = #{@game.away_last_game}")
+				search_string.push("away_last_game = '#{@game.away_last_game}'")
 			end
 			if filter[1]
-				search_string.push("away_next_game = #{@game.away_next_game}")
+				search_string.push("away_next_game = '#{@game.away_next_game}'")
 			end
 			if filter[2]
-				search_string.push("home_next_game = #{@game.home_next_game}")
+				search_string.push("home_next_game = '#{@game.home_next_game}'")
 			end
 			if filter[3]
-				search_string.push("home_last_game = #{@game.home_last_game}")
+				search_string.push("home_last_game = '#{@game.home_last_game}'")
 			end
 			if filter[4]
-				search_string.push("home_next_fly = #{@game.home_next_fly}")
+				search_string.push("home_next_fly = '#{@game.home_next_fly}'")
 			end
 			if filter[5]
-				search_string.push("home_last_fly = #{@game.home_last_fly}")
+				search_string.push("home_last_fly = '#{@game.home_last_fly}'")
 			end
 			search_string = search_string.join(" AND ")
 			filter_element = Nba.where(search_string)
