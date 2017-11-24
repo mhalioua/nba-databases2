@@ -985,10 +985,10 @@ $('.homePossessions').on('input', function() {
                         <td></td>
                     <% end %>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><%= @filterResult[index].first %></td>
+                    <td><%= @filterResult[index].second %></td>
+                    <td><%= @filterResult[index].full %></td>
+                    <td><%= @filterResult[index].count %></td>
                 </tr>
                 <% if @break.include?(index) %>
                 <tr>
