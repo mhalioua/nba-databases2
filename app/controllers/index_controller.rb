@@ -246,7 +246,7 @@ class IndexController < ApplicationController
 			end
 			if filter[5]
 				search_string.push("home_last_fly = '#{@game.home_last_fly}'")
-				filter[6] = @game.home_last_fly[0]
+				filter[5] = @game.home_last_fly[0]
 			end
 			search_string = search_string.join(" AND ")
 			filter_element = Nba.where(search_string)
