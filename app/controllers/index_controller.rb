@@ -220,26 +220,33 @@ class IndexController < ApplicationController
 
 			[true, true, true, true, false, false]
 		]
+		@break = [3, 7, 11, 13, 17, 21, 25, 26, 27]
 		@filterResult = []
 		@filters.each do |filter|
 			search_string = []
 			if filter[0]
 				search_string.push("away_last_game = '#{@game.away_last_game}'")
+				filter[0] = @game.away_last_game
 			end
 			if filter[1]
 				search_string.push("away_next_game = '#{@game.away_next_game}'")
+				filter[1] = @game.away_next_game
 			end
 			if filter[2]
 				search_string.push("home_next_game = '#{@game.home_next_game}'")
+				filter[2] = @game.home_next_game
 			end
 			if filter[3]
 				search_string.push("home_last_game = '#{@game.home_last_game}'")
+				filter[3] = @game.home_last_game
 			end
 			if filter[4]
 				search_string.push("home_next_fly = '#{@game.home_next_fly}'")
+				filter[4] = @game.home_next_fly[0]
 			end
 			if filter[5]
 				search_string.push("home_last_fly = '#{@game.home_last_fly}'")
+				filter[6] = @game.home_last_fly[0]
 			end
 			search_string = search_string.join(" AND ")
 			filter_element = Nba.where(search_string)
