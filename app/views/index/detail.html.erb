@@ -998,8 +998,8 @@ $('.homePossessions').on('input', function() {
                     <td><%= @filterResult[index][:full] %></td>
                     <td><%= @filterResult[index][:count] %></td>
                     <% if index == 0 %>
-                        <td colspan="2" rowspan="3"><%= @game.home_first_quarter + @game.home_second_quarter %></td>
                         <td colspan="2" rowspan="3"><%= @game.away_first_quarter + @game.away_second_quarter %></td>
+                        <td colspan="2" rowspan="3"><%= @game.home_first_quarter + @game.home_second_quarter %></td>
                     <% elsif index == 3 %>
                         <td colspan="4" rowspan="42" class="gray"></td>
                     <% end %>
