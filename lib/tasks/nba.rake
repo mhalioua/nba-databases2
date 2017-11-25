@@ -965,9 +965,8 @@ namespace :nba do
 
 		items = []
 		CSV.foreach(Rails.root.join('fullseason2.csv'), headers: true) do |row|
-			items << Fullseason.new(row.to_h)
+			Fullseason.create(row.to_h)
 		end
-		Fullseason.import(items)
 	end
 
 		@basket_abbr = [
