@@ -324,7 +324,7 @@ class IndexController < ApplicationController
 				count: forthItem.count(:totalpoint).to_i
 			}
 			@diff = @game.home_first_quarter + @game.home_second_quarter - @game.away_first_quarter - @game.away_second_quarter
-			lastfirstItem = Fullseason.where(homediff:, @diff-5..@diff+5)
+			lastfirstItem = Fullseason.where(homediff: @diff-5..@diff+5)
 			lastsecondItem = Fullseason.where("homefirsthalf > 60")
 			lastthirdItem = Fullseason.where("roadfirsthalf > 60")
 			@lastfirstItem_result = {
