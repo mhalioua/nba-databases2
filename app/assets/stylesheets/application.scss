@@ -123,7 +123,9 @@ th, .green {
     td:nth-child(2), td:nth-child(7), td:nth-child(10), .gradient {
         background: linear-gradient(lightskyblue, black);
     }
-    td:nth-child(1) {
-        background: darkgray;
+    tr:nth-child(n+3) {
+        td:nth-child(1) {
+            background: darkgray;
+        }
     }
 }
