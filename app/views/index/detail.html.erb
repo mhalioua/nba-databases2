@@ -800,7 +800,7 @@ $('.homePossessions').on('input', function() {
                 <td class="line">2H LINE</td>
                 <td class="line">FG LINE</td>
                 <td></td>
-                <td colspan="4" rowspan="3"></td>
+                <td colspan="4" rowspan="3" class="gray"></td>
             </tr>
             <tr>
                 <td></td>
@@ -846,7 +846,7 @@ $('.homePossessions').on('input', function() {
                 <td>2ND<br>HALF</td>
                 <td>FULL<br>GAME</td>
                 <td>GAMES</td>
-                <td colspan="4" rowspan="6">HALFTIME <br> SCORE</td>
+                <td colspan="4" rowspan="5" class="gray">HALFTIME <br> SCORE</td>
             </tr>
             <tr>
                 <td>RIVALS</td>
@@ -1001,7 +1001,7 @@ $('.homePossessions').on('input', function() {
                         <td colspan="2" rowspan="3"><%= @game.home_first_quarter + @game.home_second_quarter %></td>
                         <td colspan="2" rowspan="3"><%= @game.away_first_quarter + @game.away_second_quarter %></td>
                     <% elsif index == 3 %>
-                        <td colspan="4" rowspan="42"><%= @game.home_first_quarter + @game.home_second_quarter %></td>
+                        <td colspan="4" rowspan="42" class="gray"></td>
                     <% end %>
                 </tr>
                 <% if @break.include?(index) %>
