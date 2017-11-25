@@ -255,6 +255,8 @@ class IndexController < ApplicationController
 				full: filter_element.average(:totalpoint).to_f.round(2),
 				count: filter_element.count(:totalpoint).to_i
 			}
+			@home_team_info = Team.find_by(abbr: @home_abbr)
+	    	@away_team_info = Team.find_by(abbr: @away_abbr)
 			@filterResult.push(result_element)
 			firstItem = Fullseason.where(search_string)
 			secondItem = Fullseason.where(hometeam: @game.home_team)
