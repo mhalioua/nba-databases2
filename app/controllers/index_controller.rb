@@ -258,8 +258,64 @@ class IndexController < ApplicationController
 			@home_team_info = Team.find_by(abbr: @home_abbr)
 	    	@away_team_info = Team.find_by(abbr: @away_abbr)
 			@filterResult.push(result_element)
-			firstItem = Fullseason.where(search_string)
+			@team_more = {
+				'Atlanta' => 'EAST',
+				'Boston' => 'EAST',
+				'Brooklyn' => 'EAST',
+				'Charlotte' => 'EAST',
+				'Chicago' => 'MID-WEST',
+				'Cleveland' => 'EAST',
+				'Dallas' => 'TEXANS',
+				'Denver' => 'ROCKIES',
+				'Detroit' => 'EAST',
+				'Golden State' => 'WEST COAST',
+				'Houston' => 'TEXANS',
+				'Indiana' => 'EAST',
+				'LAC' => 'WEST COAST',
+				'LAL' => 'WEST COAST',
+				'Memphis' => 'NULL',
+				'Miami' => 'EAST',
+				'Milwaukee' => 'MID-WEST',
+				'Minnesota' => 'MID-WEST',
+				'New Jersey' => 'EAST',
+				'New Orleans' => 'NULL',
+				'New York' => 'EAST',
+				'NO/Oklahoma City' => 'NULL',
+				'Oklahoma City' => 'NULL',
+				'Orlando' => 'EAST',
+				'Philadelphia' => 'EAST',
+				'Phoenix' => 'NULL',
+				'Portland' => 'WEST COAST',
+				'Sacramento' => 'WEST COAST',
+				'San Antonio' => 'TEXANS',
+				'Seattle' => 'NULL',
+				'Toronto' => 'EAST',
+				'Utah' => 'ROCKIES',
+				'Vancouver' => 'NULL'
+				'Washington' => 'EAST'
+			}
+
+			firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", awaymore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" )
 			secondItem = Fullseason.where(hometeam: @game.home_team)
+			thirdItem = Fullseason.where(week: @game.week)
+			@firstItem_result = {
+				first: firstItem.average(:firstpoint).to_f.round(2),
+				second: firstItem.average(:secondpoint).to_f.round(2),
+				full: firstItem.average(:totalpoint).to_f.round(2),
+				count: firstItem.count(:totalpoint).to_i
+			}
+			@secondItem_result = {
+				first: secondItem.average(:firstpoint).to_f.round(2),
+				second: secondItem.average(:secondpoint).to_f.round(2),
+				full: secondItem.average(:totalpoint).to_f.round(2),
+				count: secondItem.count(:totalpoint).to_i
+			}
+			@thirdItem_result = {
+				first: thirdItem.average(:firstpoint).to_f.round(2),
+				second: thirdItem.average(:secondpoint).to_f.round(2),
+				full: thirdItem.average(:totalpoint).to_f.round(2),
+				count: thirdItem.count(:totalpoint).to_i
+			}
 		end
 	end
 
