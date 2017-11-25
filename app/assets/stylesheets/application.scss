@@ -146,3 +146,22 @@ th, .green {
         padding: 20px 40px;
     }
 }
+
+.numbers {
+    tr:nth-child(1) {
+        background: gray;
+    }
+    tr {
+        td:nth-child(5),td:nth-child(9),td:nth-child(11),td:nth-child(15) {
+            background: black;
+        }
+    }
+    tr:nth-child(2) {
+        td:nth-child(12),td:nth-child(13),td:nth-child(14) {
+            background: lightgreen;
+        }
+        td:nth-child(16),td:nth-child(17),td:nth-child(18) {
+            background: red;
+        }
+    }
+}
