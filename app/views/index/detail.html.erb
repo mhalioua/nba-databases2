@@ -812,24 +812,24 @@ $('.homePossessions').on('input', function() {
                 <td>+/-</td>
             </tr>
             <tr>
-                <td><% @countItem.lastroad %></td>
-                <td><% @countItem.nextroad %></td>
-                <td><% @countItem.nexthome %></td>
-                <td><% @countItem.lasthome %></td>
+                <td><%= @countItem.lastroad %></td>
+                <td><%= @countItem.nextroad %></td>
+                <td><%= @countItem.nexthome %></td>
+                <td><%= @countItem.lasthome %></td>
                 <td></td>
-                <td><% @countItem.road %></td>
-                <td><% @countItem.home %></td>
-                <td><% @countItem.diff %></td>
+                <td><%= @countItem.road %></td>
+                <td><%= @countItem.home %></td>
+                <td><%= @countItem.diff %></td>
                 <td></td>
                 <td style="background: #fa0"><% @countItem.count %></td>
                 <td></td>
-                <td><% @countItem.firstroad %></td>
-                <td><% @countItem.firsthome %></td>
-                <td><% @countItem.firstdiff %></td>
+                <td><%= @countItem.firstroad %></td>
+                <td><%= @countItem.firsthome %></td>
+                <td><%= @countItem.firstdiff %></td>
                 <td></td>
-                <td><% @countItem.secondroad %></td>
-                <td><% @countItem.secondhome %></td>
-                <td><% @countItem.seconddiff %></td>
+                <td><%= @countItem.secondroad %></td>
+                <td><%= @countItem.secondhome %></td>
+                <td><%= @countItem.seconddiff %></td>
             </tr>
             <tr style="background: #fa0">
                 <td>ALL</td>
@@ -1305,7 +1305,3 @@ $('.homePossessions').on('input', function() {
         </tbody>
     </table>
 </div>
-
-<%
-@testItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{@game.away_last_game}%", "%#{@game.away_next_game}%", "%#{@game.home_next_game}%", "%#{@game.home_last_game}%").first
-%>
