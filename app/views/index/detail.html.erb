@@ -1002,7 +1002,7 @@ $('.homePossessions').on('input', function() {
                         <td colspan="2" rowspan="3"><%= @game.away_first_quarter + @game.away_second_quarter %></td>
                     <% elsif index == 3 %>
                         <td colspan="4" rowspan="42"><%= @game.home_first_quarter + @game.home_second_quarter %></td>
-                    <% %>
+                    <% end %>
                 </tr>
                 <% if @break.include?(index) %>
                 <tr>
