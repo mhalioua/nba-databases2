@@ -225,36 +225,36 @@ class IndexController < ApplicationController
 		@filters.each do |filter|
 			search_string = []
 			if filter[0]
-				search_string.push("away_last_game = '#{@game.away_last_game}'")
+				search_string.push("roadlast = '#{@game.away_last_game}'")
 				filter[0] = @game.away_last_game
 			end
 			if filter[1]
-				search_string.push("away_next_game = '#{@game.away_next_game}'")
+				search_string.push("roadnext = '#{@game.away_next_game}'")
 				filter[1] = @game.away_next_game
 			end
 			if filter[2]
-				search_string.push("home_next_game = '#{@game.home_next_game}'")
+				search_string.push("homenext = '#{@game.home_next_game}'")
 				filter[2] = @game.home_next_game
 			end
 			if filter[3]
-				search_string.push("home_last_game = '#{@game.home_last_game}'")
+				search_string.push("homelast = '#{@game.home_last_game}'")
 				filter[3] = @game.home_last_game
 			end
 			if filter[4]
-				search_string.push("home_next_fly = '#{@game.home_next_fly}'")
+				search_string.push("homenextfly = '#{@game.home_next_fly}'")
 				filter[4] = @game.home_next_fly[0]
 			end
 			if filter[5]
-				search_string.push("home_last_fly = '#{@game.home_last_fly}'")
+				search_string.push("homelastfly = '#{@game.home_last_fly}'")
 				filter[5] = @game.home_last_fly[0]
 			end
 			search_string = search_string.join(" AND ")
-			filter_element = Nba.where(search_string)
+			filter_element = Fullseason.where(search_string)
 			result_element = {
-				first: filter_element.average(:first_point).to_f.round(2),
-				second: filter_element.average(:second_point).to_f.round(2),
-				full: filter_element.average(:total_point).to_f.round(2),
-				count: filter_element.count(:total_point).to_i
+				first: filter_element.average(:firstpoint).to_f.round(2),
+				second: filter_element.average(:secondpoint).to_f.round(2),
+				full: filter_element.average(:totalpoint).to_f.round(2),
+				count: filter_element.count(:totalpoint).to_i
 			}
 			@filterResult.push(result_element)
 		end
