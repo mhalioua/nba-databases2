@@ -178,8 +178,7 @@ class IndexController < ApplicationController
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    
-   	    @home_team_info = Team.find_by(abbr: @home_abbr)
-	    @away_team_info = Team.find_by(abbr: @away_abbr)
+
 	    @filters = [
 			[true, false, false, true, true, true],
 			[false, true, true, false, true, true],
@@ -257,6 +256,8 @@ class IndexController < ApplicationController
 				count: filter_element.count(:totalpoint).to_i
 			}
 			@filterResult.push(result_element)
+			firstItem = Fullseason.where(search_string)
+			secondItem = Fullseason.where(hometeam: @game.home_team)
 		end
 	end
 
