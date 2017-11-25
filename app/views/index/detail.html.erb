@@ -846,7 +846,7 @@ $('.homePossessions').on('input', function() {
                 <td>2ND<br>HALF</td>
                 <td>FULL<br>GAME</td>
                 <td>GAMES</td>
-                <td colspan="4" rowspan="5" class="gray">HALFTIME <br> SCORE</td>
+                <td colspan="4" rowspan="5" class="gray halfstats">HALFTIME <br> SCORE</td>
             </tr>
             <tr>
                 <td>RIVALS</td>
@@ -958,7 +958,7 @@ $('.homePossessions').on('input', function() {
                     end
                     first_one = first_one.join("-")
             %>
-                <tr>
+                <tr class="filterElement">
                     <td><%= first_one %></td>
                     <td></td>
                     <% if filter[0] %>
@@ -1023,6 +1023,93 @@ $('.homePossessions').on('input', function() {
                 </tr>
                 <% end %>
             <% end %>
+            <tr>
+                <td>2ND HALF STATS</td>
+                <td></td>
+                <td><%= @game.away_abbr %></td>
+                <td><%= @game.away_first_quarter + @game.away_second_quarter %></td>
+                <td><%= @game.home_abbr %></td>
+                <td><%= @game.home_first_quarter + @game.home_second_quarter %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="gray">WHEN HOME TEAM</td>
+                <td class="gradient"></td>
+                <td colspan="4">IS LEADING BY <%= @game.home_first_quarter + @game.home_second_quarter - @game.away_first_quarter - @game.away_second_quarter %> (+/- 5)</td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="gray">WHEN HOME TEAM</td>
+                <td class="gradient"></td>
+                <td colspan="4">SCORES MORE THAN 60</td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="gray">WHEN ROAD TEAM</td>
+                <td class="gradient"></td>
+                <td colspan="4">SCORES MORE THAN 60</td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="gray"></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="gray"></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
 </div>

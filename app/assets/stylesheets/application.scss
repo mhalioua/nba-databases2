@@ -121,15 +121,25 @@ th, .green {
         background: gray;
     }
 
-    tr:nth-child(n+3) {
-        td:nth-child(2), td:nth-child(7), td:nth-child(10), .gradient {
+    .filterElement {
+        td:nth-child(2), td:nth-child(7), td:nth-child(10) {
             background: linear-gradient(#4ac, #068);
         }
+        td:nth-child(1) {
+            background: darkgray;
+        }
     }
-    td:nth-child(1) {
-        background: darkgray;
+    .gradient {
+        background: linear-gradient(#4ac, #068);
     }
+    
     .filter {
         background-color: rgb(255, 89, 95);
+    }
+    .halfstats
+    {
+        font-size: 40px;
+        font-family: fantasy;
+        padding: 20px 40px;
     }
 }
