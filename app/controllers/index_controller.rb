@@ -291,7 +291,7 @@ class IndexController < ApplicationController
 				'Seattle' => 'NULL',
 				'Toronto' => 'EAST',
 				'Utah' => 'ROCKIES',
-				'Vancouver' => 'NULL'
+				'Vancouver' => 'NULL',
 				'Washington' => 'EAST'
 			}
 

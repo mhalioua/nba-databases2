@@ -794,7 +794,7 @@ $('.homePossessions').on('input', function() {
             <tr>
                 <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y")%></td>
                 <td></td>
-                <td colspan="7"><u><h1 class="gameTeam"><%= @head %></h1></u></td>
+                <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
                 <td></td>
                 <td class="line">1H LINE</td>
                 <td class="line">2H LINE</td>
