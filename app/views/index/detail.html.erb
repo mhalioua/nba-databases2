@@ -800,6 +800,7 @@ $('.homePossessions').on('input', function() {
                 <td class="line">2H LINE</td>
                 <td class="line">FG LINE</td>
                 <td></td>
+                <td colspan="4" rowspan="3"></td>
             </tr>
             <tr>
                 <td></td>
@@ -810,9 +811,9 @@ $('.homePossessions').on('input', function() {
                 <td></td>
                 <td colspan="2" class="gameDate">TRAVEL</td>
                 <td></td>
-                <td class="gameDate"></td>
-                <td class="gameDate"></td>
-                <td class="gameDate"></td>
+                <td class="gameDate"><%= game.first_closer_total %></td>
+                <td class="gameDate"><%= game.second_closer_total %></td>
+                <td class="gameDate"><%= game.full_closer_total %></td>
                 <td></td>
             </tr>
             <tr>
@@ -845,6 +846,7 @@ $('.homePossessions').on('input', function() {
                 <td>2ND<br>HALF</td>
                 <td>FULL<br>GAME</td>
                 <td>GAMES</td>
+                <td colspan="4" rowspan="6">HALFTIME <br> SCORE</td>
             </tr>
             <tr>
                 <td>RIVALS</td>
@@ -925,8 +927,14 @@ $('.homePossessions').on('input', function() {
                 <td></td>
                 <td></td>
                 <td></td>
+                <td colspan="2"><%= @game.away_team %></td>
+                <td colspan="2"><%= @game.home_team %></td>
             </tr>
             <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -989,6 +997,12 @@ $('.homePossessions').on('input', function() {
                     <td><%= @filterResult[index][:second] %></td>
                     <td><%= @filterResult[index][:full] %></td>
                     <td><%= @filterResult[index][:count] %></td>
+                    <% if index == 0 %>
+                        <td colspan="2" rowspan="3"><%= @game.home_first_quarter + @game.home_second_quarter %></td>
+                        <td colspan="2" rowspan="3"><%= @game.away_first_quarter + @game.away_second_quarter %></td>
+                    <% elsif index == 3 %>
+                        <td colspan="4" rowspan="42"><%= @game.home_first_quarter + @game.home_second_quarter %></td>
+                    <% %>
                 </tr>
                 <% if @break.include?(index) %>
                 <tr>
