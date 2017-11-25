@@ -1026,10 +1026,10 @@ $('.homePossessions').on('input', function() {
             <tr class="redgradient">
                 <td>2ND HALF STATS</td>
                 <td></td>
-                <td><%= @game.away_abbr %></td>
-                <td><%= @game.away_first_quarter + @game.away_second_quarter %></td>
-                <td><%= @game.home_abbr %></td>
-                <td><%= @game.home_first_quarter + @game.home_second_quarter %></td>
+                <td class="gameDate"><%= @game.away_abbr %></td>
+                <td class="gameDate"><%= @game.away_first_quarter + @game.away_second_quarter %></td>
+                <td class="gameDate"><%= @game.home_abbr %></td>
+                <td class="gameDate"><%= @game.home_first_quarter + @game.home_second_quarter %></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -1042,15 +1042,15 @@ $('.homePossessions').on('input', function() {
             <tr>
                 <td class="gray">WHEN HOME TEAM</td>
                 <td class="gradient"></td>
-                <td colspan="4">IS LEADING BY <%= @game.home_first_quarter + @game.home_second_quarter - @game.away_first_quarter - @game.away_second_quarter %> (+/- 5)</td>
+                <td colspan="4">IS LEADING BY <%= @diff %> (+/- 5)</td>
                 <td class="gradient"></td>
                 <td></td>
                 <td></td>
                 <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><%= @lastfirstItem_result[:first] %></td>
+                <td><%= @lastfirstItem_result[:second] %></td>
+                <td><%= @lastfirstItem_result[:full] %></td>
+                <td><%= @lastfirstItem_result[:count] %></td>
             </tr>
             <tr>
                 <td class="gray">WHEN HOME TEAM</td>
@@ -1060,10 +1060,10 @@ $('.homePossessions').on('input', function() {
                 <td></td>
                 <td></td>
                 <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><%= @lastsecondItem_result[:first] %></td>
+                <td><%= @lastsecondItem_result[:second] %></td>
+                <td><%= @lastsecondItem_result[:full] %></td>
+                <td><%= @lastsecondItem_result[:count] %></td>
             </tr>
             <tr>
                 <td class="gray">WHEN ROAD TEAM</td>
@@ -1073,10 +1073,10 @@ $('.homePossessions').on('input', function() {
                 <td></td>
                 <td></td>
                 <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><%= @lastthirdItem_result[:first] %></td>
+                <td><%= @lastthirdItem_result[:second] %></td>
+                <td><%= @lastthirdItem_result[:full] %></td>
+                <td><%= @lastthirdItem_result[:count] %></td>
             </tr>
             <tr>
                 <td class="gray"></td>

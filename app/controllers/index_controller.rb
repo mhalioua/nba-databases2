@@ -323,6 +323,28 @@ class IndexController < ApplicationController
 				full: forthItem.average(:totalpoint).to_f.round(2),
 				count: forthItem.count(:totalpoint).to_i
 			}
+			@diff = @game.home_first_quarter + @game.home_second_quarter - @game.away_first_quarter - @game.away_second_quarter
+			lastfirstItem = Fullseason.where(homediff:, @diff-5..@diff+5)
+			lastsecondItem = Fullseason.where("homefirsthalf > 60")
+			lastthirdItem = Fullseason.where("roadfirsthalf > 60")
+			@lastfirstItem_result = {
+				first: lastfirstItem.average(:firstpoint).to_f.round(2),
+				second: lastfirstItem.average(:secondpoint).to_f.round(2),
+				full: lastfirstItem.average(:totalpoint).to_f.round(2),
+				count: lastfirstItem.count(:totalpoint).to_i
+			}
+			@lastsecondItem_result = {
+				first: lastsecondItem.average(:firstpoint).to_f.round(2),
+				second: lastsecondItem.average(:secondpoint).to_f.round(2),
+				full: lastsecondItem.average(:totalpoint).to_f.round(2),
+				count: lastsecondItem.count(:totalpoint).to_i
+			}
+			@lastthirdItem_result = {
+				first: lastthirdItem.average(:firstpoint).to_f.round(2),
+				second: lastthirdItem.average(:secondpoint).to_f.round(2),
+				full: lastthirdItem.average(:totalpoint).to_f.round(2),
+				count: lastthirdItem.count(:totalpoint).to_i
+			}
 		end
 	end
 
