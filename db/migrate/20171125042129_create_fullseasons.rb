@@ -7,7 +7,7 @@ class CreateFullseasons < ActiveRecord::Migration[5.1]
       t.string :week
       t.integer :roadlast
       t.integer :roadnext
-      t.string :roadtean
+      t.string :roadteam
       t.string :roadmore
       t.integer :roadfirst
       t.integer :roadsecond
