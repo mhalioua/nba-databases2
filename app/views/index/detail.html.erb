@@ -859,10 +859,10 @@ $('.homePossessions').on('input', function() {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><%= @firstItem_result.first %></td>
-                <td><%= @firstItem_result.second %></td>
-                <td><%= @firstItem_result.full %></td>
-                <td><%= @firstItem_result.count %></td>
+                <td><%= @firstItem_result[:first] %></td>
+                <td><%= @firstItem_result[:second] %></td>
+                <td><%= @firstItem_result[:full] %></td>
+                <td><%= @firstItem_result[:count] %></td>
             </tr>
             <tr>
                 <td>ALL GAMES IN <%= @home_abbr %></td>
@@ -875,10 +875,10 @@ $('.homePossessions').on('input', function() {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><%= @secondItem_result.first %></td>
-                <td><%= @secondItem_result.second %></td>
-                <td><%= @secondItem_result.full %></td>
-                <td><%= @secondItem_result.count %></td>
+                <td><%= @secondItem_result[:first] %></td>
+                <td><%= @secondItem_result[:second] %></td>
+                <td><%= @secondItem_result[:full] %></td>
+                <td><%= @secondItem_result[:count] %></td>
             </tr>
             <tr>
                 <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A")%></td>
@@ -891,10 +891,10 @@ $('.homePossessions').on('input', function() {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><%= @thirdItem_result.first %></td>
-                <td><%= @thirdItem_result.second %></td>
-                <td><%= @thirdItem_result.full %></td>
-                <td><%= @thirdItem_result.count %></td>
+                <td><%= @thirdItem_result[:first] %></td>
+                <td><%= @thirdItem_result[:second] %></td>
+                <td><%= @thirdItem_result[:full] %></td>
+                <td><%= @thirdItem_result[:count] %></td>
             </tr>
             <tr class="gradient">
                 <td></td>
@@ -923,10 +923,10 @@ $('.homePossessions').on('input', function() {
                 <td class="filter">X</td>
                 <td class="filter">X</td>
                 <td></td>
-                <td><%= @forthItem_result.first %></td>
-                <td><%= @forthItem_result.second %></td>
-                <td><%= @forthItem_result.full %></td>
-                <td><%= @forthItem_result.count %></td>
+                <td><%= @forthItem_result[:first] %></td>
+                <td><%= @forthItem_result[:second] %></td>
+                <td><%= @forthItem_result[:full] %></td>
+                <td><%= @forthItem_result[:count] %></td>
                 <td colspan="2"><%= @game.away_team %></td>
                 <td colspan="2"><%= @game.home_team %></td>
             </tr>
