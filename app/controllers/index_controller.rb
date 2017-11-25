@@ -295,7 +295,7 @@ class IndexController < ApplicationController
 				'Washington' => 'EAST'
 			}
 
-			firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", awaymore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" )
+			firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" )
 			secondItem = Fullseason.where(hometeam: @game.home_team)
 			thirdItem = Fullseason.where(week: @game.week)
 			forthItem = Fullseason.where("homenextfly = '#{@game.home_next_fly}' AND homelastfly = '#{@game.home_last_fly}'")
