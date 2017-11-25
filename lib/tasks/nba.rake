@@ -964,8 +964,8 @@ namespace :nba do
 		require 'csv'
 
 		items = []
-		CSV.foreach(Rails.root.join('fullseason2.csv'), headers: true) do |row|
-			Fullseason.create(row.to_h)
+		CSV.foreach(Rails.root.join('123.csv'), headers: true) do |row|
+			Count.create(row.to_h)
 		end
 	end
 

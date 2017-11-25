@@ -345,6 +345,9 @@ class IndexController < ApplicationController
 				full: lastthirdItem.average(:totalpoint).to_f.round(2),
 				count: lastthirdItem.count(:totalpoint).to_i
 			}
+
+			@countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{@game.away_last_game}%", "%#{@game.away_next_game}%", "%#{@game.home_next_game}%", "%#{@game.home_last_game}%").first
+			end
 		end
 	end
 

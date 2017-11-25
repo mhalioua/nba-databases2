@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lastroad: MyString
+  nextroad: MyString
+  nexthome: MyString
+  lasthome: MyString
+  road: 1.5
+  home: 1.5
+  diff: 1.5
+  count: 1
+  firstroad: 1.5
+  firsthome: 1.5
+  firstdiff: 1.5
+  secondroad: 1.5
+  secondhome: 1.5
+  seconddiff: 1.5
+
+two:
+  lastroad: MyString
+  nextroad: MyString
+  nexthome: MyString
+  lasthome: MyString
+  road: 1.5
+  home: 1.5
+  diff: 1.5
+  count: 1
+  firstroad: 1.5
+  firsthome: 1.5
+  firstdiff: 1.5
+  secondroad: 1.5
+  secondhome: 1.5
+  seconddiff: 1.5
