@@ -1,0 +1,2 @@
+class Fullseason < ApplicationRecord
+end

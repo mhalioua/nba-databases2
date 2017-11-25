@@ -961,10 +961,13 @@ namespace :nba do
 	end
 
 	task :atest => :environment do
-		home_team_info = Team.find_by(abbr: "OKC")
-	    away_team_info = Team.find_by(abbr: "CHA")
-	    puts home_team_info.inspect
-	    puts away_team_info.inspect
+		require 'csv'
+
+		items = []
+		CSV.foreach(Rails.root.join('fullseason2.csv'), headers: true) do |row|
+			items << Fullseason.new(row.to_h)
+		end
+		Fullseason.import(items)
 	end
 
 		@basket_abbr = [
