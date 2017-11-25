@@ -896,7 +896,7 @@ $('.homePossessions').on('input', function() {
                 <td><%= @thirdItem_result.full %></td>
                 <td><%= @thirdItem_result.count %></td>
             </tr>
-            <tr>
+            <tr class="gradient">
                 <td></td>
                 <td></td>
                 <td></td>
@@ -923,10 +923,10 @@ $('.homePossessions').on('input', function() {
                 <td class="filter">X</td>
                 <td class="filter">X</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><%= @forthItem_result.first %></td>
+                <td><%= @forthItem_result.second %></td>
+                <td><%= @forthItem_result.full %></td>
+                <td><%= @forthItem_result.count %></td>
                 <td colspan="2"><%= @game.away_team %></td>
                 <td colspan="2"><%= @game.home_team %></td>
             </tr>

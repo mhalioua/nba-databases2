@@ -298,6 +298,7 @@ class IndexController < ApplicationController
 			firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", awaymore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" )
 			secondItem = Fullseason.where(hometeam: @game.home_team)
 			thirdItem = Fullseason.where(week: @game.week)
+			forthItem = Fullseason.where("homenextfly = '#{@game.home_next_fly}' AND homelastfly = '#{@game.home_last_fly}'")
 			@firstItem_result = {
 				first: firstItem.average(:firstpoint).to_f.round(2),
 				second: firstItem.average(:secondpoint).to_f.round(2),
@@ -315,6 +316,12 @@ class IndexController < ApplicationController
 				second: thirdItem.average(:secondpoint).to_f.round(2),
 				full: thirdItem.average(:totalpoint).to_f.round(2),
 				count: thirdItem.count(:totalpoint).to_i
+			}
+			@forthItem_result = {
+				first: forthItem.average(:firstpoint).to_f.round(2),
+				second: forthItem.average(:secondpoint).to_f.round(2),
+				full: forthItem.average(:totalpoint).to_f.round(2),
+				count: forthItem.count(:totalpoint).to_i
 			}
 		end
 	end
