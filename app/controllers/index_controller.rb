@@ -220,7 +220,7 @@ class IndexController < ApplicationController
 
 			[true, true, true, true, false, false]
 		]
-		@break = [3, 7, 11, 13, 17, 21, 25, 26, 27]
+		@break = [3, 7, 11, 13, 17, 21, 25, 26, 27, 28]
 		@filterResult = []
 		@filters.each do |filter|
 			search_string = []
