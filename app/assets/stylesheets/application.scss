@@ -161,4 +161,10 @@ th, .green {
             background: mediumpurple;
        }
     }
+    td, th {
+        padding: 0;
+        text-align: center;
+        min-width: 20px;
+        font-size: 10px;
+    }
 }
