@@ -64,8 +64,8 @@
       <td><%= game.away_fta %></td>
       <td><%= game.away_orValue %></td>
       <td><%= game.away_toValue %></td>
-      <td class="darkred"><%= game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue %></td>
-      <td><%= game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue %></td>
+      <td class="darkred"><%= (game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue).round(2) %></td>
+      <td><%= (game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue).round(2) %></td>
       <td></td>
     </tr>
     <tr>
@@ -74,8 +74,8 @@
       <td><%= game.home_fta %></td>
       <td><%= game.home_orValue %></td>
       <td><%= game.home_toValue %></td>
-      <td class="darkred"><%= game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue %></td>
-      <td><%= game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue %></td>
+      <td class="darkred"><%= (game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue).round(2) %></td>
+      <td><%= (game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue).round(2) %></td>
       <td></td>
     </tr>
     <% end %>
