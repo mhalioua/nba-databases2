@@ -96,6 +96,11 @@ th, .green {
 
 .totalAverage {
     border: 2px solid black;
+    td, th {
+        padding: 0;
+        text-align: center;
+        min-width: 20px;
+    }
     .gameDate, .lineValue{
         font-size: 12px;
         font-weight: 800;
