@@ -40,8 +40,8 @@
         <th class="red">1H ORB</th>
         <th class="red">1H TO</th>
         <th class="darkred">1H poss's</th>
+        <th class="red">2H poss</th>
         <th class="red">FG poss</th>
-        <th class="red">time of poss</th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -69,12 +69,12 @@
       <% else %>
       <td class="darkred"></td>
       <% end %>
+      <td></td>
       <% if game.away_fga && game.away_toValue && game.away_fta && game.away_orValue %>
       <td><%= (game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue).round(2) %></td>
       <% else %>
       <td></td>
       <% end %>
-      <td></td>
     </tr>
     <tr>
       <td class="<%= index%2 == 1 ? 'darkred' : 'skyblue' %>" ><%= game.home_abbr %></td>
@@ -87,12 +87,12 @@
       <% else %>
       <td class="darkred"></td>
       <% end %>
+      <td></td>
       <% if game.home_fga && game.home_toValue && game.home_fta && game.home_orValue %>
       <td><%= (game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue).round(2) %></td>
       <% else %>
       <td></td>
       <% end %>
-      <td></td>
     </tr>
     <% end %>
   	</tbody>
