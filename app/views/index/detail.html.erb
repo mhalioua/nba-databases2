@@ -822,7 +822,7 @@ $('.homePossessions').on('input', function() {
                 <td></td>
                 <td><%= @countItem.road %></td>
                 <td><%= @countItem.home %></td>
-                <td><%= @countItem.home.to_f.round(2) + @countItem.to_f.road.round(2) %></td>
+                <td><%= @countItem.home.to_f.round(2) + @countItem.road.to_f.round(2) %></td>
                 <td><%= @countItem.diff %></td>
                 <td></td>
                 <td style="background: #fa0"><%= @countItem.count %></td>
