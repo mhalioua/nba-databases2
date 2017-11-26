@@ -18,6 +18,10 @@
 	  		<th colspan="6">TODAYS GAMES</th>
 	  		<th>Days rest</th>
         <th></th>
+        <th rowspan="2"></th>
+        <th colspan="5"></th>
+        <th></th>
+        <th></th>
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
@@ -31,22 +35,48 @@
 	  		<th class="red">Home Team</th>
 	  		<th class="red">Last Game</th>
         <th>FLY</th>
+        <th class="red">1H FGA</th>
+        <th class="red">1H FTA</th>
+        <th class="red">1H ORB</th>
+        <th class="red">1H TO</th>
+        <th class="darkred">1H poss's</th>
+        <th class="red">FG poss</th>
+        <th class="red">time of poss</th>
 	    </tr>
   	</thead>
   	<tbody>
-    <% @games.each do |game| %>
+    <% @games.each_with_index do |game, index| %>
     <tr>
-      <td class="green"><%= game.away_number %> / <%= game.home_number %></td>
-      <td class="grey"><%= DateTime.parse(game.game_date).strftime("%I:%M%p") %></td>
-      <td class="yellow"><%= game.away_last_game %></td>
-      <td><%= game.away_team %></td>
-      <td class="yellow"><%= game.away_next_game %></td>
-      <td class="red"><%= link_to '@', { action: 'detail', id: game.game_id }%></td>
-      <td class="yellow"><%= game.home_next_game %></td>
-      <td class="green"><%= game.home_next_fly %></td>
-      <td><%= game.home_team %></td>
-      <td class="yellow"><%= game.home_last_game %></td>
-      <td class="green"><%= game.home_last_fly %></td>
+      <td class="green" rowspan="2"><%= game.away_number %> / <%= game.home_number %></td>
+      <td class="grey" rowspan="2"><%= DateTime.parse(game.game_date).strftime("%I:%M%p") %></td>
+      <td class="yellow" rowspan="2"><%= game.away_last_game %></td>
+      <td rowspan="2"><%= game.away_team %></td>
+      <td class="yellow" rowspan="2"><%= game.away_next_game %></td>
+      <td class="red" rowspan="2"><%= link_to '@', { action: 'detail', id: game.game_id }%></td>
+      <td class="yellow" rowspan="2"><%= game.home_next_game %></td>
+      <td class="green" rowspan="2"><%= game.home_next_fly %></td>
+      <td rowspan="2"><%= game.home_team %></td>
+      <td class="yellow" rowspan="2"><%= game.home_last_game %></td>
+      <td class="green" rowspan="2"><%= game.home_last_fly %></td>
+
+      <td class="<%= index%2 == 0 ? 'darkred' : 'skyblue' %>" ><%= game.away_abbr %></td>
+      <td><%= game.away_fga %></td>
+      <td><%= game.away_fta %></td>
+      <td><%= game.away_orValue %></td>
+      <td><%= game.away_toValue %></td>
+      <td class="darkred"><%= game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue %></td>
+      <td><%= game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="<%= index%2 == 0 ? 'darkred' : 'skyblue' %>" ><%= game.home_abbr %></td>
+      <td><%= game.home_fga %></td>
+      <td><%= game.home_fta %></td>
+      <td><%= game.home_orValue %></td>
+      <td><%= game.home_toValue %></td>
+      <td class="darkred"><%= game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue %></td>
+      <td><%= game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue %></td>
+      <td></td>
     </tr>
     <% end %>
   	</tbody>
