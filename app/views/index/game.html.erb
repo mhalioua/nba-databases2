@@ -59,22 +59,22 @@
       <td class="yellow" rowspan="2"><%= game.home_last_game %></td>
       <td class="green" rowspan="2"><%= game.home_last_fly %></td>
 
-      <td class="<%= index%2 == 0 ? 'darkred' : 'skyblue' %>" ><%= game.away_abbr %></td>
-      <td><%= game.away_fga %></td>
-      <td><%= game.away_fta %></td>
-      <td><%= game.away_orValue %></td>
-      <td><%= game.away_toValue %></td>
-      <td class="darkred"><%= (game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue).round(2) %></td>
+      <td class="<%= index%2 == 1 ? 'darkred' : 'skyblue' %>" ><%= game.away_abbr %></td>
+      <td><%= game.first_away_fga %></td>
+      <td><%= game.first_away_fta %></td>
+      <td><%= game.first_away_orValue %></td>
+      <td><%= game.first_away_toValue %></td>
+      <td class="darkred"><%= (game.first_away_fga + game.first_away_toValue + (game.first_away_fta * 0.44) - game.first_away_orValue).round(2) %></td>
       <td><%= (game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue).round(2) %></td>
       <td></td>
     </tr>
     <tr>
-      <td class="<%= index%2 == 0 ? 'darkred' : 'skyblue' %>" ><%= game.home_abbr %></td>
-      <td><%= game.home_fga %></td>
-      <td><%= game.home_fta %></td>
-      <td><%= game.home_orValue %></td>
-      <td><%= game.home_toValue %></td>
-      <td class="darkred"><%= (game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue).round(2) %></td>
+      <td class="<%= index%2 == 1 ? 'darkred' : 'skyblue' %>" ><%= game.home_abbr %></td>
+      <td><%= game.first_home_fga %></td>
+      <td><%= game.first_home_fta %></td>
+      <td><%= game.first_home_orValue %></td>
+      <td><%= game.first_home_toValue %></td>
+      <td class="darkred"><%= (game.first_home_fga + game.first_home_toValue + (game.first_home_fta * 0.44) - game.first_home_orValue).round(2) %></td>
       <td><%= (game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue).round(2) %></td>
       <td></td>
     </tr>

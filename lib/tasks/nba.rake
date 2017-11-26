@@ -173,6 +173,46 @@ namespace :nba do
 	  	end
 	end
 
+	task :getHalf => [:environment] do
+		include Api
+		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
+		puts games.size
+		games.each do |game|
+			game_id = game.game_id
+			url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
+			doc = download_document(url)
+			puts url
+			game_status = doc.css(".game-time").first.text
+	  		if game_status.include?("1st") || game_status.include?("2nd") || game_status.include?("Half")
+		  		element = doc.css(".highlight")
+		  		if element.size > 3
+			  		away_value = element[0]
+			  		home_value = element[2]
+
+					away_fga_value = away_value.children[2].text
+					away_fga_index = away_fga_value.index('-')
+					away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
+					away_to_value = away_value.children[11].text.to_i
+					away_fta_value = away_value.children[4].text
+					away_fta_index = away_fta_value.index('-')
+					away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
+					away_or_value = away_value.children[5].text.to_i
+
+					home_fga_value = home_value.children[2].text
+					home_fga_index = home_fga_value.index('-')
+					home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
+					home_to_value = home_value.children[11].text.to_i
+					home_fta_value = home_value.children[4].text
+					home_fta_index = home_fta_value.index('-')
+					home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
+					home_or_value = home_value.children[5].text.to_i
+				end
+
+		  		game.update(first_away_fga: away_fga_value, first_away_fta: away_fta_value, first_away_toValue: away_to_value, first_away_orValue: away_or_value, first_home_fga: home_fga_value, first_home_fta: home_fta_value, first_home_toValue: home_to_value, first_home_orValue: home_or_value)
+	  		end
+	  	end
+	end
+
 	task :getScore => [:environment] do
 		include Api
 		puts "----------Get Score----------"
