@@ -106,3 +106,17 @@
       window.location.href = "/index/game/" + <%= @next %>;
     });
 </script>
+
+<div style="
+    position: absolute;
+    top: 10px;
+    left: 10px;
+">
+  <button class="btn btn-danger refreshbutton">Refresh</button>
+</div>
+  
+<script>
+ $('.refreshbutton').click(function(){
+    window.location.href = window.location.href;
+  });
+</script>
