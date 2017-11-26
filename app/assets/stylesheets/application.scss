@@ -148,6 +148,7 @@ th, .green {
 }
 
 .numbers {
+    border: 2px solid black;
     tr:nth-child(1) {
         background: gray;
     }
