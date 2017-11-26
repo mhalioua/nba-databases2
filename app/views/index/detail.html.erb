@@ -822,19 +822,19 @@ $('.homePossessions').on('input', function() {
                 <td></td>
                 <td><%= @countItem.road %></td>
                 <td><%= @countItem.home %></td>
-                <td><%= @countItem.home.to_f.round(2) + @countItem.road.to_f.round(2) %></td>
+                <td><%= (@countItem.home + @countItem.road).round(2) %></td>
                 <td><%= @countItem.diff %></td>
                 <td></td>
                 <td style="background: #fa0"><%= @countItem.count %></td>
                 <td></td>
                 <td><%= @countItem.firstroad %></td>
                 <td><%= @countItem.firsthome %></td>
-                <td><%= @countItem.firstroad.to_f.round(2) + @countItem.firsthome.to_f.round(2) %></td>
+                <td><%= (@countItem.firstroad + @countItem.firsthome).round(2) %></td>
                 <td><%= @countItem.firstdiff %></td>
                 <td></td>
                 <td><%= @countItem.secondroad %></td>
                 <td><%= @countItem.secondhome %></td>
-                <td><%= @countItem.secondroad.to_f.round(2) + @countItem.secondhome.to_f.round(2) %></td>
+                <td><%= (@countItem.secondroad + @countItem.secondhome).round(2) %></td>
                 <td><%= @countItem.seconddiff %></td>
             </tr>
             <tr style="background: #fa0">
