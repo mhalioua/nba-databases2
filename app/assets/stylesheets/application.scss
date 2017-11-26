@@ -94,13 +94,21 @@ th, .green {
     background-color: rgb(220, 220, 220);
 }
 
+.tableContainer {
+    width: 70%;
+    margin: 0 auto;
+}
+
 .totalAverage {
+    width: 100%;
     border: 2px solid black;
+
     td, th {
         padding: 0;
         text-align: center;
         min-width: 20px;
     }
+
     .gameDate, .lineValue{
         font-size: 12px;
         font-weight: 800;
@@ -153,6 +161,7 @@ th, .green {
 }
 
 .numbers {
+    width: 100%;
     border: 2px solid black;
     tr:nth-child(1) {
         background: gray;
@@ -171,6 +180,5 @@ th, .green {
         padding: 0;
         text-align: center;
         min-width: 20px;
-        font-size: 10px;
     }
 }
