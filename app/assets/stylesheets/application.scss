@@ -156,4 +156,9 @@ th, .green {
             background: black;
         }
     }
+    tr:nth-child(n+2) {
+        td:nth-child(8),td:nth-child(15),td:nth-child(20) {
+            background: mediumpurple;
+       }
+    }
 }
