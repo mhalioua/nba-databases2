@@ -815,27 +815,27 @@ $('.homePossessions').on('input', function() {
                 <td>+/-</td>
             </tr>
             <tr>
-                <td><%= @countItem.lastroad.to_f.round(2) %></td>
-                <td><%= @countItem.nextroad.to_f.round(2) %></td>
-                <td><%= @countItem.nexthome.to_f.round(2) %></td>
-                <td><%= @countItem.lasthome.to_f.round(2) %></td>
+                <td><%= @countItem.lastroad %></td>
+                <td><%= @countItem.nextroad %></td>
+                <td><%= @countItem.nexthome %></td>
+                <td><%= @countItem.lasthome %></td>
                 <td></td>
-                <td><%= @countItem.road.to_f.round(2) %></td>
-                <td><%= @countItem.home.to_f.round(2) %></td>
+                <td><%= @countItem.road %></td>
+                <td><%= @countItem.home %></td>
                 <td><%= @countItem.home.to_f.round(2) + @countItem.to_f.road.round(2) %></td>
-                <td><%= @countItem.diff.to_f.round(2) %></td>
+                <td><%= @countItem.diff %></td>
                 <td></td>
                 <td style="background: #fa0"><%= @countItem.count %></td>
                 <td></td>
-                <td><%= @countItem.firstroad.to_f.round(2) %></td>
-                <td><%= @countItem.firsthome.to_f.round(2) %></td>
+                <td><%= @countItem.firstroad %></td>
+                <td><%= @countItem.firsthome %></td>
                 <td><%= @countItem.firstroad.to_f.round(2) + @countItem.firsthome.to_f.round(2) %></td>
-                <td><%= @countItem.firstdiff.to_f.round(2) %></td>
+                <td><%= @countItem.firstdiff %></td>
                 <td></td>
-                <td><%= @countItem.secondroad.to_f.round(2) %></td>
-                <td><%= @countItem.secondhome.to_f.round(2) %></td>
+                <td><%= @countItem.secondroad %></td>
+                <td><%= @countItem.secondhome %></td>
                 <td><%= @countItem.secondroad.to_f.round(2) + @countItem.secondhome.to_f.round(2) %></td>
-                <td><%= @countItem.seconddiff.to_f.round(2) %></td>
+                <td><%= @countItem.seconddiff %></td>
             </tr>
             <tr style="background: #fa0">
                 <td>ALL</td>
