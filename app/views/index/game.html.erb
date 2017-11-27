@@ -69,7 +69,11 @@
       <% else %>
       <td class="darkred"></td>
       <% end %>
+      <% if game.first_away_fga && game.first_away_toValue && game.first_away_fta && game.first_away_orValue && game.away_fga && game.away_toValue && game.away_fta && game.away_orValue %>
+      <td><%= (game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue - game.first_away_fga - game.first_away_toValue - (game.first_away_fta * 0.44) + game.first_away_orValue).round(2) %></td>
+      <% else %>
       <td></td>
+      <% end %>
       <% if game.away_fga && game.away_toValue && game.away_fta && game.away_orValue %>
       <td><%= (game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue).round(2) %></td>
       <% else %>
