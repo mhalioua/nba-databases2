@@ -91,7 +91,11 @@
       <% else %>
       <td class="darkred"></td>
       <% end %>
+      <% if game.first_home_fga && game.first_home_toValue && game.first_home_fta && game.first_home_orValue && game.home_fga && game.home_toValue && game.home_fta && game.home_orValue %>
+      <td><%= (game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue - game.first_home_fga - game.first_home_toValue - (game.first_home_fta * 0.44) + game.first_home_orValue).round(2) %></td>
+      <% else %>
       <td></td>
+      <% end %>
       <% if game.home_fga && game.home_toValue && game.home_fta && game.home_orValue %>
       <td><%= (game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue).round(2) %></td>
       <% else %>
