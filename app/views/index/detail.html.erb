@@ -1208,9 +1208,17 @@ $('.homePossessions').on('input', function() {
                 <td>2ND HALF STATS</td>
                 <td></td>
                 <td class="gameDate"><%= @game.away_abbr %></td>
-                <td class="gameDate"><%= @game.away_first_quarter + @game.away_second_quarter %></td>
+                <td class="gameDate">
+                  <% if @game.away_first_quarter && @game.away_second_quarter %>
+                    <%= @game.away_first_quarter + @game.away_second_quarter %>
+                  <% end %>
+                </td>
                 <td class="gameDate"><%= @game.home_abbr %></td>
-                <td class="gameDate"><%= @game.home_first_quarter + @game.home_second_quarter %></td>
+                <td class="gameDate">
+                  <% if @game.home_first_quarter && @game.home_second_quarter %>
+                    <%= @game.home_first_quarter + @game.home_second_quarter %>
+                  <% end %>
+                </td>
                 <td></td>
                 <td></td>
                 <td></td>
