@@ -258,100 +258,100 @@ class IndexController < ApplicationController
 			@home_team_info = Team.find_by(abbr: @home_abbr)
 	    	@away_team_info = Team.find_by(abbr: @away_abbr)
 			@filterResult.push(result_element)
-			@team_more = {
-				'Atlanta' => 'EAST',
-				'Boston' => 'EAST',
-				'Brooklyn' => 'EAST',
-				'Charlotte' => 'EAST',
-				'Chicago' => 'MID-WEST',
-				'Cleveland' => 'EAST',
-				'Dallas' => 'TEXANS',
-				'Denver' => 'ROCKIES',
-				'Detroit' => 'EAST',
-				'Golden State' => 'WEST COAST',
-				'Houston' => 'TEXANS',
-				'Indiana' => 'EAST',
-				'LAC' => 'WEST COAST',
-				'LAL' => 'WEST COAST',
-				'Memphis' => 'NULL',
-				'Miami' => 'EAST',
-				'Milwaukee' => 'MID-WEST',
-				'Minnesota' => 'MID-WEST',
-				'New Jersey' => 'EAST',
-				'New Orleans' => 'NULL',
-				'New York' => 'EAST',
-				'NO/Oklahoma City' => 'NULL',
-				'Oklahoma City' => 'NULL',
-				'Orlando' => 'EAST',
-				'Philadelphia' => 'EAST',
-				'Phoenix' => 'NULL',
-				'Portland' => 'WEST COAST',
-				'Sacramento' => 'WEST COAST',
-				'San Antonio' => 'TEXANS',
-				'Seattle' => 'NULL',
-				'Toronto' => 'EAST',
-				'Utah' => 'ROCKIES',
-				'Vancouver' => 'NULL',
-				'Washington' => 'EAST'
-			}
-
-			firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" )
-			secondItem = Fullseason.where(hometeam: @game.home_team)
-			thirdItem = Fullseason.where(week: @game.week)
-			forthItem = Fullseason.where("homenextfly = '#{@game.home_next_fly}' AND homelastfly = '#{@game.home_last_fly}'")
-			@firstItem_result = {
-				first: firstItem.average(:firstpoint).to_f.round(2),
-				second: firstItem.average(:secondpoint).to_f.round(2),
-				full: firstItem.average(:totalpoint).to_f.round(2),
-				count: firstItem.count(:totalpoint).to_i
-			}
-			@secondItem_result = {
-				first: secondItem.average(:firstpoint).to_f.round(2),
-				second: secondItem.average(:secondpoint).to_f.round(2),
-				full: secondItem.average(:totalpoint).to_f.round(2),
-				count: secondItem.count(:totalpoint).to_i
-			}
-			@thirdItem_result = {
-				first: thirdItem.average(:firstpoint).to_f.round(2),
-				second: thirdItem.average(:secondpoint).to_f.round(2),
-				full: thirdItem.average(:totalpoint).to_f.round(2),
-				count: thirdItem.count(:totalpoint).to_i
-			}
-			@forthItem_result = {
-				first: forthItem.average(:firstpoint).to_f.round(2),
-				second: forthItem.average(:secondpoint).to_f.round(2),
-				full: forthItem.average(:totalpoint).to_f.round(2),
-				count: forthItem.count(:totalpoint).to_i
-			}
-			if @game.home_first_quarter && @game.home_second_quarter && @game.away_first_quarter && @game.away_second_quarter
-				@diff = @game.home_first_quarter + @game.home_second_quarter - @game.away_first_quarter - @game.away_second_quarter
-			else
-				@diff = 0
-			end
-			lastfirstItem = Fullseason.where(homediff: @diff-5..@diff+5)
-			lastsecondItem = Fullseason.where("homefirsthalf > 60")
-			lastthirdItem = Fullseason.where("roadfirsthalf > 60")
-			@lastfirstItem_result = {
-				first: lastfirstItem.average(:firstpoint).to_f.round(2),
-				second: lastfirstItem.average(:secondpoint).to_f.round(2),
-				full: lastfirstItem.average(:totalpoint).to_f.round(2),
-				count: lastfirstItem.count(:totalpoint).to_i
-			}
-			@lastsecondItem_result = {
-				first: lastsecondItem.average(:firstpoint).to_f.round(2),
-				second: lastsecondItem.average(:secondpoint).to_f.round(2),
-				full: lastsecondItem.average(:totalpoint).to_f.round(2),
-				count: lastsecondItem.count(:totalpoint).to_i
-			}
-			@lastthirdItem_result = {
-				first: lastthirdItem.average(:firstpoint).to_f.round(2),
-				second: lastthirdItem.average(:secondpoint).to_f.round(2),
-				full: lastthirdItem.average(:totalpoint).to_f.round(2),
-				count: lastthirdItem.count(:totalpoint).to_i
-			}
-
-			@countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{@game.away_last_game}%", "%#{@game.away_next_game}%", "%#{@game.home_next_game}%", "%#{@game.home_last_game}%").first
 		end
+		@team_more = {
+			'Atlanta' => 'EAST',
+			'Boston' => 'EAST',
+			'Brooklyn' => 'EAST',
+			'Charlotte' => 'EAST',
+			'Chicago' => 'MID-WEST',
+			'Cleveland' => 'EAST',
+			'Dallas' => 'TEXANS',
+			'Denver' => 'ROCKIES',
+			'Detroit' => 'EAST',
+			'Golden State' => 'WEST COAST',
+			'Houston' => 'TEXANS',
+			'Indiana' => 'EAST',
+			'LAC' => 'WEST COAST',
+			'LAL' => 'WEST COAST',
+			'Memphis' => 'NULL',
+			'Miami' => 'EAST',
+			'Milwaukee' => 'MID-WEST',
+			'Minnesota' => 'MID-WEST',
+			'New Jersey' => 'EAST',
+			'New Orleans' => 'NULL',
+			'New York' => 'EAST',
+			'NO/Oklahoma City' => 'NULL',
+			'Oklahoma City' => 'NULL',
+			'Orlando' => 'EAST',
+			'Philadelphia' => 'EAST',
+			'Phoenix' => 'NULL',
+			'Portland' => 'WEST COAST',
+			'Sacramento' => 'WEST COAST',
+			'San Antonio' => 'TEXANS',
+			'Seattle' => 'NULL',
+			'Toronto' => 'EAST',
+			'Utah' => 'ROCKIES',
+			'Vancouver' => 'NULL',
+			'Washington' => 'EAST'
+		}
+
+		firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" )
+		secondItem = Fullseason.where(hometeam: @game.home_team)
+		thirdItem = Fullseason.where(week: @game.week)
+		forthItem = Fullseason.where("homenextfly = '#{@game.home_next_fly}' AND homelastfly = '#{@game.home_last_fly}'")
+		@firstItem_result = {
+			first: firstItem.average(:firstpoint).to_f.round(2),
+			second: firstItem.average(:secondpoint).to_f.round(2),
+			full: firstItem.average(:totalpoint).to_f.round(2),
+			count: firstItem.count(:totalpoint).to_i
+		}
+		@secondItem_result = {
+			first: secondItem.average(:firstpoint).to_f.round(2),
+			second: secondItem.average(:secondpoint).to_f.round(2),
+			full: secondItem.average(:totalpoint).to_f.round(2),
+			count: secondItem.count(:totalpoint).to_i
+		}
+		@thirdItem_result = {
+			first: thirdItem.average(:firstpoint).to_f.round(2),
+			second: thirdItem.average(:secondpoint).to_f.round(2),
+			full: thirdItem.average(:totalpoint).to_f.round(2),
+			count: thirdItem.count(:totalpoint).to_i
+		}
+		@forthItem_result = {
+			first: forthItem.average(:firstpoint).to_f.round(2),
+			second: forthItem.average(:secondpoint).to_f.round(2),
+			full: forthItem.average(:totalpoint).to_f.round(2),
+			count: forthItem.count(:totalpoint).to_i
+		}
+		if @game.home_first_quarter && @game.home_second_quarter && @game.away_first_quarter && @game.away_second_quarter
+			@diff = @game.home_first_quarter + @game.home_second_quarter - @game.away_first_quarter - @game.away_second_quarter
+		else
+			@diff = 0
+		end
+		lastfirstItem = Fullseason.where(homediff: @diff-5..@diff+5)
+		lastsecondItem = Fullseason.where("homefirsthalf > 60")
+		lastthirdItem = Fullseason.where("roadfirsthalf > 60")
+		@lastfirstItem_result = {
+			first: lastfirstItem.average(:firstpoint).to_f.round(2),
+			second: lastfirstItem.average(:secondpoint).to_f.round(2),
+			full: lastfirstItem.average(:totalpoint).to_f.round(2),
+			count: lastfirstItem.count(:totalpoint).to_i
+		}
+		@lastsecondItem_result = {
+			first: lastsecondItem.average(:firstpoint).to_f.round(2),
+			second: lastsecondItem.average(:secondpoint).to_f.round(2),
+			full: lastsecondItem.average(:totalpoint).to_f.round(2),
+			count: lastsecondItem.count(:totalpoint).to_i
+		}
+		@lastthirdItem_result = {
+			first: lastthirdItem.average(:firstpoint).to_f.round(2),
+			second: lastthirdItem.average(:secondpoint).to_f.round(2),
+			full: lastthirdItem.average(:totalpoint).to_f.round(2),
+			count: lastthirdItem.count(:totalpoint).to_i
+		}
+
+		@countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{@game.away_last_game}%", "%#{@game.away_next_game}%", "%#{@game.home_next_game}%", "%#{@game.home_last_game}%").first
 	end
 
 	def history
