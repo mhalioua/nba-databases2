@@ -17,9 +17,16 @@
 </ul>
 <div class="tableBody">
   <div style="display:inline-block;">
-    <h5> REBOUNDS </h5>
+    <h5>REBOUNDS  OFFENSIVE REBOUNDS</h5>
     <table border="1">
       <thead>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
         <th>TEAM</th>
         <th>2017</th>
         <th>LAST 3</th>
@@ -37,33 +44,6 @@
           <td> <%= @home_team_info.possessions_home %> </td>
           <td> <%= @home_team_info.possessions_away %> </td>
           <td> <%= @home_team_info.possessions_last %> </td>
-        </tr>
-        <tr>
-          <td> <%= @away_team_info.team %> </td>
-          <td> <%= @away_team_info.possessions_current %> </td>
-          <td> <%= @away_team_info.possessions_last_three %> </td>
-          <td> <%= @away_team_info.possessions_last_one %> </td>
-          <td> <%= @away_team_info.possessions_home %> </td>
-          <td> <%= @away_team_info.possessions_away %> </td>
-          <td> <%= @away_team_info.possessions_last %> </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="display:inline-block;">
-    <h5> OFFENSIVE REBOUNDS </h5>
-    <table border="1">
-      <thead>
-        <th>TEAM</th>
-        <th>2017</th>
-        <th>LAST 3</th>
-        <th>LAST 1</th>
-        <th>HOME</th>
-        <th>AWAY</th>
-        <th>2016</th>
-      </thead>
-      <tbody>
-        <tr>
           <td> <%= @home_team_info.team %> </td>
           <td> <%= @home_team_info.rebound_current %> </td>
           <td> <%= @home_team_info.rebound_last_three %> </td>
@@ -73,6 +53,13 @@
           <td> <%= @home_team_info.rebound_last %> </td>
         </tr>
         <tr>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.possessions_current %> </td>
+          <td> <%= @away_team_info.possessions_last_three %> </td>
+          <td> <%= @away_team_info.possessions_last_one %> </td>
+          <td> <%= @away_team_info.possessions_home %> </td>
+          <td> <%= @away_team_info.possessions_away %> </td>
+          <td> <%= @away_team_info.possessions_last %> </td>
           <td> <%= @away_team_info.team %> </td>
           <td> <%= @away_team_info.rebound_current %> </td>
           <td> <%= @away_team_info.rebound_last_three %> </td>
@@ -87,9 +74,16 @@
 </div>
 <div class="tableBody">
   <div style="display:inline-block">
-    <h5> STEALS </h5>
+    <h5>STEALS  BLOCKS</h5>
     <table border="1">
       <thead>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
         <th>TEAM</th>
         <th>2017</th>
         <th>LAST 3</th>
@@ -107,33 +101,6 @@
           <td> <%= @home_team_info.steal_home %> </td>
           <td> <%= @home_team_info.steal_away %> </td>
           <td> <%= @home_team_info.steal_last %> </td>
-        </tr>
-        <tr>
-          <td> <%= @away_team_info.team %> </td>
-          <td> <%= @away_team_info.steal_current %> </td>
-          <td> <%= @away_team_info.steal_last_three %> </td>
-          <td> <%= @away_team_info.steal_last_one %> </td>
-          <td> <%= @away_team_info.steal_home %> </td>
-          <td> <%= @away_team_info.steal_away %> </td>
-          <td> <%= @away_team_info.steal_last %> </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="display:inline-block">
-    <h5> BLOCKS </h5>
-    <table border="1">
-      <thead>
-        <th>TEAM</th>
-        <th>2017</th>
-        <th>LAST 3</th>
-        <th>LAST 1</th>
-        <th>HOME</th>
-        <th>AWAY</th>
-        <th>2016</th>
-      </thead>
-      <tbody>
-        <tr>
           <td> <%= @home_team_info.team %> </td>
           <td> <%= @home_team_info.block_current %> </td>
           <td> <%= @home_team_info.block_last_three %> </td>
@@ -143,6 +110,13 @@
           <td> <%= @home_team_info.block_last %> </td>
         </tr>
         <tr>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.steal_current %> </td>
+          <td> <%= @away_team_info.steal_last_three %> </td>
+          <td> <%= @away_team_info.steal_last_one %> </td>
+          <td> <%= @away_team_info.steal_home %> </td>
+          <td> <%= @away_team_info.steal_away %> </td>
+          <td> <%= @away_team_info.steal_last %> </td>
           <td> <%= @away_team_info.team %> </td>
           <td> <%= @away_team_info.block_current %> </td>
           <td> <%= @away_team_info.block_last_three %> </td>
@@ -157,7 +131,7 @@
 </div>
 <div class="tableBody">
   <div style="display:inline-block">
-    <h5> TURNOVERS </h5>
+    <h5> TURNOVERS  RECORD</h5>
     <table border="1">
       <thead>
         <th>TEAM</th>
@@ -167,33 +141,6 @@
         <th>HOME</th>
         <th>AWAY</th>
         <th>2016</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td> <%= @home_team_info.team %> </td>
-          <td> <%= @home_team_info.turnover_current %> </td>
-          <td> <%= @home_team_info.turnover_last_three %> </td>
-          <td> <%= @home_team_info.turnover_last_one %> </td>
-          <td> <%= @home_team_info.turnover_home %> </td>
-          <td> <%= @home_team_info.turnover_away %> </td>
-          <td> <%= @home_team_info.turnover_last %> </td>
-        </tr>
-        <tr>
-          <td> <%= @away_team_info.team %> </td>
-          <td> <%= @away_team_info.turnover_current %> </td>
-          <td> <%= @away_team_info.turnover_last_three %> </td>
-          <td> <%= @away_team_info.turnover_last_one %> </td>
-          <td> <%= @away_team_info.turnover_home %> </td>
-          <td> <%= @away_team_info.turnover_away %> </td>
-          <td> <%= @away_team_info.turnover_last %> </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="display:inline-block">
-    <h5> RECORD </h5>
-    <table border="1">
-      <thead>
         <th>TEAM</th>
         <th>WON</th>
         <th>LAST</th>
@@ -204,6 +151,13 @@
       <tbody>
         <tr>
           <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.turnover_current %> </td>
+          <td> <%= @home_team_info.turnover_last_three %> </td>
+          <td> <%= @home_team_info.turnover_last_one %> </td>
+          <td> <%= @home_team_info.turnover_home %> </td>
+          <td> <%= @home_team_info.turnover_away %> </td>
+          <td> <%= @home_team_info.turnover_last %> </td>
+          <td> <%= @home_team_info.team %> </td>
           <td> <%= @home_team_info.record_won %> </td>
           <td> <%= @home_team_info.record_lost %> </td>
           <td> <%= @home_team_info.record_ppg %> </td>
@@ -211,6 +165,13 @@
           <td> <%= @home_team_info.record_diff %> </td>
         </tr>
         <tr>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.turnover_current %> </td>
+          <td> <%= @away_team_info.turnover_last_three %> </td>
+          <td> <%= @away_team_info.turnover_last_one %> </td>
+          <td> <%= @away_team_info.turnover_home %> </td>
+          <td> <%= @away_team_info.turnover_away %> </td>
+          <td> <%= @away_team_info.turnover_last %> </td>
           <td> <%= @away_team_info.team %> </td>
           <td> <%= @away_team_info.record_won %> </td>
           <td> <%= @away_team_info.record_lost %> </td>
@@ -224,9 +185,16 @@
 </div>
 <div class="tableBody">
   <div style="display:inline-block">
-    <h5> OPPONENTS 1H points per game </h5>
+    <h5> OPPONENTS 1H points per game  OPPONENTS 2H points per game</h5>
     <table border="1">
       <thead>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
         <th>TEAM</th>
         <th>2017</th>
         <th>LAST 3</th>
@@ -244,33 +212,6 @@
           <td> <%= @home_team_info.opponentfirst_home %> </td>
           <td> <%= @home_team_info.opponentfirst_away %> </td>
           <td> <%= @home_team_info.opponentfirst_last %> </td>
-        </tr>
-        <tr>
-          <td> <%= @away_team_info.team %> </td>
-          <td> <%= @away_team_info.opponentfirst_current %> </td>
-          <td> <%= @away_team_info.opponentfirst_last_three %> </td>
-          <td> <%= @away_team_info.opponentfirst_last_one %> </td>
-          <td> <%= @away_team_info.opponentfirst_home %> </td>
-          <td> <%= @away_team_info.opponentfirst_away %> </td>
-          <td> <%= @away_team_info.opponentfirst_last %> </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="display:inline-block">
-    <h5> OPPONENTS 2H points per game </h5>
-    <table border="1">
-      <thead>
-        <th>TEAM</th>
-        <th>2017</th>
-        <th>LAST 3</th>
-        <th>LAST 1</th>
-        <th>HOME</th>
-        <th>AWAY</th>
-        <th>2016</th>
-      </thead>
-      <tbody>
-        <tr>
           <td> <%= @home_team_info.team %> </td>
           <td> <%= @home_team_info.opponentsecond_current %> </td>
           <td> <%= @home_team_info.opponentsecond_last_three %> </td>
@@ -280,6 +221,13 @@
           <td> <%= @home_team_info.opponentsecond_last %> </td>
         </tr>
         <tr>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.opponentfirst_current %> </td>
+          <td> <%= @away_team_info.opponentfirst_last_three %> </td>
+          <td> <%= @away_team_info.opponentfirst_last_one %> </td>
+          <td> <%= @away_team_info.opponentfirst_home %> </td>
+          <td> <%= @away_team_info.opponentfirst_away %> </td>
+          <td> <%= @away_team_info.opponentfirst_last %> </td>
           <td> <%= @away_team_info.team %> </td>
           <td> <%= @away_team_info.opponentsecond_current %> </td>
           <td> <%= @away_team_info.opponentsecond_last_three %> </td>
@@ -294,9 +242,16 @@
 </div>
 <div class="tableBody">
   <div style="display:inline-block">
-    <h5> 1ST HALF POINTS </h5>
+    <h5> 1ST HALF POINTS 2ND HALF POINTS</h5>
     <table border="1">
       <thead>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
         <th>TEAM</th>
         <th>2017</th>
         <th>LAST 3</th>
@@ -314,33 +269,6 @@
           <td> <%= @home_team_info.first_home %> </td>
           <td> <%= @home_team_info.first_away %> </td>
           <td> <%= @home_team_info.first_last %> </td>
-        </tr>
-        <tr>
-          <td> <%= @away_team_info.team %> </td>
-          <td> <%= @away_team_info.first_current %> </td>
-          <td> <%= @away_team_info.first_last_three %> </td>
-          <td> <%= @away_team_info.first_last_one %> </td>
-          <td> <%= @away_team_info.first_home %> </td>
-          <td> <%= @away_team_info.first_away %> </td>
-          <td> <%= @away_team_info.first_last %> </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="display:inline-block">
-    <h5> 2ND HALF POINTS </h5>
-    <table border="1">
-      <thead>
-        <th>TEAM</th>
-        <th>2017</th>
-        <th>LAST 3</th>
-        <th>LAST 1</th>
-        <th>HOME</th>
-        <th>AWAY</th>
-        <th>2016</th>
-      </thead>
-      <tbody>
-        <tr>
           <td> <%= @home_team_info.team %> </td>
           <td> <%= @home_team_info.second_current %> </td>
           <td> <%= @home_team_info.second_last_three %> </td>
@@ -350,6 +278,13 @@
           <td> <%= @home_team_info.second_last %> </td>
         </tr>
         <tr>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.first_current %> </td>
+          <td> <%= @away_team_info.first_last_three %> </td>
+          <td> <%= @away_team_info.first_last_one %> </td>
+          <td> <%= @away_team_info.first_home %> </td>
+          <td> <%= @away_team_info.first_away %> </td>
+          <td> <%= @away_team_info.first_last %> </td>
           <td> <%= @away_team_info.team %> </td>
           <td> <%= @away_team_info.second_current %> </td>
           <td> <%= @away_team_info.second_last_three %> </td>
