@@ -62,13 +62,13 @@ namespace :nba do
 	task :fix => :environment do
               include Api
                index = {
-                       team: 1,
-                       current: 2,
-                       last_three: 3,
-                       last_one: 4,
-                       home: 5,
-                       away: 6,
-                       last: 7
+                       team: 3,
+                       current: 5,
+                       last_three: 7,
+                       last_one: 9,
+                       home: 11,
+                       away: 13,
+                       last: 15
                }
 
                url = "https://www.teamrankings.com/nba/stat/steals-per-game"
