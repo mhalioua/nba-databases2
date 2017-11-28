@@ -73,7 +73,7 @@ namespace :nba do
 
                url = "https://www.teamrankings.com/nba/stat/steals-per-game"
                doc = download_document(url)
-               elements = doc.css(".dataTables_wrapper tbody tr")
+               elements = doc.css(".datatable tbody tr")
 
                elements.each do |slice|
                        team            =       slice.children[index[:team]].text
@@ -92,7 +92,7 @@ namespace :nba do
 
                url = "https://www.teamrankings.com/nba/stat/blocks-per-game"
                doc = download_document(url)
-               elements = doc.css(".dataTables_wrapper tbody tr")
+               elements = doc.css(".datatable tbody tr")
 
                elements.each do |slice|
                        team            =       slice.children[index[:team]].text
@@ -111,7 +111,7 @@ namespace :nba do
 
 	           url = "https://www.teamrankings.com/nba/stat/turnovers-per-game"
                doc = download_document(url)
-               elements = doc.css(".dataTables_wrapper tbody tr")
+               elements = doc.css(".datatable tbody tr")
 
                elements.each do |slice|
                        team            =       slice.children[index[:team]].text
@@ -130,7 +130,7 @@ namespace :nba do
 
 	           url = "https://www.teamrankings.com/nba/stat/opponent-1st-half-points-per-game"
                doc = download_document(url)
-               elements = doc.css(".dataTables_wrapper tbody tr")
+               elements = doc.css(".datatable tbody tr")
 
                elements.each do |slice|
                        team            =       slice.children[index[:team]].text
@@ -149,7 +149,7 @@ namespace :nba do
 
 	           url = "https://www.teamrankings.com/nba/stat/opponent-2nd-half-points-per-game"
                doc = download_document(url)
-               elements = doc.css(".dataTables_wrapper tbody tr")
+               elements = doc.css(".datatable tbody tr")
 
                elements.each do |slice|
                        team            =       slice.children[index[:team]].text
@@ -168,7 +168,7 @@ namespace :nba do
 
 	            url = "https://www.teamrankings.com/nba/stat/1st-half-points-per-game"
                doc = download_document(url)
-               elements = doc.css(".dataTables_wrapper tbody tr")
+               elements = doc.css(".datatable tbody tr")
 
                elements.each do |slice|
                        team            =       slice.children[index[:team]].text
@@ -187,7 +187,7 @@ namespace :nba do
 
 	            url = "https://www.teamrankings.com/nba/stat/2nd-half-points-per-game"
                doc = download_document(url)
-               elements = doc.css(".dataTables_wrapper tbody tr")
+               elements = doc.css(".datatable tbody tr")
 
                elements.each do |slice|
                        team            =       slice.children[index[:team]].text
