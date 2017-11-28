@@ -60,18 +60,149 @@ namespace :nba do
 	end
 
 	task :fix => :environment do
+              include Api
+               index = {
+                       team: 1,
+                       current: 2,
+                       last_three: 3,
+                       last_one: 4,
+                       home: 5,
+                       away: 6,
+                       last: 7
+               }
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
-		Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
-		Rake::Task["nba:getSecondLines"].reenable
+               url = "https://www.teamrankings.com/nba/stat/steals-per-game"
+               doc = download_document(url)
+               elements = doc.css(".dataTables_wrapper tbody tr")
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
-		Rake::Task["nba:getSecondLines"].invoke("secondTotal", link)
-		Rake::Task["nba:getSecondLines"].reenable
+               elements.each do |slice|
+                       team            =       slice.children[index[:team]].text
+                       current         =       slice.children[index[:current]].text.to_f
+                       last_three      =       slice.children[index[:last_three]].text.to_f
+                       last_one        =       slice.children[index[:last_one]].text.to_f
+                       home            =       slice.children[index[:home]].text.to_f
+                       away            =       slice.children[index[:away]].text.to_f
+                       last            =       slice.children[index[:last]].text.to_f
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
-		Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
-		Rake::Task["nba:getSecondLines"].reenable
+                       unless element = Team.find_by(team: team)
+		                       element = Team.create(team: team)
+		               end
+           			element.update(steal_current: current, steal_last_three: last_three, steal_last_one: last_one, steal_home: home, steal_away: away, steal_last: last)
+               end
+
+               url = "https://www.teamrankings.com/nba/stat/blocks-per-game"
+               doc = download_document(url)
+               elements = doc.css(".dataTables_wrapper tbody tr")
+
+               elements.each do |slice|
+                       team            =       slice.children[index[:team]].text
+                       current         =       slice.children[index[:current]].text.to_f
+                       last_three      =       slice.children[index[:last_three]].text.to_f
+                       last_one        =       slice.children[index[:last_one]].text.to_f
+                       home            =       slice.children[index[:home]].text.to_f
+                       away            =       slice.children[index[:away]].text.to_f
+                       last            =       slice.children[index[:last]].text.to_f
+
+                       unless element = Team.find_by(team: team)
+		                       element = Team.create(team: team)
+		               end
+	               element.update(block_current: current, block_last_three: last_three, block_last_one: last_one, block_home: home, block_away: away, block_last: last)
+	            end
+
+	           url = "https://www.teamrankings.com/nba/stat/turnovers-per-game"
+               doc = download_document(url)
+               elements = doc.css(".dataTables_wrapper tbody tr")
+
+               elements.each do |slice|
+                       team            =       slice.children[index[:team]].text
+                       current         =       slice.children[index[:current]].text.to_f
+                       last_three      =       slice.children[index[:last_three]].text.to_f
+                       last_one        =       slice.children[index[:last_one]].text.to_f
+                       home            =       slice.children[index[:home]].text.to_f
+                       away            =       slice.children[index[:away]].text.to_f
+                       last            =       slice.children[index[:last]].text.to_f
+
+                       unless element = Team.find_by(team: team)
+		                       element = Team.create(team: team)
+		               end
+	               element.update(turnover_current: current, turnover_last_three: last_three, turnover_last_one: last_one, turnover_home: home, turnover_away: away, turnover_last: last)
+	            end
+
+	           url = "https://www.teamrankings.com/nba/stat/opponent-1st-half-points-per-game"
+               doc = download_document(url)
+               elements = doc.css(".dataTables_wrapper tbody tr")
+
+               elements.each do |slice|
+                       team            =       slice.children[index[:team]].text
+                       current         =       slice.children[index[:current]].text.to_f
+                       last_three      =       slice.children[index[:last_three]].text.to_f
+                       last_one        =       slice.children[index[:last_one]].text.to_f
+                       home            =       slice.children[index[:home]].text.to_f
+                       away            =       slice.children[index[:away]].text.to_f
+                       last            =       slice.children[index[:last]].text.to_f
+
+                       unless element = Team.find_by(team: team)
+		                       element = Team.create(team: team)
+		               end
+	               element.update(opponentfirst_current: current, opponentfirst_last_three: last_three, opponentfirst_last_one: last_one, opponentfirst_home: home, opponentfirst_away: away, opponentfirst_last: last)
+	            end
+
+	           url = "https://www.teamrankings.com/nba/stat/opponent-2nd-half-points-per-game"
+               doc = download_document(url)
+               elements = doc.css(".dataTables_wrapper tbody tr")
+
+               elements.each do |slice|
+                       team            =       slice.children[index[:team]].text
+                       current         =       slice.children[index[:current]].text.to_f
+                       last_three      =       slice.children[index[:last_three]].text.to_f
+                       last_one        =       slice.children[index[:last_one]].text.to_f
+                       home            =       slice.children[index[:home]].text.to_f
+                       away            =       slice.children[index[:away]].text.to_f
+                       last            =       slice.children[index[:last]].text.to_f
+
+                       unless element = Team.find_by(team: team)
+		                       element = Team.create(team: team)
+		               end
+	               element.update(opponentsecond_current: current, opponentsecond_last_three: last_three, opponentsecond_last_one: last_one, opponentsecond_home: home, opponentsecond_away: away, opponentsecond_last: last)
+	            end
+
+	            url = "https://www.teamrankings.com/nba/stat/1st-half-points-per-game"
+               doc = download_document(url)
+               elements = doc.css(".dataTables_wrapper tbody tr")
+
+               elements.each do |slice|
+                       team            =       slice.children[index[:team]].text
+                       current         =       slice.children[index[:current]].text.to_f
+                       last_three      =       slice.children[index[:last_three]].text.to_f
+                       last_one        =       slice.children[index[:last_one]].text.to_f
+                       home            =       slice.children[index[:home]].text.to_f
+                       away            =       slice.children[index[:away]].text.to_f
+                       last            =       slice.children[index[:last]].text.to_f
+
+                       unless element = Team.find_by(team: team)
+		                       element = Team.create(team: team)
+		               end
+	               element.update(first_current: current, first_last_three: last_three, first_last_one: last_one, first_home: home, first_away: away, first_last: last)
+	            end
+
+	            url = "https://www.teamrankings.com/nba/stat/2nd-half-points-per-game"
+               doc = download_document(url)
+               elements = doc.css(".dataTables_wrapper tbody tr")
+
+               elements.each do |slice|
+                       team            =       slice.children[index[:team]].text
+                       current         =       slice.children[index[:current]].text.to_f
+                       last_three      =       slice.children[index[:last_three]].text.to_f
+                       last_one        =       slice.children[index[:last_one]].text.to_f
+                       home            =       slice.children[index[:home]].text.to_f
+                       away            =       slice.children[index[:away]].text.to_f
+                       last            =       slice.children[index[:last]].text.to_f
+
+                       unless element = Team.find_by(team: team)
+		                       element = Team.create(team: team)
+		               end
+	               element.update(second_current: current, second_last_three: last_three, second_last_one: last_one, second_home: home, second_away: away, second_last: last)
+	            end
 	end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
