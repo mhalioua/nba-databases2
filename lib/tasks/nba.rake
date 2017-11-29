@@ -1277,6 +1277,7 @@ namespace :nba do
 		"J.J. Barea" => "J. Barea",
 		"T.J. Leaf" => "T. Leaf",
 		"D.J. Augustin" => "D. Augustin",
-		"C.J. Williams" => "C. Williams"
+		"C.J. Williams" => "C. Williams",
+		"D.J. Wilson" => "D. Wilson"
 	}
 end
