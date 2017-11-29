@@ -184,8 +184,8 @@
           <td> <%= @home_team_info.turnover_last %> </td>
           <td class="between"></td>
           <td> <%= @home_team_info.team %> </td>
-          <td> <%= @home_team_info.record_won %> </td>
-          <td> <%= @home_team_info.record_lost %> </td>
+          <td> <%= @home_team_info.record_won.round() %> </td>
+          <td> <%= @home_team_info.record_lost.round() %> </td>
           <td> <%= @home_team_info.record_ppg %> </td>
           <td> <%= @home_team_info.record_opp %> </td>
           <td> <%= @home_team_info.record_diff %> </td>
@@ -200,8 +200,8 @@
           <td> <%= @away_team_info.turnover_last %> </td>
           <td class="between"></td>
           <td> <%= @away_team_info.team %> </td>
-          <td> <%= @away_team_info.record_won %> </td>
-          <td> <%= @away_team_info.record_lost %> </td>
+          <td> <%= @away_team_info.record_won.round() %> </td>
+          <td> <%= @away_team_info.record_lost.round() %> </td>
           <td> <%= @away_team_info.record_ppg %> </td>
           <td> <%= @away_team_info.record_opp %> </td>
           <td> <%= @away_team_info.record_diff %> </td>
