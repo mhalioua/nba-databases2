@@ -60,14 +60,29 @@ namespace :nba do
 	end
 
 	task :rest => :environment do
-		Rake::Task["nba:getUpdateTG"].invoke
-		Rake::Task["nba:getUpdateTG"].reenable
+    include Api
+    url = "http://www.espn.com/nba/standings/_/group/league"
+    doc = download_document(url)
+    elements = doc.css(".standings-row")
+    elements.each do |slice|
+               team_abbr  =       slice.children[0].children[1].children[0].children[1].text
+               w          =       slice.children[1].text
+               l          =       slice.children[2].text
+               ppg        =       slice.children[9].text.to_f
+               opp        =       slice.children[10].text.to_f
+               diff       =       slice.children[11].text.to_f
 
-		Rake::Task["nba:getUpdatePoss"].invoke
-		Rake::Task["nba:getUpdatePoss"].reenable
-
-		Rake::Task["nba:getUpdateRate"].invoke
-		Rake::Task["nba:getUpdateRate"].reenable
+               if element = Team.find_by(abbr: team_abbr)
+                puts element.team
+                puts team_abbr
+                puts w
+                puts l
+                puts ppg
+                puts opp
+                puts diff
+               end
+    end
+	
 	end
 
 	task :fix => :environment do
