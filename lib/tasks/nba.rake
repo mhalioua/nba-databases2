@@ -59,6 +59,17 @@ namespace :nba do
 		
 	end
 
+	task :rest => :environment do
+		Rake::Task["nba:getUpdateTG"].invoke
+		Rake::Task["nba:getUpdateTG"].reenable
+
+		Rake::Task["nba:getUpdatePoss"].invoke
+		Rake::Task["nba:getUpdatePoss"].reenable
+
+		Rake::Task["nba:getUpdateRate"].invoke
+		Rake::Task["nba:getUpdateRate"].reenable
+	end
+
 	task :fix => :environment do
 		include Api
        index = {
