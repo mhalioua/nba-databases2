@@ -59,31 +59,6 @@ namespace :nba do
 		
 	end
 
-	task :rest => :environment do
-    include Api
-    url = "http://www.espn.com/nba/standings/_/group/league"
-    doc = download_document(url)
-    elements = doc.css(".standings-row")
-    elements.each do |slice|
-               team_abbr  =       slice.children[0].children[1].children[0].children[1].text
-               w          =       slice.children[1].text
-               l          =       slice.children[2].text
-               ppg        =       slice.children[9].text.to_f
-               opp        =       slice.children[10].text.to_f
-               diff       =       slice.children[11].text.to_f
-
-               if element = Team.find_by(abbr: team_abbr)
-                puts element.team
-                puts team_abbr
-                puts w
-                puts l
-                puts ppg
-                puts opp
-                puts diff
-               end
-    end
-	
-	end
 
 	task :fix => :environment do
 		include Api
@@ -190,6 +165,22 @@ namespace :nba do
                        element = Team.create(team: team)
                end
            element.update(turnover_current: current, turnover_last_three: last_three, turnover_last_one: last_one, turnover_home: home, turnover_away: away, turnover_last: last)
+        end
+
+        url = "http://www.espn.com/nba/standings/_/group/league"
+        doc = download_document(url)
+        elements = doc.css(".standings-row")
+        elements.each do |slice|
+                   team_abbr  =       slice.children[0].children[1].children[0].children[1].text
+                   w          =       slice.children[1].text
+                   l          =       slice.children[2].text
+                   ppg        =       slice.children[9].text.to_f
+                   opp        =       slice.children[10].text.to_f
+                   diff       =       slice.children[11].text.to_f
+
+                   if element = Team.find_by(abbr: team_abbr)
+                    element.update(record_won: w, record_lost: l, record_ppg: ppg, record_opp: opp, record_diff: diff)
+                   end
         end
 
        url = "https://www.teamrankings.com/nba/stat/opponent-1st-half-points-per-game"
