@@ -1,0 +1,733 @@
+<div class="header row">
+  <div class="col-md-4  col-md-offset-4">
+    <h1><%= @head %></h1>
+  </div>
+</div>
+
+<ul>
+  <li><%= link_to 'Back', { action: 'game', id: @date_id }%></li>
+</ul>
+<div class="tableBody">
+  <div style="display:inline-block;">
+    <table border="1">
+      <thead>
+        <tr>
+          <th colspan="7">REBOUNDS</th>
+          <th class="between"></th>
+          <th colspan="7">OFFENSIVE REBOUNDS</th>
+        </tr>
+        <tr>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
+        <th class="between"></th>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.possessions_current %> </td>
+          <td> <%= @home_team_info.possessions_last_three %> </td>
+          <td> <%= @home_team_info.possessions_last_one %> </td>
+          <td> <%= @home_team_info.possessions_home %> </td>
+          <td> <%= @home_team_info.possessions_away %> </td>
+          <td> <%= @home_team_info.possessions_last %> </td>
+          <td class="between"></td>
+          <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.rebound_current %> </td>
+          <td> <%= @home_team_info.rebound_last_three %> </td>
+          <td> <%= @home_team_info.rebound_last_one %> </td>
+          <td> <%= @home_team_info.rebound_home %> </td>
+          <td> <%= @home_team_info.rebound_away %> </td>
+          <td> <%= @home_team_info.rebound_last %> </td>
+        </tr>
+        <tr>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.possessions_current %> </td>
+          <td> <%= @away_team_info.possessions_last_three %> </td>
+          <td> <%= @away_team_info.possessions_last_one %> </td>
+          <td> <%= @away_team_info.possessions_home %> </td>
+          <td> <%= @away_team_info.possessions_away %> </td>
+          <td> <%= @away_team_info.possessions_last %> </td>
+          <td class="between"></td>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.rebound_current %> </td>
+          <td> <%= @away_team_info.rebound_last_three %> </td>
+          <td> <%= @away_team_info.rebound_last_one %> </td>
+          <td> <%= @away_team_info.rebound_home %> </td>
+          <td> <%= @away_team_info.rebound_away %> </td>
+          <td> <%= @away_team_info.rebound_last %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="tableBody">
+  <div style="display:inline-block">
+    <table border="1">
+      <thead>
+        <tr>
+          <th colspan="7">STEALS</th>
+          <th class="between"></th>
+          <th colspan="7">BLOCKS</th>
+        </tr>
+        <tr>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
+        <th class="between"></th>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.steal_current %> </td>
+          <td> <%= @home_team_info.steal_last_three %> </td>
+          <td> <%= @home_team_info.steal_last_one %> </td>
+          <td> <%= @home_team_info.steal_home %> </td>
+          <td> <%= @home_team_info.steal_away %> </td>
+          <td> <%= @home_team_info.steal_last %> </td>
+          <td class="between"></td>
+          <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.block_current %> </td>
+          <td> <%= @home_team_info.block_last_three %> </td>
+          <td> <%= @home_team_info.block_last_one %> </td>
+          <td> <%= @home_team_info.block_home %> </td>
+          <td> <%= @home_team_info.block_away %> </td>
+          <td> <%= @home_team_info.block_last %> </td>
+        </tr>
+        <tr>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.steal_current %> </td>
+          <td> <%= @away_team_info.steal_last_three %> </td>
+          <td> <%= @away_team_info.steal_last_one %> </td>
+          <td> <%= @away_team_info.steal_home %> </td>
+          <td> <%= @away_team_info.steal_away %> </td>
+          <td> <%= @away_team_info.steal_last %> </td>
+          <td class="between"></td>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.block_current %> </td>
+          <td> <%= @away_team_info.block_last_three %> </td>
+          <td> <%= @away_team_info.block_last_one %> </td>
+          <td> <%= @away_team_info.block_home %> </td>
+          <td> <%= @away_team_info.block_away %> </td>
+          <td> <%= @away_team_info.block_last %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="tableBody">
+  <div style="display:inline-block">
+    <table border="1">
+      <thead>
+        <tr>
+          <th colspan="7">TURNOVERS</th>
+          <th class="between"></th>
+          <th colspan="6">RECORD</th>
+        </tr>
+        <tr>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
+        <th class="between"></th>
+        <th>TEAM</th>
+        <th>WON</th>
+        <th>LAST</th>
+        <th>PPG</th>
+        <th>OPP</th>
+        <th>DIFF</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.turnover_current %> </td>
+          <td> <%= @home_team_info.turnover_last_three %> </td>
+          <td> <%= @home_team_info.turnover_last_one %> </td>
+          <td> <%= @home_team_info.turnover_home %> </td>
+          <td> <%= @home_team_info.turnover_away %> </td>
+          <td> <%= @home_team_info.turnover_last %> </td>
+          <td class="between"></td>
+          <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.record_won.round() %> </td>
+          <td> <%= @home_team_info.record_lost.round() %> </td>
+          <td> <%= @home_team_info.record_ppg %> </td>
+          <td> <%= @home_team_info.record_opp %> </td>
+          <td> <%= @home_team_info.record_diff %> </td>
+        </tr>
+        <tr>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.turnover_current %> </td>
+          <td> <%= @away_team_info.turnover_last_three %> </td>
+          <td> <%= @away_team_info.turnover_last_one %> </td>
+          <td> <%= @away_team_info.turnover_home %> </td>
+          <td> <%= @away_team_info.turnover_away %> </td>
+          <td> <%= @away_team_info.turnover_last %> </td>
+          <td class="between"></td>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.record_won.round() %> </td>
+          <td> <%= @away_team_info.record_lost.round() %> </td>
+          <td> <%= @away_team_info.record_ppg %> </td>
+          <td> <%= @away_team_info.record_opp %> </td>
+          <td> <%= @away_team_info.record_diff %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="tableBody">
+  <div style="display:inline-block">
+    <table border="1">
+      <thead>
+        <tr>
+          <th colspan="7">OPPONENTS 1H points per game</th>
+          <th class="between"></th>
+          <th colspan="7">OPPONENTS 2H points per game</th>
+        </tr>
+        <tr>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
+        <th class="between"></th>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.opponentfirst_current %> </td>
+          <td> <%= @home_team_info.opponentfirst_last_three %> </td>
+          <td> <%= @home_team_info.opponentfirst_last_one %> </td>
+          <td> <%= @home_team_info.opponentfirst_home %> </td>
+          <td> <%= @home_team_info.opponentfirst_away %> </td>
+          <td> <%= @home_team_info.opponentfirst_last %> </td>
+          <td class="between"></td>
+          <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.opponentsecond_current %> </td>
+          <td> <%= @home_team_info.opponentsecond_last_three %> </td>
+          <td> <%= @home_team_info.opponentsecond_last_one %> </td>
+          <td> <%= @home_team_info.opponentsecond_home %> </td>
+          <td> <%= @home_team_info.opponentsecond_away %> </td>
+          <td> <%= @home_team_info.opponentsecond_last %> </td>
+        </tr>
+        <tr>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.opponentfirst_current %> </td>
+          <td> <%= @away_team_info.opponentfirst_last_three %> </td>
+          <td> <%= @away_team_info.opponentfirst_last_one %> </td>
+          <td> <%= @away_team_info.opponentfirst_home %> </td>
+          <td> <%= @away_team_info.opponentfirst_away %> </td>
+          <td> <%= @away_team_info.opponentfirst_last %> </td>
+          <td class="between"></td>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.opponentsecond_current %> </td>
+          <td> <%= @away_team_info.opponentsecond_last_three %> </td>
+          <td> <%= @away_team_info.opponentsecond_last_one %> </td>
+          <td> <%= @away_team_info.opponentsecond_home %> </td>
+          <td> <%= @away_team_info.opponentsecond_away %> </td>
+          <td> <%= @away_team_info.opponentsecond_last %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="tableBody">
+  <div style="display:inline-block">
+    <table border="1">
+      <thead>
+        <tr>
+          <th colspan="7">1ST HALF POINTS</th>
+          <th class="between"></th>
+          <th colspan="7">2ND HALF POINTS</th>
+        </tr>
+        <tr>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
+        <th class="between"></th>
+        <th>TEAM</th>
+        <th>2017</th>
+        <th>LAST 3</th>
+        <th>LAST 1</th>
+        <th>HOME</th>
+        <th>AWAY</th>
+        <th>2016</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.first_current %> </td>
+          <td> <%= @home_team_info.first_last_three %> </td>
+          <td> <%= @home_team_info.first_last_one %> </td>
+          <td> <%= @home_team_info.first_home %> </td>
+          <td> <%= @home_team_info.first_away %> </td>
+          <td> <%= @home_team_info.first_last %> </td>
+          <td class="between"></td>
+          <td> <%= @home_team_info.team %> </td>
+          <td> <%= @home_team_info.second_current %> </td>
+          <td> <%= @home_team_info.second_last_three %> </td>
+          <td> <%= @home_team_info.second_last_one %> </td>
+          <td> <%= @home_team_info.second_home %> </td>
+          <td> <%= @home_team_info.second_away %> </td>
+          <td> <%= @home_team_info.second_last %> </td>
+        </tr>
+        <tr>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.first_current %> </td>
+          <td> <%= @away_team_info.first_last_three %> </td>
+          <td> <%= @away_team_info.first_last_one %> </td>
+          <td> <%= @away_team_info.first_home %> </td>
+          <td> <%= @away_team_info.first_away %> </td>
+          <td> <%= @away_team_info.first_last %> </td>
+          <td class="between"></td>
+          <td> <%= @away_team_info.team %> </td>
+          <td> <%= @away_team_info.second_current %> </td>
+          <td> <%= @away_team_info.second_last_three %> </td>
+          <td> <%= @away_team_info.second_last_one %> </td>
+          <td> <%= @away_team_info.second_home %> </td>
+          <td> <%= @away_team_info.second_away %> </td>
+          <td> <%= @away_team_info.second_last %> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="tableContainer">
+    <table border="1" class="totalAverage">
+        <tbody>
+            <tr>
+                <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y")%></td>
+                <td></td>
+                <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
+                <td></td>
+                <td class="line">1H LINE</td>
+                <td class="line">2H LINE</td>
+                <td class="line">FG LINE</td>
+                <td></td>
+                <td colspan="4" rowspan="3" class="gray"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><u><i>road</i></u></td>
+                <td colspan="2">road DAYS REST home</td>
+                <td><u><i>home</i></u></td>
+                <td></td>
+                <td colspan="2" class="gameDate">TRAVEL</td>
+                <td></td>
+                <td class="gameDate"><%= @game.first_closer_total %></td>
+                <td class="gameDate"><%= @game.second_closer_total %></td>
+                <td class="gameDate"><%= @game.full_closer_total %></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="gameDate">RIVALS</td>
+                <td></td>
+                <td class="gameDate">last</td>
+                <td colspan="2" class="gameDate">next game</td>
+                <td class="gameDate">last</td>
+                <td></td>
+                <td>next Y/N</td>
+                <td>last Y/N</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="gameDate">
+                <td><%= @game.away_abbr + " VS " + @game.home_abbr %></td>
+                <td></td>
+                <td><%= @game.away_last_game %></td>
+                <td><%= @game.away_next_game %></td>
+                <td><%= @game.home_next_game %></td>
+                <td><%= @game.home_last_game %></td>
+                <td></td>
+                <td><%= @game.home_next_fly[0] %></td>
+                <td><%= @game.home_last_fly[0] %></td>
+                <td></td>
+                <td>1ST<br>HALF</td>
+                <td>2ND<br>HALF</td>
+                <td>FULL<br>GAME</td>
+                <td>GAMES</td>
+                <td colspan="4" rowspan="5" class="gray halfstats">HALFTIME <br> SCORE</td>
+            </tr>
+            <tr>
+                <td>RIVALS</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><%= @firstItem_result[:first] %></td>
+                <td><%= @firstItem_result[:second] %></td>
+                <td><%= @firstItem_result[:full] %></td>
+                <td><%= @firstItem_result[:count] %></td>
+            </tr>
+            <tr>
+                <td>ALL GAMES IN <%= @home_abbr %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><%= @secondItem_result[:first] %></td>
+                <td><%= @secondItem_result[:second] %></td>
+                <td><%= @secondItem_result[:full] %></td>
+                <td><%= @secondItem_result[:count] %></td>
+            </tr>
+            <tr>
+                <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A")%></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><%= @thirdItem_result[:first] %></td>
+                <td><%= @thirdItem_result[:second] %></td>
+                <td><%= @thirdItem_result[:full] %></td>
+                <td><%= @thirdItem_result[:count] %></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="filter">X</td>
+                <td class="filter">X</td>
+                <td></td>
+                <td><%= @forthItem_result[:first] %></td>
+                <td><%= @forthItem_result[:second] %></td>
+                <td><%= @forthItem_result[:full] %></td>
+                <td><%= @forthItem_result[:count] %></td>
+                <td colspan="2"><%= @game.away_team %></td>
+                <td colspan="2"><%= @game.home_team %></td>
+            </tr>
+            <tr class="gradient">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <% 
+                @filters.each_with_index do |filter, index|
+                    first_one = []
+                    filter.each do |element|
+                        first_one.push(element ? element : "ANY")
+                    end
+                    first_one = first_one.join("-")
+            %>
+                <tr class="filterElement">
+                    <td><%= first_one %></td>
+                    <td></td>
+                    <% if filter[0] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <% if filter[1] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <% if filter[2] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <% if filter[3] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <td></td>
+                    <% if filter[4] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <% if filter[5] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <td></td>
+                    <td><%= @filterResult[index][:first] %></td>
+                    <td><%= @filterResult[index][:second] %></td>
+                    <td><%= @filterResult[index][:full] %></td>
+                    <td><%= @filterResult[index][:count] %></td>
+                    <% if index == 0 %>
+                        <td colspan="2" rowspan="3">
+                          <% if @game.away_first_quarter && @game.away_second_quarter %>
+                            <%= @game.away_first_quarter + @game.away_second_quarter %>
+                          <% end %>
+                        </td>
+                        <td colspan="2" rowspan="3">
+                          <% if @game.home_first_quarter && @game.home_second_quarter %>
+                            <%= @game.home_first_quarter + @game.home_second_quarter %>
+                          <% end %>
+                        </td>
+                    <% elsif index == 3 %>
+                        <td colspan="4" rowspan="42" class="gray"></td>
+                    <% end %>
+                </tr>
+                <% if @break.include?(index) %>
+                <tr class="gradient">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <% end %>
+            <% end %>
+            <tr class="redgradient">
+                <td>2ND HALF STATS</td>
+                <td></td>
+                <td class="gameDate"><%= @game.away_abbr %></td>
+                <td class="gameDate">
+                  <% if @game.away_first_quarter && @game.away_second_quarter %>
+                    <%= @game.away_first_quarter + @game.away_second_quarter %>
+                  <% end %>
+                </td>
+                <td class="gameDate"><%= @game.home_abbr %></td>
+                <td class="gameDate">
+                  <% if @game.home_first_quarter && @game.home_second_quarter %>
+                    <%= @game.home_first_quarter + @game.home_second_quarter %>
+                  <% end %>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="gray">WHEN HOME TEAM</td>
+                <td class="gradient"></td>
+                <td colspan="4">IS LEADING BY <%= @diff %> (+/- 5)</td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td><%= @lastfirstItem_result[:first] %></td>
+                <td><%= @lastfirstItem_result[:second] %></td>
+                <td><%= @lastfirstItem_result[:full] %></td>
+                <td><%= @lastfirstItem_result[:count] %></td>
+            </tr>
+            <tr>
+                <td class="gray">WHEN HOME TEAM</td>
+                <td class="gradient"></td>
+                <td colspan="4">SCORES MORE THAN 60</td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td><%= @lastsecondItem_result[:first] %></td>
+                <td><%= @lastsecondItem_result[:second] %></td>
+                <td><%= @lastsecondItem_result[:full] %></td>
+                <td><%= @lastsecondItem_result[:count] %></td>
+            </tr>
+            <tr>
+                <td class="gray">WHEN ROAD TEAM</td>
+                <td class="gradient"></td>
+                <td colspan="4">SCORES MORE THAN 60</td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td><%= @lastthirdItem_result[:first] %></td>
+                <td><%= @lastthirdItem_result[:second] %></td>
+                <td><%= @lastthirdItem_result[:full] %></td>
+                <td><%= @lastthirdItem_result[:count] %></td>
+            </tr>
+            <tr>
+                <td class="gray"></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="gray"></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="redgradient">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="gradient">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div style="
+    position: absolute;
+    top: 10px;
+    left: 10px;
+">
+  <button class="btn btn-danger refreshbutton">Refresh</button>
+</div>
+  
+<script>
+ $('.refreshbutton').click(function(){
+    window.location.href = window.location.href;
+  });
+</script>

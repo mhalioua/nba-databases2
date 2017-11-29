@@ -15,7 +15,7 @@
 	  		<th></th>
 	      	<th></th>
 	      	<th>Days rest</th>
-	  		<th colspan="6">TODAYS GAMES</th>
+	  		<th colspan="8">TODAYS GAMES</th>
 	  		<th>Days rest</th>
         <th></th>
         <th rowspan="2"></th>
@@ -29,7 +29,7 @@
 	      	<th class="red">Last Game</th>
 	      	<th class="red">Away Team</th>
 	  		<th class="red">Next Game</th>
-	  		<th class="red"></th>
+	  		<th class="red" colspan="3"></th>
 	  		<th class="red">Next Game</th>
         <th>FLY</th>
 	  		<th class="red">Home Team</th>
@@ -53,6 +53,8 @@
       <td rowspan="2"><%= game.away_team %></td>
       <td class="yellow" rowspan="2"><%= game.away_next_game %></td>
       <td class="red" rowspan="2"><%= link_to '@', { action: 'detail', id: game.game_id }%></td>
+      <td class="red" rowspan="2"><%= link_to 'Stat', { action: 'stat', id: game.game_id }%></td>
+      <td class="red" rowspan="2"><%= link_to 'Filter', { action: 'rest', id: game.game_id }%></td>
       <td class="yellow" rowspan="2"><%= game.home_next_game %></td>
       <td class="green" rowspan="2"><%= game.home_next_fly %></td>
       <td rowspan="2"><%= game.home_team %></td>
