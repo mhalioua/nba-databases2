@@ -113,7 +113,7 @@
       <% end %>
       <td class="purple">Total</td>
       <td><%= game.first_closer_total %></td>
-      <td><%= game.second_closer_total %></td>
+      <td><%= game.second_closer_total != 0 ? game.second_closer_total : (game.full_closer_total - game.first_closer_total) %></td>
       <td><%= game.full_closer_total %></td>
       <% @countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{game.away_last_game}%", "%#{game.away_next_game}%", "%#{game.home_next_game}%", "%#{game.home_last_game}%").first %>
       <td class="purple"></td>
@@ -165,7 +165,7 @@
       <% end %>
       <td class="purple">Sides</td>
       <td><%= game.first_closer_side %></td>
-      <td><%= game.second_closer_side %></td>
+      <td><%= game.game.second_closer_side != 0 ? game.game.second_closer_side : (game.full_closer_side - game.first_closer_side) %></td>
       <td><%= game.full_closer_side %></td>
       <td class="purple"></td>
       <td style="background: #fa0">ALL</td>
