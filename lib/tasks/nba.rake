@@ -384,6 +384,8 @@ namespace :nba do
 					away_fta_index = away_fta_value.index('-')
 					away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
 					away_or_value = away_value.children[5].text.to_i
+          away_stl_value = away_value.children[9].text.to_i
+          away_blk_value = away_value.children[10].text.to_i
 
 					home_fga_value = home_value.children[2].text
 					home_fga_index = home_fga_value.index('-')
@@ -393,9 +395,11 @@ namespace :nba do
 					home_fta_index = home_fta_value.index('-')
 					home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
 					home_or_value = home_value.children[5].text.to_i
+          home_stl_value = home_value.children[9].text.to_i
+          home_blk_value = home_value.children[10].text.to_i
 				end
 
-		  		game.update(first_away_fga: away_fga_value, first_away_fta: away_fta_value, first_away_toValue: away_to_value, first_away_orValue: away_or_value, first_home_fga: home_fga_value, first_home_fta: home_fta_value, first_home_toValue: home_to_value, first_home_orValue: home_or_value)
+		  		game.update(first_away_fga: away_fga_value, first_away_fta: away_fta_value, first_away_toValue: away_to_value, first_away_orValue: away_or_value, first_home_fga: home_fga_value, first_home_fta: home_fta_value, first_home_toValue: home_to_value, first_home_orValue: home_or_value, first_away_stl: away_stl_value, first_away_blk: away_blk_value, first_home_stl: home_stl_value, first_home_blk: home_blk_value)
 	  		end
 	  	end
 	end
