@@ -165,7 +165,7 @@
       <% end %>
       <td class="purple">Sides</td>
       <td><%= game.first_closer_side %></td>
-      <td><%= game.game.second_closer_side != 0 ? game.game.second_closer_side : (game.full_closer_side - game.first_closer_side) %></td>
+      <td><%= game.second_closer_side != 0 ? game.second_closer_side : (game.full_closer_side - game.first_closer_side) %></td>
       <td><%= game.full_closer_side %></td>
       <td class="purple"></td>
       <td style="background: #fa0">ALL</td>
