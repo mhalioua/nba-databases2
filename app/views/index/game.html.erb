@@ -117,28 +117,28 @@
       <td><%= game.full_closer_total %></td>
       <% @countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{game.away_last_game}%", "%#{game.away_next_game}%", "%#{game.home_next_game}%", "%#{game.home_last_game}%").first %>
       <td class="purple"></td>
-        <td><%= @countItem.lastroad %></td>
-        <td><%= @countItem.nextroad %></td>
-        <td><%= @countItem.nexthome %></td>
-        <td><%= @countItem.lasthome %></td>
+        <td class="gray"><%= @countItem.lastroad %></td>
+        <td class="gray"><%= @countItem.nextroad %></td>
+        <td class="gray"><%= @countItem.nexthome %></td>
+        <td class="gray"><%= @countItem.lasthome %></td>
         <td rowspan="3" class="black"></td>
-        <td><%= @countItem.road %></td>
-        <td><%= @countItem.home %></td>
+        <td class="gray"><%= @countItem.road %></td>
+        <td class="gray"><%= @countItem.home %></td>
         <td class="purple"><%= (@countItem.home + @countItem.road).round(2) %></td>
-        <td><%= @countItem.diff %></td>
+        <td class="gray"><%= @countItem.diff %></td>
         <td rowspan="3" class="black"></td>
         <td style="background: #fa0"><%= @countItem.count %></td>
         <td rowspan="3" class="black"></td>
-        <td><%= @countItem.firstroad %></td>
-        <td><%= @countItem.firsthome %></td>
+        <td class="gray"><%= @countItem.firstroad %></td>
+        <td class="gray"><%= @countItem.firsthome %></td>
         <td class="purple"><%= (@countItem.firstroad + @countItem.firsthome).round(2) %></td>
-        <td><%= @countItem.firstdiff %></td>
+        <td class="gray"><%= @countItem.firstdiff %></td>
         <td rowspan="3" class="black"></td>
-        <td><%= @countItem.secondroad %></td>
-        <td><%= @countItem.secondhome %></td>
+        <td class="gray"><%= @countItem.secondroad %></td>
+        <td class="gray"><%= @countItem.secondhome %></td>
         <td class="purple"><%= (@countItem.secondroad + @countItem.secondhome).round(2) %></td>
-        <td><%= @countItem.seconddiff %></td>
-        <td>1</td>
+        <td class="gray"><%= @countItem.seconddiff %></td>
+        <td class="gray">1</td>
     </tr>
     <tr>
       <td class="darkred" ><%= game.home_abbr %></td>
@@ -168,24 +168,24 @@
       <td><%= game.second_closer_side != 0 ? game.second_closer_side : (game.full_closer_side - game.first_closer_side) %></td>
       <td><%= game.full_closer_side %></td>
       <td class="purple"></td>
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">97</td>
-      <td style="background: #fa0">100.12</td>
+      <td  class="gray">ALL</td>
+      <td  class="gray">ALL</td>
+      <td class="gray">ALL</td>
+      <td class="gray">ALL</td>
+      <td class="gray">97</td>
+      <td class="gray">100.12</td>
       <td class="purple">197.12</td>
-      <td style="background: #fa0">-3.12</td>
+      <td class="gray">-3.12</td>
       <td style="background: #fa0">17955</td>
-      <td style="background: #fa0">48.49</td>
-      <td style="background: #fa0">50.32</td>
+      <td class="gray">48.49</td>
+      <td class="gray">50.32</td>
       <td class="purple">98.81</td>
-      <td style="background: #fa0">-1.83</td>
-      <td style="background: #fa0">48.51</td>
-      <td style="background: #fa0">49.80</td>
+      <td class="gray">-1.83</td>
+      <td class="gray">48.51</td>
+      <td class="gray">49.80</td>
       <td class="purple">98.31</td>
-      <td style="background: #fa0">-1.29</td>
-      <td style="background: #fa0">ALL</td>
+      <td class="gray">-1.29</td>
+      <td class="gray">ALL</td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -204,97 +204,97 @@
       <td class="purple"></td>
       <td class="purple"></td>
       <% if game.home_next_fly == "NO" && game.home_last_fly == "YES" %>
-          <td></td>
-          <td>NO</td>
-          <td>YES</td>
-          <td></td>
-          <td>96.75</td>
-          <td>99.83</td>
+          <td class="gray"></td>
+          <td class="gray">NO</td>
+          <td class="gray">YES</td>
+          <td class="gray"></td>
+          <td class="gray">96.75</td>
+          <td class="gray">99.83</td>
           <td class="purple">196.58</td>
-          <td>-3.08</td>
+          <td class="gray">-3.08</td>
           <td style="background: #fa0">4949</td>
-          <td>48.23</td>
-          <td>50.11</td>
+          <td class="gray">48.23</td>
+          <td class="gray">50.11</td>
           <td class="purple">98.34</td>
-          <td>-1.88</td>
-          <td>48.52</td>
-          <td>49.72</td>
+          <td class="gray">-1.88</td>
+          <td class="gray">48.52</td>
+          <td class="gray">49.72</td>
           <td class="purple">98.24</td>
-          <td>-1.2</td>
+          <td class="gray">-1.2</td>
       <% elsif game.home_next_fly == "YES" && game.home_last_fly == "NO" %>
-          <td></td>
-          <td>YES</td>
-          <td>NO</td>
-          <td></td>
-          <td>97.14</td>
-          <td>100.15</td>
+          <td class="gray"></td>
+          <td class="gray">YES</td>
+          <td class="gray">NO</td>
+          <td class="gray"></td>
+          <td class="gray">97.14</td>
+          <td class="gray">100.15</td>
           <td class="purple">197.29</td>
-          <td>-3.01</td>
+          <td class="gray">-3.01</td>
           <td style="background: #fa0">4929</td>
-          <td>48.55</td>
-          <td>50.38</td>
+          <td class="gray">48.55</td>
+          <td class="gray">50.38</td>
           <td class="purple">98.93</td>
-          <td>-1.83</td>
-          <td>48.59</td>
-          <td>49.77</td>
+          <td class="gray">-1.83</td>
+          <td class="gray">48.59</td>
+          <td class="gray">49.77</td>
           <td class="purple">98.36</td>
-          <td>-1.18</td>
+          <td class="gray">-1.18</td>
       <% elsif game.home_next_fly == "YES" && game.home_last_fly == "YES" %>
-          <td></td>
-          <td>YES</td>
-          <td>YES</td>
-          <td></td>
-          <td>96.76</td>
-          <td>99.65</td>
+          <td class="gray"></td>
+          <td class="gray">YES</td>
+          <td class="gray">YES</td>
+          <td class="gray"></td>
+          <td class="gray">96.76</td>
+          <td class="gray">99.65</td>
           <td class="purple">196.41</td>
-          <td>-2.89</td>
+          <td class="gray">-2.89</td>
           <td style="background: #fa0">3931</td>
-          <td>48.44</td>
-          <td>50.06</td>
+          <td class="gray">48.44</td>
+          <td class="gray">50.06</td>
           <td class="purple">98.5</td>
-          <td>-1.62</td>
-          <td>48.32</td>
-          <td>49.59</td>
+          <td class="gray">-1.62</td>
+          <td class="gray">48.32</td>
+          <td class="gray">49.59</td>
           <td class="purple">97.91</td>
-          <td>-1.27</td>
+          <td class="gray">-1.27</td>
       <% elsif game.home_next_fly == "NO" && game.home_last_fly == "NO" %>
-          <td></td>
-          <td>NO</td>
-          <td>NO</td>
-          <td></td>
-          <td>97.3</td>
-          <td>100.85</td>
+          <td class="gray"></td>
+          <td class="gray">NO</td>
+          <td class="gray">NO</td>
+          <td class="gray"></td>
+          <td class="gray">97.3</td>
+          <td class="gray">100.85</td>
           <td class="purple">197.88</td>
-          <td>-3.55</td>
+          <td class="gray">-3.55</td>
           <td style="background: #fa0">4129</td>
-          <td>48.78</td>
-          <td>50.76</td>
+          <td class="gray">48.78</td>
+          <td class="gray">50.76</td>
           <td class="purple">99.54</td>
-          <td>-1.98</td>
-          <td>48.52</td>
-          <td>50.09</td>
+          <td class="gray">-1.98</td>
+          <td class="gray">48.52</td>
+          <td class="gray">50.09</td>
           <td class="purple">98.61</td>
-          <td>-1.57</td>
+          <td class="gray">-1.57</td>
       <% else %>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td class="gray"></td>
+        <td class="gray"></td>
+        <td class="gray"></td>
+        <td class="gray"></td>
+        <td class="gray"></td>
+        <td class="gray"></td>
         <td class="purple"></td>
-        <td></td>
+        <td class="gray"></td>
         <td style="background: #fa0"></td>
-        <td></td>
-        <td></td>
+        <td class="gray"></td>
+        <td class="gray"></td>
         <td class="purple"></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td class="gray"></td>
+        <td class="gray"></td>
+        <td class="gray"></td>
         <td class="purple"></td>
-        <td></td>
+        <td class="gray"></td>
       <% end %>
-      <td></td>
+      <td class="gray"></td>
     </tr>
     <% end %>
   	</tbody>
