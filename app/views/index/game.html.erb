@@ -94,8 +94,8 @@
       <td><%= game.first_away_fta %></td>
       <td><%= game.first_away_orValue %></td>
       <td><%= game.first_away_toValue %></td>
-      <td>STL</td>
-      <td>BLK</td>
+      <td><%= game.first_away_stl %></td>
+      <td><%= game.first_away_blk %></td>
       <% if game.first_away_fga && game.first_away_toValue && game.first_away_fta && game.first_away_orValue %>
       <td class="darkred"><%= (game.first_away_fga + game.first_away_toValue + (game.first_away_fta * 0.44) - game.first_away_orValue).round(2) %></td>
       <% else %>
@@ -146,8 +146,8 @@
       <td><%= game.first_home_fta %></td>
       <td><%= game.first_home_orValue %></td>
       <td><%= game.first_home_toValue %></td>
-      <td>STL</td>
-      <td>BLK</td>
+      <td><%= game.first_home_stl %></td>
+      <td><%= game.first_home_blk %></td>
       <% if game.first_home_fga && game.first_home_toValue && game.first_home_fta && game.first_home_orValue %>
       <td class="darkred"><%= (game.first_home_fga + game.first_home_toValue + (game.first_home_fta * 0.44) - game.first_home_orValue).round(2) %></td>
       <% else %>
