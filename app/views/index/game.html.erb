@@ -117,28 +117,28 @@
       <td><%= game.full_closer_total %></td>
       <% @countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{game.away_last_game}%", "%#{game.away_next_game}%", "%#{game.home_next_game}%", "%#{game.home_last_game}%").first %>
       <td class="purple"></td>
-        <td class="gray"><%= @countItem.lastroad %></td>
-        <td class="gray"><%= @countItem.nextroad %></td>
-        <td class="gray"><%= @countItem.nexthome %></td>
-        <td class="gray"><%= @countItem.lasthome %></td>
+        <td><%= @countItem.lastroad %></td>
+        <td><%= @countItem.nextroad %></td>
+        <td><%= @countItem.nexthome %></td>
+        <td><%= @countItem.lasthome %></td>
         <td rowspan="3" class="black"></td>
-        <td class="gray"><%= @countItem.road %></td>
-        <td class="gray"><%= @countItem.home %></td>
+        <td><%= @countItem.road %></td>
+        <td><%= @countItem.home %></td>
         <td class="purple"><%= (@countItem.home + @countItem.road).round(2) %></td>
-        <td class="gray"><%= @countItem.diff %></td>
+        <td><%= @countItem.diff %></td>
         <td rowspan="3" class="black"></td>
         <td style="background: #fa0"><%= @countItem.count %></td>
         <td rowspan="3" class="black"></td>
-        <td class="gray"><%= @countItem.firstroad %></td>
-        <td class="gray"><%= @countItem.firsthome %></td>
+        <td><%= @countItem.firstroad %></td>
+        <td><%= @countItem.firsthome %></td>
         <td class="purple"><%= (@countItem.firstroad + @countItem.firsthome).round(2) %></td>
-        <td class="gray"><%= @countItem.firstdiff %></td>
+        <td><%= @countItem.firstdiff %></td>
         <td rowspan="3" class="black"></td>
-        <td class="gray"><%= @countItem.secondroad %></td>
-        <td class="gray"><%= @countItem.secondhome %></td>
+        <td><%= @countItem.secondroad %></td>
+        <td><%= @countItem.secondhome %></td>
         <td class="purple"><%= (@countItem.secondroad + @countItem.secondhome).round(2) %></td>
-        <td class="gray"><%= @countItem.seconddiff %></td>
-        <td class="gray">1</td>
+        <td><%= @countItem.seconddiff %></td>
+        <td>1</td>
     </tr>
     <tr>
       <td class="darkred" ><%= game.home_abbr %></td>
@@ -168,24 +168,24 @@
       <td><%= game.second_closer_side != 0 ? game.second_closer_side : (game.full_closer_side - game.first_closer_side) %></td>
       <td><%= game.full_closer_side %></td>
       <td class="purple"></td>
-      <td  class="gray">ALL</td>
-      <td  class="gray">ALL</td>
-      <td class="gray">ALL</td>
-      <td class="gray">ALL</td>
-      <td class="gray">97</td>
-      <td class="gray">100.12</td>
+      <td style="background: #fa0">ALL</td>
+      <td style="background: #fa0">ALL</td>
+      <td style="background: #fa0">ALL</td>
+      <td style="background: #fa0">ALL</td>
+      <td style="background: #fa0">97</td>
+      <td style="background: #fa0">100.12</td>
       <td class="purple">197.12</td>
-      <td class="gray">-3.12</td>
+      <td style="background: #fa0">-3.12</td>
       <td style="background: #fa0">17955</td>
-      <td class="gray">48.49</td>
-      <td class="gray">50.32</td>
+      <td style="background: #fa0">48.49</td>
+      <td style="background: #fa0">50.32</td>
       <td class="purple">98.81</td>
-      <td class="gray">-1.83</td>
-      <td class="gray">48.51</td>
-      <td class="gray">49.80</td>
+      <td style="background: #fa0">-1.83</td>
+      <td style="background: #fa0">48.51</td>
+      <td style="background: #fa0">49.80</td>
       <td class="purple">98.31</td>
-      <td class="gray">-1.29</td>
-      <td class="gray">ALL</td>
+      <td style="background: #fa0">-1.29</td>
+      <td style="background: #fa0">ALL</td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
