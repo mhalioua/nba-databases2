@@ -117,27 +117,27 @@
       <td><%= game.full_closer_total %></td>
       <% @countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{game.away_last_game}%", "%#{game.away_next_game}%", "%#{game.home_next_game}%", "%#{game.home_last_game}%").first %>
       <td class="purple"></td>
-        <td><%= @countItem.lastroad %></td>
-        <td><%= @countItem.nextroad %></td>
-        <td><%= @countItem.nexthome %></td>
-        <td><%= @countItem.lasthome %></td>
+        <td><%= @countItem ? @countItem.lastroad : "" %></td>
+        <td><%= @countItem ? @countItem.nextroad : "" %></td>
+        <td><%= @countItem ? @countItem.nexthome : "" %></td>
+        <td><%= @countItem ? @countItem.lasthome : "" %></td>
         <td rowspan="3" class="black"></td>
-        <td><%= @countItem.road %></td>
-        <td><%= @countItem.home %></td>
-        <td class="purple"><%= (@countItem.home + @countItem.road).round(2) %></td>
-        <td><%= @countItem.diff %></td>
+        <td><%= @countItem ? @countItem.road : "" %></td>
+        <td><%= @countItem ? @countItem.home : "" %></td>
+        <td class="purple"><%= @countItem ? (@countItem.home + @countItem.road).round(2) : "" %></td>
+        <td><%= @countItem ? @countItem.diff %></td>
         <td rowspan="3" class="black"></td>
-        <td style="background: #fa0"><%= @countItem.count %></td>
+        <td style="background: #fa0"><%= @countItem ? @countItem.count : "" %></td>
         <td rowspan="3" class="black"></td>
-        <td><%= @countItem.firstroad %></td>
-        <td><%= @countItem.firsthome %></td>
-        <td class="purple"><%= (@countItem.firstroad + @countItem.firsthome).round(2) %></td>
-        <td><%= @countItem.firstdiff %></td>
+        <td><%= @countItem ? @countItem.firstroad : "" %></td>
+        <td><%= @countItem ? @countItem.firsthome : "" %></td>
+        <td class="purple"><%= @countItem ? (@countItem.firstroad + @countItem.firsthome).round(2) : "" %></td>
+        <td><%= @countItem ? @countItem.firstdiff : "" %></td>
         <td rowspan="3" class="black"></td>
-        <td><%= @countItem.secondroad %></td>
-        <td><%= @countItem.secondhome %></td>
-        <td class="purple"><%= (@countItem.secondroad + @countItem.secondhome).round(2) %></td>
-        <td><%= @countItem.seconddiff %></td>
+        <td><%= @countItem ? @countItem.secondroad : "" %></td>
+        <td><%= @countItem ? @countItem.secondhome : "" %></td>
+        <td class="purple"><%= @countItem ? (@countItem.secondroad + @countItem.secondhome).round(2) : "" %></td>
+        <td><%= @countItem ? @countItem.seconddiff : "" %></td>
         <td>1</td>
     </tr>
     <tr>
