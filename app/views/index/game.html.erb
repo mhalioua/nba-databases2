@@ -125,7 +125,7 @@
         <td><%= @countItem ? @countItem.road : "" %></td>
         <td><%= @countItem ? @countItem.home : "" %></td>
         <td class="purple"><%= @countItem ? (@countItem.home + @countItem.road).round(2) : "" %></td>
-        <td><%= @countItem ? @countItem.diff %></td>
+        <td><%= @countItem ? @countItem.diff : "" %></td>
         <td rowspan="3" class="black"></td>
         <td style="background: #fa0"><%= @countItem ? @countItem.count : "" %></td>
         <td rowspan="3" class="black"></td>
