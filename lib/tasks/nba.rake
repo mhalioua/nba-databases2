@@ -18,7 +18,17 @@ namespace :nba do
         if index == 0
           next
         end
-        puts list.inspect
+        if list.children.size == 1
+          date = list.children[0].text
+          puts date
+        elsif list.children.size == 2
+          name = list.children[0].children[0].text
+          status = list.children[1].children[0].text
+          text = list.children[1].text
+          puts name
+          puts status
+          puts text
+        end
       end
     end
 	end
