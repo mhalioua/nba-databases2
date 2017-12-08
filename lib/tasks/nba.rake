@@ -22,8 +22,8 @@ namespace :nba do
           name = list.children[0].children[0].children[1].text[1..-1]
           status = list.children[1].children[0].text
           text = list.children[1].children[2].text
-          unless element = Injuries.find_by(team: team, link: link, date: date, name: name, status: status, text: text)
-            element = Injuries.create(team: team, link: link, date: date, name: name, status: status, text: text)
+          unless element = Injury.find_by(team: team, link: link, date: date, name: name, status: status, text: text)
+            element = Injury.create(team: team, link: link, date: date, name: name, status: status, text: text)
           end
         end
       end
