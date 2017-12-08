@@ -124,15 +124,15 @@ class IndexController < ApplicationController
 		        	thr_value = player.drtg
 		        end
 		    end
-		    if drtg < 3
+		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @away_drtg_one = @away_drtg_one + one_value * max_one
 			end
-			if drtg < 2
+			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @away_drtg_one = @away_drtg_one + two_value * max_two
 			end
-			if drtg < 1
+			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @away_drtg_one = @away_drtg_one + thr_value * max_thr
 			end
@@ -196,15 +196,15 @@ class IndexController < ApplicationController
 		        	thr_value = player.drtg
 		        end
 		    end
-		    if drtg < 3
+		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @away_drtg_two = @away_drtg_two + one_value * max_one
 			end
-			if drtg < 2
+			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @away_drtg_two = @away_drtg_two + two_value * max_two
 			end
-			if drtg < 1
+			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @away_drtg_two = @away_drtg_two + thr_value * max_thr
 			end
@@ -285,15 +285,15 @@ class IndexController < ApplicationController
 		        	thr_value = player.drtg
 		        end
 		    end
-		    if drtg < 3
+		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @home_drtg_one = @home_drtg_one + one_value * max_one
 			end
-			if drtg < 2
+			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @home_drtg_one = @home_drtg_one + two_value * max_two
 			end
-			if drtg < 1
+			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @home_drtg_one = @home_drtg_one + thr_value * max_thr
 			end
@@ -357,15 +357,15 @@ class IndexController < ApplicationController
 		        	thr_value = player.drtg
 		        end
 		    end
-		    if drtg < 3
+		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @home_drtg_two = @home_drtg_two + one_value * max_one
 			end
-			if drtg < 2
+			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @home_drtg_two = @home_drtg_two + two_value * max_two
 			end
-			if drtg < 1
+			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @home_drtg_two = @home_drtg_two + thr_value * max_thr
 			end
@@ -857,15 +857,15 @@ class IndexController < ApplicationController
 		        	thr_value = player.drtg
 		        end
 		    end
-		    if drtg < 3
+		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @away_drtg_one = @away_drtg_one + one_value * max_one
 			end
-			if drtg < 2
+			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @away_drtg_one = @away_drtg_one + two_value * max_two
 			end
-			if drtg < 1
+			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @away_drtg_one = @away_drtg_one + thr_value * max_thr
 			end
@@ -929,15 +929,15 @@ class IndexController < ApplicationController
 		        	thr_value = player.drtg
 		        end
 		    end
-		    if drtg < 3
+		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @away_drtg_two = @away_drtg_two + one_value * max_one
 			end
-			if drtg < 2
+			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @away_drtg_two = @away_drtg_two + two_value * max_two
 			end
-			if drtg < 1
+			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @away_drtg_two = @away_drtg_two + thr_value * max_thr
 			end
@@ -1018,15 +1018,15 @@ class IndexController < ApplicationController
 		        	thr_value = player.drtg
 		        end
 		    end
-		    if drtg < 3
+		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @home_drtg_one = @home_drtg_one + one_value * max_one
 			end
-			if drtg < 2
+			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @home_drtg_one = @home_drtg_one + two_value * max_two
 			end
-			if drtg < 1
+			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @home_drtg_one = @home_drtg_one + thr_value * max_thr
 			end
@@ -1090,15 +1090,15 @@ class IndexController < ApplicationController
 		        	thr_value = player.drtg
 		        end
 		    end
-		    if drtg < 3
+		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @home_drtg_two = @home_drtg_two + one_value * max_one
 			end
-			if drtg < 2
+			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @home_drtg_two = @home_drtg_two + two_value * max_two
 			end
-			if drtg < 1
+			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @home_drtg_two = @home_drtg_two + thr_value * max_thr
 			end
