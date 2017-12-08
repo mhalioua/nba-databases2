@@ -107,21 +107,26 @@ class IndexController < ApplicationController
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
 		        	compare = temp
-		        	one_value = player.drtg
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_two
 		        	temp = max_two
 		        	max_two = compare
 		        	compare = temp
-		        	two_value = player.drtg
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
-		        	thr_value = player.drtg
+		        	thr_value = compare_value
 		        end
 		    end
 		    if drtg_count < 3
@@ -179,21 +184,26 @@ class IndexController < ApplicationController
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
 		        	compare = temp
-		        	one_value = player.drtg
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_two
 		        	temp = max_two
 		        	max_two = compare
 		        	compare = temp
-		        	two_value = player.drtg
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
-		        	thr_value = player.drtg
+		        	thr_value = compare_value
 		        end
 		    end
 		    if drtg_count < 3
@@ -268,21 +278,26 @@ class IndexController < ApplicationController
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
 		        	compare = temp
-		        	one_value = player.drtg
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_two
 		        	temp = max_two
 		        	max_two = compare
 		        	compare = temp
-		        	two_value = player.drtg
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
-		        	thr_value = player.drtg
+		        	thr_value = compare_value
 		        end
 		    end
 		    if drtg_count < 3
@@ -340,21 +355,26 @@ class IndexController < ApplicationController
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
 		        	compare = temp
-		        	one_value = player.drtg
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_two
 		        	temp = max_two
 		        	max_two = compare
 		        	compare = temp
-		        	two_value = player.drtg
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
-		        	thr_value = player.drtg
+		        	thr_value = compare_value
 		        end
 		    end
 		    if drtg_count < 3
@@ -840,21 +860,26 @@ class IndexController < ApplicationController
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
 		        	compare = temp
-		        	one_value = player.drtg
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_two
 		        	temp = max_two
 		        	max_two = compare
 		        	compare = temp
-		        	two_value = player.drtg
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
-		        	thr_value = player.drtg
+		        	thr_value = compare_value
 		        end
 		    end
 		    if drtg_count < 3
@@ -912,21 +937,26 @@ class IndexController < ApplicationController
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
 		        	compare = temp
-		        	one_value = player.drtg
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_two
 		        	temp = max_two
 		        	max_two = compare
 		        	compare = temp
-		        	two_value = player.drtg
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
-		        	thr_value = player.drtg
+		        	thr_value = compare_value
 		        end
 		    end
 		    if drtg_count < 3
@@ -1001,21 +1031,26 @@ class IndexController < ApplicationController
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
 		        	compare = temp
-		        	one_value = player.drtg
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_two
 		        	temp = max_two
 		        	max_two = compare
 		        	compare = temp
-		        	two_value = player.drtg
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
-		        	thr_value = player.drtg
+		        	thr_value = compare_value
 		        end
 		    end
 		    if drtg_count < 3
@@ -1073,21 +1108,26 @@ class IndexController < ApplicationController
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
 		        	compare = temp
-		        	one_value = player.drtg
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_two
 		        	temp = max_two
 		        	max_two = compare
 		        	compare = temp
-		        	two_value = player.drtg
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
-		        	thr_value = player.drtg
+		        	thr_value = compare_value
 		        end
 		    end
 		    if drtg_count < 3
