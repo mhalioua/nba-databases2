@@ -419,7 +419,7 @@ class IndexController < ApplicationController
 			name = injury.name
 			unless name.index('.')
 				name_index = name.index(' ')
-				name = name_index ? name[0] + '. ' + name[name_index..-1] : name
+				name = name_index ? name[0] + '.' + name[name_index..-1] : name
 			end
 			@away_injury_name.push(name)
 		end
@@ -429,7 +429,7 @@ class IndexController < ApplicationController
 			name = injury.name
 			unless name.index('.')
 				name_index = name.index(' ')
-				name = name_index ? name[0] + '. ' + name[name_index..-1] : name
+				name = name_index ? name[0] + '.' + name[name_index..-1] : name
 			end
 			@home_injury_name.push(name)
 		end
