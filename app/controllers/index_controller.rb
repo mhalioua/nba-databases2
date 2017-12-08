@@ -85,7 +85,8 @@ class IndexController < ApplicationController
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        puts player.drtg
 	        puts player.sum_mins/(count - 2)
-	        @away_drtg_one = @away_drtg_one + player.drtg * player.sum_mins/(count - 2)
+	        @away_drtg_one = @away_drtg_one + player.drtg * (player.sum_mins/(count - 2))
+	        puts @away_drtg_one
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
@@ -163,7 +164,7 @@ class IndexController < ApplicationController
 	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
-	        @away_drtg_two = @away_drtg_two + player.drtg * player.sum_mins/(count - 2)
+	        @away_drtg_two = @away_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if drtg_count < 3
@@ -257,7 +258,7 @@ class IndexController < ApplicationController
 	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
-	        @home_drtg_one = @home_drtg_one + player.drtg * player.sum_mins/(count - 2)
+	        @home_drtg_one = @home_drtg_one + player.drtg * (player.sum_mins/(count - 2))
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if drtg_count < 3
@@ -334,7 +335,7 @@ class IndexController < ApplicationController
 	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
-	        @home_drtg_two = @home_drtg_two + player.drtg * player.sum_mins/(count - 2)
+	        @home_drtg_two = @home_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if drtg_count < 3
@@ -838,7 +839,7 @@ class IndexController < ApplicationController
 	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
-	        @away_drtg_one = @away_drtg_one + player.drtg * player.sum_mins/(count - 2)
+	        @away_drtg_one = @away_drtg_one + player.drtg * (player.sum_mins/(count - 2))
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
@@ -916,7 +917,7 @@ class IndexController < ApplicationController
 	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
-	        @away_drtg_two = @away_drtg_two + player.drtg * player.sum_mins/(count - 2)
+	        @away_drtg_two = @away_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if drtg_count < 3
@@ -1010,7 +1011,7 @@ class IndexController < ApplicationController
 	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
-	        @home_drtg_one = @home_drtg_one + player.drtg * player.sum_mins/(count - 2)
+	        @home_drtg_one = @home_drtg_one + player.drtg * (player.sum_mins/(count - 2))
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if drtg_count < 3
@@ -1087,7 +1088,7 @@ class IndexController < ApplicationController
 	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
-	        @home_drtg_two = @home_drtg_two + player.drtg * player.sum_mins/(count - 2)
+	        @home_drtg_two = @home_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if drtg_count < 3
