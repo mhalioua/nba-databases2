@@ -3,7 +3,7 @@ class CreateInjuries < ActiveRecord::Migration[5.1]
     create_table :injuries do |t|
     	t.string :team
       	t.string :link
-      	t.integer :date
+      	t.string :date
       	t.string :name
       	t.string :status
       	t.string :text

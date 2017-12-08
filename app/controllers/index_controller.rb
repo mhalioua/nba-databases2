@@ -411,8 +411,8 @@ class IndexController < ApplicationController
 	    end
 
 
-		@home_injury = Injury.where("team = ? AND date = ?", @game.home_team,  Date.strptime(@game.game_date).strftime("%b %e"))
-		@away_injury = Injury.where("team = ? AND date = ?", @game.away_team,  Date.strptime(@game.game_date).strftime("%b %e"))
+		@home_injury = Injury.where("team = ? AND date = ?", @game.home_team,  Date.strptime(@game.game_date).strftime("%b  %e"))
+		@away_injury = Injury.where("team = ? AND date = ?", @game.away_team,  Date.strptime(@game.game_date).strftime("%b  %e"))
 
 		@away_injury_name = []
 		@away_injury.each_with_index do |injury, index|
@@ -806,7 +806,7 @@ class IndexController < ApplicationController
 	        @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
 	        @injury_home_total_poss = @injury_home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
-	    
+
 
 	    @filters = [
 			[true, false, false, true, true, true],
