@@ -67,7 +67,8 @@ class IndexController < ApplicationController
 		@away_total_poss = 0
 	    @away_total_min = 0
 	    @away_drtg_one = 0
-	    remove_count = 0
+	    drtg_count = 0
+	    drtg_min = 0
 	    @away_players_group1.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -77,17 +78,70 @@ class IndexController < ApplicationController
 	        	count = 1
 	        end
 	        if player.sum_mins/(count - 2) < 10 || count < 10
-	        	remove_count = remove_count + 1
 	        	next
 	        end
+	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
-	        @away_drtg_one = @away_drtg_one + player.drtg
+	        drtg_min = drtg_min + player.sum_mins/(count - 2)
+	        @away_drtg_one = @away_drtg_one + player.drtg * player.sum_mins/(count - 2)
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
-	    @away_drtg_one = @away_drtg_one.to_f / (@away_players_group1.size - remove_count)
+
+	    if drtg_count < 3
+	    	@away_players_group4 = @away_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @away_flag)).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@away_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	one_value = player.drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	two_value = player.drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = player.drtg
+		        end
+		    end
+		    if drtg < 3
+			    drtg_min = drtg_min + max_one
+			    @away_drtg_one = @away_drtg_one + one_value * max_one
+			end
+			if drtg < 2
+			    drtg_min = drtg_min + max_two
+			    @away_drtg_one = @away_drtg_one + two_value * max_two
+			end
+			if drtg < 1
+			    drtg_min = drtg_min + max_thr
+			    @away_drtg_one = @away_drtg_one + thr_value * max_thr
+			end
+	    	@away_drtg_one = @away_drtg_one.to_f / drtg_min
+	    end
 
 	    @away_drtg_two = 0
-	    remove_count = 0
+	    drtg_count = 0
+	    drtg_min = 0
 	    @away_players_group2.each_with_index do |player, index|
 	        count = 1
 	        if player.possession
@@ -97,14 +151,65 @@ class IndexController < ApplicationController
 	        	count = 1
 	        end
 	        if player.sum_mins/(count - 2) < 10 || count < 10
-	        	remove_count = remove_count + 1
 	        	next
 	        end
+	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
-	        @away_drtg_two = @away_drtg_two + player.drtg
+	        drtg_min = drtg_min + player.sum_mins/(count - 2)
+	        @away_drtg_two = @away_drtg_two + player.drtg * player.sum_mins/(count - 2)
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
-	    @away_drtg_two = @away_drtg_two.to_f / (@away_players_group2.size - remove_count)
+	    if drtg_count < 3
+	    	@away_players_group4 = @away_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @away_flag))).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@away_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	one_value = player.drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	two_value = player.drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = player.drtg
+		        end
+		    end
+		    if drtg < 3
+			    drtg_min = drtg_min + max_one
+			    @away_drtg_two = @away_drtg_two + one_value * max_one
+			end
+			if drtg < 2
+			    drtg_min = drtg_min + max_two
+			    @away_drtg_two = @away_drtg_two + two_value * max_two
+			end
+			if drtg < 1
+			    drtg_min = drtg_min + max_thr
+			    @away_drtg_two = @away_drtg_two + thr_value * max_thr
+			end
+	    	@away_drtg_two = @away_drtg_two.to_f / drtg_min
+	    end
 
 	    @away_players_group3.each_with_index do |player, index|
 	        count = 1
@@ -124,7 +229,8 @@ class IndexController < ApplicationController
 	    @home_total_poss = 0
 	    @home_total_min = 0
 	    @home_drtg_one = 0
-	    remove_count = 0
+	    drtg_count = 0
+	    drtg_min = 0
 	    @home_players_group1.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -134,17 +240,69 @@ class IndexController < ApplicationController
 	        	count = 1
 	        end
 	        if player.sum_mins/(count - 2) < 10 || count < 10
-	        	remove_count = remove_count + 1
 	        	next
 	        end
+	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
-	        @home_drtg_one = @home_drtg_one + player.drtg
+	        drtg_min = drtg_min + player.sum_mins/(count - 2)
+	        @home_drtg_one = @home_drtg_one + player.drtg * player.sum_mins/(count - 2)
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
-	    @home_drtg_one = @home_drtg_one.to_f / (@home_players_group1.size - remove_count)
+	    if drtg_count < 3
+	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @home_flag)).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@home_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	one_value = player.drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	two_value = player.drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = player.drtg
+		        end
+		    end
+		    if drtg < 3
+			    drtg_min = drtg_min + max_one
+			    @home_drtg_one = @home_drtg_one + one_value * max_one
+			end
+			if drtg < 2
+			    drtg_min = drtg_min + max_two
+			    @home_drtg_one = @home_drtg_one + two_value * max_two
+			end
+			if drtg < 1
+			    drtg_min = drtg_min + max_thr
+			    @home_drtg_one = @home_drtg_one + thr_value * max_thr
+			end
+	    	@home_drtg_one = @home_drtg_one.to_f / drtg_min
+	    end
 
 	    @home_drtg_two = 0
-	    remove_count = 0
+	    drtg_count = 0
+	    drtg_min = 0
 	    @home_players_group2.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -154,14 +312,65 @@ class IndexController < ApplicationController
 	        	count = 1
 	        end
 	        if player.sum_mins/(count - 2) < 10 || count < 10
-	        	remove_count = remove_count + 1
 	        	next
 	        end
+	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
-	        @home_drtg_two = @home_drtg_two + player.drtg
+	        drtg_min = drtg_min + player.sum_mins/(count - 2)
+	        @home_drtg_two = @home_drtg_two + player.drtg * player.sum_mins/(count - 2)
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
-	    @home_drtg_two = @home_drtg_two.to_f / ( @home_players_group2.size - remove_count )
+	    if drtg_count < 3
+	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @home_flag))).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@home_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	one_value = player.drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	two_value = player.drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = player.drtg
+		        end
+		    end
+		    if drtg < 3
+			    drtg_min = drtg_min + max_one
+			    @home_drtg_two = @home_drtg_two + one_value * max_one
+			end
+			if drtg < 2
+			    drtg_min = drtg_min + max_two
+			    @home_drtg_two = @home_drtg_two + two_value * max_two
+			end
+			if drtg < 1
+			    drtg_min = drtg_min + max_thr
+			    @home_drtg_two = @home_drtg_two + thr_value * max_thr
+			end
+	    	@home_drtg_two = @home_drtg_two.to_f / drtg_min
+	    end
 
 	    @home_players_group3.each_with_index do |player, index|
 	        count = 1
@@ -591,7 +800,8 @@ class IndexController < ApplicationController
 		@away_total_poss = 0
 	    @away_total_min = 0
 	    @away_drtg_one = 0
-	    remove_count = 0
+	    drtg_count = 0
+	    drtg_min = 0
 	    @away_players_group1.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -601,17 +811,70 @@ class IndexController < ApplicationController
 	        	count = 1
 	        end
 	        if player.sum_mins/(count - 2) < 10 || count < 10
-	        	remove_count = remove_count + 1
 	        	next
 	        end
+	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
-	        @away_drtg_one = @away_drtg_one + player.drtg
+	        drtg_min = drtg_min + player.sum_mins/(count - 2)
+	        @away_drtg_one = @away_drtg_one + player.drtg * player.sum_mins/(count - 2)
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
-	    @away_drtg_one = @away_drtg_one.to_f / (@away_players_group1.size - remove_count)
+
+	    if drtg_count < 3
+	    	@away_players_group4 = @away_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @away_flag)).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@away_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	one_value = player.drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	two_value = player.drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = player.drtg
+		        end
+		    end
+		    if drtg < 3
+			    drtg_min = drtg_min + max_one
+			    @away_drtg_one = @away_drtg_one + one_value * max_one
+			end
+			if drtg < 2
+			    drtg_min = drtg_min + max_two
+			    @away_drtg_one = @away_drtg_one + two_value * max_two
+			end
+			if drtg < 1
+			    drtg_min = drtg_min + max_thr
+			    @away_drtg_one = @away_drtg_one + thr_value * max_thr
+			end
+	    	@away_drtg_one = @away_drtg_one.to_f / drtg_min
+	    end
 
 	    @away_drtg_two = 0
-	    remove_count = 0
+	    drtg_count = 0
+	    drtg_min = 0
 	    @away_players_group2.each_with_index do |player, index|
 	        count = 1
 	        if player.possession
@@ -621,14 +884,65 @@ class IndexController < ApplicationController
 	        	count = 1
 	        end
 	        if player.sum_mins/(count - 2) < 10 || count < 10
-	        	remove_count = remove_count + 1
 	        	next
 	        end
+	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
-	        @away_drtg_two = @away_drtg_two + player.drtg
+	        drtg_min = drtg_min + player.sum_mins/(count - 2)
+	        @away_drtg_two = @away_drtg_two + player.drtg * player.sum_mins/(count - 2)
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
-	    @away_drtg_two = @away_drtg_two.to_f / (@away_players_group2.size - remove_count)
+	    if drtg_count < 3
+	    	@away_players_group4 = @away_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @away_flag))).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@away_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	one_value = player.drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	two_value = player.drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = player.drtg
+		        end
+		    end
+		    if drtg < 3
+			    drtg_min = drtg_min + max_one
+			    @away_drtg_two = @away_drtg_two + one_value * max_one
+			end
+			if drtg < 2
+			    drtg_min = drtg_min + max_two
+			    @away_drtg_two = @away_drtg_two + two_value * max_two
+			end
+			if drtg < 1
+			    drtg_min = drtg_min + max_thr
+			    @away_drtg_two = @away_drtg_two + thr_value * max_thr
+			end
+	    	@away_drtg_two = @away_drtg_two.to_f / drtg_min
+	    end
 
 	    @away_players_group3.each_with_index do |player, index|
 	        count = 1
@@ -648,7 +962,8 @@ class IndexController < ApplicationController
 	    @home_total_poss = 0
 	    @home_total_min = 0
 	    @home_drtg_one = 0
-	    remove_count = 0
+	    drtg_count = 0
+	    drtg_min = 0
 	    @home_players_group1.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -658,17 +973,69 @@ class IndexController < ApplicationController
 	        	count = 1
 	        end
 	        if player.sum_mins/(count - 2) < 10 || count < 10
-	        	remove_count = remove_count + 1
 	        	next
 	        end
+	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
-	        @home_drtg_one = @home_drtg_one + player.drtg
+	        drtg_min = drtg_min + player.sum_mins/(count - 2)
+	        @home_drtg_one = @home_drtg_one + player.drtg * player.sum_mins/(count - 2)
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
-	    @home_drtg_one = @home_drtg_one.to_f / (@home_players_group1.size - remove_count)
+	    if drtg_count < 3
+	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @home_flag)).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@home_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	one_value = player.drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	two_value = player.drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = player.drtg
+		        end
+		    end
+		    if drtg < 3
+			    drtg_min = drtg_min + max_one
+			    @home_drtg_one = @home_drtg_one + one_value * max_one
+			end
+			if drtg < 2
+			    drtg_min = drtg_min + max_two
+			    @home_drtg_one = @home_drtg_one + two_value * max_two
+			end
+			if drtg < 1
+			    drtg_min = drtg_min + max_thr
+			    @home_drtg_one = @home_drtg_one + thr_value * max_thr
+			end
+	    	@home_drtg_one = @home_drtg_one.to_f / drtg_min
+	    end
 
 	    @home_drtg_two = 0
-	    remove_count = 0
+	    drtg_count = 0
+	    drtg_min = 0
 	    @home_players_group2.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -678,14 +1045,65 @@ class IndexController < ApplicationController
 	        	count = 1
 	        end
 	        if player.sum_mins/(count - 2) < 10 || count < 10
-	        	remove_count = remove_count + 1
 	        	next
 	        end
+	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
-	        @home_drtg_two = @home_drtg_two + player.drtg
+	        drtg_min = drtg_min + player.sum_mins/(count - 2)
+	        @home_drtg_two = @home_drtg_two + player.drtg * player.sum_mins/(count - 2)
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
-	    @home_drtg_two = @home_drtg_two.to_f / ( @home_players_group2.size - remove_count )
+	    if drtg_count < 3
+	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @home_flag))).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@home_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	one_value = player.drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	two_value = player.drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = player.drtg
+		        end
+		    end
+		    if drtg < 3
+			    drtg_min = drtg_min + max_one
+			    @home_drtg_two = @home_drtg_two + one_value * max_one
+			end
+			if drtg < 2
+			    drtg_min = drtg_min + max_two
+			    @home_drtg_two = @home_drtg_two + two_value * max_two
+			end
+			if drtg < 1
+			    drtg_min = drtg_min + max_thr
+			    @home_drtg_two = @home_drtg_two + thr_value * max_thr
+			end
+	    	@home_drtg_two = @home_drtg_two.to_f / drtg_min
+	    end
 
 	    @home_players_group3.each_with_index do |player, index|
 	        count = 1
