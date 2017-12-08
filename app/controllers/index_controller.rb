@@ -409,6 +409,403 @@ class IndexController < ApplicationController
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
+
+
+		@home_injury = Injury.where("team = ? AND date = ?", @game.home_team,  Date.strptime(@game.game_date).strftime("%b %e"))
+		@away_injury = Injury.where("team = ? AND date = ?", @game.away_team,  Date.strptime(@game.game_date).strftime("%b %e"))
+
+		@away_injury_name = []
+		@away_injury.each_with_index do |injury, index|
+			name = injury.name
+			unless name.index('.')
+				name_index = name.index(' ')
+				name = name_index ? name[0] + name[name_index..-1] : name
+			end
+			@away_injury_name.push(name)
+		end
+
+		@home_injury_name = []
+		@home_injury.each_with_index do |injury, index|
+			name = injury.name
+			unless name.index('.')
+				name_index = name.index(' ')
+				name = name_index ? name[0] + name[name_index..-1] : name
+			end
+			@home_injury_name.push(name)
+		end
+
+		@injury_away_total_poss = 0
+	    @injury_away_total_min = 0
+	    @injury_away_drtg_one = 0
+	    injury_drtg_count = 0
+	    injury_drtg_min = 0
+	    @away_players_group1.each_with_index do |player, index| 
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
+	        end
+	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        	next
+	        end
+	        if @away_injury_name.include?(player.player_name)
+	        	next
+	        end
+	        injury_drtg_count = injury_drtg_count + 1
+	        @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
+	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
+	        @injury_away_drtg_one = @injury_away_drtg_one + player.drtg * (player.sum_mins/(count - 2))
+	        @injury_away_total_poss = @injury_away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	    end
+
+	    if injury_drtg_count < 3
+	    	@away_players_group4 = @away_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @away_flag)).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@away_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        if @away_injury_name.include?(player.player_name)
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = compare_value
+		        end
+		    end
+		    if injury_drtg_count < 3
+			    injury_drtg_min = injury_drtg_min + max_one
+			    @injury_away_drtg_one = @injury_away_drtg_one + one_value * max_one
+			end
+			if injury_drtg_count < 2
+			    injury_drtg_min = injury_drtg_min + max_two
+			    @injury_away_drtg_one = @injury_away_drtg_one + two_value * max_two
+			end
+			if injury_drtg_count < 1
+			    injury_drtg_min = injury_drtg_min + max_thr
+			    @injury_away_drtg_one = @injury_away_drtg_one + thr_value * max_thr
+			end
+	    end
+	    @injury_away_drtg_one = @injury_away_drtg_one.to_f / drtg_min
+
+	    @injury_away_drtg_two = 0
+	    injury_drtg_count = 0
+	    injury_drtg_min = 0
+	    @away_players_group2.each_with_index do |player, index|
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
+	        end
+	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        	next
+	        end
+	        if @away_injury_name.include?(player.player_name)
+	        	next
+	        end
+	        injury_drtg_count = injury_drtg_count + 1
+	        @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
+	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
+	        @injury_away_drtg_two = @injury_away_drtg_two + player.drtg * (player.sum_mins/(count - 2))
+	        @injury_away_total_poss = @injury_away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	    end
+	    if injury_drtg_count < 3
+	    	@away_players_group4 = @away_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @away_flag))).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@away_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        if @away_injury_name.include?(player.player_name)
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = compare_value
+		        end
+		    end
+		    if injury_drtg_count < 3
+			    injury_drtg_min = injury_drtg_min + max_one
+			    @injury_away_drtg_two = @injury_away_drtg_two + one_value * max_one
+			end
+			if injury_drtg_count < 2
+			    injury_drtg_min = injury_drtg_min + max_two
+			    @injury_away_drtg_two = @injury_away_drtg_two + two_value * max_two
+			end
+			if injury_drtg_count < 1
+			    injury_drtg_min = injury_drtg_min + max_thr
+			    @injury_away_drtg_two = @injury_away_drtg_two + thr_value * max_thr
+			end
+	    end
+	    @injury_away_drtg_two = @injury_away_drtg_two.to_f / drtg_min
+
+	    @away_players_group3.each_with_index do |player, index|
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
+	        end
+	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        	next
+	        end
+	        if @away_injury_name.include?(player.player_name)
+	        	next
+	        end
+	        @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
+	        @injury_away_total_poss = @injury_away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	    end
+
+	    @injury_home_total_poss = 0
+	    @injury_home_total_min = 0
+	    @injury_home_drtg_one = 0
+	    injury_drtg_count = 0
+	    injury_drtg_min = 0
+	    @home_players_group1.each_with_index do |player, index| 
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
+	        end
+	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        	next
+	        end
+	        if @home_injury_name.include?(player.player_name)
+	        	next
+	        end
+	        injury_drtg_count = injury_drtg_count + 1
+	        @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
+	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
+	        @injury_home_drtg_one = @injury_home_drtg_one + player.drtg * (player.sum_mins/(count - 2))
+	        @injury_home_total_poss = @injury_home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	    end
+	    if injury_drtg_count < 3
+	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @home_flag)).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@home_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        if @home_injury_name.include?(player.player_name)
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = compare_value
+		        end
+		    end
+		    if injury_drtg_count < 3
+			    injury_drtg_min = injury_drtg_min + max_one
+			    @injury_home_drtg_one = @injury_home_drtg_one + one_value * max_one
+			end
+			if injury_drtg_count < 2
+			    injury_drtg_min = injury_drtg_min + max_two
+			    @injury_home_drtg_one = @injury_home_drtg_one + two_value * max_two
+			end
+			if injury_drtg_count < 1
+			    injury_drtg_min = injury_drtg_min + max_thr
+			    @injury_home_drtg_one = @injury_home_drtg_one + thr_value * max_thr
+			end
+	    end
+	    @injury_home_drtg_one = @injury_home_drtg_one.to_f / drtg_min
+
+	    @injury_home_drtg_two = 0
+	    injury_drtg_count = 0
+	    injury_drtg_min = 0
+	    @home_players_group2.each_with_index do |player, index| 
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
+	        end
+	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        	next
+	        end
+	        if @home_injury_name.include?(player.player_name)
+	        	next
+	        end
+	        injury_drtg_count = injury_drtg_count + 1
+	        @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
+	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
+	        @injury_home_drtg_two = @injury_home_drtg_two + player.drtg * (player.sum_mins/(count - 2))
+	        @injury_home_total_poss = @injury_home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	    end
+	    if injury_drtg_count < 3
+	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @home_flag))).order(:state)
+	    	max_one = 0
+	    	one_value = 0
+	    	max_two = 0
+	    	two_value = 0
+	    	max_thr = 0
+	    	thr_value = 0
+	    	@home_players_group4.each_with_index do |player, index| 
+		        count = 1
+		        if player.possession
+		          	count = player.possession.scan(/,/).count + 1
+		        end
+		        if count == 2
+		        	count = 1
+		        end
+		        if player.sum_mins/(count - 2) < 10 || count < 10
+		        	next
+		        end
+		        if @home_injury_name.include?(player.player_name)
+		        	next
+		        end
+		        compare = player.sum_mins/(count - 2)
+		        compare_value = player.drtg
+		        if compare > max_one
+		        	temp = max_one
+		        	max_one = compare
+		        	compare = temp
+		        	temp_drtg = one_value
+		        	one_value = compare_value
+		        	compare_value = temp_drtg
+		        end
+		        if compare > max_two
+		        	temp = max_two
+		        	max_two = compare
+		        	compare = temp
+		        	temp_drtg = two_value
+		        	two_value = compare_value
+		        	compare_value = temp_drtg
+		        end
+		        if compare > max_thr
+		        	max_thr = compare
+		        	thr_value = compare_value
+		        end
+		    end
+		    if injury_drtg_count < 3
+			    injury_drtg_min = injury_drtg_min + max_one
+			    @injury_home_drtg_two = @injury_home_drtg_two + one_value * max_one
+			end
+			if injury_drtg_count < 2
+			    injury_drtg_min = injury_drtg_min + max_two
+			    @injury_home_drtg_two = @injury_home_drtg_two + two_value * max_two
+			end
+			if injury_drtg_count < 1
+			    injury_drtg_min = injury_drtg_min + max_thr
+			    @injury_home_drtg_two = @injury_home_drtg_two + thr_value * max_thr
+			end
+	    end
+	    @injury_home_drtg_two = @injury_home_drtg_two.to_f / drtg_min
+
+	    @home_players_group3.each_with_index do |player, index|
+	        count = 1
+	        if player.possession
+	          	count = player.possession.scan(/,/).count + 1
+	        end
+	        if count == 2
+	        	count = 1
+	        end
+	        if player.sum_mins/(count - 2) < 10 || count < 10
+	        	next
+	        end
+	        if @home_injury_name.include?(player.player_name)
+	        	next
+	        end
+	        @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
+	        @injury_home_total_poss = @injury_home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	    end
 	    
 
 	    @filters = [
