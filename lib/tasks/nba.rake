@@ -1,5 +1,5 @@
 namespace :nba do
-	task :test => :environment do
+	task :getInjury => :environment do
     include Api
 		url = "http://www.espn.com/nba/injuries"
     doc = download_document(url)
@@ -10,8 +10,6 @@ namespace :nba do
       end
       team = slice.text
       link = 'http:' + slice['value']
-      puts "team=#{team}"
-      puts "link=#{link}"
       page = download_document(link)
       lists = page.css('tr')
       lists.each_with_index do |list, index|
@@ -20,14 +18,13 @@ namespace :nba do
         end
         if list.children.size == 1
           date = list.children[0].text
-          puts "date=#{date}"
         elsif list.children.size == 2
           name = list.children[0].children[0].children[1].text[1..-1]
           status = list.children[1].children[0].text
           text = list.children[1].children[2].text
-          puts "name=#{name}"
-          puts "status=#{status}"
-          puts "text=#{text}"
+          unless element = Injuries.find_by(team: team, link: link, date: date, name: name, status: status, text: text)
+            element = Injuries.create(team: team, link: link, date: date, name: name, status: status, text: text)
+          end
         end
       end
     end
