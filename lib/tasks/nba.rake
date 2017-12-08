@@ -12,7 +12,7 @@ namespace :nba do
       link = slice['value']
       puts team
       puts link
-      page = download_document(url)
+      page = download_document(link)
       lists = page.css('tr')
       lists.each_with_index do |list, index|
         if index == 0
