@@ -83,10 +83,11 @@ class IndexController < ApplicationController
 	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
+	        puts player.drtg
+	        puts player.sum_mins/(count - 2)
 	        @away_drtg_one = @away_drtg_one + player.drtg * player.sum_mins/(count - 2)
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
-	    puts @away_drtg_one
 
 	    if drtg_count < 3
 	    	@away_players_group4 = @away_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @away_flag)).order(:state)
@@ -130,13 +131,6 @@ class IndexController < ApplicationController
 		        	thr_value = compare_value
 		        end
 		    end
-		    puts drtg_count
-		    puts max_one
-	    	puts one_value
-	    	puts max_two
-	    	puts two_value
-	    	puts max_thr
-	    	puts thr_value
 		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @away_drtg_one = @away_drtg_one + one_value * max_one
@@ -150,8 +144,6 @@ class IndexController < ApplicationController
 			    @away_drtg_one = @away_drtg_one + thr_value * max_thr
 			end
 	    end
-	    puts drtg_min
-	    puts @away_drtg_one
 	    @away_drtg_one = @away_drtg_one.to_f / drtg_min
 
 	    @away_drtg_two = 0
