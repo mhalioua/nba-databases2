@@ -12,6 +12,7 @@ namespace :nba do
       link = 'http:' + slice['value']
       page = download_document(link)
       lists = page.css('tr')
+      date = ""
       lists.each_with_index do |list, index|
         if index == 0
           next
