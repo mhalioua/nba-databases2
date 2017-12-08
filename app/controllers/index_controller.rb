@@ -518,7 +518,7 @@ class IndexController < ApplicationController
 			    @injury_away_drtg_one = @injury_away_drtg_one + thr_value * max_thr
 			end
 	    end
-	    @injury_away_drtg_one = @injury_away_drtg_one.to_f / drtg_min
+	    @injury_away_drtg_one = @injury_away_drtg_one.to_f / injury_drtg_min
 
 	    @injury_away_drtg_two = 0
 	    injury_drtg_count = 0
@@ -601,7 +601,7 @@ class IndexController < ApplicationController
 			    @injury_away_drtg_two = @injury_away_drtg_two + thr_value * max_thr
 			end
 	    end
-	    @injury_away_drtg_two = @injury_away_drtg_two.to_f / drtg_min
+	    @injury_away_drtg_two = @injury_away_drtg_two.to_f / injury_drtg_min
 
 	    @away_players_group3.each_with_index do |player, index|
 	        count = 1
@@ -704,7 +704,7 @@ class IndexController < ApplicationController
 			    @injury_home_drtg_one = @injury_home_drtg_one + thr_value * max_thr
 			end
 	    end
-	    @injury_home_drtg_one = @injury_home_drtg_one.to_f / drtg_min
+	    @injury_home_drtg_one = @injury_home_drtg_one.to_f / injury_drtg_min
 
 	    @injury_home_drtg_two = 0
 	    injury_drtg_count = 0
@@ -787,7 +787,7 @@ class IndexController < ApplicationController
 			    @injury_home_drtg_two = @injury_home_drtg_two + thr_value * max_thr
 			end
 	    end
-	    @injury_home_drtg_two = @injury_home_drtg_two.to_f / drtg_min
+	    @injury_home_drtg_two = @injury_home_drtg_two.to_f / injury_drtg_min
 
 	    @home_players_group3.each_with_index do |player, index|
 	        count = 1
