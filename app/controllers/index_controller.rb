@@ -411,8 +411,8 @@ class IndexController < ApplicationController
 	    end
 
 
-		@home_injury = Injury.where("team = ? AND date = ?", @game.home_team,  Date.strptime(@game.game_date).strftime("%b  %e"))
-		@away_injury = Injury.where("team = ? AND date = ?", @game.away_team,  Date.strptime(@game.game_date).strftime("%b  %e"))
+		@home_injury = Injury.where("team = ? AND date = ?", @game.home_team,  Date.strptime(@game.game_date).strftime("%b %e"))
+		@away_injury = Injury.where("team = ? AND date = ?", @game.away_team,  Date.strptime(@game.game_date).strftime("%b %e"))
 
 		@away_injury_name = []
 		@away_injury.each_with_index do |injury, index|
