@@ -9,7 +9,7 @@ namespace :nba do
         next
       end
       team = slice.text
-      link = slice['value']
+      link = 'http' + slice['value']
       puts team
       puts link
       page = download_document(link)
