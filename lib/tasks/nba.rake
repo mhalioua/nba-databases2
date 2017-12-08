@@ -10,8 +10,8 @@ namespace :nba do
       end
       team = slice.text
       link = 'http:' + slice['value']
-      puts team
-      puts link
+      puts "team=#{team}"
+      puts "link=#{link}"
       page = download_document(link)
       lists = page.css('tr')
       lists.each_with_index do |list, index|
@@ -20,14 +20,14 @@ namespace :nba do
         end
         if list.children.size == 1
           date = list.children[0].text
-          puts date
+          puts "date=#{date}"
         elsif list.children.size == 2
           name = list.children[0].children[0].text
           status = list.children[1].children[0].text
           text = list.children[1].text
-          puts name
-          puts status
-          puts text
+          puts "name=#{name}"
+          puts "status=#{status}"
+          puts "text=#{text}"
         end
       end
     end
