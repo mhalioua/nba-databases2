@@ -136,8 +136,8 @@ class IndexController < ApplicationController
 			    drtg_min = drtg_min + max_thr
 			    @away_drtg_one = @away_drtg_one + thr_value * max_thr
 			end
-	    	@away_drtg_one = @away_drtg_one.to_f / drtg_min
 	    end
+	    @away_drtg_one = @away_drtg_one.to_f / drtg_min
 
 	    @away_drtg_two = 0
 	    drtg_count = 0
@@ -208,8 +208,8 @@ class IndexController < ApplicationController
 			    drtg_min = drtg_min + max_thr
 			    @away_drtg_two = @away_drtg_two + thr_value * max_thr
 			end
-	    	@away_drtg_two = @away_drtg_two.to_f / drtg_min
 	    end
+	    @away_drtg_two = @away_drtg_two.to_f / drtg_min
 
 	    @away_players_group3.each_with_index do |player, index|
 	        count = 1
@@ -297,8 +297,8 @@ class IndexController < ApplicationController
 			    drtg_min = drtg_min + max_thr
 			    @home_drtg_one = @home_drtg_one + thr_value * max_thr
 			end
-	    	@home_drtg_one = @home_drtg_one.to_f / drtg_min
 	    end
+	    @home_drtg_one = @home_drtg_one.to_f / drtg_min
 
 	    @home_drtg_two = 0
 	    drtg_count = 0
@@ -369,8 +369,8 @@ class IndexController < ApplicationController
 			    drtg_min = drtg_min + max_thr
 			    @home_drtg_two = @home_drtg_two + thr_value * max_thr
 			end
-	    	@home_drtg_two = @home_drtg_two.to_f / drtg_min
 	    end
+	    @home_drtg_two = @home_drtg_two.to_f / drtg_min
 
 	    @home_players_group3.each_with_index do |player, index|
 	        count = 1
@@ -869,8 +869,8 @@ class IndexController < ApplicationController
 			    drtg_min = drtg_min + max_thr
 			    @away_drtg_one = @away_drtg_one + thr_value * max_thr
 			end
-	    	@away_drtg_one = @away_drtg_one.to_f / drtg_min
 	    end
+	    @away_drtg_one = @away_drtg_one.to_f / drtg_min
 
 	    @away_drtg_two = 0
 	    drtg_count = 0
@@ -941,8 +941,8 @@ class IndexController < ApplicationController
 			    drtg_min = drtg_min + max_thr
 			    @away_drtg_two = @away_drtg_two + thr_value * max_thr
 			end
-	    	@away_drtg_two = @away_drtg_two.to_f / drtg_min
 	    end
+	    @away_drtg_two = @away_drtg_two.to_f / drtg_min
 
 	    @away_players_group3.each_with_index do |player, index|
 	        count = 1
@@ -1030,8 +1030,8 @@ class IndexController < ApplicationController
 			    drtg_min = drtg_min + max_thr
 			    @home_drtg_one = @home_drtg_one + thr_value * max_thr
 			end
-	    	@home_drtg_one = @home_drtg_one.to_f / drtg_min
 	    end
+	    @home_drtg_one = @home_drtg_one.to_f / drtg_min
 
 	    @home_drtg_two = 0
 	    drtg_count = 0
@@ -1102,8 +1102,8 @@ class IndexController < ApplicationController
 			    drtg_min = drtg_min + max_thr
 			    @home_drtg_two = @home_drtg_two + thr_value * max_thr
 			end
-	    	@home_drtg_two = @home_drtg_two.to_f / drtg_min
 	    end
+	    @home_drtg_two = @home_drtg_two.to_f / drtg_min
 
 	    @home_players_group3.each_with_index do |player, index|
 	        count = 1
