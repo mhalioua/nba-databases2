@@ -23,6 +23,7 @@ namespace :nba do
           status = list.children[1].children[0].text
           text = list.children[1].children[2].text
           unless element = Injury.find_by(team: team, link: link, date: date, name: name, status: status, text: text)
+            puts date
             element = Injury.create(team: team, link: link, date: date, name: name, status: status, text: text)
           end
         end
