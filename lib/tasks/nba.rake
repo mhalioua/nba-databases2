@@ -22,7 +22,7 @@ namespace :nba do
           date = list.children[0].text
           puts "date=#{date}"
         elsif list.children.size == 2
-          name = list.children[0].children[0].children[1].text
+          name = list.children[0].children[0].children[1].text[1..-1]
           status = list.children[1].children[0].text
           text = list.children[1].children[2].text
           puts "name=#{name}"
