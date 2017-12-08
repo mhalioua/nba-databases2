@@ -18,18 +18,7 @@ namespace :nba do
         if index == 0
           next
         end
-        if list.children.size == 1
-          date = list.children[0].text
-          puts date
-          puts Date.new(date).to_formatted_s(:short)
-        elsif list.children.size == 2
-          name = list.children[0].children[0].text
-          status = list.children[1].children[0].text
-          text = list.children[1].text
-          puts name
-          puts status
-          puts text
-        end
+        puts list.inspect
       end
     end
 	end
