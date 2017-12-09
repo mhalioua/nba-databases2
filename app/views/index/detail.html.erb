@@ -343,6 +343,9 @@
   </div>
 </div>
 <div class="tableBody">
+  <input type="checkbox" id="inqury"> Show inquries
+</div>
+<div class="tableBody" class="fulltable">
   <h5> NEXT STAT </h5>
   <table border="1" class="tableSide">
   	<thead>
@@ -751,7 +754,7 @@
 </table>
 </div>
 
-<div class="tableBody">
+<div class="tableBody" class="inqurytable">
   <h5> NEXT STAT </h5>
   <table border="1" class="tableSide">
     <thead>
@@ -2178,4 +2181,13 @@ $('.homePossessions').on('input', function() {
  <% @home_injury_name.each do |element| %>
  console.log('<%= element %>')
  <% end %>
+ $('#inqury').change(function() {
+  if(this.checked) {
+    $('.inqurytable').css('display', 'none');
+    $('.fulltable').css('display', 'block');
+  } else {
+    $('.inqurytable').css('display', 'block');
+    $('.fulltable').css('display', 'none');
+  }
+ });
 </script>
