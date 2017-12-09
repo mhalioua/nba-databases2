@@ -1436,10 +1436,10 @@ $('.awayPossessions').on('input', function() {
       if player.position == 'SG' || player.position == 'PG'
     %>
       $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_home_drtg_one %>)/100 + '%');
-      sum2 += value/10000 * prorate * <%= @injury_home_drtg_one %>;
+      injurysum2 += value/10000 * prorate * <%= @injury_home_drtg_one %>;
       <% else %>
       $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_home_drtg_two %>)/100 + '%');
-      sum2 += value/10000 * prorate * <%= @injury_home_drtg_two %>;
+      injurysum2 += value/10000 * prorate * <%= @injury_home_drtg_two %>;
     <%
       end 
     end
