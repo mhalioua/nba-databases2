@@ -1527,6 +1527,81 @@ $('.homePossessions').on('input', function() {
     $('#homesum').html(sum);
     $('#homesum1').html(sum1);
     $('#homesum2').html(sum2);
+
+
+    var injurysum1 = 0, injurysum2 = 0;
+   <% @home_players.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+      next
+    end
+  %>
+   var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>
+   console.log(prorate);
+    $(".injurychangeOrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
+    injurysum1 += value/10000 * prorate * <%= player.ortg ? player.ortg : 0 %>;
+    <% end %>
+    <% @home_players_group1.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+      next
+    end
+  %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>
+    console.log(prorate);
+    $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_away_drtg_one %>)/100 + '%');
+    injurysum2 += value/10000 * prorate * <%= @injury_away_drtg_one %>;
+    <% end %>
+    <% @home_players_group2.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+      next
+    end
+  %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>
+    console.log(prorate);
+    $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_away_drtg_two %>)/100 + '%');
+    injurysum2 += value/10000 * prorate * <%= @injury_away_drtg_two %>;
+    <% end %>
+    <% @home_players_group3.each_with_index do |player, index| 
+    count = 1
+    if player.possession
+        count = player.possession.scan(/,/).count + 1
+    end
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+      next
+    end
+  %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>
+    console.log(prorate);
+    <%
+      if player.position == 'SG' || player.position == 'PG'
+    %>
+    $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_away_drtg_one %>)/100 + '%');
+    injurysum2 += value/10000 * prorate * <%= @injury_away_drtg_one %>;
+    <% else %>
+    $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_away_drtg_two %>)/100 + '%');
+    injurysum2 += value/10000 * prorate * <%= @injury_away_drtg_two %>;
+    <%
+      end 
+    end
+    %>
+    injurysum = (injurysum1+injurysum2)/2
+    injurysum = Math.round(injurysum*100)/100;
+    injurysum1 = Math.round(injurysum1*100)/100;
+    injurysum2 = Math.round(injurysum2*100)/100;
+    $('#injuryhomesum').html(injurysum);
+    $('#injuryhomesum1').html(injurysum1);
+    $('#injuryhomesum2').html(injurysum2);
 });
 </script>
 
