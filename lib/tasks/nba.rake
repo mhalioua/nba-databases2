@@ -911,7 +911,7 @@ namespace :nba do
 					player_name = player.children[1].children[0].text
 					player_index = player_name.rindex(' ')
 					player_name = player_index ? player_name[0] + ". " + player_name[player_index+1..-1] : ""
-          count = player.children[4].children[0].text.to_i
+          count = player.children[3].children[0].text.to_i
 					ortg = player.children[28].text
 					drtg = player.children[29].text
 					unless player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
