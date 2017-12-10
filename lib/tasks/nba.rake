@@ -1018,8 +1018,8 @@ namespace :nba do
             ortg = ortg + player_count * (player_element.ortg ? player_element.ortg : 0)
             drtg = drtg + player_count * (player_element.drtg ? player_element.drtg : 0)
           end
-					ortg = ortg / count
-					drtg = drtg / count
+					ortg = (ortg.to_f / count).round(1)
+					drtg = (drtg.to_f / count).round(1)
 					player.update(ortg: ortg, drtg: drtg)
 				end
 			end
