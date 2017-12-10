@@ -1013,9 +1013,10 @@ namespace :nba do
           count = 0
           player_elements = Tg.where("player_name = ? AND year >= 2017", player_name)
           player_elements.each do |player_element|
-            count = count + player_element.count
-            ortg = ortg + player_element.count * (player_element.ortg ? player_element.ortg : 0)
-            drtg = drtg + player_element.count * (player_element.drtg ? player_element.drtg : 0)
+            player_count = player_element.count ? player_element.count : 0
+            count = count + player_count
+            ortg = ortg + player_count * (player_element.ortg ? player_element.ortg : 0)
+            drtg = drtg + player_count * (player_element.drtg ? player_element.drtg : 0)
           end
 					ortg = ortg / count
 					drtg = drtg / count
