@@ -911,17 +911,17 @@ namespace :nba do
 					player_name = player.children[1].children[0].text
 					player_index = player_name.rindex(' ')
 					player_name = player_index ? player_name[0] + ". " + player_name[player_index+1..-1] : ""
+          count = player.children[4].children[0].text.to_i
 					ortg = player.children[28].text
 					drtg = player.children[29].text
 					unless player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
 			           	player_element = Tg.create(player_name: player_name, team_abbr: team_abbr, year: year)
 		            end
-		            player_element.update(ortg: ortg, drtg: drtg)
+		            player_element.update(ortg: ortg, drtg: drtg, count: count)
 				end
-				if index == 18
+				if index == 5
 					break
 				end
-				break
 			end
 		end
 	end
@@ -1008,58 +1008,17 @@ namespace :nba do
 						player_name = @player_name[player_name]
 					end
 					
-					ortg = ""
-					drtg = ""
-					last_ortg = 0
-					last_drtg = 0
-					this_ortg = 0
-					this_drtg = 0
-					if player_element = Tg.find_by(player_name: player_name, year: 2017)
-						last_ortg = player_element.ortg
-						last_ortg = 0 unless last_ortg
-						last_drtg = player_element.drtg
-						last_drtg = 0 unless last_drtg
-					end
-					if player_element = Tg.find_by(player_name: player_name, year: 2018)
-						this_ortg = player_element.ortg
-						this_drtg = player_element.drtg
-						this_ortg = 0 unless this_ortg
-						this_drtg = 0 unless this_drtg
-					end
-					url = player.link
-					url = url.gsub(/player/,'player/stats')
-					puts url
-					page = download_document(url)
-					trs = page.css(".mod-player-stats table .oddrow, .mod-player-stats table .evenrow")
-					if trs.length < 3
-						player.update(ortg: 0, drtg: 0)
-						next
-					end
-					if trs.length != 3
-						last_element = trs[trs.length/3 - 2]
-					else
-						last_element = trs[trs.length/3 - 1]
-					end
-					this_element = trs[trs.length/3 - 1]
-
-					last_count = last_element.children[2].text.to_i
-					this_count = this_element.children[2].text.to_i
-
-					if this_ortg == 0
-						this_count = 0
-					end
-
-					if last_ortg == 0
-						last_count = 0
-					end
-
 					ortg = 0
 					drtg = 0
-
-					if last_count + this_count != 0
-						ortg = (last_count * last_ortg + this_count * this_ortg) / (last_count + this_count)
-						drtg = (last_count * last_drtg + this_count * this_drtg) / (last_count + this_count)
-					end
+          count = 0
+          player_elements = Tg.where("player_name = ? AND year >= 2017", player_name)
+          player_elements.each do |player_element|
+            count = count + player_element.count
+            ortg = player_element.count * player_element.ortg
+            drtg = player_element.count * player_element.drtg
+          end
+					ortg = ortg / count
+					drtg = drtg / count
 					player.update(ortg: ortg, drtg: drtg)
 				end
 			end
