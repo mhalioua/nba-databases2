@@ -361,6 +361,7 @@
         <th>DRTG</th>
         <th></th>
         <th></th>
+        <th></th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -417,6 +418,9 @@
         <td rowspan="<%= @away_players_group1.size %>"><%= '%.2f' % @away_drtg_one %></td>
         <% end %>
         <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <input type="checkbox" class="inqury<%= player.id %>">
+        </td>
       </tr>
     <% end %>
 
@@ -473,11 +477,14 @@
         <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @away_drtg_two %></td>
         <% end %>
         <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <input type="checkbox" class="inqury<%= player.id %>">
+        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="10"></td>
+        <td colspan="11"></td>
       </tr>
     <% @away_players_group3.each_with_index do |player, index| 
           count = 1
@@ -530,10 +537,13 @@
         <td style='<%= style %>' ><%= player.drtg %></td>
         <td style='<%= style %>' ></td>
         <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <input type="checkbox" class="inqury<%= player.id %>">
+        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="11"></td>
+        <td colspan="12"></td>
       </tr>
       <tr>
         <td></td>
@@ -546,6 +556,7 @@
         <td id="awaysum1"></td>
         <td colspan="2" id="awaysum"></td>
         <td id="awaysum2"></td>
+        <td></td>
       </tr>
   	</tbody>
 </table>
@@ -562,6 +573,7 @@
         <th>ORTG</th>
         <th></th>
         <th>DRTG</th>
+        <th></th>
         <th></th>
         <th></th>
       </tr>
@@ -620,6 +632,9 @@
         <td rowspan="<%= @home_players_group1.size %>"><%= '%.2f' % @home_drtg_one %></td>
         <% end %>
         <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <input type="checkbox" class="inqury<%= player.id %>">
+        </td>
       </tr>
     <% end %>
 
@@ -676,11 +691,14 @@
         <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @home_drtg_two %></td>
         <% end %>
         <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <input type="checkbox" class="inqury<%= player.id %>">
+        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="10"></td>
+        <td colspan="11"></td>
       </tr>
     <% @home_players_group3.each_with_index do |player, index| 
           count = 1
@@ -733,10 +751,13 @@
         <td style='<%= style %>' ><%= player.drtg %></td>
         <td style='<%= style %>' ></td>
         <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <input type="checkbox" class="inqury<%= player.id %>">
+        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="11"></td>
+        <td colspan="12"></td>
       </tr>
       <tr>
         <td></td>
@@ -749,6 +770,7 @@
         <td id="homesum1"></td>
         <td colspan="2" id="homesum"></td>
         <td id="homesum2"></td>
+        <td></td>
       </tr>
     </tbody>
 </table>
