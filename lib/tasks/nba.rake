@@ -78,8 +78,8 @@ namespace :nba do
 		Rake::Task["nba:getUpdatePoss"].invoke
 		Rake::Task["nba:getUpdatePoss"].reenable
 
-		Rake::Task["nba:getUpdateRate"].invoke
-		Rake::Task["nba:getUpdateRate"].reenable
+    Rake::Task["nba:getInjury"].invoke
+    Rake::Task["nba:getInjury"].reenable
 		
 	end
 
@@ -966,16 +966,6 @@ namespace :nba do
 		end
 	end
 
-	task :setDate => [:environment] do
-		games = Nba.where("game_date between ? and ?", (Date.today - 2.years).beginning_of_day, Time.now-5.hours)
-		games.each do |game|
-			players= game.players.all
-			players.each do |player|
-				player.update(game_date: game.game_date)
-			end
-		end
-	end
-
 	task :getUpdateTG => [:environment] do
 		include Api
 		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
@@ -1023,72 +1013,6 @@ namespace :nba do
 					player.update(ortg: ortg, drtg: drtg)
 				end
 			end
-		end
-	end
-
-	task :getUpdateRate => [:environment] do
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
-		puts games.size
-		games.each do |game|
-			away_players = game.players.where("team_abbr = 0 AND mins > 10")
-		    home_players = game.players.where("team_abbr = 1 AND mins > 10")
-		 	away_total_poss = 0
-		    away_players.each_with_index do |player, index| 
-		    	if player.player_name == "TEAM"
-		    		next
-		    	end
-		    	if player.possession
-		            count = player.possession.scan(/,/).count + 1
-		        end
-		    	count = 1
-		        if count < 10
-		        	next
-		        end
-		        away_total_poss = away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
-		    end
-
-		    away_players.each_with_index do |player, index| 
-		    	if player.player_name == "TEAM"
-		    		next
-		    	end
-		    	if player.possession
-		            count = player.possession.scan(/,/).count + 1
-		        end
-		    	count = 1
-		        if count < 10
-		        	next
-		        end
-		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / away_total_poss)
-		    end
-
-		    home_total_poss = 0
-		    home_players.each_with_index do |player, index| 
-		    	if player.player_name == "TEAM"
-		    		next
-		    	end
-		    	if player.possession
-		            count = player.possession.scan(/,/).count + 1
-		        end
-		    	count = 1
-		        if count < 10
-		        	next
-		        end
-		        home_total_poss = home_total_poss + (100 * player.sum_poss.to_f/player.team_poss)
-		    end
-
-		    home_players.each_with_index do |player, index|
-		    	if player.player_name == "TEAM"
-		    		next
-		    	end
-		    	count = 1
-		    	if player.possession
-		            count = player.possession.scan(/,/).count + 1
-		        end
-		        if count < 10
-		        	next
-		        end
-		    	player.update(prorate: 100 * (100 * player.sum_poss.to_f/player.team_poss) / home_total_poss)
-		    end
 		end
 	end
 
