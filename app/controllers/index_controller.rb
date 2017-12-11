@@ -16,7 +16,7 @@ class IndexController < ApplicationController
   		@prev = (Date.strptime(@game_index, '%Y%m%d') - 1.days).strftime("%Y%m%d")
   		@next = (Date.strptime(@game_index, '%Y%m%d') + 1.days).strftime("%Y%m%d")
 		@games = Nba.where("game_date between ? and ?", Date.strptime(@game_index, '%Y%m%d').beginning_of_day, Date.strptime(@game_index, '%Y%m%d').end_of_day)
-	  				.order("game_date")
+	  				.order("game_date", "home_number")
 	end
 
 	def detail
