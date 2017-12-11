@@ -9,6 +9,9 @@ namespace :nba do
         next
       end
       team = slice.text
+      if @nba_nicknames[team]
+        team = @nba_nicknames[team]
+      end
       link = 'http:' + slice['value']
       page = download_document(link)
       lists = page.css('tr')
@@ -24,7 +27,6 @@ namespace :nba do
           status = list.children[1].children[0].text
           text = list.children[1].children[2].text
           unless element = Injury.find_by(team: team, link: link, date: date, name: name, status: status, text: text)
-            puts date
             element = Injury.create(team: team, link: link, date: date, name: name, status: status, text: text)
           end
         end
@@ -1096,7 +1098,9 @@ namespace :nba do
 
 	@nba_nicknames = {
 		"L.A. Lakers" => "LAL",
-		"L.A. Clippers" => "LAC"
+		"L.A. Clippers" => "LAC",
+    "LA Clippers" => "LAC",
+    "LA Lakers" => "LAL"
 	}
 
 	@player_name = {
