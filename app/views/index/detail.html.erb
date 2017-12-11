@@ -2191,3 +2191,37 @@ $('.homePossessions').on('input', function() {
   }
  });
 </script>
+
+<div class="tableBody">
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Team</th>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @home_injuries.each do |injury| %>
+        <tr>
+          <td> <%= injury.team %> </td>
+          <td> <%= injury.date %> </td>
+          <td> <%= injury.name %> </td>
+          <td> <%= injury.status %> </td>
+          <td> <%= injury.text %> </td>
+        </tr>
+      <% end %>
+      <% @away_injuries.each do |injury| %>
+        <tr>
+          <td> <%= injury.team %> </td>
+          <td> <%= injury.date %> </td>
+          <td> <%= injury.name %> </td>
+          <td> <%= injury.status %> </td>
+          <td> <%= injury.text %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
