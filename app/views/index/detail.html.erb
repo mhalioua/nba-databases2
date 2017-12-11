@@ -2248,5 +2248,6 @@ $('.homePossessions').on('input', function() {
   </table>
 </div>
 <script>
-  console.log("<%= @away_players_group1.inspect %>")
+  var obj = <%= @away_players_group1.inspect %>;
+  console.log(obj)
 </script>
