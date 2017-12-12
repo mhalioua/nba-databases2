@@ -911,6 +911,11 @@ namespace :nba do
 				players = doc.css('#div_per_poss tbody tr')
 				players.each do |player|
 					player_name = player.children[1].children[0].text
+          player_link = player.children[1]['href']
+          player_link_end = player_link.rindex(".")
+          player_link_start = player_link.rindex("/")
+          player_link = player_link[player_link_start..player_link_end]
+          puts player_link
 					player_index = player_name.rindex(' ')
 					player_name = player_index ? player_name[0] + ". " + player_name[player_index+1..-1] : ""
           count = player.children[3].children[0].text.to_i
