@@ -914,7 +914,7 @@ namespace :nba do
           player_link = player.children[1].children[0]['href']
           player_link_end = player_link.rindex(".")
           player_link_start = player_link.rindex("/")
-          player_link = player_link[player_link_start..player_link_end]
+          player_link = player_link[player_link_start+1..player_link_end-1]
           puts player_link
 					player_index = player_name.rindex(' ')
 					player_name = player_index ? player_name[0] + ". " + player_name[player_index+1..-1] : ""
@@ -924,7 +924,7 @@ namespace :nba do
 					unless player_element = Tg.find_by(player_name: player_name, team_abbr: team_abbr, year: year)
 			           	player_element = Tg.create(player_name: player_name, team_abbr: team_abbr, year: year)
 		            end
-		            player_element.update(ortg: ortg, drtg: drtg, count: count)
+		            player_element.update(ortg: ortg, drtg: drtg, count: count, player_link: player_link, player_fullname: player.children[1].children[0].text)
 				end
 				if index == 3
 					break
