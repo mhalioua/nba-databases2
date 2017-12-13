@@ -1085,7 +1085,7 @@ namespace :nba do
           head_home_player_pts = elements[0].children[22].text
           head_away_player_pts = elements[1].children[22].text
 
-          url = home_link
+          url = "https://www.basketball-reference.com#{home_link}"
           doc = download_document(url)
           elements = doc.css('#all_per_game tbody tr')
           first_flag = true
@@ -1131,7 +1131,7 @@ namespace :nba do
             end
           end
 
-          url = away_link
+          url = "https://www.basketball-reference.com#{away_link}"
           doc = download_document(url)
           elements = doc.css('#all_per_game tbody tr')
           first_flag = true
