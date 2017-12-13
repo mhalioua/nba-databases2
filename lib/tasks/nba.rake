@@ -908,10 +908,6 @@ namespace :nba do
 				players.each do |player|
 					player_name = player.children[1].children[0].text
           player_link = player.children[1].children[0]['href']
-          player_link_end = player_link.rindex(".")
-          player_link_start = player_link.rindex("/")
-          player_link = player_link[player_link_start+1..player_link_end-1]
-          puts player_link
 					player_index = player_name.rindex(' ')
 					player_name = player_index ? player_name[0] + ". " + player_name[player_index+1..-1] : ""
           count = player.children[3].children[0].text.to_i
@@ -1040,23 +1036,241 @@ namespace :nba do
           end
           home_full_name = home_pg_player.player_fullname
           home_full_name = home_full_name.gsub(' ', '+')
-          home_link = home_pg_player.player_link
+          player_link = home_pg_player.player_link
+          player_link_end = player_link.rindex(".")
+          player_link_start = player_link.rindex("/")
+          player_link = player_link[player_link_start+1..player_link_end-1]
+          home_link = player_link
           away_full_name = away_pg_player.player_fullname
           away_full_name = away_full_name.gsub(' ', '+')
-          away_link = away_pg_player.player_link
+          player_link = away_pg_player.player_link
+          player_link_end = player_link.rindex(".")
+          player_link_start = player_link.rindex("/")
+          player_link = player_link[player_link_start+1..player_link_end-1]
+          away_link = player_link
+          unless compare = game.compares.find_by(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
+            compare = game.compares.create(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
+          end
           url = "https://www.basketball-reference.com/play-index/h2h_finder.cgi?request=1&player_id1_hint=#{home_full_name}&player_id1_select=#{home_full_name}&player_id1=#{home_link}&idx=players&player_id2_hint=#{away_full_name}&player_id2_select=#{away_full_name}&player_id2=#{away_link}&idx=players"
-          puts url
           doc = download_document(url)
           elements = doc.css('#all_stats tbody tr')
-          puts "-----------------------------------"
-          puts home_full_name
-          puts home_link
-          puts away_full_name
-          puts away_link
+          head_home_player_name = elements[0].children[0].text
+          head_away_player_name = elements[1].children[0].text
+          head_home_player_gp = elements[0].children[1].text
+          head_away_player_gp = elements[1].children[1].text
+          head_home_player_gs = elements[0].children[4].text
+          head_away_player_gs = elements[1].children[4].text
+          head_home_player_mp = elements[0].children[5].text
+          head_away_player_mp = elements[1].children[5].text
+          head_home_player_fg = elements[0].children[6].text
+          head_away_player_fg = elements[1].children[6].text
+          head_home_player_fga = elements[0].children[7].text
+          head_away_player_fga = elements[1].children[7].text
+          head_home_player_p = elements[0].children[9].text
+          head_away_player_p = elements[1].children[9].text
+          head_home_player_pa = elements[0].children[10].text
+          head_away_player_pa = elements[1].children[10].text
+          head_home_player_ft = elements[0].children[12].text
+          head_away_player_ft = elements[1].children[12].text
+          head_home_player_fta = elements[0].children[13].text
+          head_away_player_fta = elements[1].children[13].text
+          head_home_player_orb = elements[0].children[15].text
+          head_away_player_orb = elements[1].children[15].text
+          head_home_player_stl = elements[0].children[19].text
+          head_away_player_stl = elements[1].children[19].text
+          head_home_player_blk = elements[0].children[20].text
+          head_away_player_blk = elements[1].children[20].text
+          head_home_player_tov = elements[0].children[21].text
+          head_away_player_tov = elements[1].children[21].text
+          head_home_player_pts = elements[0].children[22].text
+          head_away_player_pts = elements[1].children[22].text
+
+          url = home_link
+          doc = download_document(url)
+          elements = doc.css('#all_per_game tbody tr')
+          first_flag = true
+          second_flag = true
           elements.each do |element|
-            puts element.children[1].text
+            if element[0].text == '2016-17' && first_flag
+              first_flag = false
+              first_home_player_name = home_full_name
+              first_home_player_age = element[1].text
+              first_home_player_gp = element[5].text
+              first_home_player_gs = element[6].text
+              first_home_player_mp = element[7].text
+              first_home_player_fg = element[8].text
+              first_home_player_fga = element[9].text
+              first_home_player_p = element[11].text
+              first_home_player_pa = element[12].text
+              first_home_player_ft = element[18].text
+              first_home_player_fta = element[19].text
+              first_home_player_orb = element[21].text
+              first_home_player_stl = element[25].text
+              first_home_player_blk = element[26].text
+              first_home_player_tov = element[27].text
+              first_home_player_pts = element[29].text
+            end
+            if element[0].text == '2017-18' && second_flag
+              second_flag = false
+              second_home_player_name = home_full_name
+              second_home_player_age = element[1].text
+              second_home_player_gp = element[5].text
+              second_home_player_gs = element[6].text
+              second_home_player_mp = element[7].text
+              second_home_player_fg = element[8].text
+              second_home_player_fga = element[9].text
+              second_home_player_p = element[11].text
+              second_home_player_pa = element[12].text
+              second_home_player_ft = element[18].text
+              second_home_player_fta = element[19].text
+              second_home_player_orb = element[21].text
+              second_home_player_stl = element[25].text
+              second_home_player_blk = element[26].text
+              second_home_player_tov = element[27].text
+              second_home_player_pts = element[29].text
+            end
           end
-          puts "-----------------------------------"
+
+          url = away_link
+          doc = download_document(url)
+          elements = doc.css('#all_per_game tbody tr')
+          first_flag = true
+          second_flag = true
+          elements.each do |element|
+            if element[0].text == '2016-17' && first_flag
+              first_flag = false
+              first_away_player_name = away_full_name
+              first_away_player_age = element[1].text
+              first_away_player_gp = element[5].text
+              first_away_player_gs = element[6].text
+              first_away_player_mp = element[7].text
+              first_away_player_fg = element[8].text
+              first_away_player_fga = element[9].text
+              first_away_player_p = element[11].text
+              first_away_player_pa = element[12].text
+              first_away_player_ft = element[18].text
+              first_away_player_fta = element[19].text
+              first_away_player_orb = element[21].text
+              first_away_player_stl = element[25].text
+              first_away_player_blk = element[26].text
+              first_away_player_tov = element[27].text
+              first_away_player_pts = element[29].text
+            end
+            if element[0].text == '2017-18' && second_flag
+              second_flag = false
+              second_away_player_name = home_full_name
+              second_away_player_age = element[1].text
+              second_away_player_gp = element[5].text
+              second_away_player_gs = element[6].text
+              second_away_player_mp = element[7].text
+              second_away_player_fg = element[8].text
+              second_away_player_fga = element[9].text
+              second_away_player_p = element[11].text
+              second_away_player_pa = element[12].text
+              second_away_player_ft = element[18].text
+              second_away_player_fta = element[19].text
+              second_away_player_orb = element[21].text
+              second_away_player_stl = element[25].text
+              second_away_player_blk = element[26].text
+              second_away_player_tov = element[27].text
+              second_away_player_pts = element[29].text
+            end
+          end
+          compare.update(head_home_player_name: head_home_player_name, 
+            head_away_player_name: head_away_player_name, 
+            head_home_player_gp: head_home_player_gp, 
+            head_away_player_gp: head_away_player_gp, 
+            head_home_player_gs: head_home_player_gs, 
+            head_away_player_gs: head_away_player_gs, 
+            head_home_player_mp: head_home_player_mp, 
+            head_away_player_mp: head_away_player_mp, 
+            head_home_player_fg: head_home_player_fg, 
+            head_away_player_fg: head_away_player_fg, 
+            head_home_player_fga: head_home_player_fga, 
+            head_away_player_fga: head_away_player_fga, 
+            head_home_player_p: head_home_player_p, 
+            head_away_player_p: head_away_player_p, 
+            head_home_player_pa: head_home_player_pa, 
+            head_away_player_pa: head_away_player_pa, 
+            head_home_player_ft: head_home_player_ft, 
+            head_away_player_ft: head_away_player_ft, 
+            head_home_player_fta: head_home_player_fta, 
+            head_away_player_fta: head_away_player_fta, 
+            head_home_player_orb: head_home_player_orb, 
+            head_away_player_orb: head_away_player_orb, 
+            head_home_player_stl: head_home_player_stl, 
+            head_away_player_stl: head_away_player_stl, 
+            head_home_player_blk: head_home_player_blk, 
+            head_away_player_blk: head_away_player_blk, 
+            head_home_player_tov: head_home_player_tov, 
+            head_away_player_tov: head_away_player_tov, 
+            head_home_player_pts: head_home_player_pts, 
+            head_away_player_pts: head_away_player_pts, 
+            first_home_player_name: first_home_player_name, 
+            first_home_player_age: first_home_player_age, 
+            first_home_player_gp: first_home_player_gp, 
+            first_home_player_gs: first_home_player_gs, 
+            first_home_player_mp: first_home_player_mp, 
+            first_home_player_fg: first_home_player_fg, 
+            first_home_player_fga: first_home_player_fga, 
+            first_home_player_p: first_home_player_p, 
+            first_home_player_pa: first_home_player_pa, 
+            first_home_player_ft: first_home_player_ft, 
+            first_home_player_fta: first_home_player_fta, 
+            first_home_player_orb: first_home_player_orb, 
+            first_home_player_stl: first_home_player_stl, 
+            first_home_player_blk: first_home_player_blk, 
+            first_home_player_tov: first_home_player_tov, 
+            first_home_player_pts: first_home_player_pts, 
+            second_home_player_name: second_home_player_name, 
+            second_home_player_age: second_home_player_age, 
+            second_home_player_gp: second_home_player_gp, 
+            second_home_player_gs: second_home_player_gs, 
+            second_home_player_mp: second_home_player_mp, 
+            second_home_player_fg: second_home_player_fg, 
+            second_home_player_fga: second_home_player_fga, 
+            second_home_player_p: second_home_player_p, 
+            second_home_player_pa: second_home_player_pa, 
+            second_home_player_ft: second_home_player_ft, 
+            second_home_player_fta: second_home_player_fta, 
+            second_home_player_orb: second_home_player_orb, 
+            second_home_player_stl: second_home_player_stl, 
+            second_home_player_blk: second_home_player_blk, 
+            second_home_player_tov: second_home_player_tov, 
+            second_home_player_pts: second_home_player_pts, 
+            first_away_player_name: first_away_player_name, 
+            first_away_player_age: first_away_player_age, 
+            first_away_player_gp: first_away_player_gp, 
+            first_away_player_gs: first_away_player_gs, 
+            first_away_player_mp: first_away_player_mp, 
+            first_away_player_fg: first_away_player_fg, 
+            first_away_player_fga: first_away_player_fga, 
+            first_away_player_p: first_away_player_p, 
+            first_away_player_pa: first_away_player_pa, 
+            first_away_player_ft: first_away_player_ft, 
+            first_away_player_fta: first_away_player_fta, 
+            first_away_player_orb: first_away_player_orb, 
+            first_away_player_stl: first_away_player_stl, 
+            first_away_player_blk: first_away_player_blk, 
+            first_away_player_tov: first_away_player_tov, 
+            first_away_player_pts: first_away_player_pts, 
+            second_away_player_name: second_away_player_name, 
+            second_away_player_age: second_away_player_age, 
+            second_away_player_gp: second_away_player_gp, 
+            second_away_player_gs: second_away_player_gs, 
+            second_away_player_mp: second_away_player_mp, 
+            second_away_player_fg: second_away_player_fg, 
+            second_away_player_fga: second_away_player_fga, 
+            second_away_player_p: second_away_player_p, 
+            second_away_player_pa: second_away_player_pa, 
+            second_away_player_ft: second_away_player_ft, 
+            second_away_player_fta: second_away_player_fta, 
+            second_away_player_orb: second_away_player_orb, 
+            second_away_player_stl: second_away_player_stl, 
+            second_away_player_blk: second_away_player_blk, 
+            second_away_player_tov: second_away_player_tov, 
+            second_away_player_pts: second_away_player_pts)
+
         end
       end
     end
