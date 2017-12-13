@@ -21,7 +21,7 @@ namespace :nba do
           next
         end
         if list.children.size == 1
-          date = Date.strptime(list.children[0].text, '%b%e')
+          date = Date.strptime(list.children[0].text, '%b %e')
         elsif list.children.size == 2
           name = list.children[0].children[0].children[1].text[1..-1]
           status = list.children[1].children[0].text
