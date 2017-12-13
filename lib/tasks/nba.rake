@@ -1035,14 +1035,14 @@ namespace :nba do
             break
           end
           home_full_name = home_pg_player.player_fullname
-          home_full_name = home_full_name.gsub(' ', '+')
+          home_full_name_link = home_full_name.gsub(' ', '+')
           player_link = home_pg_player.player_link
           player_link_end = player_link.rindex(".")
           player_link_start = player_link.rindex("/")
           player_link = player_link[player_link_start+1..player_link_end-1]
           home_link = player_link
           away_full_name = away_pg_player.player_fullname
-          away_full_name = away_full_name.gsub(' ', '+')
+          away_full_name_link = away_full_name.gsub(' ', '+')
           player_link = away_pg_player.player_link
           player_link_end = player_link.rindex(".")
           player_link_start = player_link.rindex("/")
@@ -1051,7 +1051,7 @@ namespace :nba do
           unless compare = game.compares.find_by(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
             compare = game.compares.create(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
           end
-          url = "https://www.basketball-reference.com/play-index/h2h_finder.cgi?request=1&player_id1_hint=#{home_full_name}&player_id1_select=#{home_full_name}&player_id1=#{home_link}&idx=players&player_id2_hint=#{away_full_name}&player_id2_select=#{away_full_name}&player_id2=#{away_link}&idx=players"
+          url = "https://www.basketball-reference.com/play-index/h2h_finder.cgi?request=1&player_id1_hint=#{home_full_name_link}&player_id1_select=#{home_full_name_link}&player_id1=#{home_link}&idx=players&player_id2_hint=#{away_full_name_link}&player_id2_select=#{away_full_name_link}&player_id2=#{away_link}&idx=players"
           puts "------------------------------"
           puts url
           doc = download_document(url)
@@ -1087,7 +1087,7 @@ namespace :nba do
           head_home_player_pts = elements[0].children[22].text
           head_away_player_pts = elements[1].children[22].text
 
-          url = "https://www.basketball-reference.com#{home_link}"
+          url = "https://www.basketball-reference.com#{home_pg_player.player_link}"
           puts url
           doc = download_document(url)
           elements = doc.css('#all_per_game tbody tr')
@@ -1134,7 +1134,7 @@ namespace :nba do
             end
           end
 
-          url = "https://www.basketball-reference.com#{away_link}"
+          url = "https://www.basketball-reference.com#{away_pg_player.player_link}"
           puts url
           puts "------------------------------"
           doc = download_document(url)
