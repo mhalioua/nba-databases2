@@ -1,6 +1,7 @@
 namespace :nba do
 	task :getInjury => :environment do
     include Api
+    Injury.destroy_all()
 		url = "http://www.espn.com/nba/injuries"
     doc = download_document(url)
     elements = doc.css(".tablesm option")
