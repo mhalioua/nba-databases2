@@ -1047,6 +1047,7 @@ namespace :nba do
           home_link = home_pg_player.player_link
           away_full_name = away_pg_player.player_fullname
           away_full_name = away_full_name.gsub(' ', '+')
+          away_link = home_pg_player.player_link
           url = "https://www.basketball-reference.com/play-index/h2h_finder.cgi?request=1&player_id1_hint=#{home_full_name}&player_id1_select=#{home_full_name}&player_id1=#{home_link}&idx=players&player_id2_hint=#{away_full_name}&player_id2_select=#{away_full_name}&player_id2=#{away_link}&idx=players"
           doc = download_document(url)
           elements = doc.css('#all_stats tbody tr')
