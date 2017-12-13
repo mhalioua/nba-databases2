@@ -1052,6 +1052,8 @@ namespace :nba do
             compare = game.compares.create(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
           end
           url = "https://www.basketball-reference.com/play-index/h2h_finder.cgi?request=1&player_id1_hint=#{home_full_name}&player_id1_select=#{home_full_name}&player_id1=#{home_link}&idx=players&player_id2_hint=#{away_full_name}&player_id2_select=#{away_full_name}&player_id2=#{away_link}&idx=players"
+          puts "------------------------------"
+          puts url
           doc = download_document(url)
           elements = doc.css('#all_stats tbody tr')
           head_home_player_name = elements[0].children[0].text
@@ -1086,6 +1088,7 @@ namespace :nba do
           head_away_player_pts = elements[1].children[22].text
 
           url = "https://www.basketball-reference.com#{home_link}"
+          puts url
           doc = download_document(url)
           elements = doc.css('#all_per_game tbody tr')
           first_flag = true
@@ -1132,6 +1135,8 @@ namespace :nba do
           end
 
           url = "https://www.basketball-reference.com#{away_link}"
+          puts url
+          puts "------------------------------"
           doc = download_document(url)
           elements = doc.css('#all_per_game tbody tr')
           first_flag = true
