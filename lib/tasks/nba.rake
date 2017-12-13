@@ -1023,6 +1023,52 @@ namespace :nba do
 		end
 	end
 
+  task :getCompare => [:environment] do
+    include Api
+    games = Nba.where("game_date between ? and ?", (Date.today - 1.days).beginning_of_day, Time.now-5.hours)
+    puts games.size
+    games.each do |game|
+      home_pg_players = game.players.where("team_abbr = 0 AND position = 'PG' AND player_name <> 'TEAM'").order(:state)
+      away_pg_players = game.players.where("team_abbr = 1 AND position = 'PG' AND player_name <> 'TEAM'").order(:state)
+      home_pg_players.each_with_index do |home_pg_player, index|
+        if index == 3
+          break
+        end
+        away_pg_players.each_with_index do |away_pg_player, index|
+          if index == 3
+            break
+          end
+          home_full_name = home_pg_player.player_fullname
+          home_full_name = home_full_name.gsub(' ', '+')
+          home_link = home_pg_player.player_link
+          away_full_name = away_pg_player.player_fullname
+          away_full_name = away_full_name.gsub(' ', '+')
+          url = "https://www.basketball-reference.com/play-index/h2h_finder.cgi?request=1&player_id1_hint=#{home_full_name}&player_id1_select=#{home_full_name}&player_id1=#{home_link}&idx=players&player_id2_hint=#{away_full_name}&player_id2_select=#{away_full_name}&player_id2=#{away_link}&idx=players"
+          doc = download_document(url)
+          elements = doc.css('#all_stats tbody tr')
+          puts "-----------------------------------"
+          puts home_full_name
+          puts home_link
+          puts away_full_name
+          puts away_link
+          elements.each do |element|
+            puts element.children[1].text
+          end
+          puts "-----------------------------------"
+        end
+      end
+      players.each do |player|
+        if player.player_name == "TEAM"
+          next
+        end
+        player_fullname = player.player_fullname
+        player_link = player.player_link
+        player_name = player.player_name
+      end
+    end
+  end
+
+
 	task :atest => :environment do
 		require 'csv'
 
