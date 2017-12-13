@@ -411,8 +411,8 @@ class IndexController < ApplicationController
 	    end
 
 
-		@home_injury = Injury.where("team = ? AND date = ?", @game.home_team,  Date.strptime(@game.game_date).strftime("%b%e"))
-		@away_injury = Injury.where("team = ? AND date = ?", @game.away_team,  Date.strptime(@game.game_date).strftime("%b%e"))
+		@home_injury = Injury.where("team = ? AND date > ", @game.home_team,  Date.strptime(Time.now))
+		@away_injury = Injury.where("team = ? AND date > ?", @game.away_team,  Date.strptime(Time.now))
 
 		@away_injury_name = []
 		@away_injury.each_with_index do |injury, index|
@@ -981,9 +981,8 @@ class IndexController < ApplicationController
 		}
 
 		@countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{@game.away_last_game}%", "%#{@game.away_next_game}%", "%#{@game.home_next_game}%", "%#{@game.home_last_game}%").first
-		injury_date = @now.strftime("%b %e")
-		@home_injuries = Injury.where(team: @game.home_team, date: injury_date)
-		@away_injuries = Injury.where(team: @game.away_team, date: injury_date)
+		@home_injuries = Injury.where("team = ? AND date > ", @game.home_team,  Date.strptime(Time.now))
+		@away_injuries = Injury.where("team = ? AND date > ?", @game.away_team,  Date.strptime(Time.now))
 	end
 
 	def rest

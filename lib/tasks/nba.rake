@@ -21,7 +21,7 @@ namespace :nba do
           next
         end
         if list.children.size == 1
-          date = list.children[0].text
+          date = Date.strptime(list.children[0].text)
         elsif list.children.size == 2
           name = list.children[0].children[0].children[1].text[1..-1]
           status = list.children[1].children[0].text
@@ -79,9 +79,6 @@ namespace :nba do
 
 		Rake::Task["nba:getUpdatePoss"].invoke
 		Rake::Task["nba:getUpdatePoss"].reenable
-
-    Rake::Task["nba:getInjury"].invoke
-    Rake::Task["nba:getInjury"].reenable
 		
 	end
 
