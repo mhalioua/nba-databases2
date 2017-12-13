@@ -1097,40 +1097,40 @@ namespace :nba do
             if element.children[0].text == '2016-17' && first_flag
               first_flag = false
               first_home_player_name = home_full_name
-              first_home_player_age = element[1].text
-              first_home_player_gp = element[5].text
-              first_home_player_gs = element[6].text
-              first_home_player_mp = element[7].text
-              first_home_player_fg = element[8].text
-              first_home_player_fga = element[9].text
-              first_home_player_p = element[11].text
-              first_home_player_pa = element[12].text
-              first_home_player_ft = element[18].text
-              first_home_player_fta = element[19].text
-              first_home_player_orb = element[21].text
-              first_home_player_stl = element[25].text
-              first_home_player_blk = element[26].text
-              first_home_player_tov = element[27].text
-              first_home_player_pts = element[29].text
+              first_home_player_age = element.children[1].text
+              first_home_player_gp = element.children[5].text
+              first_home_player_gs = element.children[6].text
+              first_home_player_mp = element.children[7].text
+              first_home_player_fg = element.children[8].text
+              first_home_player_fga = element.children[9].text
+              first_home_player_p = element.children[11].text
+              first_home_player_pa = element.children[12].text
+              first_home_player_ft = element.children[18].text
+              first_home_player_fta = element.children[19].text
+              first_home_player_orb = element.children[21].text
+              first_home_player_stl = element.children[25].text
+              first_home_player_blk = element.children[26].text
+              first_home_player_tov = element.children[27].text
+              first_home_player_pts = element.children[29].text
             end
             if element.children[0].text == '2017-18' && second_flag
               second_flag = false
               second_home_player_name = home_full_name
-              second_home_player_age = element[1].text
-              second_home_player_gp = element[5].text
-              second_home_player_gs = element[6].text
-              second_home_player_mp = element[7].text
-              second_home_player_fg = element[8].text
-              second_home_player_fga = element[9].text
-              second_home_player_p = element[11].text
-              second_home_player_pa = element[12].text
-              second_home_player_ft = element[18].text
-              second_home_player_fta = element[19].text
-              second_home_player_orb = element[21].text
-              second_home_player_stl = element[25].text
-              second_home_player_blk = element[26].text
-              second_home_player_tov = element[27].text
-              second_home_player_pts = element[29].text
+              second_home_player_age = element.children[1].text
+              second_home_player_gp = element.children[5].text
+              second_home_player_gs = element.children[6].text
+              second_home_player_mp = element.children[7].text
+              second_home_player_fg = element.children[8].text
+              second_home_player_fga = element.children[9].text
+              second_home_player_p = element.children[11].text
+              second_home_player_pa = element.children[12].text
+              second_home_player_ft = element.children[18].text
+              second_home_player_fta = element.children[19].text
+              second_home_player_orb = element.children[21].text
+              second_home_player_stl = element.children[25].text
+              second_home_player_blk = element.children[26].text
+              second_home_player_tov = element.children[27].text
+              second_home_player_pts = element.children[29].text
             end
           end
 
@@ -1145,40 +1145,40 @@ namespace :nba do
             if element.children[0].text == '2016-17' && first_flag
               first_flag = false
               first_away_player_name = away_full_name
-              first_away_player_age = element[1].text
-              first_away_player_gp = element[5].text
-              first_away_player_gs = element[6].text
-              first_away_player_mp = element[7].text
-              first_away_player_fg = element[8].text
-              first_away_player_fga = element[9].text
-              first_away_player_p = element[11].text
-              first_away_player_pa = element[12].text
-              first_away_player_ft = element[18].text
-              first_away_player_fta = element[19].text
-              first_away_player_orb = element[21].text
-              first_away_player_stl = element[25].text
-              first_away_player_blk = element[26].text
-              first_away_player_tov = element[27].text
-              first_away_player_pts = element[29].text
+              first_away_player_age = element.children[1].text
+              first_away_player_gp = element.children[5].text
+              first_away_player_gs = element.children[6].text
+              first_away_player_mp = element.children[7].text
+              first_away_player_fg = element.children[8].text
+              first_away_player_fga = element.children[9].text
+              first_away_player_p = element.children[11].text
+              first_away_player_pa = element.children[12].text
+              first_away_player_ft = element.children[18].text
+              first_away_player_fta = element.children[19].text
+              first_away_player_orb = element.children[21].text
+              first_away_player_stl = element.children[25].text
+              first_away_player_blk = element.children[26].text
+              first_away_player_tov = element.children[27].text
+              first_away_player_pts = element.children[29].text
             end
             if element.children[0].text == '2017-18' && second_flag
               second_flag = false
               second_away_player_name = home_full_name
-              second_away_player_age = element[1].text
-              second_away_player_gp = element[5].text
-              second_away_player_gs = element[6].text
-              second_away_player_mp = element[7].text
-              second_away_player_fg = element[8].text
-              second_away_player_fga = element[9].text
-              second_away_player_p = element[11].text
-              second_away_player_pa = element[12].text
-              second_away_player_ft = element[18].text
-              second_away_player_fta = element[19].text
-              second_away_player_orb = element[21].text
-              second_away_player_stl = element[25].text
-              second_away_player_blk = element[26].text
-              second_away_player_tov = element[27].text
-              second_away_player_pts = element[29].text
+              second_away_player_age = element.children[1].text
+              second_away_player_gp = element.children[5].text
+              second_away_player_gs = element.children[6].text
+              second_away_player_mp = element.children[7].text
+              second_away_player_fg = element.children[8].text
+              second_away_player_fga = element.children[9].text
+              second_away_player_p = element.children[11].text
+              second_away_player_pa = element.children[12].text
+              second_away_player_ft = element.children[18].text
+              second_away_player_fta = element.children[19].text
+              second_away_player_orb = element.children[21].text
+              second_away_player_stl = element.children[25].text
+              second_away_player_blk = element.children[26].text
+              second_away_player_tov = element.children[27].text
+              second_away_player_pts = element.children[29].text
             end
           end
           compare.update(head_home_player_name: head_home_player_name, 
