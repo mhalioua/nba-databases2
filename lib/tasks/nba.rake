@@ -1094,7 +1094,7 @@ namespace :nba do
           first_flag = true
           second_flag = true
           elements.each do |element|
-            if element[0].text == '2016-17' && first_flag
+            if element.children[0].text == '2016-17' && first_flag
               first_flag = false
               first_home_player_name = home_full_name
               first_home_player_age = element[1].text
@@ -1113,7 +1113,7 @@ namespace :nba do
               first_home_player_tov = element[27].text
               first_home_player_pts = element[29].text
             end
-            if element[0].text == '2017-18' && second_flag
+            if element.children[0].text == '2017-18' && second_flag
               second_flag = false
               second_home_player_name = home_full_name
               second_home_player_age = element[1].text
@@ -1142,7 +1142,7 @@ namespace :nba do
           first_flag = true
           second_flag = true
           elements.each do |element|
-            if element[0].text == '2016-17' && first_flag
+            if element.children[0].text == '2016-17' && first_flag
               first_flag = false
               first_away_player_name = away_full_name
               first_away_player_age = element[1].text
@@ -1161,7 +1161,7 @@ namespace :nba do
               first_away_player_tov = element[27].text
               first_away_player_pts = element[29].text
             end
-            if element[0].text == '2017-18' && second_flag
+            if element.children[0].text == '2017-18' && second_flag
               second_flag = false
               second_away_player_name = home_full_name
               second_away_player_age = element[1].text
