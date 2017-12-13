@@ -1008,16 +1008,20 @@ namespace :nba do
 					ortg = 0
 					drtg = 0
           count = 0
+          player_link = ""
+          player_fullname = ""
           player_elements = Tg.where("player_name = ? AND year >= 2017", player_name)
           player_elements.each do |player_element|
             player_count = player_element.count ? player_element.count : 1
             count = count + player_count
             ortg = ortg + player_count * (player_element.ortg ? player_element.ortg : 0)
             drtg = drtg + player_count * (player_element.drtg ? player_element.drtg : 0)
+            player_link = player_element.player_link
+            player_fullname = player_element.player_fullname
           end
 					ortg = (ortg.to_f / count).round(1)
 					drtg = (drtg.to_f / count).round(1)
-					player.update(ortg: ortg, drtg: drtg)
+					player.update(ortg: ortg, drtg: drtg, player_link: player_link, player_fullname: player_fullname)
 				end
 			end
 		end
@@ -1056,14 +1060,6 @@ namespace :nba do
           end
           puts "-----------------------------------"
         end
-      end
-      players.each do |player|
-        if player.player_name == "TEAM"
-          next
-        end
-        player_fullname = player.player_fullname
-        player_link = player.player_link
-        player_name = player.player_name
       end
     end
   end
