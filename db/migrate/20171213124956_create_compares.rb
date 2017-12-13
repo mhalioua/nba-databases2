@@ -1,6 +1,7 @@
 class CreateCompares < ActiveRecord::Migration[5.1]
   def change
     create_table :compares do |t|
+      t.integer :nba_id
 	  t.string :home_player_name
 	  t.string :home_link
 	  t.string :away_full_name
