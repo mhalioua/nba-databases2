@@ -1022,7 +1022,7 @@ namespace :nba do
   
   task :getCompare => [:environment] do
     include Api
-    games = Nba.where("game_date between ? and ?", (Date.today - 1.days).beginning_of_day, Time.now-5.hours)
+    games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-5.hours)
     puts games.size
     games.each do |game|
       home_pg_players = game.players.where("team_abbr = 0 AND position = 'PG' AND player_name <> 'TEAM'").order(:state)
