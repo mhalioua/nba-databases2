@@ -1054,9 +1054,15 @@ namespace :nba do
         if index == 3
           break
         end
+        unless home_pg_player.player_fullname
+          next
+        end
         away_pg_players.each_with_index do |away_pg_player, index|
           if index == 3
             break
+          end
+          unless away_pg_player.player_fullname
+            next
           end
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
           Rake::Task["nba:getOnebyOne"].reenable
@@ -1069,9 +1075,15 @@ namespace :nba do
         if index == 3
           break
         end
+        unless home_pg_player.player_fullname
+          next
+        end
         away_pg_players.each_with_index do |away_pg_player, index|
           if index == 3
             break
+          end
+          unless away_pg_player.player_fullname
+            next
           end
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
           Rake::Task["nba:getOnebyOne"].reenable
@@ -1084,9 +1096,15 @@ namespace :nba do
         if index == 3
           break
         end
+        unless home_pg_player.player_fullname
+          next
+        end
         away_pg_players.each_with_index do |away_pg_player, index|
           if index == 3
             break
+          end
+          unless away_pg_player.player_fullname
+            next
           end
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
           Rake::Task["nba:getOnebyOne"].reenable
