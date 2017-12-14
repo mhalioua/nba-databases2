@@ -1182,7 +1182,7 @@ namespace :nba do
     player_link = player_link[player_link_start+1..player_link_end-1]
     away_link = player_link
     url = "https://www.basketball-reference.com/play-index/h2h_finder.cgi?request=1&player_id1_hint=#{home_full_name_link}&player_id1_select=#{home_full_name_link}&player_id1=#{home_link}&idx=players&player_id2_hint=#{away_full_name_link}&player_id2_select=#{away_full_name_link}&player_id2=#{away_link}&idx=players"
-    
+    puts url
 
 
     doc = download_document(url)
