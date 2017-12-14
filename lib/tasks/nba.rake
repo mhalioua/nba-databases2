@@ -1102,8 +1102,8 @@ namespace :nba do
         end
       end
 
-      home_pg_players = home_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM'", home_flag).or(game.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM'", home_flag)).order(:state)
-      away_pg_players = away_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM'", away_flag).or(game.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM'", away_flag)).order(:state)
+      home_pg_players = home_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM'", home_flag).or(home_last.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM'", home_flag)).order(:state)
+      away_pg_players = away_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM'", away_flag).or(away_last.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM'", away_flag)).order(:state)
       home_pg_players.each_with_index do |home_pg_player, index|  
         if index == 3
           break
