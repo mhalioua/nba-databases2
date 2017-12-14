@@ -1042,6 +1042,9 @@ namespace :nba do
   end
   task :getOnebyOne, [:game, :home_pg_player, :away_pg_player] => [:environment] do |t, args|
     include Api
+    game = args[:game]
+    home_pg_player = args[:home_pg_player]
+    away_pg_player = args[:away_pg_player]
     home_full_name = home_pg_player.player_fullname
     home_full_name_link = home_full_name.gsub(' ', '+')
     player_link = home_pg_player.player_link
