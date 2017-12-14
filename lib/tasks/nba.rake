@@ -1362,7 +1362,7 @@ namespace :nba do
         end
         if element.children[0].text == '2017-18' && second_flag
           second_flag = false
-          second_away_player_name = home_full_name
+          second_away_player_name = away_full_name
           second_away_player_age = element.children[1].text
           second_away_player_gp = element.children[5].text
           second_away_player_gs = element.children[6].text
