@@ -1059,6 +1059,7 @@ namespace :nba do
             break
           end
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
+          Rake::Task["nba:getOnebyOne"].reenable
         end
       end
 
@@ -1073,6 +1074,7 @@ namespace :nba do
             break
           end
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
+          Rake::Task["nba:getOnebyOne"].reenable
         end
       end
 
@@ -1087,6 +1089,7 @@ namespace :nba do
             break
           end
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
+          Rake::Task["nba:getOnebyOne"].reenable
         end
       end
 
@@ -1101,6 +1104,7 @@ namespace :nba do
             break
           end
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
+          Rake::Task["nba:getOnebyOne"].reenable
         end
       end
 
