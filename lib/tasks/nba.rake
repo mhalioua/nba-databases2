@@ -1219,8 +1219,8 @@ namespace :nba do
       head_away_player_blk = elements[1].children[20].text
       head_home_player_tov = elements[0].children[21].text
       head_away_player_tov = elements[1].children[21].text
-      head_home_player_pts = elements[0].children[22].text
-      head_away_player_pts = elements[1].children[22].text
+      head_home_player_pts = elements[0].children[23].text
+      head_away_player_pts = elements[1].children[23].text
       first_home_player_name = ""
       first_home_player_age = ""
       first_home_player_gp = ""
