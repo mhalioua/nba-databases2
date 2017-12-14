@@ -1139,10 +1139,10 @@ namespace :nba do
     game = args[:game]
     home_pg_player = args[:home_pg_player]
     away_pg_player = args[:away_pg_player]
-    puts home_full_name
-    puts home_link
-    puts away_full_name
-    puts away_link
+    puts home_pg_player.player_fullname
+    puts home_pg_player.player_link
+    puts away_pg_player.player_fullname
+    puts away_pg_player.player_link
     home_full_name = home_pg_player.player_fullname
     home_full_name_link = home_full_name.gsub(' ', '+')
     player_link = home_pg_player.player_link
