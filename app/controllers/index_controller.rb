@@ -983,6 +983,8 @@ class IndexController < ApplicationController
 		@countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{@game.away_last_game}%", "%#{@game.away_next_game}%", "%#{@game.home_next_game}%", "%#{@game.home_last_game}%").first
 		@home_injuries = Injury.where("team = ?", @game.home_team)
 		@away_injuries = Injury.where("team = ?", @game.away_team)
+
+		@compares = @game.compares.all
 	end
 
 	def rest

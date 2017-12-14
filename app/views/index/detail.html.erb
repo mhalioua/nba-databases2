@@ -2247,6 +2247,183 @@ $('.homePossessions').on('input', function() {
     </tbody>
   </table>
 </div>
+<% @compares.each do |compare| %>
+<div class="tableBody">
+  <table border="1">
+    <thead>
+      <tr>
+        <th colspan="2"></th>
+        <th colspan="6"><%= compare.head_home_player_name %></th>
+        <th colspan="3">vs</th>
+        <th colspan="6"><%= compare.head_away_player_name %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>HEAD to HEAD</td>
+        <td>age</td>
+        <td>GP</td>
+        <td>GS</td>
+        <td>MP</td>
+        <td>FG</td>
+        <td>FGA</td>
+        <td>3P</td>
+        <td>3PA</td>
+        <td>FT</td>
+        <td>FTA</td>
+        <td>ORB</td>
+        <td>STL</td>
+        <td>BLK</td>
+        <td>TOV</td>
+        <td>PTS</td>
+        <td>POSS</td>
+        <td>PPP</td>
+      </tr>
+      <tr>
+        <td><%= compare.head_home_player_name %></td>
+        <td><%= compare.first_home_player_age %></td>
+        <td><%= compare.head_home_player_gp %></td>
+        <td><%= compare.head_home_player_gs %></td>
+        <td><%= compare.head_home_player_mp %></td>
+        <td><%= compare.head_home_player_fg %></td>
+        <td><%= compare.head_home_player_fga %></td>
+        <td><%= compare.head_home_player_p %></td>
+        <td><%= compare.head_home_player_pa %></td>
+        <td><%= compare.head_home_player_ft %></td>
+        <td><%= compare.head_home_player_fta %></td>
+        <td><%= compare.head_home_player_orb %></td>
+        <td><%= compare.head_home_player_stl %></td>
+        <td><%= compare.head_home_player_blk %></td>
+        <td><%= compare.head_home_player_tov %></td>
+        <td><%= compare.head_home_player_pts %></td>
+        <td><%= (compare.head_home_player_fga + compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb).round(3) %></td>
+        <td><%= (compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)/compare.head_home_player_pts %></td>
+      </tr>
+      <tr>
+        <td><%= compare.head_away_player_name %></td>
+        <td><%= compare.first_away_player_age %></td>
+        <td><%= compare.head_away_player_gp %></td>
+        <td><%= compare.head_away_player_gs %></td>
+        <td><%= compare.head_away_player_mp %></td>
+        <td><%= compare.head_away_player_fg %></td>
+        <td><%= compare.head_away_player_fga %></td>
+        <td><%= compare.head_away_player_p %></td>
+        <td><%= compare.head_away_player_pa %></td>
+        <td><%= compare.head_away_player_ft %></td>
+        <td><%= compare.head_away_player_fta %></td>
+        <td><%= compare.head_away_player_orb %></td>
+        <td><%= compare.head_away_player_stl %></td>
+        <td><%= compare.head_away_player_blk %></td>
+        <td><%= compare.head_away_player_tov %></td>
+        <td><%= compare.head_away_player_pts %></td>
+        <td><%= (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb).round(3) %></td>
+        <td><%= (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)/compare.head_away_player_pts %></td>
+      </tr>
+      <tr>
+        <td>LAST YEAR 16-17</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%= compare.first_home_player_name %></td>
+        <td><%= compare.first_home_player_age %></td>
+        <td><%= compare.first_home_player_gp %></td>
+        <td><%= compare.first_home_player_gs %></td>
+        <td><%= compare.first_home_player_mp %></td>
+        <td><%= compare.first_home_player_fg %></td>
+        <td><%= compare.first_home_player_fga %></td>
+        <td><%= compare.first_home_player_p %></td>
+        <td><%= compare.first_home_player_pa %></td>
+        <td><%= compare.first_home_player_ft %></td>
+        <td><%= compare.first_home_player_fta %></td>
+        <td><%= compare.first_home_player_orb %></td>
+        <td><%= compare.first_home_player_stl %></td>
+        <td><%= compare.first_home_player_blk %></td>
+        <td><%= compare.first_home_player_tov %></td>
+        <td><%= compare.first_home_player_pts %></td>
+        <td><%= (compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb).round(3) %></td>
+        <td><%= (compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb)/compare.first_home_player_pts %></td>
+      </tr>
+      <tr>
+        <td><%= compare.first_away_player_name %></td>
+        <td><%= compare.first_away_player_age %></td>
+        <td><%= compare.first_away_player_gp %></td>
+        <td><%= compare.first_away_player_gs %></td>
+        <td><%= compare.first_away_player_mp %></td>
+        <td><%= compare.first_away_player_fg %></td>
+        <td><%= compare.first_away_player_fga %></td>
+        <td><%= compare.first_away_player_p %></td>
+        <td><%= compare.first_away_player_pa %></td>
+        <td><%= compare.first_away_player_ft %></td>
+        <td><%= compare.first_away_player_fta %></td>
+        <td><%= compare.first_away_player_orb %></td>
+        <td><%= compare.first_away_player_stl %></td>
+        <td><%= compare.first_away_player_blk %></td>
+        <td><%= compare.first_away_player_tov %></td>
+        <td><%= compare.first_away_player_pts %></td>
+        <td><%= (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb).round(3) %></td>
+        <td><%= (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb)/compare.first_away_player_pts %></td>
+      </tr>
+      <tr>
+        <td><%= compare.second_home_player_name %></td>
+        <td><%= compare.second_home_player_age %></td>
+        <td><%= compare.second_home_player_gp %></td>
+        <td><%= compare.second_home_player_gs %></td>
+        <td><%= compare.second_home_player_mp %></td>
+        <td><%= compare.second_home_player_fg %></td>
+        <td><%= compare.second_home_player_fga %></td>
+        <td><%= compare.second_home_player_p %></td>
+        <td><%= compare.second_home_player_pa %></td>
+        <td><%= compare.second_home_player_ft %></td>
+        <td><%= compare.second_home_player_fta %></td>
+        <td><%= compare.second_home_player_orb %></td>
+        <td><%= compare.second_home_player_stl %></td>
+        <td><%= compare.second_home_player_blk %></td>
+        <td><%= compare.second_home_player_tov %></td>
+        <td><%= compare.second_home_player_pts %></td>
+        <td><%= (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb).round(3) %></td>
+        <td><%= (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)/compare.second_home_player_pts %></td>
+      </tr>
+      <tr>
+        <td><%= compare.second_away_player_name %></td>
+        <td><%= compare.second_away_player_age %></td>
+        <td><%= compare.second_away_player_gp %></td>
+        <td><%= compare.second_away_player_gs %></td>
+        <td><%= compare.second_away_player_mp %></td>
+        <td><%= compare.second_away_player_fg %></td>
+        <td><%= compare.second_away_player_fga %></td>
+        <td><%= compare.second_away_player_p %></td>
+        <td><%= compare.second_away_player_pa %></td>
+        <td><%= compare.second_away_player_ft %></td>
+        <td><%= compare.second_away_player_fta %></td>
+        <td><%= compare.second_away_player_orb %></td>
+        <td><%= compare.second_away_player_stl %></td>
+        <td><%= compare.second_away_player_blk %></td>
+        <td><%= compare.second_away_player_tov %></td>
+        <td><%= compare.second_away_player_pts %></td>
+        <td><%= (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb).round(3) %></td>
+        <td><%= (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)/compare.second_away_player_pts %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% end %>
 <script>
   var obj = <%= @away_players_group1 %>;
   console.log(obj)
