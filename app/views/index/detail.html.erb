@@ -2320,6 +2320,7 @@ $('.homePossessions').on('input', function() {
         <td><%= (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb).round(3) %></td>
         <td><%= (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)/compare.head_away_player_pts %></td>
       </tr>
+      <% if compare.first_home_player_name %>
       <tr>
         <td>LAST YEAR 16-17</td>
         <td></td>
@@ -2380,6 +2381,7 @@ $('.homePossessions').on('input', function() {
         <td><%= (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb).round(3) %></td>
         <td><%= (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb)/compare.first_away_player_pts %></td>
       </tr>
+      <% end %>
       <tr>
         <td>THIS YEAR 17-18</td>
         <td></td>
