@@ -1129,14 +1129,18 @@ namespace :nba do
     player_link_start = player_link.rindex("/")
     player_link = player_link[player_link_start+1..player_link_end-1]
     away_link = player_link
-    unless compare = game.compares.find_by(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
-      compare = game.compares.create(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
-    end
     url = "https://www.basketball-reference.com/play-index/h2h_finder.cgi?request=1&player_id1_hint=#{home_full_name_link}&player_id1_select=#{home_full_name_link}&player_id1=#{home_link}&idx=players&player_id2_hint=#{away_full_name_link}&player_id2_select=#{away_full_name_link}&player_id2=#{away_link}&idx=players"
     puts "------------------------------"
     puts url
     doc = download_document(url)
     elements = doc.css('#all_stats tbody tr')
+    if elements.size == 0
+      puts "--------------Empty----------------"
+      return
+    end
+    unless compare = game.compares.find_by(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
+      compare = game.compares.create(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
+    end
     head_home_player_name = elements[0].children[0].text
     head_away_player_name = elements[1].children[0].text
     head_home_player_gp = elements[0].children[1].text
