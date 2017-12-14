@@ -1163,10 +1163,10 @@ namespace :nba do
     game = args[:game]
     home_pg_player = args[:home_pg_player]
     away_pg_player = args[:away_pg_player]
-    puts home_pg_player.player_fullname
-    puts home_pg_player.player_link
-    puts away_pg_player.player_fullname
-    puts away_pg_player.player_link
+
+
+
+
     home_full_name = home_pg_player.player_fullname
     home_full_name_link = home_full_name.gsub(' ', '+')
     player_link = home_pg_player.player_link
@@ -1182,8 +1182,9 @@ namespace :nba do
     player_link = player_link[player_link_start+1..player_link_end-1]
     away_link = player_link
     url = "https://www.basketball-reference.com/play-index/h2h_finder.cgi?request=1&player_id1_hint=#{home_full_name_link}&player_id1_select=#{home_full_name_link}&player_id1=#{home_link}&idx=players&player_id2_hint=#{away_full_name_link}&player_id2_select=#{away_full_name_link}&player_id2=#{away_link}&idx=players"
-    puts "------------------------------"
-    puts url
+    
+
+
     doc = download_document(url)
     elements = doc.css('#all_stats tbody tr')
     if elements.size != 0
@@ -1286,7 +1287,7 @@ namespace :nba do
       second_away_player_pts = ""
 
       url = "https://www.basketball-reference.com#{home_pg_player.player_link}"
-      puts url
+
       doc = download_document(url)
       elements = doc.css('#all_per_game tbody tr')
       first_flag = true
@@ -1333,8 +1334,8 @@ namespace :nba do
       end
 
       url = "https://www.basketball-reference.com#{away_pg_player.player_link}"
-      puts url
-      puts "------------------------------"
+
+      
       doc = download_document(url)
       elements = doc.css('#all_per_game tbody tr')
       first_flag = true
