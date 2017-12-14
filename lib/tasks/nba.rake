@@ -1022,7 +1022,7 @@ namespace :nba do
   
   task :getCompare => [:environment] do
     include Api
-    games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-5.hours)
+    games = Nba.where("game_date between ? and ?", (Date.today - 1.days).beginning_of_day, Time.now-5.hours)
     puts games.size
     games.each do |game|
       home_abbr = game.home_abbr
@@ -1134,9 +1134,7 @@ namespace :nba do
     puts url
     doc = download_document(url)
     elements = doc.css('#all_stats tbody tr')
-    if elements.size == 0
-      puts "--------------Empty----------------"
-    else
+    if elements.size != 0
       unless compare = game.compares.find_by(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
         compare = game.compares.create(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
       end
