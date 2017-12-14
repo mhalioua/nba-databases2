@@ -1025,8 +1025,31 @@ namespace :nba do
     games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-5.hours)
     puts games.size
     games.each do |game|
-      home_pg_players = game.players.where("team_abbr = 0 AND position = 'PG' AND player_name <> 'TEAM'").order(:state)
-      away_pg_players = game.players.where("team_abbr = 1 AND position = 'PG' AND player_name <> 'TEAM'").order(:state)
+      home_abbr = game.home_abbr
+      away_abbr = game.away_abbr
+
+      now = Date.strptime(game.game_date)
+      if now > Time.now
+        now = Time.now
+      end
+
+      away_last = Nba.where("home_abbr = ? AND game_date < ?", away_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", away_abbr, now)).order(:game_date).last
+      home_last = Nba.where("home_abbr = ? AND game_date < ?", home_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", home_abbr, now)).order(:game_date).last
+      
+      if away_abbr == away_last.away_abbr
+        away_flag = 0
+      else
+        away_flag = 1
+      end
+
+      if home_abbr == home_last.away_abbr
+        home_flag = 0
+      else
+        home_flag = 1
+      end
+
+      home_pg_players = home_last.players.where("team_abbr = ? AND position = 'PG' AND player_name <> 'TEAM'", home_flag).order(:state)
+      away_pg_players = away_last.players.where("team_abbr = ? AND position = 'PG' AND player_name <> 'TEAM'", away_flag).order(:state)
       home_pg_players.each_with_index do |home_pg_player, index|
         if index == 3
           break
@@ -1038,6 +1061,49 @@ namespace :nba do
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
         end
       end
+
+      home_pg_players = home_last.players.where("team_abbr = ? AND position = 'SG' AND player_name <> 'TEAM'", home_flag).order(:state)
+      away_pg_players = away_last.players.where("team_abbr = ? AND position = 'SG' AND player_name <> 'TEAM'", away_flag).order(:state)
+      home_pg_players.each_with_index do |home_pg_player, index|
+        if index == 3
+          break
+        end
+        away_pg_players.each_with_index do |away_pg_player, index|
+          if index == 3
+            break
+          end
+          Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
+        end
+      end
+
+      home_pg_players = home_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM'", home_flag).or(game.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM'", home_flag)).order(:state)
+      away_pg_players = away_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM'", away_flag).or(game.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM'", away_flag)).order(:state)
+      home_pg_players.each_with_index do |home_pg_player, index|  
+        if index == 3
+          break
+        end
+        away_pg_players.each_with_index do |away_pg_player, index|
+          if index == 3
+            break
+          end
+          Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
+        end
+      end
+
+      home_pg_players = home_last.players.where("team_abbr = ? AND position = 'SF' AND player_name <> 'TEAM'", home_flag).order(:state)
+      away_pg_players = away_last.players.where("team_abbr = ? AND position = 'SF' AND player_name <> 'TEAM'", away_flag).order(:state)
+      home_pg_players.each_with_index do |home_pg_player, index|
+        if index == 3
+          break
+        end
+        away_pg_players.each_with_index do |away_pg_player, index|
+          if index == 3
+            break
+          end
+          Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
+        end
+      end
+
     end
   end
   task :getOnebyOne, [:game, :home_pg_player, :away_pg_player] => [:environment] do |t, args|
