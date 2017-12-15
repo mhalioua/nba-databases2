@@ -2365,9 +2365,9 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.first_home_player_pts %></td>
         <td><%= (compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb).round(3) %></td>
         <td><%= compare.first_home_player_pts/(compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb) %></td>
-        <% if compare.first_home_player_age && compare.first_away_player_age %>
+        <% if compare.first_away_player_age %>
         <td rowspan="2"><%= compare.first_home_player_pts/(compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb) + compare.first_away_player_pts / (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb) %></td>
-        <% elsif (compare.first_home_player_age && !compare.first_away_player_age) || (!compare.first_home_player_age && compare.first_away_player_age) %>
+        <% else %>
         <td></td>
         <% end %>
       </tr>
@@ -2392,6 +2392,9 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.first_away_player_pts %></td>
         <td><%= (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb).round(3) %></td>
         <td><%= compare.first_away_player_pts / (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb) %></td>
+        <% if !compare.first_home_player_age %>
+          <td></td>
+        <% end %>
       </tr>
       <% end %>
       <tr class="gray">
