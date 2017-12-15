@@ -2297,7 +2297,7 @@ $('.homePossessions').on('input', function() {
           search_elements = @away_players.select{|player| player["player_fullname"] == compare.away_full_name }
         end
         %>
-        <td><%= search_elements[0].poss %></td>
+        <td><%= search_elements[0].position %></td>
         <td><%= compare.head_home_player_gp %></td>
         <td><%= compare.head_home_player_gs %></td>
         <td><%= compare.head_home_player_mp %></td>
@@ -2330,7 +2330,7 @@ $('.homePossessions').on('input', function() {
           search_elements = @home_players.select{|player| player["player_fullname"] == compare.home_player_name }
         end
         %>
-        <td><%= search_elements[0].poss %></td>
+        <td><%= search_elements[0].position %></td>
         <td><%= compare.head_away_player_gp %></td>
         <td><%= compare.head_away_player_gs %></td>
         <td><%= compare.head_away_player_mp %></td>
@@ -2378,7 +2378,7 @@ $('.homePossessions').on('input', function() {
         <% 
           search_elements = @home_players.select{|player| player["player_fullname"] == compare.home_player_name }
         %>
-        <td><%= search_elements[0].poss %></td>
+        <td><%= search_elements[0].position %></td>
         <td><%= compare.first_home_player_gp %></td>
         <td><%= compare.first_home_player_gs %></td>
         <td><%= compare.first_home_player_mp %></td>
@@ -2405,7 +2405,7 @@ $('.homePossessions').on('input', function() {
         <% 
           search_elements = @away_players.select{|player| player["player_fullname"] == compare.away_full_name }
         %>
-        <td><%= search_elements[0].poss %></td>
+        <td><%= search_elements[0].position %></td>
         <td><%= compare.first_away_player_gp %></td>
         <td><%= compare.first_away_player_gs %></td>
         <td><%= compare.first_away_player_mp %></td>
@@ -2453,7 +2453,7 @@ $('.homePossessions').on('input', function() {
         <% 
           search_elements = @home_players.select{|player| player["player_fullname"] == compare.home_player_name }
         %>
-        <td><%= search_elements[0].poss %></td>
+        <td><%= search_elements[0].position %></td>
         <td><%= compare.second_home_player_gp %></td>
         <td><%= compare.second_home_player_gs %></td>
         <td><%= compare.second_home_player_mp %></td>
@@ -2478,7 +2478,7 @@ $('.homePossessions').on('input', function() {
         <% 
           search_elements = @away_players.select{|player| player["player_fullname"] == compare.away_full_name }
         %>
-        <td><%= search_elements[0].poss %></td>
+        <td><%= search_elements[0].position %></td>
         <td><%= compare.second_away_player_gp %></td>
         <td><%= compare.second_away_player_gs %></td>
         <td><%= compare.second_away_player_mp %></td>
