@@ -2254,8 +2254,7 @@ $('.homePossessions').on('input', function() {
       <tr>
         <th colspan="1" class="gray"></th>
         <% search_elements = @home_players.select{|player| player["player_fullname"] == compare.home_player_name } %>
-        <th colspan="7" class="gray">
-        <th><%= search_elements[0].position %> <%= compare.first_home_player_name %> <%= @game.home_team %></th>
+        <th colspan="7" class="gray"><%= search_elements[0].position %> <%= compare.first_home_player_name %> <%= @game.home_team %></th>
         <th colspan="3" class="gray">vs</th>
         <% search_elements = @away_players.select{|player| player["player_fullname"] == compare.away_full_name } %>
         <th colspan="7" class="gray"><%= search_elements[0].position %> <%= compare.first_away_player_name %> <%= @game.away_team %></th>
@@ -2344,6 +2343,7 @@ $('.homePossessions').on('input', function() {
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
       </tr>
       <% if compare.first_home_player_age %>
       <tr>
@@ -2413,6 +2413,7 @@ $('.homePossessions').on('input', function() {
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
       </tr>
       <tr>
         <td><%= compare.second_home_player_name %></td>
@@ -2456,6 +2457,7 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.second_away_player_pts/(compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb) %></td>
       </tr>
       <tr class="gray" style="height: 20px;">
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
