@@ -2252,10 +2252,13 @@ $('.homePossessions').on('input', function() {
   <table border="1">
     <thead>
       <tr>
-        <th colspan="4" class="gray"></th>
-        <th colspan="6" class="gray"><%= compare.head_home_player_name %></th>
+        <th colspan="2" class="gray"></th>
+        <% search_elements = @home_players.select{|player| player["player_fullname"] == compare.home_player_name } %>
+        <th colspan="6" class="gray">
+        <th><%= search_elements[0].position %> <%= compare.first_home_player_name %> <%= @game.home_team %></th>
         <th colspan="3" class="gray">vs</th>
-        <th colspan="6" class="gray"><%= compare.head_away_player_name %></th>
+        <% search_elements = @away_players.select{|player| player["player_fullname"] == compare.away_full_name } %>
+        <th colspan="6" class="gray"><%= search_elements[0].position %> <%= compare.first_away_player_name %> <%= @game.away_team %></th>
         <th class="gray"></th>
       </tr>
     </thead>
@@ -2263,8 +2266,6 @@ $('.homePossessions').on('input', function() {
       <tr class="gray">
         <td style="background: red"><u>HEAD to HEAD</u></td>
         <td>Age</td>
-        <td>Team</td>
-        <td>Position</td>
         <td>GP</td>
         <td>GS</td>
         <td>MP</td>
@@ -2285,19 +2286,6 @@ $('.homePossessions').on('input', function() {
       <tr>
         <td><%= compare.head_home_player_name %></td>
         <td><%= compare.second_home_player_age %></td>
-        <% if compare.head_home_player_name == compare.home_player_name %>
-        <td><%= @game.home_team %></td>
-        <% else %>
-        <td><%= @game.away_team %></td>
-        <% end %>
-        <% 
-        if compare.head_home_player_name == compare.home_player_name
-          search_elements = @home_players.select{|player| player["player_fullname"] == compare.home_player_name }
-        else
-          search_elements = @away_players.select{|player| player["player_fullname"] == compare.away_full_name }
-        end
-        %>
-        <td><%= search_elements[0].position %></td>
         <td><%= compare.head_home_player_gp %></td>
         <td><%= compare.head_home_player_gs %></td>
         <td><%= compare.head_home_player_mp %></td>
@@ -2318,19 +2306,6 @@ $('.homePossessions').on('input', function() {
       <tr>
         <td><%= compare.head_away_player_name %></td>
         <td><%= compare.second_away_player_age %></td>
-        <% if compare.head_away_player_name == compare.away_full_name %>
-        <td><%= @game.away_team %></td>
-        <% else %>
-        <td><%= @game.home_team %></td>
-        <% end %>
-        <% 
-        if compare.head_away_player_name == compare.away_full_name
-          search_elements = @away_players.select{|player| player["player_fullname"] == compare.away_full_name }
-        else
-          search_elements = @home_players.select{|player| player["player_fullname"] == compare.home_player_name }
-        end
-        %>
-        <td><%= search_elements[0].position %></td>
         <td><%= compare.head_away_player_gp %></td>
         <td><%= compare.head_away_player_gs %></td>
         <td><%= compare.head_away_player_mp %></td>
@@ -2367,18 +2342,11 @@ $('.homePossessions').on('input', function() {
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
       </tr>
       <% if compare.first_home_player_age %>
       <tr>
         <td><%= compare.first_home_player_name %></td>
         <td><%= compare.first_home_player_age %></td>
-        <td><%= @game.home_team %></td>
-        <% 
-          search_elements = @home_players.select{|player| player["player_fullname"] == compare.home_player_name }
-        %>
-        <td><%= search_elements[0].position %></td>
         <td><%= compare.first_home_player_gp %></td>
         <td><%= compare.first_home_player_gs %></td>
         <td><%= compare.first_home_player_mp %></td>
@@ -2401,11 +2369,6 @@ $('.homePossessions').on('input', function() {
       <tr>
         <td><%= compare.first_away_player_name %></td>
         <td><%= compare.first_away_player_age %></td>
-        <td><%= @game.away_team %></td>
-        <% 
-          search_elements = @away_players.select{|player| player["player_fullname"] == compare.away_full_name }
-        %>
-        <td><%= search_elements[0].position %></td>
         <td><%= compare.first_away_player_gp %></td>
         <td><%= compare.first_away_player_gs %></td>
         <td><%= compare.first_away_player_mp %></td>
@@ -2443,17 +2406,10 @@ $('.homePossessions').on('input', function() {
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
       </tr>
       <tr>
         <td><%= compare.second_home_player_name %></td>
         <td><%= compare.second_home_player_age %></td>
-        <td><%= @game.home_team %></td>
-        <% 
-          search_elements = @home_players.select{|player| player["player_fullname"] == compare.home_player_name }
-        %>
-        <td><%= search_elements[0].position %></td>
         <td><%= compare.second_home_player_gp %></td>
         <td><%= compare.second_home_player_gs %></td>
         <td><%= compare.second_home_player_mp %></td>
@@ -2474,11 +2430,6 @@ $('.homePossessions').on('input', function() {
       <tr>
         <td><%= compare.second_away_player_name %></td>
         <td><%= compare.second_away_player_age %></td>
-        <td><%= @game.away_team %></td>
-        <% 
-          search_elements = @away_players.select{|player| player["player_fullname"] == compare.away_full_name }
-        %>
-        <td><%= search_elements[0].position %></td>
         <td><%= compare.second_away_player_gp %></td>
         <td><%= compare.second_away_player_gs %></td>
         <td><%= compare.second_away_player_mp %></td>
@@ -2497,8 +2448,6 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.second_away_player_pts/(compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb) %></td>
       </tr>
       <tr class="gray" style="height: 20px;">
-        <td></td>
-        <td></td>
         <td></td>
         <td></td>
         <td></td>
