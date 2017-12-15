@@ -2285,16 +2285,16 @@ $('.homePossessions').on('input', function() {
       <tr>
         <td><%= compare.head_home_player_name %></td>
         <td><%= compare.second_home_player_age %></td>
-        <% if compare.head_home_player_name == compare.first_home_player_name %>
+        <% if compare.head_home_player_name == compare.home_player_name %>
         <td><%= @game.home_team %></td>
         <% else %>
         <td><%= @game.away_team %></td>
         <% end %>
         <% 
-        if compare.head_home_player_name == compare.first_home_player_name
-          search_elements = @home_players.where('player_name = ?', compare.home_player_name) 
+        if compare.head_home_player_name == compare.home_player_name
+          search_elements = @home_players.where('player_fullname = ?', compare.home_player_name) 
         else
-          search_elements = @away_players.where('player_name = ?', compare.away_player_name) 
+          search_elements = @away_players.where('player_fullname = ?', compare.away_full_name) 
         end
         %>
         <script>
@@ -2321,16 +2321,16 @@ $('.homePossessions').on('input', function() {
       <tr>
         <td><%= compare.head_away_player_name %></td>
         <td><%= compare.second_away_player_age %></td>
-        <% if compare.head_away_player_name == compare.first_away_player_name %>
+        <% if compare.head_away_player_name == compare.away_full_name %>
         <td><%= @game.away_team %></td>
         <% else %>
         <td><%= @game.home_team %></td>
         <% end %>
         <% 
-        if compare.head_away_player_name == compare.first_away_player_name
-          search_elements = @away_players.where('player_name = ?', compare.away_player_name) 
+        if compare.head_away_player_name == compare.away_full_name
+          search_elements = @away_players.where('player_fullname = ?', compare.away_full_name) 
         else
-          search_elements = @home_players.where('player_name = ?', compare.home_player_name) 
+          search_elements = @home_players.where('player_fullname = ?', compare.home_player_name) 
         end
         %>
         <script>
@@ -2380,7 +2380,7 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.first_home_player_age %></td>
         <td><%= @game.home_team %></td>
         <% 
-          search_elements = @home_players.where('player_name = ?', compare.home_player_name) 
+          search_elements = @home_players.where('player_fullname = ?', compare.home_player_name) 
         %>
         <script>
         console.log(<%= search_elements.length %>);
@@ -2410,7 +2410,7 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.first_away_player_age %></td>
         <td><%= @game.away_team %></td>
         <% 
-          search_elements = @away_players.where('player_name = ?', compare.away_player_name) 
+          search_elements = @away_players.where('player_fullname = ?', compare.away_full_name) 
         %>
         <script>
         console.log(<%= search_elements.length %>);
@@ -2459,7 +2459,7 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.second_home_player_age %></td>
         <td><%= @game.home_team %></td>
         <% 
-          search_elements = @home_players.where('player_name = ?', compare.home_player_name) 
+          search_elements = @home_players.where('player_fullname = ?', compare.home_player_name) 
         %>
         <script>
         console.log(<%= search_elements.length %>);
@@ -2487,7 +2487,7 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.second_away_player_age %></td>
         <td><%= @game.away_team %></td>
         <% 
-          search_elements = @away_players.where('player_name = ?', compare.away_player_name) 
+          search_elements = @away_players.where('player_fullname = ?', compare.away_full_name) 
         %>
         <script>
         console.log(<%= search_elements.length %>);
