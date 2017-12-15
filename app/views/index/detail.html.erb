@@ -2252,16 +2252,16 @@ $('.homePossessions').on('input', function() {
   <table border="1">
     <thead>
       <tr>
-        <th colspan="2"></th>
-        <th colspan="6"><%= compare.head_home_player_name %></th>
-        <th colspan="3">vs</th>
-        <th colspan="6"><%= compare.head_away_player_name %></th>
+        <th colspan="2" class="gray"></th>
+        <th colspan="6" class="gray"><%= compare.head_home_player_name %></th>
+        <th colspan="3" class="gray">vs</th>
+        <th colspan="6" class="gray"><%= compare.head_away_player_name %></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>HEAD to HEAD</td>
+      <tr class="gray">
+        <td style="background: red"><u>HEAD to HEAD</u></td>
         <td>age</td>
         <td>GP</td>
         <td>GS</td>
@@ -2298,7 +2298,7 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.head_home_player_tov %></td>
         <td><%= compare.head_home_player_pts %></td>
         <td><%= (compare.head_home_player_fga + compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb).round(3) %></td>
-        <td><%= (compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)/compare.head_home_player_pts %></td>
+        <td><%= compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb) %></td>
       </tr>
       <tr>
         <td><%= compare.head_away_player_name %></td>
@@ -2318,10 +2318,10 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.head_away_player_tov %></td>
         <td><%= compare.head_away_player_pts %></td>
         <td><%= (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb).round(3) %></td>
-        <td><%= (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)/compare.head_away_player_pts %></td>
+        <td><%= compare.head_away_player_pts/(compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb) %></td>
       </tr>
-      <tr>
-        <td>LAST YEAR 16-17</td>
+      <tr class="gray">
+        <td style="background: #fa0;"><u>LAST YEAR 16-17</u></td>
         <td></td>
         <td></td>
         <td></td>
@@ -2359,7 +2359,7 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.first_home_player_tov %></td>
         <td><%= compare.first_home_player_pts %></td>
         <td><%= (compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb).round(3) %></td>
-        <td><%= (compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb)/compare.first_home_player_pts %></td>
+        <td><%= compare.first_home_player_pts/(compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb) %></td>
       </tr>
       <% end %>
       <% if compare.first_away_player_age %>
@@ -2381,11 +2381,11 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.first_away_player_tov %></td>
         <td><%= compare.first_away_player_pts %></td>
         <td><%= (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb).round(3) %></td>
-        <td><%= (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb)/compare.first_away_player_pts %></td>
+        <td><%= compare.first_away_player_pts / (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb) %></td>
       </tr>
       <% end %>
-      <tr>
-        <td>THIS YEAR 17-18</td>
+      <tr class="gray">
+        <td style="background: #9ce168;"><u>THIS YEAR 17-18</u></td>
         <td></td>
         <td></td>
         <td></td>
@@ -2422,7 +2422,7 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.second_home_player_tov %></td>
         <td><%= compare.second_home_player_pts %></td>
         <td><%= (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb).round(3) %></td>
-        <td><%= (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)/compare.second_home_player_pts %></td>
+        <td><%= compare.second_home_player_pts/ (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb) %></td>
       </tr>
       <tr>
         <td><%= compare.second_away_player_name %></td>
@@ -2442,7 +2442,27 @@ $('.homePossessions').on('input', function() {
         <td><%= compare.second_away_player_tov %></td>
         <td><%= compare.second_away_player_pts %></td>
         <td><%= (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb).round(3) %></td>
-        <td><%= (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)/compare.second_away_player_pts %></td>
+        <td><%= compare.second_away_player_pts/(compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb) %></td>
+      </tr>
+      <tr class="gray">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
