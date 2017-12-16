@@ -18,7 +18,16 @@
 	  		<th colspan="8">TODAYS GAMES</th>
 	  		<th>Days<br>rest</th>
         <th></th>
-        <th rowspan="2"></th>
+        <th></th>
+        <th>home + away</th>
+        <th>only for one</th>
+        <th>home + away</th>
+        <th>only one</th>
+        <th>home + away</th>
+        <th>home + away</th>
+        <th>only one</th>
+        <th>only one</th>
+        <th>home + away</th>
         <th colspan="7">1H STATS</th>
         <th></th>
         <th></th>
@@ -47,6 +56,16 @@
 	  		<th class="red">Home Team</th>
 	  		<th class="red">Last<br>Game</th>
         <th>FLY</th>
+        <th class="red"></th>
+        <th class="red">team steals home + away</th>
+        <th class="red">team blocks home or away only one</th>
+        <th class="red">turn overs home + away</th>
+        <th class="red">team poss only one home or away</th>
+        <th class="red">1st half point home + away</th>
+        <th class="red">2nd half point home + away</th>
+        <th class="red">1st half home or away</th>
+        <th class="red">2nd half home or away</th>
+        <th class="red">OReb</th>
         <th class="red">1H<br>FGA</th>
         <th class="red">1H<br>FTA</th>
         <th class="red">1H<br>ORB</th>
@@ -73,7 +92,10 @@
 	    </tr>
   	</thead>
   	<tbody>
-    <% @games.each_with_index do |game, index| %>
+    <% @games.each_with_index do |game, index| 
+      @home_team_info = Team.find_by(abbr: @game.home_abbr)
+      @away_team_info = Team.find_by(abbr: @game.away_abbr)
+    %>
     <tr>
       <td class="green" rowspan="3"><%= game.away_number %> / <%= game.home_number %></td>
       <td class="grey" rowspan="3"><%= DateTime.parse(game.game_date).strftime("%I:%M%n%p") %></td>
@@ -90,6 +112,17 @@
       <td class="green" rowspan="3"><%= game.home_last_fly %></td>
 
       <td class="darkred"><%= game.away_abbr %></td>
+
+      <td><%= @away_team_info.steal_current %></td>
+      <td><%= @away_team_info.block_away %></td>
+      <td><%= @away_team_info.turnover_current %></td>
+      <td><%= @away_team_info.possessions_away %></td>
+      <td><%= @away_team_info.first_current %></td>
+      <td><%= @away_team_info.second_current %></td>
+      <td><%= @away_team_info.first_away %></td>
+      <td><%= @away_team_info.second_away %></td>
+      <td><%= @away_team_info.rebound_current %></td>
+
       <td><%= game.first_away_fga %></td>
       <td><%= game.first_away_fta %></td>
       <td><%= game.first_away_orValue %></td>
@@ -142,6 +175,17 @@
     </tr>
     <tr>
       <td class="darkred" ><%= game.home_abbr %></td>
+
+      <td><%= @home_team_info.steal_current %></td>
+      <td><%= @home_team_info.block_home %></td>
+      <td><%= @home_team_info.turnover_current %></td>
+      <td><%= @home_team_info.possessions_home %></td>
+      <td><%= @home_team_info.first_current %></td>
+      <td><%= @home_team_info.second_current %></td>
+      <td><%= @home_team_info.first_home %></td>
+      <td><%= @home_team_info.second_home %></td>
+      <td><%= @home_team_info.rebound_current %></td>
+
       <td><%= game.first_home_fga %></td>
       <td><%= game.first_home_fta %></td>
       <td><%= game.first_home_orValue %></td>
@@ -189,6 +233,17 @@
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
+
+      <td><%= @away_team_info.steal_current + @home_team_info.steal_current %></td>
+      <td><%= @away_team_info.block_away + @home_team_info.block_home %></td>
+      <td><%= @away_team_info.turnover_current + @home_team_info.turnover_current %></td>
+      <td><%= @away_team_info.possessions_away + @home_team_info.possessions_home %></td>
+      <td><%= @away_team_info.first_current + @home_team_info.first_current %></td>
+      <td><%= @away_team_info.second_current + @home_team_info.second_current %></td>
+      <td><%= @away_team_info.first_away + @home_team_info.first_home %></td>
+      <td><%= @away_team_info.second_away + @home_team_info.second_home %></td>
+      <td><%= @away_team_info.rebound_current + @home_team_info.rebound_current %></td>
+
       <td class="skyblue"><%= game.away_first_quarter %></td>
       <td class="skyblue"><%= game.away_second_quarter %></td>
       <td class="skyblue"><%= game.away_third_quarter %></td>
