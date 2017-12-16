@@ -36,7 +36,7 @@ namespace :nba do
     injuries = Injury.all
     injuries.each do |injury|
       injury_date = Date.strptime(injury.date, "%b %e")
-      injury_players = Player.where("player_fullname = ? AND game_date < ?", injury.name, injury_date)
+      injury_players = Player.where("player_fullname = ? AND game_date >= ?", injury.name, injury_date)
       puts injury_players.size
     end
   end
