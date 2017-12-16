@@ -845,6 +845,7 @@ namespace :nba do
 				fga_index = fga_value.index('-')
 				fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
 				to_value = slice.children[11].text.to_i
+        pts_value = slice.children[14].text.to_i
 				fta_value = slice.children[4].text
 				fta_index = fta_value.index('-')
 				fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
@@ -856,7 +857,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
 		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
-	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date )
+	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value )
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -884,6 +885,7 @@ namespace :nba do
 				fga_index = fga_value.index('-')
 				fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
 				to_value = slice.children[11].text.to_i
+        pts_value = slice.children[14].text.to_i
 				fta_value = slice.children[4].text
 				fta_index = fta_value.index('-')
 				fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
@@ -895,7 +897,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
 		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
 	            end
-	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date  )
+	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
 			end
 		end
 	end

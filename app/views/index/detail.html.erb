@@ -1196,6 +1196,8 @@
                     <th>TO</th>
                     <th>OR</th>
                     <th>POSS</th>
+                    <th>PTS</th>
+                    <th>PPP</th>
                     <th>TEAM POSS</th>
                   </tr>
                 </thead>
@@ -1209,6 +1211,8 @@
                     total_toValue = 0
                     total_orValue = 0
                     total_poss = 0
+                    total_pts = 0
+                    total_ppp = 0
                     total_team_poss = 0
                     game_list.each do |game_id|
                       game = Nba.where(id: game_id).first
@@ -1220,6 +1224,8 @@
                       total_toValue = total_toValue + search_player.toValue
                       total_orValue = total_orValue + search_player.orValue
                       total_poss = total_poss + search_player.poss
+                      total_pts = total_pts + search_player.ptsValue
+                      total_ppp = total_ppp +search_player.ptsValue / search_player.poss
                       total_team_poss = total_team_poss + team_player.poss
                   %>
                   <tr>
@@ -1230,6 +1236,8 @@
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
                     <td><%= search_player.poss %></td>
+                    <td><%= search_player.ptsValue %></td>
+                    <td><%= search_player.ptsValue / search_player.poss %></td>
                     <td><%= team_player.poss %></td>
                   </tr>
                   <% end %>
@@ -1241,6 +1249,8 @@
                     <td><%= total_toValue %></td>
                     <td><%= total_orValue %></td>
                     <td><%= total_poss %></td>
+                    <td><%= total_pts %></td>
+                    <td><%= total_ppp %></td>
                     <td><%= total_team_poss %></td>
                   </tr>
                 </tbody>
@@ -1260,6 +1270,8 @@
                     <th>TO</th>
                     <th>OR</th>
                     <th>POSS</th>
+                    <th>PTS</th>
+                    <th>PPP</th>
                     <th>TEAM POSS</th>
                   </tr>
                 </thead>
@@ -1273,6 +1285,8 @@
                     total_toValue = 0
                     total_orValue = 0
                     total_poss = 0
+                    total_pts = 0
+                    total_ppp = 0
                     total_team_poss = 0
                     game_list.each do |game_id|
                       game = Nba.where(id: game_id).first
@@ -1284,6 +1298,8 @@
                       total_toValue = total_toValue + search_player.toValue
                       total_orValue = total_orValue + search_player.orValue
                       total_poss = total_poss + search_player.poss
+                      total_pts = total_pts + search_player.ptsValue
+                      total_ppp = total_ppp +search_player.ptsValue / search_player.poss
                       total_team_poss = total_team_poss + team_player.poss
                   %>
                   <tr>
@@ -1294,6 +1310,8 @@
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
                     <td><%= search_player.poss %></td>
+                    <td><%= search_player.ptsValue %></td>
+                    <td><%= search_player.ptsValue / search_player.poss %></td>
                     <td><%= team_player.poss %></td>
                   </tr>
                   <% end %>
@@ -1305,6 +1323,8 @@
                     <td><%= total_toValue %></td>
                     <td><%= total_orValue %></td>
                     <td><%= total_poss %></td>
+                    <td><%= total_pts %></td>
+                    <td><%= total_ppp %></td>
                     <td><%= total_team_poss %></td>
                   </tr>
                 </tbody>
