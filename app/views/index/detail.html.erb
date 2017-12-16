@@ -1312,7 +1312,7 @@
       </div>
       <% end %>
 <script>
-$(".lists").hover(function() {
+$(".lists").toggle(function() {
   if ($(".box" + $(this)[0].className.substr(10)).css("display") == "none")
   {
     $(".boxes").css("display", "none");
