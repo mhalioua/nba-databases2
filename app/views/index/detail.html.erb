@@ -2247,17 +2247,21 @@ $('.homePossessions').on('input', function() {
     </tbody>
   </table>
 </div>
-<% @compares.each do |compare| %>
+<% @compares.each do |compare|
+search_elements_home = @home_players.select{|player| player["player_fullname"] == compare.home_player_name }
+search_elements_away = @away_players.select{|player| player["player_fullname"] == compare.away_full_name } 
+if !search_elements_home[0] || !search_elements_away[0]
+  next
+end
+%>
 <div class="tableBody">
   <table border="1">
     <thead>
       <tr>
         <th colspan="1" class="gray"></th>
-        <% search_elements = @home_players.select{|player| player["player_fullname"] == compare.home_player_name } %>
-        <th colspan="7" class="gray"><%= search_elements[0] ? search_elements[0].position : "" %> <%= compare.first_home_player_name %> <%= @game.home_team %></th>
+        <th colspan="7" class="gray"><%= search_elements_home[0] ? search_elements_home[0].position : "" %> <%= compare.first_home_player_name %> <%= @game.home_team %></th>
         <th colspan="3" class="gray">vs</th>
-        <% search_elements = @away_players.select{|player| player["player_fullname"] == compare.away_full_name } %>
-        <th colspan="7" class="gray"><%= search_elements[0] ? search_elements[0].position : "" %> <%= compare.first_away_player_name %> <%= @game.away_team %></th>
+        <th colspan="7" class="gray"><%= search_elements_away[0] ? search_elements_away[0].position : "" %> <%= compare.first_away_player_name %> <%= @game.away_team %></th>
         <th class="gray">PPP + PPP</th>
       </tr>
     </thead>
