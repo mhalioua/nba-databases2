@@ -234,15 +234,15 @@
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
 
-      <td><%= @away_team_info.steal_current + @home_team_info.steal_current %></td>
-      <td><%= @away_team_info.block_away + @home_team_info.block_home %></td>
-      <td><%= @away_team_info.turnover_current + @home_team_info.turnover_current %></td>
-      <td><%= @away_team_info.possessions_away + @home_team_info.possessions_home %></td>
-      <td><%= @away_team_info.first_current + @home_team_info.first_current %></td>
-      <td><%= @away_team_info.second_current + @home_team_info.second_current %></td>
-      <td><%= @away_team_info.first_away + @home_team_info.first_home %></td>
-      <td><%= @away_team_info.second_away + @home_team_info.second_home %></td>
-      <td><%= @away_team_info.rebound_current + @home_team_info.rebound_current %></td>
+      <td><%= (@away_team_info.steal_current + @home_team_info.steal_current).round(1) %></td>
+      <td><%= (@away_team_info.block_away + @home_team_info.block_home).round(1) %></td>
+      <td><%= (@away_team_info.turnover_current + @home_team_info.turnover_current).round(1) %></td>
+      <td><%= (@away_team_info.possessions_away + @home_team_info.possessions_home).round(1) %></td>
+      <td><%= (@away_team_info.first_current + @home_team_info.first_current).round(1) %></td>
+      <td><%= (@away_team_info.second_current + @home_team_info.second_current).round(1) %></td>
+      <td><%= (@away_team_info.first_away + @home_team_info.first_home).round(1) %></td>
+      <td><%= (@away_team_info.second_away + @home_team_info.second_home).round(1) %></td>
+      <td><%= (@away_team_info.rebound_current + @home_team_info.rebound_current).round(1) %></td>
 
       <td class="skyblue"><%= game.away_first_quarter %></td>
       <td class="skyblue"><%= game.away_second_quarter %></td>
