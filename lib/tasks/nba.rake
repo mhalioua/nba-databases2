@@ -31,20 +31,17 @@ namespace :nba do
         end
       end
     end
-	end
-  task :removeInjury => :environment do
+
     injuries = Injury.all
     injuries.each do |injury|
       injury_date = Date.strptime(injury.date, "%b %e")
       injury_players = Player.where("player_fullname = ? AND game_date >= ?", injury.name, injury_date)
       if injury_players.size > 0
         Injury.delete(injury.id)
-      else
-        puts injury.name
       end
     end
-  end
-
+	end
+  
 	task :daily => :environment do
 		date = Date.yesterday
 		Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
