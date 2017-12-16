@@ -28,6 +28,10 @@
         <th>only one</th>
         <th>only one</th>
         <th>home + away</th>
+        <th>home + away</th>
+        <th>home + away</th>
+        <th>only one</th>
+        <th>only one</th>
         <th colspan="7">1H STATS</th>
         <th></th>
         <th></th>
@@ -57,14 +61,18 @@
 	  		<th class="red">Last<br>Game</th>
         <th>FLY</th>
         <th class="red"></th>
-        <th class="red">team steals home + away</th>
-        <th class="red">team blocks home or away only one</th>
-        <th class="red">turn overs home + away</th>
-        <th class="red">team poss only one home or away</th>
-        <th class="red">1st half point home + away</th>
-        <th class="red">2nd half point home + away</th>
-        <th class="red">1st half home or away</th>
-        <th class="red">2nd half home or away</th>
+        <th class="red">STL</th>
+        <th class="red">BLK</th>
+        <th class="red">TO's</th>
+        <th class="red">Poss</th>
+        <th class="red">1h</th>
+        <th class="red">2h</th>
+        <th class="red">1h</th>
+        <th class="red">2h</th>
+        <th class="red">Opp 1h</th>
+        <th class="red">Opp 2h</th>
+        <th class="red">Opp 1h</th>
+        <th class="red">Opp 2h</th>
         <th class="red">OReb</th>
         <th class="red">1H<br>FGA</th>
         <th class="red">1H<br>FTA</th>
@@ -121,7 +129,11 @@
       <td class="skyblue"><%= @away_team_info.second_current %></td>
       <td class="skyblue"><%= @away_team_info.first_away %></td>
       <td class="skyblue"><%= @away_team_info.second_away %></td>
-      <td class="red"><%= @away_team_info.rebound_current %></td>
+      <td class="skyblue"><%= @away_team_info.rebound_current %></td>
+      <td class="red"><%= @away_team_info.opponentfirst_current %></td>
+      <td class="red"><%= @away_team_info.opponentsecond_current %></td>
+      <td class="red"><%= @away_team_info.opponentfirst_away %></td>
+      <td class="red"><%= @away_team_info.opponentsecond_away %></td>
 
       <td><%= game.first_away_fga %></td>
       <td><%= game.first_away_fta %></td>
@@ -184,7 +196,11 @@
       <td class="skyblue"><%= @home_team_info.second_current %></td>
       <td class="skyblue"><%= @home_team_info.first_home %></td>
       <td class="skyblue"><%= @home_team_info.second_home %></td>
-      <td class="red"><%= @home_team_info.rebound_current %></td>
+      <td class="skyblue"><%= @home_team_info.rebound_current %></td>
+      <td class="red"><%= @home_team_info.opponentfirst_current %></td>
+      <td class="red"><%= @home_team_info.opponentsecond_current %></td>
+      <td class="red"><%= @home_team_info.opponentfirst_home %></td>
+      <td class="red"><%= @home_team_info.opponentsecond_home %></td>
 
       <td><%= game.first_home_fga %></td>
       <td><%= game.first_home_fta %></td>
@@ -243,6 +259,10 @@
       <td class="skyblue"><%= (@away_team_info.first_away + @home_team_info.first_home).round(1) %></td>
       <td class="skyblue"><%= (@away_team_info.second_away + @home_team_info.second_home).round(1) %></td>
       <td class="skyblue"><%= (@away_team_info.rebound_current + @home_team_info.rebound_current).round(1) %></td>
+      <td class="skyblue"><%= (@away_team_info.opponentfirst_current + @home_team_info.opponentfirst_current).round(1) %></td>
+      <td class="skyblue"><%= (@away_team_info.opponentsecond_current + @home_team_info.opponentsecond_current).round(1) %></td>
+      <td class="skyblue"><%= (@away_team_info.opponentfirst_away + @home_team_info.opponentfirst_home).round(1) %></td>
+      <td class="skyblue"><%= (@away_team_info.opponentsecond_away + @home_team_info.opponentsecond_home).round(1) %></td>
 
       <td class="skyblue"><%= game.away_first_quarter %></td>
       <td class="skyblue"><%= game.away_second_quarter %></td>
