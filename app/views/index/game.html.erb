@@ -104,6 +104,9 @@
       @home_team_info = Team.find_by(abbr: game.home_abbr)
       @away_team_info = Team.find_by(abbr: game.away_abbr)
     %>
+    <tr class="gray">
+      <td colspan="63" height="10"></td>
+    </tr>
     <tr>
       <td class="green" rowspan="3"><%= game.away_number %> / <%= game.home_number %></td>
       <td class="grey" rowspan="3"><%= DateTime.parse(game.game_date).strftime("%I:%M%n%p") %></td>
