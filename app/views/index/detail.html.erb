@@ -1313,8 +1313,7 @@
       <% end %>
 <script>
 $(document).ready(function(){
-  $(".lists").toggle(function() {
-    console.log($(this)[0].className);
+  $(".lists").click(function() {
     if ($(".box" + $(this)[0].className.substr(10)).css("display") == "none")
     {
       $(".boxes").css("display", "none");
@@ -1325,10 +1324,7 @@ $(document).ready(function(){
       $(".box" + $(this)[0].className.substr(10)).css("left", position.left);
       $(".box" + $(this)[0].className.substr(10)).css("background", "white");
     }
-  },
-  function() {
-    $(".boxes").css("display", "none");
-  });
+  }
 });
 $('.awayPossessions').on('input', function() { 
   var value = $(this).val();
