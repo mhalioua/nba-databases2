@@ -38,8 +38,6 @@ namespace :nba do
       injury_players = Player.where("player_fullname = ? AND game_date >= ?", injury.name, injury_date)
       if injury_players.size > 0
         Injury.delete(injury.id)
-      elsif injury.text.include?('probable')
-        Injury.delete(injury.id)
       end
     end
 	end

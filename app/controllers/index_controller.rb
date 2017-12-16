@@ -421,7 +421,9 @@ class IndexController < ApplicationController
 				name_index = name.index(' ')
 				name = name_index ? name[0] + '.' + name[name_index..-1] : name
 			end
-			@away_injury_name.push(name)
+			if !injury.text.include?('probable')
+				@away_injury_name.push(name)
+			end
 		end
 
 		@home_injury_name = []
@@ -431,7 +433,9 @@ class IndexController < ApplicationController
 				name_index = name.index(' ')
 				name = name_index ? name[0] + '.' + name[name_index..-1] : name
 			end
-			@home_injury_name.push(name)
+			if !injury.text.include?('probable')
+				@home_injury_name.push(name)
+			end
 		end
 
 		@injury_away_total_poss = 0
