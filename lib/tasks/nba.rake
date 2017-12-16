@@ -32,6 +32,13 @@ namespace :nba do
       end
     end
 	end
+  task :removeInjury => :environment do
+    injuries = Injury.all
+    injuries.each do |injury|
+      injury_date = Date.strptime(injury.date, "%b%e")
+      puts injury_date.strftime("%b %e")
+    end
+  end
 
 	task :daily => :environment do
 		date = Date.yesterday
