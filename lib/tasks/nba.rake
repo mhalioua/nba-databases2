@@ -811,7 +811,7 @@ namespace :nba do
 	task :getPlayer => [:environment] do
 		include Api
 		puts "----------Get Players----------"
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 60.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
