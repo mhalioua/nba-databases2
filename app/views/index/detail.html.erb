@@ -1324,6 +1324,9 @@ $(document).ready(function(){
       $(".box" + $(this)[0].className.substr(10)).css("left", position.left);
       $(".box" + $(this)[0].className.substr(10)).css("background", "white");
     }
+    else {
+      $(".boxes").css("display", "none");
+    }
   });
 });
 $('.awayPossessions').on('input', function() { 
