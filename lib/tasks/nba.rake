@@ -1528,7 +1528,7 @@ namespace :nba do
 
     Time.zone = 'Eastern Time (US & Canada)'
 
-    games = Nba.where("game_date between ? and ?", Date.new(2017, 1, 1).beginning_of_day, Date.new(2017, 6, 1).end_of_day)
+    games = Nba.where("game_date between ? and ?", Date.new(2016, 1, 1).beginning_of_day, Date.new(2017, 1, 1).end_of_day)
     puts games.size
     games.each do |game|
       home_team = game.home_team
