@@ -1217,6 +1217,9 @@
                     game_list.each do |game_id|
                       game = Nba.where(id: game_id).first
                       search_player = game.players.where(player_name: player.player_name).first
+                      if search_player.mins < 10
+                        style = "background: red"
+                      end
                       team_player = game.players.where(player_name: "TEAM", team_abbr: search_player.team_abbr).first
                       total_mins = total_mins + search_player.mins
                       total_fga = total_fga + search_player.fga
@@ -1228,7 +1231,7 @@
                       total_ppp = total_ppp 
                       total_team_poss = total_team_poss + team_player.poss
                   %>
-                  <tr>
+                  <tr <%= style %> >
                     <td><%= game.date %>, <%= game.year %></td>
                     <td><%= search_player.mins %></td>
                     <td><%= search_player.fga %></td>

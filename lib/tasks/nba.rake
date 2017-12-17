@@ -939,7 +939,7 @@ namespace :nba do
 	task :getUpdatePoss => [:environment] do
 		include Api
 		Time.zone = 'Eastern Time (US & Canada)'
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
 			players = game.players.where("player_name <> 'TEAM'")
 			players.each do |player|
@@ -955,20 +955,18 @@ namespace :nba do
 					if count == 10
 						break
 					end
-					if last_player.mins > 10
-						possession.push(last_player.nba_id)
-						sum_poss = sum_poss + last_player.poss
-						sum_mins = sum_mins + last_player.mins
-						if mins_min > last_player.mins
-							mins_min = last_player.mins
-						end
-						if mins_max < last_player.mins
-							mins_max = last_player.mins
-						end
-						last_team = Player.where("nba_id = ? AND team_abbr = ? AND player_name = ?",last_player.nba_id, last_player.team_abbr, "TEAM")
-						team_poss = team_poss + last_team.first.poss
-						count = count + 1
+					possession.push(last_player.nba_id)
+					sum_poss = sum_poss + last_player.poss
+					sum_mins = sum_mins + last_player.mins
+					if mins_min > last_player.mins
+						mins_min = last_player.mins
 					end
+					if mins_max < last_player.mins
+						mins_max = last_player.mins
+					end
+					last_team = Player.where("nba_id = ? AND team_abbr = ? AND player_name = ?",last_player.nba_id, last_player.team_abbr, "TEAM")
+					team_poss = team_poss + last_team.first.poss
+					count = count + 1
 				end
 				sum_mins = sum_mins - mins_min - mins_max
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins)
