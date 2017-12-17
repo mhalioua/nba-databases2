@@ -1226,7 +1226,7 @@
                       total_poss = total_poss + search_player.poss
                       total_pts = total_pts + search_player.ptsValue
                       if search_player.poss != 0
-                        total_ppp = total_ppp + search_player.ptsValue / search_player.poss
+                        total_ppp = total_ppp + search_player.ptsValue.to_f / search_player.poss
                       end
                       total_team_poss = total_team_poss + team_player.poss
                   %>
@@ -1240,7 +1240,7 @@
                     <td><%= search_player.poss %></td>
                     <td><%= search_player.ptsValue %></td>
                     <% if search_player.poss != 0 %>
-                      <td><%= (search_player.ptsValue / search_player.poss).round(3) %></td>
+                      <td><%= (search_player.ptsValue.to_f / search_player.poss).round(3) %></td>
                     <% else %>
                       <td></td>
                     <% end %>
@@ -1306,7 +1306,7 @@
                       total_poss = total_poss + search_player.poss
                       total_pts = total_pts + search_player.ptsValue
                       if search_player.poss != 0
-                        total_ppp = total_ppp + search_player.ptsValue / search_player.poss
+                        total_ppp = total_ppp + search_player.ptsValue.to_f / search_player.poss
                       end
                       total_team_poss = total_team_poss + team_player.poss
                   %>
@@ -1320,7 +1320,7 @@
                     <td><%= search_player.poss %></td>
                     <td><%= search_player.ptsValue %></td>
                     <% if search_player.poss != 0 %>
-                      <td><%= (search_player.ptsValue / search_player.poss).round(3) %></td>
+                      <td><%= (search_player.ptsValue.to_f / search_player.poss).round(3) %></td>
                     <% else %>
                       <td></td>
                     <% end %>
