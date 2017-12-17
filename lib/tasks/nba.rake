@@ -512,10 +512,12 @@ namespace :nba do
         else
           away_last_fly = "YES"
         end
-        if away_team_prev.away_ot_quarter > 0 || away_team_prev.home_ot_quarter > 0
-          away_last_ot = "YES"
-        else
-          away_last_ot = "NO"
+        if away_team_prev.away_ot_quarter != nil &&  away_team_prev.home_ot_quarter != nil
+          if away_team_prev.away_ot_quarter > 0 || away_team_prev.home_ot_quarter > 0
+            away_last_ot = "YES"
+          else
+            away_last_ot = "NO"
+          end
         end
 			end
 
@@ -542,10 +544,12 @@ namespace :nba do
 				else
 					home_last_fly = "YES"
 				end
-        if home_team_prev.away_ot_quarter > 0 || home_team_prev.home_ot_quarter > 0
-          home_last_ot = "YES"
-        else
-          home_last_ot = "NO"
+        if home_team_prev.away_ot_quarter != nil && home_team_prev.home_ot_quarter != nil
+          if home_team_prev.away_ot_quarter > 0 || home_team_prev.home_ot_quarter > 0
+            home_last_ot = "YES"
+          else
+            home_last_ot = "NO"
+          end
         end
 			end
 
