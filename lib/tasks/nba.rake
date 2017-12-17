@@ -503,6 +503,7 @@ namespace :nba do
 
 			away_last_game = ""
       away_last_fly = ""
+      away_last_ot = ""
 			away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
 			if away_team_prev
 				away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
@@ -510,6 +511,11 @@ namespace :nba do
           away_last_fly = "NO"
         else
           away_last_fly = "YES"
+        end
+        if away_team_prev.away_ot_quarter > 0 || away_team_prev.home_ot_quarter > 0
+          away_last_ot = "YES"
+        else
+          away_last_ot = "NO"
         end
 			end
 
@@ -527,6 +533,7 @@ namespace :nba do
 
 			home_last_game = ""
 			home_last_fly = ""
+      home_last_ot = ""
 			home_team_prev = Nba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
 			if home_team_prev
 				home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
@@ -535,6 +542,11 @@ namespace :nba do
 				else
 					home_last_fly = "YES"
 				end
+        if home_team_prev.away_ot_quarter > 0 || home_team_prev.home_ot_quarter > 0
+          home_last_ot = "YES"
+        else
+          home_last_ot = "NO"
+        end
 			end
 
 			home_next_game = ""
@@ -548,7 +560,7 @@ namespace :nba do
 					home_next_fly = "YES"
 				end
 			end
-			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly)
+			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot)
 		end
 	end
 
