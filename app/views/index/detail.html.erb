@@ -2313,7 +2313,7 @@ end
       </tr>
       <tr>
         <td><%= compare.head_home_player_name %></td>
-        <td><%= compare.second_home_player_age %></td>
+        <td><%= compare.head_home_player_name == compare.second_home_player_name ? compare.second_home_player_age : compare.second_away_player_age %></td>
         <td><%= compare.head_home_player_gp %></td>
         <td><%= compare.head_home_player_gs %></td>
         <td><%= compare.head_home_player_mp %></td>
@@ -2333,19 +2333,29 @@ end
         <td rowspan="2"><%= (compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb) + compare.head_away_player_pts/(compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)).round(3) %></td>
         <%
           headValue = compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)
-          secondValue = compare.second_home_player_pts / (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)
-          if compare.first_home_player_age
-            firstValue = compare.first_home_player_pts / (compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb)
-            compare_value = headValue - (firstValue + secondValue) / 2
+          if compare.head_home_player_name == compare.second_home_player_name
+            secondValue = compare.second_home_player_pts / (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)
+            if compare.first_home_player_age
+              firstValue = compare.first_home_player_pts / (compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb)
+              compare_value = headValue - (firstValue + secondValue) / 2
+            else
+              compare_value = headValue - secondValue
+            end
           else
-            compare_value = headValue - secondValue
+            secondValue = compare.second_away_player_pts / (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)
+            if compare.first_away_player_age
+              firstValue = compare.first_away_player_pts / (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb)
+              compare_value = headValue - (firstValue + secondValue) / 2
+            else
+              compare_value = headValue - secondValue
+            end
           end
         %>
         <td><%= compare_value.round(3) %></td>
       </tr>
       <tr>
         <td><%= compare.head_away_player_name %></td>
-        <td><%= compare.second_away_player_age %></td>
+        <td><%= compare.head_away_player_name == compare.second_away_player_name ? compare.second_away_player_age : compare.second_home_player_age %></td>
         <td><%= compare.head_away_player_gp %></td>
         <td><%= compare.head_away_player_gs %></td>
         <td><%= compare.head_away_player_mp %></td>
@@ -2364,12 +2374,22 @@ end
         <td><%= (compare.head_away_player_pts/(compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)).round(3) %></td>
         <%
           headValue = compare.head_away_player_pts / (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)
-          secondValue = compare.second_away_player_pts / (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)
-          if compare.first_away_player_age
-            firstValue = compare.first_away_player_pts / (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb)
-            compare_value = headValue - (firstValue + secondValue) / 2
+          if compare.head_away_player_name == compare.second_away_player_name
+            secondValue = compare.second_away_player_pts / (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)
+            if compare.first_away_player_age
+              firstValue = compare.first_away_player_pts / (compare.first_away_player_fga + compare.first_away_player_tov + (compare.first_away_player_fta * 0.44) - compare.first_away_player_orb)
+              compare_value = headValue - (firstValue + secondValue) / 2
+            else
+              compare_value = headValue - secondValue
+            end
           else
-            compare_value = headValue - secondValue
+            secondValue = compare.second_home_player_pts / (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)
+            if compare.first_home_player_age
+              firstValue = compare.first_home_player_pts / (compare.first_home_player_fga + compare.first_home_player_tov + (compare.first_home_player_fta * 0.44) - compare.first_home_player_orb)
+              compare_value = headValue - (firstValue + secondValue) / 2
+            else
+              compare_value = headValue - secondValue
+            end
           end
         %>
         <td><%= compare_value.round(3) %></td>
