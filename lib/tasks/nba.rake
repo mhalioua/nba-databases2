@@ -502,15 +502,27 @@ namespace :nba do
 			puts DateTime.parse(game_date).in_time_zone.to_date
 
 			away_last_game = ""
+      away_last_fly = ""
 			away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
 			if away_team_prev
 				away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+        if away_team_prev.home_team == home_team
+          away_last_fly = "NO"
+        else
+          away_last_fly = "YES"
+        end
 			end
 
 			away_next_game = ""
+      away_next_fly = ""
 			away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
 			if away_team_next
 				away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+        if away_team_next.home_team == home_team
+          away_next_fly = "NO"
+        else
+          away_next_fly = "YES"
+        end
 			end
 
 			home_last_game = ""
@@ -536,7 +548,7 @@ namespace :nba do
 					home_next_fly = "YES"
 				end
 			end
-			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly)
+			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly)
 		end
 	end
 
