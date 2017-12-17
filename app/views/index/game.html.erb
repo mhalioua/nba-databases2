@@ -145,9 +145,9 @@
       <td><%= game.first_away_stl %></td>
       <td><%= game.first_away_blk %></td>
       <% if game.first_away_fga && game.first_away_toValue && game.first_away_fta && game.first_away_orValue %>
-      <td class="darkred"><%= (game.first_away_fga + game.first_away_toValue + (game.first_away_fta * 0.44) - game.first_away_orValue).round(2) %></td>
+      <td class="red"><%= (game.first_away_fga + game.first_away_toValue + (game.first_away_fta * 0.44) - game.first_away_orValue).round(2) %></td>
       <% else %>
-      <td class="darkred"></td>
+      <td class="red"></td>
       <% end %>
       <% if game.first_away_fga && game.first_away_toValue && game.first_away_fta && game.first_away_orValue && game.away_fga && game.away_toValue && game.away_fta && game.away_orValue %>
       <td><%= (game.away_fga + game.away_toValue + (game.away_fta * 0.44) - game.away_orValue - game.first_away_fga - game.first_away_toValue - (game.first_away_fta * 0.44) + game.first_away_orValue).round(2) %></td>
@@ -212,9 +212,9 @@
       <td><%= game.first_home_stl %></td>
       <td><%= game.first_home_blk %></td>
       <% if game.first_home_fga && game.first_home_toValue && game.first_home_fta && game.first_home_orValue %>
-      <td class="darkred"><%= (game.first_home_fga + game.first_home_toValue + (game.first_home_fta * 0.44) - game.first_home_orValue).round(2) %></td>
+      <td class="red"><%= (game.first_home_fga + game.first_home_toValue + (game.first_home_fta * 0.44) - game.first_home_orValue).round(2) %></td>
       <% else %>
-      <td class="darkred"></td>
+      <td class="red"></td>
       <% end %>
       <% if game.first_home_fga && game.first_home_toValue && game.first_home_fta && game.first_home_orValue && game.home_fga && game.home_toValue && game.home_fta && game.home_orValue %>
       <td><%= (game.home_fga + game.home_toValue + (game.home_fta * 0.44) - game.home_orValue - game.first_home_fga - game.first_home_toValue - (game.first_home_fta * 0.44) + game.first_home_orValue).round(2) %></td>
