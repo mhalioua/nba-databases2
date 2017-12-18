@@ -386,10 +386,43 @@ namespace :nba do
 				home_or_value = home_value.children[5].text.to_i
 				home_poss = home_fga_value + home_to_value + (home_fta_value / 2) - home_or_value
 			end
-
-	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: date.strftime("%Y"), date: date.strftime("%b %e"), time: date.strftime("%I:%M%p"), week: date.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
+      addingDate = date
+      if @team_names[home_team]
+        compare_home_team = @team_names[home_team]
+        home_team_info = Team.find_by(team: compare_home_team)
+        if home_team_info.timezone == 2
+          addingDate = addingDate - 3.hours
+        elsif home_team_info.timezone == 3
+          addingDate = addingDate - 1.hours
+        elsif home_team_info.timezone == 4
+          addingDate = addingDate - 2.hours
+        end
+      end
+	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
 	  	end
 	end
+
+  task :database => [:environment] do
+    include Api
+    games = Nba.where("game_date between ? and ?", Date.new(2016, 1, 1).beginning_of_day, Time.now-5.hours)
+    games.each do |game|
+      date = game.game_date
+      home_team = game.home_team
+      if @team_names[home_team]
+        addingDate = date
+        compare_home_team = @team_names[home_team]
+        home_team_info = Team.find_by(team: compare_home_team)
+        if home_team_info.timezone == 2
+          addingDate = addingDate - 3.hours
+        elsif home_team_info.timezone == 3
+          addingDate = addingDate - 1.hours
+        elsif home_team_info.timezone == 4
+          addingDate = addingDate - 2.hours
+        end
+        game.update(year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"))
+      end
+    end
+  end
 
 	task :getHalf => [:environment] do
 		include Api
@@ -1782,4 +1815,38 @@ namespace :nba do
 		"C.J. Williams" => "C. Williams",
 		"D.J. Wilson" => "D. Wilson"
 	}
+
+  @team_names = {
+    'Atlanta' => 'Atlanta',
+    'Boston' => 'Boston',
+    'Brooklyn' => 'Brooklyn',
+    'Charlotte' => 'Charlotte',
+    'Chicago' => 'Chicago',
+    'Cleveland' => 'Cleveland',
+    'Dallas' => 'Dallas',
+    'Denver' => 'Denver',
+    'Detroit' => 'Detroit',
+    'Golden State' => 'Golden State',
+    'Houston' => 'Houston',
+    'Indiana' => 'Indiana',
+    'LAC' => 'LA Clippers',
+    'LAL' => 'LA Lakers',
+    'Memphis' => 'Memphis',
+    'Miami' => 'Miami',
+    'Milwaukee' => 'Milwaukee',
+    'Minnesota' => 'Minnesota',
+    'New Orleans' => 'New Orleans',
+    'New York' => 'New York',
+    'Oklahoma City' => 'Okla City',
+    'NO/Oklahoma City' => 'Okla City',
+    'NO/Oklahoma City' => 'Orlando',
+    'Philadelphia' => 'Philadelphia',
+    'Phoenix' => 'Phoenix',
+    'Portland' => 'Portland',
+    'Sacramento' => 'Sacramento',
+    'San Antonio' => 'San Antonio',
+    'Toronto' => 'Toronto',
+    'Utah' => 'Utah',
+    'Washington' => 'Washington'
+  }
 end
