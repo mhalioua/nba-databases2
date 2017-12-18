@@ -1727,7 +1727,7 @@ namespace :nba do
       team.update(order_one_six: index + 1)
     end
 
-    url = "http://www.espn.com/nba/standings/_/season/2006/sort/avgpointsfor/group/league"
+    url = "http://www.espn.com/nba/standings/_/season/2007/sort/avgpointsfor/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
@@ -1738,7 +1738,7 @@ namespace :nba do
       team.update(order_two_six: index + 1)
     end
 
-    url = "http://www.espn.com/nba/standings/_/season/2006/sort/avgpointsagainst/group/league"
+    url = "http://www.espn.com/nba/standings/_/season/2007/sort/avgpointsagainst/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
