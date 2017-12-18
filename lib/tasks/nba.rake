@@ -679,6 +679,88 @@ namespace :nba do
 		end
 	end
 
+  task :linkclone => [:environment] do
+    include Api
+    puts "----------Get Link Games----------"
+
+    Time.zone = 'Eastern Time (US & Canada)'
+
+    games = Nba.where("game_date between ? and ?", Date.new(2016, 11, 1).beginning_of_day, Date.new(2017, 12, 20).end_of_day)
+    puts games.size
+    games.each do |game|
+      home_team = game.home_team
+      away_team = game.away_team
+      game_date = game.game_date
+      puts DateTime.parse(game_date).in_time_zone.to_date
+
+      away_last_game = ""
+      away_last_fly = ""
+      away_last_ot = ""
+      away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
+      if away_team_prev
+        away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+        if away_team_prev.home_team == away_team
+          away_last_fly = "YES"
+        else
+          away_last_fly = "NO"
+        end
+        if away_team_prev.away_ot_quarter != nil &&  away_team_prev.home_ot_quarter != nil
+          if away_team_prev.away_ot_quarter > 0 || away_team_prev.home_ot_quarter > 0
+            away_last_ot = "YES"
+          else
+            away_last_ot = "NO"
+          end
+        end
+      end
+
+      away_next_game = ""
+      away_next_fly = ""
+      away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
+      if away_team_next
+        away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+        if away_team_next.home_team == away_team
+          away_next_fly = "YES"
+        else
+          away_next_fly = "NO"
+        end
+      end
+
+      home_last_game = ""
+      home_last_fly = ""
+      home_last_ot = ""
+      home_team_prev = Nba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
+      if home_team_prev
+        home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+        if home_team_prev.home_team == home_team
+          home_last_fly = "YES"
+        else
+          home_last_fly = "NO"
+        end
+        if home_team_prev.away_ot_quarter != nil && home_team_prev.home_ot_quarter != nil
+          if home_team_prev.away_ot_quarter > 0 || home_team_prev.home_ot_quarter > 0
+            home_last_ot = "YES"
+          else
+            home_last_ot = "NO"
+          end
+        end
+      end
+
+      home_next_game = ""
+      home_next_fly = ""
+      home_team_next = Nba.where("home_team = ? AND game_date > ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
+      if home_team_next
+        home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+        if home_team_next.home_team == home_team
+          home_next_fly = "YES"
+        else
+          home_next_fly = "NO"
+        end
+      end
+      game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot)
+    end
+  end
+
+
 	task :getFirstLines => [:environment] do
 		include Api
 		games = Nba.all
@@ -1633,87 +1715,7 @@ namespace :nba do
 		end
 	end
 
-  task :linkclone => [:environment] do
-    include Api
-    puts "----------Get Link Games----------"
-
-    Time.zone = 'Eastern Time (US & Canada)'
-
-    games = Nba.where("game_date between ? and ?", Date.new(2016, 11, 1).beginning_of_day, Date.new(2017, 12, 20).end_of_day)
-    puts games.size
-    games.each do |game|
-      home_team = game.home_team
-      away_team = game.away_team
-      game_date = game.game_date
-      puts DateTime.parse(game_date).in_time_zone.to_date
-
-      away_last_game = ""
-      away_last_fly = ""
-      away_last_ot = ""
-      away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
-      if away_team_prev
-        away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
-        if away_team_prev.home_team == away_team
-          away_last_fly = "YES"
-        else
-          away_last_fly = "NO"
-        end
-        if away_team_prev.away_ot_quarter != nil &&  away_team_prev.home_ot_quarter != nil
-          if away_team_prev.away_ot_quarter > 0 || away_team_prev.home_ot_quarter > 0
-            away_last_ot = "YES"
-          else
-            away_last_ot = "NO"
-          end
-        end
-      end
-
-      away_next_game = ""
-      away_next_fly = ""
-      away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
-      if away_team_next
-        away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
-        if away_team_next.home_team == away_team
-          away_next_fly = "YES"
-        else
-          away_next_fly = "NO"
-        end
-      end
-
-      home_last_game = ""
-      home_last_fly = ""
-      home_last_ot = ""
-      home_team_prev = Nba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
-      if home_team_prev
-        home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
-        if home_team_prev.home_team == home_team
-          home_last_fly = "YES"
-        else
-          home_last_fly = "NO"
-        end
-        if home_team_prev.away_ot_quarter != nil && home_team_prev.home_ot_quarter != nil
-          if home_team_prev.away_ot_quarter > 0 || home_team_prev.home_ot_quarter > 0
-            home_last_ot = "YES"
-          else
-            home_last_ot = "NO"
-          end
-        end
-      end
-
-      home_next_game = ""
-      home_next_fly = ""
-      home_team_next = Nba.where("home_team = ? AND game_date > ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
-      if home_team_next
-        home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
-        if home_team_next.home_team == home_team
-          home_next_fly = "YES"
-        else
-          home_next_fly = "NO"
-        end
-      end
-      game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot)
-    end
-  end
-
+  
   task :getRun => [:environment] do
     include Api
     puts "----------Get Players----------"
