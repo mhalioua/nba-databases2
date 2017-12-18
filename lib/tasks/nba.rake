@@ -402,9 +402,6 @@ namespace :nba do
         if home_team_info.timezone == 2
           addingDate = addingDate - 3.hours
           home_timezone = "PACIFIC"
-          home_win_rank = home_team_info.order_one_sev
-          home_ppg_rank = home_team_info.order_two_sev
-          home_oppppg_rank = home_team_info.order_thr_sev
         elsif home_team_info.timezone == 3
           addingDate = addingDate - 1.hours
           home_timezone = "CENTRAL"
@@ -414,9 +411,9 @@ namespace :nba do
         elsif home_team_info.timezone == 1
           home_timezone = "EASTERN"
         end
-        home_win_rank = home_team_info.order_one_sev
-        home_ppg_rank = home_team_info.order_two_sev
-        home_oppppg_rank = home_team_info.order_thr_sev
+        home_win_rank = home_team_info.order_one_seventeen
+        home_ppg_rank = home_team_info.order_two_seventeen
+        home_oppppg_rank = home_team_info.order_thr_seventeen
       end
 
       if @team_names[away_team]
@@ -431,9 +428,9 @@ namespace :nba do
         elsif away_team_info.timezone == 1
           away_timezone = "EASTERN"
         end
-        away_win_rank = away_team_info.order_one_sev
-        away_ppg_rank = away_team_info.order_two_sev
-        away_oppppg_rank = away_team_info.order_thr_sev
+        away_win_rank = away_team_info.order_one_seventeen
+        away_ppg_rank = away_team_info.order_two_seventeen
+        away_oppppg_rank = away_team_info.order_thr_seventeen
       end
 	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
 	  	end
@@ -464,9 +461,6 @@ namespace :nba do
         if home_team_info.timezone == 2
           addingDate = addingDate - 3.hours
           home_timezone = "PACIFIC"
-          home_win_rank = home_team_info.order_one_sev
-          home_ppg_rank = home_team_info.order_two_sev
-          home_oppppg_rank = home_team_info.order_thr_sev
         elsif home_team_info.timezone == 3
           addingDate = addingDate - 1.hours
           home_timezone = "CENTRAL"
@@ -476,9 +470,70 @@ namespace :nba do
         elsif home_team_info.timezone == 1
           home_timezone = "EASTERN"
         end
-        home_win_rank = home_team_info.order_one_sev
-        home_ppg_rank = home_team_info.order_two_sev
-        home_oppppg_rank = home_team_info.order_thr_sev
+        home_win_rank = home_team_info.order_one_seventeen
+        home_ppg_rank = home_team_info.order_two_seventeen
+        home_oppppg_rank = home_team_info.order_thr_seventeen
+        if date < Date.new(2003, 10, 1)
+          home_win_rank = home_team_info.order_one_two
+          home_ppg_rank = home_team_info.order_two_two
+          home_oppppg_rank = home_team_info.order_thr_two
+        elsif date < Date.new(2004, 10, 1)
+          home_win_rank = home_team_info.order_one_thr
+          home_ppg_rank = home_team_info.order_two_thr
+          home_oppppg_rank = home_team_info.order_thr_thr
+        elsif date < Date.new(2005, 10, 1)
+          home_win_rank = home_team_info.order_one_four
+          home_ppg_rank = home_team_info.order_two_four
+          home_oppppg_rank = home_team_info.order_thr_four
+        elsif date < Date.new(2006, 10, 1)
+          home_win_rank = home_team_info.order_one_five
+          home_ppg_rank = home_team_info.order_two_five
+          home_oppppg_rank = home_team_info.order_thr_five
+        elsif date < Date.new(2007, 10, 1)
+          home_win_rank = home_team_info.order_one_six
+          home_ppg_rank = home_team_info.order_two_six
+          home_oppppg_rank = home_team_info.order_thr_six
+        elsif date < Date.new(2008, 10, 1)
+          home_win_rank = home_team_info.order_one_seven
+          home_ppg_rank = home_team_info.order_two_seven
+          home_oppppg_rank = home_team_info.order_thr_seven
+        elsif date < Date.new(2009, 10, 1)
+          home_win_rank = home_team_info.order_one_eight
+          home_ppg_rank = home_team_info.order_two_eight
+          home_oppppg_rank = home_team_info.order_thr_eight
+        elsif date < Date.new(2010, 10, 1)
+          home_win_rank = home_team_info.order_one_nine
+          home_ppg_rank = home_team_info.order_two_nine
+          home_oppppg_rank = home_team_info.order_thr_nine
+        elsif date < Date.new(2011, 10, 1)
+          home_win_rank = home_team_info.order_one_ten
+          home_ppg_rank = home_team_info.order_two_ten
+          home_oppppg_rank = home_team_info.order_thr_ten
+        elsif date < Date.new(2012, 10, 1)
+          home_win_rank = home_team_info.order_one_eleven
+          home_ppg_rank = home_team_info.order_two_eleven
+          home_oppppg_rank = home_team_info.order_thr_eleven
+        elsif date < Date.new(2013, 10, 1)
+          home_win_rank = home_team_info.order_one_twelve
+          home_ppg_rank = home_team_info.order_two_twelve
+          home_oppppg_rank = home_team_info.order_thr_twelve
+        elsif date < Date.new(2014, 10, 1)
+          home_win_rank = home_team_info.order_one_thirteen
+          home_ppg_rank = home_team_info.order_two_thirteen
+          home_oppppg_rank = home_team_info.order_thr_thirteen
+        elsif date < Date.new(2015, 10, 1)
+          home_win_rank = home_team_info.order_one_forteen
+          home_ppg_rank = home_team_info.order_two_forteen
+          home_oppppg_rank = home_team_info.order_thr_forteen
+        elsif date < Date.new(2016, 10, 1)
+          home_win_rank = home_team_info.order_one_fifteen
+          home_ppg_rank = home_team_info.order_two_fifteen
+          home_oppppg_rank = home_team_info.order_thr_fifteen
+        elsif date < Date.new(2017, 10, 1)
+          home_win_rank = home_team_info.order_one_sixteen
+          home_ppg_rank = home_team_info.order_two_sixteen
+          home_oppppg_rank = home_team_info.order_thr_sixteen
+        end
       end
 
       if @team_names[away_team]
@@ -493,9 +548,70 @@ namespace :nba do
         elsif away_team_info.timezone == 1
           away_timezone = "EASTERN"
         end
-        away_win_rank = away_team_info.order_one_sev
-        away_ppg_rank = away_team_info.order_two_sev
-        away_oppppg_rank = away_team_info.order_thr_sev
+        away_win_rank = away_team_info.order_one_seventeen
+        away_ppg_rank = away_team_info.order_two_seventeen
+        away_oppppg_rank = away_team_info.order_thr_seventeen
+        if date < Date.new(2003, 10, 1)
+          away_win_rank = away_team_info.order_one_two
+          away_ppg_rank = away_team_info.order_two_two
+          away_oppppg_rank = away_team_info.order_thr_two
+        elsif date < Date.new(2004, 10, 1)
+          away_win_rank = away_team_info.order_one_thr
+          away_ppg_rank = away_team_info.order_two_thr
+          away_oppppg_rank = away_team_info.order_thr_thr
+        elsif date < Date.new(2005, 10, 1)
+          away_win_rank = away_team_info.order_one_four
+          away_ppg_rank = away_team_info.order_two_four
+          away_oppppg_rank = away_team_info.order_thr_four
+        elsif date < Date.new(2006, 10, 1)
+          away_win_rank = away_team_info.order_one_five
+          away_ppg_rank = away_team_info.order_two_five
+          away_oppppg_rank = away_team_info.order_thr_five
+        elsif date < Date.new(2007, 10, 1)
+          away_win_rank = away_team_info.order_one_six
+          away_ppg_rank = away_team_info.order_two_six
+          away_oppppg_rank = away_team_info.order_thr_six
+        elsif date < Date.new(2008, 10, 1)
+          away_win_rank = away_team_info.order_one_seven
+          away_ppg_rank = away_team_info.order_two_seven
+          away_oppppg_rank = away_team_info.order_thr_seven
+        elsif date < Date.new(2009, 10, 1)
+          away_win_rank = away_team_info.order_one_eight
+          away_ppg_rank = away_team_info.order_two_eight
+          away_oppppg_rank = away_team_info.order_thr_eight
+        elsif date < Date.new(2010, 10, 1)
+          away_win_rank = away_team_info.order_one_nine
+          away_ppg_rank = away_team_info.order_two_nine
+          away_oppppg_rank = away_team_info.order_thr_nine
+        elsif date < Date.new(2011, 10, 1)
+          away_win_rank = away_team_info.order_one_ten
+          away_ppg_rank = away_team_info.order_two_ten
+          away_oppppg_rank = away_team_info.order_thr_ten
+        elsif date < Date.new(2012, 10, 1)
+          away_win_rank = away_team_info.order_one_eleven
+          away_ppg_rank = away_team_info.order_two_eleven
+          away_oppppg_rank = away_team_info.order_thr_eleven
+        elsif date < Date.new(2013, 10, 1)
+          away_win_rank = away_team_info.order_one_twelve
+          away_ppg_rank = away_team_info.order_two_twelve
+          away_oppppg_rank = away_team_info.order_thr_twelve
+        elsif date < Date.new(2014, 10, 1)
+          away_win_rank = away_team_info.order_one_thirteen
+          away_ppg_rank = away_team_info.order_two_thirteen
+          away_oppppg_rank = away_team_info.order_thr_thirteen
+        elsif date < Date.new(2015, 10, 1)
+          away_win_rank = away_team_info.order_one_forteen
+          away_ppg_rank = away_team_info.order_two_forteen
+          away_oppppg_rank = away_team_info.order_thr_forteen
+        elsif date < Date.new(2016, 10, 1)
+          away_win_rank = away_team_info.order_one_fifteen
+          away_ppg_rank = away_team_info.order_two_fifteen
+          away_oppppg_rank = away_team_info.order_thr_fifteen
+        elsif date < Date.new(2017, 10, 1)
+          away_win_rank = away_team_info.order_one_sixteen
+          away_ppg_rank = away_team_info.order_two_sixteen
+          away_oppppg_rank = away_team_info.order_thr_sixteen
+        end
       end
       game.update(year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
     end
