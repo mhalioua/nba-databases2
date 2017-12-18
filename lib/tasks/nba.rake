@@ -87,7 +87,6 @@ namespace :nba do
 
 		Rake::Task["nba:getUpdatePoss"].invoke
 		Rake::Task["nba:getUpdatePoss"].reenable
-		
 	end
 
 
@@ -442,7 +441,7 @@ namespace :nba do
 
   task :database => [:environment] do
     include Api
-    games = Nba.where("game_date between ? and ?", Date.new(2016, 1, 1).beginning_of_day, Time.now-5.hours)
+    games = Nba.all
     games.each do |game|
       date = DateTime.parse(game.game_date)
       home_team = game.home_team
@@ -685,7 +684,7 @@ namespace :nba do
 
     Time.zone = 'Eastern Time (US & Canada)'
 
-    games = Nba.where("game_date between ? and ?", Date.new(2016, 11, 1).beginning_of_day, Date.new(2017, 12, 20).end_of_day)
+    games = Nba.all
     puts games.size
     games.each do |game|
       home_team = game.home_team
