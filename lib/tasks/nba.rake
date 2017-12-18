@@ -1724,6 +1724,8 @@ namespace :nba do
       team = Team.find_by(abbr: element.text)
       if team
         team.update(order_one_two: index + 1)
+      else
+        puts "-----------#{element.text}-----------"
       end
     end
 
@@ -1735,6 +1737,8 @@ namespace :nba do
       team = Team.find_by(abbr: element.text)
       if team
         team.update(order_two_two: index + 1)
+      else
+        puts "-----------#{element.text}-----------"
       end
     end
 
@@ -1746,6 +1750,8 @@ namespace :nba do
       team = Team.find_by(abbr: element.text)
       if team
         team.update(order_thr_two: index + 1)
+      else
+        puts "-----------#{element.text}-----------"
       end
     end
   end
