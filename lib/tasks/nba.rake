@@ -1721,12 +1721,10 @@ namespace :nba do
     elements = doc.css("abbr")
     puts elements.length
     elements.each_with_index do |element, index|
-      team = Team.find_by(abbr: element.text)
-      if team
-        team.update(order_one_two: index + 1)
-      else
-        puts "-----------#{element.text}-----------"
+      unless team = Team.find_by(abbr: element.text)
+        team = Team.create(abbr: element.text)
       end
+      team.update(order_one_two: index + 1)
     end
 
     url = "http://www.espn.com/nba/standings/_/season/2003/sort/avgpointsfor/group/league"
@@ -1734,12 +1732,10 @@ namespace :nba do
     elements = doc.css("abbr")
     puts elements.length
     elements.each_with_index do |element, index|
-      team = Team.find_by(abbr: element.text)
-      if team
-        team.update(order_two_two: index + 1)
-      else
-        puts "-----------#{element.text}-----------"
+      unless team = Team.find_by(abbr: element.text)
+        team = Team.create(abbr: element.text)
       end
+      team.update(order_two_two: index + 1)
     end
 
     url = "http://www.espn.com/nba/standings/_/season/2003/sort/avgpointsagainst/group/league"
@@ -1747,12 +1743,10 @@ namespace :nba do
     elements = doc.css("abbr")
     puts elements.length
     elements.each_with_index do |element, index|
-      team = Team.find_by(abbr: element.text)
-      if team
-        team.update(order_thr_two: index + 1)
-      else
-        puts "-----------#{element.text}-----------"
+      unless team = Team.find_by(abbr: element.text)
+        team = Team.create(abbr: element.text)
       end
+      team.update(order_thr_two: index + 1)
     end
   end
 
