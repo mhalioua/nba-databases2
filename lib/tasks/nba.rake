@@ -1839,7 +1839,7 @@ namespace :nba do
     'New York' => 'New York',
     'Oklahoma City' => 'Okla City',
     'NO/Oklahoma City' => 'Okla City',
-    'NO/Oklahoma City' => 'Orlando',
+    'Orlando' => 'Orlando',
     'Philadelphia' => 'Philadelphia',
     'Phoenix' => 'Phoenix',
     'Portland' => 'Portland',
