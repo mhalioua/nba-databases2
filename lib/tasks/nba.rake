@@ -1729,7 +1729,7 @@ namespace :nba do
 
     url = "http://www.espn.com/nba/standings/_/season/2003/sort/avgpointsfor/group/league"
     doc = download_document(url)
-    elements = doc.css("tr")
+    elements = doc.css("abbr")
     puts elements.length
     elements.each_with_index do |element, index|
       team = Team.find_by(abbr: element.text)
@@ -1740,7 +1740,7 @@ namespace :nba do
 
     url = "http://www.espn.com/nba/standings/_/season/2003/sort/avgpointsagainst/group/league"
     doc = download_document(url)
-    elements = doc.css("tr")
+    elements = doc.css("abbr")
     puts elements.length
     elements.each_with_index do |element, index|
       team = Team.find_by(abbr: element.text)
