@@ -1714,6 +1714,42 @@ namespace :nba do
 		end
 	end
 
+  task :teaminfo => :environment do
+    include Api
+    url = "http://www.espn.com/nba/standings/_/season/2003/sort/wins/group/league"
+    doc = download_document(url)
+    elements = doc.css("abbr")
+    puts elements.length
+    elements.each_with_index do |element, index|
+      team = Team.find_by(abbr: element.text)
+      if team
+        team.update(order_one_two: index + 1)
+      end
+    end
+
+    url = "http://www.espn.com/nba/standings/_/season/2003/sort/avgpointsfor/group/league"
+    doc = download_document(url)
+    elements = doc.css("tr")
+    puts elements.length
+    elements.each_with_index do |element, index|
+      team = Team.find_by(abbr: element.text)
+      if team
+        team.update(order_two_two: index + 1)
+      end
+    end
+
+    url = "http://www.espn.com/nba/standings/_/season/2003/sort/avgpointsagainst/group/league"
+    doc = download_document(url)
+    elements = doc.css("tr")
+    puts elements.length
+    elements.each_with_index do |element, index|
+      team = Team.find_by(abbr: element.text)
+      if team
+        team.update(order_thr_two: index + 1)
+      end
+    end
+  end
+
   
   task :getRun => [:environment] do
     include Api
