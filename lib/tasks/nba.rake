@@ -1716,7 +1716,7 @@ namespace :nba do
 
   task :teaminfo => :environment do
     include Api
-    url = "http://www.espn.com/nba/standings/_/season/2013/sort/wins/group/league"
+    url = "http://www.espn.com/nba/standings/_/season/2014/sort/wins/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
@@ -1724,10 +1724,10 @@ namespace :nba do
       unless team = Team.find_by(abbr: element.text)
         team = Team.create(abbr: element.text)
       end
-      team.update(order_one_twelve: index + 1)
+      team.update(order_one_thirteen: index + 1)
     end
 
-    url = "http://www.espn.com/nba/standings/_/season/2013/sort/avgpointsfor/group/league"
+    url = "http://www.espn.com/nba/standings/_/season/2014/sort/avgpointsfor/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
@@ -1735,10 +1735,10 @@ namespace :nba do
       unless team = Team.find_by(abbr: element.text)
         team = Team.create(abbr: element.text)
       end
-      team.update(order_two_twelve: index + 1)
+      team.update(order_two_thirteen: index + 1)
     end
 
-    url = "http://www.espn.com/nba/standings/_/season/2013/sort/avgpointsagainst/group/league"
+    url = "http://www.espn.com/nba/standings/_/season/2014/sort/avgpointsagainst/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
@@ -1746,7 +1746,7 @@ namespace :nba do
       unless team = Team.find_by(abbr: element.text)
         team = Team.create(abbr: element.text)
       end
-      team.update(order_thr_twelve: index + 1)
+      team.update(order_thr_thirteen: index + 1)
     end
   end
 
