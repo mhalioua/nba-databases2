@@ -387,18 +387,56 @@ namespace :nba do
 				home_poss = home_fga_value + home_to_value + (home_fta_value / 2) - home_or_value
 			end
       addingDate = date
+      home_timezone = ''
+      home_win_rank = 0
+      home_ppg_rank = 0
+      home_oppppg_rank = 0
+
+      away_timezone = ''
+      away_win_rank = 0
+      away_ppg_rank = 0
+      away_oppppg_rank = 0
+
       if @team_names[home_team]
         compare_home_team = @team_names[home_team]
         home_team_info = Team.find_by(team: compare_home_team)
         if home_team_info.timezone == 2
           addingDate = addingDate - 3.hours
+          home_timezone = "PACIFIC"
+          home_win_rank = home_team_info.order_one_sev
+          home_ppg_rank = home_team_info.order_two_sev
+          home_oppppg_rank = home_team_info.order_thr_sev
         elsif home_team_info.timezone == 3
           addingDate = addingDate - 1.hours
+          home_timezone = "CENTRAL"
         elsif home_team_info.timezone == 4
           addingDate = addingDate - 2.hours
+          home_timezone = "MOUNTAIN"
+        elsif home_team_info.timezone == 1
+          home_timezone = "EASTERN"
         end
+        home_win_rank = home_team_info.order_one_sev
+        home_ppg_rank = home_team_info.order_two_sev
+        home_oppppg_rank = home_team_info.order_thr_sev
       end
-	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
+
+      if @team_names[away_team]
+        compare_away_team = @team_names[away_team]
+        away_team_info = Team.find_by(team: compare_away_team)
+        if away_team_info.timezone == 2
+          away_timezone = "PACIFIC"
+        elsif away_team_info.timezone == 3
+          away_timezone = "CENTRAL"
+        elsif away_team_info.timezone == 4
+          away_timezone = "MOUNTAIN"
+        elsif away_team_info.timezone == 1
+          away_timezone = "EASTERN"
+        end
+        away_win_rank = away_team_info.order_one_sev
+        away_ppg_rank = away_team_info.order_two_sev
+        away_oppppg_rank = away_team_info.order_thr_sev
+      end
+	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
 	  	end
 	end
 
@@ -408,19 +446,59 @@ namespace :nba do
     games.each do |game|
       date = DateTime.parse(game.game_date)
       home_team = game.home_team
+      away_team = game.away_team
+      home_timezone = ''
+      home_win_rank = 0
+      home_ppg_rank = 0
+      home_oppppg_rank = 0
+
+      away_timezone = ''
+      away_win_rank = 0
+      away_ppg_rank = 0
+      away_oppppg_rank = 0
+      
+      addingDate = date
+
       if @team_names[home_team]
-        addingDate = date
         compare_home_team = @team_names[home_team]
         home_team_info = Team.find_by(team: compare_home_team)
         if home_team_info.timezone == 2
           addingDate = addingDate - 3.hours
+          home_timezone = "PACIFIC"
+          home_win_rank = home_team_info.order_one_sev
+          home_ppg_rank = home_team_info.order_two_sev
+          home_oppppg_rank = home_team_info.order_thr_sev
         elsif home_team_info.timezone == 3
           addingDate = addingDate - 1.hours
+          home_timezone = "CENTRAL"
         elsif home_team_info.timezone == 4
           addingDate = addingDate - 2.hours
+          home_timezone = "MOUNTAIN"
+        elsif home_team_info.timezone == 1
+          home_timezone = "EASTERN"
         end
-        game.update(year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"))
+        home_win_rank = home_team_info.order_one_sev
+        home_ppg_rank = home_team_info.order_two_sev
+        home_oppppg_rank = home_team_info.order_thr_sev
       end
+
+      if @team_names[away_team]
+        compare_away_team = @team_names[away_team]
+        away_team_info = Team.find_by(team: compare_away_team)
+        if away_team_info.timezone == 2
+          away_timezone = "PACIFIC"
+        elsif away_team_info.timezone == 3
+          away_timezone = "CENTRAL"
+        elsif away_team_info.timezone == 4
+          away_timezone = "MOUNTAIN"
+        elsif away_team_info.timezone == 1
+          away_timezone = "EASTERN"
+        end
+        away_win_rank = away_team_info.order_one_sev
+        away_ppg_rank = away_team_info.order_two_sev
+        away_oppppg_rank = away_team_info.order_thr_sev
+      end
+      game.update(year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
     end
   end
 
