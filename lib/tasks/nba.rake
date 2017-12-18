@@ -406,7 +406,7 @@ namespace :nba do
     include Api
     games = Nba.where("game_date between ? and ?", Date.new(2016, 1, 1).beginning_of_day, Time.now-5.hours)
     games.each do |game|
-      date = game.game_date
+      date = Date.strptime(game.game_date)
       home_team = game.home_team
       if @team_names[home_team]
         addingDate = date
