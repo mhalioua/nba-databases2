@@ -440,7 +440,7 @@ namespace :nba do
     include Api
     games = Nba.all
     games.each do |game|
-      date = DateTime.parse(game.game_date)
+      date = DateTime.parse(game.game_date).in_time_zone
       home_team = game.home_team
       away_team = game.away_team
       home_timezone = ''
