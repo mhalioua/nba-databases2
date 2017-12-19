@@ -613,10 +613,8 @@ namespace :nba do
           away_oppppg_rank = away_team_info.order_thr_sixteen
         end
       end
-      if game.date != addingDate.strftime("%b %e")
-        puts "-----------------------------------------------------------"
-      end
-      game.update(year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
+      temp = addingDate.strftime("%b %e")
+      game.update(year: addingDate.strftime("%Y"), date: '', time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
     end
   end
 
