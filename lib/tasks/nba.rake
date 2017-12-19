@@ -1898,7 +1898,7 @@ namespace :nba do
         if abbr == 'BRK'
           abbr = 'NJN'
         elsif abbr == 'NOP'
-          abbr = 'NOH'
+          abbr = 'NOK'
         elsif abbr == 'CHO'
           abbr = 'CHH'
         end
