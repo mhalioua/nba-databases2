@@ -2027,7 +2027,7 @@ namespace :nba do
 
   @basket_nicknames = {
     'BKN' => 'BRK',
-    'CHA' => 'CHI',
+    'CHA' => 'CHO',
     'PHX' => 'PHO',
     'GS' => 'GSW',
     'NO' => 'NOP',
