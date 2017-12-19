@@ -1865,6 +1865,7 @@ namespace :nba do
       date = DateTime.parse(game.game_date).in_time_zone
       abbr = game.home_abbr
       url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{abbr}.html"
+      puts url
       doc = download_document(url)
       unless doc
         if abbr == 'BKN'
