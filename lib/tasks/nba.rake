@@ -1930,13 +1930,13 @@ namespace :nba do
       away_second_quarter = elements[2].children[5].text.to_i
       away_third_quarter  = elements[2].children[7].text.to_i
       away_forth_quarter  = elements[2].children[9].text.to_i
-      away_ot_quarter   = game.away_ot_quarter
+      away_ot_quarter   = game.away_ot_quarter.to_i
 
       home_first_quarter  = elements[3].children[3].text.to_i
       home_second_quarter = elements[3].children[5].text.to_i
       home_third_quarter  = elements[3].children[7].text.to_i
       home_forth_quarter  = elements[3].children[9].text.to_i
-      home_ot_quarter   = game.home_ot_quarter
+      home_ot_quarter   = game.home_ot_quarter.to_i
 
       away_score = away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + away_ot_quarter
       home_score = home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter + home_ot_quarter
