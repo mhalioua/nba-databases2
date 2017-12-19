@@ -1893,7 +1893,7 @@ namespace :nba do
         elsif abbr == 'GS'
           abbr = 'GSW'
         elsif abbr == 'NO'
-          abbr = 'NOP'
+          abbr = 'NOH'
         elsif abbr == 'NY'
           abbr = 'NYK'
         elsif abbr == 'WSH'
@@ -1913,8 +1913,8 @@ namespace :nba do
       unless doc
         if abbr == 'BRK'
           abbr = 'NJN'
-        elsif abbr == 'NOP'
-          abbr = 'NOK'
+        elsif abbr == 'NOH'
+          abbr = 'NOP'
         elsif abbr == 'CHO'
           abbr = 'CHH'
         end
