@@ -1859,7 +1859,23 @@ namespace :nba do
 
   task :fixingscores => :environment do
     include Api
-    games = Nba.where("pace is null")
+    games = Nba.where("pace is null AND game_date > ?", Date.new(2017,10,17))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2016, 10, 25), Date.new(2017, 4, 12)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2015, 10, 27), Date.new(2016, 4, 13)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2014, 10, 28), Date.new(2015, 4, 15)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2013, 10, 29), Date.new(2014, 4, 16)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2012, 10, 30), Date.new(2013, 4, 17)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2011, 12, 25), Date.new(2012, 4, 26)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2010, 10, 26), Date.new(2011, 4, 13)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2009, 10, 27), Date.new(2010, 4, 14)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2008, 10, 28), Date.new(2009, 4, 16)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2007, 10, 30), Date.new(2008, 4, 16)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2006, 10, 31), Date.new(2007, 4, 18)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2005, 11, 1), Date.new(2006, 4, 19)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2004, 11, 2), Date.new(2005, 4, 20)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2003, 10, 28), Date.new(2004, 4, 14)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2002, 10, 29), Date.new(2003, 4, 16)))
+      .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2001, 10, 30), Date.new(2002, 4, 17)))
     puts games.size
     games.each do |game|
       date = DateTime.parse(game.game_date).in_time_zone
