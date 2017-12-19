@@ -1864,12 +1864,40 @@ namespace :nba do
     games.each do |game|
       date = DateTime.parse(game.game_date).in_time_zone
       abbr = game.home_abbr
-      if @basket_nicknames[abbr]
-        abbr = @basket_nicknames[abbr]
-      end
       url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{abbr}.html"
-      puts url
       doc = download_document(url)
+      unless doc
+        if abbr == 'BKN'
+          abbr = 'BRK'
+        elsif abbr == 'CHA'
+          abbr = 'CHO'
+        elsif abbr == 'PHX'
+          abbr = 'PHO'
+        elsif abbr ='GS'
+          abbr = 'GSW'
+        elsif abbr = 'NO'
+          abbr = 'NOP'
+        elsif abbr = 'NY'
+          abbr = 'NYK'
+        elsif abbr = 'WSH'
+          abbr = 'WAS'
+        elsif abbr = 'SA'
+          abbr = 'SAS'
+        elsif abbr = 'OKC'
+          abbr = 'SEA'
+        end
+        url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{abbr}.html"
+        doc = download_document(url)
+      end
+      unless doc
+        if abbr == 'BRK'
+          abbr = 'NJN'
+        elsif abbr == 'NOP'
+          abbr = 'NOH'
+        end
+        url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{abbr}.html"
+        doc = download_document(url)
+      end
       unless doc
         next
       end
