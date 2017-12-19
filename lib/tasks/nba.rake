@@ -438,7 +438,7 @@ namespace :nba do
 
   task :database => [:environment] do
     include Api
-    games = Nba.all
+    games = Nba.where('id=22774')
     games.each do |game|
       date = DateTime.parse(game.game_date).in_time_zone
       home_team = game.home_team
