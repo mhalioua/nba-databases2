@@ -1922,6 +1922,13 @@ namespace :nba do
         doc = download_document(url)
       end
       unless doc
+        if abbr == 'NOP'
+          abbr = 'NOK'
+        end
+        url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{abbr}.html"
+        doc = download_document(url)
+      end
+      unless doc
         next
       end
       doc.xpath('//comment()').each { |comment| comment.replace(comment.text) }
