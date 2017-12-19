@@ -1859,7 +1859,7 @@ namespace :nba do
 
   task :fixingscores => :environment do
     include Api
-    games = Nba.where("pace is null AND game_date > ?", Date.new(2017,10,17))
+    games = Nba.where("pace is null AND game_date between ? and ?", Date.new(2017, 10, 17), Date.new(2017, 12, 18))
       .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2016, 10, 25), Date.new(2017, 4, 12)))
       .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2015, 10, 27), Date.new(2016, 4, 13)))
       .or(Nba.where("pace is null AND game_date between ? and ?", Date.new(2014, 10, 28), Date.new(2015, 4, 15)))
