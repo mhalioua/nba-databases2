@@ -792,7 +792,20 @@ namespace :nba do
 					home_next_fly = "YES"
 				end
 			end
-			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot)
+
+      away_last_home = ""
+      away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).order(:game_date).last
+      if away_team_prev
+        away_last_home = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+      end
+
+      away_next_home = ""
+      away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).order(:game_date).first
+      if away_team_next
+        away_next_home = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+      end
+
+			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot, away_last_home: away_last_home,away_next_home: away_next_home )
 		end
 	end
 
@@ -873,7 +886,19 @@ namespace :nba do
           home_next_fly = "YES"
         end
       end
-      game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot)
+      away_last_home = ""
+      away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).order(:game_date).last
+      if away_team_prev
+        away_last_home = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+      end
+
+      away_next_home = ""
+      away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).order(:game_date).first
+      if away_team_next
+        away_next_home = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+      end
+
+      game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot, away_last_home: away_last_home,away_next_home: away_next_home )
     end
   end
 
@@ -1834,7 +1859,7 @@ namespace :nba do
 
   task :fixingscores => :environment do
     include Api
-    games = Nba.where("game_date between ? and ?", (Date.today - 10.days).beginning_of_day, (Date.today - 1.days).end_of_day)
+    games = Nba.all
     puts games.size
     games.each do |game|
       date = DateTime.parse(game.game_date).in_time_zone
@@ -1843,7 +1868,6 @@ namespace :nba do
         abbr = @basket_nicknames[abbr]
       end
       url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{abbr}.html"
-      puts url
       doc = download_document(url)
       unless doc
         next
@@ -1865,7 +1889,12 @@ namespace :nba do
       away_score = away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + away_ot_quarter
       home_score = home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter + home_ot_quarter
 
-      game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter, home_second_quarter: home_second_quarter, away_third_quarter: away_third_quarter, home_third_quarter: home_third_quarter, away_forth_quarter: away_forth_quarter, home_forth_quarter: home_forth_quarter, away_ot_quarter: away_ot_quarter, home_ot_quarter: home_ot_quarter, away_score: away_score, home_score: home_score, total_score: home_score + away_score, first_point: home_first_quarter + home_second_quarter + away_first_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter + away_third_quarter + home_third_quarter, total_point: away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter)
+      pace = elements[6].children[1].text.to_f
+      away_ortg = elements[6].children[6].text.to_f
+      home_ortg = elements[7].children[6].text.to_f
+
+      game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter, home_second_quarter: home_second_quarter, away_third_quarter: away_third_quarter, home_third_quarter: home_third_quarter, away_forth_quarter: away_forth_quarter, home_forth_quarter: home_forth_quarter, away_ot_quarter: away_ot_quarter, home_ot_quarter: home_ot_quarter, away_score: away_score, home_score: home_score, total_score: home_score + away_score, first_point: home_first_quarter + home_second_quarter + away_first_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter + away_third_quarter + home_third_quarter, total_point: away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter, pace: pace, away_ortg: away_ortg, home_ortg: home_ortg)
+      
     end
   end
 
