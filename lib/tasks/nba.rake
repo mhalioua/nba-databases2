@@ -815,7 +815,7 @@ namespace :nba do
 
     Time.zone = 'Eastern Time (US & Canada)'
 
-    games = Nba.where("away_next_home = null")
+    games = Nba.where("away_next_home is null")
     puts games.size
     games.each do |game|
       home_team = game.home_team
@@ -1859,7 +1859,7 @@ namespace :nba do
 
   task :fixingscores => :environment do
     include Api
-    games = Nba.where("pace = null")
+    games = Nba.where("pace is null")
     puts games.size
     games.each do |game|
       date = DateTime.parse(game.game_date).in_time_zone
