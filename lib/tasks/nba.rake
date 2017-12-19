@@ -1841,6 +1841,9 @@ namespace :nba do
       url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{game.home_abbr}.html"
       puts url
       doc = download_document(url)
+      unless doc
+        next
+      end
       doc.xpath('//comment()').each { |comment| comment.replace(comment.text) }
       elements = doc.css(".suppress_all tr")
       puts elements[2].children[3].text
