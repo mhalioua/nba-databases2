@@ -1868,6 +1868,7 @@ namespace :nba do
         abbr = @basket_nicknames[abbr]
       end
       url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{abbr}.html"
+      puts url
       doc = download_document(url)
       unless doc
         next
