@@ -1832,6 +1832,28 @@ namespace :nba do
 		end
 	end
 
+  task :fixingscores => :environment do
+    include Api
+    games = Nba.where("game_date between ? and ?", (Date.today - 10.days).beginning_of_day, (Date.today - 1.days).end_of_day)
+    puts games.size
+    games.each do |game|
+      date = DateTime.parse(game.game_date).in_time_zone
+      url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{game.home_abbr}.html"
+      puts url
+      doc = download_document(url)
+      doc.xpath('//comment()').each { |comment| comment.replace(comment.text) }
+      elements = doc.css(".suppress_all tr")
+      puts elements[2].children[3].text
+      puts elements[2].children[5].text
+      puts elements[2].children[7].text
+      puts elements[2].children[9].text
+      puts elements[3].children[3].text
+      puts elements[3].children[5].text
+      puts elements[3].children[7].text
+      puts elements[3].children[9].text
+    end
+  end
+
   task :teaminfo => :environment do
     include Api
     url = "http://www.espn.com/nba/standings/_/season/2017/sort/wins/group/league"
