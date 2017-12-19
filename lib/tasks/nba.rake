@@ -1886,6 +1886,10 @@ namespace :nba do
           abbr = 'SAS'
         elsif abbr == 'OKC'
           abbr = 'SEA'
+        elsif abbr = 'NJ'
+          abbr = 'NJN'
+        elsif abbr = 'UTAH'
+          abbr = 'UTA'
         end
         url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{abbr}.html"
         doc = download_document(url)
