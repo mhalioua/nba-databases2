@@ -1850,14 +1850,22 @@ namespace :nba do
       end
       doc.xpath('//comment()').each { |comment| comment.replace(comment.text) }
       elements = doc.css(".suppress_all tr")
-      puts elements[2].children[3].text
-      puts elements[2].children[5].text
-      puts elements[2].children[7].text
-      puts elements[2].children[9].text
-      puts elements[3].children[3].text
-      puts elements[3].children[5].text
-      puts elements[3].children[7].text
-      puts elements[3].children[9].text
+      away_first_quarter  = elements[2].children[3].text.to_i
+      away_second_quarter = elements[2].children[5].text.to_i
+      away_third_quarter  = elements[2].children[7].text.to_i
+      away_forth_quarter  = elements[2].children[9].text.to_i
+      away_ot_quarter   = game.away_ot_quarter
+
+      home_first_quarter  = elements[3].children[3].text.to_i
+      home_second_quarter = elements[3].children[5].text.to_i
+      home_third_quarter  = elements[3].children[7].text.to_i
+      home_forth_quarter  = elements[3].children[9].text.to_i
+      home_ot_quarter   = game.home_ot_quarter
+
+      away_score = away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + away_ot_quarter
+      home_score = home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter + home_ot_quarter
+
+      game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter, home_second_quarter: home_second_quarter, away_third_quarter: away_third_quarter, home_third_quarter: home_third_quarter, away_forth_quarter: away_forth_quarter, home_forth_quarter: home_forth_quarter, away_ot_quarter: away_ot_quarter, home_ot_quarter: home_ot_quarter, away_score: away_score, home_score: home_score, total_score: home_score + away_score, first_point: home_first_quarter + home_second_quarter + away_first_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter + away_third_quarter + home_third_quarter, total_point: away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter)
     end
   end
 
