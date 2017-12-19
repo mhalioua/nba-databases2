@@ -438,7 +438,7 @@ namespace :nba do
 
   task :database => [:environment] do
     include Api
-    games = Nba.where("date<>''")
+    games = Nba.where("date=''")
     puts games.size
     games.each do |game|
       date = DateTime.parse(game.game_date).in_time_zone
@@ -615,7 +615,7 @@ namespace :nba do
         end
       end
       temp = addingDate.strftime("%b %e")
-      game.update(year: addingDate.strftime("%Y"), date: '', time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
+      game.update(year: addingDate.strftime("%Y"), date: temp, time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
     end
   end
 
