@@ -32,6 +32,11 @@
         <th>home + away</th>
         <th>only one</th>
         <th>only one</th>
+        <th class="gray">Days until</th>
+        <th class="gray">Days until</th>
+        <th class="gray"></th>
+        <th class="gray"></th>
+        <th class="gray"></th>
         <th colspan="7">1H STATS</th>
         <th></th>
         <th></th>
@@ -74,6 +79,11 @@
         <th class="red">Opp 2h</th>
         <th class="red">Opp 1h</th>
         <th class="red">Opp 2h</th>
+        <th class="gray">Last game home</th>
+        <th class="gray">Next game home</th>
+        <th class="gray">PPG rank</th>
+        <th class="gray">OPP PPG rank</th>
+        <th class="gray">Wins rank</th>
         <th class="red">1H<br>FGA</th>
         <th class="red">1H<br>FTA</th>
         <th class="red">1H<br>ORB</th>
@@ -105,7 +115,7 @@
       @away_team_info = Team.find_by(abbr: game.away_abbr)
     %>
     <tr class="black">
-      <td colspan="63" height="10"></td>
+      <td colspan="68" height="10"></td>
     </tr>
     <tr>
       <td class="green" rowspan="3"><%= game.away_number %> / <%= game.home_number %></td>
@@ -137,6 +147,12 @@
       <td class="red"><%= @away_team_info.opponentsecond_current %></td>
       <td class="red"><%= @away_team_info.opponentfirst_away %></td>
       <td class="red"><%= @away_team_info.opponentsecond_away %></td>
+
+      <td class="gray" rowspan="2"><%= game.away_last_home %></td>
+      <td class="gray" rowspan="2"><%= game.away_next_home %></td>
+      <td class="gray"><%= game.away_ppg_rank %></td>
+      <td class="gray"><%= game.away_oppppg_rank %></td>
+      <td class="gray"><%= game.away_win_rank %></td>
 
       <td><%= game.first_away_fga %></td>
       <td><%= game.first_away_fta %></td>
@@ -205,6 +221,10 @@
       <td class="red"><%= @home_team_info.opponentfirst_home %></td>
       <td class="red"><%= @home_team_info.opponentsecond_home %></td>
 
+      <td class="gray"><%= game.home_ppg_rank %></td>
+      <td class="gray"><%= game.home_oppppg_rank %></td>
+      <td class="gray"><%= game.home_win_rank %></td>
+
       <td><%= game.first_home_fga %></td>
       <td><%= game.first_home_fta %></td>
       <td><%= game.first_home_orValue %></td>
@@ -266,6 +286,12 @@
       <td class="skyblue"><%= (@away_team_info.opponentsecond_current + @home_team_info.opponentsecond_current).round(1) %></td>
       <td class="skyblue"><%= (@away_team_info.opponentfirst_away + @home_team_info.opponentfirst_home).round(1) %></td>
       <td class="skyblue"><%= (@away_team_info.opponentsecond_away + @home_team_info.opponentsecond_home).round(1) %></td>
+
+      <td class="skyblue"></td>
+      <td class="skyblue"></td>
+      <td class="skyblue"></td>
+      <td class="skyblue"></td>
+      <td class="skyblue"></td>
 
       <td class="skyblue"><%= game.away_first_quarter %></td>
       <td class="skyblue"><%= game.away_second_quarter %></td>
