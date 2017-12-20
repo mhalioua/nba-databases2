@@ -47,8 +47,15 @@ namespace :nba do
 		Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
 		Rake::Task["nba:getDate"].reenable
 
+    date = Date.today + 5.days
+    Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
+    Rake::Task["nba:getDate"].reenable
+
 		Rake::Task["nba:getScore"].invoke
 		Rake::Task["nba:getScore"].reenable
+
+    Rake::Task["nba:fixingscores"].invoke
+    Rake::Task["nba:fixingscores"].reenable
 
 		Rake::Task["nba:getLinkGame"].invoke
 		Rake::Task["nba:getLinkGame"].reenable
@@ -1859,24 +1866,7 @@ namespace :nba do
 
   task :fixingscores => :environment do
     include Api
-    games = Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2017, 10, 17).beginning_of_day, Date.new(2017, 12, 18).end_of_day)
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2016, 10, 25).beginning_of_day, Date.new(2017, 4, 12).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2015, 10, 27).beginning_of_day, Date.new(2016, 4, 13).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2014, 10, 28).beginning_of_day, Date.new(2015, 4, 15).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2013, 10, 29).beginning_of_day, Date.new(2014, 4, 16).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2012, 10, 30).beginning_of_day, Date.new(2013, 4, 17).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2011, 12, 25).beginning_of_day, Date.new(2012, 4, 26).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2010, 10, 26).beginning_of_day, Date.new(2011, 4, 13).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2009, 10, 27).beginning_of_day, Date.new(2010, 4, 14).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2008, 10, 28).beginning_of_day, Date.new(2009, 4, 15).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2007, 10, 30).beginning_of_day, Date.new(2008, 4, 16).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2006, 10, 31).beginning_of_day, Date.new(2007, 4, 18).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2005, 11, 1).beginning_of_day, Date.new(2006, 4, 19).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2004, 11, 2).beginning_of_day, Date.new(2005, 4, 20).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2003, 10, 28).beginning_of_day, Date.new(2004, 4, 14).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2002, 10, 29).beginning_of_day, Date.new(2003, 4, 16).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2001, 10, 30).beginning_of_day, Date.new(2002, 4, 17).end_of_day))
-      .or(Nba.where("pace is null AND game_date >= ? AND game_date <= ?", Date.new(2000, 10, 31).beginning_of_day, Date.new(2001, 4, 18).end_of_day))
+    games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
     puts games.size
     games.each do |game|
       date = DateTime.parse(game.game_date).in_time_zone
