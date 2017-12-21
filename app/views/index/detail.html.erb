@@ -2282,6 +2282,9 @@ $('.homePossessions').on('input', function() {
   </table>
 </div>
 <% @compares.each do |compare|
+  unless compare.second_home_player_age && compare.second_away_player_age
+    next
+  end
 search_elements_home = @home_players.select{|player| player["player_fullname"] == compare.home_player_name }
 search_elements_away = @away_players.select{|player| player["player_fullname"] == compare.away_full_name } 
 if !search_elements_home[0] || !search_elements_away[0]
