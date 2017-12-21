@@ -1224,6 +1224,11 @@
                       total_toValue = total_toValue + search_player.toValue
                       total_orValue = total_orValue + search_player.orValue
                       total_poss = total_poss + search_player.poss
+                      total_pts = total_pts + search_player.ptsValue
+                      if search_player.poss != 0
+                        total_ppp = total_ppp + search_player.ptsValue.to_f / search_player.poss
+                      end
+                      total_team_poss = total_team_poss + team_player.poss
                   %>
                   <tr>
                     <td><%= game.date %>, <%= game.year %></td>
@@ -1233,7 +1238,7 @@
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
                     <td><%= search_player.poss %></td>
-                    <td><%= search_player.ptsValue %></td>
+                    <td><%= search_player.ptsValue.to_i %></td>
                     <% if search_player.poss != 0 %>
                       <td><%= (search_player.ptsValue.to_f / search_player.poss).round(3) %></td>
                     <% else %>
@@ -1299,6 +1304,11 @@
                       total_toValue = total_toValue + search_player.toValue
                       total_orValue = total_orValue + search_player.orValue
                       total_poss = total_poss + search_player.poss
+                      total_pts = total_pts + search_player.ptsValue.to_i
+                      if search_player.poss != 0
+                        total_ppp = total_ppp + search_player.ptsValue.to_f / search_player.poss
+                      end
+                      total_team_poss = total_team_poss + team_player.poss
                   %>
                   <tr>
                     <td><%= game.date %>, <%= game.year %></td>
