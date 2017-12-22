@@ -2214,10 +2214,8 @@ end
 </div>
 <% end %>
 <script>
-  <% @home_drtg_two_container.each do |home| %>
-    var obj = <%= home %>;
-    console.log(obj)
-  <% end %>
+    var obj = <%= @home_drtg_two_container[0] %>;
+    console.log(obj);
 </script>
 
 
