@@ -601,7 +601,7 @@
             style="background:red;"
           end
           if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
-            style="background:red;"
+            style="background:blue;"
           end
       %>
       <tr>
@@ -825,6 +825,10 @@
           if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
             style="background:red;"
           end
+          if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
+            style="background:blue;"
+          end
+
       %>
       <tr>
         <td class="lists list<%= player.id %>"  style='<%= style %>' ><%= player.player_name %></td>
@@ -880,6 +884,9 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
             style="background:red;"
+          end
+          if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
+            style="background:blue;"
           end
       %>
       <tr>
@@ -939,6 +946,9 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
             style="background:red;"
+          end
+          if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
+            style="background:blue;"
           end
       %>
       <tr>
@@ -1028,6 +1038,9 @@
           if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
             style="background:red;"
           end
+          if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
+            style="background:blue;"
+          end
       %>
       <tr>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
@@ -1083,6 +1096,9 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
             style="background:red;"
+          end
+          if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
+            style="background:blue;"
           end
       %>
       <tr>
@@ -1142,6 +1158,9 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
             style="background:red;"
+          end
+          if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
+            style="background:blue;"
           end
       %>
       <tr>
@@ -2213,10 +2232,6 @@ end
   </table>
 </div>
 <% end %>
-<script>
-    var obj = <%= @home_drtg_two_container[0] %>;
-    console.log(obj);
-</script>
 
 
 <div class="tableContainer">
