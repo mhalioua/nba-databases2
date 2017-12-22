@@ -1,0 +1,65 @@
+class AddthreeToCompares < ActiveRecord::Migration[5.1]
+  def change
+  	add_column :compares, :forth_away_player_age, :integer
+	add_column :compares, :forth_away_player_gp, :integer
+	add_column :compares, :forth_away_player_gs, :integer
+	add_column :compares, :forth_away_player_mp, :float
+	add_column :compares, :forth_away_player_fg, :float
+	add_column :compares, :forth_away_player_fga, :float
+	add_column :compares, :forth_away_player_p, :float
+	add_column :compares, :forth_away_player_pa, :float
+	add_column :compares, :forth_away_player_ft, :float
+	add_column :compares, :forth_away_player_fta, :float
+	add_column :compares, :forth_away_player_orb, :float
+	add_column :compares, :forth_away_player_stl, :float
+	add_column :compares, :forth_away_player_blk, :float
+	add_column :compares, :forth_away_player_tov, :float
+	add_column :compares, :forth_away_player_pts, :float
+	add_column :compares, :third_away_player_age, :integer
+	add_column :compares, :third_away_player_gp, :integer
+	add_column :compares, :third_away_player_gs, :integer
+	add_column :compares, :third_away_player_mp, :float
+	add_column :compares, :third_away_player_fg, :float
+	add_column :compares, :third_away_player_fga, :float
+	add_column :compares, :third_away_player_p, :float
+	add_column :compares, :third_away_player_pa, :float
+	add_column :compares, :third_away_player_ft, :float
+	add_column :compares, :third_away_player_fta, :float
+	add_column :compares, :third_away_player_orb, :float
+	add_column :compares, :third_away_player_stl, :float
+	add_column :compares, :third_away_player_blk, :float
+	add_column :compares, :third_away_player_tov, :float
+	add_column :compares, :third_away_player_pts, :float
+
+	add_column :compares, :forth_home_player_age, :integer
+	add_column :compares, :forth_home_player_gp, :integer
+	add_column :compares, :forth_home_player_gs, :integer
+	add_column :compares, :forth_home_player_mp, :float
+	add_column :compares, :forth_home_player_fg, :float
+	add_column :compares, :forth_home_player_fga, :float
+	add_column :compares, :forth_home_player_p, :float
+	add_column :compares, :forth_home_player_pa, :float
+	add_column :compares, :forth_home_player_ft, :float
+	add_column :compares, :forth_home_player_fta, :float
+	add_column :compares, :forth_home_player_orb, :float
+	add_column :compares, :forth_home_player_stl, :float
+	add_column :compares, :forth_home_player_blk, :float
+	add_column :compares, :forth_home_player_tov, :float
+	add_column :compares, :forth_home_player_pts, :float
+	add_column :compares, :third_home_player_age, :integer
+	add_column :compares, :third_home_player_gp, :integer
+	add_column :compares, :third_home_player_gs, :integer
+	add_column :compares, :third_home_player_mp, :float
+	add_column :compares, :third_home_player_fg, :float
+	add_column :compares, :third_home_player_fga, :float
+	add_column :compares, :third_home_player_p, :float
+	add_column :compares, :third_home_player_pa, :float
+	add_column :compares, :third_home_player_ft, :float
+	add_column :compares, :third_home_player_fta, :float
+	add_column :compares, :third_home_player_orb, :float
+	add_column :compares, :third_home_player_stl, :float
+	add_column :compares, :third_home_player_blk, :float
+	add_column :compares, :third_home_player_tov, :float
+	add_column :compares, :third_home_player_pts, :float
+  end
+end
