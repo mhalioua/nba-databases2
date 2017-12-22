@@ -377,6 +377,9 @@
           if count < 10 || player.sum_mins/(count - 2) < 10 
             style="background:red;"
           end
+          if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
+            style="background:blue;"
+          end
       %>
       <tr>
         <td class="lists list<%= player.id %>"  style='<%= style %>' ><%= player.player_name %></td>
@@ -435,6 +438,9 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
+          end
+          if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
+            style="background:blue;"
           end
       %>
       <tr>
@@ -497,6 +503,9 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
+          end
+          if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
+            style="background:blue;"
           end
       %>
       <tr>
@@ -591,6 +600,9 @@
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
+          if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
+            style="background:blue;"
+          end
       %>
       <tr>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
@@ -649,6 +661,9 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
+          end
+          if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
+            style="background:blue;"
           end
       %>
       <tr>
@@ -711,6 +726,9 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
+          end
+          if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
+            style="background:blue;"
           end
       %>
       <tr>

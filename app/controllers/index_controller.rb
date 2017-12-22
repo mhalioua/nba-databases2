@@ -67,6 +67,7 @@ class IndexController < ApplicationController
 		@away_total_poss = 0
 	    @away_total_min = 0
 	    @away_drtg_one = 0
+	    @away_drtg_one_container = []
 	    drtg_count = 0
 	    drtg_min = 0
 	    @away_players_group1.each_with_index do |player, index| 
@@ -86,7 +87,7 @@ class IndexController < ApplicationController
 	        puts player.drtg
 	        puts player.sum_mins/(count - 2)
 	        @away_drtg_one = @away_drtg_one + player.drtg * (player.sum_mins/(count - 2))
-	        puts @away_drtg_one
+	        @away_drtg_one_container.push(player.id)
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
@@ -98,6 +99,9 @@ class IndexController < ApplicationController
 	    	two_value = 0
 	    	max_thr = 0
 	    	thr_value = 0
+	    	one_id = -1
+	    	two_id = -1
+	    	third_id = -1
 	    	@away_players_group4.each_with_index do |player, index| 
 		        count = 1
 		        if player.possession
@@ -111,6 +115,7 @@ class IndexController < ApplicationController
 		        end
 		        compare = player.sum_mins/(count - 2)
 		        compare_value = player.drtg
+		        compare_id = player.id
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
@@ -118,6 +123,9 @@ class IndexController < ApplicationController
 		        	temp_drtg = one_value
 		        	one_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = one_id
+		        	one_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_two
 		        	temp = max_two
@@ -126,23 +134,30 @@ class IndexController < ApplicationController
 		        	temp_drtg = two_value
 		        	two_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = two_id
+		        	two_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
 		        	thr_value = compare_value
+		        	third_id = compare_id
 		        end
 		    end
 		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @away_drtg_one = @away_drtg_one + one_value * max_one
+        		@away_drtg_one_container.push(one_id)
 			end
 			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @away_drtg_one = @away_drtg_one + two_value * max_two
+        		@away_drtg_one_container.push(two_id)
 			end
 			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @away_drtg_one = @away_drtg_one + thr_value * max_thr
+        		@away_drtg_one_container.push(third_id)
 			end
 	    end
 	    @away_drtg_one = @away_drtg_one.to_f / drtg_min
@@ -150,6 +165,7 @@ class IndexController < ApplicationController
 	    @away_drtg_two = 0
 	    drtg_count = 0
 	    drtg_min = 0
+	    @away_drtg_two_container = []
 	    @away_players_group2.each_with_index do |player, index|
 	        count = 1
 	        if player.possession
@@ -165,6 +181,7 @@ class IndexController < ApplicationController
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @away_drtg_two = @away_drtg_two + player.drtg * (player.sum_mins/(count - 2))
+	        @away_drtg_two_container.push(player.id)
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if drtg_count < 3
@@ -175,6 +192,9 @@ class IndexController < ApplicationController
 	    	two_value = 0
 	    	max_thr = 0
 	    	thr_value = 0
+	    	one_id = -1
+	    	two_id = -1
+	    	third_id = -1
 	    	@away_players_group4.each_with_index do |player, index| 
 		        count = 1
 		        if player.possession
@@ -188,6 +208,7 @@ class IndexController < ApplicationController
 		        end
 		        compare = player.sum_mins/(count - 2)
 		        compare_value = player.drtg
+		        compare_id = player.id
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
@@ -195,6 +216,9 @@ class IndexController < ApplicationController
 		        	temp_drtg = one_value
 		        	one_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = one_id
+		        	one_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_two
 		        	temp = max_two
@@ -203,23 +227,30 @@ class IndexController < ApplicationController
 		        	temp_drtg = two_value
 		        	two_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = two_id
+		        	two_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
 		        	thr_value = compare_value
+		        	third_id = compare_id
 		        end
 		    end
 		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @away_drtg_two = @away_drtg_two + one_value * max_one
+        		@away_drtg_two_container.push(one_id)
 			end
 			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @away_drtg_two = @away_drtg_two + two_value * max_two
+        		@away_drtg_two_container.push(two_id)
 			end
 			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @away_drtg_two = @away_drtg_two + thr_value * max_thr
+        		@away_drtg_two_container.push(third_id)
 			end
 	    end
 	    @away_drtg_two = @away_drtg_two.to_f / drtg_min
@@ -244,6 +275,7 @@ class IndexController < ApplicationController
 	    @home_drtg_one = 0
 	    drtg_count = 0
 	    drtg_min = 0
+	    @home_drtg_one_container = []
 	    @home_players_group1.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -259,6 +291,7 @@ class IndexController < ApplicationController
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @home_drtg_one = @home_drtg_one + player.drtg * (player.sum_mins/(count - 2))
+	        @home_drtg_one_container.push(player.id)
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if drtg_count < 3
@@ -269,6 +302,9 @@ class IndexController < ApplicationController
 	    	two_value = 0
 	    	max_thr = 0
 	    	thr_value = 0
+	    	one_id = -1
+	    	two_id = -1
+	    	third_id = -1
 	    	@home_players_group4.each_with_index do |player, index| 
 		        count = 1
 		        if player.possession
@@ -282,6 +318,7 @@ class IndexController < ApplicationController
 		        end
 		        compare = player.sum_mins/(count - 2)
 		        compare_value = player.drtg
+		        compare_id = player.id
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
@@ -289,6 +326,9 @@ class IndexController < ApplicationController
 		        	temp_drtg = one_value
 		        	one_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = one_id
+		        	one_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_two
 		        	temp = max_two
@@ -297,23 +337,30 @@ class IndexController < ApplicationController
 		        	temp_drtg = two_value
 		        	two_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = two_id
+		        	two_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
 		        	thr_value = compare_value
+		        	third_id = compare_id
 		        end
 		    end
 		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @home_drtg_one = @home_drtg_one + one_value * max_one
+        		@home_drtg_one_container.push(one_id)
 			end
 			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @home_drtg_one = @home_drtg_one + two_value * max_two
+        		@home_drtg_one_container.push(two_id)
 			end
 			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @home_drtg_one = @home_drtg_one + thr_value * max_thr
+        		@home_drtg_one_container.push(third_id)
 			end
 	    end
 	    @home_drtg_one = @home_drtg_one.to_f / drtg_min
@@ -321,6 +368,7 @@ class IndexController < ApplicationController
 	    @home_drtg_two = 0
 	    drtg_count = 0
 	    drtg_min = 0
+	    @home_drtg_two_container = []
 	    @home_players_group2.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -336,6 +384,7 @@ class IndexController < ApplicationController
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @home_drtg_two = @home_drtg_two + player.drtg * (player.sum_mins/(count - 2))
+	        @home_drtg_two_container.push(player.id)
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if drtg_count < 3
@@ -346,6 +395,9 @@ class IndexController < ApplicationController
 	    	two_value = 0
 	    	max_thr = 0
 	    	thr_value = 0
+	    	one_id = -1
+	    	two_id = -1
+	    	third_id = -1
 	    	@home_players_group4.each_with_index do |player, index| 
 		        count = 1
 		        if player.possession
@@ -359,6 +411,7 @@ class IndexController < ApplicationController
 		        end
 		        compare = player.sum_mins/(count - 2)
 		        compare_value = player.drtg
+		        compare_id = player.id
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
@@ -366,6 +419,9 @@ class IndexController < ApplicationController
 		        	temp_drtg = one_value
 		        	one_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = one_id
+		        	one_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_two
 		        	temp = max_two
@@ -374,23 +430,30 @@ class IndexController < ApplicationController
 		        	temp_drtg = two_value
 		        	two_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = two_id
+		        	two_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
 		        	thr_value = compare_value
+		        	third_id = compare_id
 		        end
 		    end
 		    if drtg_count < 3
 			    drtg_min = drtg_min + max_one
 			    @home_drtg_two = @home_drtg_two + one_value * max_one
+			    @home_drtg_two_container.push(one_id)
 			end
 			if drtg_count < 2
 			    drtg_min = drtg_min + max_two
 			    @home_drtg_two = @home_drtg_two + two_value * max_two
+			    @home_drtg_two_container.push(two_id)
 			end
 			if drtg_count < 1
 			    drtg_min = drtg_min + max_thr
 			    @home_drtg_two = @home_drtg_two + thr_value * max_thr
+			    @home_drtg_two_container.push(third_id)
 			end
 	    end
 	    @home_drtg_two = @home_drtg_two.to_f / drtg_min
