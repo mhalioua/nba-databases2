@@ -506,6 +506,7 @@ class IndexController < ApplicationController
 	    @injury_away_drtg_one = 0
 	    injury_drtg_count = 0
 	    injury_drtg_min = 0
+	    @injury_away_drtg_one_container = []
 	    @away_players_group1.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -524,6 +525,7 @@ class IndexController < ApplicationController
 	        @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
 	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
 	        @injury_away_drtg_one = @injury_away_drtg_one + player.drtg * (player.sum_mins/(count - 2))
+	        @injury_away_drtg_one_container.push(player.id)
 	        @injury_away_total_poss = @injury_away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
@@ -535,6 +537,9 @@ class IndexController < ApplicationController
 	    	two_value = 0
 	    	max_thr = 0
 	    	thr_value = 0
+	    	one_id = -1
+	    	two_id = -1
+	    	third_id = -1
 	    	@away_players_group4.each_with_index do |player, index| 
 		        count = 1
 		        if player.possession
@@ -551,6 +556,7 @@ class IndexController < ApplicationController
 		        end
 		        compare = player.sum_mins/(count - 2)
 		        compare_value = player.drtg
+		        compare_id = player.id
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
@@ -558,6 +564,9 @@ class IndexController < ApplicationController
 		        	temp_drtg = one_value
 		        	one_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = one_id
+		        	one_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_two
 		        	temp = max_two
@@ -566,23 +575,30 @@ class IndexController < ApplicationController
 		        	temp_drtg = two_value
 		        	two_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = two_id
+		        	two_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
 		        	thr_value = compare_value
+		        	third_id = compare_id
 		        end
 		    end
 		    if injury_drtg_count < 3
 			    injury_drtg_min = injury_drtg_min + max_one
 			    @injury_away_drtg_one = @injury_away_drtg_one + one_value * max_one
+			    @injury_away_drtg_one_container.push(one_id)
 			end
 			if injury_drtg_count < 2
 			    injury_drtg_min = injury_drtg_min + max_two
 			    @injury_away_drtg_one = @injury_away_drtg_one + two_value * max_two
+			    @injury_away_drtg_one_container.push(two_id)
 			end
 			if injury_drtg_count < 1
 			    injury_drtg_min = injury_drtg_min + max_thr
 			    @injury_away_drtg_one = @injury_away_drtg_one + thr_value * max_thr
+			    @injury_away_drtg_one_container.push(third_id)
 			end
 	    end
 	    @injury_away_drtg_one = @injury_away_drtg_one.to_f / injury_drtg_min
@@ -590,6 +606,7 @@ class IndexController < ApplicationController
 	    @injury_away_drtg_two = 0
 	    injury_drtg_count = 0
 	    injury_drtg_min = 0
+	    @injury_away_drtg_two_container = []
 	    @away_players_group2.each_with_index do |player, index|
 	        count = 1
 	        if player.possession
@@ -608,6 +625,7 @@ class IndexController < ApplicationController
 	        @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
 	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
 	        @injury_away_drtg_two = @injury_away_drtg_two + player.drtg * (player.sum_mins/(count - 2))
+	        @injury_away_drtg_two_container.push(player.id)
 	        @injury_away_total_poss = @injury_away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if injury_drtg_count < 3
@@ -618,6 +636,9 @@ class IndexController < ApplicationController
 	    	two_value = 0
 	    	max_thr = 0
 	    	thr_value = 0
+	    	one_id = -1
+	    	two_id = -1
+	    	third_id = -1
 	    	@away_players_group4.each_with_index do |player, index| 
 		        count = 1
 		        if player.possession
@@ -634,6 +655,7 @@ class IndexController < ApplicationController
 		        end
 		        compare = player.sum_mins/(count - 2)
 		        compare_value = player.drtg
+		        compare_id = player.id
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
@@ -641,6 +663,9 @@ class IndexController < ApplicationController
 		        	temp_drtg = one_value
 		        	one_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = one_id
+		        	one_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_two
 		        	temp = max_two
@@ -649,23 +674,30 @@ class IndexController < ApplicationController
 		        	temp_drtg = two_value
 		        	two_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = two_id
+		        	two_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
 		        	thr_value = compare_value
+		        	third_id = compare_id
 		        end
 		    end
 		    if injury_drtg_count < 3
 			    injury_drtg_min = injury_drtg_min + max_one
 			    @injury_away_drtg_two = @injury_away_drtg_two + one_value * max_one
+			    @injury_away_drtg_two_container.push(one_id)
 			end
 			if injury_drtg_count < 2
 			    injury_drtg_min = injury_drtg_min + max_two
 			    @injury_away_drtg_two = @injury_away_drtg_two + two_value * max_two
+			    @injury_away_drtg_two_container.push(two_id)
 			end
 			if injury_drtg_count < 1
 			    injury_drtg_min = injury_drtg_min + max_thr
 			    @injury_away_drtg_two = @injury_away_drtg_two + thr_value * max_thr
+			    @injury_away_drtg_two_container.push(third_id)
 			end
 	    end
 	    @injury_away_drtg_two = @injury_away_drtg_two.to_f / injury_drtg_min
@@ -693,6 +725,7 @@ class IndexController < ApplicationController
 	    @injury_home_drtg_one = 0
 	    injury_drtg_count = 0
 	    injury_drtg_min = 0
+	    @injury_home_drtg_one_container = []
 	    @home_players_group1.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -712,6 +745,7 @@ class IndexController < ApplicationController
 	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
 	        @injury_home_drtg_one = @injury_home_drtg_one + player.drtg * (player.sum_mins/(count - 2))
 	        @injury_home_total_poss = @injury_home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	        @injury_home_drtg_one_container.push(player.id)
 	    end
 	    if injury_drtg_count < 3
 	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @home_flag)).order(:state)
@@ -721,6 +755,9 @@ class IndexController < ApplicationController
 	    	two_value = 0
 	    	max_thr = 0
 	    	thr_value = 0
+	    	one_id = -1
+	    	two_id = -1
+	    	third_id = -1
 	    	@home_players_group4.each_with_index do |player, index| 
 		        count = 1
 		        if player.possession
@@ -737,6 +774,7 @@ class IndexController < ApplicationController
 		        end
 		        compare = player.sum_mins/(count - 2)
 		        compare_value = player.drtg
+		        compare_id = player.id
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
@@ -744,6 +782,9 @@ class IndexController < ApplicationController
 		        	temp_drtg = one_value
 		        	one_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = one_id
+		        	one_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_two
 		        	temp = max_two
@@ -752,23 +793,30 @@ class IndexController < ApplicationController
 		        	temp_drtg = two_value
 		        	two_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = two_id
+		        	two_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
 		        	thr_value = compare_value
+		        	third_id = compare_id
 		        end
 		    end
 		    if injury_drtg_count < 3
 			    injury_drtg_min = injury_drtg_min + max_one
 			    @injury_home_drtg_one = @injury_home_drtg_one + one_value * max_one
+			    @injury_home_drtg_one_container.push(one_id)
 			end
 			if injury_drtg_count < 2
 			    injury_drtg_min = injury_drtg_min + max_two
 			    @injury_home_drtg_one = @injury_home_drtg_one + two_value * max_two
+			    @injury_home_drtg_one_container.push(two_id)
 			end
 			if injury_drtg_count < 1
 			    injury_drtg_min = injury_drtg_min + max_thr
 			    @injury_home_drtg_one = @injury_home_drtg_one + thr_value * max_thr
+			    @injury_home_drtg_one_container.push(third_id)
 			end
 	    end
 	    @injury_home_drtg_one = @injury_home_drtg_one.to_f / injury_drtg_min
@@ -776,6 +824,7 @@ class IndexController < ApplicationController
 	    @injury_home_drtg_two = 0
 	    injury_drtg_count = 0
 	    injury_drtg_min = 0
+	    @injury_home_drtg_two_container = []
 	    @home_players_group2.each_with_index do |player, index| 
 	        count = 1
 	        if player.possession
@@ -795,6 +844,7 @@ class IndexController < ApplicationController
 	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
 	        @injury_home_drtg_two = @injury_home_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @injury_home_total_poss = @injury_home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
+	        @injury_home_drtg_two_container.push(player.id)
 	    end
 	    if injury_drtg_count < 3
 	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @home_flag))).order(:state)
@@ -804,6 +854,9 @@ class IndexController < ApplicationController
 	    	two_value = 0
 	    	max_thr = 0
 	    	thr_value = 0
+	    	one_id = -1
+	    	two_id = -1
+	    	third_id = -1
 	    	@home_players_group4.each_with_index do |player, index| 
 		        count = 1
 		        if player.possession
@@ -820,6 +873,7 @@ class IndexController < ApplicationController
 		        end
 		        compare = player.sum_mins/(count - 2)
 		        compare_value = player.drtg
+		        compare_id = player.id
 		        if compare > max_one
 		        	temp = max_one
 		        	max_one = compare
@@ -827,6 +881,9 @@ class IndexController < ApplicationController
 		        	temp_drtg = one_value
 		        	one_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = one_id
+		        	one_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_two
 		        	temp = max_two
@@ -835,23 +892,30 @@ class IndexController < ApplicationController
 		        	temp_drtg = two_value
 		        	two_value = compare_value
 		        	compare_value = temp_drtg
+		        	temp = two_id
+		        	two_id = compare_id
+		        	compare_id = temp
 		        end
 		        if compare > max_thr
 		        	max_thr = compare
 		        	thr_value = compare_value
+		        	third_id = compare_id
 		        end
 		    end
 		    if injury_drtg_count < 3
 			    injury_drtg_min = injury_drtg_min + max_one
 			    @injury_home_drtg_two = @injury_home_drtg_two + one_value * max_one
+			    @injury_home_drtg_two_container.push(one_id)
 			end
 			if injury_drtg_count < 2
 			    injury_drtg_min = injury_drtg_min + max_two
 			    @injury_home_drtg_two = @injury_home_drtg_two + two_value * max_two
+			    @injury_home_drtg_two_container.push(two_id)
 			end
 			if injury_drtg_count < 1
 			    injury_drtg_min = injury_drtg_min + max_thr
 			    @injury_home_drtg_two = @injury_home_drtg_two + thr_value * max_thr
+			    @injury_home_drtg_two_container.push(third_id)
 			end
 	    end
 	    @injury_home_drtg_two = @injury_home_drtg_two.to_f / injury_drtg_min
