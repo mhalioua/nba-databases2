@@ -36,22 +36,23 @@
         <th class="gray">Days until</th>
         <th class="gray"></th>
         <th class="gray"></th>
-        <th class="gray"></th>
+        <th class="gray" style="border-right: 5px solid #666;"></th>
+        <th colspan="4"></th>
+        <th class="black"></th>
+        <th colspan="4"></th>
+        <th class="black"></th>
+        <th></th>
+        <th class="black"></th>
+        <th colspan="4"></th>
+        <th class="black"></th>
+        <th colspan="5" style="border-right: 5px solid #666;"></th>
+        <th class="black"></th>
         <th colspan="7">1H STATS</th>
         <th></th>
         <th></th>
         <th class="purple"></th>
         <th colspan="3">LINES</th>
         <th class="purple"></th>
-        <th colspan="4"></th>
-        <th class="black"></th>
-        <th colspan="4"></th>
-        <th class="black"></th>
-        <th></th>
-        <th class="black"></th>
-        <th colspan="4"></th>
-        <th class="black"></th>
-        <th colspan="5"></th>
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
@@ -83,7 +84,17 @@
         <th class="gray">Next game home</th>
         <th class="gray">PPG rank</th>
         <th class="gray">OPP PPG rank</th>
-        <th class="gray">Wins rank</th>
+        <th class="gray" style="border-right: 5px solid #666;">Wins rank</th>
+        <th class="red" colspan="4"></th>
+        <th class="black"></th>
+        <th class="red" colspan="4">FULL GAME</th>
+        <th class="black"></th>
+        <th class="red"></th>
+        <th class="black"></th>
+        <th class="red" colspan="4">1ST HALF</th>
+        <th class="black"></th>
+        <th class="red" colspan="5" style="border-right: 5px solid #666;">2ND HALF</th>
+        <th class="black"></th>
         <th class="red">1H<br>FGA</th>
         <th class="red">1H<br>FTA</th>
         <th class="red">1H<br>ORB</th>
@@ -98,15 +109,6 @@
         <th class="red">EST<br>2H</th>
         <th class="red">FG</th>
         <th class="purple"></th>
-        <th class="red" colspan="4"></th>
-        <th class="black"></th>
-        <th class="red" colspan="4">FULL GAME</th>
-        <th class="black"></th>
-        <th class="red"></th>
-        <th class="black"></th>
-        <th class="red" colspan="4">1ST HALF</th>
-        <th class="black"></th>
-        <th class="red" colspan="5">2ND HALF</th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -149,9 +151,34 @@
       <td class="gray" rowspan="2"><%= game.away_next_home %></td>
       <td class="gray"><%= game.away_ppg_rank %></td>
       <td class="gray"><%= game.away_oppppg_rank %></td>
-      <td class="gray"><%= game.away_win_rank %></td>
+      <td class="gray" style="border-right: 5px solid #666;"><%= game.away_win_rank %></td>
 
-      <td><%= game.first_away_fga %></td>
+      
+        <td><%= @countItem ? @countItem.lastroad : "" %></td>
+        <td><%= @countItem ? @countItem.nextroad : "" %></td>
+        <td><%= @countItem ? @countItem.nexthome : "" %></td>
+        <td><%= @countItem ? @countItem.lasthome : "" %></td>
+        <td rowspan="3" class="black"></td>
+        <td><%= @countItem ? @countItem.road : "" %></td>
+        <td><%= @countItem ? @countItem.home : "" %></td>
+        <td class="purple"><%= @countItem ? (@countItem.home + @countItem.road).round(2) : "" %></td>
+        <td><%= @countItem ? @countItem.diff : "" %></td>
+        <td rowspan="3" class="black"></td>
+        <td style="background: #fa0"><%= @countItem ? @countItem.count : "" %></td>
+        <td rowspan="3" class="black"></td>
+        <td><%= @countItem ? @countItem.firstroad : "" %></td>
+        <td><%= @countItem ? @countItem.firsthome : "" %></td>
+        <td class="purple"><%= @countItem ? (@countItem.firstroad + @countItem.firsthome).round(2) : "" %></td>
+        <td><%= @countItem ? @countItem.firstdiff : "" %></td>
+        <td rowspan="3" class="black"></td>
+        <td><%= @countItem ? @countItem.secondroad : "" %></td>
+        <td><%= @countItem ? @countItem.secondhome : "" %></td>
+        <td class="purple"><%= @countItem ? (@countItem.secondroad + @countItem.secondhome).round(2) : "" %></td>
+        <td><%= @countItem ? @countItem.seconddiff : "" %></td>
+        <td style="border-right: 5px solid #666;">1</td>
+        <td class="black"></td>
+
+        <td><%= game.first_away_fga %></td>
       <td><%= game.first_away_fta %></td>
       <td><%= game.first_away_orValue %></td>
       <td><%= game.first_away_toValue %></td>
@@ -178,28 +205,6 @@
       <td><%= game.full_closer_total %></td>
       <% @countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{game.away_last_game}%", "%#{game.away_next_game}%", "%#{game.home_next_game}%", "%#{game.home_last_game}%").first %>
       <td class="purple"></td>
-        <td><%= @countItem ? @countItem.lastroad : "" %></td>
-        <td><%= @countItem ? @countItem.nextroad : "" %></td>
-        <td><%= @countItem ? @countItem.nexthome : "" %></td>
-        <td><%= @countItem ? @countItem.lasthome : "" %></td>
-        <td rowspan="3" class="black"></td>
-        <td><%= @countItem ? @countItem.road : "" %></td>
-        <td><%= @countItem ? @countItem.home : "" %></td>
-        <td class="purple"><%= @countItem ? (@countItem.home + @countItem.road).round(2) : "" %></td>
-        <td><%= @countItem ? @countItem.diff : "" %></td>
-        <td rowspan="3" class="black"></td>
-        <td style="background: #fa0"><%= @countItem ? @countItem.count : "" %></td>
-        <td rowspan="3" class="black"></td>
-        <td><%= @countItem ? @countItem.firstroad : "" %></td>
-        <td><%= @countItem ? @countItem.firsthome : "" %></td>
-        <td class="purple"><%= @countItem ? (@countItem.firstroad + @countItem.firsthome).round(2) : "" %></td>
-        <td><%= @countItem ? @countItem.firstdiff : "" %></td>
-        <td rowspan="3" class="black"></td>
-        <td><%= @countItem ? @countItem.secondroad : "" %></td>
-        <td><%= @countItem ? @countItem.secondhome : "" %></td>
-        <td class="purple"><%= @countItem ? (@countItem.secondroad + @countItem.secondhome).round(2) : "" %></td>
-        <td><%= @countItem ? @countItem.seconddiff : "" %></td>
-        <td>1</td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -220,7 +225,28 @@
 
       <td class="gray"><%= game.home_ppg_rank %></td>
       <td class="gray"><%= game.home_oppppg_rank %></td>
-      <td class="gray"><%= game.home_win_rank %></td>
+      <td class="gray" style="border-right: 5px solid #666;"><%= game.home_win_rank %></td>
+
+      
+      <td style="background: #fa0">ALL</td>
+      <td style="background: #fa0">ALL</td>
+      <td style="background: #fa0">ALL</td>
+      <td style="background: #fa0">ALL</td>
+      <td style="background: #fa0">97</td>
+      <td style="background: #fa0">100.12</td>
+      <td class="purple">197.12</td>
+      <td style="background: #fa0">-3.12</td>
+      <td style="background: #fa0">17955</td>
+      <td style="background: #fa0">48.49</td>
+      <td style="background: #fa0">50.32</td>
+      <td class="purple">98.81</td>
+      <td style="background: #fa0">-1.83</td>
+      <td style="background: #fa0">48.51</td>
+      <td style="background: #fa0">49.80</td>
+      <td class="purple">98.31</td>
+      <td style="background: #fa0">-1.29</td>
+      <td style="background: #fa0" style="border-right: 5px solid #666;">ALL</td>
+      <td class="black"></td>
 
       <td><%= game.first_home_fga %></td>
       <td><%= game.first_home_fta %></td>
@@ -248,24 +274,6 @@
       <td><%= game.second_closer_side != 0 ? game.second_closer_side : (game.full_closer_side - game.first_closer_side) %></td>
       <td><%= game.full_closer_side %></td>
       <td class="purple"></td>
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">97</td>
-      <td style="background: #fa0">100.12</td>
-      <td class="purple">197.12</td>
-      <td style="background: #fa0">-3.12</td>
-      <td style="background: #fa0">17955</td>
-      <td style="background: #fa0">48.49</td>
-      <td style="background: #fa0">50.32</td>
-      <td class="purple">98.81</td>
-      <td style="background: #fa0">-1.83</td>
-      <td style="background: #fa0">48.51</td>
-      <td style="background: #fa0">49.80</td>
-      <td class="purple">98.31</td>
-      <td style="background: #fa0">-1.29</td>
-      <td style="background: #fa0">ALL</td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -288,22 +296,7 @@
       <td class="skyblue"></td>
       <td class="skyblue"></td>
       <td class="skyblue"></td>
-      <td class="skyblue"></td>
-
-      <td class="skyblue"><%= game.away_first_quarter %></td>
-      <td class="skyblue"><%= game.away_second_quarter %></td>
-      <td class="skyblue"><%= game.away_third_quarter %></td>
-      <td class="skyblue"><%= game.away_forth_quarter %></td>
-      <td class="skyblue"><%= game.home_abbr %></td>
-      <td class="skyblue"><%= game.home_first_quarter %></td>
-      <td class="skyblue"><%= game.home_second_quarter %></td>
-      <td class="skyblue"><%= game.home_third_quarter %></td>
-      <td class="skyblue"><%= game.home_forth_quarter %></td>
-      <td class="purple"></td>
-      <td class="purple"></td>
-      <td class="purple"></td>
-      <td class="purple"></td>
-      <td class="purple"></td>
+      <td class="skyblue" style="border-right: 5px solid #666;"></td>
       <% if game.home_next_fly == "NO" && game.home_last_fly == "YES" %>
           <td class="gray"></td>
           <td class="gray">NO</td>
@@ -395,7 +388,24 @@
         <td class="purple"></td>
         <td class="gray"></td>
       <% end %>
-      <td class="gray"></td>
+      <td class="gray" style="border-right: 5px solid #666;"></td>
+      <td class="black"></td>
+
+
+      <td class="skyblue"><%= game.away_first_quarter %></td>
+      <td class="skyblue"><%= game.away_second_quarter %></td>
+      <td class="skyblue"><%= game.away_third_quarter %></td>
+      <td class="skyblue"><%= game.away_forth_quarter %></td>
+      <td class="skyblue"><%= game.home_abbr %></td>
+      <td class="skyblue"><%= game.home_first_quarter %></td>
+      <td class="skyblue"><%= game.home_second_quarter %></td>
+      <td class="skyblue"><%= game.home_third_quarter %></td>
+      <td class="skyblue"><%= game.home_forth_quarter %></td>
+      <td class="purple"></td>
+      <td class="purple"></td>
+      <td class="purple"></td>
+      <td class="purple"></td>
+      <td class="purple"></td>
     </tr>
     <% end %>
   	</tbody>
