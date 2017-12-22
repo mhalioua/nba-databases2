@@ -114,10 +114,7 @@
       @home_team_info = Team.find_by(abbr: game.home_abbr)
       @away_team_info = Team.find_by(abbr: game.away_abbr)
     %>
-    <tr class="black">
-      <td colspan="68" height="10"></td>
-    </tr>
-    <tr>
+    <tr style="border-top: 5px solid black">
       <td class="green" rowspan="3"><%= game.away_number %> / <%= game.home_number %></td>
       <td class="grey" rowspan="3"><%= game.time %></td>
       <td class="yellow" rowspan="3"><%= game.away_last_game %></td>
