@@ -2143,8 +2143,8 @@ end
           first_away_player_pts = (compare.first_away_player_pts + compare.third_away_player_pts + compare.forth_away_player_pts)/3
           first_away_player_fga = (compare.first_away_player_fga + compare.third_away_player_fga + compare.forth_away_player_fga)/3
           first_away_player_tov = (compare.first_away_player_tov + compare.third_away_player_tov + compare.forth_away_player_tov)/3
-          first_away_player_fta = (compare.first_awau_player_fta + compare.third_away_player_fta + compare.forth_away_player_fta)/3
-          first_away_player_orb = (compare.first_awau_player_orb + compare.third_away_player_orb + compare.forth_away_player_orb)/3
+          first_away_player_fta = (compare.first_away_player_fta + compare.third_away_player_fta + compare.forth_away_player_fta)/3
+          first_away_player_orb = (compare.first_away_player_orb + compare.third_away_player_orb + compare.forth_away_player_orb)/3
         %>
         <td><%= (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb).round(3) %></td>
         <td><%= (first_away_player_pts / (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb)).round(3) %></td>
