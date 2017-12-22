@@ -601,9 +601,8 @@
             style="background:red;"
           end
           if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
-            style="background:blue;"
+            style="background:red;"
           end
-          style=@home_drtg_two_container.include?(player.id)
       %>
       <tr>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
