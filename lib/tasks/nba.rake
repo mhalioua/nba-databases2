@@ -206,9 +206,10 @@ namespace :nba do
 
         url = "http://www.espn.com/nba/standings/_/group/league"
         doc = download_document(url)
-        elements = doc.css(".standings-row")
-        elements.each do |slice|
-                   team_abbr  =       slice.children[0].children[1].children[0].children[1].text
+        teams = doc.css("abbr")
+        elements = doc.css(".Table2__table-scroll table tbody tr")
+        elements.each_with_index do |slice, index|
+                   team_abbr  =       teams[index].text
                    w          =       slice.children[1].text
                    l          =       slice.children[2].text
                    ppg        =       slice.children[9].text.to_f
@@ -221,7 +222,8 @@ namespace :nba do
                    puts opp
                    puts diff
 
-                   if element = Team.find_by(abbr: team_abbr)
+                   if false
+                    element = Team.find_by(abbr: team_abbr)
                     element.update(record_won: w, record_lost: l, record_ppg: ppg, record_opp: opp, record_diff: diff)
                    end
         end
