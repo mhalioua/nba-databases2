@@ -2083,7 +2083,7 @@ end
         <td></td>
         <td></td>
       </tr>
-      <% if compare.forth_home_player_age %>
+      <% if compare.forth_home_player_age && compare.third_home_player_age && compare.first_home_player_age %>
       <tr>
         <td><%= compare.first_home_player_name %></td>
         <td><%= compare.first_home_player_age %></td>
@@ -2111,7 +2111,7 @@ end
         <td><%= (first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb).round(3) %></td>
         <td><%= (first_home_player_pts/(first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb)).round(3) %></td>
         <% 
-          if compare.forth_away_player_age 
+          if compare.forth_away_player_age && compare.third_away_player_age && compare.first_away_player_age
             first_away_player_pts = (compare.first_away_player_pts + compare.third_away_player_pts + compare.forth_away_player_pts)/3
             first_away_player_fga = (compare.first_away_player_fga + compare.third_away_player_fga + compare.forth_away_player_fga)/3
             first_away_player_tov = (compare.first_away_player_tov + compare.third_away_player_tov + compare.forth_away_player_tov)/3
@@ -2125,7 +2125,7 @@ end
         <td></td>
       </tr>
       <% end %>
-      <% if compare.forth_away_player_age %>
+      <% if compare.forth_away_player_age && compare.third_away_player_age && compare.first_away_player_age %>
       <tr>
         <td><%= compare.first_away_player_name %></td>
         <td><%= compare.first_away_player_age %></td>
@@ -2152,7 +2152,7 @@ end
         %>
         <td><%= (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb).round(3) %></td>
         <td><%= (first_away_player_pts / (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb)).round(3) %></td>
-        <% if !compare.forth_home_player_age %>
+        <% if !compare.forth_home_player_age && compare.third_home_player_age && compare.first_home_player_age %>
           <td></td>
         <% end %>
         <td></td>
