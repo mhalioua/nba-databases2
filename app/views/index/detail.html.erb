@@ -2004,8 +2004,10 @@ end
         <td rowspan="2"><%= (compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb) + compare.head_away_player_pts/(compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)).round(3) %></td>
         <%
           headValue = compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)
-         
-          secondValue = compare.second_home_player_pts / (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)
+          secondValue = 0
+          if compare.second_home_player_age
+            secondValue = compare.second_home_player_pts / (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)
+          end
           if compare.forth_home_player_age
             first_home_player_pts = (compare.first_home_player_pts + compare.third_home_player_pts + compare.forth_home_player_pts)/3
             first_home_player_fga = (compare.first_home_player_fga + compare.third_home_player_fga + compare.forth_home_player_fga)/3
@@ -2041,8 +2043,10 @@ end
         <td><%= (compare.head_away_player_pts/(compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)).round(3) %></td>
         <%
           headValue = compare.head_away_player_pts / (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)
-
+          secondValue = 0
+          if compare.second_away_player_age
             secondValue = compare.second_away_player_pts / (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)
+          end
             if compare.forth_away_player_age
               first_away_player_pts = (compare.first_away_player_pts + compare.third_away_player_pts + compare.forth_away_player_pts)/3
               first_away_player_fga = (compare.first_away_player_fga + compare.third_away_player_fga + compare.forth_away_player_fga)/3
