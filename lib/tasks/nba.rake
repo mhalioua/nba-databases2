@@ -1340,6 +1340,9 @@ namespace :nba do
 					count = count + 1
 				end
 				sum_mins = sum_mins - mins_min - mins_max
+        if sum_mins < 0
+          sum_mins = 0
+        end
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins)
 			end
 		end
