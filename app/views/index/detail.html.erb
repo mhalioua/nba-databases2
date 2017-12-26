@@ -1274,14 +1274,14 @@
                     <td><%= search_player.fta %></td>
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
-                    <td><%= search_player.poss %></td>
+                    <td><%= search_player.poss.round(1) %></td>
                     <td><%= search_player.ptsValue %></td>
                     <% if search_player.poss != 0 %>
                       <td><%= (search_player.ptsValue.to_f / search_player.poss).round(3) %></td>
                     <% else %>
                       <td></td>
                     <% end %>
-                    <td><%= team_player.poss %></td>
+                    <td><%= team_player.poss.round(2) %></td>
                   </tr>
                   <% end %>
                   <tr>
@@ -1291,10 +1291,10 @@
                     <td><%= total_fta %></td>
                     <td><%= total_toValue %></td>
                     <td><%= total_orValue %></td>
-                    <td><%= total_poss %></td>
+                    <td><%= total_poss.round(1) %></td>
                     <td><%= total_pts %></td>
                     <td><%= total_ppp.round(3) %></td>
-                    <td><%= total_team_poss %></td>
+                    <td><%= total_team_poss.round(2) %></td>
                   </tr>
                 </tbody>
             </table>
@@ -1354,14 +1354,14 @@
                     <td><%= search_player.fta %></td>
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
-                    <td><%= search_player.poss %></td>
+                    <td><%= search_player.poss.round(1) %></td>
                     <td><%= search_player.ptsValue %></td>
                     <% if search_player.poss != 0 %>
                       <td><%= (search_player.ptsValue.to_f / search_player.poss).round(3) %></td>
                     <% else %>
                       <td></td>
                     <% end %>
-                    <td><%= team_player.poss %></td>
+                    <td><%= team_player.poss.round(2) %></td>
                   </tr>
                   <% end %>
                   <tr>
@@ -1371,10 +1371,10 @@
                     <td><%= total_fta %></td>
                     <td><%= total_toValue %></td>
                     <td><%= total_orValue %></td>
-                    <td><%= total_poss %></td>
+                    <td><%= total_poss.round(1) %></td>
                     <td><%= total_pts %></td>
                     <td><%= total_ppp.round(3) %></td>
-                    <td><%= total_team_poss %></td>
+                    <td><%= total_team_poss.round(2) %></td>
                   </tr>
                 </tbody>
             </table>
