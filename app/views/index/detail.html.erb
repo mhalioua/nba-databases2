@@ -2152,7 +2152,7 @@ end
         %>
         <td><%= (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb).round(3) %></td>
         <td><%= (first_away_player_pts / (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb)).round(3) %></td>
-        <% if !compare.forth_home_player_age && compare.third_home_player_age && compare.first_home_player_age %>
+        <% unless compare.forth_home_player_age && compare.third_home_player_age && compare.first_home_player_age %>
           <td></td>
         <% end %>
         <td></td>
