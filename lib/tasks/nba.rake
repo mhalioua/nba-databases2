@@ -1326,6 +1326,9 @@ namespace :nba do
 					if count == 10
 						break
 					end
+          if last_player.mins == 0
+            next
+          end
 					possession.push(last_player.nba_id)
 					sum_poss = sum_poss + last_player.poss
 					sum_mins = sum_mins + last_player.mins
