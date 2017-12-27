@@ -2057,7 +2057,7 @@ end
           if compare.second_away_player_age
             secondValue = compare.second_away_player_pts / (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)
           end
-            if compare.forth_away_player_age && compare.third_away_player_age && compare.first_away_player_age
+            if compare.forth_away_player_age || compare.third_away_player_age || compare.first_away_player_age
               count = 0
               if compare.forth_away_player_age
                 count = count + 1
@@ -2166,7 +2166,7 @@ end
         <td></td>
       </tr>
       <% end %>
-      <% if compare.forth_away_player_age && compare.third_away_player_age && compare.first_away_player_age 
+      <% if compare.forth_away_player_age || compare.third_away_player_age || compare.first_away_player_age 
         count = 0
         if compare.forth_away_player_age
           count = count + 1
