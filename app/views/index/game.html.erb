@@ -36,7 +36,10 @@
         <th class="gray">Days until</th>
         <th class="gray"></th>
         <th class="gray"></th>
-        <th class="gray" style="border-right: 5px solid #666;"></th>
+        <th class="gray"></th>
+        <th class="gray"></th>
+        <th class="gray"></th>
+        <th class="skyblue" style="border-right: 5px solid #666;"></th>
         <th colspan="4"></th>
         <th class="black"></th>
         <th colspan="4"></th>
@@ -84,7 +87,10 @@
         <th class="gray">Next game home</th>
         <th class="gray">PPG rank</th>
         <th class="gray">OPP PPG rank</th>
-        <th class="gray" style="border-right: 5px solid #666;">Wins rank</th>
+        <th class="gray">Wins rank</th>
+        <th class="gray">PPG + OPP PPG</th>
+        <th class="gray"></th>
+        <th class="skyblue" style="border-right: 5px solid #666;"></th>
         <th class="red" colspan="4"></th>
         <th class="black"></th>
         <th class="red" colspan="4">FULL GAME</th>
@@ -147,14 +153,18 @@
       <td class="red"><%= @away_team_info.opponentfirst_away %></td>
       <td class="red"><%= @away_team_info.opponentsecond_away %></td>
 
+ <% @countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{game.away_last_game}%", "%#{game.away_next_game}%", "%#{game.home_next_game}%", "%#{game.home_last_game}%").first %>
+
       <td class="gray" rowspan="2"><%= game.away_last_home %></td>
       <td class="gray" rowspan="2"><%= game.away_next_home %></td>
       <td class="gray"><%= game.away_ppg_rank %></td>
       <td class="gray"><%= game.away_oppppg_rank %></td>
-      <td class="gray" style="border-right: 5px solid #666;"><%= game.away_win_rank %></td>
-
+      <td class="gray"><%= game.away_win_rank %></td>
+      <td><%= game.away_ppg_rank + (30 - game.away_oppppg_rank) %></td>
+      <td class="red"><%= @countItem ? @countItem.diff : "" %></td>
+      <td class="skyblue" style="border-right: 5px solid #666;"></td>
       
-      <% @countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{game.away_last_game}%", "%#{game.away_next_game}%", "%#{game.home_next_game}%", "%#{game.home_last_game}%").first %>
+     
         <td><%= @countItem ? @countItem.lastroad : "" %></td>
         <td><%= @countItem ? @countItem.nextroad : "" %></td>
         <td><%= @countItem ? @countItem.nexthome : "" %></td>
@@ -225,7 +235,10 @@
 
       <td class="gray"><%= game.home_ppg_rank %></td>
       <td class="gray"><%= game.home_oppppg_rank %></td>
-      <td class="gray" style="border-right: 5px solid #666;"><%= game.home_win_rank %></td>
+      <td class="gray"><%= game.home_win_rank %></td>
+      <td><%= game.home_ppg_rank + (30 - game.home_oppppg_rank) %></td>
+      <td class="yellow"><%= @countItem ? (197.12 - @countItem.home - @countItem.road).round(2) : "" %></td>
+      <td class="skyblue" style="border-right: 5px solid #666;"></td>
 
       
       <td style="background: #fa0">ALL</td>
@@ -296,6 +309,8 @@
       <td class="skyblue"></td>
       <td class="skyblue"></td>
       <td class="skyblue"></td>
+      <td></td>
+      <td></td>
       <td class="skyblue" style="border-right: 5px solid #666;"></td>
       <% if game.home_next_fly == "NO" && game.home_last_fly == "YES" %>
           <td class="gray"></td>
