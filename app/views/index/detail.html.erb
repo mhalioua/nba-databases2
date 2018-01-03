@@ -1443,7 +1443,8 @@ $(document).ready(function(){
     }
     var hreflinks = window.location.pathname.split('/');
     hreflinks[4] = injuries.join(',')
-    window.location.pathname = hreflinks.join('/');
+    console.log( hreflinks.join('/') );
+    // window.location.pathname = hreflinks.join('/');
   });
 });
 $('.awayPossessions').on('input', function() { 
