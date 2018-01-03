@@ -851,7 +851,11 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @away_injury_name.include?(player.player_name) %>
-            <input type="checkbox" class="injury<%= player.id %>">
+            <% if @injuries.include?(player.id) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
           <% end %>
         </td>
       </tr>
@@ -915,7 +919,11 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @away_injury_name.include?(player.player_name) %>
-            <input type="checkbox" class="injury<%= player.id %>">
+            <% if @injuries.include?(player.id) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
           <% end %>
         </td>
       </tr>
@@ -980,7 +988,11 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @away_injury_name.include?(player.player_name) %>
-            <input type="checkbox" class="injury<%= player.id %>">
+            <% if @injuries.include?(player.id) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
           <% end %>
         </td>
       </tr>
@@ -1080,7 +1092,11 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @home_injury_name.include?(player.player_name) %>
-            <input type="checkbox" class="injury<%= player.id %>">
+            <% if @injuries.include?(player.id) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
           <% end %>
         </td>
       </tr>
@@ -1144,7 +1160,11 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @home_injury_name.include?(player.player_name) %>
-            <input type="checkbox" class="injury<%= player.id %>">
+            <% if @injuries.include?(player.id) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
           <% end %>
         </td>
       </tr>
@@ -1209,7 +1229,11 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @home_injury_name.include?(player.player_name) %>
-            <input type="checkbox" class="injury<%= player.id %>">
+            <% if @injuries.include?(player.id) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
           <% end %>
         </td>
       </tr>
@@ -1408,6 +1432,18 @@ $(document).ready(function(){
     else {
       $(".boxes").css("display", "none");
     }
+  });
+  
+  $('.injuryCheck').change(function() {
+    var jnjuryCheckboxes = $('.injuryCheck');
+    var injuries = [];
+    for(var i = 0; i < jnjuryCheckboxes; i ++) {
+      if(injuryCheckboxes[i].checked)
+        injuries.push(injuryCheckboxes[i].className.substr(12))
+    }
+    var hreflinks = window.location.pathname.split('/');
+    hreflinks[4] = injuries.join(',')
+    window.location.pathname = hreflinks.join('/');
   });
 });
 $('.awayPossessions').on('input', function() { 

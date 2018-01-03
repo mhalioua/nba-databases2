@@ -20,6 +20,11 @@ class IndexController < ApplicationController
 	end
 
 	def detail
+		@injuries = params[:injury]
+		unless @injuries
+			@injuries = ''
+		end
+		@injuries = @injuries.split(',')
 		@game_id = params[:id]
 		@game = Nba.find_by(game_id: @game_id)
 		@head = @game.away_team + " @ " + @game.home_team
@@ -484,7 +489,7 @@ class IndexController < ApplicationController
 				name_index = name.index(' ')
 				name = name_index ? name[0] + '.' + name[name_index..-1] : name
 			end
-			if !injury.text.include?('probable')
+			if !injury.text.include?('probable') && !@injuries.include?(name)
 				@away_injury_name.push(name)
 			end
 		end
@@ -496,7 +501,7 @@ class IndexController < ApplicationController
 				name_index = name.index(' ')
 				name = name_index ? name[0] + '.' + name[name_index..-1] : name
 			end
-			if !injury.text.include?('probable')
+			if !injury.text.include?('probable') && !@injuries.include?(name)
 				@home_injury_name.push(name)
 			end
 		end
