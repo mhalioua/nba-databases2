@@ -1436,10 +1436,13 @@ $(document).ready(function(){
   
   $('.injuryCheck').change(function() {
     var injuryCheckboxes = $('.injuryCheck');
-    console.log(injuryCheckboxes);
     var injuries = [];
     for(var i = 0; i < injuryCheckboxes; i ++) {
-      if(injuryCheckboxes[i].checked)
+      if(injuryCheckboxes[i] === this) {
+        if(!this.checked)
+          injuries.push(injuryCheckboxes[i].className.substr(18));
+      }
+      else if(injuryCheckboxes[i].checked)
         injuries.push(injuryCheckboxes[i].className.substr(18));
     }
     var hreflinks = window.location.pathname.split('/');
