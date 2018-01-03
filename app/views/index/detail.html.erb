@@ -851,7 +851,7 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @away_injury_name.include?(player.player_name) %>
-            <% if @injuries.include?(player.id) %>
+            <% if @injuries.include?(player.id.to_s) %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
             <% else %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
@@ -919,7 +919,7 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @away_injury_name.include?(player.player_name) %>
-            <% if @injuries.include?(player.id) %>
+            <% if @injuries.include?(player.id.to_s) %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
             <% else %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
@@ -988,7 +988,7 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @away_injury_name.include?(player.player_name) %>
-            <% if @injuries.include?(player.id) %>
+            <% if @injuries.include?(player.id.to_s) %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
             <% else %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
@@ -1092,7 +1092,7 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @home_injury_name.include?(player.player_name) %>
-            <% if @injuries.include?(player.id) %>
+            <% if @injuries.include?(player.id.to_s) %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
             <% else %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
@@ -1160,7 +1160,7 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @home_injury_name.include?(player.player_name) %>
-            <% if @injuries.include?(player.id) %>
+            <% if @injuries.include?(player.id.to_s) %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
             <% else %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
@@ -1229,7 +1229,7 @@
         <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @home_injury_name.include?(player.player_name) %>
-            <% if @injuries.include?(player.id) %>
+            <% if @injuries.include?(player.id.to_s) %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
             <% else %>
               <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
