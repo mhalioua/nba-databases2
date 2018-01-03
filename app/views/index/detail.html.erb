@@ -1439,17 +1439,12 @@ $(document).ready(function(){
     var injuryCheckboxes = $('.injuryCheck');
     var injuries = [];
     for(var i = 0; i < injuryCheckboxes.length; i ++) {
-      if(injuryCheckboxes[i] === this) {
-        if(this.checked)
-          injuries.push(injuryCheckboxes[i].className.substr(18));
-      }
-      else if(injuryCheckboxes[i].checked)
+      if(injuryCheckboxes[i].checked)
         injuries.push(injuryCheckboxes[i].className.substr(18));
     }
     var hreflinks = window.location.pathname.split('/');
-    hreflinks[4] = injuries.join(',')
-    console.log( hreflinks.join('/') );
-    // window.location.pathname = hreflinks.join('/');
+    hreflinks[4] = injuries.join(',');
+    window.location.pathname = hreflinks.join('/');
   });
 });
 $('.awayPossessions').on('input', function() { 
