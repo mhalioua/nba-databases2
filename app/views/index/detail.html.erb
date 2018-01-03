@@ -1435,6 +1435,7 @@ $(document).ready(function(){
   });
   
   $('.injuryCheck').change(function() {
+    console.log(this.checked);
     var injuryCheckboxes = $('.injuryCheck');
     var injuries = [];
     for(var i = 0; i < injuryCheckboxes; i ++) {
