@@ -1438,7 +1438,7 @@ $(document).ready(function(){
     console.log(this.checked);
     var injuryCheckboxes = $('.injuryCheck');
     var injuries = [];
-    for(var i = 0; i < injuryCheckboxes; i ++) {
+    for(var i = 0; i < injuryCheckboxes.length; i ++) {
       if(injuryCheckboxes[i] === this) {
         if(this.checked)
           injuries.push(injuryCheckboxes[i].className.substr(18));
