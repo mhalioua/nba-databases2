@@ -1942,6 +1942,10 @@ $('.homePossessions').on('input', function() {
  <% @home_injury_name.each do |element| %>
  console.log('<%= element %>')
  <% end %>
+ <% @injuries.each do |element| %>
+ console.log('<%= element %>')
+ <% end %>
+ 
  $('#inqury').change(function() {
   if(this.checked) {
     $('.inqurytable').css('display', 'none');
