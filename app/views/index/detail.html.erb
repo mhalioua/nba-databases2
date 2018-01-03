@@ -1436,10 +1436,11 @@ $(document).ready(function(){
   
   $('.injuryCheck').change(function() {
     var injuryCheckboxes = $('.injuryCheck');
+    console.log(injuryCheckboxes);
     var injuries = [];
     for(var i = 0; i < injuryCheckboxes; i ++) {
       if(injuryCheckboxes[i].checked)
-        injuries.push(injuryCheckboxes[i].className.substr(12))
+        injuries.push(injuryCheckboxes[i].className.substr(18));
     }
     var hreflinks = window.location.pathname.split('/');
     hreflinks[4] = injuries.join(',')
