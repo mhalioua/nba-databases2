@@ -523,7 +523,7 @@ class IndexController < ApplicationController
 	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
-	        if @away_injury_name.include?(player.player_name) && !@injuries.include(player.id.to_s)
+	        if @away_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 	        	next
 	        end
 	        injury_drtg_count = injury_drtg_count + 1
@@ -556,7 +556,7 @@ class IndexController < ApplicationController
 		        if player.sum_mins/(count - 2) < 10 || count < 10
 		        	next
 		        end
-		        if @away_injury_name.include?(player.player_name) && !@injuries.include(player.id.to_s)
+		        if @away_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
@@ -623,7 +623,7 @@ class IndexController < ApplicationController
 	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
-	        if @away_injury_name.include?(player.player_name) && !@injuries.include(player.id.to_s)
+	        if @away_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 	        	next
 	        end
 	        injury_drtg_count = injury_drtg_count + 1
@@ -655,7 +655,7 @@ class IndexController < ApplicationController
 		        if player.sum_mins/(count - 2) < 10 || count < 10
 		        	next
 		        end
-		        if @away_injury_name.include?(player.player_name) && !@injuries.include(player.id.to_s)
+		        if @away_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
@@ -718,7 +718,7 @@ class IndexController < ApplicationController
 	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
-	        if @away_injury_name.include?(player.player_name) && !@injuries.include(player.id.to_s)
+	        if @away_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 	        	next
 	        end
 	        @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
@@ -742,7 +742,7 @@ class IndexController < ApplicationController
 	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
-	        if @home_injury_name.include?(player.player_name) && !@injuries.include(player.id.to_s)
+	        if @home_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 	        	next
 	        end
 	        injury_drtg_count = injury_drtg_count + 1
@@ -774,7 +774,7 @@ class IndexController < ApplicationController
 		        if player.sum_mins/(count - 2) < 10 || count < 10
 		        	next
 		        end
-		        if @home_injury_name.include?(player.player_name) && !@injuries.include(player.id.to_s)
+		        if @home_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
@@ -841,7 +841,7 @@ class IndexController < ApplicationController
 	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
-	        if @home_injury_name.include?(player.player_name) && !@injuries.include(player.id.to_s)
+	        if @home_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 	        	next
 	        end
 	        injury_drtg_count = injury_drtg_count + 1
@@ -873,7 +873,7 @@ class IndexController < ApplicationController
 		        if player.sum_mins/(count - 2) < 10 || count < 10
 		        	next
 		        end
-		        if @home_injury_name.include?(player.player_name) && !@injuries.include(player.id.to_s)
+		        if @home_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
@@ -936,7 +936,7 @@ class IndexController < ApplicationController
 	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
-	        if @home_injury_name.include?(player.player_name) && !@injuries.include(player.id.to_s)
+	        if @home_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 	        	next
 	        end
 	        @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
