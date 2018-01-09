@@ -2297,6 +2297,7 @@ namespace :nba do
   end
 
   task add: :environment do
+    require 'csv'
     filename = File.join Rails.root, "fullseason.csv"
     count = 0
     CSV.foreach(filename, headers:true) do |row|
