@@ -965,6 +965,14 @@ class IndexController < ApplicationController
 		@filterResult = []
 		@filters.each do |filter|
 			search_string = []
+			if filter[0]
+				search_string.push("awaynextfly = '#{@game.away_next_fly}'")
+				filter[0] = @game.away_next_fly[0]
+			end
+			if filter[1]
+				search_string.push("awaylastfly = '#{@game.away_last_fly}'")
+				filter[1] = @game.away_last_fly[0]
+			end
 			if filter[2]
 				search_string.push("roadlast = '#{@game.away_last_game}'")
 				filter[2] = @game.away_last_game

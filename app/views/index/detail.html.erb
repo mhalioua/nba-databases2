@@ -2573,8 +2573,16 @@ end
                     <td><%= first_one %></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    <% if filter[0] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <% if filter[1] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
                     <% if filter[2] %>
                         <td class="filter">X</td>
                     <% else %>
