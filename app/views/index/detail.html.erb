@@ -2572,16 +2572,9 @@ end
                 <tr class="filterElement">
                     <td><%= first_one %></td>
                     <td></td>
-                    <% if filter[0] %>
-                        <td class="filter">X</td>
-                    <% else %>
-                        <td></td>
-                    <% end %>
-                    <% if filter[1] %>
-                        <td class="filter">X</td>
-                    <% else %>
-                        <td></td>
-                    <% end %>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <% if filter[2] %>
                         <td class="filter">X</td>
                     <% else %>
@@ -2592,13 +2585,23 @@ end
                     <% else %>
                         <td></td>
                     <% end %>
-                    <td></td>
                     <% if filter[4] %>
                         <td class="filter">X</td>
                     <% else %>
                         <td></td>
                     <% end %>
                     <% if filter[5] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <td></td>
+                    <% if filter[6] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <% if filter[7] %>
                         <td class="filter">X</td>
                     <% else %>
                         <td></td>
@@ -2627,7 +2630,7 @@ end
                             <%= @game.home_first_quarter + @game.home_second_quarter %>
                           <% end %>
                         </td>
-                    <% elsif index == 5 %>
+                    <% elsif index == 4 %>
                         <td colspan="4" rowspan="19" class="gray"></td>
                     <% end %>
                 </tr>
@@ -2647,11 +2650,17 @@ end
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <% end %>
             <% end %>
             <tr class="redgradient">
                 <td>2ND HALF STATS</td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td class="gameDate"><%= @game.away_abbr %></td>
                 <td class="gameDate">
@@ -2677,6 +2686,9 @@ end
             <tr>
                 <td class="gray">WHEN HOME TEAM</td>
                 <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td colspan="4">IS LEADING BY <%= @diff %> (+/- 5)</td>
                 <td class="gradient"></td>
                 <td></td>
@@ -2690,6 +2702,9 @@ end
             <tr>
                 <td class="gray">WHEN HOME TEAM</td>
                 <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td colspan="4">SCORES MORE THAN 60</td>
                 <td class="gradient"></td>
                 <td></td>
@@ -2702,6 +2717,9 @@ end
             </tr>
             <tr>
                 <td class="gray">WHEN ROAD TEAM</td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
                 <td class="gradient"></td>
                 <td colspan="4">SCORES MORE THAN 60</td>
                 <td class="gradient"></td>
@@ -2718,6 +2736,9 @@ end
                 <td class="gradient"></td>
                 <td></td>
                 <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td class="gradient"></td>
@@ -2731,6 +2752,9 @@ end
             </tr>
             <tr>
                 <td class="gray"></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
                 <td class="gradient"></td>
                 <td></td>
                 <td></td>
@@ -2764,8 +2788,14 @@ end
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr class="gradient">
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
