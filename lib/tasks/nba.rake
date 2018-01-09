@@ -2301,7 +2301,7 @@ namespace :nba do
     filename = File.join Rails.root, "fullseason.csv"
     count = 0
     CSV.foreach(filename, headers:true) do |row|
-      fullseason.create(
+      Fullseason.create(
         year: row['year'],
         date: row['date'],
         time: row['time'],
