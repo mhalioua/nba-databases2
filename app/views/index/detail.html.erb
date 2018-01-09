@@ -2618,15 +2618,18 @@ end
                     <td><%= @filterResult[index][:second] %></td>
                     <td><%= @filterResult[index][:full] %></td>
                     <td><%= @filterResult[index][:count] %></td>
-                    <% if index == 0 %>
+                    <% if index == 0 || index == 2 %>
+                      <td colspan="2"></td>
+                      <td colspan="2"></td>
+                    <% elsif index == 1 %>
                       <td colspan="2"><%= @game.away_team %></td>
                       <td colspan="2"><%= @game.home_team %></td>
-                    <% elsif index == 1 %>
+                    <% elsif index == 3 %>
                       <td class="gradient"></td>
                       <td class="gradient"></td>
                       <td class="gradient"></td>
                       <td class="gradient"></td>
-                    <% elsif index == 2 %>
+                    <% elsif index == 4 %>
                         <td colspan="2" rowspan="3">
                           <% if @game.away_first_quarter && @game.away_second_quarter %>
                             <%= @game.away_first_quarter + @game.away_second_quarter %>
@@ -2637,7 +2640,7 @@ end
                             <%= @game.home_first_quarter + @game.home_second_quarter %>
                           <% end %>
                         </td>
-                    <% elsif index == 5 %>
+                    <% elsif index == 7 %>
                         <td colspan="4" rowspan="19" class="gray"></td>
                     <% end %>
                 </tr>

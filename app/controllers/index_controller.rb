@@ -945,6 +945,8 @@ class IndexController < ApplicationController
 
 
 	    @filters = [
+	    	[false, false, false, false, false, false, false, false],
+	    	[true, true, true, true, true, true, true, true],
 	    	[false, true, true, true, true, true, true, true],
 	    	[true, false, true, true, true, true, true, true],
 	    	[true, true, false, true, true, true, true, true],
@@ -961,7 +963,7 @@ class IndexController < ApplicationController
 	    	[true, false, true, true, true, true, false, true],
 	    	[false, false, true, true, true, true, false, false]
 		]
-		@break = [7, 13, 14]
+		@break = [9, 15, 16]
 		@filterResult = []
 		@filters.each do |filter|
 			search_string = []
