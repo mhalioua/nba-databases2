@@ -348,22 +348,22 @@
 <div class="tableBody fulltable" style="display:none">
   <h5> NEXT STAT </h5>
   <table border="1" class="tableSide">
-  	<thead>
-  		<tr>
-	  		<th><%= @game.away_team %> <br> Starters</th>
-	      <th>POS</th>
+    <thead>
+      <tr>
+        <th><%= @game.away_team %> <br> Starters</th>
+        <th>POS</th>
         <th>HT</th>
-	      <th>PLAYER <br> POSS %</th>
+        <th>PLAYER <br> POSS %</th>
         <th>MINS</th>
         <th>PRO RATE</th>
-	  		<th>ORTG</th>
+        <th>ORTG</th>
         <th></th>
         <th>DRTG</th>
         <th></th>
         <th></th>
-	    </tr>
-  	</thead>
-  	<tbody>
+      </tr>
+    </thead>
+    <tbody>
     <% @away_players_group1.each_with_index do |player, index| 
           count = 1
           style =""
@@ -556,7 +556,7 @@
         <td colspan="2" id="awaysum"></td>
         <td id="awaysum2"></td>
       </tr>
-  	</tbody>
+    </tbody>
 </table>
 
 <table border="1" class="tableSide">
@@ -2419,17 +2419,23 @@ end
             <tr>
                 <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y")%></td>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
                 <td></td>
                 <td class="line">1H LINE</td>
                 <td class="line">2H LINE</td>
                 <td class="line">FG LINE</td>
                 <td></td>
-                <td colspan="4" rowspan="3" class="gray">TRAVEL TABLE</td>
+                <td colspan="4" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE</td>
             </tr>
             <tr>
                 <td></td>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td><u><i>road</i></u></td>
                 <td colspan="2">road DAYS REST home</td>
                 <td><u><i>home</i></u></td>
@@ -2444,6 +2450,9 @@ end
             <tr>
                 <td class="gameDate">RIVALS</td>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td class="gameDate">last</td>
                 <td colspan="2" class="gameDate">next game</td>
                 <td class="gameDate">last</td>
@@ -2457,8 +2466,11 @@ end
                 <td></td>
             </tr>
             <tr class="gameDate">
-                <td><%= @game.away_abbr + " VS " + @game.home_abbr %></td>
+                <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td><%= @game.away_last_game %></td>
                 <td><%= @game.away_next_game %></td>
                 <td><%= @game.home_next_game %></td>
@@ -2475,7 +2487,10 @@ end
             </tr>
             <tr>
                 <td>RIVALS</td>
+                <td class="gradient"></td>
                 <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -2491,7 +2506,10 @@ end
             </tr>
             <tr>
                 <td>ALL GAMES IN <%= @home_abbr %></td>
+                <td class="gradient"></td>
                 <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -2507,7 +2525,10 @@ end
             </tr>
             <tr>
                 <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A")%></td>
+                <td class="gradient"></td>
                 <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -2521,59 +2542,28 @@ end
                 <td><%= @thirdItem_result[:full] %></td>
                 <td><%= @thirdItem_result[:count] %></td>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="filter">X</td>
-                <td class="filter">X</td>
-                <td></td>
-                <td><%= @forthItem_result[:first] %></td>
-                <td><%= @forthItem_result[:second] %></td>
-                <td><%= @forthItem_result[:full] %></td>
-                <td><%= @forthItem_result[:count] %></td>
-                <td colspan="2"><%= @game.away_team %></td>
-                <td colspan="2"><%= @game.home_team %></td>
-            </tr>
             <tr class="gradient">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <% 
                 @filters.each_with_index do |filter, index|
@@ -2623,6 +2613,14 @@ end
                     <td><%= @filterResult[index][:full] %></td>
                     <td><%= @filterResult[index][:count] %></td>
                     <% if index == 0 %>
+                      <td colspan="2"><%= @game.away_team %></td>
+                      <td colspan="2"><%= @game.home_team %></td>
+                    <% elsif index == 1 %>
+                      <td class="gradient"></td>
+                      <td class="gradient"></td>
+                      <td class="gradient"></td>
+                      <td class="gradient"></td>
+                    <% elsif index == 2 %>
                         <td colspan="2" rowspan="3">
                           <% if @game.away_first_quarter && @game.away_second_quarter %>
                             <%= @game.away_first_quarter + @game.away_second_quarter %>
@@ -2633,8 +2631,8 @@ end
                             <%= @game.home_first_quarter + @game.home_second_quarter %>
                           <% end %>
                         </td>
-                    <% elsif index == 3 %>
-                        <td colspan="4" rowspan="42" class="gray"></td>
+                    <% elsif index == 5 %>
+                        <td colspan="4" rowspan="19" class="gray"></td>
                     <% end %>
                 </tr>
                 <% if @break.include?(index) %>
