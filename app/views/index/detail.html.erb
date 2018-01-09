@@ -2055,11 +2055,11 @@ end
         <td><%= compare.head_home_player_pts %></td>
         <%
           head_home_tp = ((compare.head_home_player_fga + compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)*compare.head_home_player_gp).round(3)
-          tpStyle = "background: darkgray;"
+          tpStyle = "background:darkgray;"
           if head_home_tp > 50
             tpStyle = "background:skyblue;"
           end
-          %>
+        %>
         <td style=<%= tpStyle %> ><%= head_home_tp %></td>
         <td><%= (compare.head_home_player_fga + compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb).round(3) %></td>
         <td><%= (compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)).round(3) %></td>
@@ -2111,7 +2111,14 @@ end
         <td><%= compare.head_away_player_blk %></td>
         <td><%= compare.head_away_player_tov %></td>
         <td><%= compare.head_away_player_pts %></td>
-        <td><%= ((compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)*compare.head_away_player_gp).round(3) %></td>
+        <%
+          head_away_tp = ((compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)*compare.head_away_player_gp).round(3)
+          tpStyle = "background:darkgray;"
+          if head_away_tp > 50
+            tpStyle = "background:skyblue;"
+          end
+        %>
+        <td style=<%= tpStyle %> ><%= head_away_tp %></td>
         <td><%= (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb).round(3) %></td>
         <td><%= (compare.head_away_player_pts/(compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)).round(3) %></td>
         <%
@@ -2202,8 +2209,14 @@ end
           first_home_player_tov = (compare.first_home_player_tov.to_f + compare.third_home_player_tov.to_f + compare.forth_home_player_tov.to_f)/count
           first_home_player_fta = (compare.first_home_player_fta.to_f + compare.third_home_player_fta.to_f + compare.forth_home_player_fta.to_f)/count
           first_home_player_orb = (compare.first_home_player_orb.to_f + compare.third_home_player_orb.to_f + compare.forth_home_player_orb.to_f)/count
+
+          first_home_tp = ((first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb)*(compare.first_home_player_gp.to_i + compare.third_home_player_gp.to_i + compare.forth_home_player_gp.to_i)).round(3)
+          tpStyle = "background:darkgray;"
+          if first_home_tp > 50
+            tpStyle = "background:skyblue;"
+          end
         %>
-        <td><%= ((first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb)*(compare.first_home_player_gp.to_i + compare.third_home_player_gp.to_i + compare.forth_home_player_gp.to_i)).round(3) %></td>
+        <td style=<%= tpStyle %> ><%= first_home_tp %></td>
         <td><%= (first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb).round(3) %></td>
         <td><%= (first_home_player_pts/(first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb)).round(3) %></td>
         <% 
@@ -2266,8 +2279,13 @@ end
           first_away_player_tov = (compare.first_away_player_tov.to_f + compare.third_away_player_tov.to_f + compare.forth_away_player_tov.to_f)/count
           first_away_player_fta = (compare.first_away_player_fta.to_f + compare.third_away_player_fta.to_f + compare.forth_away_player_fta.to_f)/count
           first_away_player_orb = (compare.first_away_player_orb.to_f + compare.third_away_player_orb.to_f + compare.forth_away_player_orb.to_f)/count
+          first_away_tp = ((first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb)*(compare.first_away_player_gp.to_i + compare.third_away_player_gp.to_i + compare.forth_away_player_gp.to_i)).round(3)
+          tpStyle = "background:darkgray;"
+          if first_away_tp > 50
+            tpStyle = "background:skyblue;"
+          end
         %>
-        <td><%= ((first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb)*(compare.first_away_player_gp.to_i + compare.third_away_player_gp.to_i + compare.forth_away_player_gp.to_i)).round(3) %></td>
+        <td style=<%= tpStyle %> ><%= first_away_tp %></td>
         <td><%= (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb).round(3) %></td>
         <td><%= (first_away_player_pts / (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb)).round(3) %></td>
         <% unless compare.forth_home_player_age || compare.third_home_player_age || compare.first_home_player_age %>
