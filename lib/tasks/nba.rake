@@ -2339,7 +2339,7 @@ namespace :nba do
         fglinetotal: row['fglinetotal'],
         firstside: row['firstside'],
         secondside: row['secondside'],
-        fgside: row['fgside']
+        fgside: row['fgside'],
         awaylastfly: row['awaylastfly'],
         awaynextfly: row['awaynextfly'],
         away_win_rank: row['away_win_rank'],
