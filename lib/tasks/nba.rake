@@ -2296,6 +2296,73 @@ namespace :nba do
     end
   end
 
+  task add: :environment do
+    filename = File.join Rails.root, "fullseason.csv"
+    count = 0
+    CSV.foreach(filename, headers:true) do |row|
+      fullseason.create(
+        year: row['year'],
+        date: row['date'],
+        time: row['time'],
+        week: row['week'],
+        roadlast: row['roadlast'],
+        roadnext: row['roadnext'],
+        roadteam: row['roadteam'],
+        roadmore: row['roadmore'],
+        roadfirst: row['roadfirst'],
+        roadsecond: row['roadsecond'],
+        roadfirsthalf: row['roadfirsthalf'],
+        roadthird: row['roadthird'],
+        roadforth: row['roadforth'],
+        roadot: row['roadot'],
+        homenext: row['homenext'],
+        homenextfly: row['homenextfly'],
+        homelast: row['homelast'],
+        homelastfly: row['homelastfly'],
+        hometeam: row['hometeam'],
+        homemore: row['homemore'],
+        homefirst: row['homefirst'],
+        homesecond: row['homesecond'],
+        homefirsthalf: row['homefirsthalf'],
+        homethird: row['homethird'],
+        homeforth: row['homeforth'],
+        homeot: row['homeot'],
+        homediff: row['homediff'],
+        roadtotal: row['roadtotal'],
+        hometotal: row['hometotal'],
+        total: row['total'],
+        firstpoint: row['firstpoint'],
+        secondpoint: row['secondpoint'],
+        totalpoint: row['totalpoint'],
+        firstlinetotal: row['firstlinetotal'],
+        secondlinetotal: row['secondlinetotal'],
+        fglinetotal: row['fglinetotal'],
+        firstside: row['firstside'],
+        secondside: row['secondside'],
+        fgside: row['fgside']
+        awaylastfly: row['awaylastfly'],
+        awaynextfly: row['awaynextfly'],
+        away_win_rank: row['away_win_rank'],
+        away_ppg_rank: row['away_ppg_rank'],
+        away_oppppg_rank: row['away_oppppg_rank'],
+        home_win_rank: row['home_win_rank'],
+        home_ppg_rank: row['home_ppg_rank'],
+        home_oppppg_rank: row['home_oppppg_rank'],
+        firstou: row['firstou'],
+        secondou: row['secondou'],
+        totalou: row['totalou'],
+        hometeamlastgame: row['hometeamlastgame'],
+        roadteamlastgame: row['roadteamlastgame'],
+        pace: row['pace'],
+        away_ortg: row['away_ortg'],
+        home_ortg: row['home_ortg'],
+        away_last_home: row['away_last_home'],
+        away_next_home: row['away_next_home'])
+      count = count + 1
+    end
+    puts count
+  end
+
 		@basket_abbr = [
 		'ATL',
 		'BOS',
