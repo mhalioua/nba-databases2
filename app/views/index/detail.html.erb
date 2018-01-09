@@ -2569,7 +2569,11 @@ end
                     first_one = first_one.join("-")
             %>
                 <tr class="filterElement">
+                  <% if index == 0 %>
+                    <td>Any</td>
+                  <% else %>
                     <td><%= first_one %></td>
+                  <% end %>
                     <td></td>
                     <% if filter[0] %>
                         <td class="filter">X</td>
