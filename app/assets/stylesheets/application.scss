@@ -162,6 +162,9 @@ th, .green {
         td:nth-child(1) {
             background: darkgray;
         }
+        td:nth-child(3), td:nth-child(4), td:nth-child(6), td:nth-child(7), td:nth-child(8), td:nth-child(9), td:nth-child(11), td:nth-child(12) {
+            background: yellow;
+        }
     }
     .gradient {
         background: linear-gradient(#4ac, #068);
