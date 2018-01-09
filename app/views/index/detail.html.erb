@@ -2630,7 +2630,7 @@ end
                             <%= @game.home_first_quarter + @game.home_second_quarter %>
                           <% end %>
                         </td>
-                    <% elsif index == 4 %>
+                    <% elsif index == 5 %>
                         <td colspan="4" rowspan="19" class="gray"></td>
                     <% end %>
                 </tr>
@@ -2661,7 +2661,7 @@ end
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
+                <td class="gradient"></td>
                 <td class="gameDate"><%= @game.away_abbr %></td>
                 <td class="gameDate">
                   <% if @game.away_first_quarter && @game.away_second_quarter %>
@@ -2774,7 +2774,7 @@ end
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
+                <td class="gradient"></td>
                 <td></td>
                 <td></td>
                 <td></td>
