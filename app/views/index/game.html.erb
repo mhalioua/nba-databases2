@@ -325,7 +325,7 @@
       <td><%= game.second_closer_side != 0 ? game.second_closer_side : (game.full_closer_side - game.first_closer_side) %></td>
       <td><%= game.full_closer_side %></td>
       
-      <td class="gray"><%= game.away_last_fly[0] + "-" + game.away_next_fly[0] + "-" + game.away_last_game + game.away_next_game + game.home_next_game + game.home_last_game + game.home_next_fly[0] + game.home_last_fly[0] %></td>
+      <td class="gray"><%= game.away_last_fly[0] + "-" + game.away_next_fly[0] + "-" + game.away_last_game.to_s + "-" + game.away_next_game.to_s + "-" + game.home_next_game.to_s + "-" + game.home_last_game.to_s + "-" + game.home_next_fly[0] + "-" + game.home_last_fly[0] %></td>
       <td class="skygreen"></td>
       <td class="filter">X</td>
       <td class="filter">X</td>
