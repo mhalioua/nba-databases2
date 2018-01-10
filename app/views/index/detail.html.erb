@@ -1754,52 +1754,64 @@ $('.homePossessions').on('input', function() {
     <table border="1" class="numbers">
         <tbody>
             <tr>
-                <td>LAST ROAD</td>
-                <td>NEXT ROAD</td>
-                <td>NEXT HOME</td>
-                <td>LAST HOME</td>
-                <td></td>
-                <td>ROAD</td>
-                <td>HOME</td>
-                <td></td>
-                <td>+/-</td>
-                <td></td>
-                <td style="background: #fa0">GMS</td>
-                <td></td>
-                <td>1H ROAD</td>
-                <td>1H HOME</td>
-                <td></td>
-                <td>+/-</td>
-                <td></td>
-                <td>2H ROAD</td>
-                <td>2H HOME</td>
-                <td></td>
-                <td>+/-</td>
+              <td></td>
+              <td></td>
+              <td>LAST ROAD</td>
+              <td>NEXT ROAD</td>
+              <td>NEXT HOME</td>
+              <td>LAST HOME</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>ROAD</td>
+              <td>HOME</td>
+              <td></td>
+              <td>+/-</td>
+              <td></td>
+              <td style="background: #fa0">GMS</td>
+              <td></td>
+              <td>1H ROAD</td>
+              <td>1H HOME</td>
+              <td></td>
+              <td>+/-</td>
+              <td></td>
+              <td>2H ROAD</td>
+              <td>2H HOME</td>
+              <td></td>
+              <td>+/-</td>
             </tr>
             <tr>
-                <td><%= @countItem.lastroad %></td>
-                <td><%= @countItem.nextroad %></td>
-                <td><%= @countItem.nexthome %></td>
-                <td><%= @countItem.lasthome %></td>
+                <td><%= @game.away_last_fly %></td>
+                <td><%= @game.away_next_fly %></td>
+                <td><%= @game.away_last_game %></td>
+                <td><%= @game.away_next_game %></td>
+                <td><%= @game.home_next_game %></td>
+                <td><%= @game.home_last_game %></td>
+                <td><%= @game.home_next_fly %></td>
+                <td><%= @game.home_last_fly %></td>
                 <td></td>
-                <td><%= @countItem.road %></td>
-                <td><%= @countItem.home %></td>
-                <td><%= (@countItem.home + @countItem.road).round(2) %></td>
-                <td><%= @countItem.diff %></td>
+                <td><%= @countItem ? @countItem.average(:roadtotal).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.average(:hometotal).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:roadtotal).to_f + @countItem.average(:hometotal).to_f).round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:roadtotal).to_f - @countItem.average(:hometotal).to_f).round(2) : "" %></td>
                 <td></td>
-                <td style="background: #fa0"><%= @countItem.count %></td>
+                <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalpoint).to_i : "" %></td>
                 <td></td>
-                <td><%= @countItem.firstroad %></td>
-                <td><%= @countItem.firsthome %></td>
-                <td><%= (@countItem.firstroad + @countItem.firsthome).round(2) %></td>
-                <td><%= @countItem.firstdiff %></td>
+                <td><%= @countItem ? @countItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:roadfirsthalf).to_f + @countItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:roadfirsthalf).to_f - @countItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
                 <td></td>
-                <td><%= @countItem.secondroad %></td>
-                <td><%= @countItem.secondhome %></td>
-                <td><%= (@countItem.secondroad + @countItem.secondhome).round(2) %></td>
-                <td><%= @countItem.seconddiff %></td>
+                <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f).round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f + @countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
             </tr>
             <tr style="background: #fa0">
+                <td>ALL</td>
+                <td>ALL</td>
+                <td>ALL</td>
+                <td>ALL</td>
                 <td>ALL</td>
                 <td>ALL</td>
                 <td>ALL</td>
@@ -1822,103 +1834,33 @@ $('.homePossessions').on('input', function() {
                 <td>97</td>
                 <td>-1.2</td>
             </tr>
-            <% if @game.home_next_fly == "NO" && @game.home_last_fly == "YES" %>
             <tr>
-                <td></td>
-                <td>NO</td>
-                <td>YES</td>
-                <td></td>
-                <td></td>
-                <td>96.75</td>
-                <td>99.83</td>
-                <td>196.58</td>
-                <td>-3.08</td>
-                <td></td>
-                <td style="background: #fa0">4949</td>
-                <td></td>
-                <td>48.23</td>
-                <td>50.11</td>
-                <td>98.34</td>
-                <td>-1.88</td>
-                <td></td>
-                <td>48.52</td>
-                <td>49.72</td>
-                <td>98.24</td>
-                <td>-1.2</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td style="background: #fa0"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
-            <% elsif @game.home_next_fly == "YES" && @game.home_last_fly == "NO" %>
-            <tr>
-                <td></td>
-                <td>YES</td>
-                <td>NO</td>
-                <td></td>
-                <td></td>
-                <td>97.14</td>
-                <td>100.15</td>
-                <td>197.29</td>
-                <td>-3.01</td>
-                <td></td>
-                <td style="background: #fa0">4929</td>
-                <td></td>
-                <td>48.55</td>
-                <td>50.38</td>
-                <td>98.93</td>
-                <td>-1.83</td>
-                <td></td>
-                <td>48.59</td>
-                <td>49.77</td>
-                <td>98.36</td>
-                <td>-1.18</td>
-            </tr>
-            <% elsif @game.home_next_fly == "YES" && @game.home_last_fly == "YES" %>
-            <tr>
-                <td></td>
-                <td>YES</td>
-                <td>YES</td>
-                <td></td>
-                <td></td>
-                <td>96.76</td>
-                <td>99.65</td>
-                <td>196.41</td>
-                <td>-2.89</td>
-                <td></td>
-                <td style="background: #fa0">3931</td>
-                <td></td>
-                <td>48.44</td>
-                <td>50.06</td>
-                <td>98.5</td>
-                <td>-1.62</td>
-                <td></td>
-                <td>48.32</td>
-                <td>49.59</td>
-                <td>97.91</td>
-                <td>-1.27</td>
-            </tr>
-            <% elsif @game.home_next_fly == "NO" && @game.home_last_fly == "NO" %>
-            <tr>
-                <td></td>
-                <td>NO</td>
-                <td>NO</td>
-                <td></td>
-                <td></td>
-                <td>97.3</td>
-                <td>100.85</td>
-                <td>197.88</td>
-                <td>-3.55</td>
-                <td></td>
-                <td style="background: #fa0">4129</td>
-                <td></td>
-                <td>48.78</td>
-                <td>50.76</td>
-                <td>99.54</td>
-                <td>-1.98</td>
-                <td></td>
-                <td>48.52</td>
-                <td>50.09</td>
-                <td>98.61</td>
-                <td>-1.57</td>
-            </tr>
-            <% end %>
         </tbody>
     </table>
 </div>
