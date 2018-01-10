@@ -2736,13 +2736,13 @@ end
               <td class="gradient"></td>
               <td><%= @filterResult[0][:full_first] %></td>
               <td><%= @filterResult[0][:full_second] %></td>
-              <td><%= @filterResult[0][:full_first] - @filterResult[0][:full_second] %></td>
+              <td><%= (@filterResult[0][:full_first] - @filterResult[0][:full_second]).round(2) %></td>
               <td><%= @filterResult[0][:firsthalf_first] %></td>
               <td><%= @filterResult[0][:firsthalf_second] %></td>
-              <td><%= @filterResult[0][:firsthalf_first] - @filterResult[0][:firsthalf_second] %></td>
+              <td><%= (@filterResult[0][:firsthalf_first] - @filterResult[0][:firsthalf_second]).round(2) %></td>
               <td><%= @filterResult[0][:secondhalf_first] %></td>
               <td><%= @filterResult[0][:secondhalf_second] %></td>
-              <td><%= @filterResult[0][:secondhalf_first] - @filterResult[0][:secondhalf_second] %></td>
+              <td><%= (@filterResult[0][:secondhalf_first] - @filterResult[0][:secondhalf_second]).round(2) %></td>
             </tr>
             <tr>
               <td><%= @filterResult[1][:count] %></td>
