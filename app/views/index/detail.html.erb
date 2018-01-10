@@ -2429,6 +2429,7 @@ end
                 <td class="line">FG LINE</td>
                 <td></td>
                 <td colspan="4" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE</td>
+                <td></td>
             </tr>
             <tr>
                 <td></td>
@@ -2445,6 +2446,7 @@ end
                 <td class="gameDate"><%= @game.second_closer_total %></td>
                 <td class="gameDate"><%= @game.full_closer_total %></td>
                 <td></td>
+                <td></td>
             </tr>
             <tr>
                 <td class="gameDate">RIVALS</td>
@@ -2458,6 +2460,7 @@ end
                 <td></td>
                 <td>next Y/N</td>
                 <td>last Y/N</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -2482,7 +2485,7 @@ end
                 <td>2ND<br>HALF</td>
                 <td>FULL<br>GAME</td>
                 <td>GAMES</td>
-                <td colspan="4" rowspan="5" class="gray halfstats">HALFTIME <br> SCORE</td>
+                <td colspan="5" rowspan="5" class="gray halfstats">HALFTIME <br> SCORE</td>
             </tr>
             <tr>
                 <td>RIVALS</td>
@@ -2622,13 +2625,18 @@ end
                     <td><%= @filterResult[index][:second] %></td>
                     <td><%= @filterResult[index][:full] %></td>
                     <td><%= @filterResult[index][:count] %></td>
-                    <% if index == 0 || index == 2 %>
+                    <% if index == 0 %>
                       <td colspan="2"></td>
                       <td colspan="2"></td>
+                      <td colspan="1" rowspan="3"></td>
                     <% elsif index == 1 %>
                       <td colspan="2"><%= @game.away_team %></td>
                       <td colspan="2"><%= @game.home_team %></td>
+                    <% if index == 2 %>
+                      <td colspan="2"></td>
+                      <td colspan="2"></td>
                     <% elsif index == 3 %>
+                      <td class="gradient"></td>
                       <td class="gradient"></td>
                       <td class="gradient"></td>
                       <td class="gradient"></td>
@@ -2644,8 +2652,16 @@ end
                             <%= @game.home_first_quarter + @game.home_second_quarter %>
                           <% end %>
                         </td>
+                        <td rowspan="3">
+                        </td>
                     <% elsif index == 7 %>
-                        <td colspan="4" rowspan="19" class="gray"></td>
+                        <td colspan="4" rowspan="10" class="gray"></td>
+                    <% elsif index == 15 %>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                     <% end %>
                 </tr>
                 <% if @break.include?(index) %>
@@ -2667,6 +2683,23 @@ end
                     <td></td>
                     <td></td>
                     <td></td>
+                    <% if index == 9 %>
+                    <td></td>
+                    <% elsif index == 15 %>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <% elsif index == 16 %>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <% end %>
                 </tr>
                 <% end %>
             <% end %>
