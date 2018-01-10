@@ -965,7 +965,7 @@ class IndexController < ApplicationController
 		]
 		@break = [9, 15, 16]
 		@filterResult = []
-		@filters.each do |filter|
+		@filters.each_with_index do |filter, index|
 			search_string = []
 			if filter[0]
 				search_string.push("awaylastfly = '#{@game.away_last_fly}'")
@@ -1007,6 +1007,12 @@ class IndexController < ApplicationController
 				full: filter_element.average(:totalpoint).to_f.round(2),
 				count: filter_element.count(:totalpoint).to_i
 			}
+			if index < 2 || index > 13
+				result_element[:full_first] = filter_element.average(:roadtotal).to_f.round(2)
+				result_element[:full_second] = filter_element.average(:hometotal).to_f.round(2)
+				result_element[:firsthalf_first] = filter_element.average(:roadfirsthalf).to_f.round(2)
+				result_element[:firsthalf_second] = filter_element.average(:homefirsthalf).to_f.round(2)
+			end
 			@home_team_info = Team.find_by(abbr: @home_abbr)
 	    	@away_team_info = Team.find_by(abbr: @away_abbr)
 			@filterResult.push(result_element)
@@ -1074,28 +1080,6 @@ class IndexController < ApplicationController
 		else
 			@diff = 0
 		end
-		lastfirstItem = Fullseason.where(homediff: @diff-5..@diff+5)
-		lastsecondItem = Fullseason.where("homefirsthalf > 60")
-		lastthirdItem = Fullseason.where("roadfirsthalf > 60")
-		@lastfirstItem_result = {
-			first: lastfirstItem.average(:firstpoint).to_f.round(2),
-			second: lastfirstItem.average(:secondpoint).to_f.round(2),
-			full: lastfirstItem.average(:totalpoint).to_f.round(2),
-			count: lastfirstItem.count(:totalpoint).to_i
-		}
-		@lastsecondItem_result = {
-			first: lastsecondItem.average(:firstpoint).to_f.round(2),
-			second: lastsecondItem.average(:secondpoint).to_f.round(2),
-			full: lastsecondItem.average(:totalpoint).to_f.round(2),
-			count: lastsecondItem.count(:totalpoint).to_i
-		}
-		@lastthirdItem_result = {
-			first: lastthirdItem.average(:firstpoint).to_f.round(2),
-			second: lastthirdItem.average(:secondpoint).to_f.round(2),
-			full: lastthirdItem.average(:totalpoint).to_f.round(2),
-			count: lastthirdItem.count(:totalpoint).to_i
-		}
-
 		@countItem = Count.where("lastroad like ? AND nextroad like ? AND nexthome like ? AND lasthome like ?", "%#{@game.away_last_game}%", "%#{@game.away_next_game}%", "%#{@game.home_next_game}%", "%#{@game.home_last_game}%").first
 		@home_injuries = Injury.where("team = ?", @game.home_team)
 		@away_injuries = Injury.where("team = ?", @game.away_team)
