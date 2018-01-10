@@ -117,7 +117,7 @@ th, .green {
 }
 
 .purple {
-    background: mediumpurple;
+    background: rgb(84, 20, 105);
 }
 
 .gray {
@@ -176,16 +176,16 @@ th, .green {
     .redgradient {
         background: linear-gradient(#f12, #a01);
     }
-    
-    .filter {
-        background-color: rgb(255, 89, 95) !important;
-    }
     .halfstats
     {
         font-size: 25px;
         font-family: fantasy;
         padding: 20px 40px;
     }
+}
+    
+.filter {
+    background-color: rgb(255, 89, 95) !important;
 }
 
 .numbers {
@@ -201,7 +201,7 @@ th, .green {
     }
     tr:nth-child(n+2) {
         td:nth-child(8),td:nth-child(15),td:nth-child(20) {
-            background: mediumpurple;
+            background: rgb(84, 20, 105);
        }
     }
     td, th {

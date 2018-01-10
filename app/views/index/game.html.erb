@@ -338,10 +338,27 @@
       <td class="filter">X</td>
       <td class="filter">X</td>
       <td class="skygreen"></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <%
+        search_string = []
+        search_string.push("awaylastfly = '#{game.away_last_fly}'")
+        search_string.push("awaynextfly = '#{game.away_next_fly}'")
+        search_string.push("roadlast = '#{game.away_last_game}'")
+        search_string.push("roadnext = '#{game.away_next_game}'")
+        search_string.push("homenext = '#{game.home_next_game}'")
+        search_string.push("homelast = '#{game.home_last_game}'")
+        search_string.push("homenextfly = '#{game.home_next_fly}'")
+        search_string.push("homelastfly = '#{game.home_last_fly}'")
+        search_string = search_string.join(" AND ")
+        filter_element = Fullseason.where(search_string)
+        result_element_first = filter_element.average(:firstpoint).to_f.round(2),
+        result_element_second = filter_element.average(:secondpoint).to_f.round(2),
+        result_element_full = filter_element.average(:totalpoint).to_f.round(2),
+        result_element_count = filter_element.count(:totalpoint).to_i
+      %>
+      <td><%= result_element_first %></td>
+      <td><%= result_element_second %></td>
+      <td><%= result_element_full %></td>
+      <td><%= result_element_count %></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
