@@ -350,9 +350,9 @@
         search_string.push("homelastfly = '#{game.home_last_fly}'")
         search_string = search_string.join(" AND ")
         filter_element = Fullseason.where(search_string)
-        result_element_first = filter_element.average(:firstpoint).to_f.round(2),
-        result_element_second = filter_element.average(:secondpoint).to_f.round(2),
-        result_element_full = filter_element.average(:totalpoint).to_f.round(2),
+        result_element_first = filter_element.average(:firstpoint).to_f.round(2)
+        result_element_second = filter_element.average(:secondpoint).to_f.round(2)
+        result_element_full = filter_element.average(:totalpoint).to_f.round(2)
         result_element_count = filter_element.count(:totalpoint).to_i
       %>
       <td><%= result_element_first %></td>
