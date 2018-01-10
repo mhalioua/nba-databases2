@@ -42,8 +42,6 @@
         <th class="skyblue" style="border-right: 5px solid #666;"></th>
         <th colspan="4"></th>
         <th class="black"></th>
-        <th colspan="4"></th>
-        <th class="black"></th>
         <th></th>
         <th class="black"></th>
         <th colspan="4"></th>
@@ -91,8 +89,6 @@
         <th class="gray">PPG + OPP PPG</th>
         <th class="gray"></th>
         <th class="skyblue" style="border-right: 5px solid #666;"></th>
-        <th class="red" colspan="4"></th>
-        <th class="black"></th>
         <th class="red" colspan="4">FULL GAME</th>
         <th class="black"></th>
         <th class="red"></th>
@@ -165,11 +161,6 @@
       <td class="skyblue" style="border-right: 5px solid #666;"></td>
       
      
-        <td><%= @countItem ? @countItem.lastroad : "" %></td>
-        <td><%= @countItem ? @countItem.nextroad : "" %></td>
-        <td><%= @countItem ? @countItem.nexthome : "" %></td>
-        <td><%= @countItem ? @countItem.lasthome : "" %></td>
-        <td rowspan="3" class="black"></td>
         <td><%= @countItem ? @countItem.road : "" %></td>
         <td><%= @countItem ? @countItem.home : "" %></td>
         <td class="purple"><%= @countItem ? (@countItem.home + @countItem.road).round(2) : "" %></td>
@@ -241,10 +232,6 @@
       <td class="skyblue" style="border-right: 5px solid #666;"></td>
 
       
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">ALL</td>
-      <td style="background: #fa0">ALL</td>
       <td style="background: #fa0">97</td>
       <td style="background: #fa0">100.12</td>
       <td class="purple">197.12</td>
@@ -314,10 +301,6 @@
       <td class="green"></td>
       <td class="skyblue" style="border-right: 5px solid #666;"></td>
       <% if game.home_next_fly == "NO" && game.home_last_fly == "YES" %>
-          <td class="gray"></td>
-          <td class="gray">NO</td>
-          <td class="gray">YES</td>
-          <td class="gray"></td>
           <td class="gray">96.75</td>
           <td class="gray">99.83</td>
           <td class="purple">196.58</td>
@@ -332,10 +315,6 @@
           <td class="purple">98.24</td>
           <td class="gray">-1.2</td>
       <% elsif game.home_next_fly == "YES" && game.home_last_fly == "NO" %>
-          <td class="gray"></td>
-          <td class="gray">YES</td>
-          <td class="gray">NO</td>
-          <td class="gray"></td>
           <td class="gray">97.14</td>
           <td class="gray">100.15</td>
           <td class="purple">197.29</td>
@@ -350,10 +329,6 @@
           <td class="purple">98.36</td>
           <td class="gray">-1.18</td>
       <% elsif game.home_next_fly == "YES" && game.home_last_fly == "YES" %>
-          <td class="gray"></td>
-          <td class="gray">YES</td>
-          <td class="gray">YES</td>
-          <td class="gray"></td>
           <td class="gray">96.76</td>
           <td class="gray">99.65</td>
           <td class="purple">196.41</td>
@@ -368,10 +343,6 @@
           <td class="purple">97.91</td>
           <td class="gray">-1.27</td>
       <% elsif game.home_next_fly == "NO" && game.home_last_fly == "NO" %>
-          <td class="gray"></td>
-          <td class="gray">NO</td>
-          <td class="gray">NO</td>
-          <td class="gray"></td>
           <td class="gray">97.3</td>
           <td class="gray">100.85</td>
           <td class="purple">197.88</td>
