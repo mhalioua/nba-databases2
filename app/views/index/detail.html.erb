@@ -2703,140 +2703,165 @@ end
                 <% end %>
             <% end %>
             <tr class="redgradient">
-                <td>2ND HALF STATS</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td class="gameDate"><%= @game.away_abbr %></td>
-                <td class="gameDate">
-                  <% if @game.away_first_quarter && @game.away_second_quarter %>
-                    <%= @game.away_first_quarter + @game.away_second_quarter %>
-                  <% end %>
-                </td>
-                <td class="gameDate"><%= @game.home_abbr %></td>
-                <td class="gameDate">
-                  <% if @game.home_first_quarter && @game.home_second_quarter %>
-                    <%= @game.home_first_quarter + @game.home_second_quarter %>
-                  <% end %>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <td class="yellow">GAMES</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td colspan="3">Full Game</td>
+              <td colspan="3" class="yellow">1st Half</td>
+              <td colspan="3">2nd Half</td>
             </tr>
             <tr>
-                <td class="gray">WHEN HOME TEAM</td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td colspan="4">IS LEADING BY <%= @diff %> (+/- 5)</td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td><%= @lastfirstItem_result[:first] %></td>
-                <td><%= @lastfirstItem_result[:second] %></td>
-                <td><%= @lastfirstItem_result[:full] %></td>
-                <td><%= @lastfirstItem_result[:count] %></td>
+              <td>20974</td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
-                <td class="gray">WHEN HOME TEAM</td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td colspan="4">SCORES MORE THAN 60</td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td><%= @lastsecondItem_result[:first] %></td>
-                <td><%= @lastsecondItem_result[:second] %></td>
-                <td><%= @lastsecondItem_result[:full] %></td>
-                <td><%= @lastsecondItem_result[:count] %></td>
+              <td><%= @filterResult[1][:count] %></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[1][:first] %></td>
+              <td><%= @filterResult[1][:second] %></td>
+              <td><%= @filterResult[1][:full] %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
-                <td class="gray">WHEN ROAD TEAM</td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td colspan="4">SCORES MORE THAN 60</td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td><%= @lastthirdItem_result[:first] %></td>
-                <td><%= @lastthirdItem_result[:second] %></td>
-                <td><%= @lastthirdItem_result[:full] %></td>
-                <td><%= @lastthirdItem_result[:count] %></td>
+              <td><%= @filterResult[16][:count] %></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[16][:first] %></td>
+              <td><%= @filterResult[16][:second] %></td>
+              <td><%= @filterResult[16][:full] %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
-                <td class="gray"></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <td><%= @filterResult[14][:count] %></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[14][:first] %></td>
+              <td><%= @filterResult[14][:second] %></td>
+              <td><%= @filterResult[14][:full] %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
-                <td class="gray"></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <td><%= @filterResult[15][:count] %></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[15][:first] %></td>
+              <td><%= @filterResult[15][:second] %></td>
+              <td><%= @filterResult[15][:full] %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr class="redgradient">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr class="gradient">
                 <td></td>
