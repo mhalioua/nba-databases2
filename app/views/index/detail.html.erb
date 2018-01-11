@@ -2015,7 +2015,7 @@ end
         <td><%= (compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)).round(3) %></td>
         <td rowspan="2"><%= (compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb) + compare.head_away_player_pts/(compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)).round(3) %></td>
         <%
-          headValue = compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)
+          headValue = compare.head_home_player_pts / (compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)
           secondValue = 0
           if compare.second_home_player_age
             secondValue = compare.second_home_player_pts / (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)
