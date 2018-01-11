@@ -2032,10 +2032,10 @@ end
               count = count + 1
             end
             first_home_player_pts = (compare.first_home_player_pts.to_f + compare.third_home_player_pts.to_f + compare.forth_home_player_pts.to_f)/count
-            first_home_player_fga = (compare.first_home_player_fga.to_f + compare.third_home_player_fga.to_f + compare.forth_home_player_fga.to_f)/3
-            first_home_player_tov = (compare.first_home_player_tov.to_f + compare.third_home_player_tov.to_f + compare.forth_home_player_tov.to_f)/3
-            first_home_player_fta = (compare.first_home_player_fta.to_f + compare.third_home_player_fta.to_f + compare.forth_home_player_fta.to_f)/3
-            first_home_player_orb = (compare.first_home_player_orb.to_f + compare.third_home_player_orb.to_f + compare.forth_home_player_orb.to_f)/3
+            first_home_player_fga = (compare.first_home_player_fga.to_f + compare.third_home_player_fga.to_f + compare.forth_home_player_fga.to_f)/count
+            first_home_player_tov = (compare.first_home_player_tov.to_f + compare.third_home_player_tov.to_f + compare.forth_home_player_tov.to_f)/count
+            first_home_player_fta = (compare.first_home_player_fta.to_f + compare.third_home_player_fta.to_f + compare.forth_home_player_fta.to_f)/count
+            first_home_player_orb = (compare.first_home_player_orb.to_f + compare.third_home_player_orb.to_f + compare.forth_home_player_orb.to_f)/count
             firstValue = first_home_player_pts / (first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb)
             compare_value = headValue - (firstValue + secondValue) / 2
           else
