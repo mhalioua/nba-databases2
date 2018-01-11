@@ -2042,7 +2042,7 @@ end
             compare_value = headValue - secondValue
           end
         %>
-        <td><%= compare_value.round(3) %></td>
+        <td><%= headValue.to_s + '- (' + firstValue.to_s + " + " + secondValue.to_s + ") / 2" + compare_value.round(3).to_s %></td>
       </tr>
       <tr>
         <td><%= compare.head_away_player_name %></td>
