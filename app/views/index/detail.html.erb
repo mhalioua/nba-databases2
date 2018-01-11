@@ -2015,32 +2015,32 @@ end
         <td><%= (compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)).round(3) %></td>
         <td rowspan="2"><%= (compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb) + compare.head_away_player_pts/(compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)).round(3) %></td>
         <%
-          headValue = compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)
+          headValue = compare.head_home_player_pts / (compare.head_home_player_fga + compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)
           secondValue = 0
           if compare.second_home_player_age
             secondValue = compare.second_home_player_pts / (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)
           end
-          if compare.forth_home_player_age || compare.third_home_player_age || compare.first_home_player_age
-            count = 0
-            if compare.forth_home_player_age
-              count = count + 1
+            if compare.forth_home_player_age || compare.third_home_player_age || compare.first_home_player_age
+              count = 0
+              if compare.forth_home_player_age
+                count = count + 1
+              end
+              if compare.third_home_player_age
+                count = count + 1
+              end
+              if compare.first_home_player_age
+                count = count + 1
+              end
+              first_home_player_pts = (compare.first_home_player_pts.to_f + compare.third_home_player_pts.to_f + compare.forth_home_player_pts.to_f)/count
+              first_home_player_fga = (compare.first_home_player_fga.to_f + compare.third_home_player_fga.to_f + compare.forth_home_player_fga.to_f)/count
+              first_home_player_tov = (compare.first_home_player_tov.to_f + compare.third_home_player_tov.to_f + compare.forth_home_player_tov.to_f)/count
+              first_home_player_fta = (compare.first_home_player_fta.to_f + compare.third_home_player_fta.to_f + compare.forth_home_player_fta.to_f)/count
+              first_home_player_orb = (compare.first_home_player_orb.to_f + compare.third_home_player_orb.to_f + compare.forth_home_player_orb.to_f)/count
+              firstValue = first_home_player_pts / (first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb)
+              compare_value = headValue - (firstValue + secondValue) / 2
+            else
+              compare_value = headValue - secondValue
             end
-            if compare.third_home_player_age
-              count = count + 1
-            end
-            if compare.first_home_player_age
-              count = count + 1
-            end
-            first_home_player_pts = (compare.first_home_player_pts.to_f + compare.third_home_player_pts.to_f + compare.forth_home_player_pts.to_f)/count
-            first_home_player_fga = (compare.first_home_player_fga.to_f + compare.third_home_player_fga.to_f + compare.forth_home_player_fga.to_f)/3
-            first_home_player_tov = (compare.first_home_player_tov.to_f + compare.third_home_player_tov.to_f + compare.forth_home_player_tov.to_f)/3
-            first_home_player_fta = (compare.first_home_player_fta.to_f + compare.third_home_player_fta.to_f + compare.forth_home_player_fta.to_f)/3
-            first_home_player_orb = (compare.first_home_player_orb.to_f + compare.third_home_player_orb.to_f + compare.forth_home_player_orb.to_f)/3
-            firstValue = first_home_player_pts / (first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb)
-            compare_value = headValue - (firstValue + secondValue) / 2
-          else
-            compare_value = headValue - secondValue
-          end
         %>
         <td><%= compare_value.round(3) %></td>
       </tr>
