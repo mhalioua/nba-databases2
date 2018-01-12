@@ -1078,11 +1078,6 @@ class IndexController < ApplicationController
 			full: thirdItem.average(:totalpoint).to_f.round(2),
 			count: thirdItem.count(:totalpoint).to_i
 		}
-		if @game.home_first_quarter && @game.home_second_quarter && @game.away_first_quarter && @game.away_second_quarter
-			@diff = @game.home_first_quarter + @game.home_second_quarter - @game.away_first_quarter - @game.away_second_quarter
-		else
-			@diff = 0
-		end
 		@countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", @game.away_last_fly, @game.away_next_fly, @game.away_last_game, @game.away_next_game, @game.home_next_game, @game.home_last_game, @game.home_next_fly, @game.home_last_fly)
 		@home_injuries = Injury.where("team = ?", @game.home_team)
 		@away_injuries = Injury.where("team = ?", @game.away_team)

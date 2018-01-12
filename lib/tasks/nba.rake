@@ -100,13 +100,13 @@ namespace :nba do
 	task :fix => :environment do
 		include Api
        index = {
-               team: 3,
-               current: 5,
-               last_three: 7,
-               last_one: 9,
-               home: 11,
-               away: 13,
-               last: 15
+         team: 3,
+         current: 5,
+         last_three: 7,
+         last_one: 9,
+         home: 11,
+         away: 13,
+         last: 15
        }
 
        url = "https://www.teamrankings.com/nba/stat/offensive-rebounds-per-game"
@@ -1796,8 +1796,8 @@ namespace :nba do
 		require 'csv'
 
 		items = []
-		CSV.foreach(Rails.root.join('123.csv'), headers: true) do |row|
-			Count.create(row.to_h)
+		CSV.foreach(Rails.root.join('fullseason.csv'), headers: true) do |row|
+			Fullseason.create(row.to_h)
 		end
 	end
 
