@@ -8,7 +8,44 @@
 <div class="dateselect" style="text-align: center;">
   <button class="btn btn-primary prevbutton" style="margin:10px; padding: 5px 20px;">Prev Day</button>
   <button class="btn btn-primary nextbutton" style="margin:10px; padding: 5px 20px;">Next Day</button>
+  <input type="text" data-toggle="daterangepicker" name="timestamp" data-filter-type="date-range" style="width: 400px; text-align:center; margin: 20px;" class="daterange">
 </div>
+<script type="text/javascript">
+  var start = moment("<%= @game_start_index %>").format('MMM DD, YYYY');
+  var end = moment("<%= @game_end_index %>").format('MMM DD, YYYY') ;
+  $('.daterange').daterangepicker({
+    showDropdowns: true,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Next 7 Days': [moment(), moment().add(6, 'days')],
+           'This Week': [moment().startOf('week'), moment().endOf('week')],
+           'Last Week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')]
+        },
+        locale: {
+      format: 'MMM DD, YYYY'
+    },
+        startDate: start,
+        endDate: end,
+    }, cb);
+    function cb(start, end) {
+      window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+    }
+    $('.prevbutton').click(function(){
+        var start = moment("<%= @game_start_index %>").subtract(1, 'days');
+    var end = moment("<%= @game_end_index %>").subtract(1, 'days');
+    $('.daterange').val(start.format('MMM DD, YYYY') + ' - ' + end.format('MMM DD, YYYY'));
+        window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+    }); 
+    $('.nextbutton').click(function(){
+        var start = moment("<%= @game_start_index %>").add(1, 'days');
+    var end = moment("<%= @game_end_index %>").add(1, 'days');
+    $('.daterange').val(start.format('MMM DD, YYYY') + ' - ' + end.format('MMM DD, YYYY'));
+        window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+    });
+</script>
+
 <table border="1">
   	<thead>
   		<tr>
@@ -446,15 +483,6 @@
     <% end %>
   	</tbody>
 </table>
-
-<script type="text/javascript">
-    $('.prevbutton').click(function(){
-      window.location.href = "/index/game/" + <%= @prev %>;
-    }); 
-    $('.nextbutton').click(function(){
-      window.location.href = "/index/game/" + <%= @next %>;
-    });
-</script>
 
 <div style="
     position: absolute;
