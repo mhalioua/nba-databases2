@@ -208,6 +208,7 @@ namespace :nba do
         doc = download_document(url)
         teams = doc.css("abbr")
         elements = doc.css("table tbody tr")
+        puts elements.size
         elements.each_with_index do |slice, index|
                    team_abbr  =       teams[index].text
                    w          =       slice.children[0].text
