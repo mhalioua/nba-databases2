@@ -8,14 +8,15 @@ class IndexController < ApplicationController
 
 	def game
 	  	unless params[:id]
-	  	  	params[:id] = Time.now.strftime("%Y%m%d")
+	  	  	params[:id] = Time.now.strftime("%Y-%m-%d") + " - " + Time.now.strftime("%Y-%m-%d")
 	  	end
 		@game_index = params[:id]
+	  	@game_start_index = @game_index[0..9]
+	  	@game_end_index = @game_index[13..23]
 
   		@head = Date.strptime(@game_index, '%Y%m%d').strftime("%B %e")
-  		@prev = (Date.strptime(@game_index, '%Y%m%d') - 1.days).strftime("%Y%m%d")
-  		@next = (Date.strptime(@game_index, '%Y%m%d') + 1.days).strftime("%Y%m%d")
-		@games = Nba.where("game_date between ? and ?", Date.strptime(@game_index, '%Y%m%d').beginning_of_day, Date.strptime(@game_index, '%Y%m%d').end_of_day)
+
+	  	@games = Nba.where("game_date between ? and ?", Date.strptime(@game_start_index).beginning_of_day, Date.strptime(@game_end_index).end_of_day)
 	  				.order("game_date", "home_number")
 	end
 
