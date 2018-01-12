@@ -14,7 +14,7 @@ class IndexController < ApplicationController
 	  	@game_start_index = @game_index[0..9]
 	  	@game_end_index = @game_index[13..23]
 
-  		@head = Date.strptime(@game_start_index, '%Y%m%d').strftime("%B %e")
+  		@head = Date.strptime(@game_start_index, '%Y-%m-%d').strftime("%B %e")
 
 	  	@games = Nba.where("game_date between ? and ?", Date.strptime(@game_start_index).beginning_of_day, Date.strptime(@game_end_index).end_of_day)
 	  				.order("game_date", "home_number")
