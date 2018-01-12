@@ -207,7 +207,7 @@ namespace :nba do
         url = "http://www.espn.com/nba/standings/_/group/league"
         doc = download_document(url)
         teams = doc.css("abbr")
-        elements = doc.css("table tbody tr")
+        elements = doc.css("tr")
         puts elements.size
         elements.each_with_index do |slice, index|
                    team_abbr  =       teams[index].text
