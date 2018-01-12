@@ -320,14 +320,10 @@ namespace :nba do
 	  		end
 	  		href = slice.children[index[:result]].child['href']
 	  		game_id = href[-9..-1]
-	  		if game_id == '400489736'
-	  			next
-	  		end
 	  		unless game = Nba.find_by(game_id: game_id)
-              	game = Nba.create(game_id: game_id)
-            end
-           
-            if slice.children[index[:home_team]].children[0].children.size == 2
+        	game = Nba.create(game_id: game_id)
+        end
+        if slice.children[index[:home_team]].children[0].children.size == 2
 	  			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
 	  			home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
 	  		elsif slice.children[index[:home_team]].children[0].children.size == 3
@@ -350,7 +346,7 @@ namespace :nba do
   			end
         	result = slice.children[index[:result]].text
 
-        	if home_team == "Los Angeles" ||  home_team == "LA"
+        if home_team == "Los Angeles" ||  home_team == "LA"
 		      home_team = home_abbr
 		    end
 		    if away_team == "Los Angeles" ||  away_team == "LA"
@@ -359,41 +355,42 @@ namespace :nba do
 
 	  		url = "http://www.espn.com/nba/game?gameId=#{game_id}"
 	  		doc = download_document(url)
-			puts url
+        puts url
 	  		element = doc.css(".game-date-time").first
 	  		game_date = element.children[1]['data-date']
 	  		date = DateTime.parse(game_date).in_time_zone
 
 	  		url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
 	  		doc = download_document(url)
-			puts url
+        puts url
 	  		element = doc.css(".highlight")
 	  		if element.size > 3
 		  		away_value = element[0]
 		  		home_value = element[2]
 
 		  		away_mins_value = away_value.children[1].text.to_i
-				away_fga_value = away_value.children[2].text
-				away_fga_index = away_fga_value.index('-')
-				away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
-				away_to_value = away_value.children[11].text.to_i
-				away_fta_value = away_value.children[4].text
-				away_fta_index = away_fta_value.index('-')
-				away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
-				away_or_value = away_value.children[5].text.to_i
-				away_poss = away_fga_value + away_to_value + (away_fta_value / 2) - away_or_value
+  				away_fga_value = away_value.children[2].text
+  				away_fga_index = away_fga_value.index('-')
+  				away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
+  				away_to_value = away_value.children[11].text.to_i
+  				away_fta_value = away_value.children[4].text
+  				away_fta_index = away_fta_value.index('-')
+  				away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
+  				away_or_value = away_value.children[5].text.to_i
+  				away_poss = away_fga_value + away_to_value + (away_fta_value / 2) - away_or_value
 
-				home_mins_value = home_value.children[1].text.to_i
-				home_fga_value = home_value.children[2].text
-				home_fga_index = home_fga_value.index('-')
-				home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
-				home_to_value = home_value.children[11].text.to_i
-				home_fta_value = home_value.children[4].text
-				home_fta_index = home_fta_value.index('-')
-				home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
-				home_or_value = home_value.children[5].text.to_i
-				home_poss = home_fga_value + home_to_value + (home_fta_value / 2) - home_or_value
-			end
+  				home_mins_value = home_value.children[1].text.to_i
+  				home_fga_value = home_value.children[2].text
+  				home_fga_index = home_fga_value.index('-')
+  				home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
+  				home_to_value = home_value.children[11].text.to_i
+  				home_fta_value = home_value.children[4].text
+  				home_fta_index = home_fta_value.index('-')
+  				home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
+  				home_or_value = home_value.children[5].text.to_i
+  				home_poss = home_fga_value + home_to_value + (home_fta_value / 2) - home_or_value
+			 end
+
       addingDate = date
       home_timezone = ''
       home_win_rank = 0
@@ -441,196 +438,13 @@ namespace :nba do
         away_ppg_rank = away_team_info.order_two_seventeen
         away_oppppg_rank = away_team_info.order_thr_seventeen
       end
-	  		game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
-	  	end
+	  	game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
+	  end
 	end
-
-  task :database => [:environment] do
-    include Api
-    games = Nba.where("date=''")
-    puts games.size
-    games.each do |game|
-      date = DateTime.parse(game.game_date).in_time_zone
-      home_team = game.home_team
-      away_team = game.away_team
-      home_timezone = ''
-      home_win_rank = 0
-      home_ppg_rank = 0
-      home_oppppg_rank = 0
-
-      away_timezone = ''
-      away_win_rank = 0
-      away_ppg_rank = 0
-      away_oppppg_rank = 0
-
-      addingDate = date
-
-      if @team_names[home_team]
-        compare_home_team = @team_names[home_team]
-        home_team_info = Team.find_by(team: compare_home_team)
-        if home_team_info.timezone == 2
-          addingDate = addingDate - 3.hours
-          home_timezone = "PACIFIC"
-        elsif home_team_info.timezone == 3
-          addingDate = addingDate - 1.hours
-          home_timezone = "CENTRAL"
-        elsif home_team_info.timezone == 4
-          addingDate = addingDate - 2.hours
-          home_timezone = "MOUNTAIN"
-        elsif home_team_info.timezone == 1
-          home_timezone = "EASTERN"
-        end
-        home_win_rank = home_team_info.order_one_seventeen
-        home_ppg_rank = home_team_info.order_two_seventeen
-        home_oppppg_rank = home_team_info.order_thr_seventeen
-        if date < Date.new(2003, 10, 1)
-          home_win_rank = home_team_info.order_one_two
-          home_ppg_rank = home_team_info.order_two_two
-          home_oppppg_rank = home_team_info.order_thr_two
-        elsif date < Date.new(2004, 10, 1)
-          home_win_rank = home_team_info.order_one_thr
-          home_ppg_rank = home_team_info.order_two_thr
-          home_oppppg_rank = home_team_info.order_thr_thr
-        elsif date < Date.new(2005, 10, 1)
-          home_win_rank = home_team_info.order_one_four
-          home_ppg_rank = home_team_info.order_two_four
-          home_oppppg_rank = home_team_info.order_thr_four
-        elsif date < Date.new(2006, 10, 1)
-          home_win_rank = home_team_info.order_one_five
-          home_ppg_rank = home_team_info.order_two_five
-          home_oppppg_rank = home_team_info.order_thr_five
-        elsif date < Date.new(2007, 10, 1)
-          home_win_rank = home_team_info.order_one_six
-          home_ppg_rank = home_team_info.order_two_six
-          home_oppppg_rank = home_team_info.order_thr_six
-        elsif date < Date.new(2008, 10, 1)
-          home_win_rank = home_team_info.order_one_seven
-          home_ppg_rank = home_team_info.order_two_seven
-          home_oppppg_rank = home_team_info.order_thr_seven
-        elsif date < Date.new(2009, 10, 1)
-          home_win_rank = home_team_info.order_one_eight
-          home_ppg_rank = home_team_info.order_two_eight
-          home_oppppg_rank = home_team_info.order_thr_eight
-        elsif date < Date.new(2010, 10, 1)
-          home_win_rank = home_team_info.order_one_nine
-          home_ppg_rank = home_team_info.order_two_nine
-          home_oppppg_rank = home_team_info.order_thr_nine
-        elsif date < Date.new(2011, 10, 1)
-          home_win_rank = home_team_info.order_one_ten
-          home_ppg_rank = home_team_info.order_two_ten
-          home_oppppg_rank = home_team_info.order_thr_ten
-        elsif date < Date.new(2012, 10, 1)
-          home_win_rank = home_team_info.order_one_eleven
-          home_ppg_rank = home_team_info.order_two_eleven
-          home_oppppg_rank = home_team_info.order_thr_eleven
-        elsif date < Date.new(2013, 10, 1)
-          home_win_rank = home_team_info.order_one_twelve
-          home_ppg_rank = home_team_info.order_two_twelve
-          home_oppppg_rank = home_team_info.order_thr_twelve
-        elsif date < Date.new(2014, 10, 1)
-          home_win_rank = home_team_info.order_one_thirteen
-          home_ppg_rank = home_team_info.order_two_thirteen
-          home_oppppg_rank = home_team_info.order_thr_thirteen
-        elsif date < Date.new(2015, 10, 1)
-          home_win_rank = home_team_info.order_one_forteen
-          home_ppg_rank = home_team_info.order_two_forteen
-          home_oppppg_rank = home_team_info.order_thr_forteen
-        elsif date < Date.new(2016, 10, 1)
-          home_win_rank = home_team_info.order_one_fifteen
-          home_ppg_rank = home_team_info.order_two_fifteen
-          home_oppppg_rank = home_team_info.order_thr_fifteen
-        elsif date < Date.new(2017, 10, 1)
-          home_win_rank = home_team_info.order_one_sixteen
-          home_ppg_rank = home_team_info.order_two_sixteen
-          home_oppppg_rank = home_team_info.order_thr_sixteen
-        end
-      end
-
-      if @team_names[away_team]
-        compare_away_team = @team_names[away_team]
-        away_team_info = Team.find_by(team: compare_away_team)
-        if away_team_info.timezone == 2
-          away_timezone = "PACIFIC"
-        elsif away_team_info.timezone == 3
-          away_timezone = "CENTRAL"
-        elsif away_team_info.timezone == 4
-          away_timezone = "MOUNTAIN"
-        elsif away_team_info.timezone == 1
-          away_timezone = "EASTERN"
-        end
-        away_win_rank = away_team_info.order_one_seventeen
-        away_ppg_rank = away_team_info.order_two_seventeen
-        away_oppppg_rank = away_team_info.order_thr_seventeen
-        if date < Date.new(2003, 10, 1)
-          away_win_rank = away_team_info.order_one_two
-          away_ppg_rank = away_team_info.order_two_two
-          away_oppppg_rank = away_team_info.order_thr_two
-        elsif date < Date.new(2004, 10, 1)
-          away_win_rank = away_team_info.order_one_thr
-          away_ppg_rank = away_team_info.order_two_thr
-          away_oppppg_rank = away_team_info.order_thr_thr
-        elsif date < Date.new(2005, 10, 1)
-          away_win_rank = away_team_info.order_one_four
-          away_ppg_rank = away_team_info.order_two_four
-          away_oppppg_rank = away_team_info.order_thr_four
-        elsif date < Date.new(2006, 10, 1)
-          away_win_rank = away_team_info.order_one_five
-          away_ppg_rank = away_team_info.order_two_five
-          away_oppppg_rank = away_team_info.order_thr_five
-        elsif date < Date.new(2007, 10, 1)
-          away_win_rank = away_team_info.order_one_six
-          away_ppg_rank = away_team_info.order_two_six
-          away_oppppg_rank = away_team_info.order_thr_six
-        elsif date < Date.new(2008, 10, 1)
-          away_win_rank = away_team_info.order_one_seven
-          away_ppg_rank = away_team_info.order_two_seven
-          away_oppppg_rank = away_team_info.order_thr_seven
-        elsif date < Date.new(2009, 10, 1)
-          away_win_rank = away_team_info.order_one_eight
-          away_ppg_rank = away_team_info.order_two_eight
-          away_oppppg_rank = away_team_info.order_thr_eight
-        elsif date < Date.new(2010, 10, 1)
-          away_win_rank = away_team_info.order_one_nine
-          away_ppg_rank = away_team_info.order_two_nine
-          away_oppppg_rank = away_team_info.order_thr_nine
-        elsif date < Date.new(2011, 10, 1)
-          away_win_rank = away_team_info.order_one_ten
-          away_ppg_rank = away_team_info.order_two_ten
-          away_oppppg_rank = away_team_info.order_thr_ten
-        elsif date < Date.new(2012, 10, 1)
-          away_win_rank = away_team_info.order_one_eleven
-          away_ppg_rank = away_team_info.order_two_eleven
-          away_oppppg_rank = away_team_info.order_thr_eleven
-        elsif date < Date.new(2013, 10, 1)
-          away_win_rank = away_team_info.order_one_twelve
-          away_ppg_rank = away_team_info.order_two_twelve
-          away_oppppg_rank = away_team_info.order_thr_twelve
-        elsif date < Date.new(2014, 10, 1)
-          away_win_rank = away_team_info.order_one_thirteen
-          away_ppg_rank = away_team_info.order_two_thirteen
-          away_oppppg_rank = away_team_info.order_thr_thirteen
-        elsif date < Date.new(2015, 10, 1)
-          away_win_rank = away_team_info.order_one_forteen
-          away_ppg_rank = away_team_info.order_two_forteen
-          away_oppppg_rank = away_team_info.order_thr_forteen
-        elsif date < Date.new(2016, 10, 1)
-          away_win_rank = away_team_info.order_one_fifteen
-          away_ppg_rank = away_team_info.order_two_fifteen
-          away_oppppg_rank = away_team_info.order_thr_fifteen
-        elsif date < Date.new(2017, 10, 1)
-          away_win_rank = away_team_info.order_one_sixteen
-          away_ppg_rank = away_team_info.order_two_sixteen
-          away_oppppg_rank = away_team_info.order_thr_sixteen
-        end
-      end
-      temp = addingDate.strftime("%b %e")
-      game.update(year: addingDate.strftime("%Y"), date: temp, time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
-    end
-  end
 
 	task :getHalf => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-5.hours)
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
@@ -817,100 +631,6 @@ namespace :nba do
 			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot, away_last_home: away_last_home,away_next_home: away_next_home )
 		end
 	end
-
-  task :linkclone => [:environment] do
-    include Api
-    puts "----------Get Link Games----------"
-
-    Time.zone = 'Eastern Time (US & Canada)'
-
-    games = Nba.where("away_next_home is null")
-    puts games.size
-    games.each do |game|
-      home_team = game.home_team
-      away_team = game.away_team
-      game_date = game.game_date
-      puts DateTime.parse(game_date).in_time_zone.to_date
-
-      away_last_game = ""
-      away_last_fly = ""
-      away_last_ot = ""
-      away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
-      if away_team_prev
-        away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
-        if away_team_prev.home_team == away_team
-          away_last_fly = "YES"
-        else
-          away_last_fly = "NO"
-        end
-        if away_team_prev.away_ot_quarter != nil &&  away_team_prev.home_ot_quarter != nil
-          if away_team_prev.away_ot_quarter > 0 || away_team_prev.home_ot_quarter > 0
-            away_last_ot = "YES"
-          else
-            away_last_ot = "NO"
-          end
-        end
-      end
-
-      away_next_game = ""
-      away_next_fly = ""
-      away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
-      if away_team_next
-        away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
-        if away_team_next.home_team == away_team
-          away_next_fly = "YES"
-        else
-          away_next_fly = "NO"
-        end
-      end
-
-      home_last_game = ""
-      home_last_fly = ""
-      home_last_ot = ""
-      home_team_prev = Nba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
-      if home_team_prev
-        home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
-        if home_team_prev.home_team == home_team
-          home_last_fly = "NO"
-        else
-          home_last_fly = "YES"
-        end
-        if home_team_prev.away_ot_quarter != nil && home_team_prev.home_ot_quarter != nil
-          if home_team_prev.away_ot_quarter > 0 || home_team_prev.home_ot_quarter > 0
-            home_last_ot = "YES"
-          else
-            home_last_ot = "NO"
-          end
-        end
-      end
-
-      home_next_game = ""
-      home_next_fly = ""
-      home_team_next = Nba.where("home_team = ? AND game_date > ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
-      if home_team_next
-        home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
-        if home_team_next.home_team == home_team
-          home_next_fly = "NO"
-        else
-          home_next_fly = "YES"
-        end
-      end
-      away_last_home = ""
-      away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).order(:game_date).last
-      if away_team_prev
-        away_last_home = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
-      end
-
-      away_next_home = ""
-      away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).order(:game_date).first
-      if away_team_next
-        away_next_home = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
-      end
-
-      game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot, away_last_home: away_last_home,away_next_home: away_next_home )
-    end
-  end
-
 
 	task :getFirstLines => [:environment] do
 		include Api
@@ -1118,11 +838,11 @@ namespace :nba do
 				end
 
 				if @nba_nicknames[home_name]
-			      home_name = @nba_nicknames[home_name]
-			    end
-			    if @nba_nicknames[away_name]
-			      away_name = @nba_nicknames[away_name]
-			    end
+		      home_name = @nba_nicknames[home_name]
+		    end
+		    if @nba_nicknames[away_name]
+		      away_name = @nba_nicknames[away_name]
+		    end
 				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
 				line_one = opener.index(" ")
@@ -1267,9 +987,9 @@ namespace :nba do
 					position = slice.children[0].children[1].text
 				end
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
-		           	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
-	            end
-	            player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
+         	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
+        end
+        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
 			end
 		end
 	end
@@ -1362,11 +1082,11 @@ namespace :nba do
 				if player.player_name == "TEAM"
 					next
 				end
-		        team_abbr = game.home_abbr
-		        if player.team_abbr == 0
-					team_abbr = game.away_abbr
+        team_abbr = game.home_abbr
+        if player.team_abbr == 0
+			   team_abbr = game.away_abbr
 				end
-		        if @team_nicknames[team_abbr]
+		    if @team_nicknames[team_abbr]
 					team_abbr = @team_nicknames[team_abbr]
 					
 					player_name = player.player_name
