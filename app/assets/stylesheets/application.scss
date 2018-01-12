@@ -159,8 +159,8 @@ th, .green {
         background: gray;
     }
 
-    td:nth-child(1) {
-        font-weight: 800;
+    td:nth-child(1) div {
+        width: 150px;
     }
 
     .filterElement {
