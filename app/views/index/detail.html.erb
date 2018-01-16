@@ -1822,7 +1822,7 @@ $('.homePossessions').on('input', function() {
                 <td>197.59</td>
                 <td>-3.07</td>
                 <td></td>
-                <td style="background: #fa0">20974</td>
+                <td style="background: #fa0">20904</td>
                 <td></td>
                 <td>48.62</td>
                 <td>50.47</td>
@@ -1835,21 +1835,21 @@ $('.homePossessions').on('input', function() {
                 <td>-1.2</td>
             </tr>
             <tr>
+              <td><%= @game.away_last_fly %></td>
+              <td><%= @game.away_next_fly %></td>
+              <td><%= @game.away_last_game %></td>
+              <td><%= @game.away_next_game %></td>
+              <td><%= @game.home_next_game %></td>
+              <td><%= @game.home_last_game %></td>
+              <td><%= @game.home_next_fly %></td>
+              <td><%= @game.home_last_fly %></td>
+              <td></td>
+              <td><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
+              <td><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
+              <td><%= @countItem ? @countItem.average(:fullvalue).to_f.round(2) : "" %></td>
               <td></td>
               <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td style="background: #fa0"></td>
+              <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalpoint).to_i : "" %></td>
               <td></td>
               <td></td>
               <td></td>
@@ -2668,7 +2668,7 @@ end
               <td colspan="3">2nd Half</td>
             </tr>
             <tr>
-              <td>20974</td>
+              <td>20904</td>
               <td class="gradient"></td>
               <td class="yellow"></td>
               <td class="yellow"></td>
