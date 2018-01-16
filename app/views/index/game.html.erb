@@ -232,7 +232,11 @@
       <td class="gray"><%= game.away_oppppg_rank %></td>
       <td class="gray"><%= game.away_win_rank %></td>
       <td class="green"><%= game.away_ppg_rank + (30 - game.away_oppppg_rank) %></td>
-      <td class="red"><%= @countItem ? (@countItem.average(:roadtotal).to_f - @countItem.average(:hometotal).to_f).round(2) : "" %></td>
+      <%
+        roadtotal = @countItem ? (@countItem.average(:roadfirsthalf).to_f + @countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f) : 0
+        hometotal = @countItem ? (@countItem.average(:homefirsthalf).to_f + @countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f) : 0
+      %>
+      <td class="red"><%= @countItem ? (roadtotal - hometotal).round(2) : "" %></td>
       <td class="skyblue" style="border-right: 5px solid #666;"></td>
 
       <td class="gray">Any</td>
@@ -281,10 +285,10 @@
 
       <td class="black"></td>
 
-      <td><%= @countItem ? @countItem.average(:roadtotal).to_f.round(2) : "" %></td>
-        <td><%= @countItem ? @countItem.average(:hometotal).to_f.round(2) : "" %></td>
-        <td class="purple"><%= @countItem ? (@countItem.average(:roadtotal).to_f + @countItem.average(:hometotal).to_f).round(2) : "" %></td>
-        <td><%= @countItem ? (@countItem.average(:roadtotal).to_f - @countItem.average(:hometotal).to_f).round(2) : "" %></td>
+      <td><%= @countItem ? roadtotal.round(2) : "" %></td>
+        <td><%= @countItem ? hometotal.round(2) : "" %></td>
+        <td class="purple"><%= @countItem ? (roadtotal + hometotal).round(2) : "" %></td>
+        <td><%= @countItem ? (roadtotal - hometotal).round(2) : "" %></td>
         <td rowspan="3" class="black"></td>
         <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalpoint).to_i : "" %></td>
         <td rowspan="3" class="black"></td>
@@ -320,7 +324,7 @@
       <td class="gray"><%= game.home_oppppg_rank %></td>
       <td class="gray"><%= game.home_win_rank %></td>
       <td class="green"><%= game.home_ppg_rank + (30 - game.home_oppppg_rank) %></td>
-      <td class="yellow"><%= @countItem ? (@countItem.average(:roadtotal).to_f + @countItem.average(:hometotal).to_f - 197.59).round(2) : "" %></td>
+      <td class="yellow"><%= @countItem ? (roadtotal + hometotal - 196.09).round(2) : "" %></td>
       <td class="skyblue" style="border-right: 5px solid #666;"></td>
 
       <td class="gray">
@@ -390,10 +394,10 @@
       
       <td class="black"></td>
 
-      <td style="background: #fa0">97.26</td>
-      <td style="background: #fa0">100.33</td>
-      <td class="purple">197.59</td>
-      <td style="background: #fa0">-3.07</td>
+      <td style="background: #fa0">96.52</td>
+      <td style="background: #fa0">99.57</td>
+      <td class="purple">196.09</td>
+      <td style="background: #fa0">-3.05</td>
       <td style="background: #fa0">20904</td>
       <td style="background: #fa0">48.62</td>
       <td style="background: #fa0">50.47</td>
@@ -465,18 +469,18 @@
       
       <td class="black"></td>
 
-      <td class="gray"><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
-      <td class="gray"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
+      <td class="gray"></td>
+      <td class="gray"></td>
       <td class="purple"><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
       <td class="gray"></td>
       <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalvalue).to_i : "" %></td>
       <td class="gray"></td>
       <td class="gray"></td>
-      <td class="purple"></td>
+      <td class="purple"><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
       <td class="gray"></td>
       <td class="gray"></td>
       <td class="gray"></td>
-      <td class="purple"></td>
+      <td class="purple"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
       <td class="gray"></td>
       <td class="gray" style="border-right: 5px solid #666;"></td>
     </tr>

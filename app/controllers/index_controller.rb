@@ -53,7 +53,7 @@ class IndexController < ApplicationController
 			@home_flag = 1
 		end
 
-		@date_id = Date.strptime(@game.game_date).strftime("%Y%m%d")
+		@date_id = Date.strptime(@game.game_date).strftime("%Y-%m-%d")
 
 		@away_players = @away_last.players.where("team_abbr = ?", @away_flag).order(:state)
 		@away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @away_flag)).order(:state)
