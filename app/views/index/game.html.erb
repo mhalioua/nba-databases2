@@ -465,11 +465,11 @@
       
       <td class="black"></td>
 
+      <td class="gray"><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
+      <td class="gray"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
+      <td class="purple"><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
       <td class="gray"></td>
-      <td class="gray"></td>
-      <td class="purple"></td>
-      <td class="gray"></td>
-      <td style="background: #fa0"></td>
+      <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalvalue).to_i : "" %></td>
       <td class="gray"></td>
       <td class="gray"></td>
       <td class="purple"></td>
