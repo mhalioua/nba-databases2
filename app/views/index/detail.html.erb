@@ -1846,10 +1846,10 @@ $('.homePossessions').on('input', function() {
               <td></td>
               <td><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
               <td><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
-              <td><%= @countItem ? @countItem.average(:fullvalue).to_f.round(2) : "" %></td>
+              <td><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
               <td></td>
               <td></td>
-              <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalpoint).to_i : "" %></td>
+              <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalvalue).to_i : "" %></td>
               <td></td>
               <td></td>
               <td></td>
