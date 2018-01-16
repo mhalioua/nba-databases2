@@ -2505,8 +2505,9 @@ end
               <td></td>
               <td></td>
             </tr>
-            <% 
-                @filters.each_with_index do |filter, index|
+            <%
+                [0..16].each do |index|
+                    filter = @filters[index]
                     first_one = []
                     filter.each do |element|
                         first_one.push(element ? element : "ANY")
@@ -2737,6 +2738,78 @@ end
               <td><%= @filterResult[16][:secondhalf_first] %></td>
               <td><%= @filterResult[16][:secondhalf_second] %></td>
               <td><%= (@filterResult[16][:secondhalf_first] - @filterResult[16][:secondhalf_second]).round(2) %></td>
+            </tr>
+            <tr>
+              <td><%= @filterResult[17][:count] %></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[17][:full_first] %></td>
+              <td><%= @filterResult[17][:full_second] %></td>
+              <td><%= (@filterResult[17][:full_first] - @filterResult[17][:full_second]).round(2) %></td>
+              <td><%= @filterResult[17][:firsthalf_first] %></td>
+              <td><%= @filterResult[17][:firsthalf_second] %></td>
+              <td><%= (@filterResult[17][:firsthalf_first] - @filterResult[17][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[17][:secondhalf_first] %></td>
+              <td><%= @filterResult[17][:secondhalf_second] %></td>
+              <td><%= (@filterResult[17][:secondhalf_first] - @filterResult[17][:secondhalf_second]).round(2) %></td>
+            </tr>
+            <tr>
+              <td><%= @filterResult[18][:count] %></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[18][:full_first] %></td>
+              <td><%= @filterResult[18][:full_second] %></td>
+              <td><%= (@filterResult[18][:full_first] - @filterResult[18][:full_second]).round(2) %></td>
+              <td><%= @filterResult[18][:firsthalf_first] %></td>
+              <td><%= @filterResult[18][:firsthalf_second] %></td>
+              <td><%= (@filterResult[18][:firsthalf_first] - @filterResult[18][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[18][:secondhalf_first] %></td>
+              <td><%= @filterResult[18][:secondhalf_second] %></td>
+              <td><%= (@filterResult[18][:secondhalf_first] - @filterResult[18][:secondhalf_second]).round(2) %></td>
+            </tr>
+            <tr>
+              <td><%= @filterResult[19][:count] %></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[19][:full_first] %></td>
+              <td><%= @filterResult[19][:full_second] %></td>
+              <td><%= (@filterResult[19][:full_first] - @filterResult[19][:full_second]).round(2) %></td>
+              <td><%= @filterResult[19][:firsthalf_first] %></td>
+              <td><%= @filterResult[19][:firsthalf_second] %></td>
+              <td><%= (@filterResult[19][:firsthalf_first] - @filterResult[19][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[19][:secondhalf_first] %></td>
+              <td><%= @filterResult[19][:secondhalf_second] %></td>
+              <td><%= (@filterResult[19][:secondhalf_first] - @filterResult[19][:secondhalf_second]).round(2) %></td>
             </tr>
             <tr>
               <td><%= @filterResult[14][:count] %></td>

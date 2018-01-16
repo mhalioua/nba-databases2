@@ -962,7 +962,10 @@ class IndexController < ApplicationController
 	    	[true, true, true, true, true, true, false, false],
 	    	[false, true, true, true, true, true, true, false],
 	    	[true, false, true, true, true, true, false, true],
-	    	[false, false, true, true, true, true, false, false]
+	    	[false, false, true, true, true, true, false, false],
+	    	[true, true, true, true, false, false, false, false],
+	    	[false, false, false, false, true, true, true, true],
+	    	[false, true, false, true, true, false, true, false]
 		]
 		@break = [9, 15, 16]
 		@filterResult = []
@@ -1003,10 +1006,10 @@ class IndexController < ApplicationController
 			search_string = search_string.join(" AND ")
 			filter_element = Fullseason.where(search_string)
 			result_element = {
-				first: filter_element.average(:firstpoint).to_f.round(2),
-				second: filter_element.average(:secondpoint).to_f.round(2),
-				full: filter_element.average(:totalpoint).to_f.round(2),
-				count: filter_element.count(:totalpoint).to_i
+				first: filter_element.average(:firstvalue).to_f.round(2),
+				second: filter_element.average(:secondvalue).to_f.round(2),
+				full: filter_element.average(:totalvalue).to_f.round(2),
+				count: filter_element.count(:totalvalue).to_i
 			}
 			if index < 2 || index > 13
 				result_element[:full_first] = filter_element.average(:roadtotal).to_f.round(2)
