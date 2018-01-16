@@ -1019,10 +1019,10 @@ class IndexController < ApplicationController
 				result_element[:secondhalf_first] = (filter_element.average(:roadthird).to_f + filter_element.average(:roadforth).to_f).round(2)
 				result_element[:secondhalf_second] = (filter_element.average(:homethird).to_f + filter_element.average(:homeforth).to_f).round(2)
 			end
-			@home_team_info = Team.find_by(abbr: @home_abbr)
-	    	@away_team_info = Team.find_by(abbr: @away_abbr)
 			@filterResult.push(result_element)
 		end
+		@home_team_info = Team.find_by(abbr: @home_abbr)
+    	@away_team_info = Team.find_by(abbr: @away_abbr)
 		@team_more = {
 			'Atlanta' => 'EAST',
 			'Boston' => 'EAST',
