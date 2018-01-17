@@ -974,34 +974,50 @@ class IndexController < ApplicationController
 			if filter[0]
 				search_string.push("awaylastfly = '#{@game.away_last_fly}'")
 				filter[0] = @game.away_last_fly[0]
+			else
+				search_string.push("awaylastfly <> '#{@game.away_last_fly}'")
 			end
 			if filter[1]
 				search_string.push("awaynextfly = '#{@game.away_next_fly}'")
 				filter[1] = @game.away_next_fly[0]
+			else
+				search_string.push("awaynextfly <> '#{@game.away_next_fly}'")
 			end
 			if filter[2]
 				search_string.push("roadlast = '#{@game.away_last_game}'")
 				filter[2] = @game.away_last_game
+			else
+				search_string.push("roadlast <> '#{@game.away_last_game}'")
 			end
 			if filter[3]
 				search_string.push("roadnext = '#{@game.away_next_game}'")
 				filter[3] = @game.away_next_game
+			else
+				search_string.push("roadnext <> '#{@game.away_next_game}'")
 			end
 			if filter[4]
 				search_string.push("homenext = '#{@game.home_next_game}'")
 				filter[4] = @game.home_next_game
+			else
+				search_string.push("homenext <> '#{@game.home_next_game}'")
 			end
 			if filter[5]
 				search_string.push("homelast = '#{@game.home_last_game}'")
 				filter[5] = @game.home_last_game
+			else
+				search_string.push("homelast <> '#{@game.home_last_game}'")
 			end
 			if filter[6]
 				search_string.push("homenextfly = '#{@game.home_next_fly}'")
 				filter[6] = @game.home_next_fly[0]
+			else
+				search_string.push("homenextfly <> '#{@game.home_next_fly}'")
 			end
 			if filter[7]
 				search_string.push("homelastfly = '#{@game.home_last_fly}'")
 				filter[7] = @game.home_last_fly[0]
+			else
+				search_string.push("homelastfly <> '#{@game.home_last_fly}'")
 			end
 			search_string = search_string.join(" AND ")
 			filter_element = Fullseason.where(search_string)
