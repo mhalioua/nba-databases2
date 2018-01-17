@@ -971,61 +971,76 @@ class IndexController < ApplicationController
 		@filterResult = []
 		@filters.each_with_index do |filter, index|
 			search_string = []
+			search_second_string = []
 			if filter[0]
 				search_string.push("awaylastfly = '#{@game.away_last_fly}'")
+				search_second_string.push("awaylastfly = '#{@game.away_last_fly}'")
 				filter[0] = @game.away_last_fly[0]
 			else
 				search_string.push("awaylastfly <> '#{@game.away_last_fly}'")
 			end
 			if filter[1]
 				search_string.push("awaynextfly = '#{@game.away_next_fly}'")
+				search_second_string.push("awaynextfly = '#{@game.away_next_fly}'")
 				filter[1] = @game.away_next_fly[0]
 			else
 				search_string.push("awaynextfly <> '#{@game.away_next_fly}'")
 			end
 			if filter[2]
 				search_string.push("roadlast = '#{@game.away_last_game}'")
+				search_second_string.push("roadlast = '#{@game.away_last_game}'")
 				filter[2] = @game.away_last_game
 			else
 				search_string.push("roadlast <> '#{@game.away_last_game}'")
 			end
 			if filter[3]
 				search_string.push("roadnext = '#{@game.away_next_game}'")
+				search_second_string.push("roadnext = '#{@game.away_next_game}'")
 				filter[3] = @game.away_next_game
 			else
 				search_string.push("roadnext <> '#{@game.away_next_game}'")
 			end
 			if filter[4]
 				search_string.push("homenext = '#{@game.home_next_game}'")
+				search_second_string.push("homenext = '#{@game.home_next_game}'")
 				filter[4] = @game.home_next_game
 			else
 				search_string.push("homenext <> '#{@game.home_next_game}'")
 			end
 			if filter[5]
 				search_string.push("homelast = '#{@game.home_last_game}'")
+				search_second_string.push("homelast = '#{@game.home_last_game}'")
 				filter[5] = @game.home_last_game
 			else
 				search_string.push("homelast <> '#{@game.home_last_game}'")
 			end
 			if filter[6]
 				search_string.push("homenextfly = '#{@game.home_next_fly}'")
+				search_second_string.push("homenextfly = '#{@game.home_next_fly}'")
 				filter[6] = @game.home_next_fly[0]
 			else
 				search_string.push("homenextfly <> '#{@game.home_next_fly}'")
 			end
 			if filter[7]
 				search_string.push("homelastfly = '#{@game.home_last_fly}'")
+				search_second_string.push("homelastfly = '#{@game.home_last_fly}'")
 				filter[7] = @game.home_last_fly[0]
 			else
 				search_string.push("homelastfly <> '#{@game.home_last_fly}'")
 			end
 			search_string = search_string.join(" AND ")
+			search_second_string = search_second_string.join(" AND ")
 			filter_element = Fullseason.where(search_string)
+			filter_second_element = Fullseason.where(search_second_string)
 			result_element = {
 				first: filter_element.average(:firstvalue).to_f.round(2),
 				second: filter_element.average(:secondvalue).to_f.round(2),
 				full: filter_element.average(:totalvalue).to_f.round(2),
-				count: filter_element.count(:totalvalue).to_i
+				count: filter_element.count(:totalvalue).to_i,
+				allfirst: filter_second_element.average(:firstvalue).to_f.round(2),
+				allsecond: filter_second_element.average(:secondvalue).to_f.round(2),
+				allfull: filter_second_element.average(:totalvalue).to_f.round(2),
+				allcount: filter_second_element.count(:totalvalue).to_i
 			}
 			if index < 2 || index > 13
 				result_element[:full_first] = filter_element.average(:roadtotal).to_f.round(2)

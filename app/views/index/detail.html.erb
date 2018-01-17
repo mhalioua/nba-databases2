@@ -2596,10 +2596,10 @@ end
                     <td><%= @filterResult[index][:second] %></td>
                     <td><%= @filterResult[index][:full] %></td>
                     <td><%= @filterResult[index][:count] %></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><%= @filterResult[index][:allfirst] %></td>
+                    <td><%= @filterResult[index][:allsecond] %></td>
+                    <td><%= @filterResult[index][:allfull] %></td>
+                    <td><%= @filterResult[index][:allcount] %></td>
                 </tr>
                 <% if @break.include?(index) %>
                 <tr class="gradient">
