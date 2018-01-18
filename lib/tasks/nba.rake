@@ -2007,7 +2007,7 @@ namespace :nba do
     end
   end
 
-  task :getpg => :environment do
+  task :addAVGs => :environment do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
 
