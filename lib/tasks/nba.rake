@@ -1936,6 +1936,8 @@ namespace :nba do
       pg_away_two_min = 0
       pg_away_three_name = ""
       pg_away_three_min = 0
+      away_fg_percent = ""
+      home_fg_percent = ""
       if players[0]
         pg_away_one_name = players[0].player_name
         pg_away_one_min = players[0].mins
