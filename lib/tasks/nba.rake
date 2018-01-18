@@ -1986,6 +1986,9 @@ namespace :nba do
 
         away_fg_percent = away_value.children[2].text
         home_fg_percent = home_value.children[2].text
+        if away_fg_percent == "-----"
+          home_fg_percent = "-----"
+        end
      end
 
       game.update(
