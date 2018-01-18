@@ -1931,48 +1931,48 @@ namespace :nba do
     games.each do |game|
       players = game.players.where("team_abbr = 0 AND position = 'PG'").order(:mins)
       pg_away_one_name = ""
-      pg_away_one_min = ""
+      pg_away_one_min = nil
       pg_away_two_name = ""
-      pg_away_two_min = ""
+      pg_away_two_min = nil
       pg_away_three_name = ""
-      pg_away_three_min = ""
+      pg_away_three_min = nil
       away_fg_percent = ""
       home_fg_percent = ""
       if players[0]
         pg_away_one_name = players[0].player_name
-        pg_away_one_min = players[0].mins.to_i
+        pg_away_one_min = players[0].mins
       end
 
       if players[1]
         pg_away_two_name = players[1].player_name
-        pg_away_two_min = players[1].mins.to_i
+        pg_away_two_min = players[1].mins
       end
 
       if players[2]
         pg_away_three_name = players[2].player_name
-        pg_away_three_min = players[2].mins.to_i
+        pg_away_three_min = players[2].mins
       end
 
       players = game.players.where("team_abbr = 1 AND position = 'PG'").order(:mins)
       pg_home_one_name = ""
-      pg_home_one_min = ""
+      pg_home_one_min = nil
       pg_home_two_name = ""
-      pg_home_two_min = ""
+      pg_home_two_min = nil
       pg_home_three_name = ""
-      pg_home_three_min = ""
+      pg_home_three_min = nil
       if players[0]
         pg_home_one_name = players[0].player_name
-        pg_home_one_min = players[0].mins.to_i
+        pg_home_one_min = players[0].mins
       end
 
       if players[1]
         pg_home_two_name = players[1].player_name
-        pg_home_two_min = players[1].mins.to_i
+        pg_home_two_min = players[1].mins
       end
 
       if players[2]
         pg_home_three_name = players[2].player_name
-        pg_home_three_min = players[2].mins.to_i
+        pg_home_three_min = players[2].mins
       end
       game_id = game.game_id
 
