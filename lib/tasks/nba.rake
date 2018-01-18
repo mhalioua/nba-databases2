@@ -1922,6 +1922,74 @@ namespace :nba do
     end
   end
 
+  task :getpg => :environment do
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+
+    games = Nba.where("pg_away_one_name is null")
+    puts games.size
+    games.each do |game|
+      players = game.players.where("team_abbr = 0 AND position = 'PG'")
+      pg_away_one_name = ""
+      pg_away_one_min = 0
+      pg_away_two_name = ""
+      pg_away_two_min = 0
+      pg_away_three_name = ""
+      pg_away_three_min = 0
+      if players[0]
+        pg_away_one_name = players[0].player_name
+        pg_away_one_min = players[0].mins
+      end
+
+      if players[1]
+        pg_away_two_name = players[1].player_name
+        pg_away_two_min = players[1].mins
+      end
+
+      if players[2]
+        pg_away_three_name = players[2].player_name
+        pg_away_three_min = players[2].mins
+      end
+
+      players = game.players.where("team_abbr = 1 AND position = 'PG'")
+      pg_home_one_name = ""
+      pg_home_one_min = 0
+      pg_home_two_name = ""
+      pg_home_two_min = 0
+      pg_home_three_name = ""
+      pg_home_three_min = 0
+      if players[0]
+        pg_home_one_name = players[0].player_name
+        pg_home_one_min = players[0].mins
+      end
+
+      if players[1]
+        pg_home_two_name = players[1].player_name
+        pg_home_two_min = players[1].mins
+      end
+
+      if players[2]
+        pg_home_three_name = players[2].player_name
+        pg_home_three_min = players[2].mins
+      end
+
+      game.update(
+        pg_away_one_name: pg_away_one_name,
+        pg_away_one_min: pg_away_one_min,
+        pg_away_two_name: pg_away_two_name,
+        pg_away_two_min: pg_away_two_min,
+        pg_away_three_name: pg_away_three_name,
+        pg_away_three_min: pg_away_three_min,
+        pg_home_one_name: pg_home_one_name,
+        pg_home_one_min: pg_home_one_min,
+        pg_home_two_name: pg_home_two_name,
+        pg_home_two_min: pg_home_two_min,
+        pg_home_three_name: pg_home_three_name,
+        pg_home_three_min: pg_home_three_min
+      )
+    end
+  end
+
 		@basket_abbr = [
 		'ATL',
 		'BOS',
