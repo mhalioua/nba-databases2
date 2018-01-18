@@ -1972,6 +1972,19 @@ namespace :nba do
         pg_home_three_name = players[2].player_name
         pg_home_three_min = players[2].mins
       end
+      game_id = game.game_id
+
+      url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
+      doc = download_document(url)
+      puts url
+      element = doc.css(".highlight")
+      if element.size > 3
+        away_value = element[1]
+        home_value = element[3]
+
+        away_fg_percent = away_value.children[2].text
+        home_fg_percent = home_value.children[2].text
+     end
 
       game.update(
         pg_away_one_name: pg_away_one_name,
@@ -1985,7 +1998,9 @@ namespace :nba do
         pg_home_two_name: pg_home_two_name,
         pg_home_two_min: pg_home_two_min,
         pg_home_three_name: pg_home_three_name,
-        pg_home_three_min: pg_home_three_min
+        pg_home_three_min: pg_home_three_min,
+        away_fg_percent: away_fg_percent,
+        home_fg_percent: home_fg_percent
       )
     end
   end
