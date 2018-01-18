@@ -2007,6 +2007,40 @@ namespace :nba do
     end
   end
 
+  task :getpg => :environment do
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+
+    games = Nba.where("avg_fg_road is null")
+    puts games.size
+    games.each do |game|
+      countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_fly, game.home_last_fly)
+      avg_fg_road = (countItem.average(:roadfirsthalf).to_f + countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f).round(2)
+      avg_fg_home = (countItem.average(:homefirsthalf).to_f + countItem.average(:homethird).to_f + countItem.average(:homeforth).to_f).round(2)
+      avg_fg_total = countItem.average(:totalvalue).to_f.round(2)
+      avg_first_road = countItem.average(:roadfirsthalf).to_f.round(2)
+      avg_first_home = countItem.average(:homefirsthalf).to_f.round(2)
+      avg_first_total = countItem.average(:firstvalue).to_f.round(2)
+      avg_second_road = (countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f).round(2)
+      avg_second_home = (countItem.average(:homethird).to_f + countItem.average(:homeforth).to_f).round(2)
+      avg_second_total = countItem.average(:secondvalue).to_f.round(2)
+      avg_count = countItem.count(:totalvalue).to_i
+
+      game.update(
+        avg_fg_road: avg_fg_road,
+        avg_fg_home: avg_fg_home,
+        avg_fg_total: avg_fg_total,
+        avg_first_road: avg_first_road,
+        avg_first_home: avg_first_home,
+        avg_first_total: avg_first_total,
+        avg_second_road: avg_second_road,
+        avg_second_home: avg_second_home,
+        avg_second_total: avg_second_total,
+        avg_count: avg_count
+      )
+    end
+  end
+
 		@basket_abbr = [
 		'ATL',
 		'BOS',
