@@ -2087,7 +2087,12 @@ namespace :nba do
           link = slice.children[0].children[0]['href']
           puts link
           page = download_document(link)
-          height = page.css(".general-info")[0].children[1].text
+          height = page.css(".general-info")
+          if height.size > 0 && height[0].children.size > 1
+            height = height[0].children[1].text
+          else
+            height = 0
+          end
         else
           player_name = slice.children[0].text
           link = ""
@@ -2127,7 +2132,12 @@ namespace :nba do
           link = slice.children[0].children[0]['href']
           puts link
           page = download_document(link)
-          height = page.css(".general-info")[0].children[1].text
+          height = page.css(".general-info")
+          if height.size > 0 && height[0].children.size > 1
+            height = height[0].children[1].text
+          else
+            height = 0
+          end
         else
           player_name = slice.children[0].text
           link = ""
