@@ -353,6 +353,9 @@
         <th><%= @game.away_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
+        <th>OR</th>
+        <th>STL</th>
+        <th>BLK</th>
         <th>PLAYER <br> POSS %</th>
         <th>MINS</th>
         <th>PRO RATE</th>
@@ -389,6 +392,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -448,6 +454,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -483,7 +492,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="10"></td>
+        <td colspan="13"></td>
       </tr>
     <% @away_players_group3.each_with_index do |player, index| 
           count = 1
@@ -510,6 +519,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -542,9 +554,12 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="11"></td>
+        <td colspan="14"></td>
       </tr>
       <tr>
+        <td></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -565,6 +580,9 @@
         <th><%= @game.home_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
+        <th>OR</th>
+        <th>STL</th>
+        <th>BLK</th>
         <th>PLAYER <br> POSS %</th>
         <th>MINS</th>
         <th>PRO RATE</th>
@@ -610,6 +628,9 @@
             count = 1
           end
         %>
+        <td></td>
+        <td></td>
+        <td></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -660,6 +681,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -695,7 +719,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="10"></td>
+        <td colspan="13"></td>
       </tr>
     <% @home_players_group3.each_with_index do |player, index| 
           count = 1
@@ -722,6 +746,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -754,9 +781,12 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="11"></td>
+        <td colspan="14"></td>
       </tr>
       <tr>
+        <td></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -780,6 +810,9 @@
         <th><%= @game.away_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
+        <th>OR</th>
+        <th>STL</th>
+        <th>BLK</th>
         <th>PLAYER <br> POSS %</th>
         <th>MINS</th>
         <th>PRO RATE</th>
@@ -818,6 +851,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -886,6 +922,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -930,7 +969,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="11"></td>
+        <td colspan="14"></td>
       </tr>
     <% @away_players_group3.each_with_index do |player, index| 
           count = 1
@@ -957,6 +996,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -998,9 +1040,12 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="12"></td>
+        <td colspan="15"></td>
       </tr>
       <tr>
+        <td></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -1022,6 +1067,9 @@
         <th><%= @game.home_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
+        <th>OR</th>
+        <th>STL</th>
+        <th>BLK</th>
         <th>PLAYER <br> POSS %</th>
         <th>MINS</th>
         <th>PRO RATE</th>
@@ -1059,6 +1107,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -1127,6 +1178,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -1171,7 +1225,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="11"></td>
+        <td colspan="14"></td>
       </tr>
     <% @home_players_group3.each_with_index do |player, index| 
           count = 1
@@ -1198,6 +1252,9 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <%
           count = 1
           if player.possession
@@ -1239,9 +1296,12 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="12"></td>
+        <td colspan="15"></td>
       </tr>
       <tr>
+        <td></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
