@@ -556,7 +556,6 @@ namespace :nba do
 			home_team = game.home_team
 			away_team = game.away_team
 			game_date = game.game_date
-			puts DateTime.parse(game_date).in_time_zone.to_date
 
 			away_last_game = ""
       away_last_fly = ""
@@ -1067,8 +1066,16 @@ namespace :nba do
 					sum_poss = sum_poss + last_player.poss
 					sum_mins = sum_mins + last_player.mins
           sum_or = sum_or + last_player.orValue
-          sum_stl = sum_stl + last_player.stlValue
-          sum_blk = sum_blk + last_player.blkValue
+          stlValue = 0
+          blkValue = 0
+          if last_player.stlValue
+            stlValue = last_player.stlValue
+          end
+          if last_player.blkValue
+            blkValue = last_player.blkValue
+          end
+          sum_stl = sum_stl + stlValue
+          sum_blk = sum_blk + blkValue
 					if mins_min > last_player.mins
 						mins_min = last_player.mins
 					end
@@ -1897,8 +1904,6 @@ namespace :nba do
       home_ortg = elements[7].children[6].text.to_f
 
       game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter, home_second_quarter: home_second_quarter, away_third_quarter: away_third_quarter, home_third_quarter: home_third_quarter, away_forth_quarter: away_forth_quarter, home_forth_quarter: home_forth_quarter, away_ot_quarter: away_ot_quarter, home_ot_quarter: home_ot_quarter, away_score: away_score, home_score: home_score, total_score: home_score + away_score, first_point: home_first_quarter + home_second_quarter + away_first_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter + away_third_quarter + home_third_quarter, total_point: away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter, pace: pace, away_ortg: away_ortg, home_ortg: home_ortg)
-      puts game.inspect
-      
     end
   end
 
