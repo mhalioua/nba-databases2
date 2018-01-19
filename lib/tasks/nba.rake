@@ -2105,8 +2105,7 @@ namespace :nba do
         if slice.children.size < 15
           next
         end
-        puts slice.children[0].children[0].inspect
-        if slice.children[0].children.size > 1 && slice.children[0].children[0].children.size == 0
+        if slice.children[0].children.size > 1 && slice.children[0].children[0].children[0].text == "null"
           next
         end
 
@@ -2155,8 +2154,7 @@ namespace :nba do
         if slice.children.size < 15
           next
         end
-        puts slice.children[0].children[0].inspect
-        if slice.children[0].children.size > 1 && slice.children[0].children[0].children.size == 0
+        if slice.children[0].children.size > 1 && slice.children[0].children[0].children[0].text == "null"
           next
         end
         if slice.children[0].children.size > 1
