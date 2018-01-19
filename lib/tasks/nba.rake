@@ -2073,7 +2073,7 @@ namespace :nba do
   task :getPlayerClone => [:environment] do
     include Api
     puts "----------Get Players----------"
-    allPlayers = Player.where("mins is null").pluck(:nba_id)
+    allPlayers = Player.where("mins is null").pluck(:nba_id).uniq
     puts allPlayers.size
     allPlayers.each do |selectedPlayer|
       game = Nba.where("id = ?", selectedPlayer).first
