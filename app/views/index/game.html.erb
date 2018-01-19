@@ -448,10 +448,10 @@
       <td class="skygreen"></td>
       <td class="skygreen"></td>
       <td class="skygreen"></td>
-      <td class="skygreen"></td>
-      <td class="skygreen"></td>
-      <td class="skygreen"></td>
-      <td class="skygreen"></td>
+      <td class="gray"><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
+      <td class="gray"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
+      <td class="gray"><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
+      <td class="gray"><%= @countItem ? @countItem.count(:totalvalue).to_i : "" %></td>
 
       <td class="skyblue"><%= game.away_first_quarter %></td>
       <td class="skyblue"><%= game.away_second_quarter %></td>
