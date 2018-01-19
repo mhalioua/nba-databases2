@@ -72,6 +72,9 @@ class IndexController < ApplicationController
 		
 		@away_total_poss = 0
 	    @away_total_min = 0
+	    @away_total_stl = 0
+	    @away_total_blk = 0
+	    @away_total_or = 0
 	    @away_drtg_one = 0
 	    @away_drtg_one_container = []
 	    drtg_count = 0
@@ -89,6 +92,9 @@ class IndexController < ApplicationController
 	        end
 	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
+	        @away_total_stl = @away_total_stl + player.sum_stl/count
+	        @away_total_blk = @away_total_blk + player.sum_blk/count
+	        @away_total_or = @away_total_or + player.sum_or/count
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        puts player.drtg
 	        puts player.sum_mins/(count - 2)
@@ -185,6 +191,9 @@ class IndexController < ApplicationController
 	        end
 	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
+	        @away_total_stl = @away_total_stl + player.sum_stl/count
+	        @away_total_blk = @away_total_blk + player.sum_blk/count
+	        @away_total_or = @away_total_or + player.sum_or/count
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @away_drtg_two = @away_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @away_drtg_two_container.push(player.id)
@@ -273,11 +282,17 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
+	        @away_total_stl = @away_total_stl + player.sum_stl/count
+	        @away_total_blk = @away_total_blk + player.sum_blk/count
+	        @away_total_or = @away_total_or + player.sum_or/count
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
 	    @home_total_poss = 0
 	    @home_total_min = 0
+        @home_total_stl = 0
+        @home_total_blk = 0
+        @home_total_or = 0
 	    @home_drtg_one = 0
 	    drtg_count = 0
 	    drtg_min = 0
@@ -295,6 +310,9 @@ class IndexController < ApplicationController
 	        end
 	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
+	        @home_total_stl = @home_total_stl + player.sum_stl/count
+	        @home_total_blk = @home_total_blk + player.sum_blk/count
+	        @home_total_or = @home_total_or + player.sum_or/count
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @home_drtg_one = @home_drtg_one + player.drtg * (player.sum_mins/(count - 2))
 	        @home_drtg_one_container.push(player.id)
@@ -388,6 +406,9 @@ class IndexController < ApplicationController
 	        end
 	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
+	        @home_total_stl = @home_total_stl + player.sum_stl/count
+	        @home_total_blk = @home_total_blk + player.sum_blk/count
+	        @home_total_or = @home_total_or + player.sum_or/count
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @home_drtg_two = @home_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @home_drtg_two_container.push(player.id)
@@ -476,6 +497,9 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
+	        @home_total_stl = @home_total_stl + player.sum_stl/count
+	        @home_total_blk = @home_total_blk + player.sum_blk/count
+	        @home_total_or = @home_total_or + player.sum_or/count
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
@@ -1355,6 +1379,9 @@ class IndexController < ApplicationController
 		
 		@away_total_poss = 0
 	    @away_total_min = 0
+	    @away_total_or = 0
+	    @away_total_stl = 0
+	    @away_total_blk = 0
 	    @away_drtg_one = 0
 	    drtg_count = 0
 	    drtg_min = 0
@@ -1371,6 +1398,9 @@ class IndexController < ApplicationController
 	        end
 	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
+	        @away_total_stl = @away_total_stl + player.sum_stl/count
+	        @away_total_blk = @away_total_blk + player.sum_blk/count
+	        @away_total_or = @away_total_or + player.sum_or/count
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @away_drtg_one = @away_drtg_one + player.drtg * (player.sum_mins/(count - 2))
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
@@ -1449,6 +1479,9 @@ class IndexController < ApplicationController
 	        end
 	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
+	        @away_total_stl = @away_total_stl + player.sum_stl/count
+	        @away_total_blk = @away_total_blk + player.sum_blk/count
+	        @away_total_or = @away_total_or + player.sum_or/count
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @away_drtg_two = @away_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
@@ -1522,11 +1555,17 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
+	        @away_total_stl = @away_total_stl + player.sum_stl/count
+	        @away_total_blk = @away_total_blk + player.sum_blk/count
+	        @away_total_or = @away_total_or + player.sum_or/count
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
 	    @home_total_poss = 0
 	    @home_total_min = 0
+        @home_total_stl = 0
+        @home_total_blk = 0
+        @home_total_or = 0
 	    @home_drtg_one = 0
 	    drtg_count = 0
 	    drtg_min = 0
@@ -1543,6 +1582,9 @@ class IndexController < ApplicationController
 	        end
 	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
+	        @home_total_stl = @home_total_stl + player.sum_stl/count
+	        @home_total_blk = @home_total_blk + player.sum_blk/count
+	        @home_total_or = @home_total_or + player.sum_or/count
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @home_drtg_one = @home_drtg_one + player.drtg * (player.sum_mins/(count - 2))
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
@@ -1620,6 +1662,9 @@ class IndexController < ApplicationController
 	        end
 	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
+	        @home_total_stl = @home_total_stl + player.sum_stl/count
+	        @home_total_blk = @home_total_blk + player.sum_blk/count
+	        @home_total_or = @home_total_or + player.sum_or/count
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @home_drtg_two = @home_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
@@ -1693,6 +1738,9 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
+	        @home_total_stl = @home_total_stl + player.sum_stl/count
+	        @home_total_blk = @home_total_blk + player.sum_blk/count
+	        @home_total_or = @home_total_or + player.sum_or/count
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
