@@ -851,9 +851,6 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <%
           count = 1
           if player.possession
@@ -863,6 +860,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -922,9 +922,6 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <%
           count = 1
           if player.possession
@@ -934,6 +931,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -996,9 +996,6 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <%
           count = 1
           if player.possession
@@ -1008,6 +1005,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -1046,9 +1046,9 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= @injury_away_total_or %></td>
+        <td><%= @injury_away_total_stl %></td>
+        <td><%= @injury_away_total_blk %></td>
         <td><%= '%.2f' % @injury_away_total_poss %>%</td>
         <td><%= @injury_away_total_min %></td>
         <td>100%</td>
@@ -1107,9 +1107,6 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <%
           count = 1
           if player.possession
@@ -1119,6 +1116,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -1178,9 +1178,6 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <%
           count = 1
           if player.possession
@@ -1190,6 +1187,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -1252,9 +1252,6 @@
         end
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <%
           count = 1
           if player.possession
@@ -1264,6 +1261,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -1302,9 +1302,9 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= @injury_home_total_or %></td>
+        <td><%= @injury_home_total_stl %></td>
+        <td><%= @injury_home_total_blk %></td>
         <td><%= '%.2f' % @injury_home_total_poss %>%</td>
         <td><%= @injury_home_total_min %></td>
         <td>100%</td>
