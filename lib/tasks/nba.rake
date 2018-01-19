@@ -2107,7 +2107,7 @@ namespace :nba do
         end
 
         if slice.children[0].children.size > 1
-          if !slice.children[0].children[0].children
+          if slice.children[0].children[0].children.size == 0
             next
           end
           player_name = slice.children[0].children[0].children[0].text
@@ -2155,7 +2155,7 @@ namespace :nba do
           next
         end
         if slice.children[0].children.size > 1
-          if !slice.children[0].children[0].children
+          if slice.children[0].children[0].children.size == 0
             next
           end
           player_name = slice.children[0].children[0].children[0].text
