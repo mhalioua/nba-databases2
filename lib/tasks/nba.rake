@@ -89,6 +89,12 @@ namespace :nba do
 		Rake::Task["nba:getPlayer"].invoke
 		Rake::Task["nba:getPlayer"].reenable
 
+    Rake::Task["nba:getpg"].invoke
+    Rake::Task["nba:getpg"].reenable
+
+    Rake::Task["nba:addAVGs"].invoke
+    Rake::Task["nba:addAVGs"].reenable
+
 		Rake::Task["nba:getUpdateTG"].invoke
 		Rake::Task["nba:getUpdateTG"].reenable
 
@@ -903,7 +909,7 @@ namespace :nba do
 	task :getPlayer => [:environment] do
 		include Api
 		puts "----------Get Players----------"
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Date.today.end_of_day)
+		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
@@ -1927,6 +1933,7 @@ namespace :nba do
     Time.zone = 'Eastern Time (US & Canada)'
 
     games = Nba.where("pg_away_one_name is null")
+    games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
     puts games.size
     games.each do |game|
       players = game.players.where("team_abbr = 0 AND position = 'PG'").order(mins: :desc)
@@ -2033,6 +2040,7 @@ namespace :nba do
     Time.zone = 'Eastern Time (US & Canada)'
 
     games = Nba.where("avg_fg_road is null")
+    games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
     puts games.size
     games.each do |game|
       countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_fly, game.home_last_fly)
