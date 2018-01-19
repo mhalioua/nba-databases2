@@ -2065,9 +2065,10 @@ namespace :nba do
   task :getPlayerClone => [:environment] do
     include Api
     puts "----------Get Players----------"
-    games = Nba.all
-    puts games.size
-    games.each do |game|
+    allPlayers = Players.where("mins is null").pluck(:nba_id)
+    puts allPlayers.size
+    allPlayers.each do |selectedPlayer|
+      game = Nba.where("id = ?", selectedPlayer)
       game_id = game.game_id
       puts game_id
       url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
