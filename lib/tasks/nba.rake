@@ -2105,11 +2105,11 @@ namespace :nba do
         if slice.children.size < 15
           next
         end
+        if slice.children[0].children.size > 1 && slice.children[0].children[0].children.size == 0
+          next
+        end
 
         if slice.children[0].children.size > 1
-          if slice.children[0].children[0].children.size == 0
-            next
-          end
           player_name = slice.children[0].children[0].children[0].text
           link = slice.children[0].children[0]['href']
           puts link
@@ -2154,10 +2154,10 @@ namespace :nba do
         if slice.children.size < 15
           next
         end
+        if slice.children[0].children.size > 1 && slice.children[0].children[0].children.size == 0
+          next
+        end
         if slice.children[0].children.size > 1
-          if slice.children[0].children[0].children.size == 0
-            next
-          end
           player_name = slice.children[0].children[0].children[0].text
           link = slice.children[0].children[0]['href']
           puts link
