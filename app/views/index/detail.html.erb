@@ -366,18 +366,7 @@
       </tr>
     </thead>
     <tbody>
-    <% 
-
-      @injury_home_total_min = 0
-      @injury_home_total_stl = 0
-      @injury_home_total_blk = 0
-      @injury_home_total_or = 0
-      @injury_away_total_min = 0
-      @injury_away_total_stl = 0
-      @injury_away_total_blk = 0
-      @injury_away_total_or = 0
-
-      @away_players_group1.each_with_index do |player, index| 
+    <% @away_players_group1.each_with_index do |player, index| 
           count = 1
           style =""
           if player.possession
@@ -392,11 +381,6 @@
           if @injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)
             style="background:skyblue;"
           end
-        
-      @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
-      @injury_away_total_stl = @injury_away_total_stl + player.sum_stl/count
-      @injury_away_total_blk = @injury_away_total_blk + player.sum_blk/count
-      @injury_away_total_or = @injury_away_total_or + player.sum_or/count
 
       %>
       <tr>
@@ -469,11 +453,6 @@
           if @injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)
             style="background:skyblue;"
           end
-        
-      @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
-      @injury_away_total_stl = @injury_away_total_stl + player.sum_stl/count
-      @injury_away_total_blk = @injury_away_total_blk + player.sum_blk/count
-      @injury_away_total_or = @injury_away_total_or + player.sum_or/count
       %>
       <tr>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
@@ -548,11 +527,6 @@
           if @injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)
             style="background:skyblue;"
           end
-        
-      @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
-      @injury_away_total_stl = @injury_away_total_stl + player.sum_stl/count
-      @injury_away_total_blk = @injury_away_total_blk + player.sum_blk/count
-      @injury_away_total_or = @injury_away_total_or + player.sum_or/count
       %>
       <tr>
         <td  style='<%= style %>' class="lists list<%= player.id %>"><%= player.player_name %></td>
@@ -664,10 +638,6 @@
           if @injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)
             style="background:skyblue;"
           end
-      @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
-      @injury_home_total_stl = @injury_home_total_stl + player.sum_stl/count
-      @injury_home_total_blk = @injury_home_total_blk + player.sum_blk/count
-      @injury_home_total_or = @injury_home_total_or + player.sum_or/count
       %>
       <tr>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
@@ -739,10 +709,6 @@
           if @injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)
             style="background:skyblue;"
           end
-      @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
-      @injury_home_total_stl = @injury_home_total_stl + player.sum_stl/count
-      @injury_home_total_blk = @injury_home_total_blk + player.sum_blk/count
-      @injury_home_total_or = @injury_home_total_or + player.sum_or/count
       %>
       <tr>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
@@ -817,10 +783,6 @@
           if @injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)
             style="background:skyblue;"
           end
-      @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
-      @injury_home_total_stl = @injury_home_total_stl + player.sum_stl/count
-      @injury_home_total_blk = @injury_home_total_blk + player.sum_blk/count
-      @injury_home_total_or = @injury_home_total_or + player.sum_or/count
       %>
       <tr>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
