@@ -1995,7 +1995,7 @@ $('.homePossessions').on('input', function() {
       </tr>
     </thead>
     <tbody>
-      <% @home_injuries.each do |injury| %>
+      <% @home_injury.each do |injury| %>
         <tr>
           <td> <%= injury.team %> </td>
           <td> <%= injury.date %> </td>
@@ -2004,7 +2004,7 @@ $('.homePossessions').on('input', function() {
           <td> <%= injury.text %> </td>
         </tr>
       <% end %>
-      <% @away_injuries.each do |injury| %>
+      <% @away_injury.each do |injury| %>
         <tr>
           <td> <%= injury.team %> </td>
           <td> <%= injury.date %> </td>

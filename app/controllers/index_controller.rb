@@ -1161,8 +1161,7 @@ class IndexController < ApplicationController
 			count: thirdItem.count(:totalpoint).to_i
 		}
 		@countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", @game.away_last_fly, @game.away_next_fly, @game.away_last_game, @game.away_next_game, @game.home_next_game, @game.home_last_game, @game.home_next_fly, @game.home_last_fly)
-		@home_injuries = Injury.where("team = ?", @game.home_team)
-		@away_injuries = Injury.where("team = ?", @game.away_team)
+		
 
 		@compares = @game.compares.all
 	end
