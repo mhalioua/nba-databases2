@@ -14,5 +14,9 @@ class ApplicationController < ActionController::Base
 			return true
 		end
 	end
+
+	def title(text)
+	    content_for :title, text
+	end
 	
 end
