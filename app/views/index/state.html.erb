@@ -13,28 +13,33 @@
 </div>
 
 <ul>
-  <li><%= link_to 'Back', { action: 'game', id: @date_id }%></li>
+  <li><%= link_to 'Back', { action: 'game', id: @date_id + ' - ' + @date_id }%></li>
 </ul>
 
-<div class="tableBody">
+
+<div class="tableBody inqurytable">
   <h5> NEXT STAT </h5>
   <table border="1" class="tableSide">
-  	<thead>
-  		<tr>
-	  		<th><%= @game.away_team %> <br> Starters</th>
-	      <th>POS</th>
+    <thead>
+      <tr>
+        <th><%= @game.away_team %> <br> Starters</th>
+        <th>POS</th>
         <th>HT</th>
-	      <th>PLAYER <br> POSS %</th>
+        <th>OR</th>
+        <th>STL</th>
+        <th>BLK</th>
+        <th>PLAYER <br> POSS %</th>
         <th>MINS</th>
         <th>PRO RATE</th>
-	  		<th>ORTG</th>
+        <th>ORTG</th>
         <th></th>
         <th>DRTG</th>
         <th></th>
         <th></th>
-	    </tr>
-  	</thead>
-  	<tbody>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
     <% @away_players_group1.each_with_index do |player, index| 
           count = 1
           style =""
@@ -44,9 +49,13 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10 
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
             style="background:red;"
           end
+          if @injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
+          end
+
       %>
       <tr>
         <td class="lists list<%= player.id %>"  style='<%= style %>' ><%= player.player_name %></td>
@@ -66,6 +75,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -77,17 +89,26 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <% if player.sum_poss != 0 %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_away_total_poss ) %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
-        <td rowspan="<%= @away_players_group1.size %>"><%= '%.2f' % @away_drtg_one %></td>
+        <td rowspan="<%= @away_players_group1.size %>"><%= '%.2f' % @injury_away_drtg_one %></td>
         <% end %>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <% if @away_injury_name.include?(player.player_name) %>
+            <% if @injuries.include?(player.id.to_s) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
 
@@ -100,8 +121,11 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
             style="background:red;"
+          end
+          if @injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
           end
       %>
       <tr>
@@ -122,6 +146,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -133,22 +160,31 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <% if player.sum_poss != 0 %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_away_total_poss ) %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
-        <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @away_drtg_two %></td>
+        <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @injury_away_drtg_two %></td>
         <% end %>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <% if @away_injury_name.include?(player.player_name) %>
+            <% if @injuries.include?(player.id.to_s) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="10"></td>
+        <td colspan="14"></td>
       </tr>
     <% @away_players_group3.each_with_index do |player, index| 
           count = 1
@@ -159,8 +195,11 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
             style="background:red;"
+          end
+          if @injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
           end
       %>
       <tr>
@@ -181,6 +220,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -192,33 +234,46 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <% if player.sum_poss != 0 %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_away_total_poss ) %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <td style='<%= style %>' ></td>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <% if @away_injury_name.include?(player.player_name) %>
+            <% if @injuries.include?(player.id.to_s) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="11"></td>
+        <td colspan="15"></td>
       </tr>
       <tr>
         <td></td>
         <td></td>
         <td></td>
-        <td><%= '%.2f' % @away_total_poss %>%</td>
-        <td><%= @away_total_min %></td>
+        <td><%= @injury_away_total_or %></td>
+        <td><%= @injury_away_total_stl %></td>
+        <td><%= @injury_away_total_blk %></td>
+        <td><%= '%.2f' % @injury_away_total_poss %>%</td>
+        <td><%= @injury_away_total_min %></td>
         <td>100%</td>
         <td></td>
-        <td id="awaysum1"></td>
-        <td colspan="2" id="awaysum"></td>
-        <td id="awaysum2"></td>
+        <td id="injuryawaysum1"></td>
+        <td colspan="2" id="injuryawaysum"></td>
+        <td id="injuryawaysum2"></td>
+        <td></td>
       </tr>
-  	</tbody>
+    </tbody>
 </table>
 
 <table border="1" class="tableSide">
@@ -227,12 +282,16 @@
         <th><%= @game.home_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
+        <th>OR</th>
+        <th>STL</th>
+        <th>BLK</th>
         <th>PLAYER <br> POSS %</th>
         <th>MINS</th>
         <th>PRO RATE</th>
         <th>ORTG</th>
         <th></th>
         <th>DRTG</th>
+        <th></th>
         <th></th>
         <th></th>
       </tr>
@@ -247,8 +306,11 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
             style="background:red;"
+          end
+          if @injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
           end
       %>
       <tr>
@@ -269,6 +331,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -280,17 +345,26 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <% if player.sum_poss != 0 %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>%</td>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
-        <td rowspan="<%= @home_players_group1.size %>"><%= '%.2f' % @home_drtg_one %></td>
+        <td rowspan="<%= @home_players_group1.size %>"><%= '%.2f' % @injury_home_drtg_one %></td>
         <% end %>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <% if @home_injury_name.include?(player.player_name) %>
+            <% if @injuries.include?(player.id.to_s) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
 
@@ -303,8 +377,11 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
             style="background:red;"
+          end
+          if @injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
           end
       %>
       <tr>
@@ -325,6 +402,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -336,22 +416,31 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <% if player.sum_poss != 0 %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>%</td>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
-        <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @home_drtg_two %></td>
+        <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @injury_home_drtg_two %></td>
         <% end %>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <% if @home_injury_name.include?(player.player_name) %>
+            <% if @injuries.include?(player.id.to_s) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="10"></td>
+        <td colspan="14"></td>
       </tr>
     <% @home_players_group3.each_with_index do |player, index| 
           count = 1
@@ -362,8 +451,11 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
             style="background:red;"
+          end
+          if @injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
           end
       %>
       <tr>
@@ -384,6 +476,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -395,35 +490,49 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <% if player.sum_poss != 0 %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>%</td>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <td style='<%= style %>' ></td>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'  class="checkbox<%= player.id %>">
+          <% if @home_injury_name.include?(player.player_name) %>
+            <% if @injuries.include?(player.id.to_s) %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>" checked>
+            <% else %>
+              <input type="checkbox" class="injuryCheck injury<%= player.id %>"> 
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="11"></td>
+        <td colspan="15"></td>
       </tr>
       <tr>
         <td></td>
         <td></td>
         <td></td>
-        <td><%= '%.2f' % @home_total_poss %>%</td>
-        <td><%= @home_total_min %></td>
+        <td><%= @injury_home_total_or %></td>
+        <td><%= @injury_home_total_stl %></td>
+        <td><%= @injury_home_total_blk %></td>
+        <td><%= '%.2f' % @injury_home_total_poss %>%</td>
+        <td><%= @injury_home_total_min %></td>
         <td>100%</td>
         <td></td>
-        <td id="homesum1"></td>
-        <td colspan="2" id="homesum"></td>
-        <td id="homesum2"></td>
+        <td id="injuryhomesum1"></td>
+        <td colspan="2" id="injuryhomesum"></td>
+        <td id="injuryhomesum2"></td>
+        <td></td>
       </tr>
     </tbody>
 </table>
 </div>
+
 <% @away_players.each_with_index do |player, index| %>
 <div style="display:none" class="boxes box<%= player.id %>">
             <table border="1">
@@ -435,7 +544,11 @@
                     <th>FTA</th>
                     <th>TO</th>
                     <th>OR</th>
+                    <th>STL</th>
+                    <th>BLK</th>
                     <th>POSS</th>
+                    <th>PTS</th>
+                    <th>PPP</th>
                     <th>TEAM POSS</th>
                   </tr>
                 </thead>
@@ -448,7 +561,11 @@
                     total_fta = 0
                     total_toValue = 0
                     total_orValue = 0
+                    total_stlValue = 0
+                    total_blkValue = 0
                     total_poss = 0
+                    total_pts = 0
+                    total_ppp = 0
                     total_team_poss = 0
                     game_list.each do |game_id|
                       game = Nba.where(id: game_id).first
@@ -459,7 +576,13 @@
                       total_fta = total_fta + search_player.fta
                       total_toValue = total_toValue + search_player.toValue
                       total_orValue = total_orValue + search_player.orValue
+                      total_stlValue = total_stlValue + search_player.stlValue.to_i
+                      total_blkValue = total_blkValue + search_player.blkValue.to_i
                       total_poss = total_poss + search_player.poss
+                      total_pts = total_pts + search_player.ptsValue.to_i
+                      if search_player.poss != 0
+                        total_ppp = total_ppp + search_player.ptsValue.to_f / search_player.poss
+                      end
                       total_team_poss = total_team_poss + team_player.poss
                   %>
                   <tr>
@@ -469,8 +592,16 @@
                     <td><%= search_player.fta %></td>
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
-                    <td><%= search_player.poss %></td>
-                    <td><%= team_player.poss %></td>
+                    <td><%= search_player.stlValue %></td>
+                    <td><%= search_player.blkValue %></td>
+                    <td><%= search_player.poss.round(1) %></td>
+                    <td><%= search_player.ptsValue %></td>
+                    <% if search_player.poss != 0 %>
+                      <td><%= (search_player.ptsValue.to_f / search_player.poss).round(3) %></td>
+                    <% else %>
+                      <td></td>
+                    <% end %>
+                    <td><%= team_player.poss.round(2) %></td>
                   </tr>
                   <% end %>
                   <tr>
@@ -480,8 +611,12 @@
                     <td><%= total_fta %></td>
                     <td><%= total_toValue %></td>
                     <td><%= total_orValue %></td>
-                    <td><%= total_poss %></td>
-                    <td><%= total_team_poss %></td>
+                    <td><%= total_stlValue %></td>
+                    <td><%= total_blkValue %></td>
+                    <td><%= total_poss.round(1) %></td>
+                    <td><%= total_pts %></td>
+                    <td><%= total_ppp.round(3) %></td>
+                    <td><%= total_team_poss.round(2) %></td>
                   </tr>
                 </tbody>
             </table>
@@ -499,7 +634,11 @@
                     <th>FTA</th>
                     <th>TO</th>
                     <th>OR</th>
+                    <th>STL</th>
+                    <th>BLK</th>
                     <th>POSS</th>
+                    <th>PTS</th>
+                    <th>PPP</th>
                     <th>TEAM POSS</th>
                   </tr>
                 </thead>
@@ -512,7 +651,11 @@
                     total_fta = 0
                     total_toValue = 0
                     total_orValue = 0
+                    total_stlValue = 0
+                    total_blkValue = 0
                     total_poss = 0
+                    total_pts = 0
+                    total_ppp = 0
                     total_team_poss = 0
                     game_list.each do |game_id|
                       game = Nba.where(id: game_id).first
@@ -523,7 +666,13 @@
                       total_fta = total_fta + search_player.fta
                       total_toValue = total_toValue + search_player.toValue
                       total_orValue = total_orValue + search_player.orValue
+                      total_stlValue = total_stlValue + search_player.stlValue.to_i
+                      total_blkValue = total_blkValue + search_player.blkValue.to_i
                       total_poss = total_poss + search_player.poss
+                      total_pts = total_pts + search_player.ptsValue.to_i
+                      if search_player.poss != 0
+                        total_ppp = total_ppp + search_player.ptsValue.to_f / search_player.poss
+                      end
                       total_team_poss = total_team_poss + team_player.poss
                   %>
                   <tr>
@@ -533,8 +682,16 @@
                     <td><%= search_player.fta %></td>
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
-                    <td><%= search_player.poss %></td>
-                    <td><%= team_player.poss %></td>
+                    <td><%= search_player.stlValue %></td>
+                    <td><%= search_player.blkValue %></td>
+                    <td><%= search_player.poss.round(1) %></td>
+                    <td><%= search_player.ptsValue %></td>
+                    <% if search_player.poss != 0 %>
+                      <td><%= (search_player.ptsValue.to_f / search_player.poss).round(3) %></td>
+                    <% else %>
+                      <td></td>
+                    <% end %>
+                    <td><%= team_player.poss.round(2) %></td>
                   </tr>
                   <% end %>
                   <tr>
@@ -544,356 +701,202 @@
                     <td><%= total_fta %></td>
                     <td><%= total_toValue %></td>
                     <td><%= total_orValue %></td>
-                    <td><%= total_poss %></td>
-                    <td><%= total_team_poss %></td>
+                    <td><%= total_stlValue %></td>
+                    <td><%= total_blkValue %></td>
+                    <td><%= total_poss.round(1) %></td>
+                    <td><%= total_pts %></td>
+                    <td><%= total_ppp.round(3) %></td>
+                    <td><%= total_team_poss.round(2) %></td>
                   </tr>
                 </tbody>
             </table>
       </div>
       <% end %>
 <script>
-$(".lists").hover(function() {
-  if ($(".box" + $(this)[0].className.substr(10)).css("display") == "none")
-  {
-    $(".boxes").css("display", "none");
-    $(".box" + $(this)[0].className.substr(10)).fadeIn(750);
-    var position = $(this).position();
-    $(".box" + $(this)[0].className.substr(10)).css("position", "absolute");
-    $(".box" + $(this)[0].className.substr(10)).css("top", position.top + 20);
-    $(".box" + $(this)[0].className.substr(10)).css("left", position.left);
-    $(".box" + $(this)[0].className.substr(10)).css("background", "white");
-  }
-},
-function() {
-  $(".boxes").css("display", "none");
+$(document).ready(function(){
+  $(".lists").click(function() {
+    if ($(".box" + $(this)[0].className.substr(10)).css("display") == "none")
+    {
+      $(".boxes").css("display", "none");
+      $(".box" + $(this)[0].className.substr(10)).fadeIn(750);
+      var position = $(this).position();
+      $(".box" + $(this)[0].className.substr(10)).css("position", "absolute");
+      $(".box" + $(this)[0].className.substr(10)).css("top", position.top + 20);
+      $(".box" + $(this)[0].className.substr(10)).css("left", position.left);
+      $(".box" + $(this)[0].className.substr(10)).css("background", "white");
+    }
+    else {
+      $(".boxes").css("display", "none");
+    }
+  });
+  
+  $('.injuryCheck').change(function() {
+    console.log(this.checked);
+    var injuryCheckboxes = $('.injuryCheck');
+    var injuries = [];
+    for(var i = 0; i < injuryCheckboxes.length; i ++) {
+      if(injuryCheckboxes[i].checked)
+        injuries.push(injuryCheckboxes[i].className.substr(18));
+    }
+    var hreflinks = window.location.pathname.split('/');
+    hreflinks[4] = injuries.join(',');
+    window.location.pathname = hreflinks.join('/');
+  });
 });
 $('.awayPossessions').on('input', function() { 
   var value = $(this).val();
-  var sum1 = 0, sum2 = 0;
+
+  var injurysum1 = 0, injurysum2 = 0;
   <% @away_players.each_with_index do |player, index| 
     count = 1
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
       next
     end
   %>
-  var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+  var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_away_total_poss ) %>
   console.log(prorate);
-    $(".changeOrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
-    sum1 += value/10000 * prorate * <%= player.ortg ? player.ortg : 0 %>;
+    $(".injurychangeOrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
+    injurysum1 += value/10000 * prorate * <%= player.ortg ? player.ortg : 0 %>;
     <% end %>
     <% @away_players_group1.each_with_index do |player, index| 
     count = 1
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
       next
     end
   %>
-    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_away_total_poss ) %>
     console.log(prorate);
-    $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @home_drtg_one %>)/100 + '%');
-    sum2 += value/10000 * prorate * <%= @home_drtg_one %>;
+    $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_home_drtg_one %>)/100 + '%');
+    injurysum2 += value/10000 * prorate * <%= @injury_home_drtg_one %>;
     <% end %>
     <% @away_players_group2.each_with_index do |player, index| 
     count = 1
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
       next
     end
   %>
-    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_away_total_poss ) %>
     console.log(prorate);
-    $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @home_drtg_two %>)/100 + '%');
-     sum2 += value/10000 * prorate * <%= @home_drtg_two %>;
+    $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_home_drtg_two %>)/100 + '%');
+     injurysum2 += value/10000 * prorate * <%= @injury_home_drtg_two %>;
     <% end %>
     <% @away_players_group3.each_with_index do |player, index| 
     count = 1
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
       next
     end
   %>
-    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_away_total_poss ) %>
     console.log(prorate);
     <%
       if player.position == 'SG' || player.position == 'PG'
     %>
-      $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @home_drtg_one %>)/100 + '%');
-      sum2 += value/10000 * prorate * <%= @home_drtg_one %>;
+      $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_home_drtg_one %>)/100 + '%');
+      injurysum2 += value/10000 * prorate * <%= @injury_home_drtg_one %>;
       <% else %>
-      $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @home_drtg_two %>)/100 + '%');
-      sum2 += value/10000 * prorate * <%= @home_drtg_two %>;
+      $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_home_drtg_two %>)/100 + '%');
+      injurysum2 += value/10000 * prorate * <%= @injury_home_drtg_two %>;
     <%
       end 
     end
     %>
-    sum = (sum1+sum2)/2
-    sum = Math.round(sum*100)/100;
-    sum1 = Math.round(sum1*100)/100;
-    sum2 = Math.round(sum2*100)/100;
-    $('#awaysum').html(sum);
-    $('#awaysum1').html(sum1);
-    $('#awaysum2').html(sum2);
+    injurysum = (injurysum1+injurysum2)/2
+    injurysum = Math.round(injurysum*100)/100;
+    injurysum1 = Math.round(injurysum1*100)/100;
+    injurysum2 = Math.round(injurysum2*100)/100;
+    $('#injuryawaysum').html(injurysum);
+    $('#injuryawaysum1').html(injurysum1);
+    $('#injuryawaysum2').html(injurysum2);
 });
 $('.homePossessions').on('input', function() { 
   var value = $(this).val();
-  var sum1 = 0, sum2 = 0;
+    var injurysum1 = 0, injurysum2 = 0;
    <% @home_players.each_with_index do |player, index| 
     count = 1
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
       next
     end
   %>
-   var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>
+   var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>
    console.log(prorate);
-    $(".changeOrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
-    sum1 += value/10000 * prorate * <%= player.ortg ? player.ortg : 0 %>;
+    $(".injurychangeOrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= player.ortg ? player.ortg : 0 %>)/100 + '%');
+    injurysum1 += value/10000 * prorate * <%= player.ortg ? player.ortg : 0 %>;
     <% end %>
     <% @home_players_group1.each_with_index do |player, index| 
     count = 1
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
       next
     end
   %>
-    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>
     console.log(prorate);
-    $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @away_drtg_one %>)/100 + '%');
-    sum2 += value/10000 * prorate * <%= @away_drtg_one %>;
+    $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_away_drtg_one %>)/100 + '%');
+    injurysum2 += value/10000 * prorate * <%= @injury_away_drtg_one %>;
     <% end %>
     <% @home_players_group2.each_with_index do |player, index| 
     count = 1
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
       next
     end
   %>
-    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>
     console.log(prorate);
-    $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @away_drtg_two %>)/100 + '%');
-    sum2 += value/10000 * prorate * <%= @away_drtg_two %>;
+    $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_away_drtg_two %>)/100 + '%');
+    injurysum2 += value/10000 * prorate * <%= @injury_away_drtg_two %>;
     <% end %>
     <% @home_players_group3.each_with_index do |player, index| 
     count = 1
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10
+    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
       next
     end
   %>
-    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>
+    var prorate = <%= (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>
     console.log(prorate);
     <%
       if player.position == 'SG' || player.position == 'PG'
     %>
-    $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @away_drtg_one %>)/100 + '%');
-    sum2 += value/10000 * prorate * <%= @away_drtg_one %>;
+    $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_away_drtg_one %>)/100 + '%');
+    injurysum2 += value/10000 * prorate * <%= @injury_away_drtg_one %>;
     <% else %>
-    $(".changeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @away_drtg_two %>)/100 + '%');
-    sum2 += value/10000 * prorate * <%= @away_drtg_two %>;
+    $(".injurychangeDrtg<%= player.id %>").html(Math.round(value/100 * prorate * <%= @injury_away_drtg_two %>)/100 + '%');
+    injurysum2 += value/10000 * prorate * <%= @injury_away_drtg_two %>;
     <%
       end 
     end
     %>
-    sum = (sum1+sum2)/2
-    sum = Math.round(sum*100)/100;
-    sum1 = Math.round(sum1*100)/100;
-    sum2 = Math.round(sum2*100)/100;
-    $('#homesum').html(sum);
-    $('#homesum1').html(sum1);
-    $('#homesum2').html(sum2);
+    injurysum = (injurysum1+injurysum2)/2
+    injurysum = Math.round(injurysum*100)/100;
+    injurysum1 = Math.round(injurysum1*100)/100;
+    injurysum2 = Math.round(injurysum2*100)/100;
+    $('#injuryhomesum').html(injurysum);
+    $('#injuryhomesum1').html(injurysum1);
+    $('#injuryhomesum2').html(injurysum2);
 });
 </script>
-
-<div class="tableContainer">
-    <table border="1" class="numbers">
-        <tbody>
-            <tr>
-                <td>LAST ROAD</td>
-                <td>NEXT ROAD</td>
-                <td>NEXT HOME</td>
-                <td>LAST HOME</td>
-                <td></td>
-                <td>ROAD</td>
-                <td>HOME</td>
-                <td></td>
-                <td>+/-</td>
-                <td></td>
-                <td style="background: #fa0">GMS</td>
-                <td></td>
-                <td>1H ROAD</td>
-                <td>1H HOME</td>
-                <td></td>
-                <td>+/-</td>
-                <td></td>
-                <td>2H ROAD</td>
-                <td>2H HOME</td>
-                <td></td>
-                <td>+/-</td>
-            </tr>
-            <tr>
-                <td><%= @countItem.lastroad %></td>
-                <td><%= @countItem.nextroad %></td>
-                <td><%= @countItem.nexthome %></td>
-                <td><%= @countItem.lasthome %></td>
-                <td></td>
-                <td><%= @countItem.road %></td>
-                <td><%= @countItem.home %></td>
-                <td><%= (@countItem.home + @countItem.road).round(2) %></td>
-                <td><%= @countItem.diff %></td>
-                <td></td>
-                <td style="background: #fa0"><%= @countItem.count %></td>
-                <td></td>
-                <td><%= @countItem.firstroad %></td>
-                <td><%= @countItem.firsthome %></td>
-                <td><%= (@countItem.firstroad + @countItem.firsthome).round(2) %></td>
-                <td><%= @countItem.firstdiff %></td>
-                <td></td>
-                <td><%= @countItem.secondroad %></td>
-                <td><%= @countItem.secondhome %></td>
-                <td><%= (@countItem.secondroad + @countItem.secondhome).round(2) %></td>
-                <td><%= @countItem.seconddiff %></td>
-            </tr>
-            <tr style="background: #fa0">
-                <td>ALL</td>
-                <td>ALL</td>
-                <td>ALL</td>
-                <td>ALL</td>
-                <td></td>
-                <td>97</td>
-                <td>100.12</td>
-                <td>197.12</td>
-                <td>-3.12</td>
-                <td></td>
-                <td style="background: #fa0">17955</td>
-                <td></td>
-                <td>48.49</td>
-                <td>50.32</td>
-                <td>98.81</td>
-                <td>-1.83</td>
-                <td></td>
-                <td>48.51</td>
-                <td>49.80</td>
-                <td>98.31</td>
-                <td>-1.29</td>
-            </tr>
-            <% if @game.home_next_fly == "NO" && @game.home_last_fly == "YES" %>
-            <tr>
-                <td></td>
-                <td>NO</td>
-                <td>YES</td>
-                <td></td>
-                <td></td>
-                <td>96.75</td>
-                <td>99.83</td>
-                <td>196.58</td>
-                <td>-3.08</td>
-                <td></td>
-                <td style="background: #fa0">4949</td>
-                <td></td>
-                <td>48.23</td>
-                <td>50.11</td>
-                <td>98.34</td>
-                <td>-1.88</td>
-                <td></td>
-                <td>48.52</td>
-                <td>49.72</td>
-                <td>98.24</td>
-                <td>-1.2</td>
-            </tr>
-            <% elsif @game.home_next_fly == "YES" && @game.home_last_fly == "NO" %>
-            <tr>
-                <td></td>
-                <td>YES</td>
-                <td>NO</td>
-                <td></td>
-                <td></td>
-                <td>97.14</td>
-                <td>100.15</td>
-                <td>197.29</td>
-                <td>-3.01</td>
-                <td></td>
-                <td style="background: #fa0">4929</td>
-                <td></td>
-                <td>48.55</td>
-                <td>50.38</td>
-                <td>98.93</td>
-                <td>-1.83</td>
-                <td></td>
-                <td>48.59</td>
-                <td>49.77</td>
-                <td>98.36</td>
-                <td>-1.18</td>
-            </tr>
-            <% elsif @game.home_next_fly == "YES" && @game.home_last_fly == "YES" %>
-            <tr>
-                <td></td>
-                <td>YES</td>
-                <td>YES</td>
-                <td></td>
-                <td></td>
-                <td>96.76</td>
-                <td>99.65</td>
-                <td>196.41</td>
-                <td>-2.89</td>
-                <td></td>
-                <td style="background: #fa0">3931</td>
-                <td></td>
-                <td>48.44</td>
-                <td>50.06</td>
-                <td>98.5</td>
-                <td>-1.62</td>
-                <td></td>
-                <td>48.32</td>
-                <td>49.59</td>
-                <td>97.91</td>
-                <td>-1.27</td>
-            </tr>
-            <% elsif @game.home_next_fly == "NO" && @game.home_last_fly == "NO" %>
-            <tr>
-                <td></td>
-                <td>NO</td>
-                <td>NO</td>
-                <td></td>
-                <td></td>
-                <td>97.3</td>
-                <td>100.85</td>
-                <td>197.88</td>
-                <td>-3.55</td>
-                <td></td>
-                <td style="background: #fa0">4129</td>
-                <td></td>
-                <td>48.78</td>
-                <td>50.76</td>
-                <td>99.54</td>
-                <td>-1.98</td>
-                <td></td>
-                <td>48.52</td>
-                <td>50.09</td>
-                <td>98.61</td>
-                <td>-1.57</td>
-            </tr>
-            <% end %>
-        </tbody>
-    </table>
-</div>
-
 
 <div style="
     position: absolute;
@@ -908,3 +911,37 @@ $('.homePossessions').on('input', function() {
     window.location.href = window.location.href;
   });
 </script>
+
+<div class="tableBody">
+  <table border="1">
+    <thead>
+      <tr>
+        <th width="100">Team</th>
+        <th width="100">Date</th>
+        <th width="100">Name</th>
+        <th width="100">Status</th>
+        <th width="600">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @home_injury.each do |injury| %>
+        <tr>
+          <td> <%= injury.team %> </td>
+          <td> <%= injury.date %> </td>
+          <td> <%= injury.name %> </td>
+          <td> <%= injury.status %> </td>
+          <td> <%= injury.text %> </td>
+        </tr>
+      <% end %>
+      <% @away_injury.each do |injury| %>
+        <tr>
+          <td> <%= injury.team %> </td>
+          <td> <%= injury.date %> </td>
+          <td> <%= injury.name %> </td>
+          <td> <%= injury.status %> </td>
+          <td> <%= injury.text %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

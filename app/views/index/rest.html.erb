@@ -1,11 +1,17 @@
 <div class="header row">
-  <div class="col-md-4  col-md-offset-4">
+  <div class="col-md-1 col-md-offset-2">
+    <p>POSSESSIONS</p>
+  </div>
+  <div class="col-md-4  col-md-offset-1">
     <h1><%= @head %></h1>
+  </div>
+  <div class="col-md-1 col-md-offset-1">
+    <p>POSSESSIONS</p>
   </div>
 </div>
 
 <ul>
-  <li><%= link_to 'Back', { action: 'game', id: @date_id }%></li>
+  <li><%= link_to 'Back', { action: 'game', id: @date_id + ' - ' + @date_id }%></li>
 </ul>
 <div class="tableBody">
   <div style="display:inline-block;">
@@ -337,22 +343,585 @@
 
 
 <div class="tableContainer">
+    <table border="1" class="numbers">
+        <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>LAST ROAD</td>
+              <td>NEXT ROAD</td>
+              <td>NEXT HOME</td>
+              <td>LAST HOME</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>ROAD</td>
+              <td>HOME</td>
+              <td></td>
+              <td>+/-</td>
+              <td></td>
+              <td style="background: #fa0">GMS</td>
+              <td></td>
+              <td>1H ROAD</td>
+              <td>1H HOME</td>
+              <td></td>
+              <td>+/-</td>
+              <td></td>
+              <td>2H ROAD</td>
+              <td>2H HOME</td>
+              <td></td>
+              <td>+/-</td>
+            </tr>
+            <tr>
+                <td><%= @game.away_last_fly %></td>
+                <td><%= @game.away_next_fly %></td>
+                <td><%= @game.away_last_game %></td>
+                <td><%= @game.away_next_game %></td>
+                <td><%= @game.home_next_game %></td>
+                <td><%= @game.home_last_game %></td>
+                <td><%= @game.home_next_fly %></td>
+                <td><%= @game.home_last_fly %></td>
+                <td></td>
+                <%
+                  roadtotal = @countItem.average(:roadfirsthalf).to_f + @countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f
+                  hometotal = @countItem.average(:homefirsthalf).to_f + @countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f
+                %>
+                <td><%= @countItem ? roadtotal.round(2) : "" %></td>
+                <td><%= @countItem ? hometotal.round(2) : "" %></td>
+                <td><%= @countItem ? (roadtotal + hometotal).round(2) : "" %></td>
+                <td><%= @countItem ? (roadtotal - hometotal).round(2) : "" %></td>
+                <td></td>
+                <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalpoint).to_i : "" %></td>
+                <td></td>
+                <td><%= @countItem ? @countItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:roadfirsthalf).to_f + @countItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:roadfirsthalf).to_f - @countItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
+                <td></td>
+                <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f).round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f + @countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
+                <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
+            </tr>
+            <tr style="background: #fa0">
+                <td>ALL</td>
+                <td>ALL</td>
+                <td>ALL</td>
+                <td>ALL</td>
+                <td>ALL</td>
+                <td>ALL</td>
+                <td>ALL</td>
+                <td>ALL</td>
+                <td></td>
+                <td>96.52</td>
+                <td>99.57</td>
+                <td>196.09</td>
+                <td>-3.05</td>
+                <td></td>
+                <td style="background: #fa0">20904</td>
+                <td></td>
+                <td>48.62</td>
+                <td>50.47</td>
+                <td>99.09</td>
+                <td>-1.85</td>
+                <td></td>
+                <td>47.9</td>
+                <td>49.1</td>
+                <td>97</td>
+                <td>-1.2</td>
+            </tr>
+            <tr>
+              <td><%= @game.away_last_fly %></td>
+              <td><%= @game.away_next_fly %></td>
+              <td><%= @game.away_last_game %></td>
+              <td><%= @game.away_next_game %></td>
+              <td><%= @game.home_next_game %></td>
+              <td><%= @game.home_last_game %></td>
+              <td><%= @game.home_next_fly %></td>
+              <td><%= @game.home_last_fly %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
+              <td></td>
+              <td></td>
+              <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalvalue).to_i : "" %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
+              <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div style="
+    position: absolute;
+    top: 10px;
+    left: 10px;
+">
+  <button class="btn btn-danger refreshbutton">Refresh</button>
+</div>
+  
+<script>
+ $('.refreshbutton').click(function(){
+    window.location.href = window.location.href;
+  });
+</script>
+
+<% @compares.each do |compare|
+  unless compare.second_home_player_age && compare.second_away_player_age
+    next
+  end
+search_elements_home = @home_players.select{|player| player["player_fullname"] == compare.home_player_name }
+search_elements_away = @away_players.select{|player| player["player_fullname"] == compare.away_full_name } 
+if !search_elements_home[0] || !search_elements_away[0]
+  next
+end
+if search_elements_home[0].height
+  home_height_index = search_elements_home[0].height.index(",")
+end
+if search_elements_away[0].height
+  away_height_index = search_elements_away[0].height.index(",")
+end
+%>
+<div class="tableBody">
+  <table border="1">
+    <thead>
+      <tr>
+        <th colspan="1" class="gray"></th>
+        <th colspan="6" class="gray"><%= search_elements_home[0] ? search_elements_home[0].position : "" %> <%= compare.second_home_player_name %> <%= @game.home_team %></th>
+        <th colspan="1" class="red"><%= home_height_index ? search_elements_home[0].height[0..home_height_index-1] : "" %></th>
+        <th colspan="3" class="gray">vs</th>
+        <th colspan="7" class="gray"><%= search_elements_away[0] ? search_elements_away[0].position : "" %> <%= compare.second_away_player_name %> <%= @game.away_team %></th>
+        <th colspan="1" class="red"><%= away_height_index ? search_elements_away[0].height[0..away_height_index-1] : "" %></th>
+        <th class="gray">PPP + PPP</th>
+        <th class="gray">Average</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="gray">
+        <td style="background: red"><u>HEAD to HEAD</u></td>
+        <td>Age</td>
+        <td>GP</td>
+        <td>GS</td>
+        <td>MP</td>
+        <td>FG</td>
+        <td>FGA</td>
+        <td>3P</td>
+        <td>3PA</td>
+        <td>FT</td>
+        <td>FTA</td>
+        <td>ORB</td>
+        <td>STL</td>
+        <td>BLK</td>
+        <td>TOV</td>
+        <td>PTS</td>
+        <td>TP</td>
+        <td>POSS</td>
+        <td>PPP</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%= compare.head_home_player_name %></td>
+        <td><%= compare.second_home_player_age %></td>
+        <td><%= compare.head_home_player_gp %></td>
+        <td><%= compare.head_home_player_gs %></td>
+        <td><%= compare.head_home_player_mp %></td>
+        <td><%= compare.head_home_player_fg %></td>
+        <td><%= compare.head_home_player_fga %></td>
+        <td><%= compare.head_home_player_p %></td>
+        <td><%= compare.head_home_player_pa %></td>
+        <td><%= compare.head_home_player_ft %></td>
+        <td><%= compare.head_home_player_fta %></td>
+        <td><%= compare.head_home_player_orb %></td>
+        <td><%= compare.head_home_player_stl %></td>
+        <td><%= compare.head_home_player_blk %></td>
+        <td><%= compare.head_home_player_tov %></td>
+        <td><%= compare.head_home_player_pts %></td>
+        <%
+          head_home_tp = ((compare.head_home_player_fga + compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)*compare.head_home_player_gp).round(3)
+          tpStyle = "background:darkgray;"
+          if head_home_tp > 50
+            tpStyle = "background:skyblue;"
+          end
+        %>
+        <td style=<%= tpStyle %> ><%= head_home_tp %></td>
+        <td><%= (compare.head_home_player_fga + compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb).round(3) %></td>
+        <td><%= (compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)).round(3) %></td>
+        <td rowspan="2"><%= (compare.head_home_player_pts/(compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb) + compare.head_away_player_pts/(compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)).round(3) %></td>
+        <%
+          headValue = compare.head_home_player_pts / (compare.head_home_player_fga+  compare.head_home_player_tov + (compare.head_home_player_fta * 0.44) - compare.head_home_player_orb)
+          secondValue = 0
+          if compare.second_home_player_age
+            secondValue = compare.second_home_player_pts / (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)
+          end
+          if compare.forth_home_player_age || compare.third_home_player_age || compare.first_home_player_age
+            count = 0
+            if compare.forth_home_player_age
+              count = count + 1
+            end
+            if compare.third_home_player_age
+              count = count + 1
+            end
+            if compare.first_home_player_age
+              count = count + 1
+            end
+            first_home_player_pts = (compare.first_home_player_pts.to_f + compare.third_home_player_pts.to_f + compare.forth_home_player_pts.to_f)/count
+            first_home_player_fga = (compare.first_home_player_fga.to_f + compare.third_home_player_fga.to_f + compare.forth_home_player_fga.to_f)/count
+            first_home_player_tov = (compare.first_home_player_tov.to_f + compare.third_home_player_tov.to_f + compare.forth_home_player_tov.to_f)/count
+            first_home_player_fta = (compare.first_home_player_fta.to_f + compare.third_home_player_fta.to_f + compare.forth_home_player_fta.to_f)/count
+            first_home_player_orb = (compare.first_home_player_orb.to_f + compare.third_home_player_orb.to_f + compare.forth_home_player_orb.to_f)/count
+            firstValue = first_home_player_pts / (first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb)
+            compare_value = headValue - (firstValue + secondValue) / 2
+          else
+            compare_value = headValue - secondValue
+          end
+        %>
+        <td><%= compare_value.round(3).to_s %></td>
+      </tr>
+      <tr>
+        <td><%= compare.head_away_player_name %></td>
+        <td><%= compare.second_away_player_age %></td>
+        <td><%= compare.head_away_player_gp %></td>
+        <td><%= compare.head_away_player_gs %></td>
+        <td><%= compare.head_away_player_mp %></td>
+        <td><%= compare.head_away_player_fg %></td>
+        <td><%= compare.head_away_player_fga %></td>
+        <td><%= compare.head_away_player_p %></td>
+        <td><%= compare.head_away_player_pa %></td>
+        <td><%= compare.head_away_player_ft %></td>
+        <td><%= compare.head_away_player_fta %></td>
+        <td><%= compare.head_away_player_orb %></td>
+        <td><%= compare.head_away_player_stl %></td>
+        <td><%= compare.head_away_player_blk %></td>
+        <td><%= compare.head_away_player_tov %></td>
+        <td><%= compare.head_away_player_pts %></td>
+        <%
+          head_away_tp = ((compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)*compare.head_away_player_gp).round(3)
+          tpStyle = "background:darkgray;"
+          if head_away_tp > 50
+            tpStyle = "background:skyblue;"
+          end
+        %>
+        <td style=<%= tpStyle %> ><%= head_away_tp %></td>
+        <td><%= (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb).round(3) %></td>
+        <td><%= (compare.head_away_player_pts/(compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)).round(3) %></td>
+        <%
+          headValue = compare.head_away_player_pts / (compare.head_away_player_fga + compare.head_away_player_tov + (compare.head_away_player_fta * 0.44) - compare.head_away_player_orb)
+          secondValue = 0
+          if compare.second_away_player_age
+            secondValue = compare.second_away_player_pts / (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)
+          end
+            if compare.forth_away_player_age || compare.third_away_player_age || compare.first_away_player_age
+              count = 0
+              if compare.forth_away_player_age
+                count = count + 1
+              end
+              if compare.third_away_player_age
+                count = count + 1
+              end
+              if compare.first_away_player_age
+                count = count + 1
+              end
+              first_away_player_pts = (compare.first_away_player_pts.to_f + compare.third_away_player_pts.to_f + compare.forth_away_player_pts.to_f)/count
+              first_away_player_fga = (compare.first_away_player_fga.to_f + compare.third_away_player_fga.to_f + compare.forth_away_player_fga.to_f)/count
+              first_away_player_tov = (compare.first_away_player_tov.to_f + compare.third_away_player_tov.to_f + compare.forth_away_player_tov.to_f)/count
+              first_away_player_fta = (compare.first_away_player_fta.to_f + compare.third_away_player_fta.to_f + compare.forth_away_player_fta.to_f)/count
+              first_away_player_orb = (compare.first_away_player_orb.to_f + compare.third_away_player_orb.to_f + compare.forth_away_player_orb.to_f)/count
+              firstValue = first_away_player_pts / (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb)
+              compare_value = headValue - (firstValue + secondValue) / 2
+            else
+              compare_value = headValue - secondValue
+            end
+        %>
+        <td><%= compare_value.round(3) %></td>
+      </tr>
+      <tr class="gray">
+        <td style="background: #fa0;"><u>LAST 3 YEARS</u></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <% if compare.forth_home_player_age || compare.third_home_player_age || compare.first_home_player_age 
+        count = 0
+        if compare.forth_home_player_age
+          count = count + 1
+        end
+        if compare.third_home_player_age
+          count = count + 1
+        end
+        if compare.first_home_player_age
+          count = count + 1
+        end
+        %>
+      <tr>
+        <td><%= compare.second_home_player_name %></td>
+        <td><%= compare.second_home_player_age - 1 %></td>
+        <td><%= compare.first_home_player_gp.to_i + compare.third_home_player_gp.to_i + compare.forth_home_player_gp.to_i %></td>
+        <td><%= compare.first_home_player_gs.to_i + compare.third_home_player_gs.to_i + compare.forth_home_player_gs.to_i %></td>
+        <td><%= ((compare.first_home_player_mp.to_f + compare.third_home_player_mp.to_f + compare.forth_home_player_mp.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_fg.to_f + compare.third_home_player_fg.to_f + compare.forth_home_player_fg.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_fga.to_f + compare.third_home_player_fga.to_f + compare.forth_home_player_fga.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_p.to_f + compare.third_home_player_p.to_f + compare.forth_home_player_p.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_pa.to_f + compare.third_home_player_pa.to_f + compare.forth_home_player_pa.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_ft.to_f + compare.third_home_player_ft.to_f + compare.forth_home_player_ft.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_fta.to_f + compare.third_home_player_fta.to_f + compare.forth_home_player_fta.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_orb.to_f + compare.third_home_player_orb.to_f + compare.forth_home_player_orb.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_stl.to_f + compare.third_home_player_stl.to_f + compare.forth_home_player_stl.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_blk.to_f + compare.third_home_player_blk.to_f + compare.forth_home_player_blk.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_tov.to_f + compare.third_home_player_tov.to_f + compare.forth_home_player_tov.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_home_player_pts.to_f + compare.third_home_player_pts.to_f + compare.forth_home_player_pts.to_f) / count ).round(3) %></td>
+        <% 
+          first_home_player_pts = (compare.first_home_player_pts.to_f + compare.third_home_player_pts.to_f + compare.forth_home_player_pts.to_f)/count
+          first_home_player_fga = (compare.first_home_player_fga.to_f + compare.third_home_player_fga.to_f + compare.forth_home_player_fga.to_f)/count
+          first_home_player_tov = (compare.first_home_player_tov.to_f + compare.third_home_player_tov.to_f + compare.forth_home_player_tov.to_f)/count
+          first_home_player_fta = (compare.first_home_player_fta.to_f + compare.third_home_player_fta.to_f + compare.forth_home_player_fta.to_f)/count
+          first_home_player_orb = (compare.first_home_player_orb.to_f + compare.third_home_player_orb.to_f + compare.forth_home_player_orb.to_f)/count
+
+          first_home_tp = ((first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb)*(compare.first_home_player_gp.to_i + compare.third_home_player_gp.to_i + compare.forth_home_player_gp.to_i)).round(3)
+          tpStyle = "background:darkgray;"
+          if first_home_tp > 50
+            tpStyle = "background:skyblue;"
+          end
+        %>
+        <td style=<%= tpStyle %> ><%= first_home_tp %></td>
+        <td><%= (first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb).round(3) %></td>
+        <td><%= (first_home_player_pts/(first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb)).round(3) %></td>
+        <% 
+          if compare.forth_away_player_age || compare.third_away_player_age || compare.first_away_player_age
+            count = 0
+            if compare.forth_away_player_age
+              count = count + 1
+            end
+            if compare.third_away_player_age
+              count = count + 1
+            end
+            if compare.first_away_player_age
+              count = count + 1
+            end
+            first_away_player_pts = (compare.first_away_player_pts.to_f + compare.third_away_player_pts.to_f + compare.forth_away_player_pts.to_f)/count
+            first_away_player_fga = (compare.first_away_player_fga.to_f + compare.third_away_player_fga.to_f + compare.forth_away_player_fga.to_f)/count
+            first_away_player_tov = (compare.first_away_player_tov.to_f + compare.third_away_player_tov.to_f + compare.forth_away_player_tov.to_f)/count
+            first_away_player_fta = (compare.first_away_player_fta.to_f + compare.third_away_player_fta.to_f + compare.forth_away_player_fta.to_f)/count
+            first_away_player_orb = (compare.first_away_player_orb.to_f + compare.third_away_player_orb.to_f + compare.forth_away_player_orb.to_f)/count
+        %>
+        <td rowspan="2"><%= (first_home_player_pts/(first_home_player_fga + first_home_player_tov + (first_home_player_fta * 0.44) - first_home_player_orb) + first_away_player_pts / (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb)).round(3) %></td>
+        <% else %>
+        <td></td>
+        <% end %>
+        <td></td>
+      </tr>
+      <% end %>
+      <% if compare.forth_away_player_age || compare.third_away_player_age || compare.first_away_player_age 
+        count = 0
+        if compare.forth_away_player_age
+          count = count + 1
+        end
+        if compare.third_away_player_age
+          count = count + 1
+        end
+        if compare.first_away_player_age
+          count = count + 1
+        end
+        %>
+      <tr>
+        <td><%= compare.second_away_player_name %></td>
+        <td><%= compare.second_away_player_age-1 %></td>
+        <td><%= compare.first_away_player_gp.to_i + compare.third_away_player_gp.to_i + compare.forth_away_player_gp.to_i %></td>
+        <td><%= compare.first_away_player_gs.to_i + compare.third_away_player_gs.to_i + compare.forth_away_player_gs.to_i %></td>
+        <td><%= ((compare.first_away_player_mp.to_f + compare.third_away_player_mp.to_f + compare.forth_away_player_mp.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_fg.to_f + compare.third_away_player_fg.to_f + compare.forth_away_player_fg.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_fga.to_f + compare.third_away_player_fga.to_f + compare.forth_away_player_fga.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_p.to_f + compare.third_away_player_p.to_f + compare.forth_away_player_p.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_pa.to_f + compare.third_away_player_pa.to_f + compare.forth_away_player_pa.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_ft.to_f + compare.third_away_player_ft.to_f + compare.forth_away_player_ft.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_fta.to_f + compare.third_away_player_fta.to_f + compare.forth_away_player_fta.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_orb.to_f + compare.third_away_player_orb.to_f + compare.forth_away_player_orb.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_stl.to_f + compare.third_away_player_stl.to_f + compare.forth_away_player_stl.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_blk.to_f + compare.third_away_player_blk.to_f + compare.forth_away_player_blk.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_tov.to_f + compare.third_away_player_tov.to_f + compare.forth_away_player_tov.to_f) / count ).round(3) %></td>
+        <td><%= ((compare.first_away_player_pts.to_f + compare.third_away_player_pts.to_f + compare.forth_away_player_pts.to_f) / count ).round(3) %></td>
+        <%
+          first_away_player_pts = (compare.first_away_player_pts.to_f + compare.third_away_player_pts.to_f + compare.forth_away_player_pts.to_f)/count
+          first_away_player_fga = (compare.first_away_player_fga.to_f + compare.third_away_player_fga.to_f + compare.forth_away_player_fga.to_f)/count
+          first_away_player_tov = (compare.first_away_player_tov.to_f + compare.third_away_player_tov.to_f + compare.forth_away_player_tov.to_f)/count
+          first_away_player_fta = (compare.first_away_player_fta.to_f + compare.third_away_player_fta.to_f + compare.forth_away_player_fta.to_f)/count
+          first_away_player_orb = (compare.first_away_player_orb.to_f + compare.third_away_player_orb.to_f + compare.forth_away_player_orb.to_f)/count
+          first_away_tp = ((first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb)*(compare.first_away_player_gp.to_i + compare.third_away_player_gp.to_i + compare.forth_away_player_gp.to_i)).round(3)
+          tpStyle = "background:darkgray;"
+          if first_away_tp > 50
+            tpStyle = "background:skyblue;"
+          end
+        %>
+        <td style=<%= tpStyle %> ><%= first_away_tp %></td>
+        <td><%= (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb).round(3) %></td>
+        <td><%= (first_away_player_pts / (first_away_player_fga + first_away_player_tov + (first_away_player_fta * 0.44) - first_away_player_orb)).round(3) %></td>
+        <% unless compare.forth_home_player_age || compare.third_home_player_age || compare.first_home_player_age %>
+          <td></td>
+        <% end %>
+        <td></td>
+      </tr>
+      <% end %>
+      <tr class="gray">
+        <td style="background: #9ce168;"><u>THIS YEAR 17-18</u></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%= compare.second_home_player_name %></td>
+        <td><%= compare.second_home_player_age %></td>
+        <td><%= compare.second_home_player_gp %></td>
+        <td><%= compare.second_home_player_gs %></td>
+        <td><%= compare.second_home_player_mp %></td>
+        <td><%= compare.second_home_player_fg %></td>
+        <td><%= compare.second_home_player_fga %></td>
+        <td><%= compare.second_home_player_p %></td>
+        <td><%= compare.second_home_player_pa %></td>
+        <td><%= compare.second_home_player_ft %></td>
+        <td><%= compare.second_home_player_fta %></td>
+        <td><%= compare.second_home_player_orb %></td>
+        <td><%= compare.second_home_player_stl %></td>
+        <td><%= compare.second_home_player_blk %></td>
+        <td><%= compare.second_home_player_tov %></td>
+        <td><%= compare.second_home_player_pts %></td>
+        <%
+          second_home_tp = ((compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)*compare.second_home_player_gp).round(3)
+          tpStyle = "background:darkgray;"
+          if second_home_tp > 50
+            tpStyle = "background:skyblue;"
+          end
+        %>
+        <td style=<%= tpStyle %> ><%= second_home_tp %></td>
+        <td><%= (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb).round(3) %></td>
+        <td><%= (compare.second_home_player_pts/ (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb)).round(3) %></td>
+        <td rowspan="2"><%= (compare.second_home_player_pts/ (compare.second_home_player_fga + compare.second_home_player_tov + (compare.second_home_player_fta * 0.44) - compare.second_home_player_orb) + compare.second_away_player_pts/(compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)).round(3) %></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%= compare.second_away_player_name %></td>
+        <td><%= compare.second_away_player_age %></td>
+        <td><%= compare.second_away_player_gp %></td>
+        <td><%= compare.second_away_player_gs %></td>
+        <td><%= compare.second_away_player_mp %></td>
+        <td><%= compare.second_away_player_fg %></td>
+        <td><%= compare.second_away_player_fga %></td>
+        <td><%= compare.second_away_player_p %></td>
+        <td><%= compare.second_away_player_pa %></td>
+        <td><%= compare.second_away_player_ft %></td>
+        <td><%= compare.second_away_player_fta %></td>
+        <td><%= compare.second_away_player_orb %></td>
+        <td><%= compare.second_away_player_stl %></td>
+        <td><%= compare.second_away_player_blk %></td>
+        <td><%= compare.second_away_player_tov %></td>
+        <td><%= compare.second_away_player_pts %></td>
+        <%
+          second_away_tp = ((compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)*compare.second_away_player_gp).round(3)
+          tpStyle = "background:darkgray;"
+          if second_away_tp > 50
+            tpStyle = "background:skyblue;"
+          end
+        %>
+        <td style=<%= tpStyle %> ><%= second_away_tp %></td>
+        <td><%= (compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb).round(3) %></td>
+        <td><%= (compare.second_away_player_pts/(compare.second_away_player_fga + compare.second_away_player_tov + (compare.second_away_player_fta * 0.44) - compare.second_away_player_orb)).round(3) %></td>
+        <td></td>
+      </tr>
+      <tr class="gray" style="height: 20px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% end %>
+
+
+<div class="tableContainer">
     <table border="1" class="totalAverage">
         <tbody>
             <tr>
                 <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y")%></td>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
                 <td></td>
                 <td class="line">1H LINE</td>
                 <td class="line">2H LINE</td>
                 <td class="line">FG LINE</td>
                 <td></td>
-                <td colspan="4" rowspan="3" class="gray"></td>
+                <td colspan="4" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE</td>
+                <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td></td>
+                <td colspan="2" class="gameDate">TRAVEL</td>
+                <td class="gradient"></td>
                 <td><u><i>road</i></u></td>
                 <td colspan="2">road DAYS REST home</td>
                 <td><u><i>home</i></u></td>
@@ -363,10 +932,14 @@
                 <td class="gameDate"><%= @game.second_closer_total %></td>
                 <td class="gameDate"><%= @game.full_closer_total %></td>
                 <td></td>
+                <td></td>
             </tr>
             <tr>
                 <td class="gameDate">RIVALS</td>
                 <td></td>
+                <td>last Y/N</td>
+                <td>next Y/N</td>
+                <td class="gradient"></td>
                 <td class="gameDate">last</td>
                 <td colspan="2" class="gameDate">next game</td>
                 <td class="gameDate">last</td>
@@ -378,10 +951,14 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
             </tr>
             <tr class="gameDate">
-                <td><%= @game.away_abbr + " VS " + @game.home_abbr %></td>
+                <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
                 <td></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td><%= @game.away_last_game %></td>
                 <td><%= @game.away_next_game %></td>
                 <td><%= @game.home_next_game %></td>
@@ -394,112 +971,107 @@
                 <td>2ND<br>HALF</td>
                 <td>FULL<br>GAME</td>
                 <td>GAMES</td>
-                <td colspan="4" rowspan="5" class="gray halfstats">HALFTIME <br> SCORE</td>
+                <td rowspan="24" class="gray"></td>
+                <td>1ST<br>HALF</td>
+                <td>2ND<br>HALF</td>
+                <td>FULL<br>GAME</td>
+                <td>GAMES</td>
             </tr>
             <tr>
                 <td>RIVALS</td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
+                <td class="gradient"></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="gradient"></td>
                 <td><%= @firstItem_result[:first] %></td>
                 <td><%= @firstItem_result[:second] %></td>
                 <td><%= @firstItem_result[:full] %></td>
                 <td><%= @firstItem_result[:count] %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
                 <td>ALL GAMES IN <%= @home_abbr %></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
+                <td class="gradient"></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="gradient"></td>
                 <td><%= @secondItem_result[:first] %></td>
                 <td><%= @secondItem_result[:second] %></td>
                 <td><%= @secondItem_result[:full] %></td>
                 <td><%= @secondItem_result[:count] %></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
                 <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A")%></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
+                <td class="gradient"></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="gradient"></td>
                 <td><%= @thirdItem_result[:first] %></td>
                 <td><%= @thirdItem_result[:second] %></td>
                 <td><%= @thirdItem_result[:full] %></td>
                 <td><%= @thirdItem_result[:count] %></td>
-            </tr>
-            <tr>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="filter">X</td>
-                <td class="filter">X</td>
-                <td></td>
-                <td><%= @forthItem_result[:first] %></td>
-                <td><%= @forthItem_result[:second] %></td>
-                <td><%= @forthItem_result[:full] %></td>
-                <td><%= @forthItem_result[:count] %></td>
-                <td colspan="2"><%= @game.away_team %></td>
-                <td colspan="2"><%= @game.home_team %></td>
             </tr>
             <tr class="gradient">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
-            <% 
-                @filters.each_with_index do |filter, index|
+            <%
+                (0..16).each do |index|
+                    filter = @filters[index]
                     first_one = []
                     filter.each do |element|
                         first_one.push(element ? element : "ANY")
@@ -507,7 +1079,15 @@
                     first_one = first_one.join("-")
             %>
                 <tr class="filterElement">
-                    <td><%= first_one %></td>
+                  <% if index == 0 %>
+                    <td>Any</td>
+                  <% else %>
+                    <td>
+                      <div>
+                        <%= first_one %>
+                      </div>
+                    </td>
+                  <% end %>
                     <td></td>
                     <% if filter[0] %>
                         <td class="filter">X</td>
@@ -519,6 +1099,7 @@
                     <% else %>
                         <td></td>
                     <% end %>
+                    <td></td>
                     <% if filter[2] %>
                         <td class="filter">X</td>
                     <% else %>
@@ -529,7 +1110,6 @@
                     <% else %>
                         <td></td>
                     <% end %>
-                    <td></td>
                     <% if filter[4] %>
                         <td class="filter">X</td>
                     <% else %>
@@ -541,24 +1121,25 @@
                         <td></td>
                     <% end %>
                     <td></td>
+                    <% if filter[6] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <% if filter[7] %>
+                        <td class="filter">X</td>
+                    <% else %>
+                        <td></td>
+                    <% end %>
+                    <td></td>
                     <td><%= @filterResult[index][:first] %></td>
                     <td><%= @filterResult[index][:second] %></td>
                     <td><%= @filterResult[index][:full] %></td>
                     <td><%= @filterResult[index][:count] %></td>
-                    <% if index == 0 %>
-                        <td colspan="2" rowspan="3">
-                          <% if @game.away_first_quarter && @game.away_second_quarter %>
-                            <%= @game.away_first_quarter + @game.away_second_quarter %>
-                          <% end %>
-                        </td>
-                        <td colspan="2" rowspan="3">
-                          <% if @game.home_first_quarter && @game.home_second_quarter %>
-                            <%= @game.home_first_quarter + @game.home_second_quarter %>
-                          <% end %>
-                        </td>
-                    <% elsif index == 3 %>
-                        <td colspan="4" rowspan="42" class="gray"></td>
-                    <% end %>
+                    <td><%= @filterResult[index][:allfirst] %></td>
+                    <td><%= @filterResult[index][:allsecond] %></td>
+                    <td><%= @filterResult[index][:allfull] %></td>
+                    <td><%= @filterResult[index][:allcount] %></td>
                 </tr>
                 <% if @break.include?(index) %>
                 <tr class="gradient">
@@ -576,125 +1157,258 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <% if index == 16 %>
+                      <td></td>
+                    <% end %>
                 </tr>
                 <% end %>
             <% end %>
             <tr class="redgradient">
-                <td>2ND HALF STATS</td>
-                <td></td>
-                <td class="gameDate"><%= @game.away_abbr %></td>
-                <td class="gameDate">
-                  <% if @game.away_first_quarter && @game.away_second_quarter %>
-                    <%= @game.away_first_quarter + @game.away_second_quarter %>
-                  <% end %>
-                </td>
-                <td class="gameDate"><%= @game.home_abbr %></td>
-                <td class="gameDate">
-                  <% if @game.home_first_quarter && @game.home_second_quarter %>
-                    <%= @game.home_first_quarter + @game.home_second_quarter %>
-                  <% end %>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <td class="yellow">GAMES</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td colspan="3">Full Game</td>
+              <td colspan="3" class="yellow">1st Half</td>
+              <td colspan="3">2nd Half</td>
             </tr>
             <tr>
-                <td class="gray">WHEN HOME TEAM</td>
-                <td class="gradient"></td>
-                <td colspan="4">IS LEADING BY <%= @diff %> (+/- 5)</td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td><%= @lastfirstItem_result[:first] %></td>
-                <td><%= @lastfirstItem_result[:second] %></td>
-                <td><%= @lastfirstItem_result[:full] %></td>
-                <td><%= @lastfirstItem_result[:count] %></td>
+              <td><%= @filterResult[0][:allcount] %></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[0][:full_first] %></td>
+              <td><%= @filterResult[0][:full_second] %></td>
+              <td><%= (@filterResult[0][:full_first] - @filterResult[0][:full_second]).round(2) %></td>
+              <td><%= @filterResult[0][:firsthalf_first] %></td>
+              <td><%= @filterResult[0][:firsthalf_second] %></td>
+              <td><%= (@filterResult[0][:firsthalf_first] - @filterResult[0][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[0][:secondhalf_first] %></td>
+              <td><%= @filterResult[0][:secondhalf_second] %></td>
+              <td><%= (@filterResult[0][:secondhalf_first] - @filterResult[0][:secondhalf_second]).round(2) %></td>
             </tr>
             <tr>
-                <td class="gray">WHEN HOME TEAM</td>
-                <td class="gradient"></td>
-                <td colspan="4">SCORES MORE THAN 60</td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td><%= @lastsecondItem_result[:first] %></td>
-                <td><%= @lastsecondItem_result[:second] %></td>
-                <td><%= @lastsecondItem_result[:full] %></td>
-                <td><%= @lastsecondItem_result[:count] %></td>
+              <td><%= @filterResult[1][:allcount] %></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[1][:full_first] %></td>
+              <td><%= @filterResult[1][:full_second] %></td>
+              <td><%= (@filterResult[1][:full_first] - @filterResult[1][:full_second]).round(2) %></td>
+              <td><%= @filterResult[1][:firsthalf_first] %></td>
+              <td><%= @filterResult[1][:firsthalf_second] %></td>
+              <td><%= (@filterResult[1][:firsthalf_first] - @filterResult[1][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[1][:secondhalf_first] %></td>
+              <td><%= @filterResult[1][:secondhalf_second] %></td>
+              <td><%= (@filterResult[1][:secondhalf_first] - @filterResult[1][:secondhalf_second]).round(2) %></td>
             </tr>
             <tr>
-                <td class="gray">WHEN ROAD TEAM</td>
-                <td class="gradient"></td>
-                <td colspan="4">SCORES MORE THAN 60</td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td><%= @lastthirdItem_result[:first] %></td>
-                <td><%= @lastthirdItem_result[:second] %></td>
-                <td><%= @lastthirdItem_result[:full] %></td>
-                <td><%= @lastthirdItem_result[:count] %></td>
+              <td><%= @filterResult[16][:allcount] %></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[16][:full_first] %></td>
+              <td><%= @filterResult[16][:full_second] %></td>
+              <td><%= (@filterResult[16][:full_first] - @filterResult[16][:full_second]).round(2) %></td>
+              <td><%= @filterResult[16][:firsthalf_first] %></td>
+              <td><%= @filterResult[16][:firsthalf_second] %></td>
+              <td><%= (@filterResult[16][:firsthalf_first] - @filterResult[16][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[16][:secondhalf_first] %></td>
+              <td><%= @filterResult[16][:secondhalf_second] %></td>
+              <td><%= (@filterResult[16][:secondhalf_first] - @filterResult[16][:secondhalf_second]).round(2) %></td>
             </tr>
             <tr>
-                <td class="gray"></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <td><%= @filterResult[17][:allcount] %></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[17][:full_first] %></td>
+              <td><%= @filterResult[17][:full_second] %></td>
+              <td><%= (@filterResult[17][:full_first] - @filterResult[17][:full_second]).round(2) %></td>
+              <td><%= @filterResult[17][:firsthalf_first] %></td>
+              <td><%= @filterResult[17][:firsthalf_second] %></td>
+              <td><%= (@filterResult[17][:firsthalf_first] - @filterResult[17][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[17][:secondhalf_first] %></td>
+              <td><%= @filterResult[17][:secondhalf_second] %></td>
+              <td><%= (@filterResult[17][:secondhalf_first] - @filterResult[17][:secondhalf_second]).round(2) %></td>
             </tr>
             <tr>
-                <td class="gray"></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td class="gradient"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <td><%= @filterResult[18][:allcount] %></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[18][:full_first] %></td>
+              <td><%= @filterResult[18][:full_second] %></td>
+              <td><%= (@filterResult[18][:full_first] - @filterResult[18][:full_second]).round(2) %></td>
+              <td><%= @filterResult[18][:firsthalf_first] %></td>
+              <td><%= @filterResult[18][:firsthalf_second] %></td>
+              <td><%= (@filterResult[18][:firsthalf_first] - @filterResult[18][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[18][:secondhalf_first] %></td>
+              <td><%= @filterResult[18][:secondhalf_second] %></td>
+              <td><%= (@filterResult[18][:secondhalf_first] - @filterResult[18][:secondhalf_second]).round(2) %></td>
+            </tr>
+            <tr>
+              <td><%= @filterResult[19][:allcount] %></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[19][:full_first] %></td>
+              <td><%= @filterResult[19][:full_second] %></td>
+              <td><%= (@filterResult[19][:full_first] - @filterResult[19][:full_second]).round(2) %></td>
+              <td><%= @filterResult[19][:firsthalf_first] %></td>
+              <td><%= @filterResult[19][:firsthalf_second] %></td>
+              <td><%= (@filterResult[19][:firsthalf_first] - @filterResult[19][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[19][:secondhalf_first] %></td>
+              <td><%= @filterResult[19][:secondhalf_second] %></td>
+              <td><%= (@filterResult[19][:secondhalf_first] - @filterResult[19][:secondhalf_second]).round(2) %></td>
+            </tr>
+            <tr>
+              <td><%= @filterResult[14][:allcount] %></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[14][:full_first] %></td>
+              <td><%= @filterResult[14][:full_second] %></td>
+              <td><%= (@filterResult[14][:full_first] - @filterResult[14][:full_second]).round(2) %></td>
+              <td><%= @filterResult[14][:firsthalf_first] %></td>
+              <td><%= @filterResult[14][:firsthalf_second] %></td>
+              <td><%= (@filterResult[14][:firsthalf_first] - @filterResult[14][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[14][:secondhalf_first] %></td>
+              <td><%= @filterResult[14][:secondhalf_second] %></td>
+              <td><%= (@filterResult[14][:secondhalf_first] - @filterResult[14][:secondhalf_second]).round(2) %></td>
+            </tr>
+            <tr>
+              <td><%= @filterResult[15][:allcount] %></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="filter">X</td>
+              <td class="gradient"></td>
+              <td><%= @filterResult[15][:full_first] %></td>
+              <td><%= @filterResult[15][:full_second] %></td>
+              <td><%= (@filterResult[15][:full_first] - @filterResult[15][:full_second]).round(2) %></td>
+              <td><%= @filterResult[15][:firsthalf_first] %></td>
+              <td><%= @filterResult[15][:firsthalf_second] %></td>
+              <td><%= (@filterResult[15][:firsthalf_first] - @filterResult[15][:firsthalf_second]).round(2) %></td>
+              <td><%= @filterResult[15][:secondhalf_first] %></td>
+              <td><%= @filterResult[15][:secondhalf_second] %></td>
+              <td><%= (@filterResult[15][:secondhalf_first] - @filterResult[15][:secondhalf_second]).round(2) %></td>
             </tr>
             <tr class="redgradient">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr class="gradient">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -717,17 +1431,3 @@
         </tbody>
     </table>
 </div>
-
-<div style="
-    position: absolute;
-    top: 10px;
-    left: 10px;
-">
-  <button class="btn btn-danger refreshbutton">Refresh</button>
-</div>
-  
-<script>
- $('.refreshbutton').click(function(){
-    window.location.href = window.location.href;
-  });
-</script>
