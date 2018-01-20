@@ -98,10 +98,6 @@ class IndexController < ApplicationController
 		end
 
 		@injury_away_total_poss = 0
-	    @injury_away_total_min = 0
-        @injury_away_total_stl = 0
-        @injury_away_total_blk = 0
-        @injury_away_total_or = 0
 	    @injury_away_drtg_one = 0
 	    injury_drtg_count = 0
 	    injury_drtg_min = 0
@@ -121,10 +117,6 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        injury_drtg_count = injury_drtg_count + 1
-	        @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
-	        @injury_away_total_stl = @injury_away_total_stl + player.sum_stl/count
-	        @injury_away_total_blk = @injury_away_total_blk + player.sum_blk/count
-	        @injury_away_total_or = @injury_away_total_or + player.sum_or/count
 	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
 	        @injury_away_drtg_one = @injury_away_drtg_one + player.drtg * (player.sum_mins/(count - 2))
 	        @injury_away_drtg_one_container.push(player.id)
@@ -224,10 +216,6 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        injury_drtg_count = injury_drtg_count + 1
-	        @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
-	        @injury_away_total_stl = @injury_away_total_stl + player.sum_stl/count
-	        @injury_away_total_blk = @injury_away_total_blk + player.sum_blk/count
-	        @injury_away_total_or = @injury_away_total_or + player.sum_or/count
 	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
 	        @injury_away_drtg_two = @injury_away_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @injury_away_drtg_two_container.push(player.id)
@@ -321,18 +309,10 @@ class IndexController < ApplicationController
 	        if @away_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 	        	next
 	        end
-	        @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
-	        @injury_away_total_stl = @injury_away_total_stl + player.sum_stl/count
-	        @injury_away_total_blk = @injury_away_total_blk + player.sum_blk/count
-	        @injury_away_total_or = @injury_away_total_or + player.sum_or/count
 	        @injury_away_total_poss = @injury_away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
 	    @injury_home_total_poss = 0
-	    @injury_home_total_min = 0
-        @injury_home_total_stl = 0
-        @injury_home_total_blk = 0
-        @injury_home_total_or = 0
 	    @injury_home_drtg_one = 0
 	    injury_drtg_count = 0
 	    injury_drtg_min = 0
@@ -352,10 +332,6 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        injury_drtg_count = injury_drtg_count + 1
-	        @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
-	        @injury_home_total_stl = @injury_home_total_stl + player.sum_stl/count
-	        @injury_home_total_blk = @injury_home_total_blk + player.sum_blk/count
-	        @injury_home_total_or = @injury_home_total_or + player.sum_or/count
 	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
 	        @injury_home_drtg_one = @injury_home_drtg_one + player.drtg * (player.sum_mins/(count - 2))
 	        @injury_home_total_poss = @injury_home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
@@ -454,10 +430,6 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        injury_drtg_count = injury_drtg_count + 1
-	        @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
-	        @injury_home_total_stl = @injury_home_total_stl + player.sum_stl/count
-	        @injury_home_total_blk = @injury_home_total_blk + player.sum_blk/count
-	        @injury_home_total_or = @injury_home_total_or + player.sum_or/count
 	        injury_drtg_min = injury_drtg_min + player.sum_mins/(count - 2)
 	        @injury_home_drtg_two = @injury_home_drtg_two + player.drtg * (player.sum_mins/(count - 2))
 	        @injury_home_total_poss = @injury_home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
@@ -551,10 +523,6 @@ class IndexController < ApplicationController
 	        if @home_injury_name.include?(player.player_name) && !@injuries.include?(player.id.to_s)
 	        	next
 	        end
-	        @injury_home_total_min = @injury_home_total_min + player.sum_mins/(count - 2)
-	        @injury_home_total_stl = @injury_home_total_stl + player.sum_stl/count
-	        @injury_home_total_blk = @injury_home_total_blk + player.sum_blk/count
-	        @injury_home_total_or = @injury_home_total_or + player.sum_or/count
 	        @injury_home_total_poss = @injury_home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 
