@@ -200,7 +200,7 @@
       <td rowspan="3"><%= game.away_team %></td>
       <td class="yellow" rowspan="3"><%= game.away_next_game %></td>
       <td class="red" rowspan="3"><%= link_to '@', { action: 'detail', id: game.game_id }%></td>
-      <td class="red" rowspan="3"><%= link_to 'Stat', { action: 'stat', id: game.game_id }%></td>
+      <td class="red" rowspan="3"><%= link_to 'State', { action: 'state', id: game.game_id }%></td>
       <td class="red" rowspan="3"><%= link_to 'Filter', { action: 'rest', id: game.game_id }%></td>
       <td class="yellow" rowspan="3"><%= game.home_next_game %></td>
       <td class="green" rowspan="3"><%= game.home_next_fly %></td>
