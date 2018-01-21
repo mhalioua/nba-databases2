@@ -2199,7 +2199,7 @@ namespace :nba do
     end
   end
 
-  task :getUpdateTG => [:environment] do
+  task :getUpdateTGclone => [:environment] do
     include Api
     games = Nba.all
     puts games.size
