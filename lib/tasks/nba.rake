@@ -2253,6 +2253,64 @@ namespace :nba do
     end
   end
 
+  task :getUpdatePossClone => [:environment] do
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+    games = Nba.all
+    games.each do |game|
+      players = game.players.where("player_name <> 'TEAM'")
+      players.each do |player|
+        possession = []
+        sum_mins = 0
+        sum_poss = 0
+        team_poss = 0
+        sum_or = 0
+        sum_stl = 0
+        sum_blk = 0
+        count = 0
+        mins_min = 100
+        mins_max = 0
+        last_players = Player.where("game_date >= ? AND game_date <= ? AND player_name = ?", Date.new(2017, 10 ,20), player.game_date, player.player_name).or(Player.where("game_date <= ? AND player_name = ?", Date.new(2017, 6 ,18), player.player_name)).order('game_date DESC')
+        last_players.each do |last_player|
+          if count == 10
+            break
+          end
+          if last_player.mins == 0
+            next
+          end
+          possession.push(last_player.nba_id)
+          sum_poss = sum_poss + last_player.poss
+          sum_mins = sum_mins + last_player.mins
+          sum_or = sum_or + last_player.orValue
+          stlValue = 0
+          blkValue = 0
+          if last_player.stlValue
+            stlValue = last_player.stlValue
+          end
+          if last_player.blkValue
+            blkValue = last_player.blkValue
+          end
+          sum_stl = sum_stl + stlValue
+          sum_blk = sum_blk + blkValue
+          if mins_min > last_player.mins
+            mins_min = last_player.mins
+          end
+          if mins_max < last_player.mins
+            mins_max = last_player.mins
+          end
+          last_team = Player.where("nba_id = ? AND team_abbr = ? AND player_name = ?",last_player.nba_id, last_player.team_abbr, "TEAM")
+          team_poss = team_poss + last_team.first.poss
+          count = count + 1
+        end
+        sum_mins = sum_mins - mins_min - mins_max
+        if sum_mins < 0
+          sum_mins = 0
+        end
+        player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins, sum_blk: sum_blk, sum_or: sum_or, sum_stl: sum_stl)
+      end
+    end
+  end
+
 		@basket_abbr = [
 		'ATL',
 		'BOS',
