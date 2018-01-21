@@ -2199,6 +2199,60 @@ namespace :nba do
     end
   end
 
+  task :getUpdateTG => [:environment] do
+    include Api
+    games = Nba.all
+    puts games.size
+    games.each do |game|
+      players = game.players.all
+      players.each do |player|
+        if player.player_name == "TEAM"
+          next
+        end
+        team_abbr = game.home_abbr
+        if player.team_abbr == 0
+         team_abbr = game.away_abbr
+        end
+        if @team_nicknames[team_abbr]
+          team_abbr = @team_nicknames[team_abbr]
+          
+          player_name = player.player_name
+
+          player_name_index = player_name.index(" Jr.")
+          player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
+
+          player_name_index = player_name.index(" II")
+          player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
+
+          player_name_index = player_name.index(" III")
+          player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
+
+          if @player_name[player_name]
+            player_name = @player_name[player_name]
+          end
+          
+          ortg = 0
+          drtg = 0
+          count = 0
+          player_link = ""
+          player_fullname = ""
+          player_elements = Tg.where("player_name = ? AND year >= 2017", player_name)
+          player_elements.each do |player_element|
+            player_count = player_element.count ? player_element.count : 1
+            count = count + player_count
+            ortg = ortg + player_count * (player_element.ortg ? player_element.ortg : 0)
+            drtg = drtg + player_count * (player_element.drtg ? player_element.drtg : 0)
+            player_link = player_element.player_link
+            player_fullname = player_element.player_fullname
+          end
+          ortg = (ortg.to_f / count).round(1)
+          drtg = (drtg.to_f / count).round(1)
+          player.update(ortg: ortg, drtg: drtg, player_link: player_link, player_fullname: player_fullname)
+        end
+      end
+    end
+  end
+
 		@basket_abbr = [
 		'ATL',
 		'BOS',
