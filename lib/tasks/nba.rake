@@ -947,6 +947,8 @@ namespace :nba do
 				fta_index = fta_value.index('-')
 				fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
 				or_value = slice.children[5].text.to_i
+        stl_value = slice.children[9].text.to_i
+        blk_value = slice.children[10].text.to_i
 				poss = fga_value + to_value + (fta_value * 0.44) - or_value
 				if slice.children[0].children.size > 1
 					position = slice.children[0].children[1].text
@@ -954,7 +956,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
          	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
         end
-        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value )
+        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value )
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -987,6 +989,8 @@ namespace :nba do
 				fta_index = fta_value.index('-')
 				fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
 				or_value = slice.children[5].text.to_i
+        stl_value = slice.children[9].text.to_i
+        blk_value = slice.children[10].text.to_i
 				poss = fga_value + to_value + (fta_value *0.44) - or_value
 				if slice.children[0].children.size > 1
 					position = slice.children[0].children[1].text
@@ -994,7 +998,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
          	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
         end
-        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
+        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
 			end
 		end
 	end
@@ -1044,6 +1048,9 @@ namespace :nba do
 				sum_mins = 0
 				sum_poss = 0
 				team_poss = 0
+        sum_or = 0
+        sum_stl = 0
+        sum_blk = 0
 				count = 0
 				mins_min = 100
 				mins_max = 0
@@ -1059,6 +1066,16 @@ namespace :nba do
 					sum_poss = sum_poss + last_player.poss
 					sum_mins = sum_mins + last_player.mins
           sum_or = sum_or + last_player.orValue
+          stlValue = 0
+          blkValue = 0
+          if last_player.stlValue
+            stlValue = last_player.stlValue
+          end
+          if last_player.blkValue
+            blkValue = last_player.blkValue
+          end
+          sum_stl = sum_stl + stlValue
+          sum_blk = sum_blk + blkValue
 					if mins_min > last_player.mins
 						mins_min = last_player.mins
 					end
@@ -1073,7 +1090,7 @@ namespace :nba do
         if sum_mins < 0
           sum_mins = 0
         end
-				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins)
+				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins, sum_blk: sum_blk, sum_or: sum_or, sum_stl: sum_stl)
 			end
 		end
 	end
@@ -2071,10 +2088,9 @@ namespace :nba do
   task :getPlayerClone => [:environment] do
     include Api
     puts "----------Get Players----------"
-    allPlayers = Player.where("mins is null").pluck(:nba_id).uniq
-    puts allPlayers.size
-    allPlayers.each do |selectedPlayer|
-      game = Nba.where("id = ?", selectedPlayer).first
+    games = Nba.where("game_date between ? and ?", (Date.today - 3.years).beginning_of_day, Date.today.end_of_day)
+    puts games.size
+    games.each do |game|
       game_id = game.game_id
       puts game_id
       url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
@@ -2119,14 +2135,16 @@ namespace :nba do
         fta_index = fta_value.index('-')
         fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
         or_value = slice.children[5].text.to_i
+        stl_value = slice.children[9].text.to_i
+        blk_value = slice.children[10].text.to_i
         poss = fga_value + to_value + (fta_value * 0.44) - or_value
         if slice.children[0].children.size > 1
           position = slice.children[0].children[1].text
         end
         unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
-                player = game.players.create(player_name: player_name, team_abbr: team_abbr)
-              end
-              player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value )
+          player = game.players.create(player_name: player_name, team_abbr: team_abbr)
+        end
+        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value )
       end
 
       home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -2167,6 +2185,8 @@ namespace :nba do
         fta_index = fta_value.index('-')
         fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
         or_value = slice.children[5].text.to_i
+        stl_value = slice.children[9].text.to_i
+        blk_value = slice.children[10].text.to_i
         poss = fga_value + to_value + (fta_value *0.44) - or_value
         if slice.children[0].children.size > 1
           position = slice.children[0].children[1].text
@@ -2174,7 +2194,7 @@ namespace :nba do
         unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
           player = game.players.create(player_name: player_name, team_abbr: team_abbr)
         end
-        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
+        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
       end
     end
   end

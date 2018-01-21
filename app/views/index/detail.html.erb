@@ -351,6 +351,9 @@
         <th><%= @game.away_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
+        <th>OR</th>
+        <th>STL</th>
+        <th>BLK</th>
         <th>PLAYER <br> POSS %</th>
         <th>MINS</th>
         <th>PRO RATE</th>
@@ -398,6 +401,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -466,6 +472,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -501,7 +510,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="11"></td>
+        <td colspan="14"></td>
       </tr>
     <% @away_players_group3.each_with_index do |player, index| 
           count = 1
@@ -537,6 +546,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -569,12 +581,15 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="12"></td>
+        <td colspan="15"></td>
       </tr>
       <tr>
         <td></td>
         <td></td>
         <td></td>
+        <td><%= @injury_away_total_or %></td>
+        <td><%= @injury_away_total_stl %></td>
+        <td><%= @injury_away_total_blk %></td>
         <td><%= '%.2f' % @injury_away_total_poss %>%</td>
         <td><%= @injury_away_total_min %></td>
         <td>100%</td>
@@ -593,6 +608,9 @@
         <th><%= @game.home_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
+        <th>OR</th>
+        <th>STL</th>
+        <th>BLK</th>
         <th>PLAYER <br> POSS %</th>
         <th>MINS</th>
         <th>PRO RATE</th>
@@ -639,6 +657,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -707,6 +728,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -742,7 +766,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="11"></td>
+        <td colspan="14"></td>
       </tr>
     <% @home_players_group3.each_with_index do |player, index| 
           count = 1
@@ -778,6 +802,9 @@
             count = 1
           end
         %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -810,12 +837,15 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="12"></td>
+        <td colspan="15"></td>
       </tr>
       <tr>
         <td></td>
         <td></td>
         <td></td>
+        <td><%= @injury_home_total_or %></td>
+        <td><%= @injury_home_total_stl %></td>
+        <td><%= @injury_home_total_blk %></td>
         <td><%= '%.2f' % @injury_home_total_poss %>%</td>
         <td><%= @injury_home_total_min %></td>
         <td>100%</td>
@@ -839,6 +869,8 @@
                     <th>FTA</th>
                     <th>TO</th>
                     <th>OR</th>
+                    <th>STL</th>
+                    <th>BLK</th>
                     <th>POSS</th>
                     <th>PTS</th>
                     <th>PPP</th>
@@ -854,6 +886,8 @@
                     total_fta = 0
                     total_toValue = 0
                     total_orValue = 0
+                    total_stlValue = 0
+                    total_blkValue = 0
                     total_poss = 0
                     total_pts = 0
                     total_ppp = 0
@@ -867,6 +901,8 @@
                       total_fta = total_fta + search_player.fta
                       total_toValue = total_toValue + search_player.toValue
                       total_orValue = total_orValue + search_player.orValue
+                      total_stlValue = total_stlValue + search_player.stlValue.to_i
+                      total_blkValue = total_blkValue + search_player.blkValue.to_i
                       total_poss = total_poss + search_player.poss
                       total_pts = total_pts + search_player.ptsValue.to_i
                       if search_player.poss != 0
@@ -881,6 +917,8 @@
                     <td><%= search_player.fta %></td>
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
+                    <td><%= search_player.stlValue %></td>
+                    <td><%= search_player.blkValue %></td>
                     <td><%= search_player.poss.round(1) %></td>
                     <td><%= search_player.ptsValue %></td>
                     <% if search_player.poss != 0 %>
@@ -898,6 +936,8 @@
                     <td><%= total_fta %></td>
                     <td><%= total_toValue %></td>
                     <td><%= total_orValue %></td>
+                    <td><%= total_stlValue %></td>
+                    <td><%= total_blkValue %></td>
                     <td><%= total_poss.round(1) %></td>
                     <td><%= total_pts %></td>
                     <td><%= total_ppp.round(3) %></td>
@@ -919,6 +959,8 @@
                     <th>FTA</th>
                     <th>TO</th>
                     <th>OR</th>
+                    <th>STL</th>
+                    <th>BLK</th>
                     <th>POSS</th>
                     <th>PTS</th>
                     <th>PPP</th>
@@ -934,6 +976,8 @@
                     total_fta = 0
                     total_toValue = 0
                     total_orValue = 0
+                    total_stlValue = 0
+                    total_blkValue = 0
                     total_poss = 0
                     total_pts = 0
                     total_ppp = 0
@@ -947,6 +991,8 @@
                       total_fta = total_fta + search_player.fta
                       total_toValue = total_toValue + search_player.toValue
                       total_orValue = total_orValue + search_player.orValue
+                      total_stlValue = total_stlValue + search_player.stlValue.to_i
+                      total_blkValue = total_blkValue + search_player.blkValue.to_i
                       total_poss = total_poss + search_player.poss
                       total_pts = total_pts + search_player.ptsValue.to_i
                       if search_player.poss != 0
@@ -961,6 +1007,8 @@
                     <td><%= search_player.fta %></td>
                     <td><%= search_player.toValue %></td>
                     <td><%= search_player.orValue %></td>
+                    <td><%= search_player.stlValue %></td>
+                    <td><%= search_player.blkValue %></td>
                     <td><%= search_player.poss.round(1) %></td>
                     <td><%= search_player.ptsValue %></td>
                     <% if search_player.poss != 0 %>
@@ -978,6 +1026,8 @@
                     <td><%= total_fta %></td>
                     <td><%= total_toValue %></td>
                     <td><%= total_orValue %></td>
+                    <td><%= total_stlValue %></td>
+                    <td><%= total_blkValue %></td>
                     <td><%= total_poss.round(1) %></td>
                     <td><%= total_pts %></td>
                     <td><%= total_ppp.round(3) %></td>
