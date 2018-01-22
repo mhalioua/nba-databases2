@@ -2085,117 +2085,125 @@ namespace :nba do
     end
   end
 
-  task :getPlayerClone => [:environment] do
+  task :getPlayerCloneOne => [:environment] do
     include Api
     puts "----------Get Players----------"
-    games = Nba.where("game_date between ? and ?", Date.new(2014, 10, 27).beginning_of_day, Date.new(2015, 4, 16).end_of_day)
+    games = Nba.where("game_date between ? and ?", Date.new(2013, 10, 28).beginning_of_day, Date.new(2014, 4, 17).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2012, 10, 29).beginning_of_day, Date.new(2013, 4, 18).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2011, 12, 24).beginning_of_day, Date.new(2012, 4, 27).end_of_day)))
     puts games.size
     games.each do |game|
-      game_id = game.game_id
-      puts game_id
-      url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
-      doc = download_document(url)
+      Rake::Task["nba:getPlayerOne"].invoke(game)
+      Rake::Task["nba:getPlayerOne"].reenable
+    end
+  end
+    
 
-      away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
-      team_abbr = 0
-      end_index = away_players.size - 2
-      (0..end_index).each_with_index do |element, index|
-        slice = away_players[element]
-        if slice.children.size < 15
-          next
-        end
-        if slice.children[0].children.size > 1 && slice.children[0].children[0].children[0].text == "null"
-          next
-        end
+  task :getPlayerOne, [:game] => [:environment] do
+    include Api
+    game = args[:game]
+    game_id = game.game_id
+    puts game_id
+    url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
+    doc = download_document(url)
 
-        if slice.children[0].children.size > 1
-          player_name = slice.children[0].children[0].children[0].text
-          link = slice.children[0].children[0]['href']
-          puts link
-          page = download_document(link)
-          height = page.css(".general-info")
-          if height.size > 0 && height[0].children.size > 1
-            height = height[0].children[1].text
-          else
-            height = 0
-          end
-        else
-          player_name = slice.children[0].text
-          link = ""
-          height = 0
-        end
-        position = ""
-        mins_value = slice.children[1].text.to_i
-        fga_value = slice.children[2].text
-        fga_index = fga_value.index('-')
-        fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
-        to_value = slice.children[11].text.to_i
-        pts_value = slice.children[14].text.to_i
-        fta_value = slice.children[4].text
-        fta_index = fta_value.index('-')
-        fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
-        or_value = slice.children[5].text.to_i
-        stl_value = slice.children[9].text.to_i
-        blk_value = slice.children[10].text.to_i
-        poss = fga_value + to_value + (fta_value * 0.44) - or_value
-        if slice.children[0].children.size > 1
-          position = slice.children[0].children[1].text
-        end
-        unless player = game.player_datas.find_by(player_name: player_name, team_abbr: team_abbr)
-          player = game.player_datas.create(player_name: player_name, team_abbr: team_abbr)
-        end
-        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value )
+    away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
+    team_abbr = 0
+    end_index = away_players.size - 2
+    (0..end_index).each_with_index do |element, index|
+      slice = away_players[element]
+      if slice.children.size < 15
+        next
+      end
+      if slice.children[0].children.size > 1 && slice.children[0].children[0].children[0].text == "null"
+        next
       end
 
-      home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
-      team_abbr = 1
-      end_index = home_players.size - 2
-      (0..end_index).each_with_index do |element, index|
-        slice = home_players[element]
-        if slice.children.size < 15
-          next
-        end
-        if slice.children[0].children.size > 1 && slice.children[0].children[0].children[0].text == "null"
-          next
-        end
-        if slice.children[0].children.size > 1
-          player_name = slice.children[0].children[0].children[0].text
-          link = slice.children[0].children[0]['href']
-          puts link
-          page = download_document(link)
-          height = page.css(".general-info")
-          if height.size > 0 && height[0].children.size > 1
-            height = height[0].children[1].text
-          else
-            height = 0
-          end
+      if slice.children[0].children.size > 1
+        player_name = slice.children[0].children[0].children[0].text
+        link = slice.children[0].children[0]['href']
+        puts link
+        page = download_document(link)
+        height = page.css(".general-info")
+        if height.size > 0 && height[0].children.size > 1
+          height = height[0].children[1].text
         else
-          player_name = slice.children[0].text
-          link = ""
           height = 0
         end
-        position = ""
-        mins_value = slice.children[1].text.to_i
-        fga_value = slice.children[2].text
-        fga_index = fga_value.index('-')
-        fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
-        to_value = slice.children[11].text.to_i
-        pts_value = slice.children[14].text.to_i
-        fta_value = slice.children[4].text
-        fta_index = fta_value.index('-')
-        fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
-        or_value = slice.children[5].text.to_i
-        stl_value = slice.children[9].text.to_i
-        blk_value = slice.children[10].text.to_i
-        poss = fga_value + to_value + (fta_value *0.44) - or_value
-        if slice.children[0].children.size > 1
-          position = slice.children[0].children[1].text
-        end
-        unless player = game.player_datas.find_by(player_name: player_name, team_abbr: team_abbr)
-          player = game.player_datas.create(player_name: player_name, team_abbr: team_abbr)
-        end
-        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
+      else
+        player_name = slice.children[0].text
+        link = ""
+        height = 0
       end
+      position = ""
+      mins_value = slice.children[1].text.to_i
+      fga_value = slice.children[2].text
+      fga_index = fga_value.index('-')
+      fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
+      to_value = slice.children[11].text.to_i
+      pts_value = slice.children[14].text.to_i
+      fta_value = slice.children[4].text
+      fta_index = fta_value.index('-')
+      fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
+      or_value = slice.children[5].text.to_i
+      stl_value = slice.children[9].text.to_i
+      blk_value = slice.children[10].text.to_i
+      poss = fga_value + to_value + (fta_value * 0.44) - or_value
+      if slice.children[0].children.size > 1
+        position = slice.children[0].children[1].text
+      end
+      unless player = game.player_datas.find_by(player_name: player_name, team_abbr: team_abbr)
+        player = game.player_datas.create(player_name: player_name, team_abbr: team_abbr)
+      end
+      player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value )
+    end
+
+    home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
+    team_abbr = 1
+    end_index = home_players.size - 2
+    (0..end_index).each_with_index do |element, index|
+      slice = home_players[element]
+      if slice.children.size < 15
+        next
+      end
+      if slice.children[0].children.size > 1 && slice.children[0].children[0].children[0].text == "null"
+        next
+      end
+      if slice.children[0].children.size > 1
+        player_name = slice.children[0].children[0].children[0].text
+        link = slice.children[0].children[0]['href']
+        puts link
+        page = download_document(link)
+        height = page.css(".general-info")
+        if height.size > 0 && height[0].children.size > 1
+          height = height[0].children[1].text
+        else
+          height = 0
+        end
+      else
+        player_name = slice.children[0].text
+        link = ""
+        height = 0
+      end
+      position = ""
+      mins_value = slice.children[1].text.to_i
+      fga_value = slice.children[2].text
+      fga_index = fga_value.index('-')
+      fga_value = fga_index ? fga_value[fga_index+1..-1].to_i : 0
+      to_value = slice.children[11].text.to_i
+      pts_value = slice.children[14].text.to_i
+      fta_value = slice.children[4].text
+      fta_index = fta_value.index('-')
+      fta_value = fta_index ? fta_value[fta_index+1..-1].to_i : 0
+      or_value = slice.children[5].text.to_i
+      stl_value = slice.children[9].text.to_i
+      blk_value = slice.children[10].text.to_i
+      poss = fga_value + to_value + (fta_value *0.44) - or_value
+      if slice.children[0].children.size > 1
+        position = slice.children[0].children[1].text
+      end
+      unless player = game.player_datas.find_by(player_name: player_name, team_abbr: team_abbr)
+        player = game.player_datas.create(player_name: player_name, team_abbr: team_abbr)
+      end
+      player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
     end
   end
 
