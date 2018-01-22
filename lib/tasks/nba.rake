@@ -2088,7 +2088,7 @@ namespace :nba do
   task :getPlayerClone => [:environment] do
     include Api
     puts "----------Get Players----------"
-    games = Nba.where("game_date between ? and ?", Date.new(2015, 10, 26).beginning_of_day, Date.new(2016, 4, 14).end_of_day)
+    games = Nba.where("game_date between ? and ?", Date.new(2014, 10, 27).beginning_of_day, Date.new(2015, 4, 16).end_of_day)
     puts games.size
     games.each do |game|
       game_id = game.game_id
