@@ -2097,7 +2097,7 @@ namespace :nba do
   end
     
 
-  task :getPlayerOne, [:game] => [:environment] do
+  task :getPlayerOne, [:game] => [:environment] do |t, args|
     include Api
     game = args[:game]
     game_id = game.game_id
