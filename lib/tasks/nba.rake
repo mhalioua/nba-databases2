@@ -2088,7 +2088,7 @@ namespace :nba do
   task :getPlayerClone => [:environment] do
     include Api
     puts "----------Get Players----------"
-    games = Nba.where("game_date between ? and ?", Date.new(2016, 10, 24).beginning_of_day, Date.today.end_of_day)
+    games = Nba.where("game_date between ? and ?", Date.new(2015, 10, 26).beginning_of_day, Date.new(2016, 4, 14).end_of_day)
     puts games.size
     games.each do |game|
       game_id = game.game_id
@@ -2141,8 +2141,8 @@ namespace :nba do
         if slice.children[0].children.size > 1
           position = slice.children[0].children[1].text
         end
-        unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
-          player = game.players.create(player_name: player_name, team_abbr: team_abbr)
+        unless player = game.player_datas.find_by(player_name: player_name, team_abbr: team_abbr)
+          player = game.player_datas.create(player_name: player_name, team_abbr: team_abbr)
         end
         player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value )
       end
@@ -2191,8 +2191,8 @@ namespace :nba do
         if slice.children[0].children.size > 1
           position = slice.children[0].children[1].text
         end
-        unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
-          player = game.players.create(player_name: player_name, team_abbr: team_abbr)
+        unless player = game.player_datas.find_by(player_name: player_name, team_abbr: team_abbr)
+          player = game.player_datas.create(player_name: player_name, team_abbr: team_abbr)
         end
         player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
       end
@@ -2201,10 +2201,10 @@ namespace :nba do
 
   task :getUpdateTGclone => [:environment] do
     include Api
-    games = Nba.all
+    games = Nba.where("game_date between ? and ?", Date.new(2015, 10, 26).beginning_of_day, Date.new(2016, 4, 14).end_of_day)
     puts games.size
     games.each do |game|
-      players = game.players.all
+      players = game.player_datas.all
       players.each do |player|
         if player.player_name == "TEAM"
           next
@@ -2256,9 +2256,9 @@ namespace :nba do
   task :getUpdatePossClone => [:environment] do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    games = Nba.all
+    games = Nba.where("game_date between ? and ?", Date.new(2015, 10, 26).beginning_of_day, Date.new(2016, 4, 14).end_of_day)
     games.each do |game|
-      players = game.players.where("player_name <> 'TEAM'")
+      players = game.player_datas.where("player_name <> 'TEAM'")
       players.each do |player|
         possession = []
         sum_mins = 0
