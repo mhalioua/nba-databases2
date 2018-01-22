@@ -2095,6 +2095,28 @@ namespace :nba do
       Rake::Task["nba:getPlayerOne"].reenable
     end
   end
+
+  task :getPlayerCloneTwo => [:environment] do
+    include Api
+    puts "----------Get Players----------"
+    games = Nba.where("game_date between ? and ?", Date.new(2010, 10, 25).beginning_of_day, Date.new(2011, 4, 14).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2009, 10, 26).beginning_of_day, Date.new(2010, 4, 15).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2008, 10, 27).beginning_of_day, Date.new(2009, 4, 16).end_of_day)))
+    puts games.size
+    games.each do |game|
+      Rake::Task["nba:getPlayerOne"].invoke(game)
+      Rake::Task["nba:getPlayerOne"].reenable
+    end
+  end
+
+  task :getPlayerCloneThree => [:environment] do
+    include Api
+    puts "----------Get Players----------"
+    games = Nba.where("game_date between ? and ?", Date.new(2007, 10, 29).beginning_of_day, Date.new(2008, 4, 17).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2006, 10, 30).beginning_of_day, Date.new(2007, 4, 19).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2005, 10, 31).beginning_of_day, Date.new(2006, 4, 20).end_of_day)))
+    puts games.size
+    games.each do |game|
+      Rake::Task["nba:getPlayerOne"].invoke(game)
+      Rake::Task["nba:getPlayerOne"].reenable
+    end
+  end
     
 
   task :getPlayerOne, [:game] => [:environment] do |t, args|
