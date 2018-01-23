@@ -2089,7 +2089,7 @@ namespace :nba do
     include Api
     puts "----------Get Players----------"
     games = Nba.where("game_date between ? and ?", Date.new(2013, 10, 28).beginning_of_day, Date.new(2014, 4, 17).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2012, 10, 29).beginning_of_day, Date.new(2013, 4, 18).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2011, 12, 24).beginning_of_day, Date.new(2012, 4, 27).end_of_day)))
-    games = Nba.where("game_date between ? and ?", Date.new(2012, 10, 29).beginning_of_day, Date.new(2013, 4, 18).end_of_day)
+    games = Nba.where("game_date between ? and ?", Date.new(2011, 12, 24).beginning_of_day, Date.new(2012, 4, 27).end_of_day)
     puts games.size
     games.each do |game|
       Rake::Task["nba:getPlayerOne"].invoke(game)
