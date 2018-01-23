@@ -657,8 +657,8 @@ class IndexController < ApplicationController
 				allcount: filter_second_element.count(:totalvalue).to_i
 			}
 			if index < 2 || index > 13
-				result_element[:full_first] = filter_second_element.average(:roadtotal).to_f.round(2)
-				result_element[:full_second] = filter_second_element.average(:hometotal).to_f.round(2)
+				result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
+				result_element[:full_second] = (filter_second_element.average(:homethird).to_f + filter_element.average(:homeforth).to_f + filter_second_element.average(:homefirsthalf).to_f).round(2)
 				result_element[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
 				result_element[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
 				result_element[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f + filter_element.average(:roadforth).to_f).round(2)
@@ -1407,8 +1407,8 @@ class IndexController < ApplicationController
 				allcount: filter_second_element.count(:totalvalue).to_i
 			}
 			if index < 2 || index > 13
-				result_element[:full_first] = filter_second_element.average(:roadtotal).to_f.round(2)
-				result_element[:full_second] = filter_second_element.average(:hometotal).to_f.round(2)
+				result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
+				result_element[:full_second] = (filter_second_element.average(:homethird).to_f + filter_element.average(:homeforth).to_f + filter_second_element.average(:homefirsthalf).to_f).round(2)
 				result_element[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
 				result_element[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
 				result_element[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f + filter_element.average(:roadforth).to_f).round(2)
