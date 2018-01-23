@@ -2089,6 +2089,7 @@ namespace :nba do
     include Api
     puts "----------Get Players----------"
     games = Nba.where("game_date between ? and ?", Date.new(2013, 10, 28).beginning_of_day, Date.new(2014, 4, 17).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2012, 10, 29).beginning_of_day, Date.new(2013, 4, 18).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2011, 12, 24).beginning_of_day, Date.new(2012, 4, 27).end_of_day)))
+    games = Nba.where("game_date between ? and ?", Date.new(2013, 10, 28).beginning_of_day, Date.new(2014, 4, 17).end_of_day)
     puts games.size
     games.each do |game|
       Rake::Task["nba:getPlayerOne"].invoke(game)
@@ -2100,6 +2101,7 @@ namespace :nba do
     include Api
     puts "----------Get Players----------"
     games = Nba.where("game_date between ? and ?", Date.new(2010, 10, 25).beginning_of_day, Date.new(2011, 4, 14).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2009, 10, 26).beginning_of_day, Date.new(2010, 4, 15).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2008, 10, 27).beginning_of_day, Date.new(2009, 4, 16).end_of_day)))
+    games = Nba.where("game_date between ? and ?", Date.new(2010, 10, 25).beginning_of_day, Date.new(2011, 4, 14).end_of_day)
     puts games.size
     games.each do |game|
       Rake::Task["nba:getPlayerOne"].invoke(game)
@@ -2111,6 +2113,7 @@ namespace :nba do
     include Api
     puts "----------Get Players----------"
     games = Nba.where("game_date between ? and ?", Date.new(2007, 10, 29).beginning_of_day, Date.new(2008, 4, 17).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2006, 10, 30).beginning_of_day, Date.new(2007, 4, 19).end_of_day).or(Nba.where("game_date between ? and ?", Date.new(2005, 10, 31).beginning_of_day, Date.new(2006, 4, 20).end_of_day)))
+    games = Nba.where("game_date between ? and ?", Date.new(2007, 10, 29).beginning_of_day, Date.new(2008, 4, 17).end_of_day)
     puts games.size
     games.each do |game|
       Rake::Task["nba:getPlayerOne"].invoke(game)
