@@ -2105,6 +2105,9 @@ namespace :nba do
       if index < 835
         next
       end
+      if game.game_id == 221115028
+        next
+      end
       Rake::Task["nba:getPlayerOne"].invoke(game)
       Rake::Task["nba:getPlayerOne"].reenable
     end
