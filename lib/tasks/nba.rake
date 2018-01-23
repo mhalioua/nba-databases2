@@ -2102,6 +2102,9 @@ namespace :nba do
     games = Nba.where("game_date between ? and ?", Date.new(2003, 10, 27).beginning_of_day, Date.new(2004, 4, 15).end_of_day)
     puts games.size
     games.each_with_index do |game, index|
+      if index < 530
+        next
+      end
       Rake::Task["nba:getPlayerOne"].invoke(game)
       Rake::Task["nba:getPlayerOne"].reenable
     end
@@ -2114,6 +2117,9 @@ namespace :nba do
     games = Nba.where("game_date between ? and ?", Date.new(2008, 10, 27).beginning_of_day, Date.new(2009, 4, 16).end_of_day)
     puts games.size
     games.each_with_index do |game, index|
+      if index < 1000
+        next
+      end
       Rake::Task["nba:getPlayerOne"].invoke(game)
       Rake::Task["nba:getPlayerOne"].reenable
     end
