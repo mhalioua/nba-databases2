@@ -2099,12 +2099,9 @@ namespace :nba do
   task :getPlayerCloneTwo => [:environment] do
     include Api
     puts "----------Get Players----------"
-    games = Nba.where("game_date between ? and ?", Date.new(2003, 10, 27).beginning_of_day, Date.new(2004, 4, 15).end_of_day)
+    games = Nba.where("game_date between ? and ?", Date.new(2002, 10, 28).beginning_of_day, Date.new(2003, 4, 17).end_of_day)
     puts games.size
     games.each_with_index do |game, index|
-      if index < 530
-        next
-      end
       Rake::Task["nba:getPlayerOne"].invoke(game)
       Rake::Task["nba:getPlayerOne"].reenable
     end
@@ -2114,12 +2111,8 @@ namespace :nba do
     include Api
     puts "----------Get Players----------"
     games = Nba.where("game_date between ? and ?", Date.new(2005, 10, 31).beginning_of_day, Date.new(2006, 4, 20).end_of_day)
-    games = Nba.where("game_date between ? and ?", Date.new(2008, 10, 27).beginning_of_day, Date.new(2009, 4, 16).end_of_day)
     puts games.size
     games.each_with_index do |game, index|
-      if index < 1000
-        next
-      end
       Rake::Task["nba:getPlayerOne"].invoke(game)
       Rake::Task["nba:getPlayerOne"].reenable
     end
