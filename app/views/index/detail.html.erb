@@ -1078,7 +1078,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+    if !(@injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)) && (count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name))
       next
     end
   %>
@@ -1092,7 +1092,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+    if !(@injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)) && (count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name))
       next
     end
   %>
@@ -1106,7 +1106,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+    if !(@injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)) && (count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name))
       next
     end
   %>
@@ -1120,7 +1120,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+    if !(@injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)) && (count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name))
       next
     end
   %>
@@ -1154,7 +1154,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+    if !(@injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)) && (count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name))
       next
     end
   %>
@@ -1168,7 +1168,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+    if !(@injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)) && (count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name))
       next
     end
   %>
@@ -1182,7 +1182,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+    if !(@injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)) && (count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name))
       next
     end
   %>
@@ -1196,7 +1196,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+    if !(@injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)) && (count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name))
       next
     end
   %>
