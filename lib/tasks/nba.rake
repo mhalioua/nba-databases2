@@ -2201,6 +2201,17 @@ namespace :nba do
         puts game
       end
     end
+
+    include Api
+    puts "----------Get Players----------"
+    games = Nba.where("game_date between ? and ?", Date.new(2001, 10, 29).beginning_of_day, Date.new(2002, 4, 18).end_of_day)
+    puts games.size
+    games.each_with_index do |game, index|
+      if game.game_id == 3467
+        Rake::Task["nba:getPlayerOne"].invoke(game)
+        Rake::Task["nba:getPlayerOne"].reenable
+      end
+    end
   end
 
   task :getPlayerCloneOne => [:environment] do
