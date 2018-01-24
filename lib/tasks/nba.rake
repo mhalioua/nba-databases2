@@ -2091,40 +2091,6 @@ namespace :nba do
     games = Nba.where("game_date between ? and ?", Date.new(2001, 10, 29).beginning_of_day, Date.new(2002, 4, 18).end_of_day)
     puts games.size
     games.each_with_index do |game, index|
-      if index < 1100
-        next
-      end
-      Rake::Task["nba:getPlayerOne"].invoke(game)
-      Rake::Task["nba:getPlayerOne"].reenable
-    end
-  end
-
-  task :getPlayerCloneTwo => [:environment] do
-    include Api
-    puts "----------Get Players----------"
-    games = Nba.where("game_date between ? and ?", Date.new(2002, 10, 28).beginning_of_day, Date.new(2003, 4, 17).end_of_day)
-    puts games.size
-    games.each_with_index do |game, index|
-      if index < 835
-        next
-      end
-      if game.game_id == 221115028
-        next
-      end
-      Rake::Task["nba:getPlayerOne"].invoke(game)
-      Rake::Task["nba:getPlayerOne"].reenable
-    end
-  end
-
-  task :getPlayerCloneThree => [:environment] do
-    include Api
-    puts "----------Get Players----------"
-    games = Nba.where("game_date between ? and ?", Date.new(2000, 10, 30).beginning_of_day, Date.new(2001, 4, 19).end_of_day)
-    puts games.size
-    games.each_with_index do |game, index|
-      if index < 1135
-        next
-      end
       Rake::Task["nba:getPlayerOne"].invoke(game)
       Rake::Task["nba:getPlayerOne"].reenable
     end
