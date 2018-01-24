@@ -2208,7 +2208,7 @@ namespace :nba do
     puts games.size
     games.each_with_index do |game, index|
       if game.id == 3467
-        puts index
+        puts game.inspect
         Rake::Task["nba:getPlayerOne"].invoke(game)
         Rake::Task["nba:getPlayerOne"].reenable
       end
