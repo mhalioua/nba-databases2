@@ -2196,6 +2196,11 @@ namespace :nba do
     puts games.size
     players = PlayerData.where("game_date between ? and ?", Date.new(2001, 10, 29).beginning_of_day, Date.new(2002, 4, 18).end_of_day).pluck(:nba_id).uniq
     puts players.size
+    games.each do |game|
+      if players.exclude(game)?
+        puts game
+      end
+    end
   end
 
   task :getPlayerCloneOne => [:environment] do
