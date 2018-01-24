@@ -2194,7 +2194,7 @@ namespace :nba do
   task :getmissing => [:environment] do
     games = Nba.where("game_date between ? and ?", Date.new(2001, 10, 29).beginning_of_day, Date.new(2002, 4, 18).end_of_day).pluck(:id)
     puts games.size
-    players = PlayerData.where("game_date between ? and ?", Date.new(2001, 10, 29).beginning_of_day, Date.new(2002, 4, 18).end_of_day).pluck(:nba_id)
+    players = PlayerData.where("game_date between ? and ?", Date.new(2001, 10, 29).beginning_of_day, Date.new(2002, 4, 18).end_of_day).pluck(:nba_id).uniq
     puts players.size
   end
 
