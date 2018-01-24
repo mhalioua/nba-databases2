@@ -2092,11 +2092,11 @@ namespace :nba do
     games = Nba.where("pg_away_one_name is null")
     puts games.size
     games.each do |game|
-      players = game.player_datas.all
+      players = game.players.all
       if players.size == 0
         next
       end
-      players = game.player_datas.where("team_abbr = 0 AND position = 'PG'").order(mins: :desc)
+      players = game.players.where("team_abbr = 0 AND position = 'PG'").order(mins: :desc)
       pg_away_one_name = ""
       pg_away_one_min = 0
       pg_away_two_name = ""
@@ -2127,7 +2127,7 @@ namespace :nba do
         pg_away_three_min = nil
       end
 
-      players = game.player_datas.where("team_abbr = 1 AND position = 'PG'").order(mins: :desc)
+      players = game.players.where("team_abbr = 1 AND position = 'PG'").order(mins: :desc)
       pg_home_one_name = ""
       pg_home_one_min = 0
       pg_home_two_name = ""
