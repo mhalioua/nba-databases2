@@ -2085,6 +2085,119 @@ namespace :nba do
     end
   end
 
+  task :getpgclone => :environment do
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+
+    games = Nba.where("pg_away_one_name is null")
+    puts games.size
+    games.each do |game|
+      players = game.players.where("team_abbr = 0 AND position = 'PG'").order(mins: :desc)
+      pg_away_one_name = ""
+      pg_away_one_min = 0
+      pg_away_two_name = ""
+      pg_away_two_min = 0
+      pg_away_three_name = ""
+      pg_away_three_min = 0
+      away_fg_percent = ""
+      home_fg_percent = ""
+      if players[0]
+        pg_away_one_name = players[0].player_name
+        pg_away_one_min = players[0].mins
+      else
+        pg_away_one_name = nil
+        pg_away_one_min = nil
+      end
+
+      if players[1]
+        pg_away_two_name = players[1].player_name
+        pg_away_two_min = players[1].mins
+      else
+        pg_away_two_name = nil
+        pg_away_two_min = nil
+      end
+
+      if players[2]
+        pg_away_three_name = players[2].player_name
+        pg_away_three_min = players[2].mins
+      else
+        pg_away_three_name = nil
+        pg_away_three_min = nil
+      end
+
+      players = game.players.where("team_abbr = 1 AND position = 'PG'").order(mins: :desc)
+      pg_home_one_name = ""
+      pg_home_one_min = 0
+      pg_home_two_name = ""
+      pg_home_two_min = 0
+      pg_home_three_name = ""
+      pg_home_three_min = 0
+      if players[0]
+        pg_home_one_name = players[0].player_name
+        pg_home_one_min = players[0].mins
+      else
+        pg_home_one_name = nil
+        pg_home_one_min = nil
+      end
+
+      if players[1]
+        pg_home_two_name = players[1].player_name
+        pg_home_two_min = players[1].mins
+      else
+        pg_home_two_name = nil
+        pg_home_two_min = nil
+      end
+
+      if players[2]
+        pg_home_three_name = players[2].player_name
+        pg_home_three_min = players[2].mins
+      else
+        pg_home_three_name = nil
+        pg_home_three_min = nil
+      end
+      game_id = game.game_id
+
+      url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
+      doc = download_document(url)
+      puts url
+      element = doc.css(".highlight")
+      if element.size > 3
+        away_value = element[1]
+        home_value = element[3]
+
+        away_fg_percent = away_value.children[2].text
+        home_fg_percent = home_value.children[2].text
+        if away_fg_percent == "-----"
+          home_fg_percent = "-----"
+        end
+     end
+
+      game.update(
+        pg_away_one_name: pg_away_one_name,
+        pg_away_one_min: pg_away_one_min,
+        pg_away_two_name: pg_away_two_name,
+        pg_away_two_min: pg_away_two_min,
+        pg_away_three_name: pg_away_three_name,
+        pg_away_three_min: pg_away_three_min,
+        pg_home_one_name: pg_home_one_name,
+        pg_home_one_min: pg_home_one_min,
+        pg_home_two_name: pg_home_two_name,
+        pg_home_two_min: pg_home_two_min,
+        pg_home_three_name: pg_home_three_name,
+        pg_home_three_min: pg_home_three_min,
+        away_fg_percent: away_fg_percent,
+        home_fg_percent: home_fg_percent
+      )
+    end
+  end
+
+  task :getmissing => [:environment] do
+    games = Nba.where("game_date between ? and ?", Date.new(2001, 10, 29).beginning_of_day, Date.new(2002, 4, 18).end_of_day).pluck(:id)
+    puts games.size
+    players = Player_datas.where("game_date between ? and ?", Date.new(2001, 10, 29).beginning_of_day, Date.new(2002, 4, 18).end_of_day).pluck(:nba_id)
+    puts players.size
+  end
+
   task :getPlayerCloneOne => [:environment] do
     include Api
     puts "----------Get Players----------"
