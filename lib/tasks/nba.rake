@@ -2207,7 +2207,7 @@ namespace :nba do
     games = Nba.where("game_date between ? and ?", Date.new(2001, 10, 29).beginning_of_day, Date.new(2002, 4, 18).end_of_day)
     puts games.size
     games.each_with_index do |game, index|
-      if game.game_id == 3467
+      if game.id == 3467
         puts index
         Rake::Task["nba:getPlayerOne"].invoke(game)
         Rake::Task["nba:getPlayerOne"].reenable
