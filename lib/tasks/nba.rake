@@ -2087,6 +2087,7 @@ namespace :nba do
   task :getReferee => :environment do
     include Api
     games = Nba.where("referee_one is null")
+    puts games.size
     games.each do |game|
       game_id = game.game_id
 
