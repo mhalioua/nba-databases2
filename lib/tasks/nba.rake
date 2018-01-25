@@ -95,6 +95,9 @@ namespace :nba do
     Rake::Task["nba:addAVGs"].invoke
     Rake::Task["nba:addAVGs"].reenable
 
+    Rake::Task["nba:getReferee"].invoke
+    Rake::Task["nba:getReferee"].reenable
+
 		Rake::Task["nba:getUpdateTG"].invoke
 		Rake::Task["nba:getUpdateTG"].reenable
 
@@ -2086,7 +2089,7 @@ namespace :nba do
   end
   task :getReferee => :environment do
     include Api
-    games = Nba.where("referee_one is null")
+    games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
     puts games.size
     games.each do |game|
       game_id = game.game_id
@@ -2101,6 +2104,32 @@ namespace :nba do
           referee_one: referees[0],
           referee_two: referees[1],
           referee_three: referees[2]
+        )
+      end
+    end
+  end
+
+  task :getTodayReferee => [:environment] do
+    include Api
+    games = Nba.where("game_date between ? and ?", Date.today.beginning_of_day, Date.today.end_of_day)
+
+    url = "http://official.nba.com/referee-assignments/"
+    doc = download_document(url)
+    elements = doc.css(".nba-refs-content tbody tr")
+    elements.each do |element|
+      team = element.children[0].text.split(" @ ")
+      away_name = team[0]
+      home_name = team[1]
+      matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) }
+      if matched.size > 0
+        update_game = matched.first
+        referee_one = element.children[1].children[0].text.split(' (#').squish
+        referee_two = element.children[2].children[0].text.split(' (#').squish
+        referee_three = element.children[3].children[0].text.split(' (#').squish
+        update_game.update(
+          referee_one: referee_one,
+          referee_two: referee_two,
+          referee_three: referee_three
         )
       end
     end
