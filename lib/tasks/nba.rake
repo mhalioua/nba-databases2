@@ -98,6 +98,9 @@ namespace :nba do
     Rake::Task["nba:getReferee"].invoke
     Rake::Task["nba:getReferee"].reenable
 
+    Rake::Task["nba:getTodayReferee"].invoke
+    Rake::Task["nba:getTodayReferee"].reenable
+
 		Rake::Task["nba:getUpdateTG"].invoke
 		Rake::Task["nba:getUpdateTG"].reenable
 
@@ -2221,6 +2224,73 @@ namespace :nba do
           referee_three: referee_three,
           referee_three_last: referee_three_last_days
         )
+      end
+    end
+  end
+
+  task :getRefereeClone => :environment do
+    include Api
+    games = Nba.where("referee_one_last is null")
+    puts games.size
+    games.each do |game|
+      game_id = game.game_id
+
+      url = "http://www.espn.com/nba/game?gameId=#{game_id}"
+      doc = download_document(url)
+      puts url
+      element = doc.css(".game-info-note__content")
+      if element.size > 0
+        referees = element[0].text.split(', ')
+        game_date = game.game_date
+
+        referee_one_last_days = ""
+        referee_one_last = Nba.where("referee_one = ? AND game_date < ?", referees[0], game_date).or(Nba.where("referee_two = ? AND game_date < ?", referees[0], game_date).or(Nba.where("referee_three = ? AND game_date < ?", referees[0], game_date))).order(:game_date).last
+        if referee_one_last
+          referee_one_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_one_last.game_date).in_time_zone.to_date ).to_i - 1
+          if referee_one_last.referee_one == referees[0]
+            referee_one_last.update(referee_one_next: referee_one_last_days)
+          elsif referee_one_last.referee_two == referees[0]
+            referee_one_last.update(referee_two_next: referee_one_last_days)
+          else
+            referee_one_last.update(referee_three_next: referee_one_last_days)
+          end
+        end
+
+        referee_two_last_days = ""
+        referee_two_last = Nba.where("referee_one = ? AND game_date < ?", referees[1], game_date).or(Nba.where("referee_two = ? AND game_date < ?", referees[1], game_date).or(Nba.where("referee_three = ? AND game_date < ?", referees[1], game_date))).order(:game_date).last
+        if referee_two_last
+          referee_two_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_two_last.game_date).in_time_zone.to_date ).to_i - 1
+          if referee_two_last.referee_one == referees[1]
+            referee_one_last.update(referee_one_next: referee_two_last_days)
+          elsif referee_two_last.referee_two == referees[1]
+            referee_one_last.update(referee_two_next: referee_two_last_days)
+          else
+            referee_one_last.update(referee_three_next: referee_two_last_days)
+          end
+        end
+
+        referee_three_last_days = ""
+        referee_three_last = Nba.where("referee_one = ? AND game_date < ?", referees[2], game_date).or(Nba.where("referee_two = ? AND game_date < ?", referees[2], game_date).or(Nba.where("referee_three = ? AND game_date < ?", referees[2], game_date))).order(:game_date).last
+        if referee_three_last
+          referee_three_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_three_last.game_date).in_time_zone.to_date ).to_i - 1
+          if referee_three_last.referee_one == referees[2]
+            referee_one_last.update(referee_one_next: referee_three_last_days)
+          elsif referee_three_last.referee_two == referees[2]
+            referee_one_last.update(referee_two_next: referee_three_last_days)
+          else
+            referee_one_last.update(referee_three_next: referee_three_last_days)
+          end
+        end
+        
+        game.update(
+          referee_one: referees[0],
+          referee_one_last: referee_one_last_days,
+          referee_two: referees[1],
+          referee_two_last: referee_two_last_days,
+          referee_three: referees[2],
+          referee_three_last: referee_three_last_days
+        )
+
       end
     end
   end
