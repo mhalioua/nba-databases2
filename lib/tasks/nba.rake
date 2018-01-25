@@ -2146,7 +2146,7 @@ namespace :nba do
           referee_one_last: referee_one_last_days,
           referee_two: referees[1],
           referee_two_last: referee_two_last_days,
-          referee_three: referees[2]
+          referee_three: referees[2],
           referee_three_last: referee_three_last_days
         )
 
