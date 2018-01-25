@@ -2117,6 +2117,7 @@ namespace :nba do
     doc = download_document(url)
     elements = doc.css(".nba-refs-content tbody tr")
     elements.each do |element|
+      puts element.children[0].text
       team = element.children[0].text.split(" @ ")
       away_name = team[0]
       home_name = team[1]
