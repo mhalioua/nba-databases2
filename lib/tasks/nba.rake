@@ -2117,16 +2117,15 @@ namespace :nba do
     doc = download_document(url)
     elements = doc.css(".nba-refs-content tbody tr")
     elements.each do |element|
-      puts element.inspect
-      team = element.children[0].text.split(" @ ")
+      team = element.children[1].text.split(" @ ")
       away_name = team[0]
       home_name = team[1]
       matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) }
       if matched.size > 0
         update_game = matched.first
-        referee_one = element.children[1].children[0].text.split(' (#').squish
-        referee_two = element.children[2].children[0].text.split(' (#').squish
-        referee_three = element.children[3].children[0].text.split(' (#').squish
+        referee_one = element.children[3].children[1].children[0].text.split(' (#').squish
+        referee_two = element.children[5].children[1].children[0].text.split(' (#').squish
+        referee_three = element.children[7].children[1].children[0].text.split(' (#').squish
         update_game.update(
           referee_one: referee_one,
           referee_two: referee_two,
