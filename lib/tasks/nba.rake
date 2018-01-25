@@ -2147,7 +2147,7 @@ namespace :nba do
           referee_two: referees[1],
           referee_two_last: referee_two_last_days,
           referee_three: referees[2]
-          referee_three_last: referee_three_last_days,
+          referee_three_last: referee_three_last_days
         )
 
       end
@@ -2215,8 +2215,11 @@ namespace :nba do
 
         update_game.update(
           referee_one: referee_one,
+          referee_one_last: referee_one_last_days,
           referee_two: referee_two,
+          referee_two_last: referee_two_last_days,
           referee_three: referee_three
+          referee_three_last: referee_three_last_days,
         )
       end
     end
