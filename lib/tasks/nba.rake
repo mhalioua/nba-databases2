@@ -2084,38 +2084,24 @@ namespace :nba do
       )
     end
   end
-
-  task :getpgclone => :environment do
+  task :getReferee => :environment do
     include Api
-    Time.zone = 'Eastern Time (US & Canada)'
-
-    games = Nba.where("away_fg_percent is null")
-    puts games.size
+    games = Nba.where("referee_one is null")
     games.each do |game|
-      away_fg_percent = ""
-      home_fg_percent = ""
       game_id = game.game_id
 
-      url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
+      url = "http://www.espn.com/nba/game?gameId=#{game_id}"
       doc = download_document(url)
       puts url
-      element = doc.css(".highlight")
-      if element.size > 3
-        away_value = element[1]
-        home_value = element[3]
-
-        away_fg_percent = away_value.children[2].text
-        home_fg_percent = home_value.children[2].text
-
-        if away_fg_percent == "-----"
-          home_fg_percent = "-----"
-        end
+      element = doc.css(".game-info-note__content")
+      if element.size > 0
+        puts element[0].text
       end
 
-      game.update(
-        away_fg_percent: away_fg_percent,
-        home_fg_percent: home_fg_percent
-      )
+      if false
+        game.update(
+        )
+      end
     end
   end
 
