@@ -309,9 +309,9 @@
         <td class="purple"><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f + @countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
         <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
         <td style="border-right: 5px solid #666;">1</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= game.referee_one %></td>
+        <td><%= game.referee_one_last %></td>
+        <td><%= game.referee_one_next %></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -418,9 +418,10 @@
       <td class="purple">97</td>
       <td style="background: #fa0">-1.2</td>
       <td style="background: #fa0; border-right: 5px solid #666;">ALL</td>
-      <td></td>
-      <td></td>
-      <td></td>
+      
+      <td><%= game.referee_two %></td>
+      <td><%= game.referee_two_last %></td>
+      <td><%= game.referee_two_next %></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -496,9 +497,10 @@
       <td class="purple"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
       <td class="gray"></td>
       <td class="gray" style="border-right: 5px solid #666;"></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      
+      <td><%= game.referee_three %></td>
+      <td><%= game.referee_three_last %></td>
+      <td><%= game.referee_three_next %></td>
     </tr>
     <% end %>
   	</tbody>
