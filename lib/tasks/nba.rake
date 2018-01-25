@@ -2219,7 +2219,7 @@ namespace :nba do
           referee_two: referee_two,
           referee_two_last: referee_two_last_days,
           referee_three: referee_three
-          referee_three_last: referee_three_last_days,
+          referee_three_last: referee_three_last_days
         )
       end
     end
