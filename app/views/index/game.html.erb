@@ -111,6 +111,9 @@
         <th colspan="4"></th>
         <th class="black"></th>
         <th colspan="5" style="border-right: 5px solid #666;"></th>
+        <th></th>
+        <th></th>
+        <th></th>
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
@@ -187,6 +190,9 @@
         <th class="red" colspan="4">1ST HALF</th>
         <th class="black"></th>
         <th class="red" colspan="5" style="border-right: 5px solid #666;">2ND HALF</th>
+        <th>Referee</th>
+        <th>Last</th>
+        <th>Next</th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -303,6 +309,9 @@
         <td class="purple"><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f + @countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
         <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
         <td style="border-right: 5px solid #666;">1</td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -409,6 +418,9 @@
       <td class="purple">97</td>
       <td style="background: #fa0">-1.2</td>
       <td style="background: #fa0; border-right: 5px solid #666;">ALL</td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -484,6 +496,9 @@
       <td class="purple"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
       <td class="gray"></td>
       <td class="gray" style="border-right: 5px solid #666;"></td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
     <% end %>
   	</tbody>
