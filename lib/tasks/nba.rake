@@ -2095,11 +2095,11 @@ namespace :nba do
       puts url
       element = doc.css(".game-info-note__content")
       if element.size > 0
-        puts element[0].text
-      end
-
-      if false
+        referees = element[0].text.split(', ')
         game.update(
+          referee_one: referees[0],
+          referee_two: referees[1],
+          referee_three: referees[2]
         )
       end
     end
