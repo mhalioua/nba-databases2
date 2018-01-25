@@ -2123,11 +2123,11 @@ namespace :nba do
         if referee_two_last
           referee_two_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_two_last.game_date).in_time_zone.to_date ).to_i - 1
           if referee_two_last.referee_one == referees[1]
-            referee_one_last.update(referee_one_next: referee_two_last_days)
+            referee_two_last.update(referee_one_next: referee_two_last_days)
           elsif referee_two_last.referee_two == referees[1]
-            referee_one_last.update(referee_two_next: referee_two_last_days)
+            referee_two_last.update(referee_two_next: referee_two_last_days)
           else
-            referee_one_last.update(referee_three_next: referee_two_last_days)
+            referee_two_last.update(referee_three_next: referee_two_last_days)
           end
         end
 
@@ -2136,11 +2136,11 @@ namespace :nba do
         if referee_three_last
           referee_three_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_three_last.game_date).in_time_zone.to_date ).to_i - 1
           if referee_three_last.referee_one == referees[2]
-            referee_one_last.update(referee_one_next: referee_three_last_days)
+            referee_three_last.update(referee_one_next: referee_three_last_days)
           elsif referee_three_last.referee_two == referees[2]
-            referee_one_last.update(referee_two_next: referee_three_last_days)
+            referee_three_last.update(referee_two_next: referee_three_last_days)
           else
-            referee_one_last.update(referee_three_next: referee_three_last_days)
+            referee_three_last.update(referee_three_next: referee_three_last_days)
           end
         end
         
@@ -2195,11 +2195,11 @@ namespace :nba do
         if referee_two_last
           referee_two_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_two_last.game_date).in_time_zone.to_date ).to_i - 1
           if referee_two_last.referee_one == referee_two
-            referee_one_last.update(referee_one_next: referee_two_last_days)
+            referee_two_last.update(referee_one_next: referee_two_last_days)
           elsif referee_two_last.referee_two == referee_two
-            referee_one_last.update(referee_two_next: referee_two_last_days)
+            referee_two_last.update(referee_two_next: referee_two_last_days)
           else
-            referee_one_last.update(referee_three_next: referee_two_last_days)
+            referee_two_last.update(referee_three_next: referee_two_last_days)
           end
         end
 
@@ -2208,11 +2208,11 @@ namespace :nba do
         if referee_three_last
           referee_three_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_three_last.game_date).in_time_zone.to_date ).to_i - 1
           if referee_three_last.referee_one == referee_three
-            referee_one_last.update(referee_one_next: referee_three_last_days)
+            referee_three_last.update(referee_one_next: referee_three_last_days)
           elsif referee_three_last.referee_two == referee_three
-            referee_one_last.update(referee_two_next: referee_three_last_days)
+            referee_three_last.update(referee_two_next: referee_three_last_days)
           else
-            referee_one_last.update(referee_three_next: referee_three_last_days)
+            referee_three_last.update(referee_three_next: referee_three_last_days)
           end
         end
 
@@ -2261,11 +2261,11 @@ namespace :nba do
         if referee_two_last
           referee_two_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_two_last.game_date).in_time_zone.to_date ).to_i - 1
           if referee_two_last.referee_one == referees[1]
-            referee_one_last.update(referee_one_next: referee_two_last_days)
+            referee_two_last.update(referee_one_next: referee_two_last_days)
           elsif referee_two_last.referee_two == referees[1]
-            referee_one_last.update(referee_two_next: referee_two_last_days)
+            referee_two_last.update(referee_two_next: referee_two_last_days)
           else
-            referee_one_last.update(referee_three_next: referee_two_last_days)
+            referee_two_last.update(referee_three_next: referee_two_last_days)
           end
         end
 
@@ -2274,11 +2274,11 @@ namespace :nba do
         if referee_three_last
           referee_three_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_three_last.game_date).in_time_zone.to_date ).to_i - 1
           if referee_three_last.referee_one == referees[2]
-            referee_one_last.update(referee_one_next: referee_three_last_days)
+            referee_three_last.update(referee_one_next: referee_three_last_days)
           elsif referee_three_last.referee_two == referees[2]
-            referee_one_last.update(referee_two_next: referee_three_last_days)
+            referee_three_last.update(referee_two_next: referee_three_last_days)
           else
-            referee_one_last.update(referee_three_next: referee_three_last_days)
+            referee_three_last.update(referee_three_next: referee_three_last_days)
           end
         end
         
