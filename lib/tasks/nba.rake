@@ -40,6 +40,12 @@ namespace :nba do
         Injury.delete(injury.id)
       end
     end
+
+    Rake::Task["nba:getReferee"].invoke
+    Rake::Task["nba:getReferee"].reenable
+
+    Rake::Task["nba:getTodayReferee"].invoke
+    Rake::Task["nba:getTodayReferee"].reenable
 	end
   
 	task :daily => :environment do
@@ -94,12 +100,6 @@ namespace :nba do
 
     Rake::Task["nba:addAVGs"].invoke
     Rake::Task["nba:addAVGs"].reenable
-
-    Rake::Task["nba:getReferee"].invoke
-    Rake::Task["nba:getReferee"].reenable
-
-    Rake::Task["nba:getTodayReferee"].invoke
-    Rake::Task["nba:getTodayReferee"].reenable
 
 		Rake::Task["nba:getUpdateTG"].invoke
 		Rake::Task["nba:getUpdateTG"].reenable
@@ -2175,7 +2175,7 @@ namespace :nba do
       if @nba_nicknames[home_name]
         home_name = @nba_nicknames[home_name]
       end
-      
+
       matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) }
       if matched.size > 0
         update_game = matched.first
