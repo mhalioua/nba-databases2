@@ -2168,19 +2168,14 @@ namespace :nba do
       team = element.children[1].text.split(" @ ")
       away_name = team[0]
       home_name = team[1]
-      if away_name == "L.A. Lakers"
-        away_name = 'LAL'
-      end
-      if home_name == "L.A. Lakers"
-        home_name = 'LAL'
+      if @nba_nicknames[away_name]
+        away_name = @nba_nicknames[away_name]
       end
 
-      if away_name == "LA Clippers"
-        away_name = 'LAC'
+      if @nba_nicknames[home_name]
+        home_name = @nba_nicknames[home_name]
       end
-      if home_name == "LA Clippers"
-        home_name = 'LAC'
-      end
+      
       matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) }
       if matched.size > 0
         update_game = matched.first
