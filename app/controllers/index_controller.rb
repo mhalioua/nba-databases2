@@ -658,9 +658,9 @@ class IndexController < ApplicationController
 				home_ortg: filter_second_element.average(:home_ortg).to_f.round(2),
 				away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
 				bi: ((filter_second_element.average(:home_win_rank).to_f.round(2)-filter_second_element.average(:away_win_rank).to_f.round(2))/2-3).round(2),
-				bj: (filter_second_element.average(:fgside).to_f.round(2),
-				bg: (filter_second_element.average(:fgside).to_f.round(2),
-				bh: (filter_second_element.average(:fgside).to_f.round(2)
+				bj: filter_second_element.average(:fgside).to_f.round(2),
+				bg: filter_second_element.average(:fgside).to_f.round(2),
+				bh: filter_second_element.average(:fgside).to_f.round(2)
 			}
 			if index < 2 || index > 13
 				result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
