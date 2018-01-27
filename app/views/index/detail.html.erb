@@ -2394,3 +2394,174 @@ end
         </tbody>
     </table>
 </div>
+<div class="tableBody">
+  <table border="1">
+    <thead>
+      <tr>
+        <td>Referee #1<br>
+        Referee #2<br>
+        Referee #3</td>
+        <td>Last</td>
+        <td>Next</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @game.referee_one %></td>
+        <td><%= @game.referee_one_last %></td>
+        <td><%= @game.referee_one_next %></td>
+      </tr>
+      <tr>
+        <td><%= @game.referee_two %></td>
+        <td><%= @game.referee_two_last %></td>
+        <td><%= @game.referee_two_next %></td>
+      </tr>
+      <tr>
+        <td><%= @game.referee_three %></td>
+        <td><%= @game.referee_three_last %></td>
+        <td><%= @game.referee_three_next %></td>
+      </tr>
+    </tbody>
+  </table>
+  <table border="1">
+    <tbody>
+      <tr class="gray">
+        <td>Referee #1<br>
+        Referee #2<br>
+        Referee #3</td>
+        <td colspan="7" class="gameDate">Last</td>
+        <td></td>
+        <td class="gameDate skyblue">1H</td>
+        <td class="gameDate skyblue">2H</td>
+        <td>gms</td>
+        <td rowspan="8" class="black"></td>
+        <td class="gameDate skyblue">1H</td>
+        <td class="gameDate skyblue">2H</td>
+        <td>gms</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><%= @game.referee_one %></td>
+        <td><%= @game.referee_one_last %></td>
+        <td><%= @game.referee_two_last %></td>
+        <td><%= @game.referee_three_last %></td>
+        <td class="black"></td>
+        <td><%= @game.referee_one_last %></td>
+        <td><%= @game.referee_two_last %></td>
+        <td><%= @game.referee_three_last %></td>
+        <td class="black"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="black"></td>
+      </tr>
+      <tr>
+        <td><%= @game.referee_two %></td>
+        <td><%= @game.referee_one_last %></td>
+        <td><%= @game.referee_two_last %></td>
+        <td><%= @game.referee_three_last %></td>
+        <td class="black"></td>
+        <td><%= @game.referee_one_last %></td>
+        <td><%= @game.referee_two_last %></td>
+        <td><%= @game.referee_three_last %></td>
+        <td class="black"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="black"></td>
+      </tr>
+      <tr>
+        <td><%= @game.referee_three %></td>
+        <td><%= @game.referee_one_last %></td>
+        <td><%= @game.referee_two_last %></td>
+        <td><%= @game.referee_three_last %></td>
+        <td class="black"></td>
+        <td><%= @game.referee_one_last %></td>
+        <td><%= @game.referee_two_last %></td>
+        <td><%= @game.referee_three_last %></td>
+        <td class="black"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="black"></td>
+      </tr>
+      <tr class="gray">
+        <td>Referee #1<br>
+        Referee #2<br>
+        Referee #3</td>
+        <td colspan="7" class="gameDate">Next</td>
+        <td class="black"></td>
+        <td class="gameDate skyblue">1H</td>
+        <td class="gameDate skyblue">2H</td>
+        <td>gms</td>
+        <td class="gameDate skyblue">1H</td>
+        <td class="gameDate skyblue">2H</td>
+        <td>gms</td>
+        <td class="black"></td>
+      </tr>
+      <tr>
+        <td><%= @game.referee_one %></td>
+        <td><%= @game.referee_one_next %></td>
+        <td><%= @game.referee_two_next %></td>
+        <td><%= @game.referee_three_next %></td>
+        <td class="black"></td>
+        <td><%= @game.referee_one_next %></td>
+        <td><%= @game.referee_two_next %></td>
+        <td><%= @game.referee_three_next %></td>
+        <td class="black"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="black"></td>
+      </tr>
+      <tr>
+        <td><%= @game.referee_two %></td>
+        <td><%= @game.referee_one_next %></td>
+        <td><%= @game.referee_two_next %></td>
+        <td><%= @game.referee_three_next %></td>
+        <td class="black"></td>
+        <td><%= @game.referee_one_next %></td>
+        <td><%= @game.referee_two_next %></td>
+        <td><%= @game.referee_three_next %></td>
+        <td class="black"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="black"></td>
+      </tr>
+      <tr>
+        <td><%= @game.referee_three %></td>
+        <td><%= @game.referee_one_next %></td>
+        <td><%= @game.referee_two_next %></td>
+        <td><%= @game.referee_three_next %></td>
+        <td class="black"></td>
+        <td><%= @game.referee_one_next %></td>
+        <td><%= @game.referee_two_next %></td>
+        <td><%= @game.referee_three_next %></td>
+        <td class="black"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="black"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
