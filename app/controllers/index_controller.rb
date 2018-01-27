@@ -915,9 +915,9 @@ class IndexController < ApplicationController
 	        	next
 	        end
 	        drtg_count = drtg_count + 1
-	        @home_total_min = @total_min + player.sum_mins/(count - 2)
-	        @home_total_stl = @total_stl + player.sum_stl/count
-	        @home_total_blk = @total_blk + player.sum_blk/count
+	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
+	        @home_total_stl = @home_total_stl + player.sum_stl/count
+	        @home_total_blk = @home_total_blk + player.sum_blk/count
 	        @home_total_or = @home_total_or + player.sum_or/count
 	        drtg_min = drtg_min + player.sum_mins/(count - 2)
 	        @home_drtg_two = @home_drtg_two + player.drtg * (player.sum_mins/(count - 2))
