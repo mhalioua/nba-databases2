@@ -2397,7 +2397,7 @@ end
 <div class="tableBody">
   <table border="1" class="tableSide" style="border:2px solid black">
     <thead>
-      <tr>
+      <tr class="gray">
         <td>Referee #1<br>
         Referee #2<br>
         Referee #3</td>
@@ -2442,56 +2442,56 @@ end
       </tr>
       <tr>
         <td><%= @game.referee_one %></td>
-        <td><%= @game.referee_one_last %></td>
-        <td><%= @game.referee_two_last %></td>
-        <td><%= @game.referee_three_last %></td>
+        <td><%= @referee_filter[0][0] %></td>
+        <td><%= @referee_filter[0][1] %></td>
+        <td><%= @referee_filter[0][2] %></td>
         <td class="black"></td>
-        <td><%= @game.referee_one_last %></td>
-        <td><%= @game.referee_two_last %></td>
-        <td><%= @game.referee_three_last %></td>
+        <td><%= @referee_filter[3][0] %></td>
+        <td><%= @referee_filter[3][1] %></td>
+        <td><%= @referee_filter[3][2] %></td>
         <td class="black"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= @referee_filter_results[0][0] %></td>
+        <td><%= @referee_filter_results[0][1] %></td>
+        <td><%= @referee_filter_results[0][2] %></td>
+        <td><%= @referee_filter_results[3][0] %></td>
+        <td><%= @referee_filter_results[3][1] %></td>
+        <td><%= @referee_filter_results[3][2] %></td>
         <td class="black"></td>
       </tr>
       <tr>
         <td><%= @game.referee_two %></td>
-        <td><%= @game.referee_one_last %></td>
-        <td><%= @game.referee_two_last %></td>
-        <td><%= @game.referee_three_last %></td>
+        <td><%= @referee_filter[1][0] %></td>
+        <td><%= @referee_filter[1][1] %></td>
+        <td><%= @referee_filter[1][2] %></td>
         <td class="black"></td>
-        <td><%= @game.referee_one_last %></td>
-        <td><%= @game.referee_two_last %></td>
-        <td><%= @game.referee_three_last %></td>
+        <td><%= @referee_filter[4][0] %></td>
+        <td><%= @referee_filter[4][1] %></td>
+        <td><%= @referee_filter[4][2] %></td>
         <td class="black"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= @referee_filter_results[1][0] %></td>
+        <td><%= @referee_filter_results[1][1] %></td>
+        <td><%= @referee_filter_results[1][2] %></td>
+        <td><%= @referee_filter_results[4][0] %></td>
+        <td><%= @referee_filter_results[4][1] %></td>
+        <td><%= @referee_filter_results[4][2] %></td>
         <td class="black"></td>
       </tr>
       <tr>
         <td><%= @game.referee_three %></td>
-        <td><%= @game.referee_one_last %></td>
-        <td><%= @game.referee_two_last %></td>
-        <td><%= @game.referee_three_last %></td>
+        <td><%= @referee_filter[2][0] %></td>
+        <td><%= @referee_filter[2][1] %></td>
+        <td><%= @referee_filter[2][2] %></td>
         <td class="black"></td>
-        <td><%= @game.referee_one_last %></td>
-        <td><%= @game.referee_two_last %></td>
-        <td><%= @game.referee_three_last %></td>
+        <td><%= @referee_filter[5][0] %></td>
+        <td><%= @referee_filter[5][1] %></td>
+        <td><%= @referee_filter[5][2] %></td>
         <td class="black"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= @referee_filter_results[2][0] %></td>
+        <td><%= @referee_filter_results[2][1] %></td>
+        <td><%= @referee_filter_results[2][2] %></td>
+        <td><%= @referee_filter_results[5][0] %></td>
+        <td><%= @referee_filter_results[5][1] %></td>
+        <td><%= @referee_filter_results[5][2] %></td>
         <td class="black"></td>
       </tr>
       <tr class="gray">
@@ -2510,56 +2510,56 @@ end
       </tr>
       <tr>
         <td><%= @game.referee_one %></td>
-        <td><%= @game.referee_one_next %></td>
-        <td><%= @game.referee_two_next %></td>
-        <td><%= @game.referee_three_next %></td>
+        <td><%= @referee_filter[6][0] %></td>
+        <td><%= @referee_filter[6][1] %></td>
+        <td><%= @referee_filter[6][2] %></td>
         <td class="black"></td>
-        <td><%= @game.referee_one_next %></td>
-        <td><%= @game.referee_two_next %></td>
-        <td><%= @game.referee_three_next %></td>
+        <td><%= @referee_filter[9][0] %></td>
+        <td><%= @referee_filter[9][1] %></td>
+        <td><%= @referee_filter[9][2] %></td>
         <td class="black"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= @referee_filter_results[6][0] %></td>
+        <td><%= @referee_filter_results[6][1] %></td>
+        <td><%= @referee_filter_results[6][2] %></td>
+        <td><%= @referee_filter_results[9][0] %></td>
+        <td><%= @referee_filter_results[9][1] %></td>
+        <td><%= @referee_filter_results[9][2] %></td>
         <td class="black"></td>
       </tr>
       <tr>
         <td><%= @game.referee_two %></td>
-        <td><%= @game.referee_one_next %></td>
-        <td><%= @game.referee_two_next %></td>
-        <td><%= @game.referee_three_next %></td>
+        <td><%= @referee_filter[7][0] %></td>
+        <td><%= @referee_filter[7][1] %></td>
+        <td><%= @referee_filter[7][2] %></td>
         <td class="black"></td>
-        <td><%= @game.referee_one_next %></td>
-        <td><%= @game.referee_two_next %></td>
-        <td><%= @game.referee_three_next %></td>
+        <td><%= @referee_filter[10][0] %></td>
+        <td><%= @referee_filter[10][1] %></td>
+        <td><%= @referee_filter[10][2] %></td>
         <td class="black"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= @referee_filter_results[7][0] %></td>
+        <td><%= @referee_filter_results[7][1] %></td>
+        <td><%= @referee_filter_results[7][2] %></td>
+        <td><%= @referee_filter_results[10][0] %></td>
+        <td><%= @referee_filter_results[10][1] %></td>
+        <td><%= @referee_filter_results[10][2] %></td>
         <td class="black"></td>
       </tr>
       <tr>
         <td><%= @game.referee_three %></td>
-        <td><%= @game.referee_one_next %></td>
-        <td><%= @game.referee_two_next %></td>
-        <td><%= @game.referee_three_next %></td>
+        <td><%= @referee_filter[8][0] %></td>
+        <td><%= @referee_filter[8][1] %></td>
+        <td><%= @referee_filter[8][2] %></td>
         <td class="black"></td>
-        <td><%= @game.referee_one_next %></td>
-        <td><%= @game.referee_two_next %></td>
-        <td><%= @game.referee_three_next %></td>
+        <td><%= @referee_filter[11][0] %></td>
+        <td><%= @referee_filter[11][1] %></td>
+        <td><%= @referee_filter[11][2] %></td>
         <td class="black"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= @referee_filter_results[8][0] %></td>
+        <td><%= @referee_filter_results[8][1] %></td>
+        <td><%= @referee_filter_results[8][2] %></td>
+        <td><%= @referee_filter_results[11][0] %></td>
+        <td><%= @referee_filter_results[11][1] %></td>
+        <td><%= @referee_filter_results[11][2] %></td>
         <td class="black"></td>
       </tr>
     </tbody>

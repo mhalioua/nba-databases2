@@ -735,9 +735,130 @@ class IndexController < ApplicationController
 			count: thirdItem.count(:totalpoint).to_i
 		}
 		@countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", @game.away_last_fly, @game.away_next_fly, @game.away_last_game, @game.away_next_game, @game.home_next_game, @game.home_last_game, @game.home_next_fly, @game.home_last_fly)
-		
-
 		@compares = @game.compares.all
+
+		referee_one_last = @game.referee_one_last
+		referee_one_next = @game.referee_one_next
+		referee_two_last = @game.referee_two_last
+		referee_two_next = @game.referee_two_next
+		referee_three_last = @game.referee_three_last
+		referee_three_next = @game.referee_three_next
+		@referee_last_type = 3
+		@referee_next_type = 3
+
+		@referee_filter = []
+		if referee_one_last == nil || referee_two_last == nil || referee_three_last == nil
+			@referee_last_type = 0
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+		elsif referee_one_last == referee_two_last && referee_two_last == referee_three_last
+			@referee_last_type = 1
+			@referee_filter.push([referee_one_last, referee_one_last, referee_one_last])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+		elsif referee_one_last == referee_two_last || referee_two_last == referee_three_last || referee_one_last == referee_three_last
+			@referee_last_type = 2
+			one_value = 0
+			two_value = 0
+			if referee_one_last == referee_two_last
+				one_value = referee_one_last
+				two_value = referee_three_last
+			elsif referee_two_last == referee_three_last
+				one_value = referee_two_last
+				two_value = referee_one_last
+			elsif referee_one_last == referee_three_last
+				one_value = referee_one_last
+				two_value = referee_two_last
+			end
+
+			@referee_filter.push([one_value, one_value, two_value])
+			@referee_filter.push([one_value, two_value, one_value])
+			@referee_filter.push([two_value, one_value, one_value])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+		else
+			@referee_last_type = 3
+			@referee_filter.push([referee_one_last, referee_two_last, referee_three_last])
+			@referee_filter.push([referee_one_last, referee_three_last, referee_two_last])
+			@referee_filter.push([referee_two_last, referee_one_last, referee_three_last])
+			@referee_filter.push([referee_two_last, referee_three_last, referee_one_last])
+			@referee_filter.push([referee_three_last, referee_one_last, referee_two_last])
+			@referee_filter.push([referee_three_last, referee_two_last, referee_one_last])
+		end
+
+		if referee_one_next == nil || referee_two_next == nil || referee_three_next == nil
+			@referee_next_type = 0
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+		elsif referee_one_next == referee_two_next && referee_two_next == referee_three_next
+			@referee_next_type = 1
+			@referee_filter.push([referee_one_next, referee_one_next, referee_one_next])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+		elsif referee_one_next == referee_two_next || referee_two_next == referee_three_next || referee_one_next == referee_three_next
+			@referee_next_type = 2
+			one_value = 0
+			two_value = 0
+			if referee_one_next == referee_two_next
+				one_value = referee_one_next
+				two_value = referee_three_next
+			elsif referee_two_next == referee_three_next
+				one_value = referee_two_next
+				two_value = referee_one_next
+			elsif referee_one_next == referee_three_next
+				one_value = referee_one_next
+				two_value = referee_two_next
+			end
+
+			@referee_filter.push([one_value, one_value, two_value])
+			@referee_filter.push([one_value, two_value, one_value])
+			@referee_filter.push([two_value, one_value, one_value])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+			@referee_filter.push(['-', '-', '-'])
+		else
+			@referee_next_type = 3
+			@referee_filter.push([referee_one_next, referee_two_next, referee_three_next])
+			@referee_filter.push([referee_one_next, referee_three_next, referee_two_next])
+			@referee_filter.push([referee_two_next, referee_one_next, referee_three_next])
+			@referee_filter.push([referee_two_next, referee_three_next, referee_one_next])
+			@referee_filter.push([referee_three_next, referee_one_next, referee_two_next])
+			@referee_filter.push([referee_three_next, referee_two_next, referee_one_next])
+		end
+
+		@referee_filter_results = []
+
+		@referee_filter.each_with_index do |referee_filter_element, index|
+			if referee_filter_element[0] != '-'
+				if index < 6
+					referee_filter_result = Referee.where(referee_one_last: referee_filter_element[0], referee_two_last: referee_filter_element[1], referee_three_last: referee_filter_element[2])
+				else
+					referee_filter_result = Referee.where(referee_one_next: referee_filter_element[0], referee_two_next: referee_filter_element[1], referee_three_next: referee_filter_element[2])
+				end
+				@referee_filter_results.push([
+					referee_filter_result.average(:tp_1h).to_f.round(2),
+					referee_filter_result.average(:tp_2h).to_f.round(2),
+					referee_filter_result.count(:tp_1h).to_i
+				])
+			else
+				@referee_filter_results.push(['-', '-',	'-'])
+			end
+		end
 	end
 
 	def state
