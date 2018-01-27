@@ -1965,8 +1965,8 @@ end
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>Home</td>
                 <td>Away</td>
+                <td>Home</td>
                 <td>+/-</td>
             </tr>
             <tr class="gradient">
@@ -2066,9 +2066,9 @@ end
                     <td><%= @filterResult[index][:allsecond] %></td>
                     <td><%= @filterResult[index][:allfull] %></td>
                     <td><%= @filterResult[index][:allcount] %></td>
-                    <td><%= @filterResult[index][:home_ortg] %></td>
                     <td><%= @filterResult[index][:away_ortg] %></td>
-                    <td><%= (@filterResult[index][:home_ortg] - @filterResult[index][:away_ortg]).round(2) %></td>
+                    <td><%= @filterResult[index][:home_ortg] %></td>
+                    <td><%= (@filterResult[index][:away_ortg] - @filterResult[index][:home_ortg]).round(2) %></td>
                 </tr>
                 <% if @break.include?(index) %>
                 <tr class="gradient">

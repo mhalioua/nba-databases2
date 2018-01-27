@@ -659,8 +659,8 @@ class IndexController < ApplicationController
 				away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
 				bi: ((filter_second_element.average(:home_win_rank).to_f.round(2)-filter_second_element.average(:away_win_rank).to_f.round(2))/2-3).round(2),
 				bj: filter_second_element.average(:fgside).to_f.round(2),
-				bg: filter_second_element.average(:fgside).to_f.round(2),
-				bh: filter_second_element.average(:fgside).to_f.round(2),
+				bg: filter_second_element.average(:firstside).to_f.round(2),
+				bh: filter_second_element.average(:secondside).to_f.round(2),
 				away_fg_percent: filter_second_element.average(:away_fg_percent).to_f.round(2),
 				home_fg_percent: filter_second_element.average(:home_fg_percent).to_f.round(2)
 			}
