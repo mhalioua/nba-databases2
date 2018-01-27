@@ -343,7 +343,23 @@
     </table>
   </div>
 </div>
-
+<div class="tableBody">
+  <input type="checkbox" class="selectInjury" />
+  <span>Show Injuries</span>
+</div>
+<script>
+  $(document).ready(function(){
+    $('.selectInjury').change(function() {
+      if (this.checked) {
+        $('.inqurytable').css("display", "none");
+        $('.fulltable').css("display", "block");
+      } else {
+        $('.fulltable').css("display", "none");
+        $('.inqurytable').css("display", "block");
+      }
+    });
+  });
+</script>
 <div class="tableBody inqurytable">
   <h5> NEXT STAT </h5>
   <table border="1" class="tableSide">
@@ -860,7 +876,7 @@
 </table>
 </div>
 
-<div class="tableBody inqurytable">
+<div class="tableBody fulltable">
   <h5> NEXT STAT </h5>
   <table border="1" class="tableSide">
     <thead>
