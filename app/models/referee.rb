@@ -1,0 +1,2 @@
+class Referee < ApplicationRecord
+end
