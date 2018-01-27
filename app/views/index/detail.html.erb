@@ -859,6 +859,466 @@
     </tbody>
 </table>
 </div>
+
+<div class="tableBody inqurytable">
+  <h5> NEXT STAT </h5>
+  <table border="1" class="tableSide">
+    <thead>
+      <tr>
+        <th><%= @game.away_team %> <br> Starters</th>
+        <th>POS</th>
+        <th>HT</th>
+        <th>OR</th>
+        <th>STL</th>
+        <th>BLK</th>
+        <th>PLAYER <br> POSS %</th>
+        <th>MINS</th>
+        <th>PRO RATE</th>
+        <th>ORTG</th>
+        <th></th>
+        <th>DRTG</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @away_players_group1.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+            style="background:red;"
+          end
+          if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
+          end
+
+      %>
+      <tr>
+        <td class="lists list<%= player.id %>"  style='<%= style %>' ><%= player.player_name %></td>
+        <td style='<%= style %>' ><%= player.position %></td>
+        <% 
+        if player.height
+          height_index = player.height.index(",")
+        end
+        %>
+        <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <%
+          count = 1
+          if player.possession
+            count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+        %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
+         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <td style='<%= style %>' ><%= player.ortg %></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>' ><%= player.drtg %></td>
+        <% if index == 0 %>
+        <td rowspan="<%= @away_players_group1.size %>"><%= '%.2f' % @away_drtg_one %></td>
+        <% end %>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+      </tr>
+    <% end %>
+
+    <% @away_players_group2.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+            style="background:red;"
+          end
+          if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
+          end
+      %>
+      <tr>
+        <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
+        <td style='<%= style %>' ><%= player.position %></td>
+        <% 
+        if player.height
+          height_index = player.height.index(",")
+        end
+        %>
+        <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <%
+          count = 1
+          if player.possession
+            count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+        %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
+         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <td style='<%= style %>' ><%= player.ortg %></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>' ><%= player.drtg %></td>
+        <% if index == 0 %>
+        <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @away_drtg_two %></td>
+        <% end %>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+      </tr>
+    <% end %>
+      <tr style="background: grey">
+        <td>BENCH</td>
+        <td colspan="13"></td>
+      </tr>
+    <% @away_players_group3.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+            style="background:red;"
+          end
+          if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
+          end
+      %>
+      <tr>
+        <td  style='<%= style %>' class="lists list<%= player.id %>"><%= player.player_name %></td>
+        <td style='<%= style %>' ><%= player.position %></td>
+        <% 
+        if player.height
+          height_index = player.height.index(",")
+        end
+        %>
+        <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <%
+          count = 1
+          if player.possession
+            count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+        %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
+         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <td style='<%= style %>' ><%= player.ortg %></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>' ><%= player.drtg %></td>
+        <td style='<%= style %>' ></td>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+      </tr>
+    <% end %>
+      <tr style="background: grey">
+        <td colspan="14"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= @away_total_or %></td>
+        <td><%= @away_total_stl %></td>
+        <td><%= @away_total_blk %></td>
+        <td><%= '%.2f' % @away_total_poss %>%</td>
+        <td><%= @away_total_min %></td>
+        <td>100%</td>
+        <td></td>
+        <td id="injuryawaysum1"></td>
+        <td colspan="2" id="injuryawaysum"></td>
+        <td id="injuryawaysum2"></td>
+        <td></td>
+      </tr>
+    </tbody>
+</table>
+
+<table border="1" class="tableSide">
+    <thead>
+      <tr>
+        <th><%= @game.home_team %> <br> Starters</th>
+        <th>POS</th>
+        <th>HT</th>
+        <th>OR</th>
+        <th>STL</th>
+        <th>BLK</th>
+        <th>PLAYER <br> POSS %</th>
+        <th>MINS</th>
+        <th>PRO RATE</th>
+        <th>ORTG</th>
+        <th></th>
+        <th>DRTG</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @home_players_group1.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+            style="background:red;"
+          end
+          if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
+          end
+      %>
+      <tr>
+        <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
+        <td style='<%= style %>' ><%= player.position %></td>
+        <% 
+        if player.height
+          height_index = player.height.index(",")
+        end
+        %>
+        <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <%
+          count = 1
+          if player.possession
+            count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+        %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
+         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <td style='<%= style %>' ><%= player.ortg %></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>' ><%= player.drtg %></td>
+        <% if index == 0 %>
+        <td rowspan="<%= @home_players_group1.size %>"><%= '%.2f' % @home_drtg_one %></td>
+        <% end %>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+      </tr>
+    <% end %>
+
+    <% @home_players_group2.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+            style="background:red;"
+          end
+          if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
+          end
+      %>
+      <tr>
+        <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
+        <td style='<%= style %>' ><%= player.position %></td>
+        <% 
+        if player.height
+          height_index = player.height.index(",")
+        end
+        %>
+        <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <%
+          count = 1
+          if player.possession
+            count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+        %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
+         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <td style='<%= style %>' ><%= player.ortg %></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>' ><%= player.drtg %></td>
+        <% if index == 0 %>
+        <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @home_drtg_two %></td>
+        <% end %>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+      </tr>
+    <% end %>
+      <tr style="background: grey">
+        <td>BENCH</td>
+        <td colspan="13"></td>
+      </tr>
+    <% @home_players_group3.each_with_index do |player, index| 
+          count = 1
+          style =""
+          if player.possession
+              count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+          if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+            style="background:red;"
+          end
+          if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
+            style="background:skyblue;"
+          end
+      %>
+      <tr>
+        <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
+        <td style='<%= style %>' ><%= player.position %></td>
+        <% 
+        if player.height
+          height_index = player.height.index(",")
+        end
+        %>
+        <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <%
+          count = 1
+          if player.possession
+            count = player.possession.scan(/,/).count + 1
+          end
+          if count == 2
+            count = 1
+          end
+        %>
+        <td style='<%= style %>' ><%= player.sum_or/count %></td>
+        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
+        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
+         <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <% if player.sum_poss != 0 %>
+        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @home_total_poss ) %>%</td>
+        <% else %>
+        <td style='<%= style %>' ></td>
+        <% end %>
+        <td style='<%= style %>' ><%= player.ortg %></td>
+        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>' ><%= player.drtg %></td>
+        <td style='<%= style %>' ></td>
+        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+      </tr>
+    <% end %>
+      <tr style="background: grey">
+        <td colspan="14"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= @home_total_or %></td>
+        <td><%= @home_total_stl %></td>
+        <td><%= @home_total_blk %></td>
+        <td><%= '%.2f' % @home_total_poss %>%</td>
+        <td><%= @home_total_min %></td>
+        <td>100%</td>
+        <td></td>
+        <td id="injuryhomesum1"></td>
+        <td colspan="2" id="injuryhomesum"></td>
+        <td id="injuryhomesum2"></td>
+        <td></td>
+      </tr>
+    </tbody>
+</table>
+</div>
 <% @away_players.each_with_index do |player, index| %>
 <div style="display:none" class="boxes box<%= player.id %>">
             <table border="1">
