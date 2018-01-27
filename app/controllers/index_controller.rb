@@ -845,11 +845,42 @@ class IndexController < ApplicationController
 
 		@referee_filter.each_with_index do |referee_filter_element, index|
 			if referee_filter_element[0] != '-'
+				search_array = []
 				if index < 6
-					referee_filter_result = Referee.where(referee_one_last: referee_filter_element[0], referee_two_last: referee_filter_element[1], referee_three_last: referee_filter_element[2])
+					if referee_filter_element[0] > 5
+						search_array.push("referee_one_last > 5")
+					else
+						search_array.push("referee_one_last = #{referee_filter_element[0]}")
+					end
+					if referee_filter_element[1] > 5
+						search_array.push("referee_two_last > 5")
+					else
+						search_array.push("referee_two_last = #{referee_filter_element[1]}")
+					end
+					if referee_filter_element[2] > 5
+						search_array.push("referee_three_last > 5")
+					else
+						search_array.push("referee_three_last = #{referee_filter_element[2]}")
+					end
 				else
-					referee_filter_result = Referee.where(referee_one_next: referee_filter_element[0], referee_two_next: referee_filter_element[1], referee_three_next: referee_filter_element[2])
+					if referee_filter_element[0] > 5
+						search_array.push("referee_one_next > 5")
+					else
+						search_array.push("referee_one_next = #{referee_filter_element[0]}")
+					end
+					if referee_filter_element[1] > 5
+						search_array.push("referee_two_next > 5")
+					else
+						search_array.push("referee_two_next = #{referee_filter_element[1]}")
+					end
+					if referee_filter_element[2] > 5
+						search_array.push("referee_three_next > 5")
+					else
+						search_array.push("referee_three_next = #{referee_filter_element[2]}")
+					end
 				end
+				search_array = search_array.join(" AND ")
+				referee_filter_result = Referee.where(search_array)
 				@referee_filter_results.push([
 					referee_filter_result.average(:tp_1h).to_f.round(2),
 					referee_filter_result.average(:tp_2h).to_f.round(2),
