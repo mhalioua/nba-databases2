@@ -891,7 +891,7 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
           if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
@@ -954,7 +954,7 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
           if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
@@ -1019,7 +1019,7 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
           if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
@@ -1119,7 +1119,7 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
           if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
@@ -1181,7 +1181,7 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
           if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
@@ -1246,7 +1246,7 @@
           if count == 2
             count = 1
           end
-          if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+          if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
           end
           if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
@@ -1610,7 +1610,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -1624,7 +1624,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -1638,7 +1638,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -1652,7 +1652,7 @@ $('.awayPossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -1760,7 +1760,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -1774,7 +1774,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -1788,7 +1788,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>
@@ -1802,7 +1802,7 @@ $('.homePossessions').on('input', function() {
     if player.possession
         count = player.possession.scan(/,/).count + 1
     end
-    if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
+    if count < 10 || player.sum_mins/(count - 2) < 10
       next
     end
   %>

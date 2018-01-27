@@ -578,9 +578,6 @@ class IndexController < ApplicationController
 	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
-	        if @away_injury_name.include?(player.player_name)
-	        	next
-	        end
 	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        @away_total_stl = @away_total_stl + player.sum_stl/count
@@ -612,9 +609,6 @@ class IndexController < ApplicationController
 		        	count = 1
 		        end
 		        if player.sum_mins/(count - 2) < 10 || count < 10
-		        	next
-		        end
-		        if @away_injury_name.include?(player.player_name)
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
@@ -681,9 +675,6 @@ class IndexController < ApplicationController
 	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
-	        if @away_injury_name.include?(player.player_name)
-	        	next
-	        end
 	        drtg_count = drtg_count + 1
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        @away_total_stl = @away_total_stl + player.sum_stl/count
@@ -714,9 +705,6 @@ class IndexController < ApplicationController
 		        	count = 1
 		        end
 		        if player.sum_mins/(count - 2) < 10 || count < 10
-		        	next
-		        end
-		        if @away_injury_name.include?(player.player_name)
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
@@ -779,9 +767,6 @@ class IndexController < ApplicationController
 	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
-	        if @away_injury_name.include?(player.player_name)
-	        	next
-	        end
 	        @away_total_min = @away_total_min + player.sum_mins/(count - 2)
 	        @away_total_stl = @away_total_stl + player.sum_stl/count
 	        @away_total_blk = @away_total_blk + player.sum_blk/count
@@ -807,9 +792,6 @@ class IndexController < ApplicationController
 	        	count = 1
 	        end
 	        if player.sum_mins/(count - 2) < 10 || count < 10
-	        	next
-	        end
-	        if @home_injury_name.include?(player.player_name)
 	        	next
 	        end
 	        drtg_count = drtg_count + 1
@@ -842,9 +824,6 @@ class IndexController < ApplicationController
 		        	count = 1
 		        end
 		        if player.sum_mins/(count - 2) < 10 || count < 10
-		        	next
-		        end
-		        if @home_injury_name.include?(player.player_name)
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
@@ -911,9 +890,6 @@ class IndexController < ApplicationController
 	        if player.sum_mins/(count - 2) < 10 || count < 10
 	        	next
 	        end
-	        if @home_injury_name.include?(player.player_name)
-	        	next
-	        end
 	        drtg_count = drtg_count + 1
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
 	        @home_total_stl = @home_total_stl + player.sum_stl/count
@@ -944,9 +920,6 @@ class IndexController < ApplicationController
 		        	count = 1
 		        end
 		        if player.sum_mins/(count - 2) < 10 || count < 10
-		        	next
-		        end
-		        if @home_injury_name.include?(player.player_name)
 		        	next
 		        end
 		        compare = player.sum_mins/(count - 2)
@@ -1007,9 +980,6 @@ class IndexController < ApplicationController
 	        	count = 1
 	        end
 	        if player.sum_mins/(count - 2) < 10 || count < 10
-	        	next
-	        end
-	        if @home_injury_name.include?(player.player_name)
 	        	next
 	        end
 	        @home_total_min = @home_total_min + player.sum_mins/(count - 2)
