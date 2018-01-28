@@ -143,24 +143,7 @@ class IndexController < ApplicationController
 						total_next_first = total_next_first / total_next_count
 						total_next_second = total_next_second / total_next_count
 					end
-					puts "one_element"
-					puts one_element
-					puts "two_element"
-					puts two_element
-					puts "three_element"
-					puts three_element
-					puts "total_last_count"
-					puts total_last_count
-					puts "total_last_first.round(2)"
-					puts total_last_first.round(2)
-					puts "total_last_second.round(2)"
-					puts total_last_second.round(2)
-					puts "total_next_count"
-					puts total_next_count
-					puts "total_next_first.round(2)"
-					puts total_next_first.round(2)
-					puts "total_next_second.round(2)"
-					puts total_next_second.round(2)
+					puts "one_element #{one_element} two_element #{two_element} three_element #{three_element} total_last_count #{total_last_count} total_last_first #{total_last_first.round(2)} total_last_second #{total_last_second.round(2)} total_next_count #{total_next_count} total_next_first #{total_next_first }total_next_second #{total_next_second.round(2) } "
 				end
 			end
 		end
