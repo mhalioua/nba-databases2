@@ -56,7 +56,7 @@ class IndexController < ApplicationController
 						referee_filter_result_last.count(:tp_1h).to_i,
 						referee_filter_result_last.sum(:tp_1h).to_f.round(2),
 						referee_filter_result_last.sum(:tp_2h).to_f.round(2),
-						0,
+						1,
 						0,
 						0
 					])
