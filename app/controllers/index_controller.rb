@@ -80,7 +80,7 @@ class IndexController < ApplicationController
 					total_next_count = 0
 					total_next_first = 0
 					total_next_second = 0
-					if one_element != 0
+
 						total_last_count = total_last_count + @referee_filter_third[one_element][two_element][three_element][0]
 						total_last_count = total_last_count + @referee_filter_third[one_element][three_element][two_element][0]
 						total_last_count = total_last_count + @referee_filter_third[two_element][one_element][three_element][0]
@@ -144,7 +144,6 @@ class IndexController < ApplicationController
 						total_next_second = total_next_second / total_next_count
 					end
 					puts "one_element #{one_element} two_element #{two_element} three_element #{three_element} total_last_count #{total_last_count} total_last_first #{total_last_first.round(2)} total_last_second #{total_last_second.round(2)} total_next_count #{total_next_count} total_next_first #{total_next_first }total_next_second #{total_next_second.round(2) } "
-				end
 			end
 		end
 	end
