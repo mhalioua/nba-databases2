@@ -20,6 +20,56 @@ class IndexController < ApplicationController
 	  				.order("game_date", "home_number")
 	end
 
+	def referee
+		@result = []
+		(0..6).each do |one_element|
+			(one_element..6).each do |two_element|
+				start_element = two_element
+				start_element = 0 if one_element == 0
+				(start_element..6).each do |three_element|
+					search_array_last = []
+					search_array_next = []
+					if one_element > 5
+						search_array_last.push("referee_one_last > 5")
+						search_array_next.push("referee_one_next > 5")
+					else
+						search_array_last.push("referee_one_last = #{one_element}")
+						search_array_next.push("referee_one_last = #{one_element}")
+					end
+					if two_element > 5
+						search_array_last.push("referee_two_last > 5")
+						search_array_next.push("referee_two_last > 5")
+					else
+						search_array_last.push("referee_two_last = #{two_element}")
+						search_array_next.push("referee_two_last = #{two_element}")
+					end
+					if three_element > 5
+						search_array_last.push("referee_three_last > 5")
+						search_array_next.push("referee_three_last > 5")
+					else
+						search_array_last.push("referee_three_last = #{three_element}")
+						search_array_next.push("referee_three_last = #{three_element}")
+					end
+					search_array_last = search_array_last.join(" AND ")
+					search_array_next = search_array_next.join(" AND ")
+					referee_filter_result_last = Referee.where(search_array_last)
+					referee_filter_result_next = Referee.where(search_array_next)
+					@result.push([
+						one_element,
+						two_element,
+						three_element,
+						referee_filter_result_last.count(:tp_1h).to_i,
+						referee_filter_result_last.average(:tp_1h).to_f.round(2),
+						referee_filter_result_last.average(:tp_2h).to_f.round(2),
+						referee_filter_result_next.count(:tp_1h).to_i,
+						referee_filter_result_next.average(:tp_1h).to_f.round(2),
+						referee_filter_result_next.average(:tp_2h).to_f.round(2)
+					])
+				end
+			end
+		end
+	end
+
 	def detail
 		@injuries = params[:injury]
 		unless @injuries

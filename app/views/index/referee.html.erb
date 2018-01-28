@@ -1,0 +1,114 @@
+<% content_for :title, "Referee" %>
+<div class="header row">
+	<h1>Referee</h1>
+</div>
+<ul>
+	<li><%= link_to 'Home', { action: 'home' }%></li>
+</ul>
+<table class="gray">
+  <thead>
+    <tr>
+      <td colspan="3"></td>
+      <td colspan="3">Last</td>
+      <td colspan="3">Next</td>
+    </tr>
+    <tr>
+      <td>1st referee</td>
+      <td>2nd referee</td>
+      <td>3rd referee</td>
+      <td>Games</td>
+      <td>1st Half</td>
+      <td>2nd Half</td>
+      <td>Games</td>
+      <td>1st Half</td>
+      <td>2nd Half</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% (0..48).each do |index| %>
+      <tr>
+        <td><%= @result[index][0] %></td>
+        <td><%= @result[index][1] %></td>
+        <td><%= @result[index][2] %></td>
+        <td><%= @result[index][3] %></td>
+        <td><%= @result[index][4] %></td>
+        <td><%= @result[index][5] %></td>
+        <td><%= @result[index][6] %></td>
+        <td><%= @result[index][7] %></td>
+        <td><%= @result[index][8] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table class="gray">
+  <thead>
+    <tr>
+      <td colspan="3"></td>
+      <td colspan="3">Last</td>
+      <td colspan="3">Next</td>
+    </tr>
+    <tr>
+      <td>1st referee</td>
+      <td>2nd referee</td>
+      <td>3rd referee</td>
+      <td>Games</td>
+      <td>1st Half</td>
+      <td>2nd Half</td>
+      <td>Games</td>
+      <td>1st Half</td>
+      <td>2nd Half</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% (49..84).each do |index| %>
+      <tr>
+        <td><%= @result[index][0] %></td>
+        <td><%= @result[index][1] %></td>
+        <td><%= @result[index][2] %></td>
+        <td><%= @result[index][3] %></td>
+        <td><%= @result[index][4] %></td>
+        <td><%= @result[index][5] %></td>
+        <td><%= @result[index][6] %></td>
+        <td><%= @result[index][7] %></td>
+        <td><%= @result[index][8] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table class="gray">
+  <thead>
+    <tr>
+      <td colspan="3"></td>
+      <td colspan="3">Last</td>
+      <td colspan="3">Next</td>
+    </tr>
+    <tr>
+      <td>1st referee</td>
+      <td>2nd referee</td>
+      <td>3rd referee</td>
+      <td>Games</td>
+      <td>1st Half</td>
+      <td>2nd Half</td>
+      <td>Games</td>
+      <td>1st Half</td>
+      <td>2nd Half</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% (85..104).each do |index| %>
+      <tr>
+        <td><%= @result[index][0] %></td>
+        <td><%= @result[index][1] %></td>
+        <td><%= @result[index][2] %></td>
+        <td><%= @result[index][3] %></td>
+        <td><%= @result[index][4] %></td>
+        <td><%= @result[index][5] %></td>
+        <td><%= @result[index][6] %></td>
+        <td><%= @result[index][7] %></td>
+        <td><%= @result[index][8] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
