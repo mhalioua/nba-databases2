@@ -67,7 +67,7 @@ class IndexController < ApplicationController
 			end
 			@referee_filter_third.push(@referee_filter_second)
 		end
-		puts "123456aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
 		@result = []
 		(0..6).each do |one_element|
 			(one_element..6).each do |two_element|
@@ -143,18 +143,15 @@ class IndexController < ApplicationController
 						total_next_first = total_next_first / total_next_count
 						total_next_second = total_next_second / total_next_count
 					end
-					
-					@result.push([
-						one_element,
-						two_element,
-						three_element,
-						total_last_count,
-						total_last_first.round(2),
-						total_last_second.round(2),
-						total_next_count,
-						total_next_first.round(2),
-						total_next_second.round(2)
-					])
+					puts one_element
+					puts two_element
+					puts three_element
+					puts total_last_count
+					puts total_last_first.round(2)
+					puts total_last_second.round(2)
+					puts total_next_count
+					puts total_next_first.round(2)
+					puts total_next_second.round(2)
 				end
 			end
 		end
