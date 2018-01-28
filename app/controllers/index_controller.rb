@@ -34,21 +34,21 @@ class IndexController < ApplicationController
 						search_array_next.push("referee_one_next > 5")
 					else
 						search_array_last.push("referee_one_last = #{one_element}")
-						search_array_next.push("referee_one_last = #{one_element}")
+						search_array_next.push("referee_one_next = #{one_element}")
 					end
 					if two_element > 5
 						search_array_last.push("referee_two_last > 5")
-						search_array_next.push("referee_two_last > 5")
+						search_array_next.push("referee_two_next > 5")
 					else
 						search_array_last.push("referee_two_last = #{two_element}")
-						search_array_next.push("referee_two_last = #{two_element}")
+						search_array_next.push("referee_two_next = #{two_element}")
 					end
 					if three_element > 5
 						search_array_last.push("referee_three_last > 5")
-						search_array_next.push("referee_three_last > 5")
+						search_array_next.push("referee_three_next > 5")
 					else
 						search_array_last.push("referee_three_last = #{three_element}")
-						search_array_next.push("referee_three_last = #{three_element}")
+						search_array_next.push("referee_three_next = #{three_element}")
 					end
 					search_array_last = search_array_last.join(" AND ")
 					search_array_next = search_array_next.join(" AND ")

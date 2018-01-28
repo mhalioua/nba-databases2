@@ -5,7 +5,7 @@
 <ul>
 	<li><%= link_to 'Home', { action: 'home' }%></li>
 </ul>
-<table class="gray">
+<table class="gray" border="1">
   <thead>
     <tr>
       <td colspan="3"></td>
@@ -41,7 +41,7 @@
   </tbody>
 </table>
 
-<table class="gray">
+<table class="gray" border="1">
   <thead>
     <tr>
       <td colspan="3"></td>
@@ -65,7 +65,7 @@
       <tr>
         <td><%= @result[index][0] %></td>
         <td><%= @result[index][1] %></td>
-        <td><%= @result[index][2] %></td>
+        <td><%= @result[index][2] != 6 ? @result[index][2] : @result[index][2].to_s + "+" %></td>
         <td><%= @result[index][3] %></td>
         <td><%= @result[index][4] %></td>
         <td><%= @result[index][5] %></td>
@@ -77,7 +77,7 @@
   </tbody>
 </table>
 
-<table class="gray">
+<table class="gray" border="1">
   <thead>
     <tr>
       <td colspan="3"></td>
