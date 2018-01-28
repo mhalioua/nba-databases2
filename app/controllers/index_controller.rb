@@ -51,23 +51,20 @@ class IndexController < ApplicationController
 						search_array_next.push("referee_three_next = #{three_element}")
 					end
 					search_array_last = search_array_last.join(" AND ")
-					search_array_next = search_array_next.join(" AND ")
 					referee_filter_result_last = Referee.where(search_array_last)
-					referee_filter_result_next = Referee.where(search_array_next)
 					@referee_filter_first.push([
 						referee_filter_result_last.count(:tp_1h).to_i,
 						referee_filter_result_last.sum(:tp_1h).to_f.round(2),
 						referee_filter_result_last.sum(:tp_2h).to_f.round(2),
-						referee_filter_result_next.count(:tp_1h).to_i,
-						referee_filter_result_next.sum(:tp_1h).to_f.round(2),
-						referee_filter_result_next.sum(:tp_2h).to_f.round(2)
+						0,
+						0,
+						0
 					])
 				end
 				@referee_filter_second.push(@referee_filter_first)
 			end
 			@referee_filter_third.push(@referee_filter_second)
 		end
-
 		@result = []
 		(0..6).each do |one_element|
 			(one_element..6).each do |two_element|
@@ -80,7 +77,7 @@ class IndexController < ApplicationController
 					total_next_count = 0
 					total_next_first = 0
 					total_next_second = 0
-
+					if one_element != 0
 						total_last_count = total_last_count + @referee_filter_third[one_element][two_element][three_element][0]
 						total_last_count = total_last_count + @referee_filter_third[one_element][three_element][two_element][0]
 						total_last_count = total_last_count + @referee_filter_third[two_element][one_element][three_element][0]
@@ -143,7 +140,19 @@ class IndexController < ApplicationController
 						total_next_first = total_next_first / total_next_count
 						total_next_second = total_next_second / total_next_count
 					end
-					puts "one_element #{one_element} two_element #{two_element} three_element #{three_element} total_last_count #{total_last_count} total_last_first #{total_last_first.round(2)} total_last_second #{total_last_second.round(2)} total_next_count #{total_next_count} total_next_first #{total_next_first.round(2) }total_next_second #{total_next_second.round(2) } "
+					
+					@result.push([
+						one_element,
+						two_element,
+						three_element,
+						total_last_count,
+						total_last_first.round(2),
+						total_last_second.round(2),
+						total_next_count,
+						total_next_first.round(2),
+						total_next_second.round(2)
+					])
+				end
 			end
 		end
 	end
