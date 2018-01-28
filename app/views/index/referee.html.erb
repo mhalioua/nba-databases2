@@ -5,110 +5,112 @@
 <ul>
 	<li><%= link_to 'Home', { action: 'home' }%></li>
 </ul>
-<table class="gray" border="1">
-  <thead>
-    <tr>
-      <td colspan="3"></td>
-      <td colspan="3">Last</td>
-      <td colspan="3">Next</td>
-    </tr>
-    <tr>
-      <td>1st referee</td>
-      <td>2nd referee</td>
-      <td>3rd referee</td>
-      <td>Games</td>
-      <td>1st Half</td>
-      <td>2nd Half</td>
-      <td>Games</td>
-      <td>1st Half</td>
-      <td>2nd Half</td>
-    </tr>
-  </thead>
-  <tbody>
-    <% (0..48).each do |index| %>
+<div class="referee">
+  <table border="1">
+    <thead>
       <tr>
-        <td><%= @result[index][0] %></td>
-        <td><%= @result[index][1] != 6 ? @result[index][1] : @result[index][1].to_s + "+" %></td>
-        <td><%= @result[index][2] != 6 ? @result[index][2] : @result[index][2].to_s + "+" %></td>
-        <td><%= @result[index][3] %></td>
-        <td><%= @result[index][4] %></td>
-        <td><%= @result[index][5] %></td>
-        <td><%= @result[index][6] %></td>
-        <td><%= @result[index][7] %></td>
-        <td><%= @result[index][8] %></td>
+        <th colspan="3"></th>
+        <th colspan="3">Last</th>
+        <th colspan="3">Next</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tr>
+        <th>1st referee</th>
+        <th>2nd referee</th>
+        <th>3rd referee</th>
+        <th>Games</th>
+        <th>1st Half</th>
+        <th>2nd Half</th>
+        <th>Games</th>
+        <th>1st Half</th>
+        <th>2nd Half</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% (0..48).each do |index| %>
+        <tr>
+          <td><%= @result[index][0] %></td>
+          <td><%= @result[index][1] != 6 ? @result[index][1] : @result[index][1].to_s + "+" %></td>
+          <td><%= @result[index][2] != 6 ? @result[index][2] : @result[index][2].to_s + "+" %></td>
+          <td><%= @result[index][3] %></td>
+          <td><%= @result[index][4] %></td>
+          <td><%= @result[index][5] %></td>
+          <td><%= @result[index][6] %></td>
+          <td><%= @result[index][7] %></td>
+          <td><%= @result[index][8] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<table class="gray" border="1">
-  <thead>
-    <tr>
-      <td colspan="3"></td>
-      <td colspan="3">Last</td>
-      <td colspan="3">Next</td>
-    </tr>
-    <tr>
-      <td>1st referee</td>
-      <td>2nd referee</td>
-      <td>3rd referee</td>
-      <td>Games</td>
-      <td>1st Half</td>
-      <td>2nd Half</td>
-      <td>Games</td>
-      <td>1st Half</td>
-      <td>2nd Half</td>
-    </tr>
-  </thead>
-  <tbody>
-    <% (49..84).each do |index| %>
+  <table border="1">
+    <thead>
       <tr>
-        <td><%= @result[index][0] %></td>
-        <td><%= @result[index][1] != 6 ? @result[index][1] : @result[index][1].to_s + "+" %></td>
-        <td><%= @result[index][2] != 6 ? @result[index][2] : @result[index][2].to_s + "+" %></td>
-        <td><%= @result[index][3] %></td>
-        <td><%= @result[index][4] %></td>
-        <td><%= @result[index][5] %></td>
-        <td><%= @result[index][6] %></td>
-        <td><%= @result[index][7] %></td>
-        <td><%= @result[index][8] %></td>
+        <td colspan="3"></td>
+        <td colspan="3">Last</td>
+        <td colspan="3">Next</td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tr>
+        <th>1st referee</th>
+        <th>2nd referee</th>
+        <th>3rd referee</th>
+        <th>Games</th>
+        <th>1st Half</th>
+        <th>2nd Half</th>
+        <th>Games</th>
+        <th>1st Half</th>
+        <th>2nd Half</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% (49..84).each do |index| %>
+        <tr>
+          <td><%= @result[index][0] %></td>
+          <td><%= @result[index][1] != 6 ? @result[index][1] : @result[index][1].to_s + "+" %></td>
+          <td><%= @result[index][2] != 6 ? @result[index][2] : @result[index][2].to_s + "+" %></td>
+          <td><%= @result[index][3] %></td>
+          <td><%= @result[index][4] %></td>
+          <td><%= @result[index][5] %></td>
+          <td><%= @result[index][6] %></td>
+          <td><%= @result[index][7] %></td>
+          <td><%= @result[index][8] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<table class="gray" border="1">
-  <thead>
-    <tr>
-      <td colspan="3"></td>
-      <td colspan="3">Last</td>
-      <td colspan="3">Next</td>
-    </tr>
-    <tr>
-      <td>1st referee</td>
-      <td>2nd referee</td>
-      <td>3rd referee</td>
-      <td>Games</td>
-      <td>1st Half</td>
-      <td>2nd Half</td>
-      <td>Games</td>
-      <td>1st Half</td>
-      <td>2nd Half</td>
-    </tr>
-  </thead>
-  <tbody>
-    <% (85..104).each do |index| %>
+  <table border="1">
+    <thead>
       <tr>
-        <td><%= @result[index][0] != 6 ? @result[index][0] : @result[index][0].to_s + "+" %></td>
-        <td><%= @result[index][1] != 6 ? @result[index][1] : @result[index][1].to_s + "+" %></td>
-        <td><%= @result[index][2] != 6 ? @result[index][2] : @result[index][2].to_s + "+" %></td>
-        <td><%= @result[index][3] %></td>
-        <td><%= @result[index][4] %></td>
-        <td><%= @result[index][5] %></td>
-        <td><%= @result[index][6] %></td>
-        <td><%= @result[index][7] %></td>
-        <td><%= @result[index][8] %></td>
+        <td colspan="3"></td>
+        <td colspan="3">Last</td>
+        <td colspan="3">Next</td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tr>
+        <th>1st referee</th>
+        <th>2nd referee</th>
+        <th>3rd referee</th>
+        <th>Games</th>
+        <th>1st Half</th>
+        <th>2nd Half</th>
+        <th>Games</th>
+        <th>1st Half</th>
+        <th>2nd Half</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% (85..104).each do |index| %>
+        <tr>
+          <td><%= @result[index][0] != 6 ? @result[index][0] : @result[index][0].to_s + "+" %></td>
+          <td><%= @result[index][1] != 6 ? @result[index][1] : @result[index][1].to_s + "+" %></td>
+          <td><%= @result[index][2] != 6 ? @result[index][2] : @result[index][2].to_s + "+" %></td>
+          <td><%= @result[index][3] %></td>
+          <td><%= @result[index][4] %></td>
+          <td><%= @result[index][5] %></td>
+          <td><%= @result[index][6] %></td>
+          <td><%= @result[index][7] %></td>
+          <td><%= @result[index][8] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
