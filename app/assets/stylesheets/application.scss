@@ -244,9 +244,14 @@ th, .green {
 }
 
 .referee {
+    text-align: center;
     table {
+        display: inline-table;
         background: darkgray;
         border: 2px solid gray;
+        th {
+            background: darkgray;
+        }
         td {
             border: 2px solid #333;
             width: 25px;
