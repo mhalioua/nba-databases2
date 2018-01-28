@@ -28,8 +28,8 @@
     <% (0..48).each do |index| %>
       <tr>
         <td><%= @result[index][0] %></td>
-        <td><%= @result[index][1] %></td>
-        <td><%= @result[index][2] %></td>
+        <td><%= @result[index][1] != 6 ? @result[index][1] : @result[index][1].to_s + "+" %></td>
+        <td><%= @result[index][2] != 6 ? @result[index][2] : @result[index][2].to_s + "+" %></td>
         <td><%= @result[index][3] %></td>
         <td><%= @result[index][4] %></td>
         <td><%= @result[index][5] %></td>
@@ -64,7 +64,7 @@
     <% (49..84).each do |index| %>
       <tr>
         <td><%= @result[index][0] %></td>
-        <td><%= @result[index][1] %></td>
+        <td><%= @result[index][1] != 6 ? @result[index][1] : @result[index][1].to_s + "+" %></td>
         <td><%= @result[index][2] != 6 ? @result[index][2] : @result[index][2].to_s + "+" %></td>
         <td><%= @result[index][3] %></td>
         <td><%= @result[index][4] %></td>
@@ -99,9 +99,9 @@
   <tbody>
     <% (85..104).each do |index| %>
       <tr>
-        <td><%= @result[index][0] %></td>
-        <td><%= @result[index][1] %></td>
-        <td><%= @result[index][2] %></td>
+        <td><%= @result[index][0] != 6 ? @result[index][0] : @result[index][0].to_s + "+" %></td>
+        <td><%= @result[index][1] != 6 ? @result[index][1] : @result[index][1].to_s + "+" %></td>
+        <td><%= @result[index][2] != 6 ? @result[index][2] : @result[index][2].to_s + "+" %></td>
         <td><%= @result[index][3] %></td>
         <td><%= @result[index][4] %></td>
         <td><%= @result[index][5] %></td>
