@@ -50,15 +50,15 @@ class IndexController < ApplicationController
 						search_array_last.push("referee_three_last = #{three_element}")
 						search_array_next.push("referee_three_next = #{three_element}")
 					end
-					search_array_last = search_array_last.join(" AND ")
-					referee_filter_result_last = Referee.where(search_array_last)
+					search_array_next = search_array_next.join(" AND ")
+					referee_filter_result_next = Referee.where(search_array_next)
 					@referee_filter_first.push([
-						referee_filter_result_last.count(:tp_1h).to_i,
-						referee_filter_result_last.sum(:tp_1h).to_f.round(2),
-						referee_filter_result_last.sum(:tp_2h).to_f.round(2),
 						1,
 						0,
-						0
+						0,
+						referee_filter_result_next.count(:tp_1h).to_i,
+						referee_filter_result_next.sum(:tp_1h).to_f.round(2),
+						referee_filter_result_next.sum(:tp_2h).to_f.round(2)
 					])
 				end
 				@referee_filter_second.push(@referee_filter_first)
