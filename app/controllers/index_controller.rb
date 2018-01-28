@@ -21,12 +21,12 @@ class IndexController < ApplicationController
 	end
 
 	def referee
-		@result = []
+		@referee_filter_third = []
 		(0..6).each do |one_element|
-			(one_element..6).each do |two_element|
-				start_element = two_element
-				start_element = 0 if one_element == 0
-				(start_element..6).each do |three_element|
+			@referee_filter_second = []
+			(0..6).each do |two_element|
+				@referee_filter_first = []
+				(0..6).each do |three_element|
 					search_array_last = []
 					search_array_next = []
 					if one_element > 5
@@ -54,16 +54,105 @@ class IndexController < ApplicationController
 					search_array_next = search_array_next.join(" AND ")
 					referee_filter_result_last = Referee.where(search_array_last)
 					referee_filter_result_next = Referee.where(search_array_next)
+					@referee_filter_first.push([
+						referee_filter_result_last.count(:tp_1h).to_i,
+						referee_filter_result_last.sum(:tp_1h).to_f.round(2),
+						referee_filter_result_last.sum(:tp_2h).to_f.round(2),
+						referee_filter_result_next.count(:tp_1h).to_i,
+						referee_filter_result_next.sum(:tp_1h).to_f.round(2),
+						referee_filter_result_next.sum(:tp_2h).to_f.round(2)
+					])
+				end
+				@referee_filter_second.push(@referee_filter_first)
+			end
+			@referee_filter_third.push(@referee_filter_second)
+		end
+		@result = []
+		(0..6).each do |one_element|
+			(one_element..6).each do |two_element|
+				start_element = two_element
+				start_element = 0 if one_element == 0
+				(start_element..6).each do |three_element|
+					total_last_count = 0
+					total_last_first = 0
+					total_last_second = 0
+					total_next_count = 0
+					total_next_first = 0
+					total_next_second = 0
+					if one_element != 0
+						total_last_count = total_last_count + @referee_filter_third[one_element][two_element][three_element][0]
+						total_last_count = total_last_count + @referee_filter_third[one_element][three_element][two_element][0]
+						total_last_count = total_last_count + @referee_filter_third[two_element][one_element][three_element][0]
+						total_last_count = total_last_count + @referee_filter_third[two_element][three_element][one_element][0]
+						total_last_count = total_last_count + @referee_filter_third[three_element][one_element][two_element][0]
+						total_last_count = total_last_count + @referee_filter_third[three_element][two_element][one_element][0]
+
+						total_last_first = total_last_first + @referee_filter_third[one_element][two_element][three_element][1]
+						total_last_first = total_last_first + @referee_filter_third[one_element][three_element][two_element][1]
+						total_last_first = total_last_first + @referee_filter_third[two_element][one_element][three_element][1]
+						total_last_first = total_last_first + @referee_filter_third[two_element][three_element][one_element][1]
+						total_last_first = total_last_first + @referee_filter_third[three_element][one_element][two_element][1]
+						total_last_first = total_last_first + @referee_filter_third[three_element][two_element][one_element][1]
+
+						total_last_second = total_last_second + @referee_filter_third[one_element][two_element][three_element][2]
+						total_last_second = total_last_second + @referee_filter_third[one_element][three_element][two_element][2]
+						total_last_second = total_last_second + @referee_filter_third[two_element][one_element][three_element][2]
+						total_last_second = total_last_second + @referee_filter_third[two_element][three_element][one_element][2]
+						total_last_second = total_last_second + @referee_filter_third[three_element][one_element][two_element][2]
+						total_last_second = total_last_second + @referee_filter_third[three_element][two_element][one_element][2]
+
+						total_next_count = total_next_count + @referee_filter_third[one_element][two_element][three_element][3]
+						total_next_count = total_next_count + @referee_filter_third[one_element][three_element][two_element][3]
+						total_next_count = total_next_count + @referee_filter_third[two_element][one_element][three_element][3]
+						total_next_count = total_next_count + @referee_filter_third[two_element][three_element][one_element][3]
+						total_next_count = total_next_count + @referee_filter_third[three_element][one_element][two_element][3]
+						total_next_count = total_next_count + @referee_filter_third[three_element][two_element][one_element][3]
+
+						total_next_first = total_next_first + @referee_filter_third[one_element][two_element][three_element][4]
+						total_next_first = total_next_first + @referee_filter_third[one_element][three_element][two_element][4]
+						total_next_first = total_next_first + @referee_filter_third[two_element][one_element][three_element][4]
+						total_next_first = total_next_first + @referee_filter_third[two_element][three_element][one_element][4]
+						total_next_first = total_next_first + @referee_filter_third[three_element][one_element][two_element][4]
+						total_next_first = total_next_first + @referee_filter_third[three_element][two_element][one_element][4]
+
+						total_next_second = total_next_second + @referee_filter_third[one_element][two_element][three_element][5]
+						total_next_second = total_next_second + @referee_filter_third[one_element][three_element][two_element][5]
+						total_next_second = total_next_second + @referee_filter_third[two_element][one_element][three_element][5]
+						total_next_second = total_next_second + @referee_filter_third[two_element][three_element][one_element][5]
+						total_next_second = total_next_second + @referee_filter_third[three_element][one_element][two_element][5]
+						total_next_second = total_next_second + @referee_filter_third[three_element][two_element][one_element][5]
+
+						if one_element == two_element && two_element == three_element
+							total_last_count = total_last_count / 6
+							total_last_first = total_last_first / 6
+							total_last_second = total_last_second / 6
+							total_next_count = total_next_count / 6
+							total_next_first = total_next_first / 6
+							total_next_second = total_next_second / 6
+						elsif one_element == two_element || two_element == three_element || one_element == three_element
+							total_last_count = total_last_count / 2
+							total_last_first = total_last_first / 2
+							total_last_second = total_last_second / 2
+							total_next_count = total_next_count / 2
+							total_next_first = total_next_first / 2
+							total_next_second = total_next_second / 2
+						end
+						total_last_first = total_last_first / total_last_count
+						total_last_second = total_last_second / total_last_count
+						total_next_first = total_next_first / total_next_count
+						total_next_second = total_next_second / total_next_count
+					end
+					
 					@result.push([
 						one_element,
 						two_element,
 						three_element,
-						referee_filter_result_last.count(:tp_1h).to_i,
-						referee_filter_result_last.average(:tp_1h).to_f.round(2),
-						referee_filter_result_last.average(:tp_2h).to_f.round(2),
-						referee_filter_result_next.count(:tp_1h).to_i,
-						referee_filter_result_next.average(:tp_1h).to_f.round(2),
-						referee_filter_result_next.average(:tp_2h).to_f.round(2)
+						total_last_count,
+						total_last_first.round(2),
+						total_last_second.round(2),
+						total_next_count,
+						total_next_first.round(2),
+						total_next_second.round(2)
 					])
 				end
 			end
