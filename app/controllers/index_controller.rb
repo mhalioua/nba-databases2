@@ -67,6 +67,7 @@ class IndexController < ApplicationController
 			end
 			@referee_filter_third.push(@referee_filter_second)
 		end
+		puts "123456aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 		@result = []
 		(0..6).each do |one_element|
 			(one_element..6).each do |two_element|
