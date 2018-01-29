@@ -26,7 +26,43 @@
       </tr>
     </thead>
     <tbody>
-      <% (0..48).each do |index| %>
+      <% (0..49).each do |index| %>
+      <tr>
+        <td><%= @result[index][:referee_one] %></td>
+        <td><%= @result[index][:referee_two] %></td>
+        <td><%= @result[index][:referee_three] %></td>
+        <td><%= @result[index][:last_count] %></td>
+        <td><%= @result[index][:last_first] %></td>
+        <td><%= @result[index][:last_second] %></td>
+        <td><%= @result[index][:next_count] %></td>
+        <td><%= @result[index][:next_first] %></td>
+        <td><%= @result[index][:next_second] %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th colspan="3"></th>
+        <th colspan="3">Last</th>
+        <th colspan="3">Next</th>
+      </tr>
+      <tr>
+        <th>1st referee</th>
+        <th>2nd referee</th>
+        <th>3rd referee</th>
+        <th>Games</th>
+        <th>1st Half</th>
+        <th>2nd Half</th>
+        <th>Games</th>
+        <th>1st Half</th>
+        <th>2nd Half</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% (50..85).each do |index| %>
       <tr>
         <td><%= @result[index][0] %></td>
         <td><%= @result[index][1] %></td>
@@ -62,43 +98,7 @@
       </tr>
     </thead>
     <tbody>
-      <% (49..84).each do |index| %>
-      <tr>
-        <td><%= @result[index][0] %></td>
-        <td><%= @result[index][1] %></td>
-        <td><%= @result[index][2] %></td>
-        <td><%= @result[index][3] %></td>
-        <td><%= @result[index][4] %></td>
-        <td><%= @result[index][5] %></td>
-        <td><%= @result[index][6] %></td>
-        <td><%= @result[index][7] %></td>
-        <td><%= @result[index][8] %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <table border="1">
-    <thead>
-      <tr>
-        <th colspan="3"></th>
-        <th colspan="3">Last</th>
-        <th colspan="3">Next</th>
-      </tr>
-      <tr>
-        <th>1st referee</th>
-        <th>2nd referee</th>
-        <th>3rd referee</th>
-        <th>Games</th>
-        <th>1st Half</th>
-        <th>2nd Half</th>
-        <th>Games</th>
-        <th>1st Half</th>
-        <th>2nd Half</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% (85..104).each do |index| %>
+      <% (86..104).each do |index| %>
       <tr>
         <td><%= @result[index][0] %></td>
         <td><%= @result[index][1] %></td>
