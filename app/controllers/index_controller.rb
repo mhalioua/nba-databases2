@@ -1461,6 +1461,46 @@ class IndexController < ApplicationController
 				@referee_filter_results.push(['-', '-',	'-'])
 			end
 		end
+
+		if referee_one_last > referee_two_last
+			temp = referee_one_last
+			referee_one_last = referee_two_last
+			referee_two_last = temp
+		end
+
+		if referee_one_last > referee_three_last
+			temp = referee_one_last
+			referee_one_last = referee_three_last
+			referee_three_last = temp
+		end
+
+		if referee_two_last > referee_three_last
+			temp = referee_two_last
+			referee_two_last = referee_three_last
+			referee_three_last = temp
+		end
+
+		if referee_one_last > 5
+			referee_one_last = "6+"
+		else
+			referee_one_last = referee_one_last.to_s
+		end
+
+		if referee_two_last > 5
+			referee_two_last = "6+"
+		else
+			referee_two_last = referee_two_last.to_s
+		end
+
+		if referee_three_last > 5
+			referee_three_last = "6+"
+		else
+			referee_three_last = referee_three_last.to_s
+		end
+		@referee_part = Refereestatic.where("referee_one = '?' AND referee_two = '?' AND referee_three = '?'", referee_one_last, referee_two_last, referee_three_last).first
+
+		@referee_first = @referee_part[:lastfirst]
+		@referee_second = @referee_part[:lastsecond]
 	end
 
 	def state
