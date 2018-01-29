@@ -3022,7 +3022,7 @@ end
       <tr class="gray">
         <td colspan="3" class="green"></td>
         <td rowspan="8" class="gradient"></td>
-        <td>Referee #1<br>
+        <td class="gray">Referee #1<br>
         Referee #2<br>
         Referee #3</td>
         <td colspan="7" class="gameDate">Last</td>
@@ -3102,19 +3102,24 @@ end
         <td><%= @game.referee_one %></td>
         <td><%= @game.referee_one_last %></td>
         <td><%= @game.referee_one_next %></td>
-        <td>Referee #1<br>
+        <td rowspan="2">Referee #1<br>
         Referee #2<br>
         Referee #3</td>
-        <td colspan="7" class="gameDate">Next</td>
-        <td class="black"></td>
-        <td class="gameDate skyblue">1H</td>
-        <td class="gameDate skyblue">2H</td>
-        <td>gms</td>
-        <td class="gameDate skyblue">1H</td>
-        <td class="gameDate skyblue">2H</td>
-        <td>gms</td>
-        <td class="black"></td>
-        <td rowspan="4"></td>
+        <td colspan="7" class="gameDate" rowspan="2">Next</td>
+        <td class="black" rowspan="2"></td>
+        <td class="gameDate skyblue" rowspan="2">1H</td>
+        <td class="gameDate skyblue" rowspan="2">2H</td>
+        <td rowspan="2">gms</td>
+        <td class="gameDate skyblue" rowspan="2">1H</td>
+        <td class="gameDate skyblue" rowspan="2">2H</td>
+        <td rowspan="2">gms</td>
+        <td class="black" rowspan="2"></td>
+        <td rowspan="4" rowspan="2"></td>
+      </tr>
+      <tr>
+        <td><%= @game.referee_two %></td>
+        <td><%= @game.referee_two_last %></td>
+        <td><%= @game.referee_two_next %></td>
       </tr>
       <tr>
         <td><%= @game.referee_two %></td>
