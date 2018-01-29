@@ -1497,7 +1497,7 @@ class IndexController < ApplicationController
 		else
 			referee_three_last = referee_three_last.to_s
 		end
-		@referee_part = Refereestatic.where("referee_one = '?' AND referee_two = '?' AND referee_three = '?'", referee_one_last, referee_two_last, referee_three_last).first
+		@referee_part = Refereestatic.where("referee_one = ? AND referee_two = ? AND referee_three = ?", referee_one_last, referee_two_last, referee_three_last).first
 
 		@referee_first = @referee_part[:lastfirst]
 		@referee_second = @referee_part[:lastsecond]
