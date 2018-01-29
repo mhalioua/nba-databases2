@@ -2250,6 +2250,9 @@ namespace :nba do
 
         url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
         doc = download_document(url)
+        if !doc
+          next
+        end
         element = doc.css(".highlight")
         if element.size > 3
           away_value = element[0]
