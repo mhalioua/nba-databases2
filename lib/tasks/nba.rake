@@ -2257,6 +2257,11 @@ namespace :nba do
 
           away_mins_value = away_value.children[1].text.to_i
           away_fga_value = away_value.children[2].text
+
+          if away_fga_value == '-----'
+            next
+          end
+
           away_fga_index = away_fga_value.index('-')
           away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
           away_to_value = away_value.children[11].text.to_i
