@@ -1825,8 +1825,8 @@ namespace :nba do
 		require 'csv'
 
 		items = []
-		CSV.foreach(Rails.root.join('referee.csv'), headers: true) do |row|
-			Referee.create(row.to_h)
+		CSV.foreach(Rails.root.join('refereestatic.csv'), headers: true) do |row|
+			Refereestatic.create(row.to_h)
 		end
 	end
 

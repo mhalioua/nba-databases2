@@ -1,0 +1,2 @@
+class Refereestatic < ApplicationRecord
+end
