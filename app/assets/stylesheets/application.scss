@@ -174,9 +174,6 @@ th, .green {
             background: yellow;
         }
     }
-    .gradient {
-        background: linear-gradient(#4ac, #068);
-    }
     .redgradient {
         background: linear-gradient(#f12, #a01);
     }
@@ -190,6 +187,10 @@ th, .green {
     
 .filter {
     background-color: rgb(255, 89, 95) !important;
+}
+
+.gradient {
+    background: linear-gradient(#4ac, #068);
 }
 
 .numbers {
