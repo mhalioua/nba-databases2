@@ -157,6 +157,7 @@ class IndexController < ApplicationController
 				end
 			end
 		end
+		@result = Refereestatic.all
 	end
 
 	def detail
