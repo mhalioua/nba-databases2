@@ -389,7 +389,8 @@ namespace :nba do
   				away_fta_index = away_fta_value.index('-')
   				away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
   				away_or_value = away_value.children[5].text.to_i
-  				away_poss = away_fga_value + away_to_value + (away_fta_value / 2) - away_or_value
+          away_stl_value = away_value.children[9].text.to_i
+          away_blk_value = away_value.children[10].text.to_i
 
   				home_mins_value = home_value.children[1].text.to_i
   				home_fga_value = home_value.children[2].text
@@ -400,7 +401,8 @@ namespace :nba do
   				home_fta_index = home_fta_value.index('-')
   				home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
   				home_or_value = home_value.children[5].text.to_i
-  				home_poss = home_fga_value + home_to_value + (home_fta_value / 2) - home_or_value
+          home_stl_value = home_value.children[9].text.to_i
+          home_blk_value = home_value.children[10].text.to_i
 			 end
 
       addingDate = date
@@ -450,7 +452,7 @@ namespace :nba do
         away_ppg_rank = away_team_info.order_two_seventeen
         away_oppppg_rank = away_team_info.order_thr_seventeen
       end
-	  	game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank)
+	  	game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value)
 	  end
 	end
 
@@ -2236,70 +2238,48 @@ namespace :nba do
     end
   end
 
-  task :getRefereeClone => :environment do
+
+  task :getDateClone  => :environment do
+    puts "----------Get Games----------"
     include Api
-    games = Nba.where("referee_one_last is null")
-    puts games.size
+    Time.zone = 'Eastern Time (US & Canada)'
+    games = Nba.where('away_fta is null')
     games.each do |game|
-      game_id = game.game_id
+        game_id = game.game_id
+        puts game_id
 
-      url = "http://www.espn.com/nba/game?gameId=#{game_id}"
-      doc = download_document(url)
-      puts url
-      element = doc.css(".game-info-note__content")
-      if element.size > 0
-        referees = element[0].text.split(', ')
-        game_date = game.game_date
+        url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
+        doc = download_document(url)
+        element = doc.css(".highlight")
+        if element.size > 3
+          away_value = element[0]
+          home_value = element[2]
 
-        referee_one_last_days = ""
-        referee_one_last = Nba.where("referee_one = ? AND game_date < ?", referees[0], game_date).or(Nba.where("referee_two = ? AND game_date < ?", referees[0], game_date).or(Nba.where("referee_three = ? AND game_date < ?", referees[0], game_date))).order(:game_date).last
-        if referee_one_last
-          referee_one_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_one_last.game_date).in_time_zone.to_date ).to_i - 1
-          if referee_one_last.referee_one == referees[0]
-            referee_one_last.update(referee_one_next: referee_one_last_days)
-          elsif referee_one_last.referee_two == referees[0]
-            referee_one_last.update(referee_two_next: referee_one_last_days)
-          else
-            referee_one_last.update(referee_three_next: referee_one_last_days)
-          end
-        end
+          away_mins_value = away_value.children[1].text.to_i
+          away_fga_value = away_value.children[2].text
+          away_fga_index = away_fga_value.index('-')
+          away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
+          away_to_value = away_value.children[11].text.to_i
+          away_fta_value = away_value.children[4].text
+          away_fta_index = away_fta_value.index('-')
+          away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
+          away_or_value = away_value.children[5].text.to_i
+          away_stl_value = away_value.children[9].text.to_i
+          away_blk_value = away_value.children[10].text.to_i
 
-        referee_two_last_days = ""
-        referee_two_last = Nba.where("referee_one = ? AND game_date < ?", referees[1], game_date).or(Nba.where("referee_two = ? AND game_date < ?", referees[1], game_date).or(Nba.where("referee_three = ? AND game_date < ?", referees[1], game_date))).order(:game_date).last
-        if referee_two_last
-          referee_two_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_two_last.game_date).in_time_zone.to_date ).to_i - 1
-          if referee_two_last.referee_one == referees[1]
-            referee_two_last.update(referee_one_next: referee_two_last_days)
-          elsif referee_two_last.referee_two == referees[1]
-            referee_two_last.update(referee_two_next: referee_two_last_days)
-          else
-            referee_two_last.update(referee_three_next: referee_two_last_days)
-          end
-        end
-
-        referee_three_last_days = ""
-        referee_three_last = Nba.where("referee_one = ? AND game_date < ?", referees[2], game_date).or(Nba.where("referee_two = ? AND game_date < ?", referees[2], game_date).or(Nba.where("referee_three = ? AND game_date < ?", referees[2], game_date))).order(:game_date).last
-        if referee_three_last
-          referee_three_last_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(referee_three_last.game_date).in_time_zone.to_date ).to_i - 1
-          if referee_three_last.referee_one == referees[2]
-            referee_three_last.update(referee_one_next: referee_three_last_days)
-          elsif referee_three_last.referee_two == referees[2]
-            referee_three_last.update(referee_two_next: referee_three_last_days)
-          else
-            referee_three_last.update(referee_three_next: referee_three_last_days)
-          end
-        end
-        
-        game.update(
-          referee_one: referees[0],
-          referee_one_last: referee_one_last_days,
-          referee_two: referees[1],
-          referee_two_last: referee_two_last_days,
-          referee_three: referees[2],
-          referee_three_last: referee_three_last_days
-        )
-
-      end
+          home_mins_value = home_value.children[1].text.to_i
+          home_fga_value = home_value.children[2].text
+          home_fga_index = home_fga_value.index('-')
+          home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
+          home_to_value = home_value.children[11].text.to_i
+          home_fta_value = home_value.children[4].text
+          home_fta_index = home_fta_value.index('-')
+          home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
+          home_or_value = home_value.children[5].text.to_i
+          home_stl_value = home_value.children[9].text.to_i
+          home_blk_value = home_value.children[10].text.to_i
+       end
+      game.update(away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value)
     end
   end
 
