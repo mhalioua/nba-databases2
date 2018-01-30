@@ -385,6 +385,7 @@ namespace :nba do
   				away_fga_index = away_fga_value.index('-')
   				away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
   				away_to_value = away_value.children[11].text.to_i
+          away_pf_value = away_value.children[12].text.to_i
   				away_fta_value = away_value.children[4].text
   				away_fta_index = away_fta_value.index('-')
   				away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
@@ -397,6 +398,7 @@ namespace :nba do
   				home_fga_index = home_fga_value.index('-')
   				home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
   				home_to_value = home_value.children[11].text.to_i
+          home_pf_value = home_value.children[12].text.to_i
   				home_fta_value = home_value.children[4].text
   				home_fta_index = home_fta_value.index('-')
   				home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
@@ -452,7 +454,7 @@ namespace :nba do
         away_ppg_rank = away_team_info.order_two_seventeen
         away_oppppg_rank = away_team_info.order_thr_seventeen
       end
-	  	game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value)
+	  	game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
 	  end
 	end
 
@@ -476,6 +478,7 @@ namespace :nba do
 					away_fga_index = away_fga_value.index('-')
 					away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
 					away_to_value = away_value.children[11].text.to_i
+          away_pf_value = away_value.children[12].text.to_i
 					away_fta_value = away_value.children[4].text
 					away_fta_index = away_fta_value.index('-')
 					away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
@@ -487,6 +490,7 @@ namespace :nba do
 					home_fga_index = home_fga_value.index('-')
 					home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
 					home_to_value = home_value.children[11].text.to_i
+          home_pf_value = home_value.children[12].text.to_i
 					home_fta_value = home_value.children[4].text
 					home_fta_index = home_fta_value.index('-')
 					home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
@@ -495,7 +499,7 @@ namespace :nba do
           home_blk_value = home_value.children[10].text.to_i
 				end
 
-		  		game.update(first_away_fga: away_fga_value, first_away_fta: away_fta_value, first_away_toValue: away_to_value, first_away_orValue: away_or_value, first_home_fga: home_fga_value, first_home_fta: home_fta_value, first_home_toValue: home_to_value, first_home_orValue: home_or_value, first_away_stl: away_stl_value, first_away_blk: away_blk_value, first_home_stl: home_stl_value, first_home_blk: home_blk_value)
+		  		game.update(first_away_fga: away_fga_value, first_away_fta: away_fta_value, first_away_toValue: away_to_value, first_away_orValue: away_or_value, first_home_fga: home_fga_value, first_home_fta: home_fta_value, first_home_toValue: home_to_value, first_home_orValue: home_or_value, first_away_stl: away_stl_value, first_away_blk: away_blk_value, first_home_stl: home_stl_value, first_home_blk: home_blk_value, first_home_pf: home_pf_value, first_away_pf: away_pf_value)
 	  		end
 	  	end
 	end
@@ -957,6 +961,7 @@ namespace :nba do
 				or_value = slice.children[5].text.to_i
         stl_value = slice.children[9].text.to_i
         blk_value = slice.children[10].text.to_i
+        pf_value = slice.children[12].text.to_i
 				poss = fga_value + to_value + (fta_value * 0.44) - or_value
 				if slice.children[0].children.size > 1
 					position = slice.children[0].children[1].text
@@ -964,7 +969,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
          	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
         end
-        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value )
+        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value, pfValue: pf_value )
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -999,6 +1004,7 @@ namespace :nba do
 				or_value = slice.children[5].text.to_i
         stl_value = slice.children[9].text.to_i
         blk_value = slice.children[10].text.to_i
+        pf_value = slice.children[12].text.to_i
 				poss = fga_value + to_value + (fta_value *0.44) - or_value
 				if slice.children[0].children.size > 1
 					position = slice.children[0].children[1].text
@@ -1006,7 +1012,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
          	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
         end
-        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value )
+        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value, pfValue: pf_value )
 			end
 		end
 	end
@@ -1059,6 +1065,7 @@ namespace :nba do
         sum_or = 0
         sum_stl = 0
         sum_blk = 0
+        sum_pf = 0
 				count = 0
 				mins_min = 100
 				mins_max = 0
@@ -1076,14 +1083,19 @@ namespace :nba do
           sum_or = sum_or + last_player.orValue
           stlValue = 0
           blkValue = 0
+          pfValue =0
           if last_player.stlValue
             stlValue = last_player.stlValue
           end
           if last_player.blkValue
             blkValue = last_player.blkValue
           end
+          if last_player.pfValue
+            pfValue = last_player.pfValue
+          end
           sum_stl = sum_stl + stlValue
           sum_blk = sum_blk + blkValue
+          sum_pf = sum_pf + pfValue
 					if mins_min > last_player.mins
 						mins_min = last_player.mins
 					end
@@ -1098,7 +1110,7 @@ namespace :nba do
         if sum_mins < 0
           sum_mins = 0
         end
-				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins, sum_blk: sum_blk, sum_or: sum_or, sum_stl: sum_stl)
+				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins, sum_blk: sum_blk, sum_or: sum_or, sum_stl: sum_stl, sum_pf: sum_pf)
 			end
 		end
 	end
@@ -2243,7 +2255,7 @@ namespace :nba do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    games = Nba.where('away_fta is null')
+    games = Nba.where('away_pf is null')
     games.each do |game|
         game_id = game.game_id
         puts game_id
@@ -2268,6 +2280,7 @@ namespace :nba do
           away_fga_index = away_fga_value.index('-')
           away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
           away_to_value = away_value.children[11].text.to_i
+          away_pf_value = away_value.children[12].text.to_i
           away_fta_value = away_value.children[4].text
           away_fta_index = away_fta_value.index('-')
           away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
@@ -2280,6 +2293,7 @@ namespace :nba do
           home_fga_index = home_fga_value.index('-')
           home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
           home_to_value = home_value.children[11].text.to_i
+          home_pf_value = home_value.children[12].text.to_i
           home_fta_value = home_value.children[4].text
           home_fta_index = home_fta_value.index('-')
           home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
@@ -2287,7 +2301,7 @@ namespace :nba do
           home_stl_value = home_value.children[9].text.to_i
           home_blk_value = home_value.children[10].text.to_i
        end
-      game.update(away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value)
+      game.update(away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
     end
   end
 
