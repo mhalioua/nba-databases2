@@ -1462,42 +1462,46 @@ class IndexController < ApplicationController
 			end
 		end
 
-		if referee_one_last > referee_two_last
-			temp = referee_one_last
-			referee_one_last = referee_two_last
-			referee_two_last = temp
-		end
+		if referee_one_last != nil
+			if referee_one_last > referee_two_last
+				temp = referee_one_last
+				referee_one_last = referee_two_last
+				referee_two_last = temp
+			end
 
-		if referee_one_last > referee_three_last
-			temp = referee_one_last
-			referee_one_last = referee_three_last
-			referee_three_last = temp
-		end
+			if referee_one_last > referee_three_last
+				temp = referee_one_last
+				referee_one_last = referee_three_last
+				referee_three_last = temp
+			end
 
-		if referee_two_last > referee_three_last
-			temp = referee_two_last
-			referee_two_last = referee_three_last
-			referee_three_last = temp
-		end
+			if referee_two_last > referee_three_last
+				temp = referee_two_last
+				referee_two_last = referee_three_last
+				referee_three_last = temp
+			end
 
-		if referee_one_last > 5
-			referee_one_last = "6+"
+			if referee_one_last > 5
+				referee_one_last = "6+"
+			else
+				referee_one_last = referee_one_last.to_s
+			end
+
+			if referee_two_last > 5
+				referee_two_last = "6+"
+			else
+				referee_two_last = referee_two_last.to_s
+			end
+
+			if referee_three_last > 5
+				referee_three_last = "6+"
+			else
+				referee_three_last = referee_three_last.to_s
+			end
+			@referee_part = Refereestatic.where("referee_one = ? AND referee_two = ? AND referee_three = ?", referee_one_last, referee_two_last, referee_three_last).first
 		else
-			referee_one_last = referee_one_last.to_s
+			@referee_part = nil
 		end
-
-		if referee_two_last > 5
-			referee_two_last = "6+"
-		else
-			referee_two_last = referee_two_last.to_s
-		end
-
-		if referee_three_last > 5
-			referee_three_last = "6+"
-		else
-			referee_three_last = referee_three_last.to_s
-		end
-		@referee_part = Refereestatic.where("referee_one = ? AND referee_two = ? AND referee_three = ?", referee_one_last, referee_two_last, referee_three_last).first
 	end
 
 	def state
