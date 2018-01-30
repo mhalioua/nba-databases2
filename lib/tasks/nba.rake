@@ -2256,6 +2256,7 @@ namespace :nba do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
     games = Nba.where('away_pf is null')
+    puts games.size
     games.each do |game|
         game_id = game.game_id
         puts game_id
