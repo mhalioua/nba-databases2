@@ -1198,15 +1198,10 @@ class IndexController < ApplicationController
 		@referee_next_type = 3
 
 		@referee_filter = []
-		if referee_one_last == nil || referee_two_last == nil || referee_three_last == nil
-			@referee_last_type = 0
-			@referee_filter.push(['-', '-', '-'])
-			@referee_filter.push(['-', '-', '-'])
-			@referee_filter.push(['-', '-', '-'])
-			@referee_filter.push(['-', '-', '-'])
-			@referee_filter.push(['-', '-', '-'])
-			@referee_filter.push(['-', '-', '-'])
-		elsif referee_one_last == referee_two_last && referee_two_last == referee_three_last
+		referee_one_last = 200 if referee_one_last == nil
+		referee_two_last = 200 if referee_two_last == nil
+		referee_three_last = 200 if referee_three_last == nil
+		if referee_one_last == referee_two_last && referee_two_last == referee_three_last
 			@referee_last_type = 1
 			@referee_filter.push([referee_one_last, referee_one_last, referee_one_last])
 			@referee_filter.push(['-', '-', '-'])
@@ -1245,14 +1240,10 @@ class IndexController < ApplicationController
 			@referee_filter.push([referee_three_last, referee_two_last, referee_one_last])
 		end
 
-		if referee_one_next == nil || referee_two_next == nil || referee_three_next == nil
-			@referee_next_type = 0
-			@referee_filter.push(['-', '-', '-'])
-			@referee_filter.push(['-', '-', '-'])
-			@referee_filter.push(['-', '-', '-'])
-			@referee_filter.push(['-', '-', '-'])
-			@referee_filter.push(['-', '-', '-'])
-			@referee_filter.push(['-', '-', '-'])
+		referee_one_next = 200 if referee_one_next == nil
+		referee_two_next = 200 if referee_two_next == nil
+		referee_three_next = 200 if referee_three_next == nil
+
 		elsif referee_one_next == referee_two_next && referee_two_next == referee_three_next
 			@referee_next_type = 1
 			@referee_filter.push([referee_one_next, referee_one_next, referee_one_next])
@@ -1298,34 +1289,46 @@ class IndexController < ApplicationController
 			if referee_filter_element[0] != '-'
 				search_array = []
 				if index < 6
-					if referee_filter_element[0] > 5
-						search_array.push("referee_one_last > 5")
+					if referee_filter_element[0] > 8
+						search_array.push("referee_one_last > 8")
+					elsif referee_filter_element[0] > 5
+						search_array.push("referee_one_last > 5 AND referee_one_last < 9")
 					else
 						search_array.push("referee_one_last = #{referee_filter_element[0]}")
 					end
-					if referee_filter_element[1] > 5
-						search_array.push("referee_two_last > 5")
+					if referee_filter_element[1] > 8
+						search_array.push("referee_two_last > 8")
+					elsif referee_filter_element[1] > 5
+						search_array.push("referee_two_last > 5 AND referee_two_last < 9")
 					else
 						search_array.push("referee_two_last = #{referee_filter_element[1]}")
 					end
-					if referee_filter_element[2] > 5
-						search_array.push("referee_three_last > 5")
+					if referee_filter_element[2] > 8
+						search_array.push("referee_three_last > 8")
+					elsif referee_filter_element[2] > 5
+						search_array.push("referee_three_last > 5 AND referee_three_last < 9")
 					else
 						search_array.push("referee_three_last = #{referee_filter_element[2]}")
 					end
 				else
-					if referee_filter_element[0] > 5
-						search_array.push("referee_one_next > 5")
+					if referee_filter_element[0] > 8
+						search_array.push("referee_one_next > 8")
+					elsif referee_filter_element[0] > 5
+						search_array.push("referee_one_next > 5 AND referee_one_next < 9")
 					else
 						search_array.push("referee_one_next = #{referee_filter_element[0]}")
 					end
-					if referee_filter_element[1] > 5
-						search_array.push("referee_two_next > 5")
+					if referee_filter_element[1] > 8
+						search_array.push("referee_two_next > 8")
+					elsif referee_filter_element[1] > 5
+						search_array.push("referee_two_next > 5 AND referee_two_next < 9")
 					else
 						search_array.push("referee_two_next = #{referee_filter_element[1]}")
 					end
-					if referee_filter_element[2] > 5
-						search_array.push("referee_three_next > 5")
+					if referee_filter_element[2] > 8
+						search_array.push("referee_three_next > 8")
+					elsif referee_filter_element[2] > 5
+						search_array.push("referee_three_next > 5 AND referee_three_next < 9")
 					else
 						search_array.push("referee_three_next = #{referee_filter_element[2]}")
 					end
@@ -1353,53 +1356,55 @@ class IndexController < ApplicationController
 			end
 		end
 
-		if referee_one_last == nil && referee_two_last != nil && referee_three_last != nil
-			if referee_one_last > referee_two_last
-				temp = referee_one_last
-				referee_one_last = referee_two_last
-				referee_two_last = temp
-			end
-
-			if referee_one_last > referee_three_last
-				temp = referee_one_last
-				referee_one_last = referee_three_last
-				referee_three_last = temp
-			end
-
-			if referee_two_last > referee_three_last
-				temp = referee_two_last
-				referee_two_last = referee_three_last
-				referee_three_last = temp
-			end
-
-			if referee_one_last > 5
-				referee_one_last = "6+"
-			else
-				referee_one_last = referee_one_last.to_s
-			end
-
-			if referee_two_last > 5
-				referee_two_last = "6+"
-			else
-				referee_two_last = referee_two_last.to_s
-			end
-
-			if referee_three_last > 5
-				referee_three_last = "6+"
-			else
-				referee_three_last = referee_three_last.to_s
-			end
-			@referee_part = Refereestatic.where("referee_one = ? AND referee_two = ? AND referee_three = ?", referee_one_last, referee_two_last, referee_three_last).first
-
-			@referee_part_one = Referee.where("referee_one = ?", @game.referee_one).or(Referee.where("referee_two = ?", @game.referee_one).or(Referee.where("referee_three = ?", @game.referee_one)))
-			@referee_part_one_last = Referee.where("referee_one = ? AND id < 43558", @game.referee_one).or(Referee.where("referee_two = ? AND id < 43558", @game.referee_one).or(Referee.where("referee_three = ? AND id < 43558", @game.referee_one).or(Referee.where("referee_one = ? AND id > 61549", @game.referee_one).or(Referee.where("referee_two = ? AND id > 61549", @game.referee_one).or(Referee.where("referee_three = ? AND id > 61549", @game.referee_one))))))
-			@referee_part_two = Referee.where("referee_one = ?", @game.referee_two).or(Referee.where("referee_two = ?", @game.referee_two).or(Referee.where("referee_three = ?", @game.referee_two)))
-			@referee_part_two_last = Referee.where("referee_one = ? AND id < 43558", @game.referee_two).or(Referee.where("referee_two = ? AND id < 43558", @game.referee_two).or(Referee.where("referee_three = ? AND id < 43558", @game.referee_two).or(Referee.where("referee_one = ? AND id > 61549", @game.referee_two).or(Referee.where("referee_two = ? AND id > 61549", @game.referee_two).or(Referee.where("referee_three = ? AND id > 61549", @game.referee_two))))))
-			@referee_part_three = Referee.where("referee_one = ?", @game.referee_three).or(Referee.where("referee_two = ?", @game.referee_three).or(Referee.where("referee_three = ?", @game.referee_three)))
-			@referee_part_three_last = Referee.where("referee_one = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_two = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_three = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_one = ? AND id > 61549", @game.referee_three).or(Referee.where("referee_two = ? AND id > 61549", @game.referee_three).or(Referee.where("referee_three = ? AND id > 61549", @game.referee_three))))))
-		else
-			@referee_part = nil
+		if referee_one_last > referee_two_last
+			temp = referee_one_last
+			referee_one_last = referee_two_last
+			referee_two_last = temp
 		end
+
+		if referee_one_last > referee_three_last
+			temp = referee_one_last
+			referee_one_last = referee_three_last
+			referee_three_last = temp
+		end
+
+		if referee_two_last > referee_three_last
+			temp = referee_two_last
+			referee_two_last = referee_three_last
+			referee_three_last = temp
+		end
+
+		if referee_one_last > 8
+			referee_one_last = "9+"
+		elsif referee_one_last > 5
+			referee_one_last = "6-8"
+		else
+			referee_one_last = referee_one_last.to_s
+		end
+
+		if referee_two_last > 8
+			referee_two_last = "9+"
+		elsif referee_two_last > 5
+			referee_two_last = "6-8"
+		else
+			referee_two_last = referee_two_last.to_s
+		end
+
+		if referee_three_last > 8
+			referee_three_last = "9+"
+		elsif referee_three_last > 5
+			referee_three_last = "6-8"
+		else
+			referee_three_last = referee_three_last.to_s
+		end
+		@referee_part = Refereestatic.where("referee_one = ? AND referee_two = ? AND referee_three = ?", referee_one_last, referee_two_last, referee_three_last).first
+
+		@referee_part_one = Referee.where("referee_one = ?", @game.referee_one).or(Referee.where("referee_two = ?", @game.referee_one).or(Referee.where("referee_three = ?", @game.referee_one)))
+		@referee_part_one_last = Referee.where("referee_one = ? AND id < 43558", @game.referee_one).or(Referee.where("referee_two = ? AND id < 43558", @game.referee_one).or(Referee.where("referee_three = ? AND id < 43558", @game.referee_one).or(Referee.where("referee_one = ? AND id > 61549", @game.referee_one).or(Referee.where("referee_two = ? AND id > 61549", @game.referee_one).or(Referee.where("referee_three = ? AND id > 61549", @game.referee_one))))))
+		@referee_part_two = Referee.where("referee_one = ?", @game.referee_two).or(Referee.where("referee_two = ?", @game.referee_two).or(Referee.where("referee_three = ?", @game.referee_two)))
+		@referee_part_two_last = Referee.where("referee_one = ? AND id < 43558", @game.referee_two).or(Referee.where("referee_two = ? AND id < 43558", @game.referee_two).or(Referee.where("referee_three = ? AND id < 43558", @game.referee_two).or(Referee.where("referee_one = ? AND id > 61549", @game.referee_two).or(Referee.where("referee_two = ? AND id > 61549", @game.referee_two).or(Referee.where("referee_three = ? AND id > 61549", @game.referee_two))))))
+		@referee_part_three = Referee.where("referee_one = ?", @game.referee_three).or(Referee.where("referee_two = ?", @game.referee_three).or(Referee.where("referee_three = ?", @game.referee_three)))
+		@referee_part_three_last = Referee.where("referee_one = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_two = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_three = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_one = ? AND id > 61549", @game.referee_three).or(Referee.where("referee_two = ? AND id > 61549", @game.referee_three).or(Referee.where("referee_three = ? AND id > 61549", @game.referee_three))))))
 	end
 
 	def state

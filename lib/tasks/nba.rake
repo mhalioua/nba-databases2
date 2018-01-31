@@ -1846,30 +1846,39 @@ namespace :nba do
 
   task :getRefereeStatic => :environment do
     @referee_filter_third = []
-    (0..6).each do |one_element|
+    (0..7).each do |one_element|
       @referee_filter_second = []
-      (0..6).each do |two_element|
+      (0..7).each do |two_element|
         @referee_filter_first = []
-        (0..6).each do |three_element|
+        (0..7).each do |three_element|
           search_array_last = []
           search_array_next = []
-          if one_element > 5
-            search_array_last.push("referee_one_last > 5")
-            search_array_next.push("referee_one_next > 5")
+          if one_element > 6
+            search_array_last.push("referee_one_last > 8")
+            search_array_next.push("referee_one_next > 8")
+          elsif one_element > 5
+            search_array_last.push("referee_one_last < 9 AND referee_one_last > 5")
+            search_array_next.push("referee_one_next < 9 AND referee_one_next > 5")
           else
             search_array_last.push("referee_one_last = #{one_element}")
             search_array_next.push("referee_one_next = #{one_element}")
           end
-          if two_element > 5
-            search_array_last.push("referee_two_last > 5")
-            search_array_next.push("referee_two_next > 5")
+          if two_element > 6
+            search_array_last.push("referee_two_last > 8")
+            search_array_next.push("referee_two_next > 8")
+          elsif two_element > 5
+            search_array_last.push("referee_two_last < 9 AND referee_two_last > 5")
+            search_array_next.push("referee_two_next < 9 AND referee_two_next > 5")
           else
             search_array_last.push("referee_two_last = #{two_element}")
             search_array_next.push("referee_two_next = #{two_element}")
           end
-          if three_element > 5
-            search_array_last.push("referee_three_last > 5")
-            search_array_next.push("referee_three_next > 5")
+          if three_element > 6
+            search_array_last.push("referee_three_last > 8")
+            search_array_next.push("referee_three_next > 8")
+          elsif two_element > 5
+            search_array_last.push("referee_three_last < 9 AND referee_three_last > 5")
+            search_array_next.push("referee_three_next < 9 AND referee_three_next > 5")
           else
             search_array_last.push("referee_three_last = #{three_element}")
             search_array_next.push("referee_three_next = #{three_element}")
@@ -1891,11 +1900,11 @@ namespace :nba do
       end
       @referee_filter_third.push(@referee_filter_second)
     end
-    (0..6).each do |one_element|
-      (one_element..6).each do |two_element|
+    (0..7).each do |one_element|
+      (one_element..7).each do |two_element|
         start_element = two_element
         start_element = 0 if one_element == 0
-        (start_element..6).each do |three_element|
+        (start_element..7).each do |three_element|
           total_last_count = 0
           total_last_first = 0
           total_last_second = 0
@@ -1964,20 +1973,26 @@ namespace :nba do
           total_next_first = total_next_first / total_next_count
           total_next_second = total_next_second / total_next_count
 
-          if one_element > 5
-            referee_one_last = "6+"
+          if one_element > 6
+            referee_one_last = "9+"
+          elsif one_element > 5
+            referee_one_last = "6-8"
           else
             referee_one_last = one_element.to_s
           end
 
-          if two_element > 5
-            referee_two_last = "6+"
+          if two_element > 6
+            referee_two_last = "9+"
+          elsif two_element > 5
+            referee_two_last = "6-8"
           else
             referee_two_last = two_element.to_s
           end
 
-          if three_element > 5
-            referee_three_last = "6+"
+          if three_element > 6
+            referee_three_last = "9+"
+          elsif three_element > 5
+            referee_three_last = "6-8"
           else
             referee_three_last = three_element.to_s
           end
