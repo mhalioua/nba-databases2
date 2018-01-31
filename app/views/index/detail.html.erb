@@ -3029,13 +3029,17 @@ end
         <td></td>
         <td class="gameDate skyblue">1H</td>
         <td class="gameDate skyblue">2H</td>
+        <td class="gameDate skyblue">PF</td>
+        <td class="gameDate skyblue">FTA</td>
         <td>gms</td>
         <td rowspan="9" class="black"></td>
         <td class="gameDate skyblue">1H</td>
         <td class="gameDate skyblue">2H</td>
+        <td class="gameDate skyblue">PF</td>
+        <td class="gameDate skyblue">FTA</td>
         <td>gms</td>
         <td></td>
-        <td class="green">1st Half</td>
+        <td class="green" colspan="2">1st Half</td>
       </tr>
       <tr>
         <td rowspan="3" class="borderTop borderBottom gray">Referee #1<br>
@@ -3054,11 +3058,15 @@ end
         <td><%= @referee_filter_results[0][0] %></td>
         <td><%= @referee_filter_results[0][1] %></td>
         <td><%= @referee_filter_results[0][2] %></td>
+        <td><%= @referee_filter_results[0][3] %></td>
+        <td><%= @referee_filter_results[0][4] %></td>
         <td><%= @referee_filter_results[3][0] %></td>
         <td><%= @referee_filter_results[3][1] %></td>
         <td><%= @referee_filter_results[3][2] %></td>
+        <td><%= @referee_filter_results[3][3] %></td>
+        <td><%= @referee_filter_results[3][4] %></td>
         <td class="black"></td>
-        <td rowspan="3"><%= @referee_part ? @referee_part.last_first : "" %></td>
+        <td rowspan="3" colspan="2"><%= @referee_part ? @referee_part.last_first : "" %></td>
       </tr>
       <tr>
         <td rowspan="2" class="borderTop borderBottom gray">last</td>
@@ -3075,9 +3083,13 @@ end
         <td><%= @referee_filter_results[1][0] %></td>
         <td><%= @referee_filter_results[1][1] %></td>
         <td><%= @referee_filter_results[1][2] %></td>
+        <td><%= @referee_filter_results[1][3] %></td>
+        <td><%= @referee_filter_results[1][4] %></td>
         <td><%= @referee_filter_results[4][0] %></td>
         <td><%= @referee_filter_results[4][1] %></td>
         <td><%= @referee_filter_results[4][2] %></td>
+        <td><%= @referee_filter_results[4][3] %></td>
+        <td><%= @referee_filter_results[4][4] %></td>
         <td class="black"></td>
       </tr>
       <tr>
@@ -3093,9 +3105,13 @@ end
         <td><%= @referee_filter_results[2][0] %></td>
         <td><%= @referee_filter_results[2][1] %></td>
         <td><%= @referee_filter_results[2][2] %></td>
+        <td><%= @referee_filter_results[2][3] %></td>
+        <td><%= @referee_filter_results[2][4] %></td>
         <td><%= @referee_filter_results[5][0] %></td>
         <td><%= @referee_filter_results[5][1] %></td>
         <td><%= @referee_filter_results[5][2] %></td>
+        <td><%= @referee_filter_results[5][3] %></td>
+        <td><%= @referee_filter_results[5][4] %></td>
         <td class="black"></td>
       </tr>
       <tr>
@@ -3114,7 +3130,7 @@ end
         <td class="gameDate skyblue" rowspan="2">2H</td>
         <td rowspan="2" class="gray">gms</td>
         <td class="black" rowspan="2"></td>
-        <td rowspan="3"><%= @referee_part ? @referee_part.last_second : '' %></td>
+        <td rowspan="3" colspan="2"><%= @referee_part ? @referee_part.last_second : '' %></td>
       </tr>
       <tr>
         <td><%= @game.referee_two %></td>
@@ -3137,9 +3153,13 @@ end
         <td><%= @referee_filter_results[9][0] %></td>
         <td><%= @referee_filter_results[9][1] %></td>
         <td><%= @referee_filter_results[9][2] %></td>
+        <td><%= @referee_filter_results[9][3] %></td>
+        <td><%= @referee_filter_results[9][4] %></td>
         <td><%= @referee_filter_results[6][0] %></td>
         <td><%= @referee_filter_results[6][1] %></td>
         <td><%= @referee_filter_results[6][2] %></td>
+        <td><%= @referee_filter_results[6][3] %></td>
+        <td><%= @referee_filter_results[6][4] %></td>
         <td class="black"></td>
       </tr>
       <tr>
@@ -3156,11 +3176,15 @@ end
         <td><%= @referee_filter_results[10][0] %></td>
         <td><%= @referee_filter_results[10][1] %></td>
         <td><%= @referee_filter_results[10][2] %></td>
+        <td><%= @referee_filter_results[10][3] %></td>
+        <td><%= @referee_filter_results[10][4] %></td>
         <td><%= @referee_filter_results[7][0] %></td>
         <td><%= @referee_filter_results[7][1] %></td>
         <td><%= @referee_filter_results[7][2] %></td>
+        <td><%= @referee_filter_results[7][3]] %></td>
+        <td><%= @referee_filter_results[7][4] %></td>
         <td class="black"></td>
-        <td rowspan="2" class="green">2nd Half</td>
+        <td rowspan="2" class="green" colspan="2">2nd Half</td>
       </tr>
       <tr>
         <td><%= @game.referee_three %></td>
@@ -3175,9 +3199,13 @@ end
         <td><%= @referee_filter_results[11][0] %></td>
         <td><%= @referee_filter_results[11][1] %></td>
         <td><%= @referee_filter_results[11][2] %></td>
+        <td><%= @referee_filter_results[11][3] %></td>
+        <td><%= @referee_filter_results[11][4] %></td>
         <td><%= @referee_filter_results[8][0] %></td>
         <td><%= @referee_filter_results[8][1] %></td>
         <td><%= @referee_filter_results[8][2] %></td>
+        <td><%= @referee_filter_results[8][3] %></td>
+        <td><%= @referee_filter_results[8][4] %></td>
         <td class="black"></td>
       </tr>
     </tbody>
