@@ -1349,7 +1349,7 @@ class IndexController < ApplicationController
 					referee_filter_result.count(:tp_1h).to_i
 				])
 			else
-				@referee_filter_results.push(['-', '-',	'-'])
+				@referee_filter_results.push(['-', '-',	'-', '-', '-'])
 			end
 		end
 
