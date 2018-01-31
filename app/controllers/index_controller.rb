@@ -1244,7 +1244,7 @@ class IndexController < ApplicationController
 		referee_two_next = 200 if referee_two_next == nil
 		referee_three_next = 200 if referee_three_next == nil
 
-		elsif referee_one_next == referee_two_next && referee_two_next == referee_three_next
+		if referee_one_next == referee_two_next && referee_two_next == referee_three_next
 			@referee_next_type = 1
 			@referee_filter.push([referee_one_next, referee_one_next, referee_one_next])
 			@referee_filter.push(['-', '-', '-'])
