@@ -1383,11 +1383,11 @@ class IndexController < ApplicationController
 			@referee_part = Refereestatic.where("referee_one = ? AND referee_two = ? AND referee_three = ?", referee_one_last, referee_two_last, referee_three_last).first
 
 			@referee_part_one = Referee.where("referee_one = ?", @game.referee_one).or(Referee.where("referee_two = ?", @game.referee_one).or(Referee.where("referee_three = ?", @game.referee_one)))
-			@referee_part_one_last = Referee.where("referee_one = ? AND year > 2014", @game.referee_one).or(Referee.where("referee_two = ? AND year > 2014", @game.referee_one).or(Referee.where("referee_three = ? AND year > 2014", @game.referee_one)))
+			@referee_part_one_last = Referee.where("referee_one = ? AND id < 43558", @game.referee_one).or(Referee.where("referee_two = ? AND id < 43558", @game.referee_one).or(Referee.where("referee_three = ? AND id < 43558", @game.referee_one).or(Referee.where("referee_one = ? AND id > 61549", @game.referee_one).or(Referee.where("referee_two = ? AND id > 61549", @game.referee_one).or(Referee.where("referee_three = ? AND id > 61549", @game.referee_one))))))
 			@referee_part_two = Referee.where("referee_one = ?", @game.referee_two).or(Referee.where("referee_two = ?", @game.referee_two).or(Referee.where("referee_three = ?", @game.referee_two)))
-			@referee_part_two_last = Referee.where("referee_one = ? AND year > 2014", @game.referee_two).or(Referee.where("referee_two = ? AND year > 2014", @game.referee_two).or(Referee.where("referee_three = ? AND year > 2014", @game.referee_two)))
+			@referee_part_two_last = Referee.where("referee_one = ? AND id < 43558", @game.referee_two).or(Referee.where("referee_two = ? AND id < 43558", @game.referee_two).or(Referee.where("referee_three = ? AND id < 43558", @game.referee_two).or(Referee.where("referee_one = ? AND id > 61549", @game.referee_two).or(Referee.where("referee_two = ? AND id > 61549", @game.referee_two).or(Referee.where("referee_three = ? AND id > 61549", @game.referee_two))))))
 			@referee_part_three = Referee.where("referee_one = ?", @game.referee_three).or(Referee.where("referee_two = ?", @game.referee_three).or(Referee.where("referee_three = ?", @game.referee_three)))
-			@referee_part_three_last = Referee.where("referee_one = ? AND year > 2014", @game.referee_three).or(Referee.where("referee_two = ? AND year > 2014", @game.referee_three).or(Referee.where("referee_three = ? AND year > 2014", @game.referee_three)))
+			@referee_part_three_last = Referee.where("referee_one = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_two = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_three = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_one = ? AND id > 61549", @game.referee_three).or(Referee.where("referee_two = ? AND id > 61549", @game.referee_three).or(Referee.where("referee_three = ? AND id > 61549", @game.referee_three))))))
 		else
 			@referee_part = nil
 		end
