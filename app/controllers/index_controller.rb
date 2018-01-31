@@ -1353,7 +1353,7 @@ class IndexController < ApplicationController
 			end
 		end
 
-		if referee_one_last != nil
+		if referee_one_last == nil && referee_two_last != nil && referee_three_last != nil
 			if referee_one_last > referee_two_last
 				temp = referee_one_last
 				referee_one_last = referee_two_last
