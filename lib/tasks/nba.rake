@@ -1844,6 +1844,160 @@ namespace :nba do
 		end
 	end
 
+  task :getRefereeStatic => :environment do
+    @referee_filter_third = []
+    (0..6).each do |one_element|
+      @referee_filter_second = []
+      (0..6).each do |two_element|
+        @referee_filter_first = []
+        (0..6).each do |three_element|
+          search_array_last = []
+          search_array_next = []
+          if one_element > 5
+            search_array_last.push("referee_one_last > 5")
+            search_array_next.push("referee_one_next > 5")
+          else
+            search_array_last.push("referee_one_last = #{one_element}")
+            search_array_next.push("referee_one_next = #{one_element}")
+          end
+          if two_element > 5
+            search_array_last.push("referee_two_last > 5")
+            search_array_next.push("referee_two_next > 5")
+          else
+            search_array_last.push("referee_two_last = #{two_element}")
+            search_array_next.push("referee_two_next = #{two_element}")
+          end
+          if three_element > 5
+            search_array_last.push("referee_three_last > 5")
+            search_array_next.push("referee_three_next > 5")
+          else
+            search_array_last.push("referee_three_last = #{three_element}")
+            search_array_next.push("referee_three_next = #{three_element}")
+          end
+          search_array_last = search_array_last.join(" AND ")
+          search_array_next = search_array_next.join(" AND ")
+          referee_filter_result_last = Referee.where(search_array_last)
+          referee_filter_result_next = Referee.where(search_array_next)
+          @referee_filter_first.push([
+            referee_filter_result_last.count(:tp_1h).to_i,
+            referee_filter_result_last.sum(:tp_1h).to_f.round(2),
+            referee_filter_result_last.sum(:tp_2h).to_f.round(2),
+            referee_filter_result_next.count(:tp_1h).to_i,
+            referee_filter_result_next.sum(:tp_1h).to_f.round(2),
+            referee_filter_result_next.sum(:tp_2h).to_f.round(2)
+          ])
+        end
+        @referee_filter_second.push(@referee_filter_first)
+      end
+      @referee_filter_third.push(@referee_filter_second)
+    end
+    (0..6).each do |one_element|
+      (one_element..6).each do |two_element|
+        start_element = two_element
+        start_element = 0 if one_element == 0
+        (start_element..6).each do |three_element|
+          total_last_count = 0
+          total_last_first = 0
+          total_last_second = 0
+          total_next_count = 0
+          total_next_first = 0
+          total_next_second = 0
+          total_last_count = total_last_count + @referee_filter_third[one_element][two_element][three_element][0]
+          total_last_count = total_last_count + @referee_filter_third[one_element][three_element][two_element][0]
+          total_last_count = total_last_count + @referee_filter_third[two_element][one_element][three_element][0]
+          total_last_count = total_last_count + @referee_filter_third[two_element][three_element][one_element][0]
+          total_last_count = total_last_count + @referee_filter_third[three_element][one_element][two_element][0]
+          total_last_count = total_last_count + @referee_filter_third[three_element][two_element][one_element][0]
+
+          total_last_first = total_last_first + @referee_filter_third[one_element][two_element][three_element][1]
+          total_last_first = total_last_first + @referee_filter_third[one_element][three_element][two_element][1]
+          total_last_first = total_last_first + @referee_filter_third[two_element][one_element][three_element][1]
+          total_last_first = total_last_first + @referee_filter_third[two_element][three_element][one_element][1]
+          total_last_first = total_last_first + @referee_filter_third[three_element][one_element][two_element][1]
+          total_last_first = total_last_first + @referee_filter_third[three_element][two_element][one_element][1]
+
+          total_last_second = total_last_second + @referee_filter_third[one_element][two_element][three_element][2]
+          total_last_second = total_last_second + @referee_filter_third[one_element][three_element][two_element][2]
+          total_last_second = total_last_second + @referee_filter_third[two_element][one_element][three_element][2]
+          total_last_second = total_last_second + @referee_filter_third[two_element][three_element][one_element][2]
+          total_last_second = total_last_second + @referee_filter_third[three_element][one_element][two_element][2]
+          total_last_second = total_last_second + @referee_filter_third[three_element][two_element][one_element][2]
+
+          total_next_count = total_next_count + @referee_filter_third[one_element][two_element][three_element][3]
+          total_next_count = total_next_count + @referee_filter_third[one_element][three_element][two_element][3]
+          total_next_count = total_next_count + @referee_filter_third[two_element][one_element][three_element][3]
+          total_next_count = total_next_count + @referee_filter_third[two_element][three_element][one_element][3]
+          total_next_count = total_next_count + @referee_filter_third[three_element][one_element][two_element][3]
+          total_next_count = total_next_count + @referee_filter_third[three_element][two_element][one_element][3]
+
+          total_next_first = total_next_first + @referee_filter_third[one_element][two_element][three_element][4]
+          total_next_first = total_next_first + @referee_filter_third[one_element][three_element][two_element][4]
+          total_next_first = total_next_first + @referee_filter_third[two_element][one_element][three_element][4]
+          total_next_first = total_next_first + @referee_filter_third[two_element][three_element][one_element][4]
+          total_next_first = total_next_first + @referee_filter_third[three_element][one_element][two_element][4]
+          total_next_first = total_next_first + @referee_filter_third[three_element][two_element][one_element][4]
+
+          total_next_second = total_next_second + @referee_filter_third[one_element][two_element][three_element][5]
+          total_next_second = total_next_second + @referee_filter_third[one_element][three_element][two_element][5]
+          total_next_second = total_next_second + @referee_filter_third[two_element][one_element][three_element][5]
+          total_next_second = total_next_second + @referee_filter_third[two_element][three_element][one_element][5]
+          total_next_second = total_next_second + @referee_filter_third[three_element][one_element][two_element][5]
+          total_next_second = total_next_second + @referee_filter_third[three_element][two_element][one_element][5]
+
+          if one_element == two_element && two_element == three_element
+            total_last_count = total_last_count / 6
+            total_last_first = total_last_first / 6
+            total_last_second = total_last_second / 6
+            total_next_count = total_next_count / 6
+            total_next_first = total_next_first / 6
+            total_next_second = total_next_second / 6
+          elsif one_element == two_element || two_element == three_element || one_element == three_element
+            total_last_count = total_last_count / 2
+            total_last_first = total_last_first / 2
+            total_last_second = total_last_second / 2
+            total_next_count = total_next_count / 2
+            total_next_first = total_next_first / 2
+            total_next_second = total_next_second / 2
+          end
+          total_last_first = total_last_first / total_last_count
+          total_last_second = total_last_second / total_last_count
+          total_next_first = total_next_first / total_next_count
+          total_next_second = total_next_second / total_next_count
+
+          if one_element > 5
+            referee_one_last = "6+"
+          else
+            referee_one_last = one_element.to_s
+          end
+
+          if two_element > 5
+            referee_two_last = "6+"
+          else
+            referee_two_last = two_element.to_s
+          end
+
+          if three_element > 5
+            referee_three_last = "6+"
+          else
+            referee_three_last = three_element.to_s
+          end
+          
+          Refereestatic.create(
+            referee_one: referee_one_last,
+            referee_two: referee_two_last,
+            referee_three: referee_three_last,
+            last_count: total_last_count,
+            last_first: total_last_first.round(2),
+            last_second: total_last_second.round(2),
+            next_count: total_next_count,
+            next_first: total_next_first.round(2),
+            next_second: total_next_second.round(2)
+          )
+        end
+      end
+    end
+  end
+
   task :fixingscores => :environment do
     include Api
     games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
