@@ -2505,8 +2505,8 @@ namespace :nba do
     games = Nba.all
     puts "----------Get First Lines----------"
 
-    index_date = Date.new(2007, 4, 19)
-    while index_date >= Date.new(2006, 10, 30)  do
+    index_date = Date.new(2009, 12, 30)
+    while index_date >= Date.new(2009, 10, 26)  do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
@@ -2596,7 +2596,7 @@ namespace :nba do
         closer_side = line_two ? closer[0..line_two] : ""
         closer_total = line_two ? closer[line_two+2..-1] : ""
 
-        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
+        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name)))}
         if matched.size > 0
           update_game = matched.first
           if opener_side.include?('½')
@@ -2636,8 +2636,8 @@ namespace :nba do
     type = args[:type]
     puts "----------Get #{type} Lines----------"
 
-    index_date = Date.new(2007, 4, 19)
-    while index_date >= Date.new(2006, 10, 30)  do
+    index_date = Date.new(2009, 12, 30)
+    while index_date >= Date.new(2009, 10, 26)  do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "#{game_link}#{game_day}"
@@ -2720,7 +2720,7 @@ namespace :nba do
         closer_side = line_two ? closer[0..line_two] : ""
         closer_total = line_two ? closer[line_two+2..-1] : ""
 
-        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
+        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name)))}
         if matched.size > 0
           update_game = matched.first
           if opener_side.include?('½')
@@ -2852,7 +2852,8 @@ namespace :nba do
 		"L.A. Lakers" => "LAL",
 		"L.A. Clippers" => "LAC",
     "LA Clippers" => "LAC",
-    "LA Lakers" => "LAL"
+    "LA Lakers" => "LAL",
+    "Brooklyn" => "New Jersey"
 	}
 
 	@player_name = {
