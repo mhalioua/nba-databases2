@@ -2476,6 +2476,25 @@ namespace :nba do
   end
 
   task :getClone => [:environment] do
+    Rake::Task["nba:getFirstLinesClone"].invoke
+    Rake::Task["nba:getFirstLinesClone"].reenable
+
+    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/2nd-half/?date="
+    Rake::Task["nba:getSecondLinesClone"].invoke("second", link)
+    Rake::Task["nba:getSecondLinesClone"].reenable
+
+    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/?date="
+    Rake::Task["nba:getSecondLinesClone"].invoke("full", link)
+    Rake::Task["nba:getSecondLinesClone"].reenable
+
+    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
+    Rake::Task["nba:getSecondLinesClone"].invoke("firstTotal", link)
+    Rake::Task["nba:getSecondLinesClone"].reenable
+
+    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
+    Rake::Task["nba:getSecondLinesClone"].invoke("secondTotal", link)
+    Rake::Task["nba:getSecondLinesClone"].reenable
+
     link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
     Rake::Task["nba:getSecondLinesClone"].invoke("fullTotal", link)
     Rake::Task["nba:getSecondLinesClone"].reenable
@@ -2486,8 +2505,8 @@ namespace :nba do
     games = Nba.all
     puts "----------Get First Lines----------"
 
-    index_date = Date.new(2009, 12, 30)
-    while index_date >= Date.new(2009, 10, 26)  do
+    index_date = Date.new(2009, 4, 16)
+    while index_date >= Date.new(2008, 10, 27)  do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
@@ -2617,8 +2636,8 @@ namespace :nba do
     type = args[:type]
     puts "----------Get #{type} Lines----------"
 
-    index_date = Date.new(2009, 12, 30)
-    while index_date >= Date.new(2009, 10, 26)  do
+    index_date = Date.new(2009, 4, 16)
+    while index_date >= Date.new(2008, 10, 27)  do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "#{game_link}#{game_day}"
