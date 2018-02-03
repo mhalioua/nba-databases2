@@ -2568,6 +2568,7 @@ namespace :nba do
         away_number   = element.children[0].children[3].children[1].text
         closer      = score_element.children[1].text
         opener      = element.children[0].children[7].children[1].text
+        puts opener
         
         game_time = element.children[0].children[4].text
         ind = game_time.index(":")
