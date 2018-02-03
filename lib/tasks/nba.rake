@@ -2853,7 +2853,8 @@ namespace :nba do
 		"L.A. Clippers" => "LAC",
     "LA Clippers" => "LAC",
     "LA Lakers" => "LAL",
-    "Brooklyn" => "New Jersey"
+    "Brooklyn" => "New Jersey",
+    "New Orleans" => "NO/Oklahoma City"
 	}
 
 	@player_name = {
