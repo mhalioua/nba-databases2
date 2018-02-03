@@ -2580,8 +2580,6 @@ namespace :nba do
         if ap == "a" && hour == 12
           hour = 24
         end
-          puts home_name
-          puts away_name
 
         if @nba_nicknames[home_name]
             home_name = @nba_nicknames[home_name]
@@ -2589,8 +2587,6 @@ namespace :nba do
           if @nba_nicknames[away_name]
             away_name = @nba_nicknames[away_name]
           end
-          puts home_name
-          puts away_name
         date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
         line_one = opener.index(" ")
@@ -2600,7 +2596,7 @@ namespace :nba do
         closer_side = line_two ? closer[0..line_two] : ""
         closer_total = line_two ? closer[line_two+2..-1] : ""
 
-        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name)))}
+        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name)))  && (game_day == DateTime.parse(field.game_date).strftime("%Y%m%d")) }
         if matched.size > 0
           update_game = matched.first
           if opener_side.include?('½')
@@ -2724,7 +2720,7 @@ namespace :nba do
         closer_side = line_two ? closer[0..line_two] : ""
         closer_total = line_two ? closer[line_two+2..-1] : ""
 
-        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name)))}
+        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (game_day == DateTime.parse(field.game_date).strftime("%Y%m%d")) }
         if matched.size > 0
           update_game = matched.first
           if opener_side.include?('½')
