@@ -1,0 +1,2 @@
+class NbaClone < ApplicationRecord
+end
