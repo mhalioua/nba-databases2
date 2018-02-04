@@ -2449,7 +2449,6 @@ namespace :nba do
     Time.zone = 'Eastern Time (US & Canada)'
     date = Date.new(2005, 10, 31)
     while date <= Date.new(2006, 4, 15)
-      date = date + 7.days
       game_date = date.strftime("%Y%m%d")
       
       url = "http://www.espn.com/nba/schedule/_/date/#{game_date}"
@@ -2593,6 +2592,7 @@ namespace :nba do
       end
 
     end
+    date = date + 7.days
   end
 
 	@basket_abbr = [
