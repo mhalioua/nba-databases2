@@ -2425,8 +2425,21 @@ namespace :nba do
     games = Nba.where("game_date < ?", Date.new(2006, 10, 30).beginning_of_day)
     games.each do |game|
       unless clonegame = NbaClone.find_by(game_id: game.game_id)
-        NbaClone.create(game.attributes)
+        clonegame = NbaClone.create(game.attributes)
       end
+      clonegame.update(first_opener_side: nil,
+        first_closer_side: nil,
+        first_opener_total: nil,
+        first_closer_total: nil,
+        second_opener_side: nil,
+        second_closer_side: nil,
+        second_opener_total: nil,
+        second_closer_total: nil,
+        full_opener_side: nil,
+        full_closer_side: nil,
+        full_opener_total: nil,
+        full_closer_total: nil
+      )
     end
   end
 
