@@ -2469,6 +2469,10 @@ namespace :nba do
         if game_id == "190305028"
           next
         end
+        if game_id == "190317008"
+          next
+        end
+        
         unless game = NbaClone.find_by(game_id: game_id)
           game = NbaClone.create(game_id: game_id)
         end
@@ -2601,8 +2605,8 @@ namespace :nba do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    date = Date.new(1999, 11, 2)
-    while date <= Date.new(2000, 4, 14)
+    date = Date.new(1997, 10, 31)
+    while date <= Date.new(1998, 4, 15)
       game_date = date.strftime("%Y%m%d")
       
       url = "http://www.espn.com/nba/schedule/_/date/#{game_date}"
