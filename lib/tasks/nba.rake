@@ -2447,8 +2447,8 @@ namespace :nba do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    date = Date.new(2005, 10, 31)
-    while date <= Date.new(2006, 4, 15)
+    date = Date.new(2000, 10, 31)
+    while date <= Date.new(2000, 10, 31)
       game_date = date.strftime("%Y%m%d")
       
       url = "http://www.espn.com/nba/schedule/_/date/#{game_date}"
@@ -2598,8 +2598,8 @@ namespace :nba do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    date = Date.new(2004, 11, 1)
-    while date <= Date.new(2005, 4, 15)
+    date = Date.new(1999, 11, 2)
+    while date <= Date.new(2000, 4, 14)
       game_date = date.strftime("%Y%m%d")
       
       url = "http://www.espn.com/nba/schedule/_/date/#{game_date}"
