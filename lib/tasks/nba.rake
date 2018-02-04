@@ -2469,7 +2469,7 @@ namespace :nba do
         if game_id == "161223004"
           next
         end
-        if game_id == "190317008"
+        if game_id == "161225004"
           next
         end
         if game_id == "190319028"
