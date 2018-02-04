@@ -2466,7 +2466,7 @@ namespace :nba do
         end
         href = slice.children[index[:result]].child['href']
         game_id = href[-9..-1]
-        if game_id == "190305028"
+        if game_id == "161223004"
           next
         end
         if game_id == "190317008"
