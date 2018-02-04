@@ -2627,6 +2627,10 @@ namespace :nba do
         end
         href = slice.children[index[:result]].child['href']
         game_id = href[-9..-1]
+        
+        if game_id == "141110023"
+          next
+        end
         unless game = NbaClone.find_by(game_id: game_id)
           game = NbaClone.create(game_id: game_id)
         end
