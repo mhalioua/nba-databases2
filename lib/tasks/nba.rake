@@ -2472,6 +2472,9 @@ namespace :nba do
         if game_id == "190317008"
           next
         end
+        if game_id == "190319028"
+          next
+        end
         
         unless game = NbaClone.find_by(game_id: game_id)
           game = NbaClone.create(game_id: game_id)
