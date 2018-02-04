@@ -2424,7 +2424,9 @@ namespace :nba do
     Time.zone = 'Eastern Time (US & Canada)'
     games = Nba.where("game_date < ?", Date.new(2006, 10, 30).beginning_of_day)
     games.each do|game|
-      NbaClone.create(game)
+      unless clonegame = NbaClone.find_by(game_id: game.game_id)
+        NbaClone.create(game)
+      end
     end
   end
 
