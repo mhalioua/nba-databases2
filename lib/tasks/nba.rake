@@ -2608,55 +2608,96 @@ namespace :nba do
     end
   end
 
-  task :getScoreClone => [:environment] do
+  task :getLinkGameClone => [:environment] do
     include Api
-    puts "----------Get Score----------"
+    puts "----------Get Link Games----------"
 
-    games = NbaClone.where("away_first_quarter is null ")
+    Time.zone = 'Eastern Time (US & Canada)'
+
+    games = NbaClone.where("away_last_game is null")
     puts games.size
     games.each do |game|
-      game_id = game.game_id
+      home_team = game.home_team
+      away_team = game.away_team
+      game_date = game.game_date
 
-      url = "http://www.espn.com/nba/game?gameId=#{game_id}"
-      doc = download_document(url)
-      puts url
-      elements = doc.css("#linescore tbody tr")
-      if elements.size > 1
-        if elements[0].children.size > 5
-          away_first_quarter  = elements[0].children[1].text.to_i
-          away_second_quarter = elements[0].children[2].text.to_i
-          away_third_quarter  = elements[0].children[3].text.to_i
-          away_forth_quarter  = elements[0].children[4].text.to_i
-          away_ot_quarter   = 0
-
-          home_first_quarter  = elements[1].children[1].text.to_i
-          home_second_quarter = elements[1].children[2].text.to_i
-          home_third_quarter  = elements[1].children[3].text.to_i
-          home_forth_quarter  = elements[1].children[4].text.to_i
-          home_ot_quarter   = 0
-
-          if elements[0].children.size > 6
-            away_ot_quarter = elements[0].children[5].text.to_i
-            home_ot_quarter = elements[1].children[5].text.to_i
+      away_last_game = ""
+      away_last_fly = ""
+      away_last_ot = ""
+      away_team_prev = NbaClone.where("home_team = ? AND game_date < ?", away_team, game_date).or(NbaClone.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
+      if away_team_prev
+        away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+        if away_team_prev.home_team == away_team
+          away_last_fly = "YES"
+        else
+          away_last_fly = "NO"
+        end
+        if away_team_prev.away_ot_quarter != nil &&  away_team_prev.home_ot_quarter != nil
+          if away_team_prev.away_ot_quarter > 0 || away_team_prev.home_ot_quarter > 0
+            away_last_ot = "YES"
+          else
+            away_last_ot = "NO"
           end
         end
-      else
-        away_first_quarter  = 0
-        away_second_quarter = 0
-        away_third_quarter  = 0
-        away_forth_quarter  = 0
-        away_ot_quarter   = 0
-
-        home_first_quarter  = 0
-        home_second_quarter = 0
-        home_third_quarter  = 0
-        home_forth_quarter  = 0
-        home_ot_quarter   = 0
       end
-      away_score = away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + away_ot_quarter
-      home_score = home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter + home_ot_quarter
 
-      game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter, home_second_quarter: home_second_quarter, away_third_quarter: away_third_quarter, home_third_quarter: home_third_quarter, away_forth_quarter: away_forth_quarter, home_forth_quarter: home_forth_quarter, away_ot_quarter: away_ot_quarter, home_ot_quarter: home_ot_quarter, away_score: away_score, home_score: home_score, total_score: home_score + away_score, first_point: home_first_quarter + home_second_quarter + away_first_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter + away_third_quarter + home_third_quarter, total_point: away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter)
+      away_next_game = ""
+      away_next_fly = ""
+      away_team_next = NbaClone.where("home_team = ? AND game_date > ?", away_team, game_date).or(NbaClone.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
+      if away_team_next
+        away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+        if away_team_next.home_team == away_team
+          away_next_fly = "YES"
+        else
+          away_next_fly = "NO"
+        end
+      end
+
+      home_last_game = ""
+      home_last_fly = ""
+      home_last_ot = ""
+      home_team_prev = NbaClone.where("home_team = ? AND game_date < ?", home_team, game_date).or(NbaClone.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
+      if home_team_prev
+        home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+        if home_team_prev.home_team == home_team
+          home_last_fly = "NO"
+        else
+          home_last_fly = "YES"
+        end
+        if home_team_prev.away_ot_quarter != nil && home_team_prev.home_ot_quarter != nil
+          if home_team_prev.away_ot_quarter > 0 || home_team_prev.home_ot_quarter > 0
+            home_last_ot = "YES"
+          else
+            home_last_ot = "NO"
+          end
+        end
+      end
+
+      home_next_game = ""
+      home_next_fly = ""
+      home_team_next = NbaClone.where("home_team = ? AND game_date > ?", home_team, game_date).or(NbaClone.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
+      if home_team_next
+        home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+        if home_team_next.home_team == home_team
+          home_next_fly = "NO"
+        else
+          home_next_fly = "YES"
+        end
+      end
+
+      away_last_home = ""
+      away_team_prev = NbaClone.where("home_team = ? AND game_date < ?", away_team, game_date).order(:game_date).last
+      if away_team_prev
+        away_last_home = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+      end
+
+      away_next_home = ""
+      away_team_next = NbaClone.where("home_team = ? AND game_date > ?", away_team, game_date).order(:game_date).first
+      if away_team_next
+        away_next_home = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+      end
+
+      game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot, away_last_home: away_last_home,away_next_home: away_next_home )
     end
   end
 
