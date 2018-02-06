@@ -3020,8 +3020,8 @@ namespace :nba do
           score_index = score.index(' ')
           score = score[score_index..-1]
           score_index = score.index('-')
-          home_score = score[0..score_index-1]
-          away_score = score[score_index+2..-1]
+          home_score = score[1..score_index-1]
+          away_score = score[score_index+1..-1]
 
           full_closer_side = data.children[9].text.squish
           full_closer_side_index = full_closer_side.index(' ')
