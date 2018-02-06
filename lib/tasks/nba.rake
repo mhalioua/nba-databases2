@@ -3055,7 +3055,7 @@ namespace :nba do
             end
             unless game = NbaClone.find_by(home_team: home_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e") )
               unless game = NbaClone.find_by(away_team: away_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e") )
-                game = NbaClone.create(home_team: home_team, away_team: away_team, year: data_date.strftime("%Y"), game_date: data_date, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e"), time: data_date.strftime("%I:%M%p"), week: data_date.strftime("%a"), away_score: away_score, home_score: home_score, full_closer_side: full_closer_side, full_closer_total: full_closer_total )
+                game = NbaClone.create(home_team: home_team, away_team: away_team, game_date: data_date, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e"), time: data_date.strftime("%I:%M%p"), week: data_date.strftime("%a"), away_score: away_score, home_score: home_score, full_closer_side: full_closer_side, full_closer_total: full_closer_total )
               end
             end
           end
