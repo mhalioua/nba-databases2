@@ -3024,7 +3024,7 @@ namespace :nba do
 
             score = data.children[5].text.squish
             score_rindex = score.rindex(' (OT)')
-            score = score[0..score_rindex-1]
+            score = score_rindex ? score[0..score_rindex-1] : score
             score_index = score.index(' ')
             score = score[score_index..-1]
             score_index = score.index('-')
