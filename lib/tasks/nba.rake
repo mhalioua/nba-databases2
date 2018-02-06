@@ -3006,8 +3006,9 @@ namespace :nba do
         year_team_url = 'https://www.covers.com' + team_url[0..team_index] + "pastresults/#{year}-#{year+1}/" + team_url[team_index+1..-1]
         puts year_team_url
         doc = download_document(year_team_url)
-        next unless doc
-        datas = doc.css("table").last.children
+        datas = doc.css("table").last
+        next unless datas
+        datas = datas.children
         datas.each_with_index do |data, index|
           if index > 2 && index % 2 == 1
             home_team_url = element['href']
