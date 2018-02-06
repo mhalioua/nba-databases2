@@ -3014,14 +3014,14 @@ namespace :nba do
           away_type = 0
           away_team = data.children[3].text.squish
           away_type = 1 if away_team[0] == '@'
-          away_team = away_team[1..-1]
+          away_team = away_team[2..-1] if away_team[0] == '@'
 
           score = data.children[5].text.squish
           score_index = score.index(' ')
           score = score[score_index..-1]
           score_index = score.index('-')
           home_score = score[0..score_index-1]
-          away_score = score[score_index+1..-1]
+          away_score = score[score_index+2..-1]
 
           full_closer_side = data.children[9].text.squish
           full_closer_side_index = full_closer_side.index(' ')
