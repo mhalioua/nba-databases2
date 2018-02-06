@@ -2447,9 +2447,9 @@ namespace :nba do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    date = Date.new(1999,3,10)
-    while date <= Date.new(1999,3,10)
-      game_date = date.strftime("%Y%m%d")
+    index_date = Date.new(1999,2,12)
+    while index_date <= Date.new(1999,3,10)
+      game_date = index_date.strftime("%Y%m%d")
       
       url = "http://www.espn.com/nba/schedule/_/date/#{game_date}"
       doc = download_document(url)
@@ -2591,7 +2591,7 @@ namespace :nba do
         end
         game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
       end
-      date = date + 7.days
+      index_date = index_date + 7.days
     end
   end
 
