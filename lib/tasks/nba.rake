@@ -2447,8 +2447,160 @@ namespace :nba do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    index_date = Date.new(1999,2,12)
-    while index_date <= Date.new(1999,3,10)
+    index_date = Date.new(1997,10,31)
+    while index_date <= Date.new(1998,4,14)
+      game_date = index_date.strftime("%Y%m%d")
+      
+      url = "http://www.espn.com/nba/schedule/_/date/#{game_date}"
+      doc = download_document(url)
+      puts url
+      index = { away_team: 0, home_team: 1, result: 2 }
+      elements = doc.css("tr")
+      elements.each do |slice|
+        if slice.children.size < 5
+          next
+        end
+        away_team = slice.children[index[:away_team]].text
+        if away_team == "matchup"
+          next
+        end
+        href = slice.children[index[:result]].child['href']
+        game_id = href[-9..-1]
+        
+        unless game = NbaClone.find_by(game_id: game_id)
+          game = NbaClone.create(game_id: game_id)
+        end
+        if slice.children[index[:home_team]].children[0].children.size == 2
+          home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
+          home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
+        elsif slice.children[index[:home_team]].children[0].children.size == 3
+          home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text + slice.children[index[:home_team]].children[0].children[2].children[0].text
+          home_abbr = slice.children[index[:home_team]].children[0].children[2].children[2].text
+        elsif slice.children[index[:home_team]].children[0].children.size == 1
+          home_team = slice.children[index[:home_team]].children[0].children[0].children[0].text
+          home_abbr = slice.children[index[:home_team]].children[0].children[0].children[2].text
+        end
+
+        if slice.children[index[:away_team]].children.size == 2
+          away_abbr = slice.children[index[:away_team]].children[1].children[2].text
+          away_team = slice.children[index[:away_team]].children[1].children[0].text
+        elsif slice.children[index[:away_team]].children.size == 3
+          away_abbr = slice.children[index[:away_team]].children[2].children[2].text
+          away_team = slice.children[index[:away_team]].children[1].text + slice.children[index[:away_team]].children[2].children[0].text
+        elsif slice.children[index[:away_team]].children.size == 1
+          away_abbr = slice.children[index[:away_team]].children[0].children[2].text
+          away_team = slice.children[index[:away_team]].children[0].children[0].text
+        end
+          result = slice.children[index[:result]].text
+
+        if home_team == "Los Angeles" ||  home_team == "LA"
+          home_team = home_abbr
+        end
+        if away_team == "Los Angeles" ||  away_team == "LA"
+          away_team = away_abbr
+        end
+
+        url = "http://www.espn.com/nba/game?gameId=#{game_id}"
+        doc = download_document(url)
+        puts url
+        element = doc.css(".game-date-time").first
+        game_date = element.children[1]['data-date']
+        date = DateTime.parse(game_date).in_time_zone
+
+        url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
+        doc = download_document(url)
+        puts url
+        element = doc.css(".highlight")
+        if element.size > 3
+          away_value = element[0]
+          home_value = element[2]
+
+          away_mins_value = away_value.children[1].text.to_i
+          away_fga_value = away_value.children[2].text
+          away_fga_index = away_fga_value.index('-')
+          away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
+          away_to_value = away_value.children[11].text.to_i
+          away_pf_value = away_value.children[12].text.to_i
+          away_fta_value = away_value.children[4].text
+          away_fta_index = away_fta_value.index('-')
+          away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
+          away_or_value = away_value.children[5].text.to_i
+          away_stl_value = away_value.children[9].text.to_i
+          away_blk_value = away_value.children[10].text.to_i
+
+          home_mins_value = home_value.children[1].text.to_i
+          home_fga_value = home_value.children[2].text
+          home_fga_index = home_fga_value.index('-')
+          home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
+          home_to_value = home_value.children[11].text.to_i
+          home_pf_value = home_value.children[12].text.to_i
+          home_fta_value = home_value.children[4].text
+          home_fta_index = home_fta_value.index('-')
+          home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
+          home_or_value = home_value.children[5].text.to_i
+          home_stl_value = home_value.children[9].text.to_i
+          home_blk_value = home_value.children[10].text.to_i
+         end
+
+        addingDate = date
+        home_timezone = ''
+        home_win_rank = 0
+        home_ppg_rank = 0
+        home_oppppg_rank = 0
+
+        away_timezone = ''
+        away_win_rank = 0
+        away_ppg_rank = 0
+        away_oppppg_rank = 0
+
+        if @team_names[home_team]
+          compare_home_team = @team_names[home_team]
+          home_team_info = Team.find_by(team: compare_home_team)
+          if home_team_info.timezone == 2
+            addingDate = addingDate - 3.hours
+            home_timezone = "PACIFIC"
+          elsif home_team_info.timezone == 3
+            addingDate = addingDate - 1.hours
+            home_timezone = "CENTRAL"
+          elsif home_team_info.timezone == 4
+            addingDate = addingDate - 2.hours
+            home_timezone = "MOUNTAIN"
+          elsif home_team_info.timezone == 1
+            home_timezone = "EASTERN"
+          end
+          home_win_rank = home_team_info.order_one_seventeen
+          home_ppg_rank = home_team_info.order_two_seventeen
+          home_oppppg_rank = home_team_info.order_thr_seventeen
+        end
+
+        if @team_names[away_team]
+          compare_away_team = @team_names[away_team]
+          away_team_info = Team.find_by(team: compare_away_team)
+          if away_team_info.timezone == 2
+            away_timezone = "PACIFIC"
+          elsif away_team_info.timezone == 3
+            away_timezone = "CENTRAL"
+          elsif away_team_info.timezone == 4
+            away_timezone = "MOUNTAIN"
+          elsif away_team_info.timezone == 1
+            away_timezone = "EASTERN"
+          end
+          away_win_rank = away_team_info.order_one_seventeen
+          away_ppg_rank = away_team_info.order_two_seventeen
+          away_oppppg_rank = away_team_info.order_thr_seventeen
+        end
+        game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
+      end
+      index_date = index_date + 7.days
+    end
+  end
+
+  task :getDateClone => [:environment] do
+    puts "----------Get Games----------"
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+    index_date = Date.new(1996,11,1)
+    while index_date <= Date.new(1997,4,15)
       game_date = index_date.strftime("%Y%m%d")
       
       url = "http://www.espn.com/nba/schedule/_/date/#{game_date}"
