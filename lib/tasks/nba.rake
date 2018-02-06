@@ -3039,7 +3039,13 @@ namespace :nba do
             home_score = temp
             full_closer_side = -full_closer_side
           end
-
+          puts home_team
+          puta away_team
+          puts away_score
+          puts home_score
+          puts data_date
+          puts full_closer_side
+          puts full_closer_total
         end
         break
       end
@@ -3178,6 +3184,35 @@ namespace :nba do
   }
 
   @home_team = {
-
+    'team404169.html' => 'Boston',
+    'team404117.html' => 'Brooklyn',
+    'team404288.html' => 'New York',
+    'team404083.html' => 'Philadelphia',
+    'team404330.html' => 'Toronto',
+    'team404198.html' => 'Chicago',
+    'team404213.html' => 'Cleveland',
+    'team404153.html' => 'Detroit',
+    'team404155.html' => 'Indiana',
+    'team404011.html' => 'Milwaukee',
+    'team404085.html' => 'Atlanta',
+    'team664421.html' => 'Charlotte',
+    'team404171.html' => 'Miami',
+    'team404013.html' => 'Orlando',
+    'team404067.html' => 'Washington',
+    'team404065.html' => 'Denver',
+    'team403995.html' => 'Minnesota',
+    'team404316.html' => 'Oklahoma City',
+    'team403993.html' => 'Portland',
+    'team404031.html' => 'Utah',
+    'team404119.html' => 'Golden State',
+    'team404135.html' => 'L.A. Clippers',
+    'team403977.html' => 'L.A. Lakers',
+    'team404029.html' => 'Phoenix',
+    'team403975.html' => 'Sacramento',
+    'team404047.html' => 'Dallas',
+    'team404137.html' => 'Houston',
+    'team404049.html' => 'Memphis',
+    'team404101.html' => 'New Orleans',
+    'team404302.html' => 'San Antonio'
   }
 end
