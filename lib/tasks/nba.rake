@@ -3046,8 +3046,8 @@ namespace :nba do
           puts data_date
           puts full_closer_side
           puts full_closer_total
+          break
         end
-        break
       end
     end
   end
