@@ -3047,6 +3047,12 @@ namespace :nba do
               home_score = temp
               full_closer_side = -full_closer_side
             end
+            if @nba_nicknames[home_team]
+            home_team = @nba_nicknames[home_team]
+            end
+            if @nba_nicknames[away_team]
+              away_team = @nba_nicknames[away_team]
+            end
             unless game = NbaClone.find_by(home_team: home_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e") )
               unless game = NbaClone.find_by(away_team: away_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e") )
                 puts home_team
