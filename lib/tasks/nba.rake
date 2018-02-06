@@ -2595,7 +2595,7 @@ namespace :nba do
     end
   end
 
-  task :getDateClone => [:environment] do
+  task :getDateSecondClone => [:environment] do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
