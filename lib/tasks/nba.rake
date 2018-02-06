@@ -3002,51 +3002,57 @@ namespace :nba do
     elements.each do |element|
       team_url = element['href']
       team_index = team_url.rindex("/")
-      home_team = team_url[team_index+1..-1]
-      puts home_team
-      home_team = @home_team[home_team] if @home_team[home_team]
-      team_url = 'https://www.covers.com' + team_url[0..team_index] + 'pastresults/2017-2018/' + team_url[team_index+1..-1]
-      doc = download_document(team_url)
-      datas = doc.css("table").last.children
-      datas.each_with_index do |data, index|
-        if index > 2 && index % 2 == 1
-          data_date = Date.strptime(data.children[1].text.squish, '%m/%d/%y')
-          away_type = 0
-          away_team = data.children[3].text.squish
-          away_type = 1 if away_team[0] == '@'
-          away_team = away_team[2..-1] if away_team[0] == '@'
+      (1990..2005).each do |year|
+        year_team_url = 'https://www.covers.com' + team_url[0..team_index] + "pastresults/#{year}-#{year+1}/" + team_url[team_index+1..-1]
+        puts year_team_url
+        doc = download_document(year_team_url)
+        next unless doc
+        datas = doc.css("table").last.children
+        datas.each_with_index do |data, index|
+          if index > 2 && index % 2 == 1
+            home_team_url = element['href']
+            home_team_index = home_team_url.rindex("/")
+            home_team = home_team_url[home_team_index+1..-1]
+            home_team = @home_team[home_team] if @home_team[home_team]
 
-          score = data.children[5].text.squish
-          score_index = score.index(' ')
-          score = score[score_index..-1]
-          score_index = score.index('-')
-          home_score = score[1..score_index-1]
-          away_score = score[score_index+1..-1]
+            data_date = Date.strptime(data.children[1].text.squish, '%m/%d/%y')
+            away_type = 0
+            away_team = data.children[3].text.squish
+            away_type = 1 if away_team[0] == '@'
+            away_team = away_team[2..-1] if away_team[0] == '@'
 
-          full_closer_side = data.children[9].text.squish
-          full_closer_side_index = full_closer_side.index(' ')
-          full_closer_side = full_closer_side[full_closer_side_index..-1].to_f
+            score = data.children[5].text.squish
+            score_index = score.index(' ')
+            score = score[score_index..-1]
+            score_index = score.index('-')
+            home_score = score[1..score_index-1]
+            away_score = score[score_index+1..-1]
 
-          full_closer_total = data.children[11].text.squish
-          full_closer_total_index = full_closer_total.index(' ')
-          full_closer_total = full_closer_total[full_closer_total_index..-1].to_f
-          if away_type == 1
-            temp = home_team
-            home_team = away_team
-            away_team = temp
-            temp = away_score
-            away_score = home_score
-            home_score = temp
-            full_closer_side = -full_closer_side
+            full_closer_side = data.children[9].text.squish
+            full_closer_side_index = full_closer_side.index(' ')
+            full_closer_side = full_closer_side[full_closer_side_index..-1].to_f
+
+            full_closer_total = data.children[11].text.squish
+            full_closer_total_index = full_closer_total.index(' ')
+            full_closer_total = full_closer_total[full_closer_total_index..-1].to_f
+            if away_type == 1
+              temp = home_team
+              home_team = away_team
+              away_team = temp
+              temp = away_score
+              away_score = home_score
+              home_score = temp
+              full_closer_side = -full_closer_side
+            end
+            puts home_team
+            puts away_team
+            puts away_score
+            puts home_score
+            puts data_date
+            puts full_closer_side
+            puts full_closer_total
+            break
           end
-          puts home_team
-          puts away_team
-          puts away_score
-          puts home_score
-          puts data_date
-          puts full_closer_side
-          puts full_closer_total
-          break
         end
       end
     end
