@@ -2447,7 +2447,7 @@ namespace :nba do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    date = Date.new(1997, 4, 8)
+    date = Date.new(1997, 4, 14)
     while date <= Date.new(1997, 4, 20)
       game_date = date.strftime("%Y%m%d")
       
