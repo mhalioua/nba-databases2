@@ -2358,7 +2358,8 @@ namespace :nba do
       if @nba_nicknames[home_name]
         home_name = @nba_nicknames[home_name]
       end
-
+      puts away_name
+      puts home_name
       matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) }
       if matched.size > 0
         update_game = matched.first
@@ -3004,7 +3005,7 @@ namespace :nba do
       home_team = team_url[team_index+1..-1]
       puts home_team
       home_team = @home_team[home_team] if @home_team[home_team]
-      team_url = 'https://www.covers.com' + team_url[0..team_index] + 'pastresults/1994-1995/' + team_url[team_index+1..-1]
+      team_url = 'https://www.covers.com' + team_url[0..team_index] + 'pastresults/2017-2018/' + team_url[team_index+1..-1]
       doc = download_document(team_url)
       datas = doc.css("table").last.children
       datas.each_with_index do |data, index|
@@ -3129,9 +3130,7 @@ namespace :nba do
 		"L.A. Lakers" => "LAL",
 		"L.A. Clippers" => "LAC",
     "LA Clippers" => "LAC",
-    "LA Lakers" => "LAL",
-    "Brooklyn" => "New Jersey",
-    "New Orleans" => "NO/Oklahoma City"
+    "LA Lakers" => "LAL"
 	}
 
 	@player_name = {
