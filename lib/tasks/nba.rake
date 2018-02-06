@@ -3001,73 +3001,47 @@ namespace :nba do
     elements.each do |element|
       team_url = element['href']
       team_index = team_url.rindex("/")
+      home_team = team_url[team_index+1..-1]
+      puts home_team
+      home_team = @home_team[home_team] if @home_team[home_team]
       team_url = 'https://www.covers.com' + team_url[0..team_index] + 'pastresults/1994-1995/' + team_url[team_index+1..-1]
-      puts team_url
       doc = download_document(team_url)
       datas = doc.css("table")[1].children
       datas.each_with_index do |data, index|
         if index > 2 && index % 2 == 1
-          puts data.children[1].text.squish
-          puts data.children[3].text.squish
-          puts data.children[5].text.squish
-          puts data.children[7].text.squish
-          puts data.children[9].text.squish
-          puts data.children[11].text.squish
-        end
-      end
-      break
-    end
-  end
+          data_date = Date.strptime(data.children[1].text.squish, '%m/%d/%Y')
+          away_type = 0
+          away_team = data.children[3].text.squish
+          away_type = 1 if away_team[0] == '@'
+          away_team = away_team[1..-1]
 
-  task :getScoreClone => [:environment] do
-    include Api
-    puts "----------Get Score----------"
+          score = data.children[5].text.squish
+          score_index = score.index(' ')
+          score = score[score_index..-1]
+          score_index = score.index('-')
+          home_score = score[0..score_index-1]
+          away_score = score[score_index+1..-1]
 
-    games = Nba.where("away_first_quarter is null")
-    puts games.size
-    games.each do |game|
-      game_id = game.game_id
+          full_closer_side = data.children[9].text.squish
+          full_closer_side_index = full_closer_side.index(' ')
+          full_closer_side = full_closer_side[full_closer_side_index..-1].to_f
 
-      url = "http://www.espn.com/nba/playbyplay?gameId=#{game_id}"
-        doc = download_document(url)
-      puts url
-      elements = doc.css("#linescore tbody tr")
-      if elements.size > 1
-        if elements[0].children.size > 5
-          away_first_quarter  = elements[0].children[1].text.to_i
-          away_second_quarter = elements[0].children[2].text.to_i
-          away_third_quarter  = elements[0].children[3].text.to_i
-          away_forth_quarter  = elements[0].children[4].text.to_i
-          away_ot_quarter   = 0
-
-          home_first_quarter  = elements[1].children[1].text.to_i
-          home_second_quarter = elements[1].children[2].text.to_i
-          home_third_quarter  = elements[1].children[3].text.to_i
-          home_forth_quarter  = elements[1].children[4].text.to_i
-          home_ot_quarter   = 0
-
-          if elements[0].children.size > 6
-            away_ot_quarter = elements[0].children[5].text.to_i
-              home_ot_quarter = elements[1].children[5].text.to_i
+          full_closer_total = data.children[11].text.squish
+          full_closer_total_index = full_closer_total.index(' ')
+          full_closer_total = full_closer_total[full_closer_total_index..-1].to_f
+          if away_type == 1
+            temp = home_team
+            home_team = away_team
+            away_team = temp
+            temp = away_score
+            away_score = home_score
+            home_score = temp
+            full_closer_side = -full_closer_side
           end
+
         end
-      else
-        away_first_quarter  = 0
-        away_second_quarter = 0
-        away_third_quarter  = 0
-        away_forth_quarter  = 0
-        away_ot_quarter   = 0
-
-        home_first_quarter  = 0
-        home_second_quarter = 0
-        home_third_quarter  = 0
-        home_forth_quarter  = 0
-        home_ot_quarter   = 0
+        break
       end
-      away_score = away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + away_ot_quarter
-      home_score = home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter + home_ot_quarter
-
-      game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter, home_second_quarter: home_second_quarter, away_third_quarter: away_third_quarter, home_third_quarter: home_third_quarter, away_forth_quarter: away_forth_quarter, home_forth_quarter: home_forth_quarter, away_ot_quarter: away_ot_quarter, home_ot_quarter: home_ot_quarter, away_score: away_score, home_score: home_score, total_score: home_score + away_score, first_point: home_first_quarter + home_second_quarter + away_first_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter + away_third_quarter + home_third_quarter, total_point: away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter)
     end
   end
 
@@ -3202,5 +3176,9 @@ namespace :nba do
     'Toronto' => 'Toronto',
     'Utah' => 'Utah',
     'Washington' => 'Washington'
+  }
+
+  @home_team = {
+
   }
 end
