@@ -2447,8 +2447,8 @@ namespace :nba do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    date = Date.new(2000, 1, 26)
-    while date <= Date.new(2000, 1, 26)
+    date = Date.new(2000, 2, 8)
+    while date <= Date.new(2000, 2, 8)
       game_date = date.strftime("%Y%m%d")
       
       url = "http://www.espn.com/nba/schedule/_/date/#{game_date}"
