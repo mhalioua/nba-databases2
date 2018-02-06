@@ -3045,13 +3045,15 @@ namespace :nba do
               home_score = temp
               full_closer_side = -full_closer_side
             end
-            puts home_team
-            puts away_team
-            puts away_score
-            puts home_score
-            puts data_date
-            puts full_closer_side
-            puts full_closer_total
+            unless game = NbaClone.find_by(home_team: home_team, away_team: away_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e") )
+              puts home_team
+              puts away_team
+              puts away_score
+              puts home_score
+              puts data_date
+              puts full_closer_side
+              puts full_closer_total
+            end
             break
           end
         end
