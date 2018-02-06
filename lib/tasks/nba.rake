@@ -3006,7 +3006,7 @@ namespace :nba do
       home_team = @home_team[home_team] if @home_team[home_team]
       team_url = 'https://www.covers.com' + team_url[0..team_index] + 'pastresults/1994-1995/' + team_url[team_index+1..-1]
       doc = download_document(team_url)
-      datas = doc.css("table")[1].children
+      datas = doc.css("table").last.children
       datas.each_with_index do |data, index|
         if index > 2 && index % 2 == 1
           data_date = Date.strptime(data.children[1].text.squish, '%m/%d/%Y')
