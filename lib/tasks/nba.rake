@@ -2701,6 +2701,33 @@ namespace :nba do
     end
   end
 
+  task :getGames => [:environment] do
+    include Api
+    url = "https://www.covers.com/pageLoader/pageLoader.aspx?page=/data/nba/teams/teams.html"
+    doc = download_document(url)
+    puts url
+    elements = doc.css("table a")
+    elements.each do |element|
+      team_url = element['href']
+      team_index = team_url.rindex("/")
+      team_url = 'https://www.covers.com' + team_url[0..team_index] + 'pastresults/1994-1995/' + team_url[team_index+1..-1]
+      puts team_url
+      doc = download_document(team_url)
+      datas = doc.css("table")[1].children
+      datas.each_with_index do |data, index|
+        if index > 2 && index % 2 == 1
+          puts data.children[1].text.squish
+          puts data.children[3].text.squish
+          puts data.children[5].text.squish
+          puts data.children[7].text.squish
+          puts data.children[9].text.squish
+          puts data.children[11].text.squish
+        end
+      end
+      break
+    end
+  end
+
 	@basket_abbr = [
 		'ATL',
 		'BOS',
