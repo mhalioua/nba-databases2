@@ -3040,7 +3040,7 @@ namespace :nba do
             full_closer_side = -full_closer_side
           end
           puts home_team
-          puta away_team
+          puts away_team
           puts away_score
           puts home_score
           puts data_date
