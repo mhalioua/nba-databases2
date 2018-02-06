@@ -2989,7 +2989,7 @@ namespace :nba do
         away_next_home = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
       end
 
-      game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot, away_last_home: away_last_home,away_next_home: away_next_home )
+      game.update(away_last_gaame: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot, away_last_home: away_last_home,away_next_home: away_next_home )
     end
   end
 
@@ -3055,71 +3055,12 @@ namespace :nba do
             end
             unless game = NbaClone.find_by(home_team: home_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e") )
               unless game = NbaClone.find_by(away_team: away_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e") )
-                puts home_team
-                puts away_team
-                puts away_score
-                puts home_score
-                puts data_date
-                puts full_closer_side
-                puts full_closer_total
+                game = NbaClone.create(home_team: home_team, away_team: away_team, year: data_date.strftime("%Y"), game_date: data_date, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e"), time: data_date.strftime("%I:%M%p"), week: data_date.strftime("%a"), away_score: away_score, home_score: home_score, full_closer_side: full_closer_side, full_closer_total: full_closer_total 
               end
             end
-            break
           end
         end
       end
-    end
-  end
-
-  task :getScoreClone => [:environment] do
-    include Api
-    puts "----------Get Score----------"
-
-    games = NbaClone.where("away_first_quarter is null")
-    puts games.size
-    games.each do |game|
-      game_id = game.game_id
-
-      url = "http://www.espn.com/nba/playbyplay?gameId=#{game_id}"
-        doc = download_document(url)
-      puts url
-      elements = doc.css("#linescore tbody tr")
-      if elements.size > 1
-        if elements[0].children.size > 5
-          away_first_quarter  = elements[0].children[1].text.to_i
-          away_second_quarter = elements[0].children[2].text.to_i
-          away_third_quarter  = elements[0].children[3].text.to_i
-          away_forth_quarter  = elements[0].children[4].text.to_i
-          away_ot_quarter   = 0
-
-          home_first_quarter  = elements[1].children[1].text.to_i
-          home_second_quarter = elements[1].children[2].text.to_i
-          home_third_quarter  = elements[1].children[3].text.to_i
-          home_forth_quarter  = elements[1].children[4].text.to_i
-          home_ot_quarter   = 0
-
-          if elements[0].children.size > 6
-            away_ot_quarter = elements[0].children[5].text.to_i
-              home_ot_quarter = elements[1].children[5].text.to_i
-          end
-        end
-      else
-        away_first_quarter  = 0
-        away_second_quarter = 0
-        away_third_quarter  = 0
-        away_forth_quarter  = 0
-        away_ot_quarter   = 0
-
-        home_first_quarter  = 0
-        home_second_quarter = 0
-        home_third_quarter  = 0
-        home_forth_quarter  = 0
-        home_ot_quarter   = 0
-      end
-      away_score = away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + away_ot_quarter
-      home_score = home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter + home_ot_quarter
-
-      game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter, home_second_quarter: home_second_quarter, away_third_quarter: away_third_quarter, home_third_quarter: home_third_quarter, away_forth_quarter: away_forth_quarter, home_forth_quarter: home_forth_quarter, away_ot_quarter: away_ot_quarter, home_ot_quarter: home_ot_quarter, away_score: away_score, home_score: home_score, total_score: home_score + away_score, first_point: home_first_quarter + home_second_quarter + away_first_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter + away_third_quarter + home_third_quarter, total_point: away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter)
     end
   end
 
