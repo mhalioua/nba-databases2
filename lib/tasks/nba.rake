@@ -3010,7 +3010,7 @@ namespace :nba do
       datas = doc.css("table").last.children
       datas.each_with_index do |data, index|
         if index > 2 && index % 2 == 1
-          data_date = Date.strptime(data.children[1].text.squish, '%m/%d/%Y')
+          data_date = Date.strptime(data.children[1].text.squish, '%m/%d/%y')
           away_type = 0
           away_team = data.children[3].text.squish
           away_type = 1 if away_team[0] == '@'
