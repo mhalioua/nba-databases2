@@ -420,10 +420,10 @@
         <td style="border-right: 5px solid #666;">1</td>
         <td><%= game.referee_one %></td>
         <td><%= game.referee_one_last %></td>
-        <td><%= @referee_last_part.last_first %></td>
+        <td><%= @referee_last_part ? @referee_last_part.last_first : '' %></td>
         <td>1h</td>
         <td><%= game.referee_one_next %></td>
-        <td><%= @referee_next_part.last_first %></td>
+        <td><%= @referee_next_part ? @referee_next_part.next_first : '' %></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -533,10 +533,10 @@
       
       <td><%= game.referee_two %></td>
       <td><%= game.referee_two_last %></td>
-      <td><%= @referee_last_part.last_second %></td>
+      <td><%= @referee_last_part ? @referee_last_part.last_second : '' %></td>
       <td>2h</td>
       <td><%= game.referee_two_next %></td>
-      <td><%= @referee_next_part.next_second %></td>
+      <td><%= @referee_next_part ? @referee_next_part.next_second : '' %></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -615,10 +615,10 @@
       
       <td><%= game.referee_three %></td>
       <td><%= game.referee_three_last %></td>
-      <td><%= @referee_last_part.last_count %></td>
+      <td><%= @referee_last_part ? @referee_last_part.last_count : '' %></td>
       <td>gms</td>
       <td><%= game.referee_three_next %></td>
-      <td><%= @referee_next_part.last_count %></td>
+      <td><%= @referee_next_part ? @referee_next_part.next_count : '' %></td>
     </tr>
     <% end %>
   	</tbody>
