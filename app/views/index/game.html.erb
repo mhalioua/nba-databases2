@@ -111,12 +111,12 @@
         <th colspan="4"></th>
         <th class="black"></th>
         <th colspan="5" style="border-right: 5px solid #666;"></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th class="gray"></th>
+        <th class="gray"></th>
+        <th class="gray"></th>
+        <th class="purple"></th>
+        <th class="gray"></th>
+        <th class="gray"></th>
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
@@ -193,12 +193,12 @@
         <th class="red" colspan="4">1ST HALF</th>
         <th class="black"></th>
         <th class="red" colspan="5" style="border-right: 5px solid #666;">2ND HALF</th>
-        <th>Referee</th>
-        <th>Last game</th>
-        <th>Last game total</th>
-        <th></th>
-        <th>Next</th>
-        <th>Next game total</th>
+        <th class="gray">Referee</th>
+        <th class="gray">Last game</th>
+        <th class="gray">Last game total</th>
+        <th class="purple"></th>
+        <th class="gray">Next</th>
+        <th class="gray">Next game total</th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -421,7 +421,7 @@
         <td><%= game.referee_one %></td>
         <td><%= game.referee_one_last %></td>
         <td><%= @referee_last_part ? @referee_last_part.last_first : '' %></td>
-        <td>1h</td>
+        <td class="purple">1h</td>
         <td><%= game.referee_one_next %></td>
         <td><%= @referee_next_part ? @referee_next_part.next_first : '' %></td>
     </tr>
@@ -534,7 +534,7 @@
       <td><%= game.referee_two %></td>
       <td><%= game.referee_two_last %></td>
       <td><%= @referee_last_part ? @referee_last_part.last_second : '' %></td>
-      <td>2h</td>
+      <td class="purple">2h</td>
       <td><%= game.referee_two_next %></td>
       <td><%= @referee_next_part ? @referee_next_part.next_second : '' %></td>
     </tr>
@@ -616,7 +616,7 @@
       <td><%= game.referee_three %></td>
       <td><%= game.referee_three_last %></td>
       <td><%= @referee_last_part ? @referee_last_part.last_count : '' %></td>
-      <td>gms</td>
+      <td class="purple">gms</td>
       <td><%= game.referee_three_next %></td>
       <td><%= @referee_next_part ? @referee_next_part.next_count : '' %></td>
     </tr>
