@@ -206,12 +206,12 @@
       @home_team_info = Team.find_by(abbr: game.home_abbr)
       @away_team_info = Team.find_by(abbr: game.away_abbr)
 
-      referee_one_last = @game.referee_one_last
-      referee_two_last = @game.referee_two_last
-      referee_three_last = @game.referee_three_last
-      referee_one_next = @game.referee_one_next
-      referee_two_next = @game.referee_two_next
-      referee_three_next = @game.referee_three_next
+      referee_one_last = game.referee_one_last
+      referee_two_last = game.referee_two_last
+      referee_three_last = game.referee_three_last
+      referee_one_next = game.referee_one_next
+      referee_two_next = game.referee_two_next
+      referee_three_next = game.referee_three_next
 
       referee_one_last = 200 if referee_one_last == nil
       referee_two_last = 200 if referee_two_last == nil
