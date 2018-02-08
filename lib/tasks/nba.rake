@@ -2612,7 +2612,7 @@ namespace :nba do
     include Api
     puts "----------Get Score----------"
 
-    games = Nba.where("away_first_quarter is null")
+    games = NbaClone.where("away_first_quarter is null")
     puts games.size
     games.each do |game|
       game_id = game.game_id
