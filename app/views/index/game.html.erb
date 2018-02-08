@@ -311,7 +311,7 @@
     %>
     <tr style="border-top: 5px solid black">
       <td class="green" rowspan="3"><%= game.away_number %> / <%= game.home_number %></td>
-      <td class="grey" rowspan="3"><%= game.time %></td>
+      <td class="grey" rowspan="3"><%= game.time %></td>@
       <td class="yellow" rowspan="3"><%= game.away_last_game %></td>
       <td rowspan="3"><%= game.away_team %></td>
       <td class="yellow" rowspan="3"><%= game.away_next_game %></td>
@@ -419,10 +419,10 @@
         <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
         <td style="border-right: 5px solid #666;">1</td>
         <td><%= game.referee_one %></td>
-        <td><%= game.referee_one_last %></td>
+        <td><%= referee_one_last %></td>
         <td><%= @referee_last_part ? @referee_last_part.last_first : '' %></td>
         <td>1h</td>
-        <td><%= game.referee_one_next %></td>
+        <td><%= referee_one_next %></td>
         <td><%= @referee_next_part ? @referee_next_part.next_first : '' %></td>
     </tr>
     <tr>
@@ -532,10 +532,10 @@
       <td style="background: #fa0; border-right: 5px solid #666;">ALL</td>
       
       <td><%= game.referee_two %></td>
-      <td><%= game.referee_two_last %></td>
+      <td><%= referee_two_last %></td>
       <td><%= @referee_last_part ? @referee_last_part.last_second : '' %></td>
       <td>2h</td>
-      <td><%= game.referee_two_next %></td>
+      <td><%= referee_two_next %></td>
       <td><%= @referee_next_part ? @referee_next_part.next_second : '' %></td>
     </tr>
     <tr>
@@ -614,10 +614,10 @@
       <td class="gray" style="border-right: 5px solid #666;"></td>
       
       <td><%= game.referee_three %></td>
-      <td><%= game.referee_three_last %></td>
+      <td><%= referee_three_last %></td>
       <td><%= @referee_last_part ? @referee_last_part.last_count : '' %></td>
       <td>gms</td>
-      <td><%= game.referee_three_next %></td>
+      <td><%= referee_three_next %></td>
       <td><%= @referee_next_part ? @referee_next_part.next_count : '' %></td>
     </tr>
     <% end %>
