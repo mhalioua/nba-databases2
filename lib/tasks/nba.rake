@@ -2666,7 +2666,7 @@ namespace :nba do
 
     Time.zone = 'Eastern Time (US & Canada)'
 
-    games = NbaClone.where("away_last_game is null")
+    games = NbaClone.where("game_date between ? and ?", (Date.new(1993, 12, 5) - 10.days).beginning_of_day, (Date.new(1993, 12, 5) + 10.days).beginning_of_day)
     puts games.size
     games.each do |game|
       home_team = game.home_team
