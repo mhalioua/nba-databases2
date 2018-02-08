@@ -114,6 +114,9 @@
         <th></th>
         <th></th>
         <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
@@ -191,14 +194,120 @@
         <th class="black"></th>
         <th class="red" colspan="5" style="border-right: 5px solid #666;">2ND HALF</th>
         <th>Referee</th>
-        <th>Last</th>
+        <th>Last game</th>
+        <th>Last game total</th>
+        <th></th>
         <th>Next</th>
+        <th>Next game total</th>
 	    </tr>
   	</thead>
   	<tbody>
     <% @games.each_with_index do |game, index| 
       @home_team_info = Team.find_by(abbr: game.home_abbr)
       @away_team_info = Team.find_by(abbr: game.away_abbr)
+
+      referee_one_last = @game.referee_one_last
+      referee_two_last = @game.referee_two_last
+      referee_three_last = @game.referee_three_last
+      referee_one_next = @game.referee_one_next
+      referee_two_next = @game.referee_two_next
+      referee_three_next = @game.referee_three_next
+
+      referee_one_last = 200 if referee_one_last == nil
+      referee_two_last = 200 if referee_two_last == nil
+      referee_three_last = 200 if referee_three_last == nil
+      referee_one_next = 200 if referee_one_next == nil
+      referee_two_next = 200 if referee_two_next == nil
+      referee_three_next = 200 if referee_three_next == nil
+
+      if referee_one_last > referee_two_last
+        temp = referee_one_last
+        referee_one_last = referee_two_last
+        referee_two_last = temp
+      end
+
+      if referee_one_last > referee_three_last
+        temp = referee_one_last
+        referee_one_last = referee_three_last
+        referee_three_last = temp
+      end
+
+      if referee_two_last > referee_three_last
+        temp = referee_two_last
+        referee_two_last = referee_three_last
+        referee_three_last = temp
+      end
+
+      if referee_one_last > 8
+        referee_one_last = "9+"
+      elsif referee_one_last > 5
+        referee_one_last = "6-8"
+      else
+        referee_one_last = referee_one_last.to_s
+      end
+
+      if referee_two_last > 8
+        referee_two_last = "9+"
+      elsif referee_two_last > 5
+        referee_two_last = "6-8"
+      else
+        referee_two_last = referee_two_last.to_s
+      end
+
+      if referee_three_last > 8
+        referee_three_last = "9+"
+      elsif referee_three_last > 5
+        referee_three_last = "6-8"
+      else
+        referee_three_last = referee_three_last.to_s
+      end
+
+      @referee_last_part = Refereestatic.where("referee_one = ? AND referee_two = ? AND referee_three = ?", referee_one_last, referee_two_last, referee_three_last).first
+
+      if referee_one_next > referee_two_next
+        temp = referee_one_next
+        referee_one_next = referee_two_next
+        referee_two_next = temp
+      end
+
+      if referee_one_next > referee_three_next
+        temp = referee_one_next
+        referee_one_next = referee_three_next
+        referee_three_next = temp
+      end
+
+      if referee_two_next > referee_three_next
+        temp = referee_two_next
+        referee_two_next = referee_three_next
+        referee_three_next= temp
+      end
+
+      if referee_one_next > 8
+        referee_one_next = "9+"
+      elsif referee_one_next > 5
+        referee_one_next = "6-8"
+      else
+        referee_one_next = referee_one_next.to_s
+      end
+
+      if referee_two_next > 8
+        referee_two_next = "9+"
+      elsif referee_two_next > 5
+        referee_two_next = "6-8"
+      else
+        referee_two_next = referee_two_next.to_s
+      end
+
+      if referee_three_next > 8
+        referee_three_next = "9+"
+      elsif referee_three_next > 5
+        referee_three_next = "6-8"
+      else
+        referee_three_next = referee_three_next.to_s
+      end
+
+      @referee_next_part = Refereestatic.where("referee_one = ? AND referee_two = ? AND referee_three = ?", referee_one_next, referee_two_next, referee_three_next).first
+
     %>
     <tr style="border-top: 5px solid black">
       <td class="green" rowspan="3"><%= game.away_number %> / <%= game.home_number %></td>
@@ -311,7 +420,10 @@
         <td style="border-right: 5px solid #666;">1</td>
         <td><%= game.referee_one %></td>
         <td><%= game.referee_one_last %></td>
+        <td><%= @referee_last_part.last_first %></td>
+        <td>1h</td>
         <td><%= game.referee_one_next %></td>
+        <td><%= @referee_next_part.last_first %></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -421,7 +533,10 @@
       
       <td><%= game.referee_two %></td>
       <td><%= game.referee_two_last %></td>
+      <td><%= @referee_last_part.last_second %></td>
+      <td>2h</td>
       <td><%= game.referee_two_next %></td>
+      <td><%= @referee_next_part.next_second %></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -500,7 +615,10 @@
       
       <td><%= game.referee_three %></td>
       <td><%= game.referee_three_last %></td>
+      <td><%= @referee_last_part.last_count %></td>
+      <td>gms</td>
       <td><%= game.referee_three_next %></td>
+      <td><%= @referee_next_part.last_count %></td>
     </tr>
     <% end %>
   	</tbody>
