@@ -2367,6 +2367,18 @@ namespace :nba do
         referee_two = element.children[5].children[1].children[0].text.split(' (#')[0].squish
         referee_three = element.children[7].children[1].children[0].text.split(' (#')[0].squish
 
+        if @player_nicknames[referee_one]
+          referee_one = @nba_nicknames[referee_one]
+        end
+
+        if @player_nicknames[referee_two]
+          referee_two = @nba_nicknames[referee_two]
+        end
+
+        if @player_nicknames[referee_three]
+          referee_three = @nba_nicknames[referee_three]
+        end
+
         game_date = update_game.game_date
 
         referee_one_last_days = ""
@@ -2593,6 +2605,58 @@ namespace :nba do
         game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
       end
       index_date = index_date + 1.days
+    end
+  end
+
+  task :getScoreClone => [:environment] do
+    include Api
+    puts "----------Get Score----------"
+
+    games = Nba.where("away_first_quarter is null")
+    puts games.size
+    games.each do |game|
+      game_id = game.game_id
+
+      url = "http://www.espn.com/nba/playbyplay?gameId=#{game_id}"
+        doc = download_document(url)
+      puts url
+      elements = doc.css("#linescore tbody tr")
+      if elements.size > 1
+        if elements[0].children.size > 5
+          away_first_quarter  = elements[0].children[1].text.to_i
+          away_second_quarter = elements[0].children[2].text.to_i
+          away_third_quarter  = elements[0].children[3].text.to_i
+          away_forth_quarter  = elements[0].children[4].text.to_i
+          away_ot_quarter   = 0
+
+          home_first_quarter  = elements[1].children[1].text.to_i
+          home_second_quarter = elements[1].children[2].text.to_i
+          home_third_quarter  = elements[1].children[3].text.to_i
+          home_forth_quarter  = elements[1].children[4].text.to_i
+          home_ot_quarter   = 0
+
+          if elements[0].children.size > 6
+            away_ot_quarter = elements[0].children[5].text.to_i
+              home_ot_quarter = elements[1].children[5].text.to_i
+          end
+        end
+      else
+        away_first_quarter  = 0
+        away_second_quarter = 0
+        away_third_quarter  = 0
+        away_forth_quarter  = 0
+        away_ot_quarter   = 0
+
+        home_first_quarter  = 0
+        home_second_quarter = 0
+        home_third_quarter  = 0
+        home_forth_quarter  = 0
+        home_ot_quarter   = 0
+      end
+      away_score = away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + away_ot_quarter
+      home_score = home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter + home_ot_quarter
+
+      game.update(away_first_quarter: away_first_quarter, home_first_quarter: home_first_quarter, away_second_quarter: away_second_quarter, home_second_quarter: home_second_quarter, away_third_quarter: away_third_quarter, home_third_quarter: home_third_quarter, away_forth_quarter: away_forth_quarter, home_forth_quarter: home_forth_quarter, away_ot_quarter: away_ot_quarter, home_ot_quarter: home_ot_quarter, away_score: away_score, home_score: home_score, total_score: home_score + away_score, first_point: home_first_quarter + home_second_quarter + away_first_quarter + away_second_quarter, second_point: home_forth_quarter + away_forth_quarter + away_third_quarter + home_third_quarter, total_point: away_first_quarter + away_second_quarter + away_third_quarter + away_forth_quarter + home_first_quarter + home_second_quarter + home_third_quarter + home_forth_quarter)
     end
   end
 
@@ -2925,5 +2989,9 @@ namespace :nba do
     'team404049.html' => 'Memphis',
     'team404101.html' => 'New Orleans',
     'team404302.html' => 'San Antonio'
+  }
+
+  @player_nicknames = {
+    'JT Orr' => 'J.T. Orr'
   }
 end
