@@ -2368,15 +2368,15 @@ namespace :nba do
         referee_three = element.children[7].children[1].children[0].text.split(' (#')[0].squish
 
         if @player_nicknames[referee_one]
-          referee_one = @nba_nicknames[referee_one]
+          referee_one = @player_nicknames[referee_one]
         end
 
         if @player_nicknames[referee_two]
-          referee_two = @nba_nicknames[referee_two]
+          referee_two = @player_nicknames[referee_two]
         end
 
         if @player_nicknames[referee_three]
-          referee_three = @nba_nicknames[referee_three]
+          referee_three = @player_nicknames[referee_three]
         end
 
         game_date = update_game.game_date
