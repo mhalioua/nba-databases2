@@ -42,8 +42,8 @@ class IndexController < ApplicationController
 			@now = Time.now
 		end
 
-		@away_last = Nba.where("home_abbr = ? AND game_date < ?", @away_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ?", @away_abbr, @now)).order(:game_date).last
-		@home_last = Nba.where("home_abbr = ? AND game_date < ?", @home_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ?", @home_abbr, @now)).order(:game_date).last
+		@away_last = Nba.where("home_abbr = ? AND game_date < ? AND total_point != 0", @away_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ? AND total_point != 0", @away_abbr, @now)).order(:game_date).last
+		@home_last = Nba.where("home_abbr = ? AND game_date < ? AND total_point != 0", @home_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ? AND total_point != 0", @home_abbr, @now)).order(:game_date).last
 		
 		if @away_abbr == @away_last.away_abbr
 			@away_flag = 0

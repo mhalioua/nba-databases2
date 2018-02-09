@@ -2752,6 +2752,13 @@ namespace :nba do
       game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot, away_last_home: away_last_home,away_next_home: away_next_home )
     end
   end
+  task :testrun => [:environment] do
+    a = DateTime.parse('2000-04-19 20:00:00 -0400').in_time_zone.to_date
+    b = DateTime.parse('2000-04-18 20:00:00 -0400').in_time_zone.to_date
+    puts a
+    puts b
+    puts (a - b ).to_i - 1
+  end
 
   task :getGames => [:environment] do
     include Api
@@ -2824,6 +2831,25 @@ namespace :nba do
           end
         end
       end
+    end
+  end
+
+  task :getRestScores => [:environment] do
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+    index_date = Date.new(1990,11,2)
+    while index_date <= Date.new(1990,11,2)
+      game_date = index_date.strftime("%Y%m%d")
+      url="https://www.basketball-reference.com/boxscores/index.fcgi?month=#{index_date.strftime('%m')}&day=#{index_date.strftime('%d')}&year=#{index_date.strftime('%Y')}"
+      doc = download_document(url)
+      puts url
+      elements = doc.css(".game_summary")
+      puts elements.children[0].children[0].children[0].children[0].text
+      puts elements.children[0].children[0].children[0].children[1].text
+      puts elements.children[0].children[0].children[1].children[0].text
+      puts elements.children[0].children[0].children[1].children[1].text
+      puts elements.children[0].children[1].children[1].children[0].text
+      index_date = index_date + 1.days
     end
   end
 
