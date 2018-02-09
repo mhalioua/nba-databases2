@@ -2838,20 +2838,56 @@ namespace :nba do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
     index_date = Date.new(1990,11,2)
-    while index_date <= Date.new(1990,11,2)
-      game_date = index_date.strftime("%Y%m%d")
+    while index_date <= Date.new(1991,4,21)
+      game_date = index_date.strftime("%Y-%m-%d")
       url="https://www.basketball-reference.com/boxscores/index.fcgi?month=#{index_date.strftime('%m')}&day=#{index_date.strftime('%d')}&year=#{index_date.strftime('%Y')}"
       doc = download_document(url)
       puts url
       elements = doc.css(".game_summary")
-      puts elements.children[0].children[0].children[0].children[0].text
-      puts elements.children[0].children[0].children[0].children[1].text
-      puts elements.children[0].children[0].children[1].children[0].text
-      puts elements.children[0].children[0].children[1].children[1].text
-      puts elements.children[0].children[1].children[1].children[0].text
+      elements.each do |element|
+        away_team = element.children[1].children[1].children[1].children[1].text
+        away_score = element.children[1].children[1].children[1].children[3].text.to_i
+        home_team = element.children[1].children[1].children[3].children[1].text
+        home_score = element.children[1].children[1].children[3].children[3].text.to_i
+
+        away_quarter_one = element.children[3].children[3].children[1].children[3].text.to_i
+        away_quarter_two = element.children[3].children[3].children[1].children[4].text.to_i
+        away_quarter_three = element.children[3].children[3].children[1].children[5].text.to_i
+        away_quarter_four = element.children[3].children[3].children[1].children[6].text.to_i
+        if element.children[3].children[3].children[1].children[8]
+          away_ot = element.children[3].children[3].children[1].children[7].text.to_i
+        end
+        
+        home_quarter_one = element.children[3].children[3].children[3].children[3].text.to_i
+        home_quarter_two = element.children[3].children[3].children[3].children[4].text.to_i
+        home_quarter_three = element.children[3].children[3].children[3].children[5].text.to_i
+        home_quarter_four = element.children[3].children[3].children[3].children[6].text.to_i
+        if element.children[3].children[3].children[3].children[8]
+          home_ot = element.children[3].children[3].children[3].children[7].text.to_i
+        end
+        if @basket_names[away_team]
+          away_team = @basket_names[away_team]
+        end
+        if @basket_names[home_team]
+          home_team = @basket_names[home_team]
+        end
+        if game = NbaClone.find_by(home_team: home_team, away_team: away_team, game_date: game_date)
+          game.update(away_first_quarter: away_quarter_one, away_second_quarter: away_quarter_two, away_third_quarter: away_quarter_three, away_forth_quarter: away_quarter_four, away_score: away_score, home_first_quarter: home_quarter_one, home_second_quarter: home_quarter_two, home_third_quarter: home_quarter_three, home_forth_quarter: home_quarter_four, home_score: home_score)
+        else
+          break
+        end
+      end
       index_date = index_date + 1.days
     end
   end
+
+  @basket_names = {
+    'Charlotte' => 'New Orleans',
+    'New Jersey' => 'Brooklyn',
+    'LA Clippers' => 'LAC',
+    'LA Lakers' => 'LAL',
+    'Seattle' => 'Oklahoma City'
+  }
 
 	@basket_abbr = [
 		'ATL',
