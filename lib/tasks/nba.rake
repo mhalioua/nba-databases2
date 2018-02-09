@@ -2837,8 +2837,8 @@ namespace :nba do
   task :getRestScores => [:environment] do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    index_date = Date.new(1992,11,6)
-    while index_date <= Date.new(1993,4,25)
+    index_date = Date.new(2000, 4, 18)
+    while index_date <= Date.new(2000, 4, 19)
       game_date = index_date.strftime("%Y-%m-%d")
       url="https://www.basketball-reference.com/boxscores/index.fcgi?month=#{index_date.strftime('%m')}&day=#{index_date.strftime('%d')}&year=#{index_date.strftime('%Y')}"
       doc = download_document(url)
@@ -2886,7 +2886,8 @@ namespace :nba do
     'New Jersey' => 'Brooklyn',
     'LA Clippers' => 'LAC',
     'LA Lakers' => 'LAL',
-    'Seattle' => 'Oklahoma City'
+    'Seattle' => 'Oklahoma City',
+    'Vancouver' => 'Memphis'
   }
 
 	@basket_abbr = [
