@@ -2837,8 +2837,8 @@ namespace :nba do
   task :getRestScores => [:environment] do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    index_date = Date.new(1990,11,2)
-    while index_date <= Date.new(1991,4,21)
+    index_date = Date.new(1991,11,1)
+    while index_date <= Date.new(1992,4,19)
       game_date = index_date.strftime("%Y-%m-%d")
       url="https://www.basketball-reference.com/boxscores/index.fcgi?month=#{index_date.strftime('%m')}&day=#{index_date.strftime('%d')}&year=#{index_date.strftime('%Y')}"
       doc = download_document(url)
