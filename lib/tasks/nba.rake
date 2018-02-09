@@ -2837,7 +2837,7 @@ namespace :nba do
   task :getRestScores => [:environment] do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    index_date = Date.new(1991,11,1)
+    index_date = Date.new(1992,11,6)
     while index_date <= Date.new(1992,4,19)
       game_date = index_date.strftime("%Y-%m-%d")
       url="https://www.basketball-reference.com/boxscores/index.fcgi?month=#{index_date.strftime('%m')}&day=#{index_date.strftime('%d')}&year=#{index_date.strftime('%Y')}"
@@ -2875,8 +2875,6 @@ namespace :nba do
         end
         if game = NbaClone.find_by(home_team: home_team, away_team: away_team, game_date: game_date)
           game.update(away_first_quarter: away_quarter_one, away_second_quarter: away_quarter_two, away_third_quarter: away_quarter_three, away_forth_quarter: away_quarter_four, away_score: away_score, home_first_quarter: home_quarter_one, home_second_quarter: home_quarter_two, home_third_quarter: home_quarter_three, home_forth_quarter: home_quarter_four, home_score: home_score, away_ot_quarter: away_ot, home_ot_quarter: home_ot)
-        else
-          break
         end
       end
       index_date = index_date + 1.days
