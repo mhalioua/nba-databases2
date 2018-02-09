@@ -2873,7 +2873,7 @@ namespace :nba do
         if @basket_names[home_team]
           home_team = @basket_names[home_team]
         end
-        if game = NbaClone.find_by(home_team: home_team, away_team: away_team, game_date: game_date)
+        if game = NbaClone.find_by(home_team: home_team, away_team: away_team, game_date: game_date + ' 20:00:00 -0400')
           game.update(away_first_quarter: away_quarter_one, away_second_quarter: away_quarter_two, away_third_quarter: away_quarter_three, away_forth_quarter: away_quarter_four, away_score: away_score, home_first_quarter: home_quarter_one, home_second_quarter: home_quarter_two, home_third_quarter: home_quarter_three, home_forth_quarter: home_quarter_four, home_score: home_score, away_ot_quarter: away_ot, home_ot_quarter: home_ot)
         end
       end
