@@ -1876,7 +1876,7 @@ namespace :nba do
           if three_element > 6
             search_array_last.push("referee_three_last > 8")
             search_array_next.push("referee_three_next > 8")
-          elsif two_element > 5
+          elsif three_element > 5
             search_array_last.push("referee_three_last < 9 AND referee_three_last > 5")
             search_array_next.push("referee_three_next < 9 AND referee_three_next > 5")
           else
@@ -1895,7 +1895,6 @@ namespace :nba do
             referee_filter_result_next.sum(:tp_1h).to_f.round(2),
             referee_filter_result_next.sum(:tp_2h).to_f.round(2)
           ])
-          puts @referee_filter_first[three_element].inspect
         end
         @referee_filter_second.push(@referee_filter_first)
       end
@@ -1998,19 +1997,17 @@ namespace :nba do
             referee_three_last = three_element.to_s
           end
           
-          if false
-            Refereestatic.create(
-              referee_one: referee_one_last,
-              referee_two: referee_two_last,
-              referee_three: referee_three_last,
-              last_count: total_last_count,
-              last_first: total_last_first.round(2),
-              last_second: total_last_second.round(2),
-              next_count: total_next_count,
-              next_first: total_next_first.round(2),
-              next_second: total_next_second.round(2)
-            )
-          end
+          Refereestatic.create(
+            referee_one: referee_one_last,
+            referee_two: referee_two_last,
+            referee_three: referee_three_last,
+            last_count: total_last_count,
+            last_first: total_last_first.round(2),
+            last_second: total_last_second.round(2),
+            next_count: total_next_count,
+            next_first: total_next_first.round(2),
+            next_second: total_next_second.round(2)
+          )
         end
       end
     end
@@ -2756,11 +2753,13 @@ namespace :nba do
     end
   end
   task :testrun => [:environment] do
-    a = DateTime.parse('2000-04-19 20:00:00 -0400').in_time_zone.to_date
-    b = DateTime.parse('2000-04-18 20:00:00 -0400').in_time_zone.to_date
-    puts a
-    puts b
-    puts (a - b ).to_i - 1
+    (0..7).each do |one_element|
+      if one_element > 5
+        puts 1
+      else
+        puts 0
+      end
+    end
   end
 
   task :getGames => [:environment] do
