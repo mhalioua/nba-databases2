@@ -1895,8 +1895,8 @@ namespace :nba do
             referee_filter_result_next.sum(:tp_1h).to_f.round(2),
             referee_filter_result_next.sum(:tp_2h).to_f.round(2)
           ])
+          puts @referee_filter_first[three_element].inspect
         end
-        puts @referee_filter_first.inspect
         @referee_filter_second.push(@referee_filter_first)
       end
       @referee_filter_third.push(@referee_filter_second)
