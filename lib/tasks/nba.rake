@@ -2854,6 +2854,7 @@ namespace :nba do
         away_quarter_two = element.children[3].children[3].children[1].children[4].text.to_i
         away_quarter_three = element.children[3].children[3].children[1].children[5].text.to_i
         away_quarter_four = element.children[3].children[3].children[1].children[6].text.to_i
+        away_ot = 0
         if element.children[3].children[3].children[1].children[8]
           away_ot = element.children[3].children[3].children[1].children[7].text.to_i
         end
@@ -2862,6 +2863,7 @@ namespace :nba do
         home_quarter_two = element.children[3].children[3].children[3].children[4].text.to_i
         home_quarter_three = element.children[3].children[3].children[3].children[5].text.to_i
         home_quarter_four = element.children[3].children[3].children[3].children[6].text.to_i
+        home_ot = 0
         if element.children[3].children[3].children[3].children[8]
           home_ot = element.children[3].children[3].children[3].children[7].text.to_i
         end
@@ -2872,7 +2874,7 @@ namespace :nba do
           home_team = @basket_names[home_team]
         end
         if game = NbaClone.find_by(home_team: home_team, away_team: away_team, game_date: game_date)
-          game.update(away_first_quarter: away_quarter_one, away_second_quarter: away_quarter_two, away_third_quarter: away_quarter_three, away_forth_quarter: away_quarter_four, away_score: away_score, home_first_quarter: home_quarter_one, home_second_quarter: home_quarter_two, home_third_quarter: home_quarter_three, home_forth_quarter: home_quarter_four, home_score: home_score)
+          game.update(away_first_quarter: away_quarter_one, away_second_quarter: away_quarter_two, away_third_quarter: away_quarter_three, away_forth_quarter: away_quarter_four, away_score: away_score, home_first_quarter: home_quarter_one, home_second_quarter: home_quarter_two, home_third_quarter: home_quarter_three, home_forth_quarter: home_quarter_four, home_score: home_score, away_ot_quarter: away_ot, home_ot_quarter: home_ot)
         else
           break
         end
