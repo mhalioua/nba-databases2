@@ -1896,6 +1896,7 @@ namespace :nba do
             referee_filter_result_next.sum(:tp_2h).to_f.round(2)
           ])
         end
+        puts @referee_filter_first.inspect
         @referee_filter_second.push(@referee_filter_first)
       end
       @referee_filter_third.push(@referee_filter_second)
@@ -1997,17 +1998,19 @@ namespace :nba do
             referee_three_last = three_element.to_s
           end
           
-          Refereestatic.create(
-            referee_one: referee_one_last,
-            referee_two: referee_two_last,
-            referee_three: referee_three_last,
-            last_count: total_last_count,
-            last_first: total_last_first.round(2),
-            last_second: total_last_second.round(2),
-            next_count: total_next_count,
-            next_first: total_next_first.round(2),
-            next_second: total_next_second.round(2)
-          )
+          if false
+            Refereestatic.create(
+              referee_one: referee_one_last,
+              referee_two: referee_two_last,
+              referee_three: referee_three_last,
+              last_count: total_last_count,
+              last_first: total_last_first.round(2),
+              last_second: total_last_second.round(2),
+              next_count: total_next_count,
+              next_first: total_next_first.round(2),
+              next_second: total_next_second.round(2)
+            )
+          end
         end
       end
     end
