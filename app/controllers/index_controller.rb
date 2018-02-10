@@ -1127,14 +1127,14 @@ class IndexController < ApplicationController
 				allsecond: filter_second_element_secondtravel.average(:secondvalue).to_f.round(2),
 				allfull: filter_second_element_secondtravel.average(:totalvalue).to_f.round(2),
 				allcount: filter_second_element_secondtravel.count(:totalvalue).to_i,
-				home_ortg: '',
-				away_ortg: '',
-				bi: '',
+				home_ortg: 0,
+				away_ortg: 0,
+				bi: 0,
 				bj: filter_second_element_secondtravel.average(:fgside).to_f.round(2),
-				bg: '',
-				bh: '',
-				away_fg_percent: '',
-				home_fg_percent: ''
+				bg: 0,
+				bh: 0,
+				away_fg_percent: 0,
+				home_fg_percent: 0
 			}
 			if index < 2 || index > 13
 				result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
