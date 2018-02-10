@@ -3574,9 +3574,6 @@ end
                     <td><%= @filterResult_secondtravel[index][:allsecond] %></td>
                     <td><%= @filterResult_secondtravel[index][:allfull] %></td>
                     <td><%= @filterResult_secondtravel[index][:allcount] %></td>
-                    <td><%= @filterResult_secondtravel[index][:away_ortg] %></td>
-                    <td><%= @filterResult_secondtravel[index][:home_ortg] %></td>
-                    <td><%= (@filterResult_secondtravel[index][:away_ortg] - @filterResult_secondtravel[index][:home_ortg]).round(2) %></td>
                 </tr>
                 <% if @break.include?(index) %>
                 <tr class="gradient">
