@@ -125,13 +125,12 @@ th, .green {
 }
 
 .totalAverage {
-    width: 100%;
     border: 2px solid black;
 
     td, th {
         padding: 0;
         text-align: center;
-        min-width: 20px;
+        min-width: 10px;
     }
 
     .gameDate, .lineValue{
