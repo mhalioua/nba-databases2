@@ -1,0 +1,2 @@
+class Secondtravel < ApplicationRecord
+end
