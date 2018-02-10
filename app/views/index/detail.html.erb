@@ -2437,7 +2437,7 @@ end
 
 
 <div class="tableContainer">
-    <table border="1" class="tableSide">
+    <table border="1" class="tableSide totalAverage">
         <tbody>
             <tr>
                 <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y")%></td>
@@ -3016,7 +3016,7 @@ end
         </tbody>
     </table>
 
-    <table border="1" class="tableSide">
+    <table border="1" class="tableSide totalAverage">
         <tbody>
             <tr>
                 <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y")%></td>
