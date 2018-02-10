@@ -1034,6 +1034,7 @@ class IndexController < ApplicationController
 		]
 		@break = [9, 15, 16]
 		@filterResult = []
+		@filterResult_secondtravel = []
 		@filters.each_with_index do |filter, index|
 			search_string = []
 			search_second_string = []
@@ -1097,6 +1098,8 @@ class IndexController < ApplicationController
 			search_second_string = search_second_string.join(" AND ")
 			filter_element = Fullseason.where(search_string)
 			filter_second_element = Fullseason.where(search_second_string)
+			filter_element_secondtravel = Secondtravel.where(search_string)
+			filter_second_element_secondtravel = Secondtravel.where(search_second_string)
 			result_element = {
 				first: filter_element.average(:firstvalue).to_f.round(2),
 				second: filter_element.average(:secondvalue).to_f.round(2),
@@ -1115,6 +1118,24 @@ class IndexController < ApplicationController
 				away_fg_percent: filter_second_element.average(:away_fg_percent).to_f.round(2),
 				home_fg_percent: filter_second_element.average(:home_fg_percent).to_f.round(2)
 			}
+			result_element_secondtravel = {
+				first: filter_element_secondtravel.average(:firstvalue).to_f.round(2),
+				second: filter_element_secondtravel.average(:secondvalue).to_f.round(2),
+				full: filter_element_secondtravel.average(:totalvalue).to_f.round(2),
+				count: filter_element_secondtravel.count(:totalvalue).to_i,
+				allfirst: filter_second_element_secondtravel.average(:firstvalue).to_f.round(2),
+				allsecond: filter_second_element_secondtravel.average(:secondvalue).to_f.round(2),
+				allfull: filter_second_element_secondtravel.average(:totalvalue).to_f.round(2),
+				allcount: filter_second_element_secondtravel.count(:totalvalue).to_i,
+				home_ortg: '',
+				away_ortg: '',
+				bi: '',
+				bj: filter_second_element_secondtravel.average(:fgside).to_f.round(2),
+				bg: '',
+				bh: '',
+				away_fg_percent: '',
+				home_fg_percent: ''
+			}
 			if index < 2 || index > 13
 				result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
 				result_element[:full_second] = (filter_second_element.average(:homethird).to_f + filter_second_element.average(:homeforth).to_f + filter_second_element.average(:homefirsthalf).to_f).round(2)
@@ -1122,8 +1143,15 @@ class IndexController < ApplicationController
 				result_element[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
 				result_element[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f.round(2) + filter_second_element.average(:roadforth).to_f.round(2)).round(2)
 				result_element[:secondhalf_second] = (filter_second_element.average(:homethird).to_f.round(2) + filter_second_element.average(:homeforth).to_f.round(2)).round(2)
+				result_element_secondtravel[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
+				result_element_secondtravel[:full_second] = (filter_second_element.average(:homethird).to_f + filter_second_element.average(:homeforth).to_f + filter_second_element.average(:homefirsthalf).to_f).round(2)
+				result_element_secondtravel[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
+				result_element_secondtravel[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
+				result_element_secondtravel[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f.round(2) + filter_second_element.average(:roadforth).to_f.round(2)).round(2)
+				result_element_secondtravel[:secondhalf_second] = (filter_second_element.average(:homethird).to_f.round(2) + filter_second_element.average(:homeforth).to_f.round(2)).round(2)
 			end
 			@filterResult.push(result_element)
+			@filterResult_secondtravel.push(result_element_secondtravel)
 		end
 		@home_team_info = Team.find_by(abbr: @home_abbr)
     	@away_team_info = Team.find_by(abbr: @away_abbr)
@@ -1185,6 +1213,28 @@ class IndexController < ApplicationController
 			full: thirdItem.average(:totalpoint).to_f.round(2),
 			count: thirdItem.count(:totalpoint).to_i
 		}
+		
+		secondItem_secondtravel = Secondtravel.where(hometeam: @game.home_team)
+		thirdItem_secondtravel = Secondtravel.where(week: @game.week)
+		@firstItem_result_secondtravel = {
+			first: '',
+			second: '',
+			full: '',
+			count: ''
+		}
+		@secondItem_result_secondtravel = {
+			first: secondItem_secondtravel.average(:firstpoint).to_f.round(2),
+			second: secondItem_secondtravel.average(:secondpoint).to_f.round(2),
+			full: secondItem_secondtravel.average(:totalpoint).to_f.round(2),
+			count: secondItem_secondtravel.count(:totalpoint).to_i
+		}
+		@thirdItem_result_secondtravel = {
+			first: thirdItem_secondtravel.average(:firstpoint).to_f.round(2),
+			second: thirdItem_secondtravel.average(:secondpoint).to_f.round(2),
+			full: thirdItem_secondtravel.average(:totalpoint).to_f.round(2),
+			count: thirdItem_secondtravel.count(:totalpoint).to_i
+		}
+
 		@countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", @game.away_last_fly, @game.away_next_fly, @game.away_last_game, @game.away_next_game, @game.home_next_game, @game.home_last_game, @game.home_next_fly, @game.home_last_fly)
 		@compares = @game.compares.all
 

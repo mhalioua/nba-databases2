@@ -3414,10 +3414,10 @@ end
                 <td></td>
                 <td></td>
                 <td class="gradient"></td>
-                <td><%= @firstItem_result[:first] %></td>
-                <td><%= @firstItem_result[:second] %></td>
-                <td><%= @firstItem_result[:full] %></td>
-                <td><%= @firstItem_result[:count] %></td>
+                <td><%= @firstItem_result_secondtravel[:first] %></td>
+                <td><%= @firstItem_result_secondtravel[:second] %></td>
+                <td><%= @firstItem_result_secondtravel[:full] %></td>
+                <td><%= @firstItem_result_secondtravel[:count] %></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -3440,10 +3440,10 @@ end
                 <td></td>
                 <td></td>
                 <td class="gradient"></td>
-                <td><%= @secondItem_result[:first] %></td>
-                <td><%= @secondItem_result[:second] %></td>
-                <td><%= @secondItem_result[:full] %></td>
-                <td><%= @secondItem_result[:count] %></td>
+                <td><%= @secondItem_result_secondtravel[:first] %></td>
+                <td><%= @secondItem_result_secondtravel[:second] %></td>
+                <td><%= @secondItem_result_secondtravel[:full] %></td>
+                <td><%= @secondItem_result_secondtravel[:count] %></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -3466,10 +3466,10 @@ end
                 <td></td>
                 <td></td>
                 <td class="gradient"></td>
-                <td><%= @thirdItem_result[:first] %></td>
-                <td><%= @thirdItem_result[:second] %></td>
-                <td><%= @thirdItem_result[:full] %></td>
-                <td><%= @thirdItem_result[:count] %></td>
+                <td><%= @thirdItem_result_secondtravel[:first] %></td>
+                <td><%= @thirdItem_result_secondtravel[:second] %></td>
+                <td><%= @thirdItem_result_secondtravel[:full] %></td>
+                <td><%= @thirdItem_result_secondtravel[:count] %></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -3567,17 +3567,17 @@ end
                         <td></td>
                     <% end %>
                     <td></td>
-                    <td><%= @filterResult[index][:first] %></td>
-                    <td><%= @filterResult[index][:second] %></td>
-                    <td><%= @filterResult[index][:full] %></td>
-                    <td><%= @filterResult[index][:count] %></td>
-                    <td><%= @filterResult[index][:allfirst] %></td>
-                    <td><%= @filterResult[index][:allsecond] %></td>
-                    <td><%= @filterResult[index][:allfull] %></td>
-                    <td><%= @filterResult[index][:allcount] %></td>
-                    <td><%= @filterResult[index][:away_ortg] %></td>
-                    <td><%= @filterResult[index][:home_ortg] %></td>
-                    <td><%= (@filterResult[index][:away_ortg] - @filterResult[index][:home_ortg]).round(2) %></td>
+                    <td><%= @filterResult_secondtravel[index][:first] %></td>
+                    <td><%= @filterResult_secondtravel[index][:second] %></td>
+                    <td><%= @filterResult_secondtravel[index][:full] %></td>
+                    <td><%= @filterResult_secondtravel[index][:count] %></td>
+                    <td><%= @filterResult_secondtravel[index][:allfirst] %></td>
+                    <td><%= @filterResult_secondtravel[index][:allsecond] %></td>
+                    <td><%= @filterResult_secondtravel[index][:allfull] %></td>
+                    <td><%= @filterResult_secondtravel[index][:allcount] %></td>
+                    <td><%= @filterResult_secondtravel[index][:away_ortg] %></td>
+                    <td><%= @filterResult_secondtravel[index][:home_ortg] %></td>
+                    <td><%= (@filterResult_secondtravel[index][:away_ortg] - @filterResult_secondtravel[index][:home_ortg]).round(2) %></td>
                 </tr>
                 <% if @break.include?(index) %>
                 <tr class="gradient">
@@ -3642,7 +3642,7 @@ end
               <td class="skyblue">FG% home</td>
             </tr>
             <tr>
-              <td class="borderTop borderRight borderLeft"><%= @filterResult[0][:allcount] %></td>
+              <td class="borderTop borderRight borderLeft"><%= @filterResult_secondtravel[0][:allcount] %></td>
               <td class="gradient"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
@@ -3655,24 +3655,24 @@ end
               <td class="yellow border"></td>
               <td class="yellow border"></td>
               <td class="gradient"></td>
-              <td class="borderTop borderLeft"><%= @filterResult[0][:full_first] %></td>
-              <td class="borderTop"><%= @filterResult[0][:full_second] %></td>
-              <td class="borderTop"><%= (@filterResult[0][:full_first] - @filterResult[0][:full_second]).round(2) %></td>
-              <td class="borderTop"><%= @filterResult[0][:bi] %></td>
-              <td class="borderTop borderRight"><%= @filterResult[0][:bj] %></td>
-              <td class="borderTop borderLeft"><%= @filterResult[0][:firsthalf_first] %></td>
-              <td class="borderTop"><%= @filterResult[0][:firsthalf_second] %></td>
-              <td class="borderTop"><%= (@filterResult[0][:firsthalf_first] - @filterResult[0][:firsthalf_second]).round(2) %></td>
-              <td class="borderTop borderRight"><%= @filterResult[0][:bg] %></td>
-              <td class="borderTop borderLeft"><%= @filterResult[0][:secondhalf_first] %></td>
-              <td class="borderTop"><%= @filterResult[0][:secondhalf_second] %></td>
-              <td class="borderTop"><%= (@filterResult[0][:secondhalf_first] - @filterResult[0][:secondhalf_second]).round(2) %></td>
-              <td class="borderTop borderRight"><%= @filterResult[0][:bh] %></td>
-              <td class="borderTop borderLeft"><%= @filterResult[0][:away_fg_percent] %></td>
-              <td class="borderTop borderRight"><%= @filterResult[0][:home_fg_percent] %></td>
+              <td class="borderTop borderLeft"><%= @filterResult_secondtravel[0][:full_first] %></td>
+              <td class="borderTop"><%= @filterResult_secondtravel[0][:full_second] %></td>
+              <td class="borderTop"><%= (@filterResult_secondtravel[0][:full_first] - @filterResult_secondtravel[0][:full_second]).round(2) %></td>
+              <td class="borderTop"><%= @filterResult_secondtravel[0][:bi] %></td>
+              <td class="borderTop borderRight"><%= @filterResult_secondtravel[0][:bj] %></td>
+              <td class="borderTop borderLeft"><%= @filterResult_secondtravel[0][:firsthalf_first] %></td>
+              <td class="borderTop"><%= @filterResult_secondtravel[0][:firsthalf_second] %></td>
+              <td class="borderTop"><%= (@filterResult_secondtravel[0][:firsthalf_first] - @filterResult_secondtravel[0][:firsthalf_second]).round(2) %></td>
+              <td class="borderTop borderRight"><%= @filterResult_secondtravel[0][:bg] %></td>
+              <td class="borderTop borderLeft"><%= @filterResult_secondtravel[0][:secondhalf_first] %></td>
+              <td class="borderTop"><%= @filterResult_secondtravel[0][:secondhalf_second] %></td>
+              <td class="borderTop"><%= (@filterResult_secondtravel[0][:secondhalf_first] - @filterResult_secondtravel[0][:secondhalf_second]).round(2) %></td>
+              <td class="borderTop borderRight"><%= @filterResult_secondtravel[0][:bh] %></td>
+              <td class="borderTop borderLeft"><%= @filterResult_secondtravel[0][:away_fg_percent] %></td>
+              <td class="borderTop borderRight"><%= @filterResult_secondtravel[0][:home_fg_percent] %></td>
             </tr>
             <tr>
-              <td class="borderRight borderLeft"><%= @filterResult[1][:allcount] %></td>
+              <td class="borderRight borderLeft"><%= @filterResult_secondtravel[1][:allcount] %></td>
               <td class="gradient"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
@@ -3685,24 +3685,24 @@ end
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="gradient"></td>
-              <td class="borderLeft"><%= @filterResult[1][:full_first] %></td>
-              <td><%= @filterResult[1][:full_second] %></td>
-              <td><%= (@filterResult[1][:full_first] - @filterResult[1][:full_second]).round(2) %></td>
-              <td><%= @filterResult[1][:bi] %></td>
-              <td class="borderRight"><%= @filterResult[1][:bj] %></td>
-              <td class="borderLeft"><%= @filterResult[1][:firsthalf_first] %></td>
-              <td><%= @filterResult[1][:firsthalf_second] %></td>
-              <td><%= (@filterResult[1][:firsthalf_first] - @filterResult[1][:firsthalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[1][:bg] %></td>
-              <td class="borderLeft"><%= @filterResult[1][:secondhalf_first] %></td>
-              <td><%= @filterResult[1][:secondhalf_second] %></td>
-              <td><%= (@filterResult[1][:secondhalf_first] - @filterResult[1][:secondhalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[1][:bh] %></td>
-              <td class="borderLeft"><%= @filterResult[1][:away_fg_percent] %></td>
-              <td class="borderRight"><%= @filterResult[1][:home_fg_percent] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[1][:full_first] %></td>
+              <td><%= @filterResult_secondtravel[1][:full_second] %></td>
+              <td><%= (@filterResult_secondtravel[1][:full_first] - @filterResult_secondtravel[1][:full_second]).round(2) %></td>
+              <td><%= @filterResult_secondtravel[1][:bi] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[1][:bj] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[1][:firsthalf_first] %></td>
+              <td><%= @filterResult_secondtravel[1][:firsthalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[1][:firsthalf_first] - @filterResult_secondtravel[1][:firsthalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[1][:bg] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[1][:secondhalf_first] %></td>
+              <td><%= @filterResult_secondtravel[1][:secondhalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[1][:secondhalf_first] - @filterResult_secondtravel[1][:secondhalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[1][:bh] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[1][:away_fg_percent] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[1][:home_fg_percent] %></td>
             </tr>
             <tr>
-              <td class="borderRight borderLeft"><%= @filterResult[16][:allcount] %></td>
+              <td class="borderRight borderLeft"><%= @filterResult_secondtravel[16][:allcount] %></td>
               <td class="gradient"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
@@ -3715,24 +3715,24 @@ end
               <td class="yellow border"></td>
               <td class="yellow border"></td>
               <td class="gradient"></td>
-              <td class="borderLeft"><%= @filterResult[16][:full_first] %></td>
-              <td><%= @filterResult[16][:full_second] %></td>
-              <td><%= (@filterResult[16][:full_first] - @filterResult[16][:full_second]).round(2) %></td>
-              <td><%= @filterResult[16][:bi] %></td>
-              <td class="borderRight"><%= @filterResult[16][:bj] %></td>
-              <td class="borderLeft"><%= @filterResult[16][:firsthalf_first] %></td>
-              <td><%= @filterResult[16][:firsthalf_second] %></td>
-              <td><%= (@filterResult[16][:firsthalf_first] - @filterResult[16][:firsthalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[16][:bg] %></td>
-              <td class="borderLeft"><%= @filterResult[16][:secondhalf_first] %></td>
-              <td><%= @filterResult[16][:secondhalf_second] %></td>
-              <td><%= (@filterResult[16][:secondhalf_first] - @filterResult[16][:secondhalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[16][:bh] %></td>
-              <td class="borderLeft"><%= @filterResult[16][:away_fg_percent] %></td>
-              <td class="borderRight"><%= @filterResult[16][:home_fg_percent] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[16][:full_first] %></td>
+              <td><%= @filterResult_secondtravel[16][:full_second] %></td>
+              <td><%= (@filterResult_secondtravel[16][:full_first] - @filterResult_secondtravel[16][:full_second]).round(2) %></td>
+              <td><%= @filterResult_secondtravel[16][:bi] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[16][:bj] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[16][:firsthalf_first] %></td>
+              <td><%= @filterResult_secondtravel[16][:firsthalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[16][:firsthalf_first] - @filterResult_secondtravel[16][:firsthalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[16][:bg] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[16][:secondhalf_first] %></td>
+              <td><%= @filterResult_secondtravel[16][:secondhalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[16][:secondhalf_first] - @filterResult_secondtravel[16][:secondhalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[16][:bh] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[16][:away_fg_percent] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[16][:home_fg_percent] %></td>
             </tr>
             <tr>
-              <td class="borderRight borderLeft"><%= @filterResult[17][:allcount] %></td>
+              <td class="borderRight borderLeft"><%= @filterResult_secondtravel[17][:allcount] %></td>
               <td class="gradient"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
@@ -3745,24 +3745,24 @@ end
               <td class="yellow border"></td>
               <td class="yellow border"></td>
               <td class="gradient"></td>
-              <td class="borderLeft"><%= @filterResult[17][:full_first] %></td>
-              <td><%= @filterResult[17][:full_second] %></td>
-              <td><%= (@filterResult[17][:full_first] - @filterResult[17][:full_second]).round(2) %></td>
-              <td><%= @filterResult[17][:bi] %></td>
-              <td class="borderRight"><%= @filterResult[17][:bj] %></td>
-              <td class="borderLeft"><%= @filterResult[17][:firsthalf_first] %></td>
-              <td><%= @filterResult[17][:firsthalf_second] %></td>
-              <td><%= (@filterResult[17][:firsthalf_first] - @filterResult[17][:firsthalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[17][:bg] %></td>
-              <td class="borderLeft"><%= @filterResult[17][:secondhalf_first] %></td>
-              <td><%= @filterResult[17][:secondhalf_second] %></td>
-              <td><%= (@filterResult[17][:secondhalf_first] - @filterResult[17][:secondhalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[17][:bh] %></td>
-              <td class="borderLeft"><%= @filterResult[17][:away_fg_percent] %></td>
-              <td class="borderRight"><%= @filterResult[17][:home_fg_percent] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[17][:full_first] %></td>
+              <td><%= @filterResult_secondtravel[17][:full_second] %></td>
+              <td><%= (@filterResult_secondtravel[17][:full_first] - @filterResult_secondtravel[17][:full_second]).round(2) %></td>
+              <td><%= @filterResult_secondtravel[17][:bi] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[17][:bj] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[17][:firsthalf_first] %></td>
+              <td><%= @filterResult_secondtravel[17][:firsthalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[17][:firsthalf_first] - @filterResult_secondtravel[17][:firsthalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[17][:bg] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[17][:secondhalf_first] %></td>
+              <td><%= @filterResult_secondtravel[17][:secondhalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[17][:secondhalf_first] - @filterResult_secondtravel[17][:secondhalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[17][:bh] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[17][:away_fg_percent] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[17][:home_fg_percent] %></td>
             </tr>
             <tr>
-              <td class="borderRight borderLeft"><%= @filterResult[18][:allcount] %></td>
+              <td class="borderRight borderLeft"><%= @filterResult_secondtravel[18][:allcount] %></td>
               <td class="gradient"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
@@ -3775,24 +3775,24 @@ end
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="gradient"></td>
-              <td class="borderLeft"><%= @filterResult[18][:full_first] %></td>
-              <td><%= @filterResult[18][:full_second] %></td>
-              <td><%= (@filterResult[18][:full_first] - @filterResult[18][:full_second]).round(2) %></td>
-              <td><%= @filterResult[18][:bi] %></td>
-              <td class="borderRight"><%= @filterResult[18][:bj] %></td>
-              <td class="borderLeft"><%= @filterResult[18][:firsthalf_first] %></td>
-              <td><%= @filterResult[18][:firsthalf_second] %></td>
-              <td><%= (@filterResult[18][:firsthalf_first] - @filterResult[18][:firsthalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[18][:bg] %></td>
-              <td class="borderLeft"><%= @filterResult[18][:secondhalf_first] %></td>
-              <td><%= @filterResult[18][:secondhalf_second] %></td>
-              <td><%= (@filterResult[18][:secondhalf_first] - @filterResult[18][:secondhalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[18][:bh] %></td>
-              <td class="borderLeft"><%= @filterResult[18][:away_fg_percent] %></td>
-              <td class="borderRight"><%= @filterResult[18][:home_fg_percent] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[18][:full_first] %></td>
+              <td><%= @filterResult_secondtravel[18][:full_second] %></td>
+              <td><%= (@filterResult_secondtravel[18][:full_first] - @filterResult_secondtravel[18][:full_second]).round(2) %></td>
+              <td><%= @filterResult_secondtravel[18][:bi] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[18][:bj] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[18][:firsthalf_first] %></td>
+              <td><%= @filterResult_secondtravel[18][:firsthalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[18][:firsthalf_first] - @filterResult_secondtravel[18][:firsthalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[18][:bg] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[18][:secondhalf_first] %></td>
+              <td><%= @filterResult_secondtravel[18][:secondhalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[18][:secondhalf_first] - @filterResult_secondtravel[18][:secondhalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[18][:bh] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[18][:away_fg_percent] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[18][:home_fg_percent] %></td>
             </tr>
             <tr>
-              <td class="borderRight borderLeft"><%= @filterResult[19][:allcount] %></td>
+              <td class="borderRight borderLeft"><%= @filterResult_secondtravel[19][:allcount] %></td>
               <td class="gradient"></td>
               <td class="yellow border"></td>
               <td class="filter border">X</td>
@@ -3805,24 +3805,24 @@ end
               <td class="filter border">X</td>
               <td class="yellow border"></td>
               <td class="gradient"></td>
-              <td class="borderLeft"><%= @filterResult[19][:full_first] %></td>
-              <td><%= @filterResult[19][:full_second] %></td>
-              <td><%= (@filterResult[19][:full_first] - @filterResult[19][:full_second]).round(2) %></td>
-              <td><%= @filterResult[19][:bi] %></td>
-              <td class="borderRight"><%= @filterResult[19][:bj] %></td>
-              <td class="borderLeft"><%= @filterResult[19][:firsthalf_first] %></td>
-              <td><%= @filterResult[19][:firsthalf_second] %></td>
-              <td><%= (@filterResult[19][:firsthalf_first] - @filterResult[19][:firsthalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[19][:bg] %></td>
-              <td class="borderLeft"><%= @filterResult[19][:secondhalf_first] %></td>
-              <td><%= @filterResult[19][:secondhalf_second] %></td>
-              <td><%= (@filterResult[19][:secondhalf_first] - @filterResult[19][:secondhalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[19][:bh] %></td>
-              <td class="borderLeft"><%= @filterResult[19][:away_fg_percent] %></td>
-              <td class="borderRight"><%= @filterResult[19][:home_fg_percent] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[19][:full_first] %></td>
+              <td><%= @filterResult_secondtravel[19][:full_second] %></td>
+              <td><%= (@filterResult_secondtravel[19][:full_first] - @filterResult_secondtravel[19][:full_second]).round(2) %></td>
+              <td><%= @filterResult_secondtravel[19][:bi] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[19][:bj] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[19][:firsthalf_first] %></td>
+              <td><%= @filterResult_secondtravel[19][:firsthalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[19][:firsthalf_first] - @filterResult_secondtravel[19][:firsthalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[19][:bg] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[19][:secondhalf_first] %></td>
+              <td><%= @filterResult_secondtravel[19][:secondhalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[19][:secondhalf_first] - @filterResult_secondtravel[19][:secondhalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[19][:bh] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[19][:away_fg_percent] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[19][:home_fg_percent] %></td>
             </tr>
             <tr>
-              <td class="borderRight borderLeft"><%= @filterResult[14][:allcount] %></td>
+              <td class="borderRight borderLeft"><%= @filterResult_secondtravel[14][:allcount] %></td>
               <td class="gradient"></td>
               <td class="yellow border"></td>
               <td class="filter border">X</td>
@@ -3835,24 +3835,24 @@ end
               <td class="filter border">X</td>
               <td class="yellow border"></td>
               <td class="gradient"></td>
-              <td class="borderLeft"><%= @filterResult[14][:full_first] %></td>
-              <td><%= @filterResult[14][:full_second] %></td>
-              <td><%= (@filterResult[14][:full_first] - @filterResult[14][:full_second]).round(2) %></td>
-              <td><%= @filterResult[14][:bi] %></td>
-              <td class="borderRight"><%= @filterResult[14][:bj] %></td>
-              <td class="borderLeft"><%= @filterResult[14][:firsthalf_first] %></td>
-              <td><%= @filterResult[14][:firsthalf_second] %></td>
-              <td><%= (@filterResult[14][:firsthalf_first] - @filterResult[14][:firsthalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[14][:bg] %></td>
-              <td class="borderLeft"><%= @filterResult[14][:secondhalf_first] %></td>
-              <td><%= @filterResult[14][:secondhalf_second] %></td>
-              <td><%= (@filterResult[14][:secondhalf_first] - @filterResult[14][:secondhalf_second]).round(2) %></td>
-              <td class="borderRight"><%= @filterResult[14][:bh] %></td>
-              <td class="borderLeft"><%= @filterResult[14][:away_fg_percent] %></td>
-              <td class="borderRight"><%= @filterResult[14][:home_fg_percent] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[14][:full_first] %></td>
+              <td><%= @filterResult_secondtravel[14][:full_second] %></td>
+              <td><%= (@filterResult_secondtravel[14][:full_first] - @filterResult_secondtravel[14][:full_second]).round(2) %></td>
+              <td><%= @filterResult_secondtravel[14][:bi] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[14][:bj] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[14][:firsthalf_first] %></td>
+              <td><%= @filterResult_secondtravel[14][:firsthalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[14][:firsthalf_first] - @filterResult_secondtravel[14][:firsthalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[14][:bg] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[14][:secondhalf_first] %></td>
+              <td><%= @filterResult_secondtravel[14][:secondhalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[14][:secondhalf_first] - @filterResult_secondtravel[14][:secondhalf_second]).round(2) %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[14][:bh] %></td>
+              <td class="borderLeft"><%= @filterResult_secondtravel[14][:away_fg_percent] %></td>
+              <td class="borderRight"><%= @filterResult_secondtravel[14][:home_fg_percent] %></td>
             </tr>
             <tr>
-              <td class="borderRight borderLeft borderBottom"><%= @filterResult[15][:allcount] %></td>
+              <td class="borderRight borderLeft borderBottom"><%= @filterResult_secondtravel[15][:allcount] %></td>
               <td class="gradient"></td>
               <td class="filter border">X</td>
               <td class="yellow border"></td>
@@ -3865,21 +3865,21 @@ end
               <td class="yellow border"></td>
               <td class="filter border">X</td>
               <td class="gradient"></td>
-              <td class="borderLeft borderBottom"><%= @filterResult[15][:full_first] %></td>
-              <td><%= @filterResult[15][:full_second] %></td>
-              <td><%= (@filterResult[15][:full_first] - @filterResult[15][:full_second]).round(2) %></td>
-              <td><%= @filterResult[15][:bi] %></td>
-              <td class="borderRight borderBottom"><%= @filterResult[15][:bj] %></td>
-              <td class="borderLeft borderBottom"><%= @filterResult[15][:firsthalf_first] %></td>
-              <td><%= @filterResult[15][:firsthalf_second] %></td>
-              <td><%= (@filterResult[15][:firsthalf_first] - @filterResult[15][:firsthalf_second]).round(2) %></td>
-              <td class="borderRight borderBottom"><%= @filterResult[15][:bg] %></td>
-              <td class="borderLeft borderBottom"><%= @filterResult[15][:secondhalf_first] %></td>
-              <td><%= @filterResult[15][:secondhalf_second] %></td>
-              <td><%= (@filterResult[15][:secondhalf_first] - @filterResult[15][:secondhalf_second]).round(2) %></td>
-              <td class="borderRight borderBottom"><%= @filterResult[15][:bh] %></td>
-              <td class="borderLeft borderBottom"><%= @filterResult[15][:away_fg_percent] %></td>
-              <td class="borderRight borderBottom"><%= @filterResult[15][:home_fg_percent] %></td>
+              <td class="borderLeft borderBottom"><%= @filterResult_secondtravel[15][:full_first] %></td>
+              <td><%= @filterResult_secondtravel[15][:full_second] %></td>
+              <td><%= (@filterResult_secondtravel[15][:full_first] - @filterResult_secondtravel[15][:full_second]).round(2) %></td>
+              <td><%= @filterResult_secondtravel[15][:bi] %></td>
+              <td class="borderRight borderBottom"><%= @filterResult_secondtravel[15][:bj] %></td>
+              <td class="borderLeft borderBottom"><%= @filterResult_secondtravel[15][:firsthalf_first] %></td>
+              <td><%= @filterResult_secondtravel[15][:firsthalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[15][:firsthalf_first] - @filterResult_secondtravel[15][:firsthalf_second]).round(2) %></td>
+              <td class="borderRight borderBottom"><%= @filterResult_secondtravel[15][:bg] %></td>
+              <td class="borderLeft borderBottom"><%= @filterResult_secondtravel[15][:secondhalf_first] %></td>
+              <td><%= @filterResult_secondtravel[15][:secondhalf_second] %></td>
+              <td><%= (@filterResult_secondtravel[15][:secondhalf_first] - @filterResult_secondtravel[15][:secondhalf_second]).round(2) %></td>
+              <td class="borderRight borderBottom"><%= @filterResult_secondtravel[15][:bh] %></td>
+              <td class="borderLeft borderBottom"><%= @filterResult_secondtravel[15][:away_fg_percent] %></td>
+              <td class="borderRight borderBottom"><%= @filterResult_secondtravel[15][:home_fg_percent] %></td>
             </tr>
             <tr class="redgradient">
               <td class="yellow">GAMES</td>
