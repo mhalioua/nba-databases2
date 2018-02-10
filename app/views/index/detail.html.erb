@@ -3023,7 +3023,7 @@ end
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
                 <td></td>
                 <td class="line">1H LINE</td>
@@ -3036,7 +3036,7 @@ end
                 <td></td>
                 <td></td>
                 <td colspan="2" class="gameDate">TRAVEL</td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td><u><i>road</i></u></td>
                 <td colspan="2">road DAYS REST home</td>
                 <td><u><i>home</i></u></td>
@@ -3053,7 +3053,7 @@ end
                 <td></td>
                 <td>last Y/N</td>
                 <td>next Y/N</td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td class="gameDate">last</td>
                 <td colspan="2" class="gameDate">next game</td>
                 <td class="gameDate">last</td>
@@ -3071,7 +3071,7 @@ end
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td><%= @game.away_last_game %></td>
                 <td><%= @game.away_next_game %></td>
                 <td><%= @game.home_next_game %></td>
@@ -3084,27 +3084,27 @@ end
                 <td>2ND<br>HALF</td>
                 <td>FULL<br>GAME</td>
                 <td>GAMES</td>
-                <td rowspan="24" class="grey"></td>
+                <td rowspan="24" class="gray"></td>
                 <td>1ST<br>HALF</td>
                 <td>2ND<br>HALF</td>
                 <td>FULL<br>GAME</td>
                 <td>GAMES</td>
-                <td rowspan="25" colspan="4" class="grey"></td>
+                <td rowspan="25" colspan="4" class="gray"></td>
             </tr>
             <tr>
                 <td>RIVALS</td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td><%= @firstItem_result_secondtravel[:first] %></td>
                 <td><%= @firstItem_result_secondtravel[:second] %></td>
                 <td><%= @firstItem_result_secondtravel[:full] %></td>
@@ -3116,18 +3116,18 @@ end
             </tr>
             <tr>
                 <td>ALL GAMES IN <%= @home_abbr %></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td><%= @secondItem_result_secondtravel[:first] %></td>
                 <td><%= @secondItem_result_secondtravel[:second] %></td>
                 <td><%= @secondItem_result_secondtravel[:full] %></td>
@@ -3139,18 +3139,18 @@ end
             </tr>
             <tr>
                 <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A")%></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td></td>
                 <td></td>
-                <td class="grey"></td>
+                <td class="gray"></td>
                 <td><%= @thirdItem_result_secondtravel[:first] %></td>
                 <td><%= @thirdItem_result_secondtravel[:second] %></td>
                 <td><%= @thirdItem_result_secondtravel[:full] %></td>
@@ -3160,7 +3160,7 @@ end
                 <td></td>
                 <td></td>
             </tr>
-            <tr class="grey">
+            <tr class="gray">
               <td></td>
               <td></td>
               <td></td>
@@ -3256,7 +3256,7 @@ end
                     <td><%= @filterResult_secondtravel[index][:allcount] %></td>
                 </tr>
                 <% if @break.include?(index) %>
-                <tr class="grey">
+                <tr class="gray">
                     <td></td>
                     <td></td>
                     <td></td>
@@ -3289,7 +3289,7 @@ end
               <td></td>
               <td></td>
               <td></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td></td>
               <td></td>
               <td></td>
@@ -3314,18 +3314,18 @@ end
             </tr>
             <tr>
               <td class="borderTop borderRight borderLeft"><%= @filterResult_secondtravel[0][:allcount] %></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="borderTop borderLeft"><%= @filterResult_secondtravel[0][:full_first] %></td>
               <td class="borderTop"><%= @filterResult_secondtravel[0][:full_second] %></td>
               <td class="borderTop"><%= (@filterResult_secondtravel[0][:full_first] - @filterResult_secondtravel[0][:full_second]).round(2) %></td>
@@ -3342,18 +3342,18 @@ end
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult_secondtravel[1][:allcount] %></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="borderLeft"><%= @filterResult_secondtravel[1][:full_first] %></td>
               <td><%= @filterResult_secondtravel[1][:full_second] %></td>
               <td><%= (@filterResult_secondtravel[1][:full_first] - @filterResult_secondtravel[1][:full_second]).round(2) %></td>
@@ -3370,18 +3370,18 @@ end
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult_secondtravel[16][:allcount] %></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="borderLeft"><%= @filterResult_secondtravel[16][:full_first] %></td>
               <td><%= @filterResult_secondtravel[16][:full_second] %></td>
               <td><%= (@filterResult_secondtravel[16][:full_first] - @filterResult_secondtravel[16][:full_second]).round(2) %></td>
@@ -3398,18 +3398,18 @@ end
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult_secondtravel[17][:allcount] %></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="borderLeft"><%= @filterResult_secondtravel[17][:full_first] %></td>
               <td><%= @filterResult_secondtravel[17][:full_second] %></td>
               <td><%= (@filterResult_secondtravel[17][:full_first] - @filterResult_secondtravel[17][:full_second]).round(2) %></td>
@@ -3426,18 +3426,18 @@ end
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult_secondtravel[18][:allcount] %></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="yellow border"></td>
               <td class="yellow border"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="borderLeft"><%= @filterResult_secondtravel[18][:full_first] %></td>
               <td><%= @filterResult_secondtravel[18][:full_second] %></td>
               <td><%= (@filterResult_secondtravel[18][:full_first] - @filterResult_secondtravel[18][:full_second]).round(2) %></td>
@@ -3454,18 +3454,18 @@ end
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult_secondtravel[19][:allcount] %></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="yellow border"></td>
               <td class="filter border">X</td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="yellow border"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="yellow border"></td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="filter border">X</td>
               <td class="yellow border"></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="borderLeft"><%= @filterResult_secondtravel[19][:full_first] %></td>
               <td><%= @filterResult_secondtravel[19][:full_second] %></td>
               <td><%= (@filterResult_secondtravel[19][:full_first] - @filterResult_secondtravel[19][:full_second]).round(2) %></td>
@@ -3482,18 +3482,18 @@ end
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult_secondtravel[14][:allcount] %></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="yellow border"></td>
               <td class="filter border">X</td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="filter border">X</td>
               <td class="yellow border"></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="borderLeft"><%= @filterResult_secondtravel[14][:full_first] %></td>
               <td><%= @filterResult_secondtravel[14][:full_second] %></td>
               <td><%= (@filterResult_secondtravel[14][:full_first] - @filterResult_secondtravel[14][:full_second]).round(2) %></td>
@@ -3510,18 +3510,18 @@ end
             </tr>
             <tr>
               <td class="borderRight borderLeft borderBottom"><%= @filterResult_secondtravel[15][:allcount] %></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="filter border">X</td>
               <td class="yellow border"></td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
               <td class="filter border">X</td>
-              <td class="grey border"></td>
+              <td class="gray border"></td>
               <td class="yellow border"></td>
               <td class="filter border">X</td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td class="borderLeft borderBottom"><%= @filterResult_secondtravel[15][:full_first] %></td>
               <td><%= @filterResult_secondtravel[15][:full_second] %></td>
               <td><%= (@filterResult_secondtravel[15][:full_first] - @filterResult_secondtravel[15][:full_second]).round(2) %></td>
@@ -3541,7 +3541,7 @@ end
               <td></td>
               <td></td>
               <td></td>
-              <td class="grey"></td>
+              <td class="gray"></td>
               <td></td>
               <td></td>
               <td></td>
