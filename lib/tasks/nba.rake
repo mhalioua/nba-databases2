@@ -49,6 +49,9 @@ namespace :nba do
 	end
   
 	task :daily => :environment do
+    Rake::Task["nba:teaminfo"].invoke
+    Rake::Task["nba:teaminfo"].reenable
+    
 		date = Date.yesterday
 		Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
 		Rake::Task["nba:getDate"].reenable
@@ -2098,7 +2101,7 @@ namespace :nba do
 
   task :teaminfo => :environment do
     include Api
-    url = "http://www.espn.com/nba/standings/_/season/2017/sort/wins/group/league"
+    url = "http://www.espn.com/nba/standings/_/season/2018/sort/wins/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
@@ -2106,10 +2109,10 @@ namespace :nba do
       unless team = Team.find_by(abbr: element.text)
         team = Team.create(abbr: element.text)
       end
-      team.update(order_one_sixteen: index + 1)
+      team.update(order_one_seventeen: index + 1)
     end
 
-    url = "http://www.espn.com/nba/standings/_/season/2017/sort/avgpointsfor/group/league"
+    url = "http://www.espn.com/nba/standings/_/season/2018/sort/avgpointsfor/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
@@ -2117,10 +2120,10 @@ namespace :nba do
       unless team = Team.find_by(abbr: element.text)
         team = Team.create(abbr: element.text)
       end
-      team.update(order_two_sixteen: index + 1)
+      team.update(order_two_seventeen: index + 1)
     end
 
-    url = "http://www.espn.com/nba/standings/_/season/2017/sort/avgpointsagainst/group/league"
+    url = "http://www.espn.com/nba/standings/_/season/2018/sort/avgpointsagainst/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
@@ -2128,7 +2131,7 @@ namespace :nba do
       unless team = Team.find_by(abbr: element.text)
         team = Team.create(abbr: element.text)
       end
-      team.update(order_thr_sixteen: index + 1)
+      team.update(order_thr_seventeen: index + 1)
     end
   end
 
