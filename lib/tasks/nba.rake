@@ -1067,6 +1067,7 @@ namespace :nba do
 				team_poss = 0
         sum_or = 0
         sum_stl = 0
+        sum_to = 0
         sum_blk = 0
         sum_pf = 0
 				count = 0
@@ -1085,10 +1086,14 @@ namespace :nba do
 					sum_mins = sum_mins + last_player.mins
           sum_or = sum_or + last_player.orValue
           stlValue = 0
+          toValue = 0
           blkValue = 0
           pfValue =0
           if last_player.stlValue
             stlValue = last_player.stlValue
+          end
+          if last_player.toValue
+            toValue = last_player.toValue
           end
           if last_player.blkValue
             blkValue = last_player.blkValue
@@ -1097,6 +1102,7 @@ namespace :nba do
             pfValue = last_player.pfValue
           end
           sum_stl = sum_stl + stlValue
+          sum_to = sum_to + toValue
           sum_blk = sum_blk + blkValue
           sum_pf = sum_pf + pfValue
 					if mins_min > last_player.mins
@@ -1113,7 +1119,7 @@ namespace :nba do
         if sum_mins < 0
           sum_mins = 0
         end
-				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins, sum_blk: sum_blk, sum_or: sum_or, sum_stl: sum_stl, sum_pf: sum_pf)
+				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins, sum_blk: sum_blk, sum_or: sum_or, sum_stl: sum_stl, sum_pf: sum_pf, sum_to: sum_to)
 			end
 		end
 	end
