@@ -1171,7 +1171,7 @@ class IndexController < ApplicationController
     	@away_stl = 0
 	    @away_blk = 0
 	    @away_last_games.each do |last_game|
-	        if last_game.home_team == game.away_team
+	        if last_game.home_team == @game.away_team
 	        	@away_stl = @away_stl + last_game.home_stl.to_i
 	         	@away_blk = @away_blk + last_game.home_blk.to_i
 	        else
@@ -1190,7 +1190,7 @@ class IndexController < ApplicationController
 	    @home_blk = 0
 
       	@home_last_games.each do |last_game|
-	        if last_game.home_team == game.home_team
+	        if last_game.home_team == @game.home_team
 	        	@home_stl = @home_stl + last_game.home_stl.to_i
 	          	@home_blk = @home_blk + last_game.home_blk.to_i
 	        else
