@@ -1204,6 +1204,31 @@ class IndexController < ApplicationController
 	        @home_blk = (@home_blk.to_f / @home_count).round(1)
 	    end
 
+	    @away_players_starters = @away_last.players.where("team_abbr = ? AND state < 5", @away_flag).order(:state)
+	    @home_players_starters = @home_last.players.where("team_abbr = ? AND state < 5", @home_flag).order(:state)
+
+	    @away_avg_stl = 0
+	    @away_avg_blk = 0
+	    @away_players_starters.each do |player|
+	    	last_players = Player.where("game_date >= ? AND game_date <= ? AND player_name = ? AND mins != 0", Date.new(2017, 10 ,20), player.game_date, player.player_name).or(Player.where("game_date <= ? AND player_name = ? AND mins != 0", Date.new(2017, 6 ,18), player.player_name)).order('game_date DESC').limit(12)
+	    	average_mins = last_players.average(:mins)
+	    	average_stl = last_players.average(:stlValue)
+	    	average_blk = last_players.average(:blkValue)
+	    	@away_avg_stl = @away_avg_stl + 48 / average_mins * average_stl
+	    	@away_avg_blk = @away_avg_blk + 48 / average_mins * average_blk
+	    end
+
+	    @home_avg_stl = 0
+	    @home_avg_blk = 0
+	    @home_players_starters.each do |player|
+	    	last_players = Player.where("game_date >= ? AND game_date <= ? AND player_name = ? AND mins != 0", Date.new(2017, 10 ,20), player.game_date, player.player_name).or(Player.where("game_date <= ? AND player_name = ? AND mins != 0", Date.new(2017, 6 ,18), player.player_name)).order('game_date DESC').limit(12)
+	    	average_mins = last_players.average(:mins)
+	    	average_stl = last_players.average(:stlValue)
+	    	average_blk = last_players.average(:blkValue)
+	    	@home_avg_stl = @home_avg_stl + 48 / average_mins * average_stl
+	    	@home_avg_blk = @home_avg_blk + 48 / average_mins * average_blk
+	    end
+
 		@team_more = {
 			'Atlanta' => 'EAST',
 			'Boston' => 'EAST',

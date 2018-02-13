@@ -131,7 +131,7 @@
           <td> <%= @home_team_info.steal_away %> </td>
           <td> <%= @home_team_info.steal_last %> </td>
           <td> <%= @home_stl %> </td>
-          <td></td>
+          <td> <%= @home_avg_stl %> </td>
           <td class="between"></td>
           <td> <%= @home_team_info.team %> </td>
           <td> <%= @home_team_info.block_current %> </td>
@@ -141,7 +141,7 @@
           <td> <%= @home_team_info.block_away %> </td>
           <td> <%= @home_team_info.block_last %> </td>
           <td> <%= @home_blk %> </td>
-          <td></td>
+          <td> <%= @home_avg_blk %> </td>
         </tr>
         <tr>
           <td> <%= @away_team_info.team %> </td>
@@ -152,7 +152,7 @@
           <td> <%= @away_team_info.steal_away %> </td>
           <td> <%= @away_team_info.steal_last %> </td>
           <td> <%= @away_stl %> </td>
-          <td></td>
+          <td> <%= @away_avg_stl %> </td>
           <td class="between"></td>
           <td> <%= @away_team_info.team %> </td>
           <td> <%= @away_team_info.block_current %> </td>
@@ -162,7 +162,7 @@
           <td> <%= @away_team_info.block_away %> </td>
           <td> <%= @away_team_info.block_last %> </td>
           <td> <%= @away_blk %> </td>
-          <td></td>
+          <td> <%= @away_avg_blk %> </td>
         </tr>
       </tbody>
     </table>
