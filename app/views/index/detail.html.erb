@@ -131,7 +131,7 @@
           <td> <%= @home_team_info.steal_away %> </td>
           <td> <%= @home_team_info.steal_last %> </td>
           <td> <%= @home_stl %> </td>
-          <td> <%= @home_avg_stl %> </td>
+          <td> <%= @home_avg_stl.round(1) %> </td>
           <td class="between"></td>
           <td> <%= @home_team_info.team %> </td>
           <td> <%= @home_team_info.block_current %> </td>
@@ -141,7 +141,7 @@
           <td> <%= @home_team_info.block_away %> </td>
           <td> <%= @home_team_info.block_last %> </td>
           <td> <%= @home_blk %> </td>
-          <td> <%= @home_avg_blk %> </td>
+          <td> <%= @home_avg_blk.round(1) %> </td>
         </tr>
         <tr>
           <td> <%= @away_team_info.team %> </td>
@@ -152,7 +152,7 @@
           <td> <%= @away_team_info.steal_away %> </td>
           <td> <%= @away_team_info.steal_last %> </td>
           <td> <%= @away_stl %> </td>
-          <td> <%= @away_avg_stl %> </td>
+          <td> <%= @away_avg_stl.round(1) %> </td>
           <td class="between"></td>
           <td> <%= @away_team_info.team %> </td>
           <td> <%= @away_team_info.block_current %> </td>
@@ -162,7 +162,7 @@
           <td> <%= @away_team_info.block_away %> </td>
           <td> <%= @away_team_info.block_last %> </td>
           <td> <%= @away_blk %> </td>
-          <td> <%= @away_avg_blk %> </td>
+          <td> <%= @away_avg_blk.round(1) %> </td>
         </tr>
       </tbody>
     </table>
@@ -550,7 +550,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="14"></td>
+        <td colspan="15"></td>
       </tr>
     <% @away_players_group3.each_with_index do |player, index| 
           count = 1
@@ -622,7 +622,7 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="15"></td>
+        <td colspan="16"></td>
       </tr>
       <tr>
         <td></td>
@@ -811,7 +811,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="14"></td>
+        <td colspan="15"></td>
       </tr>
     <% @home_players_group3.each_with_index do |player, index| 
           count = 1
@@ -883,7 +883,7 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="15"></td>
+        <td colspan="16"></td>
       </tr>
       <tr>
         <td></td>
@@ -1057,7 +1057,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="13"></td>
+        <td colspan="14"></td>
       </tr>
     <% @away_players_group3.each_with_index do |player, index| 
           count = 1
@@ -1120,7 +1120,7 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="14"></td>
+        <td colspan="15"></td>
       </tr>
       <tr>
         <td></td>
@@ -1289,7 +1289,7 @@
     <% end %>
       <tr style="background: grey">
         <td>BENCH</td>
-        <td colspan="13"></td>
+        <td colspan="14"></td>
       </tr>
     <% @home_players_group3.each_with_index do |player, index| 
           count = 1
@@ -1352,7 +1352,7 @@
       </tr>
     <% end %>
       <tr style="background: grey">
-        <td colspan="14"></td>
+        <td colspan="15"></td>
       </tr>
       <tr>
         <td></td>
