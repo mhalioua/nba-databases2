@@ -449,19 +449,19 @@
 
       <td><%= @countItem ? roadtotal.round(2) : "" %></td>
         <td><%= @countItem ? hometotal.round(2) : "" %></td>
-        <td class="purple"><%= @countItem ? (roadtotal + hometotal).round(2) : "" %></td>
+        <td class="purple"><%= @secondItem ? @secondItem.average(:totalvalue).to_f.round(2) : "" %></td>
         <td><%= @countItem ? (roadtotal - hometotal).round(2) : "" %></td>
         <td rowspan="3" class="black"></td>
         <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalpoint).to_i : "" %></td>
         <td rowspan="3" class="black"></td>
         <td><%= @countItem ? @countItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
         <td><%= @countItem ? @countItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
-        <td class="purple"><%= @countItem ? (@countItem.average(:roadfirsthalf).to_f + @countItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
+        <td class="purple"><%= @secondItem ? @secondItem.average(:firstvalue).to_f.round(2) : "" %></td>
         <td><%= @countItem ? (@countItem.average(:roadfirsthalf).to_f - @countItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
         <td rowspan="3" class="black"></td>
         <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f).round(2) : "" %></td>
         <td><%= @countItem ? (@countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
-        <td class="purple"><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f + @countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
+        <td class="purple"><%= @secondItem ? @secondItem.average(:secondvalue).to_f.round(2) : "" %></td>
         <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
         <td style="border-right: 5px solid #666;">1</td>
         <td><%= game.referee_one %></td>
