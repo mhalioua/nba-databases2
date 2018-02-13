@@ -492,7 +492,7 @@
       <td class="gray"><%= game.home_oppppg_rank %></td>
       <td class="gray"><%= game.home_win_rank %></td>
       <td class="green"><%= game.home_ppg_rank + (30 - game.home_oppppg_rank) %></td>
-      <td class="yellow"><%= @countItem ? (roadtotal + hometotal - 196.09).round(2) : "" %></td>
+      <td class="yellow"><%= @countItem ? (@countItem.average(:totalvalue).to_f - 196.09).round(2) : "" %></td>
       <td class="skyblue" style="border-right: 5px solid #666;"></td>
 
       <td class="gray">
