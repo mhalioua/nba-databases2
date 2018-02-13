@@ -627,33 +627,19 @@
       
       <td class="black"></td>
 
-      <td><%= @secondItem ? @secondItem.average(:roadtotal).to_f.round(2) : "" %></td>
-      <td><%= @secondItem ? @secondItem.average(:hometotal).to_f.round(2) : "" %></td>
+      <td class="gray"><%= @secondItem ? @secondItem.average(:roadtotal).to_f.round(2) : "" %></td>
+      <td class="gray"><%= @secondItem ? @secondItem.average(:hometotal).to_f.round(2) : "" %></td>
       <td class="purple"><%= @secondItem ? @secondItem.average(:totalvalue).to_f.round(2) : "" %></td>
-      <td><%= @secondItem ? (@secondItem.average(:roadtotal).to_f - @secondItem.average(:hometotal).to_f).round(2) : "" %></td>
+      <td class="gray"><%= @secondItem ? (@secondItem.average(:roadtotal).to_f - @secondItem.average(:hometotal).to_f).round(2) : "" %></td>
       <td style="background: #fa0"><%= @secondItem ? @secondItem.count(:totalpoint).to_i : "" %></td>
-      <td><%= @secondItem ? @secondItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
-      <td><%= @secondItem ? @secondItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
+      <td class="gray"><%= @secondItem ? @secondItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
+      <td class="gray"><%= @secondItem ? @secondItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
       <td class="purple"><%= @secondItem ? @secondItem.average(:firstvalue).to_f.round(2) : "" %></td>
-      <td><%= @secondItem ? (@secondItem.average(:roadfirsthalf).to_f - @secondItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
-      <td><%= @secondItem ? @secondItem.average(:roadsecondhalf).to_f.round(2) : "" %></td>
-      <td><%= @secondItem ? @secondItem.average(:homesecondhalf).to_f.round(2) : "" %></td>
+      <td class="gray"><%= @secondItem ? (@secondItem.average(:roadfirsthalf).to_f - @secondItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
+      <td class="gray"><%= @secondItem ? @secondItem.average(:roadsecondhalf).to_f.round(2) : "" %></td>
+      <td class="gray"><%= @secondItem ? @secondItem.average(:homesecondhalf).to_f.round(2) : "" %></td>
       <td class="purple"><%= @secondItem ? @secondItem.average(:secondvalue).to_f.round(2) : "" %></td>
-      <td><%= @secondItem ? (@secondItem.average(:roadsecondhalf).to_f - @secondItem.average(:homesecondhalf).to_f).round(2) : "" %></td>
-
-      <td class="gray"></td>
-      <td class="gray"></td>
-      <td class="purple"><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
-      <td class="gray"></td>
-      <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalvalue).to_i : "" %></td>
-      <td class="gray"></td>
-      <td class="gray"></td>
-      <td class="purple"><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
-      <td class="gray"></td>
-      <td class="gray"></td>
-      <td class="gray"></td>
-      <td class="purple"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
-      <td class="gray"></td>
+      <td class="gray"><%= @secondItem ? (@secondItem.average(:roadsecondhalf).to_f - @secondItem.average(:homesecondhalf).to_f).round(2) : "" %></td>
       <td class="gray" style="border-right: 5px solid #666;"></td>
       
       <td><%= game.referee_three %></td>
