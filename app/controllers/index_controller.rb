@@ -1167,6 +1167,43 @@ class IndexController < ApplicationController
 		end
 		@home_team_info = Team.find_by(abbr: @home_abbr)
     	@away_team_info = Team.find_by(abbr: @away_abbr)
+    	@away_last_games = Nba.where("home_team = ? AND game_date < ?", @game.away_team, @game.game_date).or(Nba.where("away_team = ? AND game_date < ?", @game.away_team, @game.game_date)).order(game_date: :desc).limit(12)
+    	@away_stl = 0
+	    @away_blk = 0
+	    @away_last_games.each do |last_game|
+	        if last_game.home_team == game.away_team
+	        	@away_stl = @away_stl + last_game.home_stl.to_i
+	         	@away_blk = @away_blk + last_game.home_blk.to_i
+	        else
+	          	@away_stl = @away_stl + last_game.away_stl.to_i
+	          	@away_blk = @away_blk + last_game.away_blk.to_i
+	        end
+	    end
+	    @away_count = @away_last_games.count
+	    if @away_count
+	    	@away_stl = (@away_stl.to_f / @away_count).round(1)
+	        @away_blk = (@away_blk.to_f / @away_count).round(1)
+	    end
+
+    	@home_last_games = Nba.where("home_team = ? AND game_date < ?", @game.home_team, @game.game_date).or(Nba.where("away_team = ? AND game_date < ?", @game.home_team, @game.game_date)).order(game_date: :desc).limit(12)
+    	@home_stl = 0
+	    @home_blk = 0
+
+      	@home_last_games.each do |last_game|
+	        if last_game.home_team == game.home_team
+	        	@home_stl = @home_stl + last_game.home_stl.to_i
+	          	@home_blk = @home_blk + last_game.home_blk.to_i
+	        else
+	          	@home_stl = @home_stl + last_game.away_stl.to_i
+	          	@home_blk = @home_blk + last_game.away_blk.to_i
+	        end
+	    end
+	    @home_count = @home_last_games.count
+	    if @home_count
+	        @home_stl = (@home_stl.to_f / @home_count).round(1)
+	        @home_blk = (@home_blk.to_f / @home_count).round(1)
+	    end
+
 		@team_more = {
 			'Atlanta' => 'EAST',
 			'Boston' => 'EAST',

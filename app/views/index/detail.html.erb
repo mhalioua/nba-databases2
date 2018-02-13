@@ -87,9 +87,17 @@
     <table border="1">
       <thead>
         <tr>
-          <th colspan="7">STEALS</th>
+          <th></th>
+          <th colspan="5">STEALS</th>
+          <th></th>
+          <th></th>
+          <th></th>
           <th class="between"></th>
-          <th colspan="7">BLOCKS</th>
+          <th></th>
+          <th colspan="5">BLOCKS</th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
         <tr>
         <th>TEAM</th>
@@ -99,6 +107,8 @@
         <th>HOME</th>
         <th>AWAY</th>
         <th>2016</th>
+        <th>Last 12</th>
+        <th>Lineup</th>
         <th class="between"></th>
         <th>TEAM</th>
         <th>2017</th>
@@ -107,6 +117,8 @@
         <th>HOME</th>
         <th>AWAY</th>
         <th>2016</th>
+        <th>Last 12</th>
+        <th>Lineup</th>
         </tr>
       </thead>
       <tbody>
@@ -118,6 +130,8 @@
           <td> <%= @home_team_info.steal_home %> </td>
           <td> <%= @home_team_info.steal_away %> </td>
           <td> <%= @home_team_info.steal_last %> </td>
+          <td> <%= @home_stl %> </td>
+          <td></td>
           <td class="between"></td>
           <td> <%= @home_team_info.team %> </td>
           <td> <%= @home_team_info.block_current %> </td>
@@ -126,6 +140,8 @@
           <td> <%= @home_team_info.block_home %> </td>
           <td> <%= @home_team_info.block_away %> </td>
           <td> <%= @home_team_info.block_last %> </td>
+          <td> <%= @home_blk %> </td>
+          <td></td>
         </tr>
         <tr>
           <td> <%= @away_team_info.team %> </td>
@@ -135,6 +151,8 @@
           <td> <%= @away_team_info.steal_home %> </td>
           <td> <%= @away_team_info.steal_away %> </td>
           <td> <%= @away_team_info.steal_last %> </td>
+          <td> <%= @away_stl %> </td>
+          <td></td>
           <td class="between"></td>
           <td> <%= @away_team_info.team %> </td>
           <td> <%= @away_team_info.block_current %> </td>
@@ -143,6 +161,8 @@
           <td> <%= @away_team_info.block_home %> </td>
           <td> <%= @away_team_info.block_away %> </td>
           <td> <%= @away_team_info.block_last %> </td>
+          <td> <%= @away_blk %> </td>
+          <td></td>
         </tr>
       </tbody>
     </table>
