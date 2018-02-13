@@ -119,6 +119,7 @@
         <th class="purple"></th>
         <th class="gray"></th>
         <th class="gray"></th>
+        <th class="gray"></th>
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
@@ -202,6 +203,7 @@
         <th class="purple"></th>
         <th class="gray">Next game</th>
         <th class="gray">Next game total</th>
+        <th class="gray">Count</th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -310,6 +312,10 @@
       end
 
       @referee_next_part = Refereestatic.where("referee_one = ? AND referee_two = ? AND referee_three = ?", referee_one_next, referee_two_next, referee_three_next).first
+
+      @referee_first = Referee.where("referee_one = ?", game.referee_one).or(Referee.where("referee_two = ?", game.referee_one).or(Referee.where("referee_three = ?", game.referee_one)))
+      @referee_second = Referee.where("referee_one = ?", game.referee_two).or(Referee.where("referee_two = ?", game.referee_two).or(Referee.where("referee_three = ?", game.referee_two)))
+      @referee_third = Referee.where("referee_one = ?", game.referee_three).or(Referee.where("referee_two = ?", game.referee_three).or(Referee.where("referee_three = ?", game.referee_three)))
 
       @away_last_games = Nba.where("home_team = ? AND game_date < ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.away_team, game.game_date)).order(game_date: :desc).limit(12)
       @away_stl = 0
@@ -474,6 +480,7 @@
         <td class="purple">1h</td>
         <td><%= game.referee_one_next %></td>
         <td><%= @referee_next_part ? @referee_next_part.next_first : '' %></td>
+        <td><%= @referee_first.count(:tp_1h).to_i %></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -571,6 +578,7 @@
       <td class="purple">2h</td>
       <td><%= game.referee_two_next %></td>
       <td><%= @referee_next_part ? @referee_next_part.next_second : '' %></td>
+      <td><%= @referee_second.count(:tp_1h).to_i %></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -654,6 +662,7 @@
       <td class="purple">gms</td>
       <td><%= game.referee_three_next %></td>
       <td><%= @referee_next_part ? @referee_next_part.next_count : '' %></td>
+      <td><%= @referee_third.count(:tp_1h).to_i %></td>
     </tr>
     <% end %>
   	</tbody>
