@@ -1210,7 +1210,7 @@ class IndexController < ApplicationController
 	    @away_avg_stl = 0
 	    @away_avg_blk = 0
 	    @away_players_starters.each do |player|
-	    	last_players = Player.where("game_date >= ? AND game_date <= ? AND player_name = ? AND mins != 0", Date.new(2017, 10 ,20), player.game_date, player.player_name).or(Player.where("game_date <= ? AND player_name = ? AND mins != 0", Date.new(2017, 6 ,18), player.player_name)).order('game_date DESC').limit(12)
+	    	last_players = Player.where("player_name = ? AND mins != 0", player.player_name).order('game_date DESC').limit(12)
 	    	average_mins = last_players.average(:mins)
 	    	average_stl = last_players.average(:stlValue)
 	    	average_blk = last_players.average(:blkValue)
@@ -1225,7 +1225,7 @@ class IndexController < ApplicationController
 	    @home_avg_stl = 0
 	    @home_avg_blk = 0
 	    @home_players_starters.each do |player|
-	    	last_players = Player.where("game_date >= ? AND game_date <= ? AND player_name = ? AND mins != 0", Date.new(2017, 10 ,20), player.game_date, player.player_name).or(Player.where("game_date <= ? AND player_name = ? AND mins != 0", Date.new(2017, 6 ,18), player.player_name)).order('game_date DESC').limit(12)
+	    	last_players = Player.where("player_name = ? AND mins != 0", player.player_name).order('game_date DESC').limit(12)
 	    	average_mins = last_players.average(:mins)
 	    	average_stl = last_players.average(:stlValue)
 	    	average_blk = last_players.average(:blkValue)
