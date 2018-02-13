@@ -314,13 +314,13 @@
       @away_to = 0
       @away_last_games.each do |last_game|
         if last_game.home_team = game.away_team
-          @away_stl = @away_stl + last_game.home_stl
-          @away_blk = @away_blk + last_game.home_blk
-          @away_to = @away_to + last_game.home_toValue
+          @away_stl = @away_stl + last_game.home_stl.to_i
+          @away_blk = @away_blk + last_game.home_blk.to_i
+          @away_to = @away_to + last_game.home_toValue.to_i
         else
-          @away_stl = @away_stl + last_game.away_stl
-          @away_blk = @away_blk + last_game.away_blk
-          @away_to = @away_to + last_game.away_toValue
+          @away_stl = @away_stl + last_game.away_stl.to_i
+          @away_blk = @away_blk + last_game.away_blk.to_i
+          @away_to = @away_to + last_game.away_toValue.to_i
         end
       end
       @away_count = @away_last_games.count
@@ -336,13 +336,13 @@
       @home_to = 0
       @home_last_games.each do |last_game|
         if last_game.home_team = game.home_team
-          @home_stl = @home_stl + last_game.home_stl
-          @home_blk = @home_blk + last_game.home_blk
-          @home_to = @home_to + last_game.home_toValue
+          @home_stl = @home_stl + last_game.home_stl.to_i
+          @home_blk = @home_blk + last_game.home_blk.to_i
+          @home_to = @home_to + last_game.home_toValue.to_i
         else
-          @home_stl = @home_stl + last_game.away_stl
-          @home_blk = @home_blk + last_game.away_blk
-          @home_to = @home_to + last_game.away_toValue
+          @home_stl = @home_stl + last_game.away_stl.to_i
+          @home_blk = @home_blk + last_game.away_blk.to_i
+          @home_to = @home_to + last_game.away_toValue.to_i
         end
       end
       @home_count = @home_last_games.count
