@@ -325,9 +325,9 @@
       end
       @away_count = @away_last_games.count
       if @away_count
-        @away_stl = (@away_stl / @away_count).round(1)
-        @away_blk = (@away_blk / @away_count).round(1)
-        @away_to = (@away_to / @away_count).round(1)
+        @away_stl = (@away_stl.to_f / @away_count).round(1)
+        @away_blk = (@away_blk.to_f / @away_count).round(1)
+        @away_to = (@away_to.to_f / @away_count).round(1)
       end
 
       @home_last_games = Nba.where("home_team = ? AND game_date < ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.home_team, game.game_date)).order(:game_date).limit(12)
@@ -347,9 +347,9 @@
       end
       @home_count = @home_last_games.count
       if @home_count
-        @home_stl = (@home_stl / @home_count).round(1)
-        @home_blk = (@home_blk / @home_count).round(1)
-        @home_to = (@home_to / @home_count).round(1)
+        @home_stl = (@home_stl.to_f / @home_count).round(1)
+        @home_blk = (@home_blk.to_f / @home_count).round(1)
+        @home_to = (@home_to.to_f / @home_count).round(1)
       end
 
     %>
