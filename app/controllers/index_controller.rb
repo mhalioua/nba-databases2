@@ -1204,8 +1204,8 @@ class IndexController < ApplicationController
 	        @home_blk = (@home_blk.to_f / @home_count).round(1)
 	    end
 
-	    @away_players_starters = @away_last.players.where("team_abbr = ? AND state < 5", @away_flag).order(:state)
-	    @home_players_starters = @home_last.players.where("team_abbr = ? AND state < 5", @home_flag).order(:state)
+	    @away_players_starters = @away_last.players.where("team_abbr = ? AND state < 6", @away_flag).order(:state)
+	    @home_players_starters = @home_last.players.where("team_abbr = ? AND state < 6", @home_flag).order(:state)
 
 	    @away_avg_stl = 0
 	    @away_avg_blk = 0
