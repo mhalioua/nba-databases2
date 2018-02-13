@@ -1211,13 +1211,18 @@ class IndexController < ApplicationController
 	    @away_avg_blk = 0
 	    @away_players_starters.each do |player|
 	    	last_players = Player.where("player_name = ? AND mins <> 0", player.player_name).order(game_date: :desc).limit(12)
-	    	average_mins = last_players.average(:mins)
-	    	average_stl = last_players.average(:stlValue)
-	    	average_blk = last_players.average(:blkValue)
-	    	puts average_mins
-	    	puts average_stl
-	    	puts average_blk
-	    	puts 48 / average_mins * average_stl
+	    	average_mins = 0
+	    	average_stl = 0
+	    	average_blk = 0
+	    	last_players_count = last_players.count
+	    	last_players.each do |last_player|
+	    		average_mins = average_mins + last_player.mins
+	    		average_stl = average_stl + last_player.stlValue
+	    		average_blk = average_blk + last_player.blkValue
+	    	end
+	    	average_mins = average_mins.to_f / last_players_count
+	    	average_stl = average_stl.to_f / last_players_count
+	    	average_blk = average_blk.to_f / last_players_count
 	    	@away_avg_stl = @away_avg_stl + 48 / average_mins * average_stl
 	    	@away_avg_blk = @away_avg_blk + 48 / average_mins * average_blk
 	    end
@@ -1226,9 +1231,18 @@ class IndexController < ApplicationController
 	    @home_avg_blk = 0
 	    @home_players_starters.each do |player|
 	    	last_players = Player.where("player_name = ? AND mins <> 0", player.player_name).order(game_date: :desc).limit(12)
-	    	average_mins = last_players.average(:mins)
-	    	average_stl = last_players.average(:stlValue)
-	    	average_blk = last_players.average(:blkValue)
+	    	average_mins = 0
+	    	average_stl = 0
+	    	average_blk = 0
+	    	last_players_count = last_players.count
+	    	last_players.each do |last_player|
+	    		average_mins = average_mins + last_player.mins
+	    		average_stl = average_stl + last_player.stlValue
+	    		average_blk = average_blk + last_player.blkValue
+	    	end
+	    	average_mins = average_mins.to_f / last_players_count
+	    	average_stl = average_stl.to_f / last_players_count
+	    	average_blk = average_blk.to_f / last_players_count
 	    	@home_avg_stl = @home_avg_stl + 48 / average_mins * average_stl
 	    	@home_avg_blk = @home_avg_blk + 48 / average_mins * average_blk
 	    end
