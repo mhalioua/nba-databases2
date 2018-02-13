@@ -419,10 +419,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -491,10 +491,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -566,10 +566,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -608,10 +608,10 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= @injury_away_total_or %></td>
-        <td><%= @injury_away_total_stl %></td>
-        <td><%= @injury_away_total_blk %></td>
-        <td><%= @injury_away_total_to %></td>
+        <td><%= @injury_away_total_or.round(1) %></td>
+        <td><%= @injury_away_total_stl.round(1) %></td>
+        <td><%= @injury_away_total_blk.round(1) %></td>
+        <td><%= @injury_away_total_to.round(1) %></td>
         <td><%= '%.2f' % @injury_away_total_poss %>%</td>
         <td><%= @injury_away_total_min %></td>
         <td>100%</td>
@@ -680,10 +680,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -752,10 +752,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -827,10 +827,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -869,10 +869,10 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= @injury_home_total_or %></td>
-        <td><%= @injury_home_total_stl %></td>
-        <td><%= @injury_home_total_blk %></td>
-        <td><%= @injury_home_total_to %></td>
+        <td><%= @injury_home_total_or.round(1) %></td>
+        <td><%= @injury_home_total_stl.round(1) %></td>
+        <td><%= @injury_home_total_blk.round(1) %></td>
+        <td><%= @injury_home_total_to.round(1) %></td>
         <td><%= '%.2f' % @injury_home_total_poss %>%</td>
         <td><%= @injury_home_total_min %></td>
         <td>100%</td>
@@ -944,10 +944,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -1007,10 +1007,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -1073,10 +1073,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -1106,10 +1106,10 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= @away_total_or %></td>
-        <td><%= @away_total_stl %></td>
-        <td><%= @away_total_blk %></td>
-        <td><%= @away_total_to %></td>
+        <td><%= @away_total_or.round(1) %></td>
+        <td><%= @away_total_stl.round(1) %></td>
+        <td><%= @away_total_blk.round(1) %></td>
+        <td><%= @away_total_to.round(1) %></td>
         <td><%= '%.2f' % @away_total_poss %>%</td>
         <td><%= @away_total_min %></td>
         <td>100%</td>
@@ -1176,10 +1176,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -1239,10 +1239,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -1305,10 +1305,10 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= player.sum_or/count %></td>
-        <td style='<%= style %>' ><%= player.sum_stl/count %></td>
-        <td style='<%= style %>' ><%= player.sum_blk/count %></td>
-        <td style='<%= style %>' ><%= player.sum_to/count %></td>
+        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(1) %></td>
+        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(1) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
@@ -1338,10 +1338,10 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= @home_total_or %></td>
-        <td><%= @home_total_stl %></td>
-        <td><%= @home_total_blk %></td>
-        <td><%= @home_total_to %></td>
+        <td><%= @home_total_or.round(1) %></td>
+        <td><%= @home_total_stl.round(1) %></td>
+        <td><%= @home_total_blk.round(1) %></td>
+        <td><%= @home_total_to.round(1) %></td>
         <td><%= '%.2f' % @home_total_poss %>%</td>
         <td><%= @home_total_min %></td>
         <td>100%</td>
