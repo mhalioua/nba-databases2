@@ -119,6 +119,7 @@
         <th class="purple"></th>
         <th class="gray"></th>
         <th class="gray"></th>
+        <th class="gray"></th>
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
@@ -202,6 +203,7 @@
         <th class="purple"></th>
         <th class="gray">Next game</th>
         <th class="gray">Next game total</th>
+        <th class="gray">Count</th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -474,6 +476,7 @@
         <td class="purple">1h</td>
         <td><%= game.referee_one_next %></td>
         <td><%= @referee_next_part ? @referee_next_part.next_first : '' %></td>
+        <td><%= @referee_last_part ? @referee_last_part.last_count : '' %></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -571,6 +574,7 @@
       <td class="purple">2h</td>
       <td><%= game.referee_two_next %></td>
       <td><%= @referee_next_part ? @referee_next_part.next_second : '' %></td>
+      <td><%= @referee_next_part ? @referee_next_part.next_count : '' %></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -654,6 +658,7 @@
       <td class="purple">gms</td>
       <td><%= game.referee_three_next %></td>
       <td><%= @referee_next_part ? @referee_next_part.next_count : '' %></td>
+      <td></td>
     </tr>
     <% end %>
   	</tbody>
