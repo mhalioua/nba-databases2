@@ -308,7 +308,7 @@
 
       @referee_next_part = Refereestatic.where("referee_one = ? AND referee_two = ? AND referee_three = ?", referee_one_next, referee_two_next, referee_three_next).first
 
-      @away_last_games = Nba.where("home_team = ? AND game_date < ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.away_team, game.game_date)).order(:game_date).limit(12)
+      @away_last_games = Nba.where("home_team = ? AND game_date < ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.away_team, game.game_date)).order(game_date: :desc).limit(12)
       @away_stl = 0
       @away_blk = 0
       @away_to = 0
@@ -330,7 +330,7 @@
         @away_to = (@away_to.to_f / @away_count).round(1)
       end
 
-      @home_last_games = Nba.where("home_team = ? AND game_date < ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.home_team, game.game_date)).order(:game_date).limit(12)
+      @home_last_games = Nba.where("home_team = ? AND game_date < ?", game.home_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.home_team, game.game_date)).order(game_date: :desc).limit(12)
       @home_stl = 0
       @home_blk = 0
       @home_to = 0
