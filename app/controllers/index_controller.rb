@@ -1214,6 +1214,10 @@ class IndexController < ApplicationController
 	    	average_mins = last_players.average(:mins)
 	    	average_stl = last_players.average(:stlValue)
 	    	average_blk = last_players.average(:blkValue)
+	    	puts average_mins
+	    	puts average_stl
+	    	puts average_blk
+	    	puts 48 / average_mins * average_stl
 	    	@away_avg_stl = @away_avg_stl + 48 / average_mins * average_stl
 	    	@away_avg_blk = @away_avg_blk + 48 / average_mins * average_blk
 	    end
