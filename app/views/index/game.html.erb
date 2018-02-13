@@ -77,7 +77,7 @@
         <th class="gray"></th>
         <th class="gray"></th>
         <th class="gray"></th>
-        <th class="skyblue" style="border-right: 5px solid #666;"></th>
+        <th class="skyblue"></th>
 
         <th class="purple"></th>
         <th class="purple"></th>
@@ -96,6 +96,8 @@
         <th class="purple"></th>
         <th class="purple"></th>
         <th class="purple"></th>
+        <th class="skyblue"></th>
+
         <th colspan="7">1H STATS</th>
         <th></th>
         <th></th>
@@ -151,7 +153,7 @@
         <th class="gray">Wins rank</th>
         <th class="gray">PPG + OPP PPG</th>
         <th class="gray"></th>
-        <th class="skyblue" style="border-right: 5px solid #666;"></th>
+        <th class="skyblue"></th>
 
         <th class="purple"></th>
         <th class="purple"></th>
@@ -170,6 +172,7 @@
         <th class="purple"></th>
         <th class="purple"></th>
         <th class="purple"></th>
+        <th class="skyblue"></th>
         <th class="red">1H<br>FGA</th>
         <th class="red">1H<br>FTA</th>
         <th class="red">1H<br>ORB</th>
@@ -399,7 +402,7 @@
         hometotal = @countItem ? (@countItem.average(:homefirsthalf).to_f + @countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f) : 0
       %>
       <td class="red"><%= @countItem ? (roadtotal - hometotal).round(2) : "" %></td>
-      <td class="skyblue" style="border-right: 5px solid #666;"></td>
+      <td class="red"><%= game.away_abbr %></td>
 
       <td class="gray">Any</td>
       <td class="skygreen"></td>
@@ -418,6 +421,7 @@
       <td>97.01</td>
       <td>196.1</td>
       <td>20904</td>
+      <td class="red"><%= game.away_abbr %></td>
 
         <td><%= game.first_away_fga %></td>
       <td><%= game.first_away_fta %></td>
@@ -493,7 +497,7 @@
       <td class="gray"><%= game.home_win_rank %></td>
       <td class="green"><%= game.home_ppg_rank + (30 - game.home_oppppg_rank) %></td>
       <td class="yellow"><%= @countItem ? (@countItem.average(:totalvalue).to_f - 196.09).round(2) : "" %></td>
-      <td class="skyblue" style="border-right: 5px solid #666;"></td>
+      <td class="red" ><%= game.home_abbr %></td>
 
       <td class="gray">
         <div style="width: 90px;">
@@ -516,6 +520,7 @@
       <td class="gray"><%= @secondItem ? @secondItem.average(:secondvalue).to_f.round(2) : "" %></td>
       <td class="gray"><%= @secondItem ? @secondItem.average(:totalvalue).to_f.round(2) : "" %></td>
       <td class="gray"><%= @secondItem ? @secondItem.count(:totalvalue).to_i : "" %></td>
+      <td class="red" ><%= game.home_abbr %></td>
 
       <td><%= game.first_home_fga %></td>
       <td><%= game.first_home_fta %></td>
@@ -591,7 +596,7 @@
       <td class="skyblue"></td>
       <td class="green"></td>
       <td class="green"></td>
-      <td class="skyblue" style="border-right: 5px solid #666;"></td>
+      <td class="skyblue"><%= game.away_abbr %></td>
 
       <td></td>
       <td class="skygreen"></td>
@@ -610,6 +615,7 @@
       <td class="gray"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
       <td class="gray"><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
       <td class="gray"><%= @countItem ? @countItem.count(:totalvalue).to_i : "" %></td>
+      <td class="skyblue"><%= game.away_abbr %></td>
 
       <td class="skyblue"><%= game.away_first_quarter %></td>
       <td class="skyblue"><%= game.away_second_quarter %></td>
