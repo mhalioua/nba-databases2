@@ -1186,6 +1186,8 @@ namespace :nba do
     games.each do |game|
       home_abbr = game.home_abbr
       away_abbr = game.away_abbr
+      next unless home_abbr
+      next unless away_abbr
 
       now = Date.strptime(game.game_date)
       if now > Time.now
