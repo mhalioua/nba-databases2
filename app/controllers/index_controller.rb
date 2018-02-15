@@ -1181,8 +1181,8 @@ class IndexController < ApplicationController
 	    end
 	    @away_count = @away_last_games.count
 	    if @away_count
-	    	@away_stl = (@away_stl.to_f / @away_count).round(1)
-	        @away_blk = (@away_blk.to_f / @away_count).round(1)
+	    	@away_stl = (@away_stl.to_f / @away_count).round(2)
+	        @away_blk = (@away_blk.to_f / @away_count).round(2)
 	    end
 
     	@home_last_games = Nba.where("home_team = ? AND game_date < ?", @game.home_team, @game.game_date).or(Nba.where("away_team = ? AND game_date < ?", @game.home_team, @game.game_date)).order(game_date: :desc).limit(12)
@@ -1200,8 +1200,8 @@ class IndexController < ApplicationController
 	    end
 	    @home_count = @home_last_games.count
 	    if @home_count
-	        @home_stl = (@home_stl.to_f / @home_count).round(1)
-	        @home_blk = (@home_blk.to_f / @home_count).round(1)
+	        @home_stl = (@home_stl.to_f / @home_count).round(2)
+	        @home_blk = (@home_blk.to_f / @home_count).round(2)
 	    end
 
 	    @away_players_starters = @away_last.players.where("team_abbr = ? AND state < 6", @away_flag).order(:state)
@@ -1328,6 +1328,7 @@ class IndexController < ApplicationController
 		}
 
 		@countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", @game.away_last_fly, @game.away_next_fly, @game.away_last_game, @game.away_next_game, @game.home_next_game, @game.home_last_game, @game.home_next_fly, @game.home_last_fly)
+ 		@secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_last_fly, @game.away_next_fly, @game.away_last_game, @game.away_next_game, @game.home_next_game, @game.home_last_game, @game.home_next_fly, @game.home_last_fly)
 		@compares = @game.compares.all
 
 		referee_one_last = @game.referee_one_last

@@ -1170,8 +1170,8 @@ namespace :nba do
             player_link = player_element.player_link
             player_fullname = player_element.player_fullname
           end
-					ortg = (ortg.to_f / count).round(1)
-					drtg = (drtg.to_f / count).round(1)
+					ortg = (ortg.to_f / count).round(2)
+					drtg = (drtg.to_f / count).round(2)
 					player.update(ortg: ortg, drtg: drtg, player_link: player_link, player_fullname: player_fullname)
 				end
 			end
@@ -1261,8 +1261,8 @@ namespace :nba do
         end
       end
 
-      home_pg_players = home_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM'", home_flag).or(home_last.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM'", home_flag)).order(:state)
-      away_pg_players = away_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM'", away_flag).or(away_last.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM'", away_flag)).order(:state)
+      home_pg_players = home_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM'", home_flag).or(home_last.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM'", home_flag).or(home_last.players.where("team_abbr = ? AND position = 'SF' AND player_name <> 'TEAM'", home_flag))).order(:state)
+      away_pg_players = away_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM'", away_flag).or(away_last.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM'", away_flag).or(away_last.players.where("team_abbr = ? AND position = 'SF' AND player_name <> 'TEAM'", away_flag))).order(:state)
       home_pg_players.each_with_index do |home_pg_player, index|  
         if index == 3
           break
@@ -1287,34 +1287,6 @@ namespace :nba do
           Rake::Task["nba:getOnebyOne"].reenable
         end
       end
-
-      home_pg_players = home_last.players.where("team_abbr = ? AND position = 'SF' AND player_name <> 'TEAM'", home_flag).order(:state)
-      away_pg_players = away_last.players.where("team_abbr = ? AND position = 'SF' AND player_name <> 'TEAM'", away_flag).order(:state)
-      home_pg_players.each_with_index do |home_pg_player, index|
-        if index == 3
-          break
-        end
-        unless home_pg_player.player_fullname
-          next
-        end
-        if home_pg_player.player_fullname == ""
-          next
-        end
-        away_pg_players.each_with_index do |away_pg_player, index|
-          if index == 3
-            break
-          end
-          unless away_pg_player.player_fullname
-            next
-          end
-          if away_pg_player.player_fullname == ""
-            next
-          end
-          Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
-          Rake::Task["nba:getOnebyOne"].reenable
-        end
-      end
-
     end
   end
   task :getOnebyOne, [:game, :home_pg_player, :away_pg_player] => [:environment] do |t, args|
