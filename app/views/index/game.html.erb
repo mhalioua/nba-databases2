@@ -210,6 +210,8 @@
     <% @games.each_with_index do |game, index| 
       @home_team_info = Team.find_by(abbr: game.home_abbr)
       @away_team_info = Team.find_by(abbr: game.away_abbr)
+      next unless @home_team_info
+      next unless @away_team_info
 
       referee_one_last = game.referee_one_last
       referee_two_last = game.referee_two_last
