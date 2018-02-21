@@ -2081,7 +2081,7 @@ namespace :nba do
 
   task :teaminfo => :environment do
     include Api
-    url = "http://www.espn.com/nba/standings/_/season/2018/sort/wins/group/league"
+    url = "http://www.espn.com/nba/standings/_/sort/wins/dir/desc/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
@@ -2092,7 +2092,7 @@ namespace :nba do
       team.update(order_one_seventeen: index + 1)
     end
 
-    url = "http://www.espn.com/nba/standings/_/season/2018/sort/avgpointsfor/group/league"
+    url = "http://www.espn.com/nba/standings/_/sort/avgpointsfor/dir/desc/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
@@ -2103,7 +2103,7 @@ namespace :nba do
       team.update(order_two_seventeen: index + 1)
     end
 
-    url = "http://www.espn.com/nba/standings/_/season/2018/sort/avgpointsagainst/group/league"
+    url = "http://www.espn.com/nba/standings/_/sort/avgpointsagainst/dir/desc/group/league"
     doc = download_document(url)
     elements = doc.css("abbr")
     puts elements.length
