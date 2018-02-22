@@ -1232,6 +1232,8 @@ class IndexController < ApplicationController
 	    	average_mins = 0
 	    	average_stl = 0
 	    	average_blk = 0
+	    	average_or = 0
+	    	average_to = 0
 	    	last_players_count = last_players.count
 	    	last_players.each do |last_player|
 	    		average_mins = average_mins + last_player.mins
@@ -1260,6 +1262,8 @@ class IndexController < ApplicationController
 	    	average_mins = 0
 	    	average_stl = 0
 	    	average_blk = 0
+	    	average_or = 0
+	    	average_to = 0
 	    	last_players_count = last_players.count
 	    	last_players.each do |last_player|
 	    		average_mins = average_mins + last_player.mins
