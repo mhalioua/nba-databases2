@@ -1216,8 +1216,8 @@ class IndexController < ApplicationController
 	    if @home_count
 	        @home_stl = (@home_stl.to_f / @home_count).round(2)
 	        @home_blk = (@home_blk.to_f / @home_count).round(2)
-	        @away_or = (@home_or.to_f / @home_count).round(2)
-	        @away_to = (@home_to.to_f / @home_count).round(2)
+	        @home_or = (@home_or.to_f / @home_count).round(2)
+	        @home_to = (@home_to.to_f / @home_count).round(2)
 	    end
 
 	    @away_players_starters = @away_last.players.where("team_abbr = ? AND state < 6", @away_flag).order(:state)
