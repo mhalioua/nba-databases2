@@ -23,7 +23,7 @@
         <tr>
           <th colspan="7">REBOUNDS</th>
           <th class="between"></th>
-          <th colspan="7">OFFENSIVE REBOUNDS</th>
+          <th colspan="9">OFFENSIVE REBOUNDS</th>
         </tr>
         <tr>
         <th>TEAM</th>
@@ -41,6 +41,8 @@
         <th>HOME</th>
         <th>AWAY</th>
         <th>2016</th>
+        <th>Last 12</th>
+        <th>Lineup</th>
         </tr>
       </thead>
       <tbody>
@@ -60,6 +62,8 @@
           <td> <%= @home_team_info.rebound_home %> </td>
           <td> <%= @home_team_info.rebound_away %> </td>
           <td> <%= @home_team_info.rebound_last %> </td>
+          <td> <%= @home_or %> </td>
+          <td> <%= @home_avg_or.round(2) %> </td>
         </tr>
         <tr>
           <td> <%= @away_team_info.team %> </td>
@@ -77,6 +81,8 @@
           <td> <%= @away_team_info.rebound_home %> </td>
           <td> <%= @away_team_info.rebound_away %> </td>
           <td> <%= @away_team_info.rebound_last %> </td>
+          <td> <%= @away_or %> </td>
+          <td> <%= @away_avg_or.round(2) %> </td>
         </tr>
       </tbody>
     </table>
@@ -173,7 +179,7 @@
     <table border="1">
       <thead>
         <tr>
-          <th colspan="7">TURNOVERS</th>
+          <th colspan="9">TURNOVERS</th>
           <th class="between"></th>
           <th colspan="6">RECORD</th>
         </tr>
@@ -185,6 +191,8 @@
         <th>HOME</th>
         <th>AWAY</th>
         <th>2016</th>
+        <th>Last 12</th>
+        <th>Lineup</th>
         <th class="between"></th>
         <th>TEAM</th>
         <th>WON</th>
@@ -203,6 +211,8 @@
           <td> <%= @home_team_info.turnover_home %> </td>
           <td> <%= @home_team_info.turnover_away %> </td>
           <td> <%= @home_team_info.turnover_last %> </td>
+          <td> <%= @home_to %> </td>
+          <td> <%= @home_avg_to.round(2) %> </td>
           <td class="between"></td>
           <td> <%= @home_team_info.team %> </td>
           <td> <%= @home_team_info.record_won.round() %> </td>
@@ -219,6 +229,8 @@
           <td> <%= @away_team_info.turnover_home %> </td>
           <td> <%= @away_team_info.turnover_away %> </td>
           <td> <%= @away_team_info.turnover_last %> </td>
+          <td> <%= @away_to %> </td>
+          <td> <%= @away_avg_to.round(2) %> </td>
           <td class="between"></td>
           <td> <%= @away_team_info.team %> </td>
           <td> <%= @away_team_info.record_won.round() %> </td>

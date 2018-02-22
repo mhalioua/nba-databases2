@@ -1170,38 +1170,54 @@ class IndexController < ApplicationController
     	@away_last_games = Nba.where("home_team = ? AND game_date < ?", @game.away_team, @game.game_date).or(Nba.where("away_team = ? AND game_date < ?", @game.away_team, @game.game_date)).order(game_date: :desc).limit(12)
     	@away_stl = 0
 	    @away_blk = 0
+	    @away_or = 0
+	    @away_to = 0
 	    @away_last_games.each do |last_game|
 	        if last_game.home_team == @game.away_team
 	        	@away_stl = @away_stl + last_game.home_stl.to_i
 	         	@away_blk = @away_blk + last_game.home_blk.to_i
+	        	@away_or = @away_or + last_game.home_orValue.to_i
+	         	@away_to = @away_to + last_game.home_toValue.to_i
 	        else
 	          	@away_stl = @away_stl + last_game.away_stl.to_i
 	          	@away_blk = @away_blk + last_game.away_blk.to_i
+	        	@away_or = @away_or + last_game.away_orValue.to_i
+	         	@away_to = @away_to + last_game.away_toValue.to_i
 	        end
 	    end
 	    @away_count = @away_last_games.count
 	    if @away_count
 	    	@away_stl = (@away_stl.to_f / @away_count).round(2)
 	        @away_blk = (@away_blk.to_f / @away_count).round(2)
+	        @away_or = (@away_or.to_f / @away_count).round(2)
+	        @away_to = (@away_to.to_f / @away_count).round(2)
 	    end
 
     	@home_last_games = Nba.where("home_team = ? AND game_date < ?", @game.home_team, @game.game_date).or(Nba.where("away_team = ? AND game_date < ?", @game.home_team, @game.game_date)).order(game_date: :desc).limit(12)
     	@home_stl = 0
 	    @home_blk = 0
+	    @home_or = 0
+	    @home_to = 0
 
       	@home_last_games.each do |last_game|
 	        if last_game.home_team == @game.home_team
 	        	@home_stl = @home_stl + last_game.home_stl.to_i
 	          	@home_blk = @home_blk + last_game.home_blk.to_i
+	        	@home_or = @home_or + last_game.home_orValue.to_i
+	         	@home_to = @home_to + last_game.home_toValue.to_i
 	        else
 	          	@home_stl = @home_stl + last_game.away_stl.to_i
 	          	@home_blk = @home_blk + last_game.away_blk.to_i
+	        	@home_or = @home_or + last_game.away_orValue.to_i
+	         	@home_to = @home_to + last_game.away_toValue.to_i
 	        end
 	    end
 	    @home_count = @home_last_games.count
 	    if @home_count
 	        @home_stl = (@home_stl.to_f / @home_count).round(2)
 	        @home_blk = (@home_blk.to_f / @home_count).round(2)
+	        @away_or = (@home_or.to_f / @home_count).round(2)
+	        @away_to = (@home_to.to_f / @home_count).round(2)
 	    end
 
 	    @away_players_starters = @away_last.players.where("team_abbr = ? AND state < 6", @away_flag).order(:state)
@@ -1209,6 +1225,8 @@ class IndexController < ApplicationController
 
 	    @away_avg_stl = 0
 	    @away_avg_blk = 0
+	    @away_avg_or = 0
+	    @away_avg_to = 0
 	    @away_players_starters.each do |player|
 	    	last_players = Player.where("player_name = ? AND mins <> 0", player.player_name).order(game_date: :desc).limit(12)
 	    	average_mins = 0
@@ -1219,16 +1237,24 @@ class IndexController < ApplicationController
 	    		average_mins = average_mins + last_player.mins
 	    		average_stl = average_stl + last_player.stlValue
 	    		average_blk = average_blk + last_player.blkValue
+	    		average_or = average_or + last_player.orValue
+	    		average_to = average_to + last_player.toValue
 	    	end
 	    	average_mins = average_mins.to_f / last_players_count
 	    	average_stl = average_stl.to_f / last_players_count
 	    	average_blk = average_blk.to_f / last_players_count
+	    	average_or = average_or.to_f / last_players_count
+	    	average_to = average_to.to_f / last_players_count
 	    	@away_avg_stl = @away_avg_stl + 48 / average_mins * average_stl
 	    	@away_avg_blk = @away_avg_blk + 48 / average_mins * average_blk
+	    	@away_avg_or = @away_avg_or + 48 / average_mins * average_or
+	    	@away_avg_to = @away_avg_to + 48 / average_mins * average_to
 	    end
 
 	    @home_avg_stl = 0
 	    @home_avg_blk = 0
+	    @home_avg_or = 0
+	    @home_avg_to = 0
 	    @home_players_starters.each do |player|
 	    	last_players = Player.where("player_name = ? AND mins <> 0", player.player_name).order(game_date: :desc).limit(12)
 	    	average_mins = 0
@@ -1239,12 +1265,18 @@ class IndexController < ApplicationController
 	    		average_mins = average_mins + last_player.mins
 	    		average_stl = average_stl + last_player.stlValue
 	    		average_blk = average_blk + last_player.blkValue
+	    		average_or = average_or + last_player.orValue
+	    		average_to = average_to + last_player.toValue
 	    	end
 	    	average_mins = average_mins.to_f / last_players_count
 	    	average_stl = average_stl.to_f / last_players_count
 	    	average_blk = average_blk.to_f / last_players_count
+	    	average_or = average_or.to_f / last_players_count
+	    	average_to = average_to.to_f / last_players_count
 	    	@home_avg_stl = @home_avg_stl + 48 / average_mins * average_stl
 	    	@home_avg_blk = @home_avg_blk + 48 / average_mins * average_blk
+	    	@home_avg_or = @home_avg_or + 48 / average_mins * average_or
+	    	@home_avg_to = @home_avg_to + 48 / average_mins * average_to
 	    end
 
 		@team_more = {
