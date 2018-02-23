@@ -382,6 +382,8 @@ namespace :nba do
 	  		if element.size > 3
 		  		away_value = element[0]
 		  		home_value = element[2]
+          puts away_value.inspect
+          puts home_value.inspect
 
 		  		away_mins_value = away_value.children[1].text.to_i
   				away_fga_value = away_value.children[2].text
@@ -1196,8 +1198,6 @@ namespace :nba do
 
       away_last = Nba.where("home_abbr = ? AND game_date < ?", away_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", away_abbr, now)).order(:game_date).last
       home_last = Nba.where("home_abbr = ? AND game_date < ?", home_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", home_abbr, now)).order(:game_date).last
-      puts away_last.inspect
-      puts home_last.inspect
       
       if away_abbr == away_last.away_abbr
         away_flag = 0
