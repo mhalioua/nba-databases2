@@ -1198,6 +1198,7 @@ namespace :nba do
       home_last = Nba.where("home_abbr = ? AND game_date < ?", home_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", home_abbr, now)).order(:game_date).last
       puts away_last.players.all.count
       puts home_last.players.all.count
+      break
       
       if away_abbr == away_last.away_abbr
         away_flag = 0
