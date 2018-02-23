@@ -1196,6 +1196,8 @@ namespace :nba do
 
       away_last = Nba.where("home_abbr = ? AND game_date < ?", away_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", away_abbr, now)).order(:game_date).last
       home_last = Nba.where("home_abbr = ? AND game_date < ?", home_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", home_abbr, now)).order(:game_date).last
+      puts away_last.inspect
+      puts home_last.inspect
       
       if away_abbr == away_last.away_abbr
         away_flag = 0
