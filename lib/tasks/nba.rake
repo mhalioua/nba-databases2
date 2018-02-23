@@ -1196,9 +1196,6 @@ namespace :nba do
 
       away_last = Nba.where("home_abbr = ? AND game_date < ?", away_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", away_abbr, now)).order(:game_date).last
       home_last = Nba.where("home_abbr = ? AND game_date < ?", home_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", home_abbr, now)).order(:game_date).last
-      puts away_last.players.all.count
-      puts home_last.players.all.count
-      break
       
       if away_abbr == away_last.away_abbr
         away_flag = 0
@@ -1214,6 +1211,9 @@ namespace :nba do
 
       home_pg_players = home_last.players.where("team_abbr = ? AND position = 'PG' AND player_name <> 'TEAM'", home_flag).order(:state)
       away_pg_players = away_last.players.where("team_abbr = ? AND position = 'PG' AND player_name <> 'TEAM'", away_flag).order(:state)
+      puts home_pg_players.count
+      puts away_pg_players.count
+      break
       home_pg_players.each_with_index do |home_pg_player, index|
         if index == 3
           break
