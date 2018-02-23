@@ -1126,7 +1126,7 @@ namespace :nba do
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 12.days).beginning_of_day, Time.now-5.hours)
 		puts games.size
 		games.each do |game|
 			players = game.players.all
@@ -1211,9 +1211,6 @@ namespace :nba do
 
       home_pg_players = home_last.players.where("team_abbr = ? AND position = 'PG' AND player_name <> 'TEAM'", home_flag).order(:state)
       away_pg_players = away_last.players.where("team_abbr = ? AND position = 'PG' AND player_name <> 'TEAM'", away_flag).order(:state)
-      puts home_pg_players.count
-      puts away_pg_players.count
-      break
       home_pg_players.each_with_index do |home_pg_player, index|
         if index == 3
           break
