@@ -379,11 +379,9 @@ namespace :nba do
 	  		doc = download_document(url)
         puts url
 	  		element = doc.css(".highlight")
-	  		if element.size > 3
+	  		if element.size > 4
 		  		away_value = element[0]
 		  		home_value = element[2]
-          puts away_value.inspect
-          puts home_value.inspect
 
 		  		away_mins_value = away_value.children[1].text.to_i
   				away_fga_value = away_value.children[2].text
