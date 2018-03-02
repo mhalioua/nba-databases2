@@ -76,7 +76,10 @@ class IndexController < ApplicationController
 		@away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
 		@away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@away_starters.each do |away_starter|
-			selected_player = @away_players.select {|element| element.player_fullname == away_starter.player_name}.first
+			selected_player = @away_players.select {|element|
+				element_index = element.player_fullname.rindex(" ")
+				away_starter_index = away_starter.player_name.rindex(" ")
+				return element.player_fullname[element_index..-1] == away_starter.player_name[away_starter_index..-1]}.first
 			if selected_player
 				selected_player.position = away_starter.position
 				@away_players_group3.delete(selected_player)
@@ -102,7 +105,10 @@ class IndexController < ApplicationController
 		@home_starter_abbr = @match[@home_starter_abbr] if @match[@home_starter_abbr]
 		@home_starters = Starter.where('team = ? AND time = ?', @home_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@home_starters.each do |home_starter|
-			selected_player = @home_players.select {|element| element.player_fullname == home_starter.player_name}.first
+			selected_player = @home_players.select {|element| 
+				element_index = element.player_fullname.rindex(" ")
+				home_starter_index = home_starter.player_name.rindex(" ")
+				return element.player_fullname[element_index..-1] == home_starter.player_name[home_starter_index..-1]}.first
 			if selected_player
 				selected_player.position = home_starter.position
 				@home_players_group3.delete(selected_player)
