@@ -46,6 +46,9 @@ namespace :nba do
 
     Rake::Task["nba:getTodayReferee"].invoke
     Rake::Task["nba:getTodayReferee"].reenable
+
+    Rake::Task["nba:getStarter"].invoke
+    Rake::Task["nba:getStarter"].reenable
 	end
   
 	task :daily => :environment do
