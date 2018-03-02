@@ -65,6 +65,14 @@ class IndexController < ApplicationController
 		@away_players_group2 = []
 		@away_players_group3 = @away_players
 		@away_starter_abbr = @away_abbr
+		@match = {
+	  		'GS' => 'GSW',
+	  		'NY' => 'NYK',
+	  		'PHX' => 'PHO',
+	  		'SA' => 'SAS',
+	  		'UTAH' => 'UTA',
+	  		'WSH' => 'WAS'
+	  	}
 		@away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
 		@away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, (DateTime.parse(@game.game_date) + 5.hours).in_time_zone).order(:index)
 		@away_starters.each do |away_starter|
@@ -2362,13 +2370,4 @@ class IndexController < ApplicationController
 	  		date = date + 1.days
 	  	end
   	end
-
-  	@match = {
-  		'GS' => 'GSW',
-  		'NY' => 'NYK',
-  		'PHX' => 'PHO',
-  		'SA' => 'SAS',
-  		'UTAH' => 'UTA',
-  		'WSH' => 'WAS'
-  	}
 end
