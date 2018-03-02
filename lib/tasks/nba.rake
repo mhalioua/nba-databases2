@@ -1830,6 +1830,37 @@ namespace :nba do
 		end
 	end
 
+  task :test => :environment do
+
+    @away_players = Player.where("team_abbr = 1 AND nba_id = 24753").order(:state)
+    @away_players = @away_players[0..-2]
+    @away_players_group1 = []
+    @away_players_group2 = []
+    @away_players_group3 = @away_players
+    @away_starter_abbr = 'DET'
+    @match = {
+        'GS' => 'GSW',
+        'NY' => 'NYK',
+        'PHX' => 'PHO',
+        'SA' => 'SAS',
+        'UTAH' => 'UTA',
+        'WSH' => 'WAS'
+      }
+    @away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
+    @away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, (DateTime.parse("2018-02-28 19:00:00 -0500") - 5.hours).in_time_zone).order(:index)
+    puts @away_starters.count
+    @away_starters.each do |away_starter|
+      selected_player = @away_players.select {|element| element.player_fullname == away_starter.player_name}
+      puts selected_player.inspect
+      @away_players_group3.delete(selected_player)
+      if selected_player.position == 'PG' || selected_player.position == 'SG'
+        @away_players_group1.push(selected_player)
+      else
+        @away_players_group2.push(selected_player)
+      end
+    end
+  end
+
   task :getRefereeStatic => :environment do
     @referee_filter_third = []
     (0..7).each do |one_element|
