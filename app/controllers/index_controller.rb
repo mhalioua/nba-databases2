@@ -73,6 +73,7 @@ class IndexController < ApplicationController
 				@away_players_group1.push(selected_player)
 			else
 				@away_players_group2.push(selected_player)
+			end
 		end
 
 		# @away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @away_flag)).order(:state)
