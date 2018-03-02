@@ -25,6 +25,14 @@ class IndexController < ApplicationController
 	end
 
 	def detail
+		@match = {
+	  		'GS' => 'GSW',
+	  		'NY' => 'NYK',
+	  		'PHX' => 'PHO',
+	  		'SA' => 'SAS',
+	  		'UTAH' => 'UTA',
+	  		'WSH' => 'WAS'
+	  	}
 		@injuries = params[:injury]
 		unless @injuries
 			@injuries = ''
@@ -65,14 +73,6 @@ class IndexController < ApplicationController
 		@away_players_group2 = []
 		@away_players_group3 = @away_players
 		@away_starter_abbr = @away_abbr
-		@match = {
-	  		'GS' => 'GSW',
-	  		'NY' => 'NYK',
-	  		'PHX' => 'PHO',
-	  		'SA' => 'SAS',
-	  		'UTAH' => 'UTA',
-	  		'WSH' => 'WAS'
-	  	}
 		@away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
 		@away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@away_starters.each do |away_starter|
@@ -92,11 +92,27 @@ class IndexController < ApplicationController
 		# @away_players_group3 = @away_players_group3[0..-2]
 
 		@home_players = @home_last.players.where("team_abbr = ?", @home_flag).order(:state)
-		@home_players_group1 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @home_flag)).order(:state)
-		@home_players_group2 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @home_flag))).order(:state)
-		@home_players_group3 = @home_last.players.where("team_abbr = ? AND state > 5", @home_flag).order(:state)
-		@home_players_group3 = @home_players_group3[0..-2]
 		@home_players = @home_players[0..-2]
+		@home_players_group1 = []
+		@home_players_group2 = []
+		@home_players_group3 = @home_players
+		@home_starter_abbr = @home_abbr
+		@home_starter_abbr = @match[@home_starter_abbr] if @match[@home_starter_abbr]
+		@home_starters = Starter.where('team = ? AND time = ?', @home_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
+		@home_starters.each do |home_starter|
+			selected_player = @home_players.select {|element| element.player_fullname == home_starter.player_name}.first
+			selected_player.position = home_starter.position
+			@home_players_group3.delete(selected_player)
+			if selected_player.position == 'PG' || selected_player.position == 'SG'
+				@home_players_group1.push(selected_player)
+			else
+				@home_players_group2.push(selected_player)
+			end
+		end
+		# @home_players_group1 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @home_flag)).order(:state)
+		# @home_players_group2 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @home_flag))).order(:state)
+		# @home_players_group3 = @home_last.players.where("team_abbr = ? AND state > 5", @home_flag).order(:state)
+		# @home_players_group3 = @home_players_group3[0..-2]
 
 
 		@home_injury = Injury.where("team = ?", @game.home_team)
@@ -405,7 +421,8 @@ class IndexController < ApplicationController
 	        @injury_home_drtg_one_container.push(player.id)
 	    end
 	    if injury_drtg_count < 3
-	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @home_flag)).order(:state)
+	    	# @home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @home_flag)).order(:state)
+	    	@home_players_group4 = @home_players_group3.select {|element| element.position == 'PG' || element.position == 'SG'}
 	    	max_one = 0
 	    	one_value = 0
 	    	max_two = 0
@@ -509,7 +526,8 @@ class IndexController < ApplicationController
 	        @injury_home_drtg_two_container.push(player.id)
 	    end
 	    if injury_drtg_count < 3
-	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @home_flag))).order(:state)
+	    	# @home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @home_flag))).order(:state)
+	    	@home_players_group4 = @home_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF'}
 	    	max_one = 0
 	    	one_value = 0
 	    	max_two = 0
@@ -740,7 +758,7 @@ class IndexController < ApplicationController
 	        @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 	    end
 	    if drtg_count < 3
-	    	@away_players_group4 = @away_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @away_flag))).order(:state)
+	    	# @away_players_group4 = @away_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @away_flag))).order(:state)
 	    	@away_players_group4 = @away_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF' }
 	    	max_one = 0
 	    	one_value = 0
@@ -866,7 +884,8 @@ class IndexController < ApplicationController
 	        @home_drtg_one_container.push(player.id)
 	    end
 	    if drtg_count < 3
-	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @home_flag)).order(:state)
+	    	# @home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SG'", @home_flag)).order(:state)
+	    	@home_players_group4 = @home_players_group3.select {|element| element.position == 'PG' || element.position == 'SG'}
 	    	max_one = 0
 	    	one_value = 0
 	    	max_two = 0
@@ -964,7 +983,8 @@ class IndexController < ApplicationController
 	        @home_drtg_two_container.push(player.id)
 	    end
 	    if drtg_count < 3
-	    	@home_players_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @home_flag))).order(:state)
+	    	# @home_layers_group4 = @home_last.players.where("team_abbr = ? AND state > 5 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state > 5 AND position = 'PF'", @home_flag))).order(:state)
+	    	@home_players_group4 = @home_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF'}
 	    	max_one = 0
 	    	one_value = 0
 	    	max_two = 0
