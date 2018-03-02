@@ -2440,14 +2440,16 @@ namespace :nba do
           next if away_player.children.size < 3
           position = away_player.children[1].text.squish
           player_name = away_player.children[3].children[0].text.squish
-          Starter.find_or_create_by(time: time, team: away_team, index: index/2+1, position: position, player_name: player_name)
+          starter = Starter.find_or_create_by(time: time, team: away_team, index: index/2+1)
+          starter.update(position: position, player_name: player_name)
         end
         home_players.children.each_with_index do |home_player, index|
           next if index % 2 == 0
           next if home_player.children.size < 3
           position = home_player.children[1].text.squish
           player_name = home_player.children[3].children[0].text.squish
-          Starter.find_or_create_by(time: time, team: home_team, index: index/2+1, position: position, player_name: player_name)
+          starter = Starter.find_or_create_by(time: time, team: home_team, index: index/2+1)
+          starter.update(position: position, player_name: player_name)
         end
       end
       url = "https://www.rotowire.com/basketball/nba_lineups.htm?date=tomorrow"
