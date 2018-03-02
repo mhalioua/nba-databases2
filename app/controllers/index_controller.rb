@@ -77,12 +77,14 @@ class IndexController < ApplicationController
 		@away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@away_starters.each do |away_starter|
 			selected_player = @away_players.select {|element| element.player_fullname == away_starter.player_name}.first
-			selected_player.position = away_starter.position
-			@away_players_group3.delete(selected_player)
-			if selected_player.position == 'PG' || selected_player.position == 'SG'
-				@away_players_group1.push(selected_player)
-			else
-				@away_players_group2.push(selected_player)
+			if selected_player
+				selected_player.position = away_starter.position
+				@away_players_group3.delete(selected_player)
+				if selected_player.position == 'PG' || selected_player.position == 'SG'
+					@away_players_group1.push(selected_player)
+				else
+					@away_players_group2.push(selected_player)
+				end
 			end
 		end
 
@@ -101,12 +103,14 @@ class IndexController < ApplicationController
 		@home_starters = Starter.where('team = ? AND time = ?', @home_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@home_starters.each do |home_starter|
 			selected_player = @home_players.select {|element| element.player_fullname == home_starter.player_name}.first
-			selected_player.position = home_starter.position
-			@home_players_group3.delete(selected_player)
-			if selected_player.position == 'PG' || selected_player.position == 'SG'
-				@home_players_group1.push(selected_player)
-			else
-				@home_players_group2.push(selected_player)
+			if selected_player
+				selected_player.position = home_starter.position
+				@home_players_group3.delete(selected_player)
+				if selected_player.position == 'PG' || selected_player.position == 'SG'
+					@home_players_group1.push(selected_player)
+				else
+					@home_players_group2.push(selected_player)
+				end
 			end
 		end
 		# @home_players_group1 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @home_flag)).order(:state)
