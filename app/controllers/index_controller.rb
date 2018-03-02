@@ -64,7 +64,8 @@ class IndexController < ApplicationController
 		@away_players_group1 = []
 		@away_players_group2 = []
 		@away_players_group3 = @away_players
-		@away_starter_abbr = @match[@away_abbr] if @match[@away_abbr]
+		@away_starter_abbr = @away_abbr
+		@away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
 		@away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, (DateTime.parse(@game.game_date) + 5.hours).in_time_zone).order(:index)
 		@away_starters.each do |away_starter|
 			selected_player = @away_players.select {|element| element.player_fullname == away_starter.player_name}
