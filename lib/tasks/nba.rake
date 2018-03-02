@@ -1847,7 +1847,7 @@ namespace :nba do
         'WSH' => 'WAS'
       }
     @away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
-    @away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, (DateTime.parse("2018-02-28 19:00:00 -0500") - 5.hours).in_time_zone).order(:index)
+    @away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, (DateTime.parse("2018-02-28 19:00:00 -0500") - 5.hours).in_time_zone.to_s).order(:index)
     puts @away_starters.count
     @away_starters.each do |away_starter|
       selected_player = @away_players.select {|element| element.player_fullname == away_starter.player_name}
