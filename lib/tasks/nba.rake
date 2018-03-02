@@ -2415,6 +2415,42 @@ namespace :nba do
     end
   end
 
+  task :getStarter => [:environment] do
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+    url = "https://www.rotowire.com/basketball/nba_lineups.htm"
+    0.upto(1) do |type|
+      doc = download_document(url)
+      times = doc.css(".dlineups-topboxcenter-topline")
+      away_teams = doc.css(".dlineups-topboxleft")
+      home_teams = doc.css(".dlineups-topboxright")
+      players = doc.css(".dlineups-half")
+      times.each_with_index do |time_element, index|
+        time = DateTime.parse(time_element.children[0].text)
+        time = time + type.days
+        away_team = away_teams[index].text.squish
+        home_team = home_teams[index].text.squish
+        away_players = players[index*4]
+        home_players = players[index*4 + 1]
+        away_players.children.each_with_index do |away_player, index|
+          next if index % 2 == 0
+          next if away_player.children.size < 3
+          position = away_player.children[1].text.squish
+          player_name = away_player.children[3].children[0].text.squish
+          Starter.find_or_create_by(time: time, team: away_team, index: index/2+1, position: position, player_name: player_name)
+        end
+        home_players.children.each_with_index do |home_player, index|
+          next if index % 2 == 0
+          next if home_player.children.size < 3
+          position = home_player.children[1].text.squish
+          player_name = home_player.children[3].children[0].text.squish
+          Starter.find_or_create_by(time: time, team: home_team, index: index/2+1, position: position, player_name: player_name)
+        end
+      end
+      url = "https://www.rotowire.com/basketball/nba_lineups.htm?date=tomorrow"
+    end
+  end
+
   task :movegame => [:environment] do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
