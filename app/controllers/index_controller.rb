@@ -68,6 +68,7 @@ class IndexController < ApplicationController
 		@date_id = Date.strptime(@game.game_date).strftime("%Y-%m-%d")
 
 		@away_players = @away_last.players.where("team_abbr = ?", @away_flag).order(:state)
+		@away_players_search = @away_last.players.where("team_abbr = ? AND player_fullname is not null", @away_flag).order(:state)
 		@away_players = @away_players[0..-2]
 		@away_players_group1 = []
 		@away_players_group2 = []
@@ -76,7 +77,7 @@ class IndexController < ApplicationController
 		@away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
 		@away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@away_starters.each do |away_starter|
-			selected_player = @away_players.select {|element|
+			selected_player = @away_players_search.select {|element|
 				element_index = element.player_fullname.rindex(" ")
 				away_starter_index = away_starter.player_name.rindex(" ")
 				element.player_fullname[element_index+1..-1] == away_starter.player_name[away_starter_index+1..-1]}.first
@@ -97,6 +98,7 @@ class IndexController < ApplicationController
 		# @away_players_group3 = @away_players_group3[0..-2]
 
 		@home_players = @home_last.players.where("team_abbr = ?", @home_flag).order(:state)
+		@home_players_search = @home_last.players.where("team_abbr = ? AND player_fullname is not null", @home_flag).order(:state)
 		@home_players = @home_players[0..-2]
 		@home_players_group1 = []
 		@home_players_group2 = []
@@ -105,7 +107,7 @@ class IndexController < ApplicationController
 		@home_starter_abbr = @match[@home_starter_abbr] if @match[@home_starter_abbr]
 		@home_starters = Starter.where('team = ? AND time = ?', @home_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@home_starters.each do |home_starter|
-			selected_player = @home_players.select {|element| 
+			selected_player = @home_players_search.select {|element| 
 				element_index = element.player_fullname.rindex(" ")
 				home_starter_index = home_starter.player_name.rindex(" ")
 				element.player_fullname[element_index+1..-1] == home_starter.player_name[home_starter_index+1..-1]}.first
