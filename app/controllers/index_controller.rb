@@ -79,7 +79,7 @@ class IndexController < ApplicationController
 			selected_player = @away_players.select {|element|
 				element_index = element.player_fullname.rindex(" ")
 				away_starter_index = away_starter.player_name.rindex(" ")
-				element.player_fullname[element_index..-1] == away_starter.player_name[away_starter_index..-1]}.first
+				element.player_fullname[element_index+1..-1] == away_starter.player_name[away_starter_index+1..-1]}.first
 			if selected_player
 				selected_player.position = away_starter.position
 				@away_players_group3.delete(selected_player)
@@ -108,7 +108,7 @@ class IndexController < ApplicationController
 			selected_player = @home_players.select {|element| 
 				element_index = element.player_fullname.rindex(" ")
 				home_starter_index = home_starter.player_name.rindex(" ")
-				element.player_fullname[element_index..-1] == home_starter.player_name[home_starter_index..-1]}.first
+				element.player_fullname[element_index+1..-1] == home_starter.player_name[home_starter_index+1..-1]}.first
 			if selected_player
 				selected_player.position = home_starter.position
 				@home_players_group3.delete(selected_player)
