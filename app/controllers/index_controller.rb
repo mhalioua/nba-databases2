@@ -94,6 +94,14 @@ class IndexController < ApplicationController
 				else
 					@away_players_group2.push(selected_player)
 				end
+			else
+				additional_player = Player.where("player_fullname = ?", away_starter.player_name).order(:game_date).last
+				@away_players.push(additional_player)
+				if additional_player.position == 'PG' || additional_player.position == 'SG'
+					@away_players_group1.push(additional_player)
+				else
+					@away_players_group2.push(additional_player)
+				end
 			end
 		end
 
@@ -128,6 +136,14 @@ class IndexController < ApplicationController
 					@home_players_group1.push(selected_player)
 				else
 					@home_players_group2.push(selected_player)
+				end
+			else
+				additional_player = Player.where("player_fullname = ?", home_starter.player_name).order(:game_date).last
+				@home_players.push(additional_player)
+				if additional_player.position == 'PG' || additional_player.position == 'SG'
+					@home_players_group1.push(additional_player)
+				else
+					@home_players_group2.push(additional_player)
 				end
 			end
 		end
