@@ -99,11 +99,13 @@ class IndexController < ApplicationController
 				if away_starter.player_name == 'J.R. Smith'
 					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").order(:game_date).last
 				end
-				@away_players.push(additional_player)
-				if additional_player.position == 'PG' || additional_player.position == 'SG'
-					@away_players_group1.push(additional_player)
-				else
-					@away_players_group2.push(additional_player)
+				if additional_player
+					@away_players.push(additional_player)
+					if additional_player.position == 'PG' || additional_player.position == 'SG'
+						@away_players_group1.push(additional_player)
+					else
+						@away_players_group2.push(additional_player)
+					end
 				end
 			end
 		end
@@ -145,11 +147,13 @@ class IndexController < ApplicationController
 				if home_starter.player_name == 'J.R. Smith'
 					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").order(:game_date).last
 				end
-				@home_players.push(additional_player)
-				if additional_player.position == 'PG' || additional_player.position == 'SG'
-					@home_players_group1.push(additional_player)
-				else
-					@home_players_group2.push(additional_player)
+				if additional_player
+					@home_players.push(additional_player)
+					if additional_player.position == 'PG' || additional_player.position == 'SG'
+						@home_players_group1.push(additional_player)
+					else
+						@home_players_group2.push(additional_player)
+					end
 				end
 			end
 		end
