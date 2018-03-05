@@ -490,7 +490,7 @@
         <td><%= @referee_part_one_last.count(:tp_1h).to_i %></td>
         <td><%= @referee_part_one_last.average(:tp_1h).to_f.round(2) %></td>
         <td><%= @referee_part_one_last.average(:tp_2h).to_f.round(2) %></td>
-        <td class="red"><%= ((@referee_part_one_last.average(:tp_1h).to_f + @referee_part_two_last.average(:tp_1h).to_f + @referee_part_three_last.average(:tp_1h).to_f)/3).round(2) %></td>
+        <td class="red"><%= ((@referee_part_one_last.sum(:tp_1h).to_f + @referee_part_two_last.sum(:tp_1h).to_f + @referee_part_three_last.sum(:tp_1h).to_f)/(@referee_part_one_last.count(:tp_1h).to_i + @referee_part_two_last.count(:tp_1h).to_i + @referee_part_three_last.count(:tp_1h).to_i)).round(2) %></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -589,7 +589,7 @@
       <td><%= @referee_part_two_last.count(:tp_1h).to_i %></td>
       <td><%= @referee_part_two_last.average(:tp_1h).to_f.round(2) %></td>
       <td><%= @referee_part_two_last.average(:tp_2h).to_f.round(2) %></td>
-      <td class="red"><%= ((@referee_part_one_last.average(:tp_2h).to_f + @referee_part_two_last.average(:tp_2h).to_f + @referee_part_three_last.average(:tp_2h).to_f)/3).round(2) %></td>
+      <td class="red"><%= ((@referee_part_one_last.sum(:tp_2h).to_f + @referee_part_two_last.sum(:tp_2h).to_f + @referee_part_three_last.sum(:tp_2h).to_f)/(@referee_part_one_last.count(:tp_2h).to_i + @referee_part_two_last.count(:tp_2h).to_i + @referee_part_three_last.count(:tp_2h).to_i)).round(2) %></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
