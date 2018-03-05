@@ -324,6 +324,8 @@
       @referee_part_one_last = Referee.where("referee_one = ? AND id < 43558", game.referee_one).or(Referee.where("referee_two = ? AND id < 43558", game.referee_one).or(Referee.where("referee_three = ? AND id < 43558", game.referee_one).or(Referee.where("referee_one = ? AND id > 61549", game.referee_one).or(Referee.where("referee_two = ? AND id > 61549", game.referee_one).or(Referee.where("referee_three = ? AND id > 61549", game.referee_one))))))
       @referee_part_two_last = Referee.where("referee_one = ? AND id < 43558", game.referee_two).or(Referee.where("referee_two = ? AND id < 43558", game.referee_two).or(Referee.where("referee_three = ? AND id < 43558", game.referee_two).or(Referee.where("referee_one = ? AND id > 61549", game.referee_two).or(Referee.where("referee_two = ? AND id > 61549", game.referee_two).or(Referee.where("referee_three = ? AND id > 61549", game.referee_two))))))
       @referee_part_three_last = Referee.where("referee_one = ? AND id < 43558", game.referee_three).or(Referee.where("referee_two = ? AND id < 43558", game.referee_three).or(Referee.where("referee_three = ? AND id < 43558", game.referee_three).or(Referee.where("referee_one = ? AND id > 61549", game.referee_three).or(Referee.where("referee_two = ? AND id > 61549", game.referee_three).or(Referee.where("referee_three = ? AND id > 61549", game.referee_three))))))
+      @referee_past_count = @referee_part_one_last.count(:tp_1h).to_i + @referee_part_two_last.count(:tp_1h).to_i + @referee_part_three_last.count(:tp_1h).to_i
+      @referee_past_count = 1 if @referee_past_count == 0
   
 
       @away_last_games = Nba.where("home_team = ? AND game_date < ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.away_team, game.game_date)).order(game_date: :desc).limit(12)
@@ -490,7 +492,7 @@
         <td><%= @referee_part_one_last.count(:tp_1h).to_i %></td>
         <td><%= @referee_part_one_last.average(:tp_1h).to_f.round(2) %></td>
         <td><%= @referee_part_one_last.average(:tp_2h).to_f.round(2) %></td>
-        <td class="red"><%= ((@referee_part_one_last.sum(:tp_1h).to_f + @referee_part_two_last.sum(:tp_1h).to_f + @referee_part_three_last.sum(:tp_1h).to_f)/(@referee_part_one_last.count(:tp_1h).to_i + @referee_part_two_last.count(:tp_1h).to_i + @referee_part_three_last.count(:tp_1h).to_i)).round(2) %></td>
+        <td class="red"><%= ((@referee_part_one_last.sum(:tp_1h).to_f + @referee_part_two_last.sum(:tp_1h).to_f + @referee_part_three_last.sum(:tp_1h).to_f)/(@referee_past_count)).round(2) %></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -589,7 +591,7 @@
       <td><%= @referee_part_two_last.count(:tp_1h).to_i %></td>
       <td><%= @referee_part_two_last.average(:tp_1h).to_f.round(2) %></td>
       <td><%= @referee_part_two_last.average(:tp_2h).to_f.round(2) %></td>
-      <td class="red"><%= ((@referee_part_one_last.sum(:tp_2h).to_f + @referee_part_two_last.sum(:tp_2h).to_f + @referee_part_three_last.sum(:tp_2h).to_f)/(@referee_part_one_last.count(:tp_2h).to_i + @referee_part_two_last.count(:tp_2h).to_i + @referee_part_three_last.count(:tp_2h).to_i)).round(2) %></td>
+      <td class="red"><%= ((@referee_part_one_last.sum(:tp_2h).to_f + @referee_part_two_last.sum(:tp_2h).to_f + @referee_part_three_last.sum(:tp_2h).to_f)/(@referee_past_count)).round(2) %></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -674,7 +676,7 @@
       <td><%= @referee_part_three_last.count(:tp_1h).to_i %></td>
       <td><%= @referee_part_three_last.average(:tp_1h).to_f.round(2) %></td>
       <td><%= @referee_part_three_last.average(:tp_2h).to_f.round(2) %></td>
-      <td class="red"><%= (@referee_part_one_last.count(:tp_1h).to_i + @referee_part_two_last.count(:tp_1h).to_i + @referee_part_three_last.count(:tp_1h).to_i) %></td>
+      <td class="red"><%= @referee_past_count %></td>
     </tr>
     <% end %>
   	</tbody>
