@@ -235,7 +235,7 @@ namespace :nba do
                    opp        =       slice.children[9].text.to_f
                    diff       =       slice.children[10].text.to_f
                    puts w
-                   ptus l
+                   puts l
 
                    if element = Team.find_by(abbr: team_abbr)
                     element.update(record_won: w, record_lost: l, record_ppg: ppg, record_opp: opp, record_diff: diff)
