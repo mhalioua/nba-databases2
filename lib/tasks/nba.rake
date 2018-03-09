@@ -225,15 +225,17 @@ namespace :nba do
         url = "http://www.espn.com/nba/standings/_/group/league"
         doc = download_document(url)
         teams = doc.css("abbr")
-        elements = doc.css("tr")
+        elements = doc.css(".Table2__table .Table2__shadow-scroller .Table2__table-scroller tbody tr")
         puts elements.size
         elements.each_with_index do |slice, index|
                    team_abbr  =       teams[index].text
-                   w          =       slice.children[1].text
-                   l          =       slice.children[2].text
-                   ppg        =       slice.children[9].text.to_f
-                   opp        =       slice.children[10].text.to_f
-                   diff       =       slice.children[11].text.to_f
+                   w          =       slice.children[0].text
+                   l          =       slice.children[1].text
+                   ppg        =       slice.children[8].text.to_f
+                   opp        =       slice.children[9].text.to_f
+                   diff       =       slice.children[10].text.to_f
+                   puts w
+                   ptus l
 
                    if element = Team.find_by(abbr: team_abbr)
                     element.update(record_won: w, record_lost: l, record_ppg: ppg, record_opp: opp, record_diff: diff)
