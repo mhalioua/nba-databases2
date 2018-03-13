@@ -161,12 +161,12 @@
         <th class="purple"></th>
         <th class="purple"></th>
         <th class="purple"></th>
+        <th class="red">1st half</th>
         <th class="purple"></th>
         <th class="purple"></th>
         <th class="purple"></th>
         <th class="purple"></th>
-        <th class="purple"></th>
-        <th class="purple"></th>
+        <th class="red">2nd half</th>
         <th class="purple"></th>
         <th class="purple"></th>
         <th class="purple"></th>
@@ -424,12 +424,12 @@
       <td class="skygreen"></td>
       <td class="yellow"></td>
       <td class="yellow"></td>
-      <td class="skygreen"></td>
+      <td class="red"><%= @referee_last_part ? @referee_last_part.last_first : '' %></td>
       <td class="yellow"></td>
       <td class="yellow"></td>
       <td class="yellow"></td>
       <td class="yellow"></td>
-      <td class="skygreen"></td>
+      <td class="red"><%= @referee_last_part ? @referee_last_part.last_second : '' %></td>
       <td class="yellow"></td>
       <td class="yellow"></td>
       <td class="skygreen"></td>
@@ -525,12 +525,12 @@
       <td class="skygreen"></td>
       <td class="filter">X</td>
       <td class="filter">X</td>
-      <td class="skygreen"></td>
+      <td class="red"><%= ((@referee_part_one_last.sum(:tp_1h).to_f + @referee_part_two_last.sum(:tp_1h).to_f + @referee_part_three_last.sum(:tp_1h).to_f)/(@referee_past_count == 0 ? 1 : @referee_past_count)).round(2) %></td>
       <td class="filter">X</td>
       <td class="filter">X</td>
       <td class="filter">X</td>
       <td class="filter">X</td>
-      <td class="skygreen"></td>
+      <td class="red"><%= ((@referee_part_one_last.sum(:tp_2h).to_f + @referee_part_two_last.sum(:tp_2h).to_f + @referee_part_three_last.sum(:tp_2h).to_f)/(@referee_past_count == 0 ? 1 : @referee_past_count)).round(2) %></td>
       <td class="filter">X</td>
       <td class="filter">X</td>
       <td class="skygreen"></td>
