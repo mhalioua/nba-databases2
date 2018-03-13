@@ -2465,6 +2465,8 @@ end
               <td></td>
               <td>+/-</td>
               <td></td>
+              <td>fg total point</td>
+              <td>total lines</td>
               <td></td>
             </tr>
             <tr>
@@ -2498,7 +2500,9 @@ end
                 <td><%= @secondItem ? @secondItem.average(:secondvalue).to_f.round(2) : "" %></td>
                 <td><%= @secondItem ? (@secondItem.average(:roadthird).to_f + @secondItem.average(:roadforth).to_f - @secondItem.average(:homethird).to_f - @secondItem.average(:homeforth).to_f).round(2) : "" %></td>
                 <td></td>
-                <td>1990-2000</td>
+                <td><%= @secondItem ? @secondItem.average(:totalpoint).to_f.round(2) : "" %></td>
+                <td><%= @secondItem ? @secondItem.average(:fglinetotal).to_f.round(2) : "" %></td>
+                <td class="red">1990-2000</td>
             </tr>
             <tr style="background: #fa0">
                 <td>ALL</td>
@@ -2528,6 +2532,8 @@ end
                 <td>-1.2</td>
                 <td></td>
                 <td></td>
+                <td></td>
+                <td class="yellow"></td>
             </tr>
             <tr>
                 <td><%= @game.away_last_fly %></td>
@@ -2560,7 +2566,9 @@ end
                 <td><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
                 <td></td>
-                <td>2000-2017</td>
+                <td><%= @countItem ? @countItem.average(:totalpoint).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.average(:fglinetotal).to_f.round(2) : "" %></td>
+                <td class="green">2000-2017</td>
             </tr>
         </tbody>
     </table>
