@@ -113,6 +113,8 @@
         <th colspan="4"></th>
         <th class="black"></th>
         <th colspan="5" style="border-right: 5px solid #666;"></th>
+        <th></th>
+        <th></th>
         <th class="gray"></th>
         <th class="gray"></th>
         <th class="gray"></th>
@@ -198,6 +200,8 @@
         <th class="red" colspan="4">1ST HALF</th>
         <th class="black"></th>
         <th class="red" colspan="5" style="border-right: 5px solid #666;">2ND HALF</th>
+        <th>Fullgame total</th>
+        <th>Fullgame lines</th>
         <th class="gray">Referee</th>
         <th class="gray">Last game</th>
         <th class="gray">Last game total</th>
@@ -484,6 +488,8 @@
         <td class="purple"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
         <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
         <td style="border-right: 5px solid #666;">1</td>
+        <td><%= game.full_closer_side %></td>
+        <td><%= game.full_closer_total %></td>
         <td><%= game.referee_one %></td>
         <td><%= game.referee_one_last %></td>
         <td><%= @referee_last_part ? @referee_last_part.last_first : '' %></td>
@@ -582,6 +588,9 @@
       <td class="purple">97</td>
       <td style="background: #fa0">-1.2</td>
       <td style="background: #fa0; border-right: 5px solid #666;">ALL</td>
+
+      <td></td>
+      <td></td>
       
       <td><%= game.referee_two %></td>
       <td><%= game.referee_two_last %></td>
@@ -667,6 +676,8 @@
       <td class="purple"><%= @secondItem ? @secondItem.average(:secondvalue).to_f.round(2) : "" %></td>
       <td class="gray"><%= @secondItem ? (@secondItem.average(:roadsecondhalf).to_f - @secondItem.average(:homesecondhalf).to_f).round(2) : "" %></td>
       <td class="gray" style="border-right: 5px solid #666;"></td>
+      <td></td>
+      <td></td>
       
       <td><%= game.referee_three %></td>
       <td><%= game.referee_three_last %></td>
