@@ -378,7 +378,7 @@
     %>
     <tr style="border-top: 5px solid black">
       <td class="green" rowspan="3"><%= game.away_number %> / <%= game.home_number %></td>
-      <td class="grey" rowspan="3"><%= game.time %></td>
+      <td class="grey" rowspan="3"><%= DateTime.parse(game.game_date).strftime("%I:%M%p") %></td>
       <td class="yellow" rowspan="3"><%= game.away_last_game %></td>
       <td rowspan="3"><%= game.away_team %></td>
       <td class="yellow" rowspan="3"><%= game.away_next_game %></td>
