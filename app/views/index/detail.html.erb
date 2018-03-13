@@ -2486,7 +2486,7 @@ end
                 <td><%= @secondItem ? @secondItem.average(:totalvalue).to_f.round(2) : "" %></td>
                 <td><%= @secondItem ? (roadtotal - hometotal).round(2) : "" %></td>
                 <td></td>
-                <td style="background: #fa0"><%= @secondItem ? @secondItem.count(:tp_1h).to_i : "" %></td>
+                <td style="background: #fa0"><%= @secondItem ? @secondItem.count(:totalpoint).to_i : "" %></td>
                 <td></td>
                 <td><%= @secondItem ? @secondItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
                 <td><%= @secondItem ? @secondItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
@@ -2548,7 +2548,7 @@ end
                 <td><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? (roadtotal - hometotal).round(2) : "" %></td>
                 <td></td>
-                <td style="background: #fa0"><%= @countItem ? @countItem.count(:tp_1h).to_i : "" %></td>
+                <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalpoint).to_i : "" %></td>
                 <td></td>
                 <td><%= @countItem ? @countItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? @countItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
