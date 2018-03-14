@@ -2531,9 +2531,9 @@ end
                 <td>97</td>
                 <td>-1.2</td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td class="yellow"></td>
+                <td><%= @countItem ? @countItem.average(:fglinetotal).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.average(:firstlinetotal).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.average(:secondlinetotal).to_f.round(2) : "" %></td>
             </tr>
             <tr>
                 <td><%= @game.away_last_fly %></td>
@@ -2566,7 +2566,7 @@ end
                 <td><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
                 <td></td>
-                <td><%= @countItem ? @countItem.average(:totalpoint).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.where('fglinetotal != ""').average(:totalpoint).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? @countItem.average(:fglinetotal).to_f.round(2) : "" %></td>
                 <td class="green">2000-2017</td>
             </tr>
