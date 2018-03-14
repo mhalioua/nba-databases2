@@ -2504,13 +2504,13 @@ end
                 <td><%= @secondItem ? @secondItem.average(:secondvalue).to_f.round(2) : "" %></td>
                 <td><%= @secondItem ? (@secondItem.average(:roadthird).to_f + @secondItem.average(:roadforth).to_f - @secondItem.average(:homethird).to_f - @secondItem.average(:homeforth).to_f).round(2) : "" %></td>
                 <td></td>
-                <td><%= @secondItem ? @secondItem.average(:totalpoint).to_f.round(2) : "" %></td>
-                <td><%= @secondItem ? @secondItem.average(:fglinetotal).to_f.round(2) : "" %></td>
+                <td class="filter"><%= @secondItem ? @secondItem.average(:totalpoint).to_f.round(2) : "" %></td>
+                <td class="filter"><%= @secondItem ? @secondItem.average(:fglinetotal).to_f.round(2) : "" %></td>
                 <td class="red">1990-2000</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="yellow"></td>
+                <td class="yellow"></td>
+                <td class="green"></td>
+                <td class="green"></td>
             </tr>
             <tr style="background: #fa0">
                 <td>ALL</td>
@@ -2539,13 +2539,13 @@ end
                 <td>97</td>
                 <td>-1.2</td>
                 <td></td>
-                <td><%= @countItem ? @countItem.count(:fglinetotal).to_i : "" %></td>
-                <td><%= @countItem ? @countItem.count(:fglinetotal).to_i : "" %></td>
+                <td class="filter"><%= @countItem ? @countItem.count(:fglinetotal).to_i : "" %></td>
+                <td class="filter"><%= @countItem ? @countItem.count(:fglinetotal).to_i : "" %></td>
                 <td></td>
-                <td><%= @countItem ? @countItem.count(:firstlinetotal).to_i : "" %></td>
-                <td><%= @countItem ? @countItem.count(:firstlinetotal).to_i : "" %></td>
-                <td><%= @countItem ? @countItem.count(:secondlinetotal).to_i : "" %></td>
-                <td><%= @countItem ? @countItem.count(:secondlinetotal).to_i : "" %></td>
+                <td class="yellow"><%= @countItem ? @countItem.count(:firstlinetotal).to_i : "" %></td>
+                <td class="yellow"><%= @countItem ? @countItem.count(:firstlinetotal).to_i : "" %></td>
+                <td class="green"><%= @countItem ? @countItem.count(:secondlinetotal).to_i : "" %></td>
+                <td class="green"><%= @countItem ? @countItem.count(:secondlinetotal).to_i : "" %></td>
             </tr>
             <tr>
                 <td><%= @game.away_last_fly %></td>
@@ -2578,13 +2578,13 @@ end
                 <td><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
                 <td></td>
-                <td><%= @countItem ? @countItem.where("fglinetotal is not null").average(:totalpoint).to_f.round(2) : "" %></td>
-                <td><%= @countItem ? @countItem.average(:fglinetotal).to_f.round(2) : "" %></td>
+                <td class="filter"><%= @countItem ? @countItem.where("fglinetotal is not null").average(:totalpoint).to_f.round(2) : "" %></td>
+                <td class="filter"><%= @countItem ? @countItem.average(:fglinetotal).to_f.round(2) : "" %></td>
                 <td class="green">2000-2017</td>
-                <td><%= @countItem ? @countItem.where("firstlinetotal is not null").average(:firstpoint).to_f.round(2) : "" %></td>
-                <td><%= @countItem ? @countItem.average(:firstlinetotal).to_f.round(2) : "" %></td>
-                <td><%= @countItem ? @countItem.where("secondlinetotal is not null").average(:secondpoint).to_f.round(2) : "" %></td>
-                <td><%= @countItem ? @countItem.average(:secondlinetotal).to_f.round(2) : "" %></td>
+                <td class="yellow"><%= @countItem ? @countItem.where("firstlinetotal is not null").average(:firstpoint).to_f.round(2) : "" %></td>
+                <td class="yellow"><%= @countItem ? @countItem.average(:firstlinetotal).to_f.round(2) : "" %></td>
+                <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null").average(:secondpoint).to_f.round(2) : "" %></td>
+                <td class="green"><%= @countItem ? @countItem.average(:secondlinetotal).to_f.round(2) : "" %></td>
             </tr>
         </tbody>
     </table>
