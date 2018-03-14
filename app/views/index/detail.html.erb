@@ -2566,7 +2566,7 @@ end
                 <td><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
                 <td></td>
-                <td><%= @countItem ? @countItem.where('fglinetotal != ""').average(:totalpoint).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.where("fglinetotal != ''").average(:totalpoint).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? @countItem.average(:fglinetotal).to_f.round(2) : "" %></td>
                 <td class="green">2000-2017</td>
             </tr>
