@@ -2467,9 +2467,11 @@ end
               <td></td>
               <td>fg total point</td>
               <td>total lines</td>
-              <td>1h lines</td>
-              <td>2h lines</td>
               <td></td>
+              <td>1h total pts</td>
+              <td>1h total lines</td>
+              <td>2h total pts</td>
+              <td>2h total lines</td>
             </tr>
             <tr>
                 <td><%= @game.away_last_fly %></td>
@@ -2504,9 +2506,11 @@ end
                 <td></td>
                 <td><%= @secondItem ? @secondItem.average(:totalpoint).to_f.round(2) : "" %></td>
                 <td><%= @secondItem ? @secondItem.average(:fglinetotal).to_f.round(2) : "" %></td>
-                <td></td>
-                <td></td>
                 <td class="red">1990-2000</td>
+                <td><%= @secondItem ? @secondItem.where("fglinetotal is not null").average(:firstpoint).to_f.round(2) : "" %></td>
+                <td></td>
+                <td><%= @secondItem ? @secondItem.where("fglinetotal is not null").average(:secondpoint).to_f.round(2) : "" %></td>
+                <td></td>
             </tr>
             <tr style="background: #fa0">
                 <td>ALL</td>
@@ -2537,10 +2541,11 @@ end
                 <td></td>
                 <td><%= @countItem ? @countItem.count(:fglinetotal).to_i : "" %></td>
                 <td><%= @countItem ? @countItem.count(:fglinetotal).to_i : "" %></td>
+                <td></td>
+                <td><%= @countItem ? @countItem.count(:firstlinetotal).to_i : "" %></td>
                 <td><%= @countItem ? @countItem.count(:firstlinetotal).to_i : "" %></td>
                 <td><%= @countItem ? @countItem.count(:secondlinetotal).to_i : "" %></td>
-                <td></td>
-                
+                <td><%= @countItem ? @countItem.count(:secondlinetotal).to_i : "" %></td>
             </tr>
             <tr>
                 <td><%= @game.away_last_fly %></td>
@@ -2575,9 +2580,11 @@ end
                 <td></td>
                 <td><%= @countItem ? @countItem.where("fglinetotal is not null").average(:totalpoint).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? @countItem.average(:fglinetotal).to_f.round(2) : "" %></td>
-                <td><%= @countItem ? @countItem.average(:firstlinetotal).to_f.round(2) : "" %></td>
-                <td><%= @countItem ? @countItem.average(:secondlinetotal).to_f.round(2) : "" %></td>
                 <td class="green">2000-2017</td>
+                <td><%= @countItem ? @countItem.where("fglinetotal is not null").average(:firstpoint).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.average(:firstlinetotal).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.where("fglinetotal is not null").average(:secondpoint).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.average(:secondlinetotal).to_f.round(2) : "" %></td>
             </tr>
         </tbody>
     </table>
