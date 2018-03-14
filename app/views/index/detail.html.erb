@@ -2507,9 +2507,9 @@ end
                 <td><%= @secondItem ? @secondItem.average(:totalpoint).to_f.round(2) : "" %></td>
                 <td><%= @secondItem ? @secondItem.average(:fglinetotal).to_f.round(2) : "" %></td>
                 <td class="red">1990-2000</td>
-                <td><%= @secondItem ? @secondItem.where("fglinetotal is not null").average(:firstpoint).to_f.round(2) : "" %></td>
+                <td><%= @secondItem ? @secondItem.where("firstlinetotal is not null").average(:firstpoint).to_f.round(2) : "" %></td>
                 <td></td>
-                <td><%= @secondItem ? @secondItem.where("fglinetotal is not null").average(:secondpoint).to_f.round(2) : "" %></td>
+                <td><%= @secondItem ? @secondItem.where("secondlinetotal is not null").average(:secondpoint).to_f.round(2) : "" %></td>
                 <td></td>
             </tr>
             <tr style="background: #fa0">
@@ -2581,9 +2581,9 @@ end
                 <td><%= @countItem ? @countItem.where("fglinetotal is not null").average(:totalpoint).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? @countItem.average(:fglinetotal).to_f.round(2) : "" %></td>
                 <td class="green">2000-2017</td>
-                <td><%= @countItem ? @countItem.where("fglinetotal is not null").average(:firstpoint).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.where("firstlinetotal is not null").average(:firstpoint).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? @countItem.average(:firstlinetotal).to_f.round(2) : "" %></td>
-                <td><%= @countItem ? @countItem.where("fglinetotal is not null").average(:secondpoint).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.where("secondlinetotal is not null").average(:secondpoint).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? @countItem.average(:secondlinetotal).to_f.round(2) : "" %></td>
             </tr>
         </tbody>
