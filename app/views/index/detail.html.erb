@@ -2533,7 +2533,7 @@ end
                 <td></td>
                 <td><%= @countItem ? @countItem.average(:firstlinetotal).to_f.round(2) : "" %></td>
                 <td><%= @countItem ? @countItem.average(:secondlinetotal).to_f.round(2) : "" %></td>
-                <td><%= @countItem ? @countItem.count(:fglinetotal).to_f.round(2) : "" %></td>
+                <td><%= @countItem ? @countItem.count(:fglinetotal).to_i : "" %></td>
             </tr>
             <tr>
                 <td><%= @game.away_last_fly %></td>
