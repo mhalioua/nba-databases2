@@ -2504,8 +2504,8 @@ end
                 <td><%= @secondItem ? @secondItem.average(:secondvalue).to_f.round(2) : "" %></td>
                 <td><%= @secondItem ? (@secondItem.average(:roadthird).to_f + @secondItem.average(:roadforth).to_f - @secondItem.average(:homethird).to_f - @secondItem.average(:homeforth).to_f).round(2) : "" %></td>
                 <td></td>
-                <td class="filter"><%= @secondItem ? @secondItem.average.where("fglinetotal is not null AND fglinetotal != 0")(:totalpoint).to_f.round(2) : "" %></td>
-                <td class="filter"><%= @secondItem ? @secondItem.average.where("fglinetotal is not null AND fglinetotal != 0")(:fglinetotal).to_f.round(2) : "" %></td>
+                <td class="filter"><%= @secondItem ? @secondItem.where("fglinetotal is not null AND fglinetotal != 0").average(:totalpoint).to_f.round(2) : "" %></td>
+                <td class="filter"><%= @secondItem ? @secondItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2) : "" %></td>
                 <td class="red">1990-2000</td>
                 <td class="yellow"></td>
                 <td class="yellow"></td>
