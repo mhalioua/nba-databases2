@@ -1866,9 +1866,9 @@ namespace :nba do
   task :test => :environment do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    games = Nba.where("game_id = 400975771",)
+    games = Nba.where("game_id = 400975758")
     games.each do |game|
-      players = game.players.where("player_name <> 'TEAM'")
+      players = game.players.where("player_name <> 'TEAM' AND team_abbr = 1")
       players.each do |player|
         possession = []
         sum_mins = 0
