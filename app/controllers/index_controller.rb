@@ -31,7 +31,8 @@ class IndexController < ApplicationController
 	  		'PHX' => 'PHO',
 	  		'SA' => 'SAS',
 	  		'UTAH' => 'UTA',
-	  		'WSH' => 'WAS'
+	  		'WSH' => 'WAS',
+	  		'NO' => 'NOP'
 	  	}
 		@injuries = params[:injury]
 		unless @injuries
