@@ -2908,6 +2908,7 @@ end
               <td class="green">diff</td>
               <td class="green">xxx</td>
               <td class="green">BH</td>
+              <td></td>
             </tr>
             <tr>
               <td class="borderTop borderRight borderLeft"><%= @filterResult[0][:allcount] %></td>
@@ -2937,6 +2938,7 @@ end
               <td class="borderTop"><%= (@filterResult[0][:secondhalf_first] - @filterResult[0][:secondhalf_second]).round(2) %></td>
               <td class="borderTop"><%= @filterResult[0][:bi_two] %></td>
               <td class="borderTop borderRight"><%= @filterResult[0][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[0][:bi_count] %></td>
             </tr>
             <tr style="background-color: #fcf !important">
               <td class="borderRight borderLeft"><%= @filterResult[1][:allcount] %></td>
@@ -2966,6 +2968,7 @@ end
               <td><%= (@filterResult[1][:secondhalf_first] - @filterResult[1][:secondhalf_second]).round(2) %></td>
               <td><%= @filterResult[1][:bi_two] %></td>
               <td class="borderRight"><%= @filterResult[1][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[1][:bi_count] %></td>
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult[20][:allcount] %></td>
@@ -2995,6 +2998,7 @@ end
               <td><%= (@filterResult[20][:secondhalf_first] - @filterResult[20][:secondhalf_second]).round(2) %></td>
               <td><%= @filterResult[20][:bi_two] %></td>
               <td class="borderRight"><%= @filterResult[20][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[20][:bi_count] %></td>
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult[10][:allcount] %></td>
@@ -3024,6 +3028,7 @@ end
               <td><%= (@filterResult[10][:secondhalf_first] - @filterResult[10][:secondhalf_second]).round(2) %></td>
               <td><%= @filterResult[10][:bi_two] %></td>
               <td class="borderRight"><%= @filterResult[10][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[10][:bi_count] %></td>
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult[11][:allcount] %></td>
@@ -3053,6 +3058,7 @@ end
               <td><%= (@filterResult[11][:secondhalf_first] - @filterResult[11][:secondhalf_second]).round(2) %></td>
               <td><%= @filterResult[11][:bi_two] %></td>
               <td class="borderRight"><%= @filterResult[11][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[11][:bi_count] %></td>
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult[16][:allcount] %></td>
@@ -3082,6 +3088,7 @@ end
               <td><%= (@filterResult[16][:secondhalf_first] - @filterResult[16][:secondhalf_second]).round(2) %></td>
               <td><%= @filterResult[16][:bi_two] %></td>
               <td class="borderRight"><%= @filterResult[16][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[16][:bi_count] %></td>
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult[17][:allcount] %></td>
@@ -3111,6 +3118,7 @@ end
               <td><%= (@filterResult[17][:secondhalf_first] - @filterResult[17][:secondhalf_second]).round(2) %></td>
               <td><%= @filterResult[17][:bi_two] %></td>
               <td class="borderRight"><%= @filterResult[17][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[17][:bi_count] %></td>
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult[18][:allcount] %></td>
@@ -3140,6 +3148,7 @@ end
               <td><%= (@filterResult[18][:secondhalf_first] - @filterResult[18][:secondhalf_second]).round(2) %></td>
               <td><%= @filterResult[18][:bi_two] %></td>
               <td class="borderRight"><%= @filterResult[18][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[18][:bi_count] %></td>
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult[19][:allcount] %></td>
@@ -3169,6 +3178,7 @@ end
               <td><%= (@filterResult[19][:secondhalf_first] - @filterResult[19][:secondhalf_second]).round(2) %></td>
               <td><%= @filterResult[19][:bi_two] %></td>
               <td class="borderRight"><%= @filterResult[19][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[19][:bi_count] %></td>
             </tr>
             <tr>
               <td class="borderRight borderLeft"><%= @filterResult[14][:allcount] %></td>
@@ -3198,6 +3208,7 @@ end
               <td><%= (@filterResult[14][:secondhalf_first] - @filterResult[14][:secondhalf_second]).round(2) %></td>
               <td><%= @filterResult[14][:bi_two] %></td>
               <td class="borderRight"><%= @filterResult[14][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[14][:bi_count] %></td>
             </tr>
             <tr>
               <td class="borderRight borderLeft borderBottom"><%= @filterResult[15][:allcount] %></td>
@@ -3227,6 +3238,7 @@ end
               <td><%= (@filterResult[15][:secondhalf_first] - @filterResult[15][:secondhalf_second]).round(2) %></td>
               <td><%= @filterResult[15][:bi_two] %></td>
               <td class="borderRight borderBottom"><%= @filterResult[15][:bh] %></td>
+              <td class="borderTop"><%= @filterResult[15][:bi_count] %></td>
             </tr>
             <tr class="redgradient">
               <td class="yellow">GAMES</td>
@@ -3245,6 +3257,7 @@ end
               <td colspan="4" class="border">Full Game</td>
               <td colspan="5" class="yellow border">1st Half</td>
               <td colspan="5" class="green border">2nd Half</td>
+              <td></td>
             </tr>
         </tbody>
     </table>
