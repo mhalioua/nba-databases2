@@ -1147,7 +1147,8 @@ class IndexController < ApplicationController
 	    	[false, false, true, true, true, true, false, false],
 	    	[true, true, true, true, false, false, false, false],
 	    	[false, false, false, false, true, true, true, true],
-	    	[false, true, false, true, true, false, true, false]
+	    	[false, true, false, true, true, false, true, false],
+	    	[true, true, false, false, false, false, true, true]
 		]
 		@break = [9, 15, 16]
 		@filterResult = []
@@ -1228,7 +1229,8 @@ class IndexController < ApplicationController
 				allcount: filter_second_element.count(:totalvalue).to_i,
 				home_ortg: filter_second_element.average(:home_ortg).to_f.round(2),
 				away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
-				bi: ((filter_second_element.where("fglinetotal is not null").average(:home_win_rank).to_f.round(2)-filter_second_element.where("fglinetotal is not null").average(:away_win_rank).to_f.round(2))/2-3).round(2),
+				bi_one: '',
+				bi_two: '',
 				bj: filter_second_element.average(:fgside).to_f.round(2),
 				bg: filter_second_element.average(:firstside).to_f.round(2),
 				bh: filter_second_element.average(:secondside).to_f.round(2),
@@ -1244,7 +1246,8 @@ class IndexController < ApplicationController
 				allsecond: filter_second_element_secondtravel.average(:secondvalue).to_f.round(2),
 				allfull: filter_second_element_secondtravel.average(:totalvalue).to_f.round(2),
 				allcount: filter_second_element_secondtravel.count(:totalvalue).to_i,
-				bi: 0,
+				bi_one: '',
+				bi_two: '',
 				bj: filter_second_element_secondtravel.average(:fgside).to_f.round(2),
 				bg: 0,
 				bh: 0
