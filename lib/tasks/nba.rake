@@ -1864,32 +1864,81 @@ namespace :nba do
 	end
 
   task :test => :environment do
-
-    @away_players = Player.where("team_abbr = 1 AND nba_id = 24753").order(:state)
-    @away_players = @away_players[0..-2]
-    @away_players_group1 = []
-    @away_players_group2 = []
-    @away_players_group3 = @away_players
-    @away_starter_abbr = 'DET'
-    @match = {
-        'GS' => 'GSW',
-        'NY' => 'NYK',
-        'PHX' => 'PHO',
-        'SA' => 'SAS',
-        'UTAH' => 'UTA',
-        'WSH' => 'WAS'
-      }
-    @away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
-    @away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, ("2018-02-28 19:00:00 -0500")[0..-7]).order(:index)
-    puts @away_starters.count
-    @away_starters.each do |away_starter|
-      selected_player = @away_players.select {|element| element.player_fullname == away_starter.player_name}
-      puts selected_player.inspect
-      @away_players_group3.delete(selected_player)
-      if selected_player.position == 'PG' || selected_player.position == 'SG'
-        @away_players_group1.push(selected_player)
-      else
-        @away_players_group2.push(selected_player)
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+    games = Nba.where("game_id = 400975771",)
+    games.each do |game|
+      players = game.players.where("player_name <> 'TEAM'")
+      players.each do |player|
+        possession = []
+        sum_mins = 0
+        sum_poss = 0
+        team_poss = 0
+        sum_or = 0
+        sum_stl = 0
+        sum_to = 0
+        sum_blk = 0
+        sum_pf = 0
+        count = 0
+        mins_min = 100
+        mins_max = 0
+        last_players = Player.where("game_date >= ? AND game_date <= ? AND player_name = ?", Date.new(2017, 10 ,20), player.game_date, player.player_name).or(Player.where("game_date <= ? AND player_name = ?", Date.new(2017, 6 ,18), player.player_name)).order('game_date DESC')
+        last_players.each do |last_player|
+          if count == 10
+            break
+          end
+          if last_player.mins == 0
+            next
+          end
+          possession.push(last_player.nba_id)
+          sum_poss = sum_poss + last_player.poss
+          sum_mins = sum_mins + last_player.mins
+          sum_or = sum_or + last_player.orValue
+          stlValue = 0
+          toValue = 0
+          blkValue = 0
+          pfValue =0
+          if last_player.stlValue
+            stlValue = last_player.stlValue
+          end
+          if last_player.toValue
+            toValue = last_player.toValue
+          end
+          if last_player.blkValue
+            blkValue = last_player.blkValue
+          end
+          if last_player.pfValue
+            pfValue = last_player.pfValue
+          end
+          sum_stl = sum_stl + stlValue
+          sum_to = sum_to + toValue
+          sum_blk = sum_blk + blkValue
+          sum_pf = sum_pf + pfValue
+          if mins_min > last_player.mins
+            mins_min = last_player.mins
+          end
+          if mins_max < last_player.mins
+            mins_max = last_player.mins
+          end
+          last_team = Player.where("nba_id = ? AND team_abbr = ? AND player_name = ?",last_player.nba_id, last_player.team_abbr, "TEAM")
+          team_poss = team_poss + last_team.first.poss
+          count = count + 1
+          puts last_player.nba_id
+        end
+        sum_mins = sum_mins - mins_min - mins_max
+        if sum_mins < 0
+          sum_mins = 0
+        end
+        puts player.player_name
+        puts sum_poss
+        puts team_poss
+        puts possession.join(",")
+        puts sum_mins
+        puts sum_blk
+        puts sum_or
+        puts sum_stl
+        puts sum_pf
+        puts sum_to
       end
     end
   end
@@ -2838,15 +2887,6 @@ namespace :nba do
       end
 
       game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot, away_last_home: away_last_home,away_next_home: away_next_home )
-    end
-  end
-  task :testrun => [:environment] do
-    (0..7).each do |one_element|
-      if one_element > 5
-        puts 1
-      else
-        puts 0
-      end
     end
   end
 
