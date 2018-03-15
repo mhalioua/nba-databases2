@@ -1252,7 +1252,7 @@ class IndexController < ApplicationController
 				bg: 0,
 				bh: 0
 			}
-			if index < 2 || index > 13
+			if index < 2 || index > 9
 				result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
 				result_element[:full_second] = (filter_second_element.average(:homethird).to_f + filter_second_element.average(:homeforth).to_f + filter_second_element.average(:homefirsthalf).to_f).round(2)
 				result_element[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
