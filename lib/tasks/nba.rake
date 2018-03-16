@@ -1181,9 +1181,8 @@ namespace :nba do
           url = player.link
           doc = download_document(url)
           player_name = doc.css('h1').first.text
-          player_name = player_name.gsub('.', '')
 
-					player_name_index = player_name.index(" Jr")
+					player_name_index = player_name.index(" Jr.")
 					player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
 
 					player_name_index = player_name.index(" II")
@@ -1194,6 +1193,8 @@ namespace :nba do
 
           player_name_index = player_name.index(" IV")
           player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
+          
+          player_name = player_name.gsub('.', '')
 
 					# if @player_name[player_name]
 					# 	player_name = @player_name[player_name]
