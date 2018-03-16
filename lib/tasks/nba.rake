@@ -1175,7 +1175,7 @@ namespace :nba do
 					team_abbr = @team_nicknames[team_abbr]
 					
 					player_name = player.player_name
-          
+
           url = player.link
           doc = download_document(url)
           player_name = doc.css('h1').first.text
@@ -1192,9 +1192,9 @@ namespace :nba do
           player_name_index = player_name.index(" IV")
           player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
 
-					if @player_name[player_name]
-						player_name = @player_name[player_name]
-					end
+					# if @player_name[player_name]
+					# 	player_name = @player_name[player_name]
+					# end
 					
 					ortg = 0
 					drtg = 0
