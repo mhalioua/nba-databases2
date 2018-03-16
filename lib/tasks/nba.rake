@@ -1193,12 +1193,16 @@ namespace :nba do
 
           player_name_index = player_name.index(" IV")
           player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
-          
+
           player_name = player_name.gsub('.', '')
 
 					# if @player_name[player_name]
 					# 	player_name = @player_name[player_name]
 					# end
+       
+          if @player_another_name[player_name]
+            player_name = @player_another_name[player_name]
+          end
 					
 					ortg = 0
 					drtg = 0
@@ -3124,6 +3128,12 @@ namespace :nba do
 		"C.J. Williams" => "C. Williams",
 		"D.J. Wilson" => "D. Wilson"
 	}
+
+  @player_another_name = {
+    'Taurean Prince' => 'Taurean Waller-Prince',
+    'Maximilian Kleber' => 'Maxi Kleber',
+    'Walt Lemon' => 'Walt Lemon, Jr.'
+  }
 
   @team_names = {
     'Atlanta' => 'Atlanta',
