@@ -1197,7 +1197,10 @@ namespace :nba do
           count = 0
           player_link = ""
           player_fullname = ""
-          player_elements = Tg.where("player_name = ? AND year >= 2017", player_name)
+          url = player_element.link
+          doc = download_document(url)
+          player_name = doc.css('h1').first.text
+          player_elements = Tg.where("player_fullname = ? AND year >= 2017", player_name)
           player_elements.each do |player_element|
             player_count = player_element.count ? player_element.count : 1
             count = count + player_count
@@ -1208,7 +1211,7 @@ namespace :nba do
           end
 					ortg = (ortg.to_f / count).round(2)
 					drtg = (drtg.to_f / count).round(2)
-					player.update(ortg: ortg, drtg: drtg, player_link: player_link, player_fullname: player_fullname)
+					player.update(ortg: ortg, drtg: drtg, player_link: player_link, player_fullname: player_name)
 				end
 			end
 		end
