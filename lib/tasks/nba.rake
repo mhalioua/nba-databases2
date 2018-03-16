@@ -1175,6 +1175,10 @@ namespace :nba do
 					team_abbr = @team_nicknames[team_abbr]
 					
 					player_name = player.player_name
+          
+          url = player.link
+          doc = download_document(url)
+          player_name = doc.css('h1').first.text
 
 					player_name_index = player_name.index(" Jr.")
 					player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
@@ -1197,9 +1201,6 @@ namespace :nba do
           count = 0
           player_link = ""
           player_fullname = ""
-          url = player.link
-          doc = download_document(url)
-          player_name = doc.css('h1').first.text
           player_elements = Tg.where("player_fullname = ? AND year >= 2017", player_name)
           player_elements.each do |player_element|
             player_count = player_element.count ? player_element.count : 1
