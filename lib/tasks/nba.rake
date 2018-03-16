@@ -1197,7 +1197,7 @@ namespace :nba do
           count = 0
           player_link = ""
           player_fullname = ""
-          url = player_element.link
+          url = player.link
           doc = download_document(url)
           player_name = doc.css('h1').first.text
           player_elements = Tg.where("player_fullname = ? AND year >= 2017", player_name)
