@@ -3132,7 +3132,7 @@ namespace :nba do
   @player_another_name = {
     'Taurean Prince' => 'Taurean Waller-Prince',
     'Maximilian Kleber' => 'Maxi Kleber',
-    'Walt Lemon,' => 'Walt Lemon, Jr.'
+    'Walt Lemon' => 'Walt Lemon, Jr'
   }
 
   @team_names = {
