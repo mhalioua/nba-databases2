@@ -1555,7 +1555,7 @@
                 <tbody>
                
                   <%
-                    game_list = player.possession.split(/,/)
+                    game_list = player.possession ? player.possession.split(/,/) : []
                     total_mins = 0
                     total_fga = 0
                     total_fta = 0
