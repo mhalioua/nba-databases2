@@ -97,6 +97,8 @@ class IndexController < ApplicationController
 				additional_player = Player.where("player_fullname = ?", away_starter.player_name).order(:game_date).last
 				if away_starter.player_name == 'J.R. Smith'
 					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").order(:game_date).last
+				elsif home_starter.player_name == 'D. Finney-Smith'
+					additional_player = Player.where("player_fullname = 'Dorian Finney-Smith'").order(:game_date).last
 				elsif away_starter.player_name == 'L. Aldridge'
 					additional_player = Player.where("player_fullname = 'LaMarcus Aldridge'").order(:game_date).last
 				end
@@ -145,6 +147,8 @@ class IndexController < ApplicationController
 				additional_player = Player.where("player_fullname = ?", home_starter.player_name).order(:game_date).last
 				if home_starter.player_name == 'J.R. Smith'
 					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").order(:game_date).last
+				elsif home_starter.player_name == 'D. Finney-Smith'
+					additional_player = Player.where("player_fullname = 'Dorian Finney-Smith'").order(:game_date).last
 				elsif home_starter.player_name == 'L. Aldridge'
 					additional_player = Player.where("player_fullname = 'LaMarcus Aldridge'").order(:game_date).last
 				end
