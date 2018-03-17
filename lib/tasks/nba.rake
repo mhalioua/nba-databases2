@@ -3023,28 +3023,6 @@ namespace :nba do
     end
   end
 
-  task :getallgames => :environment do
-    date = Date.yesterday
-    Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
-    Rake::Task["nba:getDate"].reenable
-
-    date = Date.today + 5.days
-    Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
-    Rake::Task["nba:getDate"].reenable
-
-    date = Date.today + 10.days
-    Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
-    Rake::Task["nba:getDate"].reenable
-
-    date = Date.today + 15.days
-    Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
-    Rake::Task["nba:getDate"].reenable
-
-    date = Date.today + 20.days
-    Rake::Task["nba:getDate"].invoke(date.strftime("%Y%m%d"))
-    Rake::Task["nba:getDate"].reenable
-  end
-
   @basket_names = {
     'Charlotte' => 'New Orleans',
     'New Jersey' => 'Brooklyn',

@@ -886,7 +886,7 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <% if player.sum_poss != 0 %>
-        <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
+        <td style='<%= style %>' ><%= player.sum_mins ? player.sum_mins/(count - 2) : "Checking" %></td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
