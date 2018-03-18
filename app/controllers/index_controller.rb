@@ -88,7 +88,7 @@ class IndexController < ApplicationController
 			if selected_player
 				selected_player.position = away_starter.position
 				@away_players_group3.delete(selected_player)
-				if selected_player.position == 'PG' || selected_player.position == 'SG'
+				if away_starter.position == 'PG' || away_starter.position == 'SG'
 					@away_players_group1.push(selected_player)
 				else
 					@away_players_group2.push(selected_player)
@@ -103,8 +103,9 @@ class IndexController < ApplicationController
 					additional_player = Player.where("player_fullname = 'LaMarcus Aldridge'").order(:game_date).last
 				end
 				if additional_player
+					additional_player.position = away_starter.position
 					@away_players.push(additional_player)
-					if additional_player.position == 'PG' || additional_player.position == 'SG'
+					if away_starter.position == 'PG' || away_starter.position == 'SG'
 						@away_players_group1.push(additional_player)
 					else
 						@away_players_group2.push(additional_player)
@@ -138,7 +139,7 @@ class IndexController < ApplicationController
 			if selected_player
 				selected_player.position = home_starter.position
 				@home_players_group3.delete(selected_player)
-				if selected_player.position == 'PG' || selected_player.position == 'SG'
+				if home_starter.position == 'PG' || home_starter.position == 'SG'
 					@home_players_group1.push(selected_player)
 				else
 					@home_players_group2.push(selected_player)
@@ -153,8 +154,9 @@ class IndexController < ApplicationController
 					additional_player = Player.where("player_fullname = 'LaMarcus Aldridge'").order(:game_date).last
 				end
 				if additional_player
+					additional_player.position = home_starter.position
 					@home_players.push(additional_player)
-					if additional_player.position == 'PG' || additional_player.position == 'SG'
+					if home_starter.position == 'PG' || home_starter.position == 'SG'
 						@home_players_group1.push(additional_player)
 					else
 						@home_players_group2.push(additional_player)
