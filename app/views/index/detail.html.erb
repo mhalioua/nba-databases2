@@ -1467,7 +1467,7 @@
                   <%
                     game_list = player.possession.split(/,/)
                     total_mins = 0
-                    total_fga = 0
+                    total_fga = 0 
                     total_fta = 0
                     total_toValue = 0
                     total_orValue = 0
@@ -1477,10 +1477,10 @@
                     total_pts = 0
                     total_ppp = 0
                     total_team_poss = 0
-                    game_list.each do |game_id|
-                      game = Nba.where(id: game_id).first
-                      search_player = game.players.where(player_name: player.player_name).first
-                      team_player = game.players.where(player_name: "TEAM", team_abbr: search_player.team_abbr).first
+                    game_list.each do |search_game_id|
+                      search_game = Nba.where(id: search_game_id).first
+                      search_player = search_game.players.where(player_name: player.player_name).first
+                      team_player = search_game.players.where(player_name: "TEAM", team_abbr: search_player.team_abbr).first
                       total_mins = total_mins + search_player.mins
                       total_fga = total_fga + search_player.fga
                       total_fta = total_fta + search_player.fta
@@ -1496,7 +1496,7 @@
                       total_team_poss = total_team_poss + team_player.poss
                   %>
                   <tr>
-                    <td><%= game.date %>, <%= game.year %></td>
+                    <td><%= search_game.date %>, <%= search_game.year %></td>
                     <td><%= search_player.mins %></td>
                     <td><%= search_player.fga %></td>
                     <td><%= search_player.fta %></td>
@@ -1567,10 +1567,10 @@
                     total_pts = 0
                     total_ppp = 0
                     total_team_poss = 0
-                    game_list.each do |game_id|
-                      game = Nba.where(id: game_id).first
-                      search_player = game.players.where(player_name: player.player_name).first
-                      team_player = game.players.where(player_name: "TEAM", team_abbr: search_player.team_abbr).first
+                    game_list.each do |search_game_id|
+                      search_game = Nba.where(id: search_game_id).first
+                      search_player = search_game.players.where(player_name: player.player_name).first
+                      team_player = search_game.players.where(player_name: "TEAM", team_abbr: search_player.team_abbr).first
                       total_mins = total_mins + search_player.mins
                       total_fga = total_fga + search_player.fga
                       total_fta = total_fta + search_player.fta
@@ -1586,7 +1586,7 @@
                       total_team_poss = total_team_poss + team_player.poss
                   %>
                   <tr>
-                    <td><%= game.date %>, <%= game.year %></td>
+                    <td><%= search_game.date %>, <%= search_game.year %></td>
                     <td><%= search_player.mins %></td>
                     <td><%= search_player.fga %></td>
                     <td><%= search_player.fta %></td>
