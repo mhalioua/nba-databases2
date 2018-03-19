@@ -113,11 +113,6 @@ class IndexController < ApplicationController
 			end
 		end
 
-		# @away_players_group1 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @away_flag)).order(:state)
-		# @away_players_group2 = @away_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @away_flag).or(@away_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @away_flag))).order(:state)
-		# @away_players_group3 = @away_last.players.where("team_abbr = ? AND state > 5", @away_flag).order(:state)
-		# @away_players_group3 = @away_players_group3[0..-2]
-
 		@home_players = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state).to_a
 		@home_players_search = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state)
 		@home_players_group1 = []
@@ -162,11 +157,6 @@ class IndexController < ApplicationController
 				end
 			end
 		end
-		# @home_players_group1 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PG'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SG'", @home_flag)).order(:state)
-		# @home_players_group2 = @home_last.players.where("team_abbr = ? AND state < 6 AND position = 'C'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'SF'", @home_flag).or(@home_last.players.where("team_abbr = ? AND state < 6 AND position = 'PF'", @home_flag))).order(:state)
-		# @home_players_group3 = @home_last.players.where("team_abbr = ? AND state > 5", @home_flag).order(:state)
-		# @home_players_group3 = @home_players_group3[0..-2]
-
 
 		@home_injury = Injury.where("team = ?", @game.home_team)
 		@away_injury = Injury.where("team = ?", @game.away_team)
