@@ -3023,15 +3023,6 @@ namespace :nba do
     end
   end
 
-  task :moveFields => [:environment] do
-    data = Player.where("nba_id <  500").as_json
-    puts data.count
-    test = PlayerData.all
-    puts test.count
-    PlayerData.create(data)
-    test = PlayerData.all
-    puts test.count
-  end
 
   @basket_names = {
     'Charlotte' => 'New Orleans',
