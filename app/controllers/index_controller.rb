@@ -147,7 +147,7 @@ class IndexController < ApplicationController
 				end
 				if home_starter.player_name == 'J.R. Smith'
 					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith' AND game_date < ?", @now).order(:game_date).last
-				elsif away_starter.player_name == 'Taurean Prince'
+				elsif home_starter.player_name == 'Taurean Prince'
 					additional_player = Player.where("player_fullname = 'Taurean Waller-Prince' AND game_date < ?", @now).order(:game_date).last
 				end
 				if additional_player
