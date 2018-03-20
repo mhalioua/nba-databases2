@@ -94,12 +94,12 @@ class IndexController < ApplicationController
 					@away_players_group2.push(selected_player)
 				end
 			else
-				additional_player = Player.where("player_fullname = ?", away_starter.player_name).order(:game_date).last
+				additional_player = Player.where("player_fullname = ? AND game_date < ?", away_starter.player_name, @now).order(:game_date).last
 				unless additional_player
-					additional_player = Player.where("player_name = ?", away_starter.player_name).order(:game_date).last
+					additional_player = Player.where("player_name = ? AND game_date < ?", away_starter.player_name, @now).order(:game_date).last
 				end
 				if away_starter.player_name == 'J.R. Smith'
-					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").order(:game_date).last
+					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith' AND game_date < ?", @now).order(:game_date).last
 				end
 				if additional_player
 					additional_player.position = away_starter.position
@@ -144,12 +144,12 @@ class IndexController < ApplicationController
 					@home_players_group2.push(selected_player)
 				end
 			else
-				additional_player = Player.where("player_fullname = ?", home_starter.player_name).order(:game_date).last
+				additional_player = Player.where("player_fullname = ? AND game_date < ?", home_starter.player_name, @now).order(:game_date).last
 				unless additional_player
-					additional_player = Player.where("player_name = ?", home_starter.player_name).order(:game_date).last
+					additional_player = Player.where("player_name = ? AND game_date < ?", home_starter.player_name, @now).order(:game_date).last
 				end
 				if home_starter.player_name == 'J.R. Smith'
-					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").order(:game_date).last
+					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith' AND game_date < ?", @now).order(:game_date).last
 				end
 				if additional_player
 					additional_player.position = home_starter.position
