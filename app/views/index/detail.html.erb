@@ -1480,6 +1480,7 @@
                     game_list.each do |search_game_id|
                       search_game = Nba.where(id: search_game_id).first
                       search_player = search_game.players.where(player_name: player.player_name).first
+                      next unless search_player
                       team_player = search_game.players.where(player_name: "TEAM", team_abbr: search_player.team_abbr).first
                       total_mins = total_mins + search_player.mins
                       total_fga = total_fga + search_player.fga
@@ -1570,6 +1571,7 @@
                     game_list.each do |search_game_id|
                       search_game = Nba.where(id: search_game_id).first
                       search_player = search_game.players.where(player_name: player.player_name).first
+                      next unless search_player
                       team_player = search_game.players.where(player_name: "TEAM", team_abbr: search_player.team_abbr).first
                       total_mins = total_mins + search_player.mins
                       total_fga = total_fga + search_player.fga
