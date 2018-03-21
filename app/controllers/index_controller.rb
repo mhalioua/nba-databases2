@@ -72,7 +72,7 @@ class IndexController < ApplicationController
 		@away_players_search = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state)
 		@away_players_group1 = []
 		@away_players_group2 = []
-		@away_players_group3 = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state)
+		@away_players_group3 = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state).to_a
 		@away_starter_abbr = @away_abbr
 		@away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
 		@away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
@@ -119,7 +119,7 @@ class IndexController < ApplicationController
 		@home_players_search = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state)
 		@home_players_group1 = []
 		@home_players_group2 = []
-		@home_players_group3 = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state)
+		@home_players_group3 = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state).to_a
 		@home_starter_abbr = @home_abbr
 		@home_starter_abbr = @match[@home_starter_abbr] if @match[@home_starter_abbr]
 		@home_starters = Starter.where('team = ? AND time = ?', @home_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
