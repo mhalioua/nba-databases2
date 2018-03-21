@@ -1879,14 +1879,13 @@ namespace :nba do
 
   task :test => :environment do
     include Api
-      players = Player.where("nba_id='24887'")
-      players.each_with_index do |player, index|
-        game_list = player.possession.split(/,/)
-        game_list.each do |search_game_id|
-          search_game = Nba.where(id: search_game_id).first
-          search_player = search_game.players.where(player_name: player.player_name)
-          puts search_player.size
-        end
+    players = Player.where("nba_id='24887'")
+    players.each_with_index do |player, index|
+      game_list = player.possession.split(/,/)
+      game_list.each do |search_game_id|
+        search_game = Nba.where(id: search_game_id).first
+        search_player = search_game.players.where(player_name: player.player_name)
+        puts search_player.size
       end
     end
   end
