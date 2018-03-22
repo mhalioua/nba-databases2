@@ -116,11 +116,14 @@
         <th class="gray"></th>
         <th class="gray"></th>
         <th class="red"></th>
+        <th></th>
         <th class="purple"></th>
         <th class="gray"></th>
         <th class="gray"></th>
         <th class="gray"></th>
         <th class="red"></th>
+        <th></th>
+        <th></th>
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
@@ -201,11 +204,14 @@
         <th class="gray">Referee</th>
         <th class="gray">Last game</th>
         <th class="red">Last game total</th>
+        <th>Lines</th>
         <th class="purple"></th>
         <th class="gray">gms for last 3 years</th>
         <th class="gray">1h</th>
         <th class="gray">2h</th>
         <th class="red"></th>
+        <th>1h lines</th>
+        <th>2h lines</th>
 	    </tr>
   	</thead>
   	<tbody>
@@ -467,31 +473,34 @@
 
       <td class="black"></td>
 
-        <td><%= @countItem ? roadtotal.round(2) : "" %></td>
-        <td><%= @countItem ? hometotal.round(2) : "" %></td>
-        <td class="purple"><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
-        <td><%= @countItem ? (roadtotal - hometotal).round(2) : "" %></td>
-        <td rowspan="3" class="black"></td>
-        <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalpoint).to_i : "" %></td>
-        <td rowspan="3" class="black"></td>
-        <td><%= @countItem ? @countItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
-        <td><%= @countItem ? @countItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
-        <td class="purple"><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
-        <td><%= @countItem ? (@countItem.average(:roadfirsthalf).to_f - @countItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
-        <td rowspan="3" class="black"></td>
-        <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f).round(2) : "" %></td>
-        <td><%= @countItem ? (@countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
-        <td class="purple"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
-        <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
-        <td style="border-right: 5px solid #666;">1</td>
-        <td><%= game.referee_one %></td>
-        <td><%= game.referee_one_last %></td>
-        <td class="red"><%= @referee_last_part ? @referee_last_part.last_first : '' %></td>
-        <td class="purple">1h</td>
-        <td><%= @referee_part_one_last.count(:firstpoint).to_i %></td>
-        <td><%= @referee_part_one_last.average(:firstpoint).to_f.round(2) %></td>
-        <td><%= @referee_part_one_last.average(:secondpoint).to_f.round(2) %></td>
-        <td class="red"><%= ((@referee_part_one_last.sum(:firstpoint).to_f + @referee_part_two_last.sum(:firstpoint).to_f + @referee_part_three_last.sum(:firstpoint).to_f)/(@referee_past_count == 0 ? 1 : @referee_past_count)).round(2) %></td>
+      <td><%= @countItem ? roadtotal.round(2) : "" %></td>
+      <td><%= @countItem ? hometotal.round(2) : "" %></td>
+      <td class="purple"><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
+      <td><%= @countItem ? (roadtotal - hometotal).round(2) : "" %></td>
+      <td rowspan="3" class="black"></td>
+      <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalpoint).to_i : "" %></td>
+      <td rowspan="3" class="black"></td>
+      <td><%= @countItem ? @countItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
+      <td><%= @countItem ? @countItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
+      <td class="purple"><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
+      <td><%= @countItem ? (@countItem.average(:roadfirsthalf).to_f - @countItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
+      <td rowspan="3" class="black"></td>
+      <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f).round(2) : "" %></td>
+      <td><%= @countItem ? (@countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
+      <td class="purple"><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
+      <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
+      <td style="border-right: 5px solid #666;">1</td>
+      <td><%= game.referee_one %></td>
+      <td><%= game.referee_one_last %></td>
+      <td class="red"><%= @referee_last_part ? @referee_last_part.last_first : '' %></td>
+      <td class="green"></td>
+      <td class="purple">1h</td>
+      <td><%= @referee_part_one_last.count(:firstpoint).to_i %></td>
+      <td><%= @referee_part_one_last.average(:firstpoint).to_f.round(2) %></td>
+      <td><%= @referee_part_one_last.average(:secondpoint).to_f.round(2) %></td>
+      <td class="red"><%= ((@referee_part_one_last.sum(:firstpoint).to_f + @referee_part_two_last.sum(:firstpoint).to_f + @referee_part_three_last.sum(:firstpoint).to_f)/(@referee_past_count == 0 ? 1 : @referee_past_count)).round(2) %></td>
+      <td class="green"></td>
+      <td class="green"></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -586,11 +595,14 @@
       <td><%= game.referee_two %></td>
       <td><%= game.referee_two_last %></td>
       <td class="red"><%= @referee_last_part ? @referee_last_part.last_second : '' %></td>
+      <td class="green"></td>
       <td class="purple">2h</td>
       <td><%= @referee_part_two_last.count(:firstpoint).to_i %></td>
       <td><%= @referee_part_two_last.average(:firstpoint).to_f.round(2) %></td>
       <td><%= @referee_part_two_last.average(:secondpoint).to_f.round(2) %></td>
       <td class="red"><%= ((@referee_part_one_last.sum(:secondpoint).to_f + @referee_part_two_last.sum(:secondpoint).to_f + @referee_part_three_last.sum(:secondpoint).to_f)/(@referee_past_count == 0 ? 1 : @referee_past_count)).round(2) %></td>
+      <td class="green"></td>
+      <td class="green"></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -671,11 +683,14 @@
       <td><%= game.referee_three %></td>
       <td><%= game.referee_three_last %></td>
       <td class="red"><%= @referee_last_part ? @referee_last_part.last_count : '' %></td>
+      <td class="green"></td>
       <td class="purple">gms</td>
       <td><%= @referee_part_three_last.count(:tp_1h).to_i %></td>
       <td><%= @referee_part_three_last.average(:tp_1h).to_f.round(2) %></td>
       <td><%= @referee_part_three_last.average(:tp_2h).to_f.round(2) %></td>
       <td class="red"><%= @referee_past_count %></td>
+      <td class="green"></td>
+      <td class="green"></td>
     </tr>
     <% end %>
   	</tbody>
