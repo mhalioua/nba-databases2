@@ -127,9 +127,9 @@
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
-	      	<th class="red">Time</th>
-	      	<th class="red">Last<br>Game</th>
-	      	<th class="red">Away Team</th>
+      	<th class="red">Time</th>
+      	<th class="red">Last<br>Game</th>
+      	<th class="red">Away Team</th>
 	  		<th class="red">Next<br>Game</th>
 	  		<th class="red" colspan="3"></th>
 	  		<th class="red">Next<br>Game</th>
@@ -331,6 +331,7 @@
       @referee_part_two_last = Referee.where("referee_one = ? AND id < 43558", game.referee_two).or(Referee.where("referee_two = ? AND id < 43558", game.referee_two).or(Referee.where("referee_three = ? AND id < 43558", game.referee_two).or(Referee.where("referee_one = ? AND id > 61549", game.referee_two).or(Referee.where("referee_two = ? AND id > 61549", game.referee_two).or(Referee.where("referee_three = ? AND id > 61549", game.referee_two))))))
       @referee_part_three_last = Referee.where("referee_one = ? AND id < 43558", game.referee_three).or(Referee.where("referee_two = ? AND id < 43558", game.referee_three).or(Referee.where("referee_three = ? AND id < 43558", game.referee_three).or(Referee.where("referee_one = ? AND id > 61549", game.referee_three).or(Referee.where("referee_two = ? AND id > 61549", game.referee_three).or(Referee.where("referee_three = ? AND id > 61549", game.referee_three))))))
       @referee_past_count = @referee_part_one_last.count(:firstpoint).to_i + @referee_part_two_last.count(:firstpoint).to_i + @referee_part_three_last.count(:firstpoint).to_i
+      @referee_past_line_count = @referee_part_one_last.count(:firstlinetotal).to_i + @referee_part_two_last.count(:firstlinetotal).to_i + @referee_part_three_last.count(:firstlinetotal).to_i
   
 
       @away_last_games = Nba.where("home_team = ? AND game_date < ?", game.away_team, game.game_date).or(Nba.where("away_team = ? AND game_date < ?", game.away_team, game.game_date)).order(game_date: :desc).limit(12)
@@ -445,7 +446,7 @@
       <td>20904</td>
       <td class="red"><%= game.away_abbr %></td>
 
-        <td><%= game.first_away_fga %></td>
+      <td><%= game.first_away_fga %></td>
       <td><%= game.first_away_fta %></td>
       <td><%= game.first_away_orValue %></td>
       <td><%= game.first_away_toValue %></td>
@@ -493,14 +494,14 @@
       <td><%= game.referee_one %></td>
       <td><%= game.referee_one_last %></td>
       <td class="red"><%= @referee_last_part ? @referee_last_part.last_first : '' %></td>
-      <td class="green"></td>
+      <td class="green"><%= ((@referee_part_one_last.sum(:firstlinetotal).to_f + @referee_part_two_last.sum(:firstlinetotal).to_f + @referee_part_three_last.sum(:firstlinetotal).to_f)/(@referee_past_line_count == 0 ? 1 : @referee_past_line_count)).round(2) %></td>
       <td class="purple">1h</td>
       <td><%= @referee_part_one_last.count(:firstpoint).to_i %></td>
       <td><%= @referee_part_one_last.average(:firstpoint).to_f.round(2) %></td>
       <td><%= @referee_part_one_last.average(:secondpoint).to_f.round(2) %></td>
       <td class="red"><%= ((@referee_part_one_last.sum(:firstpoint).to_f + @referee_part_two_last.sum(:firstpoint).to_f + @referee_part_three_last.sum(:firstpoint).to_f)/(@referee_past_count == 0 ? 1 : @referee_past_count)).round(2) %></td>
-      <td class="green"></td>
-      <td class="green"></td>
+      <td class="green"><%= @referee_part_one_last.average(:firstlinetotal).to_f.round(2) %></td>
+      <td class="green"><%= @referee_part_one_last.average(:secondlinetotal).to_f.round(2) %></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -595,14 +596,14 @@
       <td><%= game.referee_two %></td>
       <td><%= game.referee_two_last %></td>
       <td class="red"><%= @referee_last_part ? @referee_last_part.last_second : '' %></td>
-      <td class="green"></td>
+      <td class="green"><%= ((@referee_part_one_last.sum(:secondlinetotal).to_f + @referee_part_two_last.sum(:secondlinetotal).to_f + @referee_part_three_last.sum(:secondlinetotal).to_f)/(@referee_past_line_count == 0 ? 1 : @referee_past_line_count)).round(2) %></td>
       <td class="purple">2h</td>
       <td><%= @referee_part_two_last.count(:firstpoint).to_i %></td>
       <td><%= @referee_part_two_last.average(:firstpoint).to_f.round(2) %></td>
       <td><%= @referee_part_two_last.average(:secondpoint).to_f.round(2) %></td>
       <td class="red"><%= ((@referee_part_one_last.sum(:secondpoint).to_f + @referee_part_two_last.sum(:secondpoint).to_f + @referee_part_three_last.sum(:secondpoint).to_f)/(@referee_past_count == 0 ? 1 : @referee_past_count)).round(2) %></td>
-      <td class="green"></td>
-      <td class="green"></td>
+      <td class="green"><%= @referee_part_two_last.average(:firstlinetotal).to_f.round(2) %></td>
+      <td class="green"><%= @referee_part_two_last.average(:secondlinetotal).to_f.round(2) %></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -683,14 +684,14 @@
       <td><%= game.referee_three %></td>
       <td><%= game.referee_three_last %></td>
       <td class="red"><%= @referee_last_part ? @referee_last_part.last_count : '' %></td>
-      <td class="green"></td>
+      <td class="green"><%= @referee_past_line_count %></td>
       <td class="purple">gms</td>
-      <td><%= @referee_part_three_last.count(:tp_1h).to_i %></td>
-      <td><%= @referee_part_three_last.average(:tp_1h).to_f.round(2) %></td>
-      <td><%= @referee_part_three_last.average(:tp_2h).to_f.round(2) %></td>
+      <td><%= @referee_part_three_last.count(:firstpoint).to_i %></td>
+      <td><%= @referee_part_three_last.average(:firstpoint).to_f.round(2) %></td>
+      <td><%= @referee_part_three_last.average(:secondpoint).to_f.round(2) %></td>
       <td class="red"><%= @referee_past_count %></td>
-      <td class="green"></td>
-      <td class="green"></td>
+      <td class="green"><%= @referee_part_three_last.average(:firstlinetotal).to_f.round(2) %></td>
+      <td class="green"><%= @referee_part_three_last.average(:secondlinetotal).to_f.round(2) %></td>
     </tr>
     <% end %>
   	</tbody>
