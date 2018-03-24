@@ -78,6 +78,7 @@ class IndexController < ApplicationController
 		@away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@away_starters.each do |away_starter|
 			selected_player = @away_players_search.where("player_fullname = ?", away_starter.player_name).first
+			selected_player = @away_players_search.where("player_name = ?", away_starter.player_name).first unless selected_player
 			if selected_player
 				selected_player.position = away_starter.position
 				@away_players_group3.delete(selected_player)
@@ -88,9 +89,7 @@ class IndexController < ApplicationController
 				end
 			else
 				additional_player = Player.where("player_fullname = ? AND game_date < ?", away_starter.player_name, @now).order(:game_date).last
-				unless additional_player
-					additional_player = Player.where("player_name = ? AND game_date < ?", away_starter.player_name, @now).order(:game_date).last
-				end
+				additional_player = Player.where("player_name = ? AND game_date < ?", away_starter.player_name, @now).order(:game_date).last unless additional_player
 				if away_starter.player_name == 'J.R. Smith'
 					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith' AND game_date < ?", @now).order(:game_date).last
 				elsif away_starter.player_name == 'Taurean Prince'
@@ -118,6 +117,8 @@ class IndexController < ApplicationController
 		@home_starters = Starter.where('team = ? AND time = ?', @home_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@home_starters.each do |home_starter|
 			selected_player = @home_players_search.where("player_fullname = ?", home_starter.player_name).first
+			selected_player = @home_players_search.where("player_name = ?", home_starter.player_name).first unless selected_player
+
 			if selected_player
 				selected_player.position = home_starter.position
 				@home_players_group3.delete(selected_player)
@@ -128,9 +129,7 @@ class IndexController < ApplicationController
 				end
 			else
 				additional_player = Player.where("player_fullname = ? AND game_date < ?", home_starter.player_name, @now).order(:game_date).last
-				unless additional_player
-					additional_player = Player.where("player_name = ? AND game_date < ?", home_starter.player_name, @now).order(:game_date).last
-				end
+				additional_player = Player.where("player_name = ? AND game_date < ?", home_starter.player_name, @now).order(:game_date).last unless additional_player
 				if home_starter.player_name == 'J.R. Smith'
 					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith' AND game_date < ?", @now).order(:game_date).last
 				elsif home_starter.player_name == 'Taurean Prince'
