@@ -1396,30 +1396,33 @@ class IndexController < ApplicationController
 			'Washington' => 'EAST'
 		}
 
-		firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" )
-		secondItem = Fullseason.where(hometeam: @game.home_team)
-		thirdItem = Fullseason.where(week: @game.week)
+		firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" ).to_a
+		temp_count = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" ).count(:totalpoint).to_i
 		@firstItem_result = {
-			first: firstItem.average(:firstpoint).to_f.round(2),
-			second: firstItem.average(:secondpoint).to_f.round(2),
-			full: firstItem.average(:totalpoint).to_f.round(2),
-			count: firstItem.count(:totalpoint).to_i
+			first: (firstItem.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
+			second: (firstItem.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
+			full: (firstItem.map {|stat| stat.totalpoint.to_f }.sum/temp_count).round(2),
+			count: temp_count
 		}
+		secondItem = Fullseason.where(hometeam: @game.home_team)
+		temp_count = Fullseason.where(hometeam: @game.home_team).count(:totalpoint).to_i
 		@secondItem_result = {
-			first: secondItem.average(:firstpoint).to_f.round(2),
-			second: secondItem.average(:secondpoint).to_f.round(2),
-			full: secondItem.average(:totalpoint).to_f.round(2),
-			count: secondItem.count(:totalpoint).to_i
+			first: (secondItem.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
+			second: (secondItem.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
+			full: (secondItem.map {|stat| stat.totalpoint.to_f }.sum/temp_count).round(2),
+			count: temp_count
 		}
+		thirdItem = Fullseason.where(week: @game.week)
+		temp_count = Fullseason.where(week: @game.week).count(:totalpoint).to_i
 		@thirdItem_result = {
-			first: thirdItem.average(:firstpoint).to_f.round(2),
-			second: thirdItem.average(:secondpoint).to_f.round(2),
-			full: thirdItem.average(:totalpoint).to_f.round(2),
-			count: thirdItem.count(:totalpoint).to_i
+			first: (thirdItem.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
+			second: (thirdItem.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
+			full: (thirdItem.map {|stat| stat.totalpoint.to_f }.sum/temp_count).round(2),
+			count: temp_count
 		}
 		
-		secondItem_secondtravel = Secondtravel.where(hometeam: @game.home_team)
-		thirdItem_secondtravel = Secondtravel.where(week: @game.week)
+		secondItem_secondtravel = Secondtravel.where(hometeam: @game.home_team).to_a
+		temp_count = Secondtravel.where(hometeam: @game.home_team).count(:totalpoint).to_i
 		@firstItem_result_secondtravel = {
 			first: '',
 			second: '',
@@ -1427,16 +1430,18 @@ class IndexController < ApplicationController
 			count: ''
 		}
 		@secondItem_result_secondtravel = {
-			first: secondItem_secondtravel.average(:firstpoint).to_f.round(2),
-			second: secondItem_secondtravel.average(:secondpoint).to_f.round(2),
-			full: secondItem_secondtravel.average(:totalpoint).to_f.round(2),
-			count: secondItem_secondtravel.count(:totalpoint).to_i
+			first: (secondItem_secondtravel.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
+			second: (secondItem_secondtravel.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
+			full: (secondItem_secondtravel.map {|stat| stat.totalpoint.to_f }.sum/temp_count).round(2),
+			count: temp_count
 		}
+		thirdItem_secondtravel = Secondtravel.where(week: @game.week).to_a
+		temp_count = Secondtravel.where(week: @game.week).count(:totalpoint).to_i
 		@thirdItem_result_secondtravel = {
-			first: thirdItem_secondtravel.average(:firstpoint).to_f.round(2),
-			second: thirdItem_secondtravel.average(:secondpoint).to_f.round(2),
-			full: thirdItem_secondtravel.average(:totalpoint).to_f.round(2),
-			count: thirdItem_secondtravel.count(:totalpoint).to_i
+			first: (thirdItem_secondtravel.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
+			second: (thirdItem_secondtravel.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
+			full: (thirdItem_secondtravel.map {|stat| stat.totalpoint.to_f }.sum/temp_count).round(2),
+			count: temp_count
 		}
 
 		@countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", @game.away_last_fly, @game.away_next_fly, @game.away_last_game, @game.away_next_game, @game.home_next_game, @game.home_last_game, @game.home_next_fly, @game.home_last_fly)
