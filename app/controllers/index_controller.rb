@@ -1398,6 +1398,7 @@ class IndexController < ApplicationController
 
 		firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" ).to_a
 		temp_count = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" ).count(:totalpoint).to_i
+		temp_count = 1 if temp_count == 0
 		@firstItem_result = {
 			first: (firstItem.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
 			second: (firstItem.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
@@ -1406,6 +1407,7 @@ class IndexController < ApplicationController
 		}
 		secondItem = Fullseason.where(hometeam: @game.home_team)
 		temp_count = Fullseason.where(hometeam: @game.home_team).count(:totalpoint).to_i
+		temp_count = 1 if temp_count == 0
 		@secondItem_result = {
 			first: (secondItem.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
 			second: (secondItem.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
@@ -1414,6 +1416,7 @@ class IndexController < ApplicationController
 		}
 		thirdItem = Fullseason.where(week: @game.week)
 		temp_count = Fullseason.where(week: @game.week).count(:totalpoint).to_i
+		temp_count = 1 if temp_count == 0
 		@thirdItem_result = {
 			first: (thirdItem.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
 			second: (thirdItem.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
@@ -1423,6 +1426,7 @@ class IndexController < ApplicationController
 		
 		secondItem_secondtravel = Secondtravel.where(hometeam: @game.home_team).to_a
 		temp_count = Secondtravel.where(hometeam: @game.home_team).count(:totalpoint).to_i
+		temp_count = 1 if temp_count == 0
 		@firstItem_result_secondtravel = {
 			first: '',
 			second: '',
@@ -1437,6 +1441,7 @@ class IndexController < ApplicationController
 		}
 		thirdItem_secondtravel = Secondtravel.where(week: @game.week).to_a
 		temp_count = Secondtravel.where(week: @game.week).count(:totalpoint).to_i
+		temp_count = 1 if temp_count == 0
 		@thirdItem_result_secondtravel = {
 			first: (thirdItem_secondtravel.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
 			second: (thirdItem_secondtravel.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
@@ -1596,6 +1601,7 @@ class IndexController < ApplicationController
 				search_array = search_array.join(" AND ")
 				referee_filter_result = Referee.where(search_array).to_a
 				temp_count = Referee.where(search_array).count(:tp_1h).to_i
+				temp_count = 1 if temp_count == 0
 				@referee_filter_results.push([
 					(referee_filter_result.map {|stat| stat.tp_1h.to_f }.sum/temp_count).round(2),
 					(referee_filter_result.map {|stat| stat.tp_2h.to_f }.sum/temp_count).round(2),
