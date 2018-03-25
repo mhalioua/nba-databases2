@@ -1203,13 +1203,13 @@ class IndexController < ApplicationController
 				allsecond: (filter_second_element.map {|stat| stat.secondvalue.to_f }.sum/temp_count2).round(2),
 				allfull: (filter_second_element.map {|stat| stat.totalvalue.to_f }.sum/temp_count2).round(2),
 				allcount: temp_count2,
-				home_ortg: filter_second_element.average(:home_ortg).to_f.round(2),
-				away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
-				bj: filter_second_element.average(:fgside).to_f.round(2),
-				bg: filter_second_element.average(:firstside).to_f.round(2),
-				bh: filter_second_element.average(:secondside).to_f.round(2),
-				away_fg_percent: filter_second_element.average(:away_fg_percent).to_f.round(2),
-				home_fg_percent: filter_second_element.average(:home_fg_percent).to_f.round(2)
+				home_ortg: (filter_second_element.map {|stat| stat.home_ortg.to_f }.sum/temp_count2).round(2),
+				away_ortg: (filter_second_element.map {|stat| stat.away_ortg.to_f }.sum/temp_count2).round(2),
+				bj: (filter_second_element.map {|stat| stat.fgside.to_f }.sum/temp_count2).round(2),
+				bg: (filter_second_element.map {|stat| stat.firstside.to_f }.sum/temp_count2).round(2),
+				bh: (filter_second_element.map {|stat| stat.secondside.to_f }.sum/temp_count2).round(2),
+				away_fg_percent: (filter_second_element.map {|stat| stat.away_fg_percent.to_f }.sum/temp_count2).round(2),
+				home_fg_percent: (filter_second_element.map {|stat| stat.home_fg_percent.to_f }.sum/temp_count2).round(2)
 			}
 			result_element_secondtravel = {
 				first: filter_element_secondtravel.average(:firstvalue).to_f.round(2),
