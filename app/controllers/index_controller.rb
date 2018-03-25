@@ -1186,10 +1186,12 @@ class IndexController < ApplicationController
 			end
 			search_string = search_string.join(" AND ")
 			search_second_string = search_second_string.join(" AND ")
-			filter_element = Fullseason.where(search_string)
+			filter_element = Fullseason.where(search_string).to_a
 			temp_count = Fullseason.where(search_string).count(:totalvalue).to_i
 			temp_count = 1 if temp_count == 0
-			filter_second_element = Fullseason.where(search_second_string)
+			filter_second_element = Fullseason.where(search_second_string).to_a
+			temp_count2 = Fullseason.where(search_second_string).count(:totalvalue).to_i
+			temp_count2 = 1 if temp_count2 == 0
 			filter_element_secondtravel = Secondtravel.where(search_string)
 			filter_second_element_secondtravel = Secondtravel.where(search_second_string)
 			result_element = {
@@ -1197,10 +1199,10 @@ class IndexController < ApplicationController
 				second: (filter_element.map {|stat| stat.secondvalue.to_f }.sum/temp_count).round(2),
 				full: (filter_element.map {|stat| stat.totalvalue.to_f }.sum/temp_count).round(2),
 				count: temp_count,
-				allfirst: filter_second_element.average(:firstvalue).to_f.round(2),
-				allsecond: filter_second_element.average(:secondvalue).to_f.round(2),
-				allfull: filter_second_element.average(:totalvalue).to_f.round(2),
-				allcount: filter_second_element.count(:totalvalue).to_i,
+				allfirst: (filter_second_element.map {|stat| stat.firstvalue.to_f }.sum/temp_count2).round(2),
+				allsecond: (filter_second_element.map {|stat| stat.secondvalue.to_f }.sum/temp_count2).round(2),
+				allfull: (filter_second_element.map {|stat| stat.totalvalue.to_f }.sum/temp_count2).round(2),
+				allcount: temp_count2,
 				home_ortg: filter_second_element.average(:home_ortg).to_f.round(2),
 				away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
 				bj: filter_second_element.average(:fgside).to_f.round(2),
