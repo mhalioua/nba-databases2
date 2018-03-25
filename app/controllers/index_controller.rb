@@ -1589,12 +1589,12 @@ class IndexController < ApplicationController
 					end
 				end
 				search_array = search_array.join(" AND ")
-				referee_filter_result = Referee.where(search_array)
+				referee_filter_result = Referee.where(search_array).to_a
 				@referee_filter_results.push([
-					referee_filter_result.average(:tp_1h).to_f.round(2),
-					referee_filter_result.average(:tp_2h).to_f.round(2),
-					(referee_filter_result.average(:away_pf).to_f.round(2) + referee_filter_result.average(:home_pf).to_f.round(2)).round(2),
-					(referee_filter_result.average(:away_fta).to_f.round(2) + referee_filter_result.average(:home_fta).to_f.round(2)).round(2),
+					referee_filter_result.map {|stat| stat.tp_1h.to_f }.sum.round(2),
+					referee_filter_result.map {|stat| stat.tp_2h.to_f }.sum.round(2),
+					referee_filter_result.map {|stat| stat.away_pf.to_f }.sum.round(2) + referee_filter_result.map {|stat| stat.home_pf.to_f }.sum.round(2),
+					referee_filter_result.map {|stat| stat.away_fta.to_f }.sum.round(2) + referee_filter_result.map {|stat| stat.home_fta.to_f }.sum.round(2),
 					referee_filter_result.count(:tp_1h).to_i
 				])
 			else
