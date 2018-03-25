@@ -1589,8 +1589,8 @@ class IndexController < ApplicationController
 					end
 				end
 				search_array = search_array.join(" AND ")
-				temp_count = referee_filter_result.count(:tp_1h).to_i
 				referee_filter_result = Referee.where(search_array).to_a
+				temp_count = referee_filter_result.count(:tp_1h).to_i
 				@referee_filter_results.push([
 					(referee_filter_result.map {|stat| stat.tp_1h.to_f }.sum/temp_count).round(2),
 					(referee_filter_result.map {|stat| stat.tp_2h.to_f }.sum/temp_count).round(2),
