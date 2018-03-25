@@ -1186,30 +1186,26 @@ class IndexController < ApplicationController
 			end
 			search_string = search_string.join(" AND ")
 			search_second_string = search_second_string.join(" AND ")
-			filter_element = Fullseason.where(search_string).to_a
-			temp_count = Fullseason.where(search_string).count(:totalvalue).to_i
-			temp_count = 1 if temp_count == 0
-			filter_second_element = Fullseason.where(search_second_string).to_a
-			temp_count2 = Fullseason.where(search_second_string).count(:totalvalue).to_i
-			temp_count2 = 1 if temp_count2 == 0
+			filter_element = Fullseason.where(search_string)
+			filter_second_element = Fullseason.where(search_second_string)
 			filter_element_secondtravel = Secondtravel.where(search_string)
 			filter_second_element_secondtravel = Secondtravel.where(search_second_string)
 			result_element = {
-				first: (filter_element.map {|stat| stat.firstvalue.to_f }.sum/temp_count).round(2),
-				second: (filter_element.map {|stat| stat.secondvalue.to_f }.sum/temp_count).round(2),
-				full: (filter_element.map {|stat| stat.totalvalue.to_f }.sum/temp_count).round(2),
-				count: temp_count,
-				allfirst: (filter_second_element.map {|stat| stat.firstvalue.to_f }.sum/temp_count2).round(2),
-				allsecond: (filter_second_element.map {|stat| stat.secondvalue.to_f }.sum/temp_count2).round(2),
-				allfull: (filter_second_element.map {|stat| stat.totalvalue.to_f }.sum/temp_count2).round(2),
-				allcount: temp_count2,
-				home_ortg: (filter_second_element.map {|stat| stat.home_ortg.to_f }.sum/temp_count2).round(2),
-				away_ortg: (filter_second_element.map {|stat| stat.away_ortg.to_f }.sum/temp_count2).round(2),
-				bj: (filter_second_element.map {|stat| stat.fgside.to_f }.sum/temp_count2).round(2),
-				bg: (filter_second_element.map {|stat| stat.firstside.to_f }.sum/temp_count2).round(2),
-				bh: (filter_second_element.map {|stat| stat.secondside.to_f }.sum/temp_count2).round(2),
-				away_fg_percent: (filter_second_element.map {|stat| stat.away_fg_percent.to_f }.sum/temp_count2).round(2),
-				home_fg_percent: (filter_second_element.map {|stat| stat.home_fg_percent.to_f }.sum/temp_count2).round(2)
+				first: filter_element.average(:firstvalue).to_f.round(2),
+				second: filter_element.average(:secondvalue).to_f.round(2),
+				full: filter_element.average(:totalvalue).to_f.round(2),
+				count: filter_element.count(:totalvalue).to_i,
+				allfirst: filter_second_element.average(:firstvalue).to_f.round(2),
+				allsecond: filter_second_element.average(:secondvalue).to_f.round(2),
+				allfull: filter_second_element.average(:totalvalue).to_f.round(2),
+				allcount: filter_second_element.count(:totalvalue).to_i,
+				home_ortg: filter_second_element.average(:home_ortg).to_f.round(2),
+				away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
+				bj: filter_second_element.average(:fgside).to_f.round(2),
+				bg: filter_second_element.average(:firstside).to_f.round(2),
+				bh: filter_second_element.average(:secondside).to_f.round(2),
+				away_fg_percent: filter_second_element.average(:away_fg_percent).to_f.round(2),
+				home_fg_percent: filter_second_element.average(:home_fg_percent).to_f.round(2)
 			}
 			result_element_secondtravel = {
 				first: filter_element_secondtravel.average(:firstvalue).to_f.round(2),
@@ -1225,14 +1221,13 @@ class IndexController < ApplicationController
 				bh: 0
 			}
 			if index < 2 || index > 9
-				result_element[:full_first] = ((filter_second_element.map {|stat| stat.roadthird.to_f }.sum/temp_count2).round(2) + (filter_second_element.map {|stat| stat.roadforth.to_f }.sum/temp_count2).round(2) + (filter_second_element.map {|stat| stat.roadfirsthalf.to_f }.sum/temp_count2).round(2)).round(2)
-				result_element[:full_second] = ((filter_second_element.map {|stat| stat.homethird.to_f }.sum/temp_count2).round(2) + (filter_second_element.map {|stat| stat.homeforth.to_f }.sum/temp_count2).round(2) + (filter_second_element.map {|stat| stat.homefirsthalf.to_f }.sum/temp_count2).round(2)).round(2)
-				result_element[:firsthalf_first] = (filter_second_element.map {|stat| stat.roadfirsthalf.to_f }.sum/temp_count2).round(2)
-				result_element[:firsthalf_second] = (filter_second_element.map {|stat| stat.homefirsthalf.to_f }.sum/temp_count2).round(2)
-				result_element[:secondhalf_first] = ((filter_second_element.map {|stat| stat.roadthird.to_f }.sum/temp_count2).round(2) + (filter_second_element.map {|stat| stat.roadforth.to_f }.sum/temp_count2).round(2)).round(2)
-				result_element[:secondhalf_second] = ((filter_second_element.map {|stat| stat.homethird.to_f }.sum/temp_count2).round(2) + (filter_second_element.map {|stat| stat.homeforth.to_f }.sum/temp_count2).round(2)).round(2)
-
-				filter_second_element_again = Fullseason.where(search_second_string).where("firstlinetotal is not null AND firstlinetotal != 0")
+				result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
+				result_element[:full_second] = (filter_second_element.average(:homethird).to_f + filter_second_element.average(:homeforth).to_f + filter_second_element.average(:homefirsthalf).to_f).round(2)
+				result_element[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
+				result_element[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
+				result_element[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f.round(2) + filter_second_element.average(:roadforth).to_f.round(2)).round(2)
+				result_element[:secondhalf_second] = (filter_second_element.average(:homethird).to_f.round(2) + filter_second_element.average(:homeforth).to_f.round(2)).round(2)
+				filter_second_element_again = filter_second_element.where("firstlinetotal is not null AND firstlinetotal != 0")
 				result_element[:bi_one] = (filter_second_element_again.average(:roadfirsthalf).to_f - filter_second_element_again.average(:homefirsthalf).to_f).round(2)
 				result_element[:bi_two] = (filter_second_element_again.average(:roadthird).to_f + filter_second_element_again.average(:roadforth).to_f - filter_second_element_again.average(:homethird).to_f - filter_second_element_again.average(:homeforth).to_f).round(2)
 				result_element[:bi_count] = filter_second_element_again.count(:firstlinetotal).to_i
@@ -1401,37 +1396,30 @@ class IndexController < ApplicationController
 			'Washington' => 'EAST'
 		}
 
-		firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" ).to_a
-		temp_count = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" ).count(:totalpoint).to_i
-		temp_count = 1 if temp_count == 0
-		@firstItem_result = {
-			first: (firstItem.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
-			second: (firstItem.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
-			full: (firstItem.map {|stat| stat.totalpoint.to_f }.sum/temp_count).round(2),
-			count: temp_count
-		}
+		firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL" )
 		secondItem = Fullseason.where(hometeam: @game.home_team)
-		temp_count = Fullseason.where(hometeam: @game.home_team).count(:totalpoint).to_i
-		temp_count = 1 if temp_count == 0
-		@secondItem_result = {
-			first: (secondItem.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
-			second: (secondItem.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
-			full: (secondItem.map {|stat| stat.totalpoint.to_f }.sum/temp_count).round(2),
-			count: temp_count
-		}
 		thirdItem = Fullseason.where(week: @game.week)
-		temp_count = Fullseason.where(week: @game.week).count(:totalpoint).to_i
-		temp_count = 1 if temp_count == 0
+		@firstItem_result = {
+			first: firstItem.average(:firstpoint).to_f.round(2),
+			second: firstItem.average(:secondpoint).to_f.round(2),
+			full: firstItem.average(:totalpoint).to_f.round(2),
+			count: firstItem.count(:totalpoint).to_i
+		}
+		@secondItem_result = {
+			first: secondItem.average(:firstpoint).to_f.round(2),
+			second: secondItem.average(:secondpoint).to_f.round(2),
+			full: secondItem.average(:totalpoint).to_f.round(2),
+			count: secondItem.count(:totalpoint).to_i
+		}
 		@thirdItem_result = {
-			first: (thirdItem.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
-			second: (thirdItem.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
-			full: (thirdItem.map {|stat| stat.totalpoint.to_f }.sum/temp_count).round(2),
-			count: temp_count
+			first: thirdItem.average(:firstpoint).to_f.round(2),
+			second: thirdItem.average(:secondpoint).to_f.round(2),
+			full: thirdItem.average(:totalpoint).to_f.round(2),
+			count: thirdItem.count(:totalpoint).to_i
 		}
 		
-		secondItem_secondtravel = Secondtravel.where(hometeam: @game.home_team).to_a
-		temp_count = Secondtravel.where(hometeam: @game.home_team).count(:totalpoint).to_i
-		temp_count = 1 if temp_count == 0
+		secondItem_secondtravel = Secondtravel.where(hometeam: @game.home_team)
+		thirdItem_secondtravel = Secondtravel.where(week: @game.week)
 		@firstItem_result_secondtravel = {
 			first: '',
 			second: '',
@@ -1439,19 +1427,16 @@ class IndexController < ApplicationController
 			count: ''
 		}
 		@secondItem_result_secondtravel = {
-			first: (secondItem_secondtravel.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
-			second: (secondItem_secondtravel.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
-			full: (secondItem_secondtravel.map {|stat| stat.totalpoint.to_f }.sum/temp_count).round(2),
-			count: temp_count
+			first: secondItem_secondtravel.average(:firstpoint).to_f.round(2),
+			second: secondItem_secondtravel.average(:secondpoint).to_f.round(2),
+			full: secondItem_secondtravel.average(:totalpoint).to_f.round(2),
+			count: secondItem_secondtravel.count(:totalpoint).to_i
 		}
-		thirdItem_secondtravel = Secondtravel.where(week: @game.week).to_a
-		temp_count = Secondtravel.where(week: @game.week).count(:totalpoint).to_i
-		temp_count = 1 if temp_count == 0
 		@thirdItem_result_secondtravel = {
-			first: (thirdItem_secondtravel.map {|stat| stat.firstpoint.to_f }.sum/temp_count).round(2),
-			second: (thirdItem_secondtravel.map {|stat| stat.secondpoint.to_f }.sum/temp_count).round(2),
-			full: (thirdItem_secondtravel.map {|stat| stat.totalpoint.to_f }.sum/temp_count).round(2),
-			count: temp_count
+			first: thirdItem_secondtravel.average(:firstpoint).to_f.round(2),
+			second: thirdItem_secondtravel.average(:secondpoint).to_f.round(2),
+			full: thirdItem_secondtravel.average(:totalpoint).to_f.round(2),
+			count: thirdItem_secondtravel.count(:totalpoint).to_i
 		}
 
 		@countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", @game.away_last_fly, @game.away_next_fly, @game.away_last_game, @game.away_next_game, @game.home_next_game, @game.home_last_game, @game.home_next_fly, @game.home_last_fly)
@@ -1604,15 +1589,13 @@ class IndexController < ApplicationController
 					end
 				end
 				search_array = search_array.join(" AND ")
-				referee_filter_result = Referee.where(search_array).to_a
-				temp_count = Referee.where(search_array).count(:tp_1h).to_i
-				temp_count = 1 if temp_count == 0
+				referee_filter_result = Referee.where(search_array)
 				@referee_filter_results.push([
-					(referee_filter_result.map {|stat| stat.tp_1h.to_f }.sum/temp_count).round(2),
-					(referee_filter_result.map {|stat| stat.tp_2h.to_f }.sum/temp_count).round(2),
-					(referee_filter_result.map {|stat| stat.away_pf.to_f }.sum/temp_count).round(2) + (referee_filter_result.map {|stat| stat.home_pf.to_f }.sum/temp_count).round(2),
-					(referee_filter_result.map {|stat| stat.away_fta.to_f }.sum/temp_count).round(2) + (referee_filter_result.map {|stat| stat.home_fta.to_f }.sum/temp_count).round(2),
-					temp_count
+					referee_filter_result.average(:tp_1h).to_f.round(2),
+					referee_filter_result.average(:tp_2h).to_f.round(2),
+					(referee_filter_result.average(:away_pf).to_f.round(2) + referee_filter_result.average(:home_pf).to_f.round(2)).round(2),
+					(referee_filter_result.average(:away_fta).to_f.round(2) + referee_filter_result.average(:home_fta).to_f.round(2)).round(2),
+					referee_filter_result.count(:tp_1h).to_i
 				])
 			else
 				@referee_filter_results.push(['-', '-',	'-', '-', '-'])
