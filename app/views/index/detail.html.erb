@@ -2533,13 +2533,15 @@ end
                 <td>97</td>
                 <td>-1.2</td>
                 <td></td>
-                <td class="filter"><%= @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").count(:fglinetotal).to_i : "" %></td>
-                <td class="filter"><%= @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").count(:fglinetotal).to_i : "" %></td>
+                <% fglinetotal_count = @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").count(:fglinetotal).to_i : "" %>
+                <td class="filter"><%= fglinetotal_count %></td>
+                <td class="filter"><%= fglinetotal_count %></td>
                 <td></td>
-                <td class="yellow"><%= @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i : "" %></td>
-                <td class="yellow"><%= @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i : "" %></td>
-                <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i : "" %></td>
-                <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i : "" %></td>
+                <% firstlinetotal_count = @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i : "" %>
+                <td class="yellow"><%= firstlinetotal_count %></td>
+                <td class="yellow"><%= firstlinetotal_count %></td>
+                <td class="green"><%= firstlinetotal_count %></td>
+                <td class="green"><%= firstlinetotal_count %></td>
             </tr>
             <tr>
                 <td><%= @game.away_last_fly %></td>

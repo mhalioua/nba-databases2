@@ -68,11 +68,11 @@ class IndexController < ApplicationController
 
 		@date_id = Date.strptime(@game.game_date).strftime("%Y-%m-%d")
 
-		@away_players = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state).to_a
 		@away_players_search = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state)
+		@away_players = @away_players_search.to_a
 		@away_players_group1 = []
 		@away_players_group2 = []
-		@away_players_group3 = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state).to_a
+		@away_players_group3 = @away_players.dup
 		@away_starter_abbr = @away_abbr
 		@away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
 		@away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
@@ -107,11 +107,11 @@ class IndexController < ApplicationController
 			end
 		end
 
-		@home_players = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state).to_a
 		@home_players_search = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state)
+		@home_players = @home_players_search.to_a
 		@home_players_group1 = []
 		@home_players_group2 = []
-		@home_players_group3 = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state).to_a
+		@home_players_group3 = @home_players.dup
 		@home_starter_abbr = @home_abbr
 		@home_starter_abbr = @match[@home_starter_abbr] if @match[@home_starter_abbr]
 		@home_starters = Starter.where('team = ? AND time = ?', @home_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
@@ -1221,22 +1221,22 @@ class IndexController < ApplicationController
 				bh: 0
 			}
 			if index < 2 || index > 9
-				result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
-				result_element[:full_second] = (filter_second_element.average(:homethird).to_f + filter_second_element.average(:homeforth).to_f + filter_second_element.average(:homefirsthalf).to_f).round(2)
 				result_element[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
 				result_element[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
 				result_element[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f.round(2) + filter_second_element.average(:roadforth).to_f.round(2)).round(2)
 				result_element[:secondhalf_second] = (filter_second_element.average(:homethird).to_f.round(2) + filter_second_element.average(:homeforth).to_f.round(2)).round(2)
+				result_element[:full_first] = (result_element[:secondhalf_first] + result_element[:firsthalf_first]).round(2)
+				result_element[:full_second] = (result_element[:secondhalf_second] + result_element[:firsthalf_second]).round(2)
 				filter_second_element_again = filter_second_element.where("firstlinetotal is not null AND firstlinetotal != 0")
 				result_element[:bi_one] = (filter_second_element_again.average(:roadfirsthalf).to_f - filter_second_element_again.average(:homefirsthalf).to_f).round(2)
 				result_element[:bi_two] = (filter_second_element_again.average(:roadthird).to_f + filter_second_element_again.average(:roadforth).to_f - filter_second_element_again.average(:homethird).to_f - filter_second_element_again.average(:homeforth).to_f).round(2)
 				result_element[:bi_count] = filter_second_element_again.count(:firstlinetotal).to_i
-				result_element_secondtravel[:full_first] = (filter_second_element_secondtravel.average(:roadthird).to_f + filter_second_element_secondtravel.average(:roadforth).to_f + filter_second_element_secondtravel.average(:roadfirsthalf).to_f).round(2)
-				result_element_secondtravel[:full_second] = (filter_second_element_secondtravel.average(:homethird).to_f + filter_second_element_secondtravel.average(:homeforth).to_f + filter_second_element_secondtravel.average(:homefirsthalf).to_f).round(2)
 				result_element_secondtravel[:firsthalf_first] = filter_second_element_secondtravel.average(:roadfirsthalf).to_f.round(2)
 				result_element_secondtravel[:firsthalf_second] = filter_second_element_secondtravel.average(:homefirsthalf).to_f.round(2)
 				result_element_secondtravel[:secondhalf_first] = (filter_second_element_secondtravel.average(:roadthird).to_f.round(2) + filter_second_element_secondtravel.average(:roadforth).to_f.round(2)).round(2)
 				result_element_secondtravel[:secondhalf_second] = (filter_second_element_secondtravel.average(:homethird).to_f.round(2) + filter_second_element_secondtravel.average(:homeforth).to_f.round(2)).round(2)
+				result_element_secondtravel[:full_first] = (result_element_secondtravel[:firsthalf_first] + result_element_secondtravel[:secondhalf_first]).round(2)
+				result_element_secondtravel[:full_second] = (result_element_secondtravel[:firsthalf_second] + result_element_secondtravel[:secondhalf_second]).round(2)
 			end
 			@filterResult.push(result_element)
 			@filterResult_secondtravel.push(result_element_secondtravel)
