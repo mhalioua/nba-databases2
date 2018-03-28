@@ -81,6 +81,11 @@ class IndexController < ApplicationController
 			away_starter_player_fullname = away_starter_player_name.gsub('.', '')
 			selected_player = @away_players_search.where("player_fullname = ?", away_starter_player_fullname).first
 			selected_player = @away_players_search.where("player_name = ?", away_starter_player_name).first unless selected_player
+			if away_starter_player_name == 'J.R. Smith'
+				selected_player = @away_players_search.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").first
+			elsif away_starter_player_name == 'Taurean Prince'
+				selected_player = @away_players_search.where("player_fullname = 'Taurean Waller-Prince'").first
+			end
 			if selected_player
 				selected_player.position = away_starter.position
 				@away_players_group3.delete(selected_player)
@@ -122,6 +127,11 @@ class IndexController < ApplicationController
 			home_starter_player_fullname = home_starter_player_name.gsub('.', '')
 			selected_player = @home_players_search.where("player_fullname = ?", home_starter_player_fullname).first
 			selected_player = @home_players_search.where("player_name = ?", home_starter_player_name).first unless selected_player
+			if home_starter_player_name == 'J.R. Smith'
+				selected_player = @home_players_search.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").first
+			elsif home_starter_player_name == 'Taurean Prince'
+				selected_player = @home_players_search.where("player_fullname = 'Taurean Waller-Prince'").first
+			end
 
 			if selected_player
 				selected_player.position = home_starter.position
