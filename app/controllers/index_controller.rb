@@ -1210,6 +1210,7 @@ class IndexController < ApplicationController
 			}
 			if index != 0
 				filter_second_element = Fullseason.where(search_second_string).to_a
+				filter_second_element_side = Fullseason.where(search_second_string)
 				temp_count3 = filter_second_element.count
 				result_element[:allfirst] = (filter_second_element.map {|stat| stat.firstvalue.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
 				result_element[:allsecond] = (filter_second_element.map {|stat| stat.secondvalue.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
@@ -1217,9 +1218,6 @@ class IndexController < ApplicationController
 				result_element[:allcount] = temp_count3
 				result_element[:home_ortg] = (filter_second_element.map {|stat| stat.home_ortg.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
 				result_element[:away_ortg] = (filter_second_element.map {|stat| stat.away_ortg.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
-				result_element[:bj] = (filter_second_element.map {|stat| stat.fgside.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
-				result_element[:bg] = (filter_second_element.map {|stat| stat.firstside.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
-				result_element[:bh] = (filter_second_element.map {|stat| stat.secondside.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
 				if index == 1 || index == 2 || index > 9
 					result_element[:firsthalf_first] = (filter_second_element.map {|stat| stat.roadfirsthalf.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
 					result_element[:firsthalf_second] = (filter_second_element.map {|stat| stat.homefirsthalf.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
@@ -1227,6 +1225,9 @@ class IndexController < ApplicationController
 					result_element[:secondhalf_second] = (filter_second_element.map {|stat| stat.homethird.to_f + stat.homeforth.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
 					result_element[:full_first] = (result_element[:secondhalf_first] + result_element[:firsthalf_first]).round(2)
 					result_element[:full_second] = (result_element[:secondhalf_second] + result_element[:firsthalf_second]).round(2)
+					result_element[:bj] = filter_second_element_side.average(:fgside).to_f.round(2)
+					result_element[:bg] = filter_second_element_side.average(:firstside).to_f.round(2)
+					result_element[:bh] = filter_second_element_side.average(:secondside).to_f.round(2)
 					filter_second_element_again = Fullseason.where(search_second_string).where("firstlinetotal is not null AND firstlinetotal != 0")
 					result_element[:bi_one] = (filter_second_element_again.average(:roadfirsthalf).to_f - filter_second_element_again.average(:homefirsthalf).to_f).round(2)
 					result_element[:bi_two] = (filter_second_element_again.average(:roadthird).to_f + filter_second_element_again.average(:roadforth).to_f - filter_second_element_again.average(:homethird).to_f - filter_second_element_again.average(:homeforth).to_f).round(2)
@@ -1237,8 +1238,8 @@ class IndexController < ApplicationController
 				result_element[:allsecond] = 97.01
 				result_element[:allfull] = 196.11
 				result_element[:allcount] = 20904
-				result_element[:home_ortg] = 105.15
-				result_element[:away_ortg] = 108.47
+				result_element[:home_ortg] = 108.47
+				result_element[:away_ortg] = 105.15
 				result_element[:bj] = -3.21
 				result_element[:bg] = -1.75
 				result_element[:bh] = -1.26
