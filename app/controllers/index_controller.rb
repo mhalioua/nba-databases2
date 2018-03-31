@@ -1201,49 +1201,85 @@ class IndexController < ApplicationController
 			search_string = search_string.join(" AND ")
 			search_second_string = search_second_string.join(" AND ")
 			filter_element = Fullseason.where(search_string).to_a
-			temp_count = filter_element.count
-			filter_second_element = Fullseason.where(search_second_string)
+			temp_count1 = filter_element.count
 			result_element = {
-				first: (filter_element.map {|stat| stat.firstvalue.to_f }.sum / (temp_count == 0 ? 1 : temp_count)).round(2),
-				second: (filter_element.map {|stat| stat.secondvalue.to_f }.sum / (temp_count == 0 ? 1 : temp_count)).round(2),
-				full: (filter_element.map {|stat| stat.totalvalue.to_f }.sum / (temp_count == 0 ? 1 : temp_count)).round(2),
-				count: temp_count,
-				allfirst: filter_second_element.average(:firstvalue).to_f.round(2),
-				allsecond: filter_second_element.average(:secondvalue).to_f.round(2),
-				allfull: filter_second_element.average(:totalvalue).to_f.round(2),
-				allcount: filter_second_element.count(:totalvalue).to_i,
-				home_ortg: filter_second_element.average(:home_ortg).to_f.round(2),
-				away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
-				bj: filter_second_element.average(:fgside).to_f.round(2),
-				bg: filter_second_element.average(:firstside).to_f.round(2),
-				bh: filter_second_element.average(:secondside).to_f.round(2),
-				away_fg_percent: filter_second_element.average(:away_fg_percent).to_f.round(2),
-				home_fg_percent: filter_second_element.average(:home_fg_percent).to_f.round(2)
+				first: (filter_element.map {|stat| stat.firstvalue.to_f }.sum / (temp_count1 == 0 ? 1 : temp_count1)).round(2),
+				second: (filter_element.map {|stat| stat.secondvalue.to_f }.sum / (temp_count1 == 0 ? 1 : temp_count1)).round(2),
+				full: (filter_element.map {|stat| stat.totalvalue.to_f }.sum / (temp_count1 == 0 ? 1 : temp_count1)).round(2),
+				count: temp_count1
 			}
+			if index
+				filter_second_element = Fullseason.where(search_second_string)
+				result_element[:allfirst] = filter_second_element.average(:firstvalue).to_f.round(2)
+				result_element[:allsecond] = filter_second_element.average(:secondvalue).to_f.round(2)
+				result_element[:allfull] = filter_second_element.average(:totalvalue).to_f.round(2)
+				result_element[:allcount] = filter_second_element.count(:totalvalue).to_i
+				result_element[:home_ortg] = filter_second_element.average(:home_ortg).to_f.round(2)
+				result_element[:away_ortg] = filter_second_element.average(:away_ortg).to_f.round(2)
+				result_element[:bj] = filter_second_element.average(:fgside).to_f.round(2)
+				result_element[:bg] = filter_second_element.average(:firstside).to_f.round(2)
+				result_element[:bh] = filter_second_element.average(:secondside).to_f.round(2)
+			else
+				result_element[:allfirst] = 99.09
+				result_element[:allsecond] = 97.01
+				result_element[:allfull] = 196.11
+				result_element[:allcount] = 20904
+				result_element[:home_ortg] = 105.15
+				result_element[:away_ortg] = 108.47
+				result_element[:bj] = -3.21
+				result_element[:bg] = -1.75
+				result_element[:bh] = -1.26
+				result_element[:firsthalf_first] = 48.62
+				result_element[:firsthalf_second] = 50.47
+				result_element[:secondhalf_first] = 47.91
+				result_element[:secondhalf_second] = 49.1
+				result_element[:full_first] = (result_element[:secondhalf_first] + result_element[:firsthalf_first]).round(2)
+				result_element[:full_second] = (result_element[:secondhalf_second] + result_element[:firsthalf_second]).round(2)
+				result_element[:bi_one] = -1.7
+				result_element[:bi_two] = -1.07
+				result_element[:bi_count] = 9328
+			end
+
 			filter_element_secondtravel = Secondtravel.where(search_string).to_a
-			temp_count = filter_element_secondtravel.count
-			filter_second_element_secondtravel = Secondtravel.where(search_second_string)
+			temp_count2 = filter_element_secondtravel.count
 			result_element_secondtravel = {
-				first: (filter_element_secondtravel.map {|stat| stat.firstvalue.to_f }.sum / (temp_count == 0 ? 1 : temp_count)).round(2),
-				second: (filter_element_secondtravel.map {|stat| stat.secondvalue.to_f }.sum / (temp_count == 0 ? 1 : temp_count)).round(2),
-				full: (filter_element_secondtravel.map {|stat| stat.totalvalue.to_f }.sum / (temp_count == 0 ? 1 : temp_count)).round(2),
-				count: temp_count,
-				allfirst: filter_second_element_secondtravel.average(:firstvalue).to_f.round(2),
-				allsecond: filter_second_element_secondtravel.average(:secondvalue).to_f.round(2),
-				allfull: filter_second_element_secondtravel.average(:totalvalue).to_f.round(2),
-				allcount: filter_second_element_secondtravel.count(:totalvalue).to_i,
-				bj: filter_second_element_secondtravel.average(:fgside).to_f.round(2),
-				bg: 0,
-				bh: 0
+				first: (filter_element_secondtravel.map {|stat| stat.firstvalue.to_f }.sum / (temp_count2 == 0 ? 1 : temp_count2)).round(2),
+				second: (filter_element_secondtravel.map {|stat| stat.secondvalue.to_f }.sum / (temp_count2 == 0 ? 1 : temp_count2)).round(2),
+				full: (filter_element_secondtravel.map {|stat| stat.totalvalue.to_f }.sum / (temp_count2 == 0 ? 1 : temp_count2)).round(2),
+				count: temp_count2
 			}
-			if index < 2 || index > 9
+			if index
+				filter_second_element_secondtravel = Secondtravel.where(search_second_string)
+				result_element_secondtravel[:allfirst] = filter_second_element_secondtravel.average(:firstvalue).to_f.round(2)
+				result_element_secondtravel[:allsecond] = filter_second_element_secondtravel.average(:secondvalue).to_f.round(2)
+				result_element_secondtravel[:allfull] = filter_second_element_secondtravel.average(:totalvalue).to_f.round(2)
+				result_element_secondtravel[:allcount] = filter_second_element_secondtravel.count(:totalvalue).to_i
+				result_element_secondtravel[:bj] = filter_second_element_secondtravel.average(:fgside).to_f.round(2)
+				result_element_secondtravel[:bg] = 0
+				result_element_secondtravel[:bh] = 0
+			else
+				result_element_secondtravel[:allfirst] = 99.0
+				result_element_secondtravel[:allsecond] = 97.01
+				result_element_secondtravel[:allfull] = 196.0
+				result_element_secondtravel[:allcount] = 11380
+				result_element_secondtravel[:bj] = -3.61
+				result_element_secondtravel[:bg] = 0
+				result_element_secondtravel[:bh] = 0
+				result_element_secondtravel[:firsthalf_first] = 48.75
+				result_element_secondtravel[:firsthalf_second] = 50.98
+				result_element_secondtravel[:secondhalf_first] = 48.84
+				result_element_secondtravel[:secondhalf_second] = 50.15
+				result_element_secondtravel[:full_first] = (result_element_secondtravel[:firsthalf_first] + result_element_secondtravel[:secondhalf_first]).round(2)
+				result_element_secondtravel[:full_second] = (result_element_secondtravel[:firsthalf_second] + result_element_secondtravel[:secondhalf_second]).round(2)
+			end
+			if index == 1 || index == 2 || index > 9
 				result_element[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
 				result_element[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
 				result_element[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f.round(2) + filter_second_element.average(:roadforth).to_f.round(2)).round(2)
 				result_element[:secondhalf_second] = (filter_second_element.average(:homethird).to_f.round(2) + filter_second_element.average(:homeforth).to_f.round(2)).round(2)
 				result_element[:full_first] = (result_element[:secondhalf_first] + result_element[:firsthalf_first]).round(2)
 				result_element[:full_second] = (result_element[:secondhalf_second] + result_element[:firsthalf_second]).round(2)
-				filter_second_element_again = filter_second_element.where("firstlinetotal is not null AND firstlinetotal != 0")
+				filter_second_element_again = Fullseason.where(search_second_string).where("firstlinetotal is not null AND firstlinetotal != 0")
 				result_element[:bi_one] = (filter_second_element_again.average(:roadfirsthalf).to_f - filter_second_element_again.average(:homefirsthalf).to_f).round(2)
 				result_element[:bi_two] = (filter_second_element_again.average(:roadthird).to_f + filter_second_element_again.average(:roadforth).to_f - filter_second_element_again.average(:homethird).to_f - filter_second_element_again.average(:homeforth).to_f).round(2)
 				result_element[:bi_count] = filter_second_element_again.count(:firstlinetotal).to_i
@@ -2997,9 +3033,7 @@ class IndexController < ApplicationController
 				away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
 				bj: filter_second_element.average(:fgside).to_f.round(2),
 				bg: filter_second_element.average(:firstside).to_f.round(2),
-				bh: filter_second_element.average(:secondside).to_f.round(2),
-				away_fg_percent: filter_second_element.average(:away_fg_percent).to_f.round(2),
-				home_fg_percent: filter_second_element.average(:home_fg_percent).to_f.round(2)
+				bh: filter_second_element.average(:secondside).to_f.round(2)
 			}
 			result_element_secondtravel = {
 				first: filter_element_secondtravel.average(:firstvalue).to_f.round(2),
