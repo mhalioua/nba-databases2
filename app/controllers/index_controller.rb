@@ -1284,8 +1284,6 @@ class IndexController < ApplicationController
 				result_element_secondtravel[:allfull] = 196.0
 				result_element_secondtravel[:allcount] = 11380
 				result_element_secondtravel[:bj] = -3.61
-				result_element_secondtravel[:bg] = 0
-				result_element_secondtravel[:bh] = 0
 				result_element_secondtravel[:firsthalf_first] = 48.75
 				result_element_secondtravel[:firsthalf_second] = 50.98
 				result_element_secondtravel[:secondhalf_first] = 48.84
