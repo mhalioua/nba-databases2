@@ -1269,9 +1269,6 @@ class IndexController < ApplicationController
 				result_element_secondtravel[:allsecond] = (filter_second_element_secondtravel.map {|stat| stat.secondvalue.to_f }.sum / (temp_count4 == 0 ? 1 : temp_count4)).round(2)
 				result_element_secondtravel[:allfull] = (filter_second_element_secondtravel.map {|stat| stat.totalvalue.to_f }.sum / (temp_count4 == 0 ? 1 : temp_count4)).round(2)
 				result_element_secondtravel[:allcount] = temp_count4
-				result_element_secondtravel[:bj] = Secondtravel.where(search_second_string).average(:fgside).to_f.round(2)
-				result_element_secondtravel[:bg] = 0
-				result_element_secondtravel[:bh] = 0
 				if index == 1 || index == 2 || index > 9
 					result_element_secondtravel[:firsthalf_first] = (filter_second_element_secondtravel.map {|stat| stat.roadfirsthalf.to_f }.sum / (temp_count4 == 0 ? 1 : temp_count4)).round(2)
 					result_element_secondtravel[:firsthalf_second] = (filter_second_element_secondtravel.map {|stat| stat.homefirsthalf.to_f }.sum / (temp_count4 == 0 ? 1 : temp_count4)).round(2)
@@ -1279,6 +1276,7 @@ class IndexController < ApplicationController
 					result_element_secondtravel[:secondhalf_second] = (filter_second_element_secondtravel.map {|stat| stat.homethird.to_f + stat.homeforth.to_f }.sum / (temp_count4 == 0 ? 1 : temp_count4)).round(2)
 					result_element_secondtravel[:full_first] = (result_element_secondtravel[:firsthalf_first] + result_element_secondtravel[:secondhalf_first]).round(2)
 					result_element_secondtravel[:full_second] = (result_element_secondtravel[:firsthalf_second] + result_element_secondtravel[:secondhalf_second]).round(2)
+					result_element_secondtravel[:bj] = Secondtravel.where(search_second_string).average(:fgside).to_f.round(2)
 				end
 			else
 				result_element_secondtravel[:allfirst] = 99.0
