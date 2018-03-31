@@ -1219,6 +1219,18 @@ class IndexController < ApplicationController
 				result_element[:bj] = filter_second_element.average(:fgside).to_f.round(2)
 				result_element[:bg] = filter_second_element.average(:firstside).to_f.round(2)
 				result_element[:bh] = filter_second_element.average(:secondside).to_f.round(2)
+				if index == 1 || index == 2 || index > 9
+					result_element[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
+					result_element[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
+					result_element[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f.round(2) + filter_second_element.average(:roadforth).to_f.round(2)).round(2)
+					result_element[:secondhalf_second] = (filter_second_element.average(:homethird).to_f.round(2) + filter_second_element.average(:homeforth).to_f.round(2)).round(2)
+					result_element[:full_first] = (result_element[:secondhalf_first] + result_element[:firsthalf_first]).round(2)
+					result_element[:full_second] = (result_element[:secondhalf_second] + result_element[:firsthalf_second]).round(2)
+					filter_second_element_again = Fullseason.where(search_second_string).where("firstlinetotal is not null AND firstlinetotal != 0")
+					result_element[:bi_one] = (filter_second_element_again.average(:roadfirsthalf).to_f - filter_second_element_again.average(:homefirsthalf).to_f).round(2)
+					result_element[:bi_two] = (filter_second_element_again.average(:roadthird).to_f + filter_second_element_again.average(:roadforth).to_f - filter_second_element_again.average(:homethird).to_f - filter_second_element_again.average(:homeforth).to_f).round(2)
+					result_element[:bi_count] = filter_second_element_again.count(:firstlinetotal).to_i
+				end
 			else
 				result_element[:allfirst] = 99.09
 				result_element[:allsecond] = 97.01
@@ -1257,6 +1269,14 @@ class IndexController < ApplicationController
 				result_element_secondtravel[:bj] = filter_second_element_secondtravel.average(:fgside).to_f.round(2)
 				result_element_secondtravel[:bg] = 0
 				result_element_secondtravel[:bh] = 0
+				if index == 1 || index == 2 || index > 9
+					result_element_secondtravel[:firsthalf_first] = filter_second_element_secondtravel.average(:roadfirsthalf).to_f.round(2)
+					result_element_secondtravel[:firsthalf_second] = filter_second_element_secondtravel.average(:homefirsthalf).to_f.round(2)
+					result_element_secondtravel[:secondhalf_first] = (filter_second_element_secondtravel.average(:roadthird).to_f.round(2) + filter_second_element_secondtravel.average(:roadforth).to_f.round(2)).round(2)
+					result_element_secondtravel[:secondhalf_second] = (filter_second_element_secondtravel.average(:homethird).to_f.round(2) + filter_second_element_secondtravel.average(:homeforth).to_f.round(2)).round(2)
+					result_element_secondtravel[:full_first] = (result_element_secondtravel[:firsthalf_first] + result_element_secondtravel[:secondhalf_first]).round(2)
+					result_element_secondtravel[:full_second] = (result_element_secondtravel[:firsthalf_second] + result_element_secondtravel[:secondhalf_second]).round(2)
+				end
 			else
 				result_element_secondtravel[:allfirst] = 99.0
 				result_element_secondtravel[:allsecond] = 97.01
@@ -1269,24 +1289,6 @@ class IndexController < ApplicationController
 				result_element_secondtravel[:firsthalf_second] = 50.98
 				result_element_secondtravel[:secondhalf_first] = 48.84
 				result_element_secondtravel[:secondhalf_second] = 50.15
-				result_element_secondtravel[:full_first] = (result_element_secondtravel[:firsthalf_first] + result_element_secondtravel[:secondhalf_first]).round(2)
-				result_element_secondtravel[:full_second] = (result_element_secondtravel[:firsthalf_second] + result_element_secondtravel[:secondhalf_second]).round(2)
-			end
-			if index == 1 || index == 2 || index > 9
-				result_element[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
-				result_element[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
-				result_element[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f.round(2) + filter_second_element.average(:roadforth).to_f.round(2)).round(2)
-				result_element[:secondhalf_second] = (filter_second_element.average(:homethird).to_f.round(2) + filter_second_element.average(:homeforth).to_f.round(2)).round(2)
-				result_element[:full_first] = (result_element[:secondhalf_first] + result_element[:firsthalf_first]).round(2)
-				result_element[:full_second] = (result_element[:secondhalf_second] + result_element[:firsthalf_second]).round(2)
-				filter_second_element_again = Fullseason.where(search_second_string).where("firstlinetotal is not null AND firstlinetotal != 0")
-				result_element[:bi_one] = (filter_second_element_again.average(:roadfirsthalf).to_f - filter_second_element_again.average(:homefirsthalf).to_f).round(2)
-				result_element[:bi_two] = (filter_second_element_again.average(:roadthird).to_f + filter_second_element_again.average(:roadforth).to_f - filter_second_element_again.average(:homethird).to_f - filter_second_element_again.average(:homeforth).to_f).round(2)
-				result_element[:bi_count] = filter_second_element_again.count(:firstlinetotal).to_i
-				result_element_secondtravel[:firsthalf_first] = filter_second_element_secondtravel.average(:roadfirsthalf).to_f.round(2)
-				result_element_secondtravel[:firsthalf_second] = filter_second_element_secondtravel.average(:homefirsthalf).to_f.round(2)
-				result_element_secondtravel[:secondhalf_first] = (filter_second_element_secondtravel.average(:roadthird).to_f.round(2) + filter_second_element_secondtravel.average(:roadforth).to_f.round(2)).round(2)
-				result_element_secondtravel[:secondhalf_second] = (filter_second_element_secondtravel.average(:homethird).to_f.round(2) + filter_second_element_secondtravel.average(:homeforth).to_f.round(2)).round(2)
 				result_element_secondtravel[:full_first] = (result_element_secondtravel[:firsthalf_first] + result_element_secondtravel[:secondhalf_first]).round(2)
 				result_element_secondtravel[:full_second] = (result_element_secondtravel[:firsthalf_second] + result_element_secondtravel[:secondhalf_second]).round(2)
 			end
