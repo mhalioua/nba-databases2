@@ -1208,7 +1208,7 @@ class IndexController < ApplicationController
 				full: (filter_element.map {|stat| stat.totalvalue.to_f }.sum / (temp_count1 == 0 ? 1 : temp_count1)).round(2),
 				count: temp_count1
 			}
-			if index
+			if index != 0
 				filter_second_element = Fullseason.where(search_second_string)
 				result_element[:allfirst] = filter_second_element.average(:firstvalue).to_f.round(2)
 				result_element[:allsecond] = filter_second_element.average(:secondvalue).to_f.round(2)
@@ -1260,7 +1260,7 @@ class IndexController < ApplicationController
 				full: (filter_element_secondtravel.map {|stat| stat.totalvalue.to_f }.sum / (temp_count2 == 0 ? 1 : temp_count2)).round(2),
 				count: temp_count2
 			}
-			if index
+			if index != 0
 				filter_second_element_secondtravel = Secondtravel.where(search_second_string)
 				result_element_secondtravel[:allfirst] = filter_second_element_secondtravel.average(:firstvalue).to_f.round(2)
 				result_element_secondtravel[:allsecond] = filter_second_element_secondtravel.average(:secondvalue).to_f.round(2)
