@@ -161,10 +161,10 @@ class IndexController < ApplicationController
 			end
 		end
 
-		@home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.today)
-		@home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.yesterday) unless @home_injury.size
-		@away_injury = Injury.where("team = ? AND today = ?", @game.away_team, Date.today)
-		@away_injury = Injury.where("team = ? AND today = ?", @game.away_team, Date.yesterday) unless @away_injury.size
+		@home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.parse(@game.game_date))
+		@home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.parse(@game.game_date) - 1.day) unless @home_injury.size
+		@away_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.parse(@game.game_date))
+		@away_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.parse(@game.game_date) - 1.day) unless @away_injury.size
 
 		@away_injury_name = []
 		@away_injury.each_with_index do |injury, index|
