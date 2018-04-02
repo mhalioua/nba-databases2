@@ -1297,7 +1297,9 @@ class IndexController < ApplicationController
 			@filterResult_secondtravel.push(result_element_secondtravel)
 		end
 		@home_team_info = @game.team_stats.find_by(abbr: @home_abbr)
+		@home_team_info = Team.find_by(abbr: @home_abbr) unless @home_team_info
     	@away_team_info = @game.team_stats.find_by(abbr: @away_abbr)
+		@away_team_info = Team.find_by(abbr: @away_abbr) unless @away_team_info
     	@away_last_games = Nba.where("home_team = ? AND game_date < ?", @game.away_team, @game.game_date).or(Nba.where("away_team = ? AND game_date < ?", @game.away_team, @game.game_date)).order(game_date: :desc).limit(12)
     	@away_stl = 0
 	    @away_blk = 0
