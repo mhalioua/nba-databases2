@@ -117,207 +117,332 @@ namespace :nba do
 
 	task :fix => :environment do
 		include Api
-       index = {
-         team: 3,
-         current: 5,
-         last_three: 7,
-         last_one: 9,
-         home: 11,
-         away: 13,
-         last: 15
-       }
+    index = {
+      team: 3,
+      current: 5,
+      last_three: 7,
+      last_one: 9,
+      home: 11,
+      away: 13,
+      last: 15
+    }
 
-       url = "https://www.teamrankings.com/nba/stat/offensive-rebounds-per-game"
-       doc = download_document(url)
-       elements = doc.css(".datatable tbody tr")
+    url = "https://www.teamrankings.com/nba/stat/offensive-rebounds-per-game"
+    doc = download_document(url)
+    elements = doc.css(".datatable tbody tr")
+    elements.each do |slice|
+      team       = slice.children[index[:team]].text
+      current    = slice.children[index[:current]].text.to_f
+      last_three = slice.children[index[:last_three]].text.to_f
+      last_one   = slice.children[index[:last_one]].text.to_f
+      home       = slice.children[index[:home]].text.to_f
+      away       = slice.children[index[:away]].text.to_f
+      last       = slice.children[index[:last]].text.to_f
 
-       elements.each do |slice|
-               team            =       slice.children[index[:team]].text
-               current         =       slice.children[index[:current]].text.to_f
-               last_three      =       slice.children[index[:last_three]].text.to_f
-               last_one        =       slice.children[index[:last_one]].text.to_f
-               home            =       slice.children[index[:home]].text.to_f
-               away            =       slice.children[index[:away]].text.to_f
-               last            =       slice.children[index[:last]].text.to_f
+      unless element = Team.find_by(team: team)
+        element = Team.create(team: team)
+      end
+     	element.update(rebound_current: current, rebound_last_three: last_three, rebound_last_one: last_one, rebound_home: home, rebound_away: away, rebound_last: last)
+    end
 
-               unless element = Team.find_by(team: team)
-                       element = Team.create(team: team)
-               end
-   			element.update(rebound_current: current, rebound_last_three: last_three, rebound_last_one: last_one, rebound_home: home, rebound_away: away, rebound_last: last)
-        end
+    url = "https://www.teamrankings.com/nba/stat/possessions-per-game"
+    doc = download_document(url)
+    elements = doc.css(".datatable tbody tr")
+    elements.each do |slice|
+      team       = slice.children[index[:team]].text
+      current    = slice.children[index[:current]].text.to_f
+      last_three = slice.children[index[:last_three]].text.to_f
+      last_one   = slice.children[index[:last_one]].text.to_f
+      home       = slice.children[index[:home]].text.to_f
+      away       = slice.children[index[:away]].text.to_f
+      last       = slice.children[index[:last]].text.to_f
+      unless element = Team.find_by(team: team)
+        element = Team.create(team: team)
+      end
+      element.update(possessions_current: current, possessions_last_three: last_three, possessions_last_one: last_one, possessions_home: home, possessions_away: away, possessions_last: last)
+    end
 
-       url = "https://www.teamrankings.com/nba/stat/possessions-per-game"
-       doc = download_document(url)
-       elements = doc.css(".datatable tbody tr")
+    url = "https://www.teamrankings.com/nba/stat/steals-per-game"
+    doc = download_document(url)
+    elements = doc.css(".datatable tbody tr")
+    elements.each do |slice|
+      team       = slice.children[index[:team]].text
+      current    = slice.children[index[:current]].text.to_f
+      last_three = slice.children[index[:last_three]].text.to_f
+      last_one   = slice.children[index[:last_one]].text.to_f
+      home       = slice.children[index[:home]].text.to_f
+      away       = slice.children[index[:away]].text.to_f
+      last       = slice.children[index[:last]].text.to_f
 
-       elements.each do |slice|
-               team            =       slice.children[index[:team]].text
-               current         =       slice.children[index[:current]].text.to_f
-               last_three      =       slice.children[index[:last_three]].text.to_f
-               last_one        =       slice.children[index[:last_one]].text.to_f
-               home            =       slice.children[index[:home]].text.to_f
-               away            =       slice.children[index[:away]].text.to_f
-               last            =       slice.children[index[:last]].text.to_f
+      unless element = Team.find_by(team: team)
+        element = Team.create(team: team)
+      end
+   		element.update(steal_current: current, steal_last_three: last_three, steal_last_one: last_one, steal_home: home, steal_away: away, steal_last: last)
+    end
 
-               unless element = Team.find_by(team: team)
-                       element = Team.create(team: team)
-               end
-           element.update(possessions_current: current, possessions_last_three: last_three, possessions_last_one: last_one, possessions_home: home, possessions_away: away, possessions_last: last)
-        end
+    url = "https://www.teamrankings.com/nba/stat/blocks-per-game"
+    doc = download_document(url)
+    elements = doc.css(".datatable tbody tr")
 
-       url = "https://www.teamrankings.com/nba/stat/steals-per-game"
-       doc = download_document(url)
-       elements = doc.css(".datatable tbody tr")
+    elements.each do |slice|
+      team       = slice.children[index[:team]].text
+      current    = slice.children[index[:current]].text.to_f
+      last_three = slice.children[index[:last_three]].text.to_f
+      last_one   = slice.children[index[:last_one]].text.to_f
+      home       = slice.children[index[:home]].text.to_f
+      away       = slice.children[index[:away]].text.to_f
+      last       = slice.children[index[:last]].text.to_f
 
-       elements.each do |slice|
-               team            =       slice.children[index[:team]].text
-               current         =       slice.children[index[:current]].text.to_f
-               last_three      =       slice.children[index[:last_three]].text.to_f
-               last_one        =       slice.children[index[:last_one]].text.to_f
-               home            =       slice.children[index[:home]].text.to_f
-               away            =       slice.children[index[:away]].text.to_f
-               last            =       slice.children[index[:last]].text.to_f
+      unless element = Team.find_by(team: team)
+        element = Team.create(team: team)
+      end
+      element.update(block_current: current, block_last_three: last_three, block_last_one: last_one, block_home: home, block_away: away, block_last: last)
+    end
 
-               unless element = Team.find_by(team: team)
-                       element = Team.create(team: team)
-               end
-   			element.update(steal_current: current, steal_last_three: last_three, steal_last_one: last_one, steal_home: home, steal_away: away, steal_last: last)
-       end
+    url = "https://www.teamrankings.com/nba/stat/turnovers-per-game"
+    doc = download_document(url)
+    elements = doc.css(".datatable tbody tr")
 
-       url = "https://www.teamrankings.com/nba/stat/blocks-per-game"
-       doc = download_document(url)
-       elements = doc.css(".datatable tbody tr")
+    elements.each do |slice|
+      team       = slice.children[index[:team]].text
+      current    = slice.children[index[:current]].text.to_f
+      last_three = slice.children[index[:last_three]].text.to_f
+      last_one   = slice.children[index[:last_one]].text.to_f
+      home       = slice.children[index[:home]].text.to_f
+      away       = slice.children[index[:away]].text.to_f
+      last       = slice.children[index[:last]].text.to_f
 
-       elements.each do |slice|
-               team            =       slice.children[index[:team]].text
-               current         =       slice.children[index[:current]].text.to_f
-               last_three      =       slice.children[index[:last_three]].text.to_f
-               last_one        =       slice.children[index[:last_one]].text.to_f
-               home            =       slice.children[index[:home]].text.to_f
-               away            =       slice.children[index[:away]].text.to_f
-               last            =       slice.children[index[:last]].text.to_f
+      unless element = Team.find_by(team: team)
+        element = Team.create(team: team)
+      end
+      element.update(turnover_current: current, turnover_last_three: last_three, turnover_last_one: last_one, turnover_home: home, turnover_away: away, turnover_last: last)
+    end
 
-               unless element = Team.find_by(team: team)
-                       element = Team.create(team: team)
-               end
-           element.update(block_current: current, block_last_three: last_three, block_last_one: last_one, block_home: home, block_away: away, block_last: last)
-        end
+    url = "http://www.espn.com/nba/standings/_/group/league"
+    doc = download_document(url)
+    teams = doc.css("abbr")
+    elements = doc.css(".Table2__table .Table2__shadow-scroller .Table2__table-scroller tbody tr")
+    puts elements.size
+    elements.each_with_index do |slice, index|
+      team_abbr  =  teams[index].text
+      w          =  slice.children[0].text
+      l          =  slice.children[1].text
+      ppg        =  slice.children[8].text.to_f
+      opp        =  slice.children[9].text.to_f
+      diff       =  slice.children[10].text.to_f
+      if element = Team.find_by(abbr: team_abbr)
+        element.update(record_won: w, record_lost: l, record_ppg: ppg, record_opp: opp, record_diff: diff)
+      end
+    end
 
-       url = "https://www.teamrankings.com/nba/stat/turnovers-per-game"
-       doc = download_document(url)
-       elements = doc.css(".datatable tbody tr")
+    url = "https://www.teamrankings.com/nba/stat/opponent-1st-half-points-per-game"
+    doc = download_document(url)
+    elements = doc.css(".datatable tbody tr")
 
-       elements.each do |slice|
-               team            =       slice.children[index[:team]].text
-               current         =       slice.children[index[:current]].text.to_f
-               last_three      =       slice.children[index[:last_three]].text.to_f
-               last_one        =       slice.children[index[:last_one]].text.to_f
-               home            =       slice.children[index[:home]].text.to_f
-               away            =       slice.children[index[:away]].text.to_f
-               last            =       slice.children[index[:last]].text.to_f
+    elements.each do |slice|
+      team       = slice.children[index[:team]].text
+      current    = slice.children[index[:current]].text.to_f
+      last_three = slice.children[index[:last_three]].text.to_f
+      last_one   = slice.children[index[:last_one]].text.to_f
+      home       = slice.children[index[:home]].text.to_f
+      away       = slice.children[index[:away]].text.to_f
+      last       = slice.children[index[:last]].text.to_f
 
-               unless element = Team.find_by(team: team)
-                       element = Team.create(team: team)
-               end
-           element.update(turnover_current: current, turnover_last_three: last_three, turnover_last_one: last_one, turnover_home: home, turnover_away: away, turnover_last: last)
-        end
+      unless element = Team.find_by(team: team)
+        element = Team.create(team: team)
+      end
+      element.update(opponentfirst_current: current, opponentfirst_last_three: last_three, opponentfirst_last_one: last_one, opponentfirst_home: home, opponentfirst_away: away, opponentfirst_last: last)
+    end
 
-        url = "http://www.espn.com/nba/standings/_/group/league"
-        doc = download_document(url)
-        teams = doc.css("abbr")
-        elements = doc.css(".Table2__table .Table2__shadow-scroller .Table2__table-scroller tbody tr")
-        puts elements.size
-        elements.each_with_index do |slice, index|
-                   team_abbr  =       teams[index].text
-                   w          =       slice.children[0].text
-                   l          =       slice.children[1].text
-                   ppg        =       slice.children[8].text.to_f
-                   opp        =       slice.children[9].text.to_f
-                   diff       =       slice.children[10].text.to_f
-                   puts w
-                   puts l
+    url = "https://www.teamrankings.com/nba/stat/opponent-2nd-half-points-per-game"
+    doc = download_document(url)
+    elements = doc.css(".datatable tbody tr")
 
-                   if element = Team.find_by(abbr: team_abbr)
-                    element.update(record_won: w, record_lost: l, record_ppg: ppg, record_opp: opp, record_diff: diff)
-                   end
-        end
+    elements.each do |slice|
+      team       = slice.children[index[:team]].text
+      current    = slice.children[index[:current]].text.to_f
+      last_three = slice.children[index[:last_three]].text.to_f
+      last_one   = slice.children[index[:last_one]].text.to_f
+      home       = slice.children[index[:home]].text.to_f
+      away       = slice.children[index[:away]].text.to_f
+      last       = slice.children[index[:last]].text.to_f
 
-       url = "https://www.teamrankings.com/nba/stat/opponent-1st-half-points-per-game"
-       doc = download_document(url)
-       elements = doc.css(".datatable tbody tr")
+      unless element = Team.find_by(team: team)
+        element = Team.create(team: team)
+      end
+      element.update(opponentsecond_current: current, opponentsecond_last_three: last_three, opponentsecond_last_one: last_one, opponentsecond_home: home, opponentsecond_away: away, opponentsecond_last: last)
+    end
 
-       elements.each do |slice|
-               team            =       slice.children[index[:team]].text
-               current         =       slice.children[index[:current]].text.to_f
-               last_three      =       slice.children[index[:last_three]].text.to_f
-               last_one        =       slice.children[index[:last_one]].text.to_f
-               home            =       slice.children[index[:home]].text.to_f
-               away            =       slice.children[index[:away]].text.to_f
-               last            =       slice.children[index[:last]].text.to_f
+    url = "https://www.teamrankings.com/nba/stat/1st-half-points-per-game"
+    doc = download_document(url)
+    elements = doc.css(".datatable tbody tr")
 
-               unless element = Team.find_by(team: team)
-                       element = Team.create(team: team)
-               end
-           element.update(opponentfirst_current: current, opponentfirst_last_three: last_three, opponentfirst_last_one: last_one, opponentfirst_home: home, opponentfirst_away: away, opponentfirst_last: last)
-        end
+    elements.each do |slice|
+      team       = slice.children[index[:team]].text
+      current    = slice.children[index[:current]].text.to_f
+      last_three = slice.children[index[:last_three]].text.to_f
+      last_one   = slice.children[index[:last_one]].text.to_f
+      home       = slice.children[index[:home]].text.to_f
+      away       = slice.children[index[:away]].text.to_f
+      last       = slice.children[index[:last]].text.to_f
 
-       url = "https://www.teamrankings.com/nba/stat/opponent-2nd-half-points-per-game"
-       doc = download_document(url)
-       elements = doc.css(".datatable tbody tr")
+      unless element = Team.find_by(team: team)
+        element = Team.create(team: team)
+      end
+      element.update(first_current: current, first_last_three: last_three, first_last_one: last_one, first_home: home, first_away: away, first_last: last)
+    end
 
-       elements.each do |slice|
-               team            =       slice.children[index[:team]].text
-               current         =       slice.children[index[:current]].text.to_f
-               last_three      =       slice.children[index[:last_three]].text.to_f
-               last_one        =       slice.children[index[:last_one]].text.to_f
-               home            =       slice.children[index[:home]].text.to_f
-               away            =       slice.children[index[:away]].text.to_f
-               last            =       slice.children[index[:last]].text.to_f
+    url = "https://www.teamrankings.com/nba/stat/2nd-half-points-per-game"
+    doc = download_document(url)
+    elements = doc.css(".datatable tbody tr")
 
-               unless element = Team.find_by(team: team)
-                       element = Team.create(team: team)
-               end
-           element.update(opponentsecond_current: current, opponentsecond_last_three: last_three, opponentsecond_last_one: last_one, opponentsecond_home: home, opponentsecond_away: away, opponentsecond_last: last)
-        end
+    elements.each do |slice|
+      team       = slice.children[index[:team]].text
+      current    = slice.children[index[:current]].text.to_f
+      last_three = slice.children[index[:last_three]].text.to_f
+      last_one   = slice.children[index[:last_one]].text.to_f
+      home       = slice.children[index[:home]].text.to_f
+      away       = slice.children[index[:away]].text.to_f
+      last       = slice.children[index[:last]].text.to_f
 
-        url = "https://www.teamrankings.com/nba/stat/1st-half-points-per-game"
-       doc = download_document(url)
-       elements = doc.css(".datatable tbody tr")
+      unless element = Team.find_by(team: team)
+        element = Team.create(team: team)
+      end
+      element.update(second_current: current, second_last_three: last_three, second_last_one: last_one, second_home: home, second_away: away, second_last: last)
+    end
 
-       elements.each do |slice|
-               team            =       slice.children[index[:team]].text
-               current         =       slice.children[index[:current]].text.to_f
-               last_three      =       slice.children[index[:last_three]].text.to_f
-               last_one        =       slice.children[index[:last_one]].text.to_f
-               home            =       slice.children[index[:home]].text.to_f
-               away            =       slice.children[index[:away]].text.to_f
-               last            =       slice.children[index[:last]].text.to_f
+    games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-4.hours)
+    games.each do |game|
+      home_team = game.team_stats.find_or_create_by(abbr: game.home_abbr)
+      match_team = Team.find_by(abbr: game.home_abbr)
+      home_team.update(
+        team: match_team.team
+        possessions_current: match_team.possessions_current,
+        possessions_last_three: match_team.possessions_last_three,
+        possessions_last_one: match_team.possessions_last_one,
+        possessions_home: match_team.possessions_home,
+        possessions_away: match_team.possessions_away,
+        possessions_last: match_team.possessions_last,
+        rebound_current: match_team.rebound_current,
+        rebound_last_three: match_team.rebound_last_three,
+        rebound_last_one: match_team.rebound_last_one,
+        rebound_home: match_team.rebound_home,
+        rebound_away: match_team.rebound_away,
+        rebound_last: match_team.rebound_last,
+        steal_current: match_team.steal_current,
+        steal_last_three: match_team.steal_last_three,
+        steal_last_one: match_team.steal_last_one,
+        steal_home: match_team.steal_home,
+        steal_away: match_team.steal_away,
+        steal_last: match_team.steal_last,
+        block_current: match_team.block_current,
+        block_last_three: match_team.block_last_three,
+        block_last_one: match_team.block_last_one,
+        block_home: match_team.block_home,
+        block_away: match_team.block_away,
+        block_last: match_team.block_last,
+        turnover_current: match_team.turnover_current,
+        turnover_last_three: match_team.turnover_last_three,
+        turnover_last_one: match_team.turnover_last_one,
+        turnover_home: match_team.turnover_home,
+        turnover_away: match_team.turnover_away,
+        turnover_last: match_team.turnover_last,
+        record_won: match_team.record_won,
+        record_lost: match_team.record_lost,
+        record_ppg: match_team.record_ppg,
+        record_opp: match_team.record_opp,
+        record_diff: match_team.record_diff,
+        opponentfirst_current: opponentfirst_current,
+        opponentfirst_last_three: opponentfirst_last_three,
+        opponentfirst_last_one: opponentfirst_last_one,
+        opponentfirst_home: opponentfirst_home,
+        opponentfirst_away: opponentfirst_away,
+        opponentfirst_last: opponentfirst_last,
+        opponentsecond_current: opponentsecond_current,
+        opponentsecond_last_three: opponentsecond_last_three,
+        opponentsecond_last_one: opponentsecond_last_one,
+        opponentsecond_home: opponentsecond_home,
+        opponentsecond_away: opponentsecond_away,
+        opponentsecond_last: opponentsecond_last,
+        first_current: first_current,
+        first_last_three: first_last_three,
+        first_last_one: first_last_one,
+        first_home: first_home,
+        first_away: first_away,
+        first_last: first_last,
+        second_current: second_current,
+        second_last_three: second_last_three,
+        second_last_one: second_last_one,
+        second_home: second_home,
+        second_away: second_away,
+        second_last: second_last
+      )
 
-               unless element = Team.find_by(team: team)
-                       element = Team.create(team: team)
-               end
-           element.update(first_current: current, first_last_three: last_three, first_last_one: last_one, first_home: home, first_away: away, first_last: last)
-        end
-
-        url = "https://www.teamrankings.com/nba/stat/2nd-half-points-per-game"
-       doc = download_document(url)
-       elements = doc.css(".datatable tbody tr")
-
-       elements.each do |slice|
-               team            =       slice.children[index[:team]].text
-               current         =       slice.children[index[:current]].text.to_f
-               last_three      =       slice.children[index[:last_three]].text.to_f
-               last_one        =       slice.children[index[:last_one]].text.to_f
-               home            =       slice.children[index[:home]].text.to_f
-               away            =       slice.children[index[:away]].text.to_f
-               last            =       slice.children[index[:last]].text.to_f
-
-               unless element = Team.find_by(team: team)
-                       element = Team.create(team: team)
-               end
-           element.update(second_current: current, second_last_three: last_three, second_last_one: last_one, second_home: home, second_away: away, second_last: last)
-        end
-
+      away_team = game.team_stats.find_or_create_by(abbr: game.away_abbr)
+      match_team = Team.find_by(abbr: game.away_abbr)
+      away_team.update(
+        team: match_team.team
+        possessions_current: match_team.possessions_current,
+        possessions_last_three: match_team.possessions_last_three,
+        possessions_last_one: match_team.possessions_last_one,
+        possessions_home: match_team.possessions_home,
+        possessions_away: match_team.possessions_away,
+        possessions_last: match_team.possessions_last,
+        rebound_current: match_team.rebound_current,
+        rebound_last_three: match_team.rebound_last_three,
+        rebound_last_one: match_team.rebound_last_one,
+        rebound_home: match_team.rebound_home,
+        rebound_away: match_team.rebound_away,
+        rebound_last: match_team.rebound_last,
+        steal_current: match_team.steal_current,
+        steal_last_three: match_team.steal_last_three,
+        steal_last_one: match_team.steal_last_one,
+        steal_home: match_team.steal_home,
+        steal_away: match_team.steal_away,
+        steal_last: match_team.steal_last,
+        block_current: match_team.block_current,
+        block_last_three: match_team.block_last_three,
+        block_last_one: match_team.block_last_one,
+        block_home: match_team.block_home,
+        block_away: match_team.block_away,
+        block_last: match_team.block_last,
+        turnover_current: match_team.turnover_current,
+        turnover_last_three: match_team.turnover_last_three,
+        turnover_last_one: match_team.turnover_last_one,
+        turnover_home: match_team.turnover_home,
+        turnover_away: match_team.turnover_away,
+        turnover_last: match_team.turnover_last,
+        record_won: match_team.record_won,
+        record_lost: match_team.record_lost,
+        record_ppg: match_team.record_ppg,
+        record_opp: match_team.record_opp,
+        record_diff: match_team.record_diff,
+        opponentfirst_current: opponentfirst_current,
+        opponentfirst_last_three: opponentfirst_last_three,
+        opponentfirst_last_one: opponentfirst_last_one,
+        opponentfirst_home: opponentfirst_home,
+        opponentfirst_away: opponentfirst_away,
+        opponentfirst_last: opponentfirst_last,
+        opponentsecond_current: opponentsecond_current,
+        opponentsecond_last_three: opponentsecond_last_three,
+        opponentsecond_last_one: opponentsecond_last_one,
+        opponentsecond_home: opponentsecond_home,
+        opponentsecond_away: opponentsecond_away,
+        opponentsecond_last: opponentsecond_last,
+        first_current: first_current,
+        first_last_three: first_last_three,
+        first_last_one: first_last_one,
+        first_home: first_home,
+        first_away: first_away,
+        first_last: first_last,
+        second_current: second_current,
+        second_last_three: second_last_three,
+        second_last_one: second_last_one,
+        second_home: second_home,
+        second_away: second_away,
+        second_last: second_last
+      )
+    end
 	end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
