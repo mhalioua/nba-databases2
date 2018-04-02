@@ -378,6 +378,7 @@ namespace :nba do
           second_away: second_away,
           second_last: second_last
         )
+      end
 
       away_team = game.team_stats.find_or_create_by(abbr: game.away_abbr)
       match_team = Team.find_by(abbr: game.away_abbr)
@@ -444,6 +445,7 @@ namespace :nba do
           second_away: second_away,
           second_last: second_last
         )
+      end
     end
 	end
 
