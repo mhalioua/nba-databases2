@@ -1,7 +1,7 @@
 namespace :nba do
 	task :getInjury => :environment do
     include Api
-    Injury.destroy_all()
+    today = Date.today
 		url = "http://www.espn.com/nba/injuries"
     doc = download_document(url)
     elements = doc.css(".tablesm option")
@@ -27,12 +27,12 @@ namespace :nba do
           name = list.children[0].children[0].children[1].text[1..-1]
           status = list.children[1].children[0].text
           text = list.children[1].children[2].text
-          element = Injury.create(team: team, link: link, date: date, name: name, status: status, text: text)
+          element = Injury.find_or_create_by(team: team, link: link, date: date, name: name, status: status, text: text, today: today)
         end
       end
     end
 
-    injuries = Injury.all
+    injuries = Injury.where(today: today)
     injuries.each do |injury|
       injury_date = Date.strptime(injury.date, "%b %e")
       injury_players = Player.where("player_fullname = ? AND game_date >= ?", injury.name, injury_date)
