@@ -545,7 +545,7 @@
 
       <td class="gray">
         <div style="width: 90px;">
-          <%= (game.away_last_fly !== nil ? game.away_last_fly[0] : '') + "-" + (game.away_next_fly !== nil ? game.away_next_fly[0] : '') + "-" + game.away_last_game.to_s + "-" + game.away_next_game.to_s + "-" + game.home_next_game.to_s + "-" + game.home_last_game.to_s + "-" + (game.home_next_fly !== nil ? game.home_next_fly[0] : '') + "-" + (game.home_last_fly !== nil ? game.home_last_fly[0] : '') %>
+          <%= (game.away_last_fly.to_s.length ? game.away_last_fly[0] : '') + "-" + (game.away_next_fly.to_s.length ? game.away_next_fly[0] : '') + "-" + game.away_last_game.to_s + "-" + game.away_next_game.to_s + "-" + game.home_next_game.to_s + "-" + game.home_last_game.to_s + "-" + (game.home_next_fly.to_s.length ? game.home_next_fly[0] : '') + "-" + (game.home_last_fly.to_s.length ? game.home_last_fly[0] : '') %>
         </div>
       </td>
       <td class="skygreen"></td>
