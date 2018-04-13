@@ -3184,7 +3184,7 @@ namespace :nba do
       end
       puts game.home_abbr
       puts home_fgm + home_ptm
-      puts home_fga + home_pta + home_fta/2
+      puts home_fga + home_pta
       puts home_ptm
       puts home_pta
       puts home_ftm
@@ -3193,7 +3193,7 @@ namespace :nba do
       puts home_pf
       puts game.away_abbr
       puts away_fgm + away_ptm
-      puts away_fga + away_pta + away_fta/2
+      puts away_fga + away_pta
       puts away_ptm
       puts away_pta
       puts away_ftm
