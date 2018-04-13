@@ -3099,7 +3099,7 @@ namespace :nba do
       away_fta = 0
       away_to = 0
       away_pf = 0
-      elements.each do |element|
+      elements.each_with_index do |element, index|
         next if element.children[0].text.squish == 'time'
         logo_link = element.children[1].children[0]['src']
         logo_link_end = logo_link.rindex('.png')
@@ -3170,14 +3170,40 @@ namespace :nba do
               puts "#{compare_string}, throw make, #{game.away_abbr}"
             end
           else
-            if team_abbr == game.home_abbr
-              home_fga = home_fga + 1
-              home_fgm = home_fgm + 1
-              puts "#{compare_string}, else make, #{game.home_abbr}"
+            currentScore = element.children[3].text
+            previousScore = elements[index-1].children[3].text
+            diff = 0
+            currentIndex = currentScore.index('-')
+            currentFirstScore = currentScore[0..currentIndex-1].to_i
+            currentSecondScore = currentScore[currentIndex+1..-1].to_i
+            previousIndex = previousScore.index('-')
+            previousFirstScore = previousScore[0..previousIndex-1].to_i
+            previousSecondScore = previousScore[previousIndex+1..-1].to_i
+            if currentFirstScore == previousFirstScore && currentSecondScore != previousSecondScore
+              diff = currentSecondScore - previousSecondScore
+            elsif currentFirstScore != previousFirstScore && currentSecondScore == previousSecondScore
+              diff = currentFirstScore - previousFirstScore
+            end
+            if diff == 3
+              if team_abbr == game.home_abbr
+                home_pta = home_pta + 1
+                home_ptm = home_ptm + 1
+                puts "#{compare_string}, else three make, #{game.home_abbr}"
+              else
+                away_pta = away_pta + 1
+                away_ptm = away_ptm + 1
+                puts "#{compare_string}, else three make, #{game.away_abbr}"
+              end
             else
-              away_fga = away_fga + 1
-              away_fgm = away_fgm + 1
-              puts "#{compare_string}, else make, #{game.away_abbr}"
+              if team_abbr == game.home_abbr
+                home_fga = home_fga + 1
+                home_fgm = home_fgm + 1
+                puts "#{compare_string}, else make, #{game.home_abbr}"
+              else
+                away_fga = away_fga + 1
+                away_fgm = away_fgm + 1
+                puts "#{compare_string}, else make, #{game.away_abbr}"
+              end
             end
           end
         end
