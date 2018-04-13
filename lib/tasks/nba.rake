@@ -3229,7 +3229,7 @@ namespace :nba do
             end
           end
         elsif compare_string.include?("block")
-          if team_abbr == game.away_abbr
+          if team_abbr == game.home_abbr
             home_fga = home_fga + 1
             puts "#{compare_string}, else block, #{game.home_abbr}"
           else
