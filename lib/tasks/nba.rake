@@ -2006,19 +2006,6 @@ namespace :nba do
 		end
 	end
 
-  task :test => :environment do
-    include Api
-    players = Player.where("nba_id='24887'")
-    players.each_with_index do |player, index|
-      game_list = player.possession.split(/,/)
-      game_list.each do |search_game_id|
-        search_game = Nba.where(id: search_game_id).first
-        search_player = search_game.players.where(player_name: player.player_name)
-        puts search_player.size
-      end
-    end
-  end
-
   task :getRefereeStatic => :environment do
     @referee_filter_third = []
     (0..7).each do |one_element|
@@ -3128,7 +3115,7 @@ namespace :nba do
         team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
         compare_string = element.children[2].text
         if compare_string.include?("foul")
-          if team_abbr = game.home_abbr
+          if team_abbr == game.home_abbr
             home_pf = home_pf + 1
             puts "#{compare_string}, foul, #{game.home_abbr}"
           else
@@ -3136,7 +3123,7 @@ namespace :nba do
             puts "#{compare_string}, foul, #{game.away_abbr}"
           end
         elsif compare_string.include?("turnover")
-          if team_abbr = game.home_abbr
+          if team_abbr == game.home_abbr
             home_to = home_to + 1
             puts "#{compare_string}, turnover, #{game.home_abbr}"
           else
@@ -3145,7 +3132,7 @@ namespace :nba do
           end
         elsif compare_string.include?("misses")
           if compare_string.include?("three")
-            if team_abbr = game.home_abbr
+            if team_abbr == game.home_abbr
               home_pta = home_pta + 1
               puts "#{compare_string}, three miss, #{game.home_abbr}"
             else
@@ -3153,7 +3140,7 @@ namespace :nba do
               puts "#{compare_string}, three miss, #{game.away_abbr}"
             end
           elsif compare_string.include?("throw")
-            if team_abbr = game.home_abbr
+            if team_abbr == game.home_abbr
               home_fta = home_fta + 1
               puts "#{compare_string}, throw miss, #{game.home_abbr}"
             else
@@ -3161,7 +3148,7 @@ namespace :nba do
               puts "#{compare_string}, throw miss, #{game.away_abbr}"
             end
           else
-            if team_abbr = game.home_abbr
+            if team_abbr == game.home_abbr
               home_fga = home_fga + 1
               puts "#{compare_string}, else miss, #{game.home_abbr}"
             else
@@ -3171,7 +3158,7 @@ namespace :nba do
           end
         elsif compare_string.include?("makes")
           if compare_string.include?("three")
-            if team_abbr = game.home_abbr
+            if team_abbr == game.home_abbr
               home_pta = home_pta + 1
               home_ptm = home_ptm + 1
               puts "#{compare_string}, three make, #{game.home_abbr}"
@@ -3181,7 +3168,7 @@ namespace :nba do
               puts "#{compare_string}, three make, #{game.away_abbr}"
             end
           elsif compare_string.include?("throw")
-            if team_abbr = game.home_abbr
+            if team_abbr == game.home_abbr
               home_fta = home_fta + 1
               home_ftm = home_ftm + 1
               puts "#{compare_string}, throw make, #{game.home_abbr}"
@@ -3191,7 +3178,7 @@ namespace :nba do
               puts "#{compare_string}, throw make, #{game.away_abbr}"
             end
           else
-            if team_abbr = game.home_abbr
+            if team_abbr == game.home_abbr
               home_fga = home_fga + 1
               home_fgm = home_fgm + 1
               puts "#{compare_string}, else make, #{game.home_abbr}"
