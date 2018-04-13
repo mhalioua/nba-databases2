@@ -3087,6 +3087,23 @@ namespace :nba do
     end
   end
 
+  task :nbaplaybyplay => :environment do
+    include Api
+    games = Nba.where('game_id = 400975965')
+    games.each do |game|
+      url="http://www.espn.com/nba/playbyplay?gameId=#{game.game_id}"
+      doc = download_document(url)
+      puts url
+      elements = doc.css(".accordion-item tbody tr")
+      elements.each do |element|
+        logo_link = element.children[1].children[0]['src']
+        logo_link_end = logo_link.rindex('.png')
+        logo_link_start = logo_link.rindex('/')
+        puts logo_link[logo_link_start..logo_link_end-1]
+      end
+    end
+  end
+
 
   @basket_names = {
     'Charlotte' => 'New Orleans',
