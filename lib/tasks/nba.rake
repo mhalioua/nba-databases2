@@ -3184,7 +3184,7 @@ namespace :nba do
             elsif currentFirstScore != previousFirstScore && currentSecondScore == previousSecondScore
               diff = currentFirstScore - previousFirstScore
             end
-            if diff == 3
+            if diff == 3 && compare_string.include?("foot step back jumpshot")
               if team_abbr == game.home_abbr
                 home_pta = home_pta + 1
                 home_ptm = home_ptm + 1
