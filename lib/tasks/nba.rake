@@ -3087,6 +3087,14 @@ namespace :nba do
     end
   end
 
+  task :test => :environment do
+    logo_link = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/bos.png&h=100&w=100'
+    logo_link_end = logo_link.rindex('.png')
+    logo_link_start = logo_link.rindex('/')
+    team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
+    puts team_abbr
+  end
+
   task :nbaplaybyplay => :environment do
     include Api
     games = Nba.where('game_id = 400975965')
