@@ -3096,14 +3096,123 @@ namespace :nba do
       puts url
       elements = doc.css(".accordion-item tr")
       puts elements.size
+      home_fgm = 0
+      home_fga = 0
+      home_ptm = 0
+      home_pta = 0
+      home_ftm = 0
+      home_fta = 0
+      home_to = 0
+      home_pf = 0
+      away_fgm = 0
+      away_fga = 0
+      away_ptm = 0
+      away_pta = 0
+      away_ftm = 0
+      away_fta = 0
+      away_to = 0
+      away_pf = 0
       elements.each do |element|
         next if element.children[0].text.squish == 'time'
-        puts element.children[1].children[0].inspect
         logo_link = element.children[1].children[0]['src']
         logo_link_end = logo_link.rindex('.png')
         logo_link_start = logo_link.rindex('/')
-        puts logo_link[logo_link_start..logo_link_end-1]
+        team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
+        compare_string = element.children[2].text
+        if compare_string.include?("foul")
+          if team_abbr = game.home_abbr
+            home_pf = home_pf + 1
+            puts "#{compare_string}, foul, #{game.home_abbr}"
+          else
+            away_pf = away_pf + 1
+            puts "#{compare_string}, foul, #{game.away_abbr}"
+          end
+        elsif compare_string.include?("turnover")
+          if team_abbr = game.home_abbr
+            home_to = home_to + 1
+            puts "#{compare_string}, turnover, #{game.home_abbr}"
+          else
+            away_to = away_to + 1
+            puts "#{compare_string}, turnover, #{game.away_abbr}"
+          end
+        elsif compare_string.include?("misses")
+          if compare_string.include?("three")
+            if team_abbr = game.home_abbr
+              home_pta = home_pta + 1
+              puts "#{compare_string}, three miss, #{game.home_abbr}"
+            else
+              away_pta = away_pta + 1
+              puts "#{compare_string}, three miss, #{game.away_abbr}"
+            end
+          elsif compare_string.include?("throw")
+            if team_abbr = game.home_abbr
+              home_fta = home_fta + 1
+              puts "#{compare_string}, throw miss, #{game.home_abbr}"
+            else
+              away_fta = away_fta + 1
+              puts "#{compare_string}, throw miss, #{game.away_abbr}"
+            end
+          else
+            if team_abbr = game.home_abbr
+              home_fga = home_fga + 1
+              puts "#{compare_string}, else miss, #{game.home_abbr}"
+            else
+              away_fga = away_fga + 1
+              puts "#{compare_string}, else miss, #{game.away_abbr}"
+            end
+          end
+        elsif compare_string.include?("makes")
+          if compare_string.include?("three")
+            if team_abbr = game.home_abbr
+              home_pta = home_pta + 1
+              home_ptm = home_ptm + 1
+              puts "#{compare_string}, three make, #{game.home_abbr}"
+            else
+              away_pta = away_pta + 1
+              away_ptm = away_ptm + 1
+              puts "#{compare_string}, three make, #{game.away_abbr}"
+            end
+          elsif compare_string.include?("throw")
+            if team_abbr = game.home_abbr
+              home_fta = home_fta + 1
+              home_ftm = home_ftm + 1
+              puts "#{compare_string}, throw make, #{game.home_abbr}"
+            else
+              away_fta = away_fta + 1
+              away_ftm = away_ftm + 1
+              puts "#{compare_string}, throw make, #{game.away_abbr}"
+            end
+          else
+            if team_abbr = game.home_abbr
+              home_fga = home_fga + 1
+              home_fgm = home_fgm + 1
+              puts "#{compare_string}, else make, #{game.home_abbr}"
+            else
+              away_fga = away_fga + 1
+              away_fgm = away_fgm + 1
+              puts "#{compare_string}, else make, #{game.away_abbr}"
+            end
+          end
+        end
       end
+      puts game.home_abbr
+      puts home_fgm
+      puts home_fga
+      puts home_ptm
+      puts home_pta
+      puts home_ftm
+      puts home_fta
+      puts home_to
+      puts home_pf
+      puts game.away_abbr
+      puts away_fgm
+      puts away_fga
+      puts away_ptm
+      puts away_pta
+      puts away_ftm
+      puts away_fta
+      puts away_to
+      puts away_pf
     end
   end
 
