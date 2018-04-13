@@ -3106,7 +3106,7 @@ namespace :nba do
         logo_link_start = logo_link.rindex('/')
         team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
         compare_string = element.children[2].text
-        if compare_string.include?("foul")
+        if compare_string.include?("foul") || compare_string.include?("offensive charge")
           if compare_string.exclude?("technical foul")
             if team_abbr == game.home_abbr
               home_pf = home_pf + 1
