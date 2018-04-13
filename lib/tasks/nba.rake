@@ -3145,7 +3145,7 @@ namespace :nba do
             if compare_string.include?("foot step back jumpshot")
               end_index = compare_string.index("foot step back jumpshot")
               start_index = compare_string.rindex(" ", end_index)
-              if compare_string[start_index+1..end_index-1].to_i > 23
+              if compare_string[start_index+1..end_index-1].to_i > 22
                 if team_abbr == game.home_abbr
                   home_pta = home_pta + 1
                   puts "#{compare_string}, three miss, #{game.home_abbr}"
