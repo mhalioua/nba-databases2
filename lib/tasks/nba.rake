@@ -3140,12 +3140,34 @@ namespace :nba do
               puts "#{compare_string}, throw miss, #{game.away_abbr}"
             end
           else
-            if team_abbr == game.home_abbr
-              home_fga = home_fga + 1
-              puts "#{compare_string}, else miss, #{game.home_abbr}"
+            if compare_string.include?("foot step back jumpshot")
+              end_index = compare_string.index("foot step back jumpshot")
+              start_index = compare_string.rindex(" ", end_index)
+              if compare_string[start_index+1..end_index-1].to_i > 23
+                if team_abbr == game.home_abbr
+                  home_pta = home_pta + 1
+                  puts "#{compare_string}, three miss, #{game.home_abbr}"
+                else
+                  away_pta = away_pta + 1
+                  puts "#{compare_string}, three miss, #{game.away_abbr}"
+                end
+              else
+                if team_abbr == game.home_abbr
+                  home_fga = home_fga + 1
+                  puts "#{compare_string}, else miss, #{game.home_abbr}"
+                else
+                  away_fga = away_fga + 1
+                  puts "#{compare_string}, else miss, #{game.away_abbr}"
+                end
+              end
             else
-              away_fga = away_fga + 1
-              puts "#{compare_string}, else miss, #{game.away_abbr}"
+              if team_abbr == game.home_abbr
+                home_fga = home_fga + 1
+                puts "#{compare_string}, else miss, #{game.home_abbr}"
+              else
+                away_fga = away_fga + 1
+                puts "#{compare_string}, else miss, #{game.away_abbr}"
+              end
             end
           end
         elsif compare_string.include?("makes")
