@@ -3096,6 +3096,7 @@ namespace :nba do
       puts url
       elements = doc.css(".accordion-item tbody tr")
       elements.each do |element|
+        puts element.children[1].children[0].inspect
         logo_link = element.children[1].children[0]['src']
         logo_link_end = logo_link.rindex('.png')
         logo_link_start = logo_link.rindex('/')
