@@ -3107,12 +3107,14 @@ namespace :nba do
         team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
         compare_string = element.children[2].text
         if compare_string.include?("foul")
-          if team_abbr == game.home_abbr
-            home_pf = home_pf + 1
-            puts "#{compare_string}, foul, #{game.home_abbr}"
-          else
-            away_pf = away_pf + 1
-            puts "#{compare_string}, foul, #{game.away_abbr}"
+          if compare_string.exclude?("technical foul")
+            if team_abbr == game.home_abbr
+              home_pf = home_pf + 1
+              puts "#{compare_string}, foul, #{game.home_abbr}"
+            else
+              away_pf = away_pf + 1
+              puts "#{compare_string}, foul, #{game.away_abbr}"
+            end
           end
         elsif compare_string.include?("turnover")
           if team_abbr == game.home_abbr
