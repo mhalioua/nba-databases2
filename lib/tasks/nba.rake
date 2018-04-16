@@ -3162,7 +3162,7 @@ namespace :nba do
           team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
         end
         compare_string = element.children[2].text
-        if compare_string.include?("offensive rebound")
+        if compare_string.include?("offensive rebound") && compare_string.exclude?(game.home_team) && compare_string.exclude?(game.away_team)
           if team_abbr == home_abbr
             home_or = home_or + 1
           else
@@ -3240,6 +3240,7 @@ namespace :nba do
           else
             currentScore = element.children[3].text
             previousScore = elements[index-1].children[3].text
+            previousScore = elements[index-2].children[3].text if previousScore == 'SCORE'
             diff = 0
             currentIndex = currentScore.index('-')
             currentFirstScore = currentScore[0..currentIndex-1].to_i
