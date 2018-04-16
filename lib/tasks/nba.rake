@@ -3081,6 +3081,16 @@ namespace :nba do
       url="http://www.espn.com/nba/playbyplay?gameId=#{game.game_id}"
       doc = download_document(url)
       puts url
+
+      team_logo = doc.css(".home .team-info-logo .team-logo")
+      home_abbr = 'undefined'
+      if team_logo.size
+        logo_link = team_logo[0]['src']
+        logo_link_end = logo_link.rindex('.png')
+        logo_link_start = logo_link.rindex('/')
+        home_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
+      end
+
       elements = doc.css(".accordion-item tr")
       puts elements.size
       home_fgm = 0
@@ -3143,40 +3153,44 @@ namespace :nba do
           away_pf = 0
           away_or = 0
         end
-        logo_link = element.children[1].children[0]['src']
-        logo_link_end = logo_link.rindex('.png')
-        logo_link_start = logo_link.rindex('/')
-        team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
+        logo_element = element.children[1]
+        team_abbr = 'undefined'
+        if logo_element.children.size
+          logo_link = logo_element.children[0]['src']
+          logo_link_end = logo_link.rindex('.png')
+          logo_link_start = logo_link.rindex('/')
+          team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
+        end
         compare_string = element.children[2].text
         if compare_string.include?("offensive rebound")
-          if team_abbr == game.home_abbr
+          if team_abbr == home_abbr
             home_or = home_or + 1
           else
             away_or = away_or + 1
           end
         elsif compare_string.include?("foul") || compare_string.include?("offensive charge")
           if compare_string.exclude?("technical foul")
-            if team_abbr == game.home_abbr
+            if team_abbr == home_abbr
               home_pf = home_pf + 1
             else
               away_pf = away_pf + 1
             end
           end
         elsif compare_string.include?("turnover") && compare_string.exclude?("shot clock turnover") && compare_string.exclude?("8 second turnover")
-          if team_abbr == game.home_abbr
+          if team_abbr == home_abbr
             home_to = home_to + 1
           else
             away_to = away_to + 1
           end
         elsif compare_string.include?("misses")
           if compare_string.include?("three")
-            if team_abbr == game.home_abbr
+            if team_abbr == home_abbr
               home_pta = home_pta + 1
             else
               away_pta = away_pta + 1
             end
           elsif compare_string.include?("throw")
-            if team_abbr == game.home_abbr
+            if team_abbr == home_abbr
               home_fta = home_fta + 1
             else
               away_fta = away_fta + 1
@@ -3186,20 +3200,20 @@ namespace :nba do
               end_index = compare_string.index("foot step back jumpshot")
               start_index = compare_string.rindex(" ", end_index)
               if compare_string[start_index+1..end_index-1].to_i > 22
-                if team_abbr == game.home_abbr
+                if team_abbr == home_abbr
                   home_pta = home_pta + 1
                 else
                   away_pta = away_pta + 1
                 end
               else
-                if team_abbr == game.home_abbr
+                if team_abbr == home_abbr
                   home_fga = home_fga + 1
                 else
                   away_fga = away_fga + 1
                 end
               end
             else
-              if team_abbr == game.home_abbr
+              if team_abbr == home_abbr
                 home_fga = home_fga + 1
               else
                 away_fga = away_fga + 1
@@ -3208,7 +3222,7 @@ namespace :nba do
           end
         elsif compare_string.include?("makes")
           if compare_string.include?("three")
-            if team_abbr == game.home_abbr
+            if team_abbr == home_abbr
               home_pta = home_pta + 1
               home_ptm = home_ptm + 1
             else
@@ -3216,7 +3230,7 @@ namespace :nba do
               away_ptm = away_ptm + 1
             end
           elsif compare_string.include?("throw")
-            if team_abbr == game.home_abbr
+            if team_abbr == home_abbr
               home_fta = home_fta + 1
               home_ftm = home_ftm + 1
             else
@@ -3239,7 +3253,7 @@ namespace :nba do
               diff = currentFirstScore - previousFirstScore
             end
             if diff == 3 && (compare_string.include?("foot step back jumpshot") || compare_string.include?("foot jump bank shot"))
-              if team_abbr == game.home_abbr
+              if team_abbr == home_abbr
                 home_pta = home_pta + 1
                 home_ptm = home_ptm + 1
               else
@@ -3247,7 +3261,7 @@ namespace :nba do
                 away_ptm = away_ptm + 1
               end
             else
-              if team_abbr == game.home_abbr
+              if team_abbr == home_abbr
                 home_fga = home_fga + 1
                 home_fgm = home_fgm + 1
               else
@@ -3258,20 +3272,20 @@ namespace :nba do
           end
         elsif compare_string.include?("block")
           if compare_string.include?("three")
-            if team_abbr == game.home_abbr
+            if team_abbr == home_abbr
               home_pta = home_pta + 1
             else
               away_pta = away_pta + 1
             end
           else
-            if team_abbr == game.home_abbr
+            if team_abbr == home_abbr
               home_fga = home_fga + 1
             else
               away_fga = away_fga + 1
             end
           end
         elsif compare_string.include?("bad pass") || compare_string.include?("traveling")
-          if team_abbr == game.home_abbr
+          if team_abbr == home_abbr
             home_to = home_to + 1
           else
             away_to = away_to + 1
