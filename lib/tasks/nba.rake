@@ -3101,6 +3101,7 @@ namespace :nba do
       away_pf = 0
       elements.each_with_index do |element, index|
         next if element.children[0].text.squish == 'time'
+        break if element.children[0].text.squish == '0.0' && element.children[2].text.include?('End') && element.children[2].text.include?(2nd' Quarter')
         logo_link = element.children[1].children[0]['src']
         logo_link_end = logo_link.rindex('.png')
         logo_link_start = logo_link.rindex('/')
