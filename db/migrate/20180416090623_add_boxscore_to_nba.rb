@@ -1,0 +1,43 @@
+class AddBoxscoreToNba < ActiveRecord::Migration[5.1]
+  def change
+  	add_column :nbas, :home_fga_first, :integer
+	add_column :nbas, :home_fgm_first, :integer
+	add_column :nbas, :home_fga_second, :integer
+	add_column :nbas, :home_fgm_second, :integer
+	add_column :nbas, :home_pta_first, :integer
+	add_column :nbas, :home_ptm_first, :integer
+	add_column :nbas, :home_pta_second, :integer
+	add_column :nbas, :home_ptm_second, :integer
+	add_column :nbas, :home_or_first, :integer
+	add_column :nbas, :home_or_second, :integer
+	add_column :nbas, :home_fta_first, :integer
+	add_column :nbas, :home_fta_second, :integer
+	add_column :nbas, :home_ftm_first, :integer
+	add_column :nbas, :home_ftm_second, :integer
+	add_column :nbas, :home_to_first, :integer
+	add_column :nbas, :home_to_second, :integer
+	add_column :nbas, :home_foul_first, :integer
+	add_column :nbas, :home_foul_second, :integer
+	add_column :nbas, :away_fga_first, :integer
+	add_column :nbas, :away_fgm_first, :integer
+	add_column :nbas, :away_fga_second, :integer
+	add_column :nbas, :away_fgm_second, :integer
+	add_column :nbas, :away_pta_first, :integer
+	add_column :nbas, :away_ptm_first, :integer
+	add_column :nbas, :away_pta_second, :integer
+	add_column :nbas, :away_ptm_second, :integer
+	add_column :nbas, :away_or_first, :integer
+	add_column :nbas, :away_or_second, :integer
+	add_column :nbas, :away_fta_first, :integer
+	add_column :nbas, :away_fta_second, :integer
+	add_column :nbas, :away_ftm_first, :integer
+	add_column :nbas, :away_ftm_second, :integer
+	add_column :nbas, :away_to_first, :integer
+	add_column :nbas, :away_to_second, :integer
+	add_column :nbas, :away_foul_first, :integer
+	add_column :nbas, :away_foul_second, :integer
+	add_column :nbas, :tv_station, :string
+	add_column :nbas, :est_time, :string
+	add_column :nbas, :game_count, :integer
+  end
+end

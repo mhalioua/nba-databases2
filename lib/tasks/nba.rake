@@ -3104,26 +3104,26 @@ namespace :nba do
       elements.each_with_index do |element, index|
         next if element.children[0].text.squish == 'time'
         if element.children[0].text.squish == '0.0' && element.children[2].text.include?('End') && element.children[2].text.include?('2nd Quarter')
-          puts game.home_abbr
-          puts home_fgm + home_ptm
-          puts home_fga + home_pta
-          puts home_ptm
-          puts home_pta
-          puts home_ftm
-          puts home_fta
-          puts home_to
-          puts home_pf
-          puts home_or
-          puts game.away_abbr
-          puts away_fgm + away_ptm
-          puts away_fga + away_pta
-          puts away_ptm
-          puts away_pta
-          puts away_ftm
-          puts away_fta
-          puts away_to
-          puts away_pf
-          puts away_or
+          game.update(
+            home_fga_first: home_fga + home_pta,
+            home_fgm_first: home_fgm + home_ptm,
+            home_ptm_first: home_ptm,
+            home_pta_first: home_pta,
+            home_fta_first: home_fta,
+            home_ftm_first: home_ftm,
+            home_or_first: home_or,
+            home_to_first: home_to,
+            home_foul_first: home_pf,
+            away_fga_first: away_fga + away_pta,
+            away_fgm_first: away_fgm + away_ptm,
+            away_ptm_first: away_ptm,
+            away_pta_first: away_pta,
+            away_fta_first: away_fta,
+            away_ftm_first: away_ftm,
+            away_or_first: away_or,
+            away_to_first: away_to,
+            away_foul_first: away_pf
+          )
           home_fgm = 0
           home_fga = 0
           home_ptm = 0
@@ -3151,45 +3151,35 @@ namespace :nba do
         if compare_string.include?("offensive rebound")
           if team_abbr == game.home_abbr
             home_or = home_or + 1
-            puts "#{compare_string}, or, #{game.home_abbr}"
           else
             away_or = away_or + 1
-            puts "#{compare_string}, or, #{game.away_abbr}"
           end
         elsif compare_string.include?("foul") || compare_string.include?("offensive charge")
           if compare_string.exclude?("technical foul")
             if team_abbr == game.home_abbr
               home_pf = home_pf + 1
-              puts "#{compare_string}, foul, #{game.home_abbr}"
             else
               away_pf = away_pf + 1
-              puts "#{compare_string}, foul, #{game.away_abbr}"
             end
           end
         elsif compare_string.include?("turnover") && compare_string.exclude?("shot clock turnover") && compare_string.exclude?("8 second turnover")
           if team_abbr == game.home_abbr
             home_to = home_to + 1
-            puts "#{compare_string}, turnover, #{game.home_abbr}"
           else
             away_to = away_to + 1
-            puts "#{compare_string}, turnover, #{game.away_abbr}"
           end
         elsif compare_string.include?("misses")
           if compare_string.include?("three")
             if team_abbr == game.home_abbr
               home_pta = home_pta + 1
-              puts "#{compare_string}, three miss, #{game.home_abbr}"
             else
               away_pta = away_pta + 1
-              puts "#{compare_string}, three miss, #{game.away_abbr}"
             end
           elsif compare_string.include?("throw")
             if team_abbr == game.home_abbr
               home_fta = home_fta + 1
-              puts "#{compare_string}, throw miss, #{game.home_abbr}"
             else
               away_fta = away_fta + 1
-              puts "#{compare_string}, throw miss, #{game.away_abbr}"
             end
           else
             if compare_string.include?("foot step back jumpshot")
@@ -3198,27 +3188,21 @@ namespace :nba do
               if compare_string[start_index+1..end_index-1].to_i > 22
                 if team_abbr == game.home_abbr
                   home_pta = home_pta + 1
-                  puts "#{compare_string}, three miss, #{game.home_abbr}"
                 else
                   away_pta = away_pta + 1
-                  puts "#{compare_string}, three miss, #{game.away_abbr}"
                 end
               else
                 if team_abbr == game.home_abbr
                   home_fga = home_fga + 1
-                  puts "#{compare_string}, else miss, #{game.home_abbr}"
                 else
                   away_fga = away_fga + 1
-                  puts "#{compare_string}, else miss, #{game.away_abbr}"
                 end
               end
             else
               if team_abbr == game.home_abbr
                 home_fga = home_fga + 1
-                puts "#{compare_string}, else miss, #{game.home_abbr}"
               else
                 away_fga = away_fga + 1
-                puts "#{compare_string}, else miss, #{game.away_abbr}"
               end
             end
           end
@@ -3227,21 +3211,17 @@ namespace :nba do
             if team_abbr == game.home_abbr
               home_pta = home_pta + 1
               home_ptm = home_ptm + 1
-              puts "#{compare_string}, three make, #{game.home_abbr}"
             else
               away_pta = away_pta + 1
               away_ptm = away_ptm + 1
-              puts "#{compare_string}, three make, #{game.away_abbr}"
             end
           elsif compare_string.include?("throw")
             if team_abbr == game.home_abbr
               home_fta = home_fta + 1
               home_ftm = home_ftm + 1
-              puts "#{compare_string}, throw make, #{game.home_abbr}"
             else
               away_fta = away_fta + 1
               away_ftm = away_ftm + 1
-              puts "#{compare_string}, throw make, #{game.away_abbr}"
             end
           else
             currentScore = element.children[3].text
@@ -3262,21 +3242,17 @@ namespace :nba do
               if team_abbr == game.home_abbr
                 home_pta = home_pta + 1
                 home_ptm = home_ptm + 1
-                puts "#{compare_string}, else three make, #{game.home_abbr}"
               else
                 away_pta = away_pta + 1
                 away_ptm = away_ptm + 1
-                puts "#{compare_string}, else three make, #{game.away_abbr}"
               end
             else
               if team_abbr == game.home_abbr
                 home_fga = home_fga + 1
                 home_fgm = home_fgm + 1
-                puts "#{compare_string}, else make, #{game.home_abbr}"
               else
                 away_fga = away_fga + 1
                 away_fgm = away_fgm + 1
-                puts "#{compare_string}, else make, #{game.away_abbr}"
               end
             end
           end
@@ -3284,50 +3260,44 @@ namespace :nba do
           if compare_string.include?("three")
             if team_abbr == game.home_abbr
               home_pta = home_pta + 1
-              puts "#{compare_string}, else block, #{game.home_abbr}"
             else
               away_pta = away_pta + 1
-              puts "#{compare_string}, else block, #{game.away_abbr}"
             end
           else
             if team_abbr == game.home_abbr
               home_fga = home_fga + 1
-              puts "#{compare_string}, else block, #{game.home_abbr}"
             else
               away_fga = away_fga + 1
-              puts "#{compare_string}, else block, #{game.away_abbr}"
             end
           end
         elsif compare_string.include?("bad pass") || compare_string.include?("traveling")
           if team_abbr == game.home_abbr
             home_to = home_to + 1
-            puts "#{compare_string}, turnover, #{game.home_abbr}"
           else
             away_to = away_to + 1
-            puts "#{compare_string}, turnover, #{game.away_abbr}"
           end
         end
       end
-      puts game.home_abbr
-      puts home_fgm + home_ptm
-      puts home_fga + home_pta
-      puts home_ptm
-      puts home_pta
-      puts home_ftm
-      puts home_fta
-      puts home_to
-      puts home_pf
-      puts home_or
-      puts game.away_abbr
-      puts away_fgm + away_ptm
-      puts away_fga + away_pta
-      puts away_ptm
-      puts away_pta
-      puts away_ftm
-      puts away_fta
-      puts away_to
-      puts away_pf
-      puts away_or
+      game.update(
+        home_fga_second: home_fga + home_pta,
+        home_fgm_second: home_fgm + home_ptm,
+        home_ptm_second: home_ptm,
+        home_pta_second: home_pta,
+        home_fta_second: home_fta,
+        home_ftm_second: home_ftm,
+        home_or_second: home_or,
+        home_to_second: home_to,
+        home_foul_second: home_pf,
+        away_fga_second: away_fga + away_pta,
+        away_fgm_second: away_fgm + away_ptm,
+        away_ptm_second: away_ptm,
+        away_pta_second: away_pta,
+        away_fta_second: away_fta,
+        away_ftm_second: away_ftm,
+        away_or_second: away_or,
+        away_to_second: away_to,
+        away_foul_second: away_pf
+      )
     end
   end
 
