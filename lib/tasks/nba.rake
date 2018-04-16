@@ -3084,6 +3084,7 @@ namespace :nba do
 
       team_logo = doc.css(".home .team-info-logo .team-logo")
       home_abbr = 'undefined'
+      puts team_logo.size
       if team_logo.size
         logo_link = team_logo[0]['src']
         logo_link_end = logo_link.rindex('.png')
