@@ -3248,7 +3248,7 @@ namespace :nba do
               puts "#{compare_string}, else block, #{game.away_abbr}"
             end
           end
-        elsif compare_string.include?("bad pass") || compare_string.include?("traveling")
+        elsif compare_string.include?("bad pass")
           if team_abbr == game.home_abbr
             home_to = home_to + 1
             puts "#{compare_string}, turnover, #{game.home_abbr}"
