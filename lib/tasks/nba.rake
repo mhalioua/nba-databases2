@@ -3091,6 +3091,7 @@ namespace :nba do
       home_fta = 0
       home_to = 0
       home_pf = 0
+      home_or = 0
       away_fgm = 0
       away_fga = 0
       away_ptm = 0
@@ -3099,15 +3100,63 @@ namespace :nba do
       away_fta = 0
       away_to = 0
       away_pf = 0
+      away_or = 0
       elements.each_with_index do |element, index|
         next if element.children[0].text.squish == 'time'
-        break if element.children[0].text.squish == '0.0' && element.children[2].text.include?('End') && element.children[2].text.include?('2nd Quarter')
+        if element.children[0].text.squish == '0.0' && element.children[2].text.include?('End') && element.children[2].text.include?('2nd Quarter')
+          puts game.home_abbr
+          puts home_fgm + home_ptm
+          puts home_fga + home_pta
+          puts home_ptm
+          puts home_pta
+          puts home_ftm
+          puts home_fta
+          puts home_to
+          puts home_pf
+          puts home_or
+          puts game.away_abbr
+          puts away_fgm + away_ptm
+          puts away_fga + away_pta
+          puts away_ptm
+          puts away_pta
+          puts away_ftm
+          puts away_fta
+          puts away_to
+          puts away_pf
+          puts away_or
+          home_fgm = 0
+          home_fga = 0
+          home_ptm = 0
+          home_pta = 0
+          home_ftm = 0
+          home_fta = 0
+          home_to = 0
+          home_pf = 0
+          home_or = 0
+          away_fgm = 0
+          away_fga = 0
+          away_ptm = 0
+          away_pta = 0
+          away_ftm = 0
+          away_fta = 0
+          away_to = 0
+          away_pf = 0
+          away_or = 0
+        end
         logo_link = element.children[1].children[0]['src']
         logo_link_end = logo_link.rindex('.png')
         logo_link_start = logo_link.rindex('/')
         team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
         compare_string = element.children[2].text
-        if compare_string.include?("foul") || compare_string.include?("offensive charge")
+        if compare_string.include?("offensive rebound")
+          if team_abbr == game.home_abbr
+            home_or = home_or + 1
+            puts "#{compare_string}, or, #{game.home_abbr}"
+          else
+            away_or = away_or + 1
+            puts "#{compare_string}, or, #{game.away_abbr}"
+          end
+        elsif compare_string.include?("foul") || compare_string.include?("offensive charge")
           if compare_string.exclude?("technical foul")
             if team_abbr == game.home_abbr
               home_pf = home_pf + 1
@@ -3268,6 +3317,7 @@ namespace :nba do
       puts home_fta
       puts home_to
       puts home_pf
+      puts home_or
       puts game.away_abbr
       puts away_fgm + away_ptm
       puts away_fga + away_pta
@@ -3277,6 +3327,7 @@ namespace :nba do
       puts away_fta
       puts away_to
       puts away_pf
+      puts away_or
     end
   end
 
