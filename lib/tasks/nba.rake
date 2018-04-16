@@ -3076,7 +3076,7 @@ namespace :nba do
 
   task :nbaplaybyplay => :environment do
     include Api
-    games = Nba.where('game_id = 400975967')
+    games = Nba.where('home_fga_second is null')
     games.each do |game|
       url="http://www.espn.com/nba/playbyplay?gameId=#{game.game_id}"
       doc = download_document(url)
