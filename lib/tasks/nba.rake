@@ -3076,7 +3076,7 @@ namespace :nba do
 
   task :nbaplaybyplay => :environment do
     include Api
-    games = Nba.where('game_id = 400975968')
+    games = Nba.where('game_id = 400975966')
     games.each do |game|
       url="http://www.espn.com/nba/playbyplay?gameId=#{game.game_id}"
       doc = download_document(url)
@@ -3247,6 +3247,14 @@ namespace :nba do
               away_fga = away_fga + 1
               puts "#{compare_string}, else block, #{game.away_abbr}"
             end
+          end
+        elsif compare_string.include?("bad pass") || compare_string.include?("traveling")
+          if team_abbr == game.home_abbr
+            home_to = home_to + 1
+            puts "#{compare_string}, turnover, #{game.home_abbr}"
+          else
+            away_to = away_to + 1
+            puts "#{compare_string}, turnover, #{game.away_abbr}"
           end
         end
       end
