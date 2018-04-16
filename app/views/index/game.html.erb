@@ -51,8 +51,11 @@
   	<thead>
   		<tr>
 	  		<th></th>
-	      	<th></th>
-	      	<th>Days<br>rest</th>
+      	<th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      	<th>Days<br>rest</th>
 	  		<th colspan="8">TODAYS GAMES</th>
 	  		<th>Days<br>rest</th>
         <th></th>
@@ -134,6 +137,9 @@
 	  	<tr>
 	  		<th>Game ID</th>
       	<th class="red">Time</th>
+        <th class="red">EST Time</th>
+        <th class="red">TV Station</th>
+        <th class="red">Game Count</th>
       	<th class="red">Last<br>Game</th>
       	<th class="red">Away Team</th>
 	  		<th class="red">Next<br>Game</th>
@@ -388,11 +394,14 @@
         @home_blk = (@home_blk.to_f / @home_count).round(2)
         @home_to = (@home_to.to_f / @home_count).round(2)
       end
+      @game_count = Nba.where('year = ? AND date = ?', game.year, game.date)
 
     %>
     <tr style="border-top: 5px solid black">
       <td class="green" rowspan="3"><%= game.away_number %> / <%= game.home_number %></td>
-      <td class="grey" rowspan="3"><%= DateTime.parse(game.game_date).strftime("%I:%M%p") %></td>
+      <td class="grey" rowspan="3"><%= game.time %></td>
+      <td class="grey" rowspan="3"><%= game.est_time %></td>
+      <td class="grey" rowspan="3"><%= @game_count %></td>
       <td class="yellow" rowspan="3"><%= game.away_last_game %></td>
       <td rowspan="3"><%= game.away_team %></td>
       <td class="yellow" rowspan="3"><%= game.away_next_game %></td>
