@@ -805,7 +805,7 @@ namespace :nba do
   task :tvstation => [:environment] do
     include Api
     games = Nba.all
-    index_date = Date.new(2018, 2, 21)
+    index_date = Date.new(2013, 1, 1)
     while index_date >= Date.new(2010, 10, 24)  do
       game_day = index_date.strftime("%Y%m%d")
       index_date = index_date - 1.days
