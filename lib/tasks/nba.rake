@@ -799,11 +799,12 @@ namespace :nba do
 
   task :tvstation => [:environment] do
     include Api
-    games = Nba.all
+    games = Nba.where("est_time is null")
     games.each do |game|
       game_count = Nba.where('year = ? AND date = ?', game.year, game.date).size
       game.update(est_time: DateTime.parse(game.game_date).strftime("%I:%M%p"), game_count: game_count)
     end
+    games = Nba.all
 
     index_date = Date.yesterday
     while index_date >= Date.new(2000, 11, 5)  do
