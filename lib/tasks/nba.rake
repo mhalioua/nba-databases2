@@ -706,6 +706,11 @@ namespace :nba do
 
 	task :getLinkGame => [:environment] do
 		include Api
+    games = Nba.where("game_count is null")
+    games.each do |game|
+      game_count = Nba.where('year = ? AND date = ?', game.year, game.date).size
+      game.update(game_count: game_count)
+    end
 		puts "----------Get Link Games----------"
 
 		Time.zone = 'Eastern Time (US & Canada)'
@@ -799,19 +804,12 @@ namespace :nba do
 
   task :tvstation => [:environment] do
     include Api
-    games = Nba.where("est_time is null")
-    games.each do |game|
-      game_count = Nba.where('year = ? AND date = ?', game.year, game.date).size
-      game.update(est_time: DateTime.parse(game.game_date).strftime("%I:%M%p"), game_count: game_count)
-    end
     games = Nba.all
-
     index_date = Date.yesterday
-    while index_date >= Date.new(2000, 11, 5)  do
+    while index_date >= Date.new(2010, 10, 24)  do
       game_day = index_date.strftime("%Y%m%d")
       index_date = index_date - 1.days
       puts game_day
-      next if index_date <= Date.new(2010, 10, 25)
       url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
       doc = download_document(url)
       elements = doc.css(".event-holder")
