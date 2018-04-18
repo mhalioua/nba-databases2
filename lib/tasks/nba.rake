@@ -802,7 +802,7 @@ namespace :nba do
     games = Nba.all
     games.each do |game|
       game_count = Nba.where('year = ? AND date = ?', game.year, game.date).size
-      game.update(est_time: Date.parse(game.game_date).strftime("%I:%M%p"), game_count: game_count)
+      game.update(est_time: DateTime.parse(game.game_date).strftime("%I:%M%p"), game_count: game_count)
     end
 
     index_date = Date.yesterday
