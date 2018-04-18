@@ -829,7 +829,8 @@ namespace :nba do
         away_name     = element.children[0].children[5].children[0].text
         home_number   = element.children[0].children[3].children[2].text
         away_number   = element.children[0].children[3].children[1].text
-        tv_station    = element.children[0].children[6].children[0].text + "," + element.children[0].children[6].children[1].text
+        tv_station    = element.children[0].children[6].children[0].text
+        tv_station = tv_station + "," + element.children[0].children[6].children[1].text if element.children[0].children[6].children.size > 1
         
         game_time = element.children[0].children[4].text
         ind = game_time.index(":")
