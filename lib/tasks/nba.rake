@@ -600,8 +600,9 @@ namespace :nba do
         end
         tv_station.push(slice.children[4].text)
         tv_station.push(slice.children[5].text)
+        game.update(tv_station: tv_station.join(','))
       end
-	  	game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), est_time: date.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value, tv_station: tv_station.join(','))
+	  	game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), est_time: date.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
 	  end
 	end
 
@@ -795,6 +796,70 @@ namespace :nba do
 			game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game, home_next_fly: home_next_fly, home_last_fly: home_last_fly, away_next_fly: away_next_fly, away_last_fly: away_last_fly, home_last_ot: home_last_ot, away_last_ot: away_last_ot, away_last_home: away_last_home,away_next_home: away_next_home )
 		end
 	end
+
+  task :tvstation => [:environment] do
+    include Api
+    games = Nba.all
+    games.each do |game|
+      game_count = Nba.where('year = ? AND date = ?', game.year, game.date).size
+      game.update(est_time: Date.parse(game.game_date).strftime("%I:%M%p"), game_count: game_count)
+    end
+
+    index_date = Date.yesterday
+    while index_date >= Date.new(2000, 11, 5)  do
+      game_day = index_date.strftime("%Y%m%d")
+      index_date = index_date - 1.days
+      puts game_day
+      next if index_date <= Date.new(2010, 10, 25)
+      url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
+      doc = download_document(url)
+      elements = doc.css(".event-holder")
+      elements.each do |element|
+        if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
+          next
+        end
+        if element.children[0].children[5].children.size < 5
+          next
+        end
+
+        if element.children[0].children[3].children.size < 3
+          next
+        end
+
+        home_name     = element.children[0].children[5].children[1].text
+        away_name     = element.children[0].children[5].children[0].text
+        home_number   = element.children[0].children[3].children[2].text
+        away_number   = element.children[0].children[3].children[1].text
+        tv_station    = element.children[0].children[6].children[0].text + "," + element.children[0].children[6].children[1].text
+        
+        game_time = element.children[0].children[4].text
+        ind = game_time.index(":")
+        hour = ind ? game_time[0..ind-1].to_i : 0
+        min = ind ? game_time[ind+1..ind+3].to_i : 0
+        ap = game_time[-1]
+        if ap == "p" && hour != 12
+          hour = hour + 12
+        end
+        if ap == "a" && hour == 12
+          hour = 24
+        end
+
+        if @nba_nicknames[home_name]
+          home_name = @nba_nicknames[home_name]
+        end
+        if @nba_nicknames[away_name]
+          away_name = @nba_nicknames[away_name]
+        end
+        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
+
+        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
+        if matched.size > 0
+          update_game = matched.first
+          update_game.update(tv_station: tv_station)
+        end
+      end
+    end
+  end
 
 	task :getFirstLines => [:environment] do
 		include Api
