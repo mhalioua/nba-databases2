@@ -3189,7 +3189,7 @@ namespace :nba do
       away_or = 0
       elements.each_with_index do |element, index|
         next if element.children[0].text.squish == 'time'
-        if element.children[0].text.squish == '0.0' && element.children[2].text.include?('End') && element.children[2].text.include?('2nd Quarter')
+        if element.children[2].text.include?('Start') && element.children[2].text.include?('3rd Quarter')
           game.update(
             home_fga_first: home_fga + home_pta,
             home_fgm_first: home_fgm + home_ptm,
@@ -3237,15 +3237,15 @@ namespace :nba do
           logo_link_start = logo_link.rindex('/')
           team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
         end
-        compare_string = element.children[2].text
-        if compare_string.include?("offensive rebound") && compare_string.exclude?(game.home_team) && compare_string.exclude?(game.away_team)
+        compare_string = element.children[2].text.downcase
+        if compare_string.include?("offensive rebound") && compare_string.exclude?(game.home_team.downcase) && compare_string.exclude?(game.away_team.downcase)
           if team_abbr == home_abbr
             home_or = home_or + 1
           else
             away_or = away_or + 1
           end
         elsif compare_string.include?("foul") || compare_string.include?("offensive charge")
-          if compare_string.exclude?("technical foul")
+          if compare_string.exclude?("technical foul") && compare_string.exclude?("illegal defense foul")
             if team_abbr == home_abbr
               home_pf = home_pf + 1
             else
@@ -3258,7 +3258,7 @@ namespace :nba do
           else
             away_to = away_to + 1
           end
-        elsif compare_string.include?("misses")
+        elsif compare_string.include?("misses") || compare_string.include?("missed")
           if compare_string.include?("three")
             if team_abbr == home_abbr
               home_pta = home_pta + 1
@@ -3296,7 +3296,7 @@ namespace :nba do
               end
             end
           end
-        elsif compare_string.include?("makes")
+        elsif compare_string.include?("makes") || compare_string.include?("made")
           if compare_string.include?("three")
             if team_abbr == home_abbr
               home_pta = home_pta + 1
@@ -3361,7 +3361,7 @@ namespace :nba do
               away_fga = away_fga + 1
             end
           end
-        elsif compare_string.include?("bad pass") || compare_string.include?("traveling")
+        elsif compare_string.include?("bad pass") || compare_string.include?("traveling") || compare_string.include?("lost ball")
           if team_abbr == home_abbr
             home_to = home_to + 1
           else
