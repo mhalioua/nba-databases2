@@ -1,0 +1,2 @@
+class Wnba < ApplicationRecord
+end
