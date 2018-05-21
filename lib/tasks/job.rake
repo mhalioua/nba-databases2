@@ -21,7 +21,7 @@ namespace :job do
         end
         href = slice.children[index[:result]].child['href']
         game_id = href[-9..-1]
-        next if game_id == '310723099'
+        next if game_id == '300710096'
         unless game = Wnba.find_by(game_id: game_id)
           game = Wnba.create(game_id: game_id)
         end
