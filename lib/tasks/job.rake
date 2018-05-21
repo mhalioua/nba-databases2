@@ -21,6 +21,7 @@ namespace :job do
         end
         href = slice.children[index[:result]].child['href']
         game_id = href[-9..-1]
+        next if game_id == '400968106'
         unless game = Wnba.find_by(game_id: game_id)
           game = Wnba.create(game_id: game_id)
         end
@@ -87,7 +88,7 @@ namespace :job do
           home_blk_value = home_value.children[10].text.to_i
          end
 
-        addingDate = date + 4.hours + @team_timezone[home_team]
+        addingDate = date + 4.hours + @team_timezone[home_team].hours
         game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), est_time: date.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
       end
       index_date = index_date + 1.days
