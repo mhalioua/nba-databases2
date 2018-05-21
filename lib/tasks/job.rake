@@ -3,8 +3,8 @@ namespace :job do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    index_date = Date.new(2017,5,12)
-    while index_date <= Date.new(2017,8,30)
+    index_date = Date.new(2016,5,14)
+    while index_date <= Date.new(2016,9,13)
       game_date = index_date.strftime("%Y%m%d")
       url = "http://www.espn.com/wnba/schedule/_/date/#{game_date}"
       doc = download_document(url)
