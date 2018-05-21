@@ -3,8 +3,8 @@ namespace :job do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    index_date = Date.new(2014,5,16)
-    while index_date <= Date.new(2014,8,14)
+    index_date = Date.new(2013,5,24)
+    while index_date <= Date.new(2013,9,12)
       game_date = index_date.strftime("%Y%m%d")
       url = "http://www.espn.com/wnba/schedule/_/date/#{game_date}"
       doc = download_document(url)
@@ -21,7 +21,7 @@ namespace :job do
         end
         href = slice.children[index[:result]].child['href']
         game_id = href[-9..-1]
-        next if game_id == '400562214'
+        next if game_id == '400470769'
         unless game = Wnba.find_by(game_id: game_id)
           game = Wnba.create(game_id: game_id)
         end
