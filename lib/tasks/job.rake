@@ -96,6 +96,7 @@ namespace :job do
   end
 
   task :fix => [:environment] do
+    include Api
     games = Wnba.where('away_fga is null')
     games.each do |game|
       url = "http://www.espn.com/wnba/boxscore?gameId=#{game.game_id}"
