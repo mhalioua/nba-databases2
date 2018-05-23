@@ -240,52 +240,13 @@ namespace :job do
           next
         end
 
-        score_element = element.children[0].children[11]
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[9]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[13]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[12]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[10]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[17]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[18]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[14]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[15]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[16]
-        end
-
-        home_name     = element.children[0].children[5].children[1].text
-        away_name     = element.children[0].children[5].children[0].text
-        home_number   = element.children[0].children[3].children[2].text
-        away_number   = element.children[0].children[3].children[1].text
+        score_element = element.children[0].children[8]
+        home_name     = element.children[0].children[4].children[1].text
+        away_name     = element.children[0].children[4].children[0].text
         closer      = score_element.children[1].text
-        opener      = element.children[0].children[7].children[1].text
+        opener      = element.children[0].children[6].children[1].text
 
-        game_time = element.children[0].children[4].text
+        game_time = element.children[0].children[3].text
         ind = game_time.index(":")
         hour = ind ? game_time[0..ind-1].to_i : 0
         min = ind ? game_time[ind+1..ind+3].to_i : 0
@@ -355,50 +316,14 @@ namespace :job do
         if element.children[0].children[5].children.size < 5
           next
         end
-        score_element = element.children[0].children[11]
+        score_element = element.children[0].children[8]
 
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[9]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[13]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[12]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[10]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[17]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[18]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[14]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[15]
-        end
-
-        if score_element.children[1].text == ""
-          score_element = element.children[0].children[16]
-        end
-
-        home_name     = element.children[0].children[5].children[1].text
-        away_name     = element.children[0].children[5].children[0].text
+        home_name     = element.children[0].children[4].children[1].text
+        away_name     = element.children[0].children[4].children[0].text
         closer      = score_element.children[1].text
-        opener      = element.children[0].children[7].children[1].text
+        opener      = element.children[0].children[6].children[1].text
         
-        game_time = element.children[0].children[4].text
+        game_time = element.children[0].children[3].text
         ind = game_time.index(":")
         hour = ind ? game_time[0..ind-1].to_i : 0
         min = ind ? game_time[ind+1..ind+3].to_i : 0
