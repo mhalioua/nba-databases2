@@ -59,7 +59,7 @@ namespace :job do
         doc = download_document(url)
         puts url
         element = doc.css(".highlight")
-        if element.size > 3
+        if element.size > 3 && element[2].children.size > 10
           away_value = element[0]
           home_value = element[2]
 
@@ -103,7 +103,7 @@ namespace :job do
       doc = download_document(url)
       puts url
       element = doc.css(".highlight")
-      if element.size > 3
+      if element.size > 3 && element[2].children.size > 10
         away_value = element[0]
         home_value = element[2]
 
@@ -258,8 +258,8 @@ namespace :job do
     games = Wnba.all
     puts "----------Get First Lines----------"
 
-    index_date = Date.new(2011, 6, 4)
-    while index_date <= Date.new(2011, 6 ,4) do
+    index_date = Date.new(2012, 7, 13)
+    while index_date <= Date.new(2012, 7, 13) do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/1st-half/?date=#{game_day}"
