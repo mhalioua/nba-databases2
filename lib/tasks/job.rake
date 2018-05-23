@@ -94,6 +94,51 @@ namespace :job do
       index_date = index_date + 1.days
     end
   end
+
+  task :getLinkGame => [:environment] do
+    include Api
+    puts "----------Get Link Games----------"
+
+    Time.zone = 'Eastern Time (US & Canada)'
+    games = Wnba.where("away_last_game is null")
+    puts games.size
+
+    games.each do |game|
+      game_count = Wnba.where('year = ? AND date = ?', game.year, game.date).size
+      game.update(game_count: game_count)
+
+      home_team = game.home_team
+      away_team = game.away_team
+      game_date = game.game_date
+
+      away_last_game = ""
+      away_team_prev = Wnba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Wnba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
+      if away_team_prev
+        away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+      end
+
+      away_next_game = ""
+      away_team_next = Wnba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Wnba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
+      if away_team_next
+        away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+      end
+
+      home_last_game = ""
+      home_team_prev = Wnba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Wnba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
+      if home_team_prev
+        home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+      end
+
+      home_next_game = ""
+      home_team_next = Wnba.where("home_team = ? AND game_date > ?", home_team, game_date).or(Wnba.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
+      if home_team_next
+        home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+      end
+
+      game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game)
+    end
+  end
+
   @team_timezone = {
     'Las Vegas' => -7,
     'Seattle' => -7,
