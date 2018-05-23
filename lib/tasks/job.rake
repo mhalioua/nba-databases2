@@ -221,8 +221,8 @@ namespace :job do
     games = Wnba.all
     puts "----------Get First Lines----------"
 
-    index_date = Date.new(2010, 5, 15)
-    while index_date <= Date.new(2017, 9 ,3) do
+    index_date = Date.new(2011, 6, 4)
+    while index_date <= Date.new(2011, 6 ,4) do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/1st-half/?date=#{game_day}"
