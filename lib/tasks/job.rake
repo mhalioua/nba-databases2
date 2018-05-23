@@ -246,6 +246,9 @@ namespace :job do
         closer      = score_element.children[1].text
         opener      = element.children[0].children[6].children[1].text
 
+        home_name = @sport_team[home_name] if @sport_team[home_name]
+        away_name = @sport_team[away_name] if @sport_team[away_name]
+
         game_time = element.children[0].children[3].text
         ind = game_time.index(":")
         hour = ind ? game_time[0..ind-1].to_i : 0
@@ -322,6 +325,9 @@ namespace :job do
         away_name     = element.children[0].children[4].children[0].text
         closer      = score_element.children[1].text
         opener      = element.children[0].children[6].children[1].text
+
+        home_name = @sport_team[home_name] if @sport_team[home_name]
+        away_name = @sport_team[away_name] if @sport_team[away_name]
         
         game_time = element.children[0].children[3].text
         ind = game_time.index(":")
@@ -391,6 +397,22 @@ namespace :job do
       index_date = index_date + 1.days
     end
   end
+
+  @sport_team = {
+    'Phoenix' => 'Phoenix Mercury',
+    'Indiana' => 'Indiana Fever',
+    'Connecticut' => 'Connecticut Sun',
+    'Minnesota' => 'Minnesota Lynx',
+    'Chicago' => 'Chicago Sky',
+    'Atlanta' => 'Atlanta Dream',
+    'San Antonio' => 'San Antonio Stars',
+    'Washington' => 'Washington Mystics',
+    'Tulsa' => 'Tulsa Shock',
+    'New York' => 'New York Liberty',
+    'Seattle' => 'Seattle Storm',
+    'Los Angeles' => 'L.A. Sparks',
+    'Dallas' => 'Dallas Wings'
+  }
 
 
   @team_timezone = {
