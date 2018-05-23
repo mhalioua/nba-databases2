@@ -59,7 +59,7 @@ namespace :job do
         doc = download_document(url)
         puts url
         element = doc.css(".highlight")
-        if element.size > 4
+        if element.size > 3
           away_value = element[0]
           home_value = element[2]
 
@@ -92,6 +92,45 @@ namespace :job do
         game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), est_time: date.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
       end
       index_date = index_date + 1.days
+    end
+  end
+
+  task :fix => [:environment] do
+    games = Wnba.where('away_fga is null')
+    games.each do |game|
+      url = "http://www.espn.com/wnba/boxscore?gameId=#{game_id}"
+      doc = download_document(url)
+      puts url
+      element = doc.css(".highlight")
+      if element.size > 3
+        away_value = element[0]
+        home_value = element[2]
+
+        away_fga_value = away_value.children[2].text
+        away_fga_index = away_fga_value.index('-')
+        away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
+        away_to_value = away_value.children[11].text.to_i
+        away_pf_value = away_value.children[12].text.to_i
+        away_fta_value = away_value.children[4].text
+        away_fta_index = away_fta_value.index('-')
+        away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
+        away_or_value = away_value.children[5].text.to_i
+        away_stl_value = away_value.children[9].text.to_i
+        away_blk_value = away_value.children[10].text.to_i
+
+        home_fga_value = home_value.children[2].text
+        home_fga_index = home_fga_value.index('-')
+        home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
+        home_to_value = home_value.children[11].text.to_i
+        home_pf_value = home_value.children[12].text.to_i
+        home_fta_value = home_value.children[4].text
+        home_fta_index = home_fta_value.index('-')
+        home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
+        home_or_value = home_value.children[5].text.to_i
+        home_stl_value = home_value.children[9].text.to_i
+        home_blk_value = home_value.children[10].text.to_i
+      end
+      game.update(away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
     end
   end
 
