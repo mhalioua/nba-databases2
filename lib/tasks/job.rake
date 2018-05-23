@@ -229,14 +229,7 @@ namespace :job do
       doc = download_document(url)
       elements = doc.css(".event-holder")
       elements.each do |element|
-        if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
-          next
-        end
-        if element.children[0].children[5].children.size < 5
-          next
-        end
-
-        if element.children[0].children[3].children.size < 3
+        if element.children[0].children[4].children.size < 5
           next
         end
 
@@ -313,10 +306,7 @@ namespace :job do
       doc = download_document(url)
       elements = doc.css(".event-holder")
       elements.each do |element|
-        if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
-          next
-        end
-        if element.children[0].children[5].children.size < 5
+        if element.children[0].children[4].children.size < 5
           next
         end
         score_element = element.children[0].children[8]
