@@ -192,28 +192,28 @@ namespace :job do
   end
 
   task :getLines => [:environment] do
-    Rake::Task["nba:getFirstLines"].invoke
-    Rake::Task["nba:getFirstLines"].reenable
+    Rake::Task["job:getFirstLines"].invoke
+    Rake::Task["job:getFirstLines"].reenable
 
-    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/2nd-half/?date="
-    Rake::Task["nba:getSecondLines"].invoke("second", link)
-    Rake::Task["nba:getSecondLines"].reenable
+    link = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/2nd-half/?date="
+    Rake::Task["job:getSecondLines"].invoke("second", link)
+    Rake::Task["job:getSecondLines"].reenable
 
-    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/?date="
-    Rake::Task["nba:getSecondLines"].invoke("full", link)
-    Rake::Task["nba:getSecondLines"].reenable
+    link = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/?date="
+    Rake::Task["job:getSecondLines"].invoke("full", link)
+    Rake::Task["job:getSecondLines"].reenable
 
-    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
-    Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
-    Rake::Task["nba:getSecondLines"].reenable
+    link = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/totals/1st-half/?date="
+    Rake::Task["job:getSecondLines"].invoke("firstTotal", link)
+    Rake::Task["job:getSecondLines"].reenable
 
-    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
-    Rake::Task["nba:getSecondLines"].invoke("secondTotal", link)
-    Rake::Task["nba:getSecondLines"].reenable
+    link = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/totals/2nd-half/?date="
+    Rake::Task["job:getSecondLines"].invoke("secondTotal", link)
+    Rake::Task["job:getSecondLines"].reenable
 
-    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
-    Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
-    Rake::Task["nba:getSecondLines"].reenable
+    link = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/totals/?date="
+    Rake::Task["job:getSecondLines"].invoke("fullTotal", link)
+    Rake::Task["job:getSecondLines"].reenable
   end
 
   task :getFirstLines => [:environment] do
@@ -225,7 +225,7 @@ namespace :job do
     while index_date <= Date.new(2017, 9 ,3) do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
-      url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
+      url = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/1st-half/?date=#{game_day}"
       doc = download_document(url)
       elements = doc.css(".event-holder")
       elements.each do |element|
