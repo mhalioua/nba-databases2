@@ -98,7 +98,7 @@ namespace :job do
   task :fix => [:environment] do
     games = Wnba.where('away_fga is null')
     games.each do |game|
-      url = "http://www.espn.com/wnba/boxscore?gameId=#{game_id}"
+      url = "http://www.espn.com/wnba/boxscore?gameId=#{game.game_id}"
       doc = download_document(url)
       puts url
       element = doc.css(".highlight")
@@ -231,9 +231,6 @@ namespace :job do
   end
 
   task :getLines => [:environment] do
-    Rake::Task["job:getFirstLines"].invoke
-    Rake::Task["job:getFirstLines"].reenable
-
     link = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/2nd-half/?date="
     Rake::Task["job:getSecondLines"].invoke("second", link)
     Rake::Task["job:getSecondLines"].reenable
@@ -301,9 +298,6 @@ namespace :job do
         line_two = closer.index(" ")
         closer_side = line_two ? closer[0..line_two] : ""
         closer_total = line_two ? closer[line_two+2..-1] : ""
-        puts home_name
-        puts away_name
-        puts date
 
         matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
         if matched.size > 0
