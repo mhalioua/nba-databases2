@@ -930,7 +930,7 @@ namespace :nba do
 				away_number 	= element.children[0].children[3].children[1].text
 				closer 			= score_element.children[1].text
 				opener 			= element.children[0].children[7].children[1].text
-				
+
 				game_time = element.children[0].children[4].text
 				ind = game_time.index(":")
 				hour = ind ? game_time[0..ind-1].to_i : 0
@@ -944,11 +944,11 @@ namespace :nba do
 				end
 
 				if @nba_nicknames[home_name]
-			      home_name = @nba_nicknames[home_name]
-			    end
-			    if @nba_nicknames[away_name]
-			      away_name = @nba_nicknames[away_name]
-			    end
+		      home_name = @nba_nicknames[home_name]
+		    end
+		    if @nba_nicknames[away_name]
+		      away_name = @nba_nicknames[away_name]
+		    end
 				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
 
 				line_one = opener.index(" ")

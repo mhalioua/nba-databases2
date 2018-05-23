@@ -191,6 +191,282 @@ namespace :job do
     end
   end
 
+  task :getLines => [:environment] do
+    Rake::Task["nba:getFirstLines"].invoke
+    Rake::Task["nba:getFirstLines"].reenable
+
+    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/2nd-half/?date="
+    Rake::Task["nba:getSecondLines"].invoke("second", link)
+    Rake::Task["nba:getSecondLines"].reenable
+
+    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/?date="
+    Rake::Task["nba:getSecondLines"].invoke("full", link)
+    Rake::Task["nba:getSecondLines"].reenable
+
+    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
+    Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
+    Rake::Task["nba:getSecondLines"].reenable
+
+    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
+    Rake::Task["nba:getSecondLines"].invoke("secondTotal", link)
+    Rake::Task["nba:getSecondLines"].reenable
+
+    link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
+    Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
+    Rake::Task["nba:getSecondLines"].reenable
+  end
+
+  task :getFirstLines => [:environment] do
+    include Api
+    games = Wnba.all
+    puts "----------Get First Lines----------"
+
+    index_date = Date.yesterday
+    while index_date <= Date.tomorrow  do
+      game_day = index_date.strftime("%Y%m%d")
+      puts game_day
+      url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
+      doc = download_document(url)
+      elements = doc.css(".event-holder")
+      elements.each do |element|
+        if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
+          next
+        end
+        if element.children[0].children[5].children.size < 5
+          next
+        end
+
+        if element.children[0].children[3].children.size < 3
+          next
+        end
+
+        score_element = element.children[0].children[11]
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[9]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[13]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[12]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[10]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[17]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[18]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[14]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[15]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[16]
+        end
+
+        home_name     = element.children[0].children[5].children[1].text
+        away_name     = element.children[0].children[5].children[0].text
+        home_number   = element.children[0].children[3].children[2].text
+        away_number   = element.children[0].children[3].children[1].text
+        closer      = score_element.children[1].text
+        opener      = element.children[0].children[7].children[1].text
+
+        game_time = element.children[0].children[4].text
+        ind = game_time.index(":")
+        hour = ind ? game_time[0..ind-1].to_i : 0
+        min = ind ? game_time[ind+1..ind+3].to_i : 0
+        ap = game_time[-1]
+        if ap == "p" && hour != 12
+          hour = hour + 12
+        end
+        if ap == "a" && hour == 12
+          hour = 24
+        end
+
+        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
+
+        line_one = opener.index(" ")
+        opener_side = line_one ? opener[0..line_one] : ""
+        opener_total = line_one ? opener[line_one+2..-1] : ""
+        line_two = closer.index(" ")
+        closer_side = line_two ? closer[0..line_two] : ""
+        closer_total = line_two ? closer[line_two+2..-1] : ""
+
+        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
+        if matched.size > 0
+          update_game = matched.first
+          if opener_side.include?('½')
+            if opener_side[0] == '-'
+              opener_side = opener_side[0..-1].to_f - 0.5
+            elsif
+              opener_side = opener_side[0..-1].to_f + 0.5
+            end
+          else
+            opener_side = opener_side.to_f
+          end
+          if closer_side.include?('½')
+            if closer_side[0] == '-'
+              closer_side = closer_side[0..-1].to_f - 0.5
+            elsif
+              closer_side = closer_side[0..-1].to_f + 0.5
+            end
+          else
+            closer_side = closer_side.to_f
+          end
+          update_game.update(first_opener_side: opener_side, first_closer_side: closer_side)
+        end
+      end
+      index_date = index_date + 1.days
+    end
+  end
+    
+  task :getSecondLines, [:type, :game_link] => [:environment] do |t, args|
+    include Api
+    games = Wnba.all
+    game_link = args[:game_link]
+    type = args[:type]
+    puts "----------Get #{type} Lines----------"
+
+    index_date = Date.yesterday
+    while index_date <= Date.tomorrow  do
+      game_day = index_date.strftime("%Y%m%d")
+      puts game_day
+      url = "#{game_link}#{game_day}"
+      doc = download_document(url)
+      elements = doc.css(".event-holder")
+      elements.each do |element|
+        if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
+          next
+        end
+        if element.children[0].children[5].children.size < 5
+          next
+        end
+        score_element = element.children[0].children[11]
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[9]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[13]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[12]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[10]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[17]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[18]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[14]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[15]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[16]
+        end
+
+        home_name     = element.children[0].children[5].children[1].text
+        away_name     = element.children[0].children[5].children[0].text
+        closer      = score_element.children[1].text
+        opener      = element.children[0].children[7].children[1].text
+        
+        game_time = element.children[0].children[4].text
+        ind = game_time.index(":")
+        hour = ind ? game_time[0..ind-1].to_i : 0
+        min = ind ? game_time[ind+1..ind+3].to_i : 0
+        ap = game_time[-1]
+        if ap == "p" && hour != 12
+          hour = hour + 12
+        end
+        if ap == "a" && hour == 12
+          hour = 24
+        end
+
+        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
+
+        line_one = opener.index(" ")
+        opener_side = line_one ? opener[0..line_one] : ""
+        opener_total = line_one ? opener[line_one+2..-1] : ""
+        line_two = closer.index(" ")
+        closer_side = line_two ? closer[0..line_two] : ""
+        closer_total = line_two ? closer[line_two+2..-1] : ""
+
+        matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
+        if matched.size > 0
+          update_game = matched.first
+          if opener_side.include?('½')
+            if opener_side[0] == '-'
+              opener_side = opener_side[0..-1].to_f - 0.5
+            elsif
+              opener_side = opener_side[0..-1].to_f + 0.5
+            end
+          else
+            opener_side = opener_side.to_f
+          end
+          if closer_side.include?('½')
+            if closer_side[0] == '-'
+              closer_side = closer_side[0..-1].to_f - 0.5
+            elsif
+              closer_side = closer_side[0..-1].to_f + 0.5
+            end
+          else
+            closer_side = closer_side.to_f
+          end
+          if type == "second"
+            puts opener_side
+            puts closer_side
+            update_game.update(second_opener_side: opener_side, second_closer_side: closer_side)
+          elsif type == "full"
+            puts opener_side
+            puts closer_side
+            update_game.update(full_opener_side: opener_side, full_closer_side: closer_side)
+          elsif type == "firstTotal"
+            puts opener_side
+            puts closer_side
+            update_game.update(first_opener_total: opener_side, first_closer_total: closer_side)
+          elsif type == "secondTotal"
+            puts opener_side
+            puts closer_side
+            update_game.update(second_opener_total: opener_side, second_closer_total: closer_side)
+          elsif type == "fullTotal"
+            puts opener_side
+            puts closer_side
+            update_game.update(full_opener_total: opener_side, full_closer_total: closer_side)
+          end
+        end
+      end
+      index_date = index_date + 1.days
+    end
+  end
+
 
   @team_timezone = {
     'Las Vegas' => -7,
