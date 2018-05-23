@@ -399,19 +399,19 @@ namespace :job do
   end
 
   @sport_team = {
-    'Phoenix' => 'Phoenix Mercury',
-    'Indiana' => 'Indiana Fever',
-    'Connecticut' => 'Connecticut Sun',
-    'Minnesota' => 'Minnesota Lynx',
-    'Chicago' => 'Chicago Sky',
-    'Atlanta' => 'Atlanta Dream',
-    'San Antonio' => 'San Antonio Stars',
-    'Washington' => 'Washington Mystics',
-    'Tulsa' => 'Tulsa Shock',
-    'New York' => 'New York Liberty',
-    'Seattle' => 'Seattle Storm',
-    'Los Angeles' => 'L.A. Sparks',
-    'Dallas' => 'Dallas Wings'
+    'Phoenix Mercury' => 'Phoenix',
+    'Indiana Fever' => 'Indiana',
+    'Connecticut Sun' => 'Connecticut',
+    'Minnesota Lynx' => 'Minnesota',
+    'Chicago Sky' => 'Chicago',
+    'Atlanta Dream' => 'Atlanta',
+    'San Antonio Stars' => 'San Antonio',
+    'Washington Mystics' => 'Washington',
+    'Tulsa Shock' => 'Tulsa',
+    'New York Liberty' => 'New York',
+    'Seattle Storm' => 'Seattle',
+    'L.A. Sparks' => 'Los Angeles',
+    'Dallas Wings' => 'Dallas'
   }
 
 
