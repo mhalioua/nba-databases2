@@ -95,46 +95,6 @@ namespace :job do
     end
   end
 
-  task :fix => [:environment] do
-    include Api
-    games = Wnba.where('away_fga is null')
-    games.each do |game|
-      url = "http://www.espn.com/wnba/boxscore?gameId=#{game.game_id}"
-      doc = download_document(url)
-      puts url
-      element = doc.css(".highlight")
-      if element.size > 3 && element[2].children.size > 10
-        away_value = element[0]
-        home_value = element[2]
-
-        away_fga_value = away_value.children[2].text
-        away_fga_index = away_fga_value.index('-')
-        away_fga_value = away_fga_index ? away_fga_value[away_fga_index+1..-1].to_i : 0
-        away_to_value = away_value.children[11].text.to_i
-        away_pf_value = away_value.children[12].text.to_i
-        away_fta_value = away_value.children[4].text
-        away_fta_index = away_fta_value.index('-')
-        away_fta_value = away_fta_index ? away_fta_value[away_fta_index+1..-1].to_i : 0
-        away_or_value = away_value.children[5].text.to_i
-        away_stl_value = away_value.children[9].text.to_i
-        away_blk_value = away_value.children[10].text.to_i
-
-        home_fga_value = home_value.children[2].text
-        home_fga_index = home_fga_value.index('-')
-        home_fga_value = home_fga_index ? home_fga_value[home_fga_index+1..-1].to_i : 0
-        home_to_value = home_value.children[11].text.to_i
-        home_pf_value = home_value.children[12].text.to_i
-        home_fta_value = home_value.children[4].text
-        home_fta_index = home_fta_value.index('-')
-        home_fta_value = home_fta_index ? home_fta_value[home_fta_index+1..-1].to_i : 0
-        home_or_value = home_value.children[5].text.to_i
-        home_stl_value = home_value.children[9].text.to_i
-        home_blk_value = home_value.children[10].text.to_i
-      end
-      game.update(away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
-    end
-  end
-
   task :getLinkGame => [:environment] do
     include Api
     puts "----------Get Link Games----------"
@@ -258,8 +218,8 @@ namespace :job do
     games = Wnba.all
     puts "----------Get First Lines----------"
 
-    index_date = Date.new(2015, 6, 5)
-    while index_date <= Date.new(2015, 6, 5) do
+    index_date = Date.new(2010, 5, 15)
+    while index_date <= Date.new(2017, 9 ,3) do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/1st-half/?date=#{game_day}"
