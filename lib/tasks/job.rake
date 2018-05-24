@@ -451,9 +451,14 @@ namespace :job do
       away_to = 0
       away_pf = 0
       away_or = 0
+      count = 0
       elements.each_with_index do |element, index|
-        next if element.children[0].text.squish == 'time'
-        if element.children[2].text.include?('End') && element.children[2].text.include?('2nd Quarter')
+        if element.children[0].text.squish == 'time'
+          count = count + 1
+          next
+        end
+        if count == 3
+          count = count + 1
           game.update(
             home_fga_first: home_fga + home_pta,
             home_fgm_first: home_fgm + home_ptm,
