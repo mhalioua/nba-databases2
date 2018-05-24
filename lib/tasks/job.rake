@@ -239,6 +239,10 @@ namespace :job do
           score_element = element.children[0].children[10]
         end
 
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[11]
+        end
+
         home_name     = element.children[0].children[4].children[1].text
         away_name     = element.children[0].children[4].children[0].text
         closer      = score_element.children[1].text
@@ -319,6 +323,10 @@ namespace :job do
 
         if score_element.children[1].text == ""
           score_element = element.children[0].children[10]
+        end
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[11]
         end
 
         home_name     = element.children[0].children[4].children[1].text
