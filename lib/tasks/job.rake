@@ -192,6 +192,9 @@ namespace :job do
   end
 
   task :getLines => [:environment] do
+    Rake::Task["job:getFirstLines"].invoke
+    Rake::Task["job:getFirstLines"].reenable
+
     link = "https://www.sportsbookreview.com/betting-odds/wnba-basketball/2nd-half/?date="
     Rake::Task["job:getSecondLines"].invoke("second", link)
     Rake::Task["job:getSecondLines"].reenable
@@ -231,6 +234,11 @@ namespace :job do
         end
 
         score_element = element.children[0].children[8]
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[10]
+        end
+
         home_name     = element.children[0].children[4].children[1].text
         away_name     = element.children[0].children[4].children[0].text
         closer      = score_element.children[1].text
@@ -306,7 +314,12 @@ namespace :job do
         if element.children[0].children[4].children.size < 5
           next
         end
+
         score_element = element.children[0].children[8]
+
+        if score_element.children[1].text == ""
+          score_element = element.children[0].children[10]
+        end
 
         home_name     = element.children[0].children[4].children[1].text
         away_name     = element.children[0].children[4].children[0].text
