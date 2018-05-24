@@ -240,7 +240,7 @@ namespace :job do
         end
 
         if score_element.children[1].text == ""
-          score_element = element.children[0].children[11]
+          score_element = element.children[0].children[9]
         end
 
         home_name     = element.children[0].children[4].children[1].text
@@ -326,7 +326,7 @@ namespace :job do
         end
 
         if score_element.children[1].text == ""
-          score_element = element.children[0].children[11]
+          score_element = element.children[0].children[9]
         end
 
         home_name     = element.children[0].children[4].children[1].text
