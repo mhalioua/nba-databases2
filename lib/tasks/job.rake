@@ -3,8 +3,8 @@ namespace :job do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    index_date = Date.new(2010,5,15)
-    while index_date <= Date.new(2010,8,18)
+    index_date = Date.new(2010, 5, 15)
+    while index_date <= Date.new(2010, 8, 18)
       game_date = index_date.strftime("%Y%m%d")
       url = "http://www.espn.com/wnba/schedule/_/date/#{game_date}"
       doc = download_document(url)
@@ -388,24 +388,14 @@ namespace :job do
             closer_side = closer_side.to_f
           end
           if type == "second"
-            puts opener_side
-            puts closer_side
             update_game.update(second_opener_side: opener_side, second_closer_side: closer_side)
           elsif type == "full"
-            puts opener_side
-            puts closer_side
             update_game.update(full_opener_side: opener_side, full_closer_side: closer_side)
           elsif type == "firstTotal"
-            puts opener_side
-            puts closer_side
             update_game.update(first_opener_total: opener_side, first_closer_total: closer_side)
           elsif type == "secondTotal"
-            puts opener_side
-            puts closer_side
             update_game.update(second_opener_total: opener_side, second_closer_total: closer_side)
           elsif type == "fullTotal"
-            puts opener_side
-            puts closer_side
             update_game.update(full_opener_total: opener_side, full_closer_total: closer_side)
           end
         end
@@ -676,7 +666,6 @@ namespace :job do
     'L.A. Sparks' => 'Los Angeles',
     'Dallas Wings' => 'Dallas'
   }
-
 
   @team_timezone = {
     'Las Vegas' => -7,
