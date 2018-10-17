@@ -816,7 +816,7 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <% if player.sum_poss != 0 %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>%</td>
+        <td style='<%= style %>' ><%= @injury_home_total_poss != 0 ? '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) : 0 %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
@@ -887,7 +887,7 @@
         <% end %>
         <td style='<%= style %>' ><%= player.sum_mins ? player.sum_mins/(count - 2) : "Checking" %></td>
         <% if player.sum_poss %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) %>%</td>
+        <td style='<%= style %>' ><%= @injury_home_total_poss != 0 ? '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) : 0 %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
