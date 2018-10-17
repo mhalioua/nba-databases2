@@ -2175,7 +2175,9 @@ namespace :nba do
     @away_players_group1.each_with_index do |player, index|
       puts player.possession
       puts player.sum_mins
-      puts @away_injury_name
+      puts @away_injury_name.inspect
+      puts @away_injury_name.include?(player.player_name)
+      puts !@injuries.include?(player.id.to_s)
       count = 1
       if player.possession
         count = player.possession.scan(/,/).count + 1
