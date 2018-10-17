@@ -2076,13 +2076,29 @@ namespace :nba do
   end
 
 
-	task :atest => :environment do
-		require 'csv'
-
-		items = []
-		CSV.foreach(Rails.root.join('fullseason.csv'), headers: true) do |row|
-			Fullseason.create(row.to_h)
-		end
+	task :test => :environment do
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+    url = "https://www.rotowire.com/basketball/nba_lineups.htm"
+    0.upto(1) do |type|
+      doc = download_document(url)
+      times = doc.css(".lineup__time")[0..-1]
+      away_teams = doc.css(".is-visit .lineup__abbr")
+      home_teams = doc.css(".is-home .lineup__abbr")
+      players = doc.css(".lineup__list")
+      times.each_with_index do |time_element, index|
+        time = DateTime.parse(time_element.children[0].text)
+        time = time + type.days
+        away_team = away_teams[index].text.squish
+        home_team = home_teams[index].text.squish
+        away_players = players[index*2]
+        home_players = players[index*2 + 1]
+        away_players.children.each_with_index do |away_player, index|
+          next if index % 2 == 0 || index > 12 || index < 2
+          puts away_player.inspect
+        end
+      end
+    end
 	end
 
   task :getRefereeStatic => :environment do
@@ -2679,7 +2695,7 @@ namespace :nba do
     url = "https://www.rotowire.com/basketball/nba_lineups.htm"
     0.upto(1) do |type|
       doc = download_document(url)
-      times = doc.css(".lineup__time")[0..-1]
+      times = doc.css(".lineup__time")[0..-2]
       away_teams = doc.css(".is-visit .lineup__abbr")
       home_teams = doc.css(".is-home .lineup__abbr")
       players = doc.css(".lineup__list")
@@ -2691,22 +2707,18 @@ namespace :nba do
         away_players = players[index*2]
         home_players = players[index*2 + 1]
         away_players.children.each_with_index do |away_player, index|
-          next if index == 0 || index > 5
+          next if index % 2 == 0 || index > 12 || index < 2
           next if away_player.children.size < 3
           position = away_player.children[1].text.squish
           player_name = away_player.children[3].children[0].text.squish
-          puts position
-          puts player_name
           starter = Starter.find_or_create_by(time: time.to_s, team: away_team, index: (index + 1))
           starter.update(position: position, player_name: player_name)
         end
         home_players.children.each_with_index do |home_player, index|
-          next if index == 0 || index > 5
+          next if index % 2 == 0 || index > 12 || index < 2
           next if home_player.children.size < 3
           position = home_player.children[1].text.squish
           player_name = home_player.children[3].children[0].text.squish
-          puts position
-          puts player_name
           starter = Starter.find_or_create_by(time: time.to_s, team: home_team, index: (index + 1))
           starter.update(position: position, player_name: player_name)
         end

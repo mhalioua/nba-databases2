@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
       <change beforePath="$PROJECT_DIR$/lib/tasks/nba.rake" afterPath="$PROJECT_DIR$/lib/tasks/nba.rake" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
@@ -22,8 +24,8 @@
       <file leaf-file-name="nba.rake" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="2698" column="26" lean-forward="false" selection-start-line="2698" selection-start-column="26" selection-end-line="2698" selection-end-column="26" />
+            <state relative-caret-position="121">
+              <caret line="2700" column="40" lean-forward="true" selection-start-line="2700" selection-start-column="40" selection-end-line="2700" selection-end-column="40" />
               <folding>
                 <element signature="e#3831#19734#0" expanded="false" />
               </folding>
@@ -35,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="186">
-              <caret line="82" column="21" lean-forward="true" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+              <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -63,6 +65,8 @@
       <find>@injury_away_total_min</find>
       <find>Starter</find>
       <find>getStarter</find>
+      <find>test</find>
+      <find>starter</find>
     </findStrings>
     <replaceStrings>
       <replace>5.hours</replace>
@@ -279,12 +283,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1539754222861</updated>
-      <workItem from="1539754227192" duration="9820000" />
+      <workItem from="1539754227192" duration="10512000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9820000" />
+    <option name="totallyTimeSpent" value="10512000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="6" />
@@ -359,15 +363,15 @@
     <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
-          <caret line="82" column="21" lean-forward="true" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+          <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="2698" column="26" lean-forward="false" selection-start-line="2698" selection-start-column="26" selection-end-line="2698" selection-end-column="26" />
+        <state relative-caret-position="121">
+          <caret line="2700" column="40" lean-forward="true" selection-start-line="2700" selection-start-column="40" selection-end-line="2700" selection-end-column="40" />
           <folding>
             <element signature="e#3831#19734#0" expanded="false" />
           </folding>
