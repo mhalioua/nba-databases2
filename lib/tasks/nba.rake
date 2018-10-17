@@ -1266,6 +1266,7 @@ namespace :nba do
 			doc = download_document(url)
 			links = doc.css('.stats_table tbody tr th')
 			links.each_with_index do |link, index|
+        next if index == 0
 				href = "https://www.basketball-reference.com#{link.child['href']}"
 				puts href
 				year = href[-9..-6].to_i
