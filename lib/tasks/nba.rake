@@ -2077,28 +2077,83 @@ namespace :nba do
 
 
 	task :test => :environment do
-    include Api
-    Time.zone = 'Eastern Time (US & Canada)'
-    url = "https://www.rotowire.com/basketball/nba_lineups.htm"
-    0.upto(1) do |type|
-      doc = download_document(url)
-      times = doc.css(".lineup__time")[0..-1]
-      away_teams = doc.css(".is-visit .lineup__abbr")
-      home_teams = doc.css(".is-home .lineup__abbr")
-      players = doc.css(".lineup__list")
-      times.each_with_index do |time_element, index|
-        time = DateTime.parse(time_element.children[0].text)
-        time = time + type.days
-        away_team = away_teams[index].text.squish
-        home_team = home_teams[index].text.squish
-        away_players = players[index*2]
-        home_players = players[index*2 + 1]
-        away_players.children.each_with_index do |away_player, index|
-          next if index % 2 == 0 || index > 12 || index < 2
-          puts away_player.inspect
+    @game_id = 401070695
+    @game = Nba.find_by(game_id: @game_id)
+    @head = @game.away_team + " @ " + @game.home_team
+
+    @home_abbr = @game.home_abbr
+    @away_abbr = @game.away_abbr
+
+    @now = Date.strptime(@game.game_date)
+    if @now > Time.now
+      @now = Time.now
+    end
+
+    @away_last = Nba.where("home_abbr = ? AND game_date < ? AND total_point != 0", @away_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ? AND total_point != 0", @away_abbr, @now)).order(:game_date).last
+    @home_last = Nba.where("home_abbr = ? AND game_date < ? AND total_point != 0", @home_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ? AND total_point != 0", @home_abbr, @now)).order(:game_date).last
+
+    if @away_abbr == @away_last.away_abbr
+      @away_flag = 0
+    else
+      @away_flag = 1
+    end
+
+    if @home_abbr == @home_last.away_abbr
+      @home_flag = 0
+    else
+      @home_flag = 1
+    end
+
+    @date_id = Date.strptime(@game.game_date).strftime("%Y-%m-%d")
+
+    @away_players_search = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state)
+    @away_players = @away_players_search.to_a
+    @away_players_group1 = []
+    @away_players_group2 = []
+    @away_players_group3 = @away_players.dup
+    @away_starter_abbr = @away_abbr
+    @away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
+    @away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
+    @away_starters.each do |away_starter|
+      away_starter_player_name = away_starter.player_name
+      away_starter_player_fullname = away_starter_player_name.gsub('.', '')
+      selected_player = @away_players_search.where("player_fullname = ?", away_starter_player_fullname).first
+      selected_player = @away_players_search.where("player_name = ?", away_starter_player_name).first unless selected_player
+      if away_starter_player_name == 'J.R. Smith'
+        selected_player = @away_players_search.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").first
+      elsif away_starter_player_name == 'Taurean Prince'
+        selected_player = @away_players_search.where("player_fullname = 'Taurean Waller-Prince'").first
+      end
+      if selected_player
+        selected_player.position = away_starter.position
+        @away_players_group3.delete(selected_player)
+        if away_starter.position == 'PG' || away_starter.position == 'SG'
+          @away_players_group1.push(selected_player)
+        else
+          @away_players_group2.push(selected_player)
+        end
+      else
+        additional_player = Player.where("player_fullname = ? AND game_date < ?", away_starter_player_fullname, @now).order(:game_date).last
+        additional_player = Player.where("player_name = ? AND game_date < ?", away_starter_player_name, @now).order(:game_date).last unless additional_player
+        if away_starter_player_name == 'J.R. Smith'
+          additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith' AND game_date < ?", @now).order(:game_date).last
+        elsif away_starter_player_name == 'Taurean Prince'
+          additional_player = Player.where("player_fullname = 'Taurean Waller-Prince' AND game_date < ?", @now).order(:game_date).last
+        end
+        if additional_player
+          additional_player.position = away_starter.position
+          @away_players.push(additional_player)
+          if away_starter.position == 'PG' || away_starter.position == 'SG'
+            @away_players_group1.push(additional_player)
+          else
+            @away_players_group2.push(additional_player)
+          end
         end
       end
     end
+    puts @away_players_group1.inspect
+    puts @away_players_group2.inspect
+    puts @away_players_group3.inspect
 	end
 
   task :getRefereeStatic => :environment do
