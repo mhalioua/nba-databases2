@@ -2692,17 +2692,21 @@ namespace :nba do
         home_players = players[index*2 + 1]
         away_players.children.each_with_index do |away_player, index|
           next if index == 0 || index > 5
-          next if away_player.children.size < 2
-          position = away_player.children[0].text.squish
-          player_name = away_player.children[1].children[0].text.squish
+          next if away_player.children.size < 3
+          position = away_player.children[1].text.squish
+          player_name = away_player.children[3].children[0].text.squish
+          puts position
+          puts player_name
           starter = Starter.find_or_create_by(time: time.to_s, team: away_team, index: (index + 1))
           starter.update(position: position, player_name: player_name)
         end
         home_players.children.each_with_index do |home_player, index|
           next if index == 0 || index > 5
-          next if home_player.children.size < 2
-          position = home_player.children[0].text.squish
-          player_name = home_player.children[1].children[0].text.squish
+          next if home_player.children.size < 3
+          position = home_player.children[1].text.squish
+          player_name = home_player.children[3].children[0].text.squish
+          puts position
+          puts player_name
           starter = Starter.find_or_create_by(time: time.to_s, team: home_team, index: (index + 1))
           starter.update(position: position, player_name: player_name)
         end
