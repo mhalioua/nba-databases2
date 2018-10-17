@@ -1385,6 +1385,8 @@ namespace :nba do
 					player_name = player.player_name
 
           url = player.link
+          puts player_name
+          puts url
           doc = download_document(url)
           player_name = doc.css('h1').first.text
 
