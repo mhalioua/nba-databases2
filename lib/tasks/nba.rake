@@ -2077,6 +2077,15 @@ namespace :nba do
 
 
 	task :test => :environment do
+    @match = {
+        'GS' => 'GSW',
+        'NY' => 'NYK',
+        'PHX' => 'PHO',
+        'SA' => 'SAS',
+        'UTAH' => 'UTA',
+        'WSH' => 'WAS',
+        'NO' => 'NOP'
+    }
     @game_id = 401070695
     @game = Nba.find_by(game_id: @game_id)
     @head = @game.away_team + " @ " + @game.home_team
