@@ -1428,10 +1428,10 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= (@home_total_or/@home_total_min * 240).round(2) %></td>
-        <td><%= (@home_total_stl/@home_total_min * 240).round(2) %></td>
-        <td><%= (@home_total_blk/@home_total_min * 240).round(2) %></td>
-        <td><%= (@home_total_to/@home_total_min * 240).round(2) %></td>
+        <td><%= @home_total_min != 0 ? (@home_total_or/@home_total_min * 240).round(2)  : 0 %></td>
+        <td><%= @home_total_min != 0 ? (@home_total_stl/@home_total_min * 240).round(2) : 0  %></td>
+        <td><%= @home_total_min != 0 ? (@home_total_blk/@home_total_min * 240).round(2) : 0  %></td>
+        <td><%= @home_total_min != 0 ? (@home_total_to/@home_total_min * 240).round(2)  : 0 %></td>
         <td></td>
         <td></td>
         <td></td>
