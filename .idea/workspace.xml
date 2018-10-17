@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/tasks/nba.rake" afterPath="$PROJECT_DIR$/lib/tasks/nba.rake" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
@@ -23,11 +22,9 @@
       <file leaf-file-name="nba.rake" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="1268" column="13" lean-forward="false" selection-start-line="1268" selection-start-column="13" selection-end-line="1268" selection-end-column="13" />
-              <folding>
-                <element signature="e#3831#19734#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="323">
+              <caret line="117" column="5" lean-forward="false" selection-start-line="117" selection-start-column="5" selection-end-line="117" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -38,10 +35,15 @@
     <findStrings>
       <find>sportsbookre</find>
       <find>sportsbookreview</find>
-      <find>gettg</find>
       <find>@basket_abbr</find>
       <find>https://</find>
       <find>http</find>
+      <find>gettg</find>
+      <find>getPlayer</find>
+      <find>getUpdateTG</find>
+      <find>getUpdatePoss</find>
+      <find>4.hours</find>
+      <find>5.hours</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -244,12 +246,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1539754222861</updated>
-      <workItem from="1539754227192" duration="2407000" />
+      <workItem from="1539754227192" duration="3674000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2407000" />
+    <option name="totallyTimeSpent" value="3674000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="0" />
@@ -264,7 +266,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296593" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296593" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -323,11 +325,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="1268" column="13" lean-forward="false" selection-start-line="1268" selection-start-column="13" selection-end-line="1268" selection-end-column="13" />
-          <folding>
-            <element signature="e#3831#19734#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="323">
+          <caret line="117" column="5" lean-forward="false" selection-start-line="117" selection-start-column="5" selection-end-line="117" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
