@@ -2160,9 +2160,6 @@ namespace :nba do
         end
       end
     end
-    puts @away_players_group1.inspect
-    puts @away_players_group2.inspect
-    puts @away_players_group3.inspect
 
     @injury_away_total_poss = 0
     @injury_away_total_min = 0
@@ -2176,6 +2173,9 @@ namespace :nba do
     injury_drtg_min = 0
     @injury_away_drtg_one_container = []
     @away_players_group1.each_with_index do |player, index|
+      puts player.possession
+      puts player.sum_mins
+      puts @away_injury_name
       count = 1
       if player.possession
         count = player.possession.scan(/,/).count + 1
@@ -2190,6 +2190,7 @@ namespace :nba do
         next
       end
       injury_drtg_count = injury_drtg_count + 1
+      puts @injury_away_total_min
       @injury_away_total_min = @injury_away_total_min + player.sum_mins/(count - 2)
       @injury_away_total_stl = @injury_away_total_stl + player.sum_stl.to_f/count
       @injury_away_total_blk = @injury_away_total_blk + player.sum_blk.to_f/count
