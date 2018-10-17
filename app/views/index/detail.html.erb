@@ -1184,10 +1184,10 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= (@away_total_or/@away_total_min * 240).round(2) %></td>
-        <td><%= (@away_total_stl/@away_total_min * 240).round(2) %></td>
-        <td><%= (@away_total_blk/@away_total_min * 240).round(2) %></td>
-        <td><%= (@away_total_to/@away_total_min * 240).round(2) %></td>
+        <td><%= @away_total_min != 0 ? (@away_total_or/@away_total_min * 240).round(2) : 0 %></td>
+        <td><%= @away_total_min != 0 ? (@away_total_stl/@away_total_min * 240).round(2): 0  %></td>
+        <td><%= @away_total_min != 0 ? (@away_total_blk/@away_total_min * 240).round(2): 0  %></td>
+        <td><%= @away_total_min != 0 ? (@away_total_to/@away_total_min * 240).round(2) : 0 %></td>
         <td></td>
         <td></td>
         <td></td>
