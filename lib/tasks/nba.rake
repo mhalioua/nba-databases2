@@ -75,23 +75,23 @@ namespace :nba do
 		Rake::Task["nba:getFirstLines"].invoke
 		Rake::Task["nba:getFirstLines"].reenable
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/2nd-half/?date="
+		link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/2nd-half/?date="
 		Rake::Task["nba:getSecondLines"].invoke("second", link)
 		Rake::Task["nba:getSecondLines"].reenable
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/?date="
+		link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/?date="
 		Rake::Task["nba:getSecondLines"].invoke("full", link)
 		Rake::Task["nba:getSecondLines"].reenable
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
+		link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
 		Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
 		Rake::Task["nba:getSecondLines"].reenable
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
+		link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
 		Rake::Task["nba:getSecondLines"].invoke("secondTotal", link)
 		Rake::Task["nba:getSecondLines"].reenable
 
-		link = "https://www.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
+		link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
 		Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
 		Rake::Task["nba:getSecondLines"].reenable
 
@@ -810,7 +810,7 @@ namespace :nba do
       game_day = index_date.strftime("%Y%m%d")
       index_date = index_date - 1.days
       puts game_day
-      url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
+      url = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
       doc = download_document(url)
       elements = doc.css(".event-holder")
       elements.each do |element|
@@ -871,7 +871,7 @@ namespace :nba do
 		while index_date <= Date.tomorrow  do
 			game_day = index_date.strftime("%Y%m%d")
 			puts game_day
-			url = "https://www.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
+			url = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/1st-half/?date=#{game_day}"
 			doc = download_document(url)
 			elements = doc.css(".event-holder")
 			elements.each do |element|
