@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/app/views/index/detail.html.erb" afterPath="$PROJECT_DIR$/app/views/index/detail.html.erb" />
+      <change beforePath="$PROJECT_DIR$/lib/tasks/nba.rake" afterPath="$PROJECT_DIR$/lib/tasks/nba.rake" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -22,14 +23,10 @@
       <file leaf-file-name="nba.rake" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="2413" column="30" lean-forward="true" selection-start-line="2413" selection-start-column="30" selection-end-line="2413" selection-end-column="30" />
+            <state relative-caret-position="159">
+              <caret line="808" column="37" lean-forward="false" selection-start-line="808" selection-start-column="35" selection-end-line="808" selection-end-column="37" />
               <folding>
                 <element signature="e#3831#19734#0" expanded="false" />
-                <element signature="e#94748#97070#0" expanded="false" />
-                <element signature="e#97307#98566#0" expanded="false" />
-                <element signature="e#98571#100921#0" expanded="false" />
-                <element signature="e#101037#102026#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -38,8 +35,8 @@
       <file leaf-file-name="index_controller.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-205">
-              <caret line="2234" column="49" lean-forward="false" selection-start-line="2234" selection-start-column="49" selection-end-line="2234" selection-end-column="49" />
+            <state relative-caret-position="104">
+              <caret line="2253" column="13" lean-forward="true" selection-start-line="2253" selection-start-column="13" selection-end-line="2253" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -48,8 +45,8 @@
       <file leaf-file-name="detail.html.erb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="935" column="103" lean-forward="true" selection-start-line="935" selection-start-column="103" selection-end-line="935" selection-end-column="103" />
+            <state relative-caret-position="143">
+              <caret line="662" column="43" lean-forward="false" selection-start-line="662" selection-start-column="43" selection-end-line="662" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -82,6 +79,7 @@
       <find>@match</find>
       <find>test</find>
       <find>@injury_away_total_min</find>
+      <find>10</find>
     </findStrings>
     <replaceStrings>
       <replace>5.hours</replace>
@@ -313,12 +311,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1539754222861</updated>
-      <workItem from="1539754227192" duration="14989000" />
+      <workItem from="1539754227192" duration="15174000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14989000" />
+    <option name="totallyTimeSpent" value="15174000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="6" />
@@ -390,20 +388,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="2413" column="30" lean-forward="true" selection-start-line="2413" selection-start-column="30" selection-end-line="2413" selection-end-column="30" />
-          <folding>
-            <element signature="e#3831#19734#0" expanded="false" />
-            <element signature="e#94748#97070#0" expanded="false" />
-            <element signature="e#97307#98566#0" expanded="false" />
-            <element signature="e#98571#100921#0" expanded="false" />
-            <element signature="e#101037#102026#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/welcome_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -414,16 +398,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-205">
-          <caret line="2234" column="49" lean-forward="false" selection-start-line="2234" selection-start-column="49" selection-end-line="2234" selection-end-column="49" />
+        <state relative-caret-position="104">
+          <caret line="2253" column="13" lean-forward="true" selection-start-line="2253" selection-start-column="13" selection-end-line="2253" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="808" column="37" lean-forward="false" selection-start-line="808" selection-start-column="35" selection-end-line="808" selection-end-column="37" />
+          <folding>
+            <element signature="e#3831#19734#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="935" column="103" lean-forward="true" selection-start-line="935" selection-start-column="103" selection-end-line="935" selection-end-column="103" />
+        <state relative-caret-position="143">
+          <caret line="662" column="43" lean-forward="false" selection-start-line="662" selection-start-column="43" selection-end-line="662" selection-end-column="43" />
           <folding />
         </state>
       </provider>
