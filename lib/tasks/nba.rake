@@ -2679,31 +2679,31 @@ namespace :nba do
     url = "https://www.rotowire.com/basketball/nba_lineups.htm"
     0.upto(1) do |type|
       doc = download_document(url)
-      times = doc.css(".dlineups-topboxcenter-topline")
-      away_teams = doc.css(".dlineups-topboxleft")
-      home_teams = doc.css(".dlineups-topboxright")
-      players = doc.css(".dlineups-half")
+      times = doc.css(".lineup__time")[0..-1]
+      away_teams = doc.css(".is-visit .lineup__abbr")
+      home_teams = doc.css(".is-home .lineup__abbr")
+      players = doc.css(".lineup__list")
       times.each_with_index do |time_element, index|
         time = DateTime.parse(time_element.children[0].text)
         time = time + type.days
         away_team = away_teams[index].text.squish
         home_team = home_teams[index].text.squish
-        away_players = players[index*4]
-        home_players = players[index*4 + 1]
+        away_players = players[index*2]
+        home_players = players[index*2 + 1]
         away_players.children.each_with_index do |away_player, index|
-          next if index % 2 == 0
-          next if away_player.children.size < 3
-          position = away_player.children[1].text.squish
-          player_name = away_player.children[3].children[0].text.squish
-          starter = Starter.find_or_create_by(time: time.to_s, team: away_team, index: (index + 1)/2)
+          next if index == 0 || index > 5
+          next if away_player.children.size < 2
+          position = away_player.children[0].text.squish
+          player_name = away_player.children[1].children[0].text.squish
+          starter = Starter.find_or_create_by(time: time.to_s, team: away_team, index: (index + 1))
           starter.update(position: position, player_name: player_name)
         end
         home_players.children.each_with_index do |home_player, index|
-          next if index % 2 == 0
-          next if home_player.children.size < 3
-          position = home_player.children[1].text.squish
-          player_name = home_player.children[3].children[0].text.squish
-          starter = Starter.find_or_create_by(time: time.to_s, team: home_team, index: (index + 1)/2)
+          next if index == 0 || index > 5
+          next if home_player.children.size < 2
+          position = home_player.children[0].text.squish
+          player_name = home_player.children[1].children[0].text.squish
+          starter = Starter.find_or_create_by(time: time.to_s, team: home_team, index: (index + 1))
           starter.update(position: position, player_name: player_name)
         end
       end
