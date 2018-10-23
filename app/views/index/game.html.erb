@@ -133,6 +133,16 @@
         <th class="red"></th>
         <th></th>
         <th></th>
+
+        <th class="black"></th>
+
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
 	    </tr>
 	  	<tr>
 	  		<th>Game ID</th>
@@ -659,7 +669,7 @@
       <% fglinetotal_count = @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").count(:fglinetotal).to_i : "" %>
       <td class="filter"><%= fglinetotal_count %></td>
       <td class="filter"><%= fglinetotal_count %></td>
-      <td></td>
+      <td style="background: #fa0"></td>
       <% firstlinetotal_count = @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i : "" %>
       <td class="yellow"><%= firstlinetotal_count %></td>
       <td class="yellow"><%= firstlinetotal_count %></td>

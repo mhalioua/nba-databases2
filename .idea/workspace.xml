@@ -4,7 +4,6 @@
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/views/index/game.html.erb" afterPath="$PROJECT_DIR$/app/views/index/game.html.erb" />
-      <change beforePath="$PROJECT_DIR$/lib/tasks/nba.rake" afterPath="$PROJECT_DIR$/lib/tasks/nba.rake" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -24,9 +23,11 @@
       <file leaf-file-name="game.html.erb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/index/game.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
-              <caret line="656" column="29" lean-forward="false" selection-start-line="656" selection-start-column="29" selection-end-line="656" selection-end-column="29" />
-              <folding />
+            <state relative-caret-position="296">
+              <caret line="671" column="34" lean-forward="false" selection-start-line="671" selection-start-column="34" selection-end-line="671" selection-end-column="34" />
+              <folding>
+                <element signature="n#style#0;n#td#88;n#tr#1;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -44,9 +45,11 @@
       <file leaf-file-name="detail.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="2582" column="176" lean-forward="true" selection-start-line="2576" selection-start-column="16" selection-end-line="2582" selection-end-column="176" />
-              <folding />
+            <state relative-caret-position="104">
+              <caret line="2508" column="40" lean-forward="false" selection-start-line="2508" selection-start-column="15" selection-end-line="2508" selection-end-column="40" />
+              <folding>
+                <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#14;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -333,12 +336,12 @@
       <workItem from="1539850160370" duration="319000" />
       <workItem from="1539850522003" duration="313000" />
       <workItem from="1540278244846" duration="11779000" />
-      <workItem from="1540319548668" duration="416000" />
+      <workItem from="1540319548668" duration="643000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29773000" />
+    <option name="totallyTimeSpent" value="30000000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="0" />
@@ -403,7 +406,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25350">
           <caret line="1690" column="13" lean-forward="true" selection-start-line="1690" selection-start-column="13" selection-end-line="1690" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#14;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -427,7 +432,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25140">
           <caret line="1676" column="13" lean-forward="true" selection-start-line="1676" selection-start-column="13" selection-end-line="1676" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#14;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -451,7 +458,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24855">
           <caret line="1657" column="47" lean-forward="true" selection-start-line="1657" selection-start-column="47" selection-end-line="1657" selection-end-column="47" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#14;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -526,6 +535,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="2508" column="40" lean-forward="false" selection-start-line="2508" selection-start-column="15" selection-end-line="2508" selection-end-column="40" />
+          <folding>
+            <element signature="n#style#0;n#tr#2;n#tbody#0;n#table#0;n#div#14;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
@@ -534,19 +553,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="2582" column="176" lean-forward="true" selection-start-line="2576" selection-start-column="16" selection-end-line="2582" selection-end-column="176" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/index/game.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="656" column="29" lean-forward="false" selection-start-line="656" selection-start-column="29" selection-end-line="656" selection-end-column="29" />
-          <folding />
+        <state relative-caret-position="296">
+          <caret line="671" column="34" lean-forward="false" selection-start-line="671" selection-start-column="34" selection-end-line="671" selection-end-column="34" />
+          <folding>
+            <element signature="n#style#0;n#td#88;n#tr#1;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
