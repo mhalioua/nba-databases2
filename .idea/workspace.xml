@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.rakeTasks" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/views/index/detail.html.erb" afterPath="$PROJECT_DIR$/app/views/index/detail.html.erb" />
+      <change beforePath="$PROJECT_DIR$/lib/tasks/nba.rake" afterPath="$PROJECT_DIR$/lib/tasks/nba.rake" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -19,36 +20,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="nba.rake" pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="nba.rake" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="1321" column="34" lean-forward="true" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
+            <state relative-caret-position="417">
+              <caret line="951" column="71" lean-forward="false" selection-start-line="951" selection-start-column="71" selection-end-line="951" selection-end-column="71" />
               <folding>
                 <element signature="e#3831#19734#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index_controller.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="2725" column="26" lean-forward="false" selection-start-line="2725" selection-start-column="10" selection-end-line="2725" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="detail.html.erb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-612">
-              <caret line="1398" column="39" lean-forward="true" selection-start-line="1398" selection-start-column="39" selection-end-line="1398" selection-end-column="39" />
-              <folding>
-                <element signature="n#style#0;n#td#9;n#tr#0;n#tbody#0;n#table#1;n#div#7;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -58,12 +37,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sportsbookre</find>
-      <find>sportsbookreview</find>
-      <find>https://</find>
-      <find>http</find>
-      <find>getPlayer</find>
-      <find>getUpdatePoss</find>
       <find>4.hours</find>
       <find>5.hours</find>
       <find>get</find>
@@ -86,6 +59,14 @@
       <find>@injury_home_total_poss</find>
       <find>@away_total_min</find>
       <find>@home_total_poss</find>
+      <find>sportsbookreview</find>
+      <find>http://www.espn.com/nba/standings/_/sort/wins/dir/desc/group/league</find>
+      <find>order_one_seventeen</find>
+      <find>teaminfo</find>
+      <find>getDate</find>
+      <find>getScore</find>
+      <find>getLinkGame</find>
+      <find>getFirstLines</find>
     </findStrings>
     <replaceStrings>
       <replace>5.hours</replace>
@@ -101,8 +82,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/controllers/index_controller.rb" />
-        <option value="$PROJECT_DIR$/lib/tasks/nba.rake" />
         <option value="$PROJECT_DIR$/app/views/index/detail.html.erb" />
+        <option value="$PROJECT_DIR$/lib/tasks/nba.rake" />
       </list>
     </option>
   </component>
@@ -112,9 +93,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="27" />
-    <option name="y" value="34" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="41" />
+    <option name="y" value="23" />
     <option name="width" value="1879" />
     <option name="height" value="1057" />
   </component>
@@ -133,8 +114,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="RailsProjectView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -181,7 +161,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="RailsProjectView" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -317,33 +298,37 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1539754222861</updated>
-      <workItem from="1539754227192" duration="16704000" />
+      <workItem from="1539754227192" duration="16946000" />
+      <workItem from="1539850160370" duration="319000" />
+      <workItem from="1539850522003" duration="313000" />
+      <workItem from="1540278244846" duration="4354000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16704000" />
+    <option name="totallyTimeSpent" value="21932000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24960086" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41583166" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35798818" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -358,11 +343,88 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14835">
+          <caret line="1321" column="34" lean-forward="false" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
+          <folding>
+            <element signature="e#3831#19734#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40875">
+          <caret line="2725" column="26" lean-forward="false" selection-start-line="2725" selection-start-column="10" selection-end-line="2725" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25350">
+          <caret line="1690" column="13" lean-forward="true" selection-start-line="1690" selection-start-column="13" selection-end-line="1690" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19815">
+          <caret line="1321" column="34" lean-forward="false" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
+          <folding>
+            <element signature="e#3831#19734#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40875">
+          <caret line="2725" column="26" lean-forward="false" selection-start-line="2725" selection-start-column="10" selection-end-line="2725" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25140">
+          <caret line="1676" column="13" lean-forward="true" selection-start-line="1676" selection-start-column="13" selection-end-line="1676" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19815">
+          <caret line="1321" column="34" lean-forward="true" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
+          <folding>
+            <element signature="e#3831#19734#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40875">
+          <caret line="2725" column="26" lean-forward="false" selection-start-line="2725" selection-start-column="10" selection-end-line="2725" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24855">
+          <caret line="1657" column="47" lean-forward="true" selection-start-line="1657" selection-start-column="47" selection-end-line="1657" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -378,7 +440,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -387,7 +448,6 @@
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="120">
             <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-            <folding />
           </first_editor>
           <second_editor />
         </state>
@@ -397,23 +457,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="1321" column="34" lean-forward="true" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
-          <folding>
-            <element signature="e#3831#19734#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
+        <state relative-caret-position="40875">
           <caret line="2725" column="26" lean-forward="false" selection-start-line="2725" selection-start-column="10" selection-end-line="2725" selection-end-column="26" />
           <folding />
         </state>
@@ -421,10 +470,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-612">
-          <caret line="1398" column="39" lean-forward="true" selection-start-line="1398" selection-start-column="39" selection-end-line="1398" selection-end-column="39" />
+        <state relative-caret-position="345">
+          <caret line="1679" column="7" lean-forward="true" selection-start-line="1679" selection-start-column="7" selection-end-line="1679" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="951" column="71" lean-forward="false" selection-start-line="951" selection-start-column="71" selection-end-line="951" selection-end-column="71" />
           <folding>
-            <element signature="n#style#0;n#td#9;n#tr#0;n#tbody#0;n#table#1;n#div#7;n#!!top" expanded="true" />
+            <element signature="e#3831#19734#0" expanded="false" />
           </folding>
         </state>
       </provider>
