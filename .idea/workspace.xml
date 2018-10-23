@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.rakeTasks" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/tasks/nba.rake" afterPath="$PROJECT_DIR$/lib/tasks/nba.rake" />
     </list>
@@ -24,11 +23,9 @@
       <file leaf-file-name="nba.rake" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="951" column="71" lean-forward="false" selection-start-line="951" selection-start-column="71" selection-end-line="951" selection-end-column="71" />
-              <folding>
-                <element signature="e#3831#19734#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="425">
+              <caret line="1319" column="17" lean-forward="true" selection-start-line="1319" selection-start-column="17" selection-end-line="1319" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -37,18 +34,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>4.hours</find>
-      <find>5.hours</find>
-      <find>get</find>
-      <find>team_abbr</find>
-      <find>getUpdateTG</find>
-      <find>gettg</find>
-      <find>@basket_abbr</find>
-      <find>getupdatetg</find>
-      <find>getReferee</find>
-      <find>Starter</find>
-      <find>getStarter</find>
-      <find>starter</find>
       <find>@away_players_group3</find>
       <find>delete</find>
       <find>@match</find>
@@ -67,6 +52,18 @@
       <find>getScore</find>
       <find>getLinkGame</find>
       <find>getFirstLines</find>
+      <find>5.hours</find>
+      <find>gettg</find>
+      <find>getpg</find>
+      <find>addAVGs</find>
+      <find>getUpdateTG</find>
+      <find>fix</find>
+      <find>opponentsecond</find>
+      <find>opponentsecond_current</find>
+      <find>getinjury</find>
+      <find>getPlayer</find>
+      <find>getplayer</find>
+      <find>getUpdatePoss</find>
     </findStrings>
     <replaceStrings>
       <replace>5.hours</replace>
@@ -301,12 +298,12 @@
       <workItem from="1539754227192" duration="16946000" />
       <workItem from="1539850160370" duration="319000" />
       <workItem from="1539850522003" duration="313000" />
-      <workItem from="1540278244846" duration="4354000" />
+      <workItem from="1540278244846" duration="10951000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21932000" />
+    <option name="totallyTimeSpent" value="28529000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="6" />
@@ -347,9 +344,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14835">
           <caret line="1321" column="34" lean-forward="false" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
-          <folding>
-            <element signature="e#3831#19734#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -373,9 +368,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19815">
           <caret line="1321" column="34" lean-forward="false" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
-          <folding>
-            <element signature="e#3831#19734#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -399,9 +392,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19815">
           <caret line="1321" column="34" lean-forward="true" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
-          <folding>
-            <element signature="e#3831#19734#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -478,11 +469,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="951" column="71" lean-forward="false" selection-start-line="951" selection-start-column="71" selection-end-line="951" selection-end-column="71" />
-          <folding>
-            <element signature="e#3831#19734#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="425">
+          <caret line="1319" column="17" lean-forward="true" selection-start-line="1319" selection-start-column="17" selection-end-line="1319" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
