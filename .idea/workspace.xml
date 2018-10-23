@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/app/views/index/game.html.erb" afterPath="$PROJECT_DIR$/app/views/index/game.html.erb" />
       <change beforePath="$PROJECT_DIR$/lib/tasks/nba.rake" afterPath="$PROJECT_DIR$/lib/tasks/nba.rake" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
@@ -19,11 +21,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="nba.rake" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
+      <file leaf-file-name="game.html.erb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/index/game.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="1316" column="51" lean-forward="false" selection-start-line="1316" selection-start-column="51" selection-end-line="1316" selection-end-column="51" />
+            <state relative-caret-position="83">
+              <caret line="656" column="29" lean-forward="false" selection-start-line="656" selection-start-column="29" selection-end-line="656" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index_controller.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="1515" column="355" lean-forward="true" selection-start-line="1515" selection-start-column="4" selection-end-line="1515" selection-end-column="355" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="detail.html.erb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="379">
+              <caret line="2582" column="176" lean-forward="true" selection-start-line="2576" selection-start-column="16" selection-end-line="2582" selection-end-column="176" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rest.html.erb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="149">
+              <caret line="826" column="23" lean-forward="true" selection-start-line="826" selection-start-column="23" selection-end-line="826" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -33,9 +65,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>@away_players_group3</find>
-      <find>delete</find>
-      <find>@match</find>
       <find>test</find>
       <find>10</find>
       <find>count</find>
@@ -63,12 +92,16 @@
       <find>getPlayer</find>
       <find>getplayer</find>
       <find>getUpdatePoss</find>
+      <find>stlValue</find>
+      <find>fg total point</find>
+      <find>OPP PPG rank</find>
     </findStrings>
     <replaceStrings>
       <replace>5.hours</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/app/views/index</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -80,6 +113,7 @@
         <option value="$PROJECT_DIR$/app/controllers/index_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/index/detail.html.erb" />
         <option value="$PROJECT_DIR$/lib/tasks/nba.rake" />
+        <option value="$PROJECT_DIR$/app/views/index/game.html.erb" />
       </list>
     </option>
   </component>
@@ -110,7 +144,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="RailsProjectView" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -122,12 +158,6 @@
               <item name="NBA" type="b2602c69:ProjectViewProjectNode" />
               <item name="NBA" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="NBA" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NBA" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="NBA" type="b2602c69:ProjectViewProjectNode" />
@@ -145,6 +175,13 @@
             <path>
               <item name="NBA" type="b2602c69:ProjectViewProjectNode" />
               <item name="NBA" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="welcome" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NBA" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NBA" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -157,8 +194,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -297,15 +332,16 @@
       <workItem from="1539754227192" duration="16946000" />
       <workItem from="1539850160370" duration="319000" />
       <workItem from="1539850522003" duration="313000" />
-      <workItem from="1540278244846" duration="11328000" />
+      <workItem from="1540278244846" duration="11779000" />
+      <workItem from="1540319548668" duration="416000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28906000" />
+    <option name="totallyTimeSpent" value="29773000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="41" y="23" width="1879" height="1057" extended-state="6" />
+    <frame x="41" y="23" width="1879" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24960086" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -317,7 +353,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35798818" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35771543" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -339,6 +375,14 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14835">
@@ -450,26 +494,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40875">
-          <caret line="2725" column="26" lean-forward="false" selection-start-line="2725" selection-start-column="10" selection-end-line="2725" selection-end-column="26" />
+        <state relative-caret-position="149">
+          <caret line="826" column="23" lean-forward="true" selection-start-line="826" selection-start-column="23" selection-end-line="826" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/welcome/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="1679" column="7" lean-forward="true" selection-start-line="1679" selection-start-column="7" selection-end-line="1679" selection-end-column="7" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/home.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="1316" column="51" lean-forward="false" selection-start-line="1316" selection-start-column="51" selection-end-line="1316" selection-end-column="51" />
+        <state relative-caret-position="493">
+          <caret line="1300" column="26" lean-forward="true" selection-start-line="1300" selection-start-column="26" selection-end-line="1300" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="1515" column="355" lean-forward="true" selection-start-line="1515" selection-start-column="4" selection-end-line="1515" selection-end-column="355" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="2582" column="176" lean-forward="true" selection-start-line="2576" selection-start-column="16" selection-end-line="2582" selection-end-column="176" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/game.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="656" column="29" lean-forward="false" selection-start-line="656" selection-start-column="29" selection-end-line="656" selection-end-column="29" />
           <folding />
         </state>
       </provider>

@@ -229,6 +229,14 @@
         <th class="red"></th>
         <th>1h lines</th>
         <th>2h lines</th>
+        <th class="black"></th>
+        <td class="gray">fg total point</td>
+        <td class="gray">total lines</td>
+        <td class="gray"></td>
+        <td class="gray">1h total pts</td>
+        <td class="gray">1h total lines</td>
+        <td class="gray">2h total pts</td>
+        <td class="gray">2h total lines</td>
 	    </tr>
   	</thead>
   	<tbody>
@@ -432,7 +440,7 @@
       <td class="red"><%= @away_team_info.opponentsecond_away %></td>
 
  <% @countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_fly, game.home_last_fly)
- @secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_fly, game.home_last_fly)
+    @secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_fly, game.home_last_fly)
   %>
 
       <td class="gray" rowspan="2"><%= game.away_last_home %></td>
@@ -528,6 +536,16 @@
       <td class="red"><%= ((@referee_part_one_last.sum(:firstpoint).to_f + @referee_part_two_last.sum(:firstpoint).to_f + @referee_part_three_last.sum(:firstpoint).to_f)/(@referee_past_count == 0 ? 1 : @referee_past_count)).round(2) %></td>
       <td class="green"><%= @referee_part_one_last.average(:firstlinetotal).to_f.round(2) %></td>
       <td class="green"><%= @referee_part_one_last.average(:secondlinetotal).to_f.round(2) %></td>
+
+      <td class="black"></td>
+
+      <td class="filter"><%= @secondItem ? @secondItem.where("fglinetotal is not null AND fglinetotal != 0").average(:totalpoint).to_f.round(2) : "" %></td>
+      <td class="filter"><%= @secondItem ? @secondItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2) : "" %></td>
+      <td class="red">1990-2000</td>
+      <td class="yellow"></td>
+      <td class="yellow"></td>
+      <td class="green"></td>
+      <td class="green"></td>
     </tr>
     <tr>
       <td class="red" ><%= game.home_abbr %></td>
@@ -635,6 +653,18 @@
       <td class="red"><%= ((@referee_part_one_last.sum(:secondpoint).to_f + @referee_part_two_last.sum(:secondpoint).to_f + @referee_part_three_last.sum(:secondpoint).to_f)/(@referee_past_count == 0 ? 1 : @referee_past_count)).round(2) %></td>
       <td class="green"><%= @referee_part_two_last.average(:firstlinetotal).to_f.round(2) %></td>
       <td class="green"><%= @referee_part_two_last.average(:secondlinetotal).to_f.round(2) %></td>
+
+      <td class="black"></td>
+
+      <% fglinetotal_count = @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").count(:fglinetotal).to_i : "" %>
+      <td class="filter"><%= fglinetotal_count %></td>
+      <td class="filter"><%= fglinetotal_count %></td>
+      <td></td>
+      <% firstlinetotal_count = @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i : "" %>
+      <td class="yellow"><%= firstlinetotal_count %></td>
+      <td class="yellow"><%= firstlinetotal_count %></td>
+      <td class="green"><%= firstlinetotal_count %></td>
+      <td class="green"><%= firstlinetotal_count %></td>
     </tr>
     <tr>
       <td class="skyblue"><%= game.away_abbr %></td>
@@ -728,6 +758,16 @@
       <td class="red"><%= @referee_past_count %></td>
       <td class="green"><%= @referee_part_three_last.average(:firstlinetotal).to_f.round(2) %></td>
       <td class="green"><%= @referee_part_three_last.average(:secondlinetotal).to_f.round(2) %></td>
+
+      <td class="black"></td>
+
+      <td class="filter"><%= @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").average(:totalpoint).to_f.round(2) : "" %></td>
+      <td class="filter"><%= @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2) : "" %></td>
+      <td class="green">2000-2017</td>
+      <td class="yellow"><%= @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstpoint).to_f.round(2) : "" %></td>
+      <td class="yellow"><%= @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstlinetotal).to_f.round(2) : "" %></td>
+      <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondpoint).to_f.round(2) : "" %></td>
+      <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondlinetotal).to_f.round(2) : "" %></td>
     </tr>
     <% end %>
   	</tbody>

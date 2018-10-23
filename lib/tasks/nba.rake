@@ -1326,32 +1326,13 @@ namespace :nba do
 					sum_poss = sum_poss + last_player.poss
 					sum_mins = sum_mins + last_player.mins
           sum_or = sum_or + last_player.orValue
-          stlValue = 0
-          toValue = 0
-          blkValue = 0
-          pfValue =0
-          if last_player.stlValue
-            stlValue = last_player.stlValue
-          end
-          if last_player.toValue
-            toValue = last_player.toValue
-          end
-          if last_player.blkValue
-            blkValue = last_player.blkValue
-          end
-          if last_player.pfValue
-            pfValue = last_player.pfValue
-          end
-          sum_stl = sum_stl + stlValue
-          sum_to = sum_to + toValue
-          sum_blk = sum_blk + blkValue
-          sum_pf = sum_pf + pfValue
-					if mins_min > last_player.mins
-						mins_min = last_player.mins
-					end
-					if mins_max < last_player.mins
-						mins_max = last_player.mins
-					end
+          sum_stl = sum_stl + last_player.stlValue if last_player.stlValue
+          sum_to = sum_to + last_player.toValue if last_player.toValue
+          sum_blk = sum_blk + last_player.blkValue if last_player.blkValue
+          sum_pf = sum_pf + last_player.pfValue if last_player.pfValue
+
+          mins_min = last_player.mins if mins_min > last_player.mins
+          mins_max = last_player.mins if mins_max < last_player.mins
 					last_team = Player.where("nba_id = ? AND team_abbr = ? AND player_name = ?",last_player.nba_id, last_player.team_abbr, "TEAM")
 					team_poss = team_poss + last_team.first.poss
 					count = count + 1
