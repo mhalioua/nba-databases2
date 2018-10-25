@@ -42,8 +42,8 @@
       <file leaf-file-name="job.rake" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/tasks/job.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="764" column="56" lean-forward="false" selection-start-line="764" selection-start-column="56" selection-end-line="764" selection-end-column="56" />
+            <state relative-caret-position="264">
+              <caret line="707" column="66" lean-forward="false" selection-start-line="707" selection-start-column="66" selection-end-line="707" selection-end-column="66" />
               <folding>
                 <element signature="e#52#5322#0" expanded="false" />
                 <element signature="e#5362#7536#0" expanded="false" />
@@ -370,12 +370,12 @@
       <workItem from="1540278244846" duration="11779000" />
       <workItem from="1540319548668" duration="1211000" />
       <workItem from="1540333069967" duration="544000" />
-      <workItem from="1540450702522" duration="7463000" />
+      <workItem from="1540450702522" duration="7602000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38575000" />
+    <option name="totallyTimeSpent" value="38714000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="0" />
@@ -717,8 +717,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/job.rake">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="764" column="56" lean-forward="false" selection-start-line="764" selection-start-column="56" selection-end-line="764" selection-end-column="56" />
+        <state relative-caret-position="264">
+          <caret line="707" column="66" lean-forward="false" selection-start-line="707" selection-start-column="66" selection-end-line="707" selection-end-column="66" />
           <folding>
             <element signature="e#52#5322#0" expanded="false" />
             <element signature="e#5362#7536#0" expanded="false" />
