@@ -685,4 +685,22 @@ namespace :job do
     'Detroit' => -4,
     'Sacramento' => -7
   }
+
+  task :importNbaDatabase => :environment do
+    require 'csv'
+    filename = File.join Rails.root, 'csv', "nba_database.csv"
+    CSV.foreach(filename, headers: true) do |row|
+      game = row.to_h
+      game['fg_total_pt_1990'] = nil
+      game['fg_total_line_1990'] = nil
+      game['fg_total_diff_1990'] = nil
+      game['first_half_total_pt_1990'] = nil
+      game['first_half_total_line_1990'] = nil
+      game['first_half_total_diff_1990'] = nil
+      game['second_half_total_pt_1990'] = nil
+      game['second_half_total_line_1990'] = nil
+      game['second_half_total_diff_1990'] = nil
+      NbaDatabase.create(game)
+    end
+  end
 end
