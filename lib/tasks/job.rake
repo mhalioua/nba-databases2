@@ -756,16 +756,6 @@ namespace :job do
       second_half_total_line_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondlinetotal).to_f.round(2)
       second_half_total_diff_2000 = (second_half_total_pt_2000 - second_half_total_line_2000).round(2)
 
-      fg_total_pt_1990 = secondItem.where("fglinetotal is not null AND fglinetotal != 0").average(:totalpoint).to_f.round(2)
-      fg_total_line_1990 = secondItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2)
-      fg_total_diff_1990 = (fg_total_pt_1990 - fg_total_line_1990).round(2)
-      first_half_total_pt_1990 = secondItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstpoint).to_f.round(2)
-      first_half_total_line_1990 = secondItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstlinetotal).to_f.round(2)
-      first_half_total_diff_1990 = (first_half_total_pt_1990 - first_half_total_line_1990).round(2)
-      second_half_total_pt_1990 = secondItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondpoint).to_f.round(2)
-      second_half_total_line_1990 = secondItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondlinetotal).to_f.round(2)
-      second_half_total_diff_1990 = (second_half_total_pt_1990 - second_half_total_line_1990).round(2)
-
       game.update(
         fg_road_2000: fg_road_2000,
         fg_home_2000: fg_home_2000,
@@ -799,16 +789,7 @@ namespace :job do
         first_half_total_diff_2000: first_half_total_diff_2000,
         second_half_total_pt_2000: second_half_total_pt_2000,
         second_half_total_line_2000: second_half_total_line_2000,
-        second_half_total_diff_2000: second_half_total_diff_2000,
-        fg_total_pt_1990: fg_total_pt_1990,
-        fg_total_line_1990: fg_total_line_1990,
-        fg_total_diff_1990: fg_total_diff_1990,
-        first_half_total_pt_1990: first_half_total_pt_1990,
-        first_half_total_line_1990: first_half_total_line_1990,
-        first_half_total_diff_1990: first_half_total_diff_1990,
-        second_half_total_pt_1990: second_half_total_pt_1990,
-        second_half_total_line_1990: second_half_total_line_1990,
-        second_half_total_diff_1990: second_half_total_diff_1990
+        second_half_total_diff_2000: second_half_total_diff_2000
       )
     end
   end
