@@ -26,7 +26,7 @@ class CreateNbaDatabases < ActiveRecord::Migration[5.1]
       t.integer :away_forth_quarter
       t.integer :away_ot
       t.integer :away_second_half
-      t.integer :away_next
+      t.integer :home_next
       t.string :home_is_last_game_home
       t.integer :home_last
       t.string :home_is_next_game_home

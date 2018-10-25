@@ -703,4 +703,54 @@ namespace :job do
       NbaDatabase.create(game)
     end
   end
+
+  task :getFiltervalue => :environment do
+    games = NbaDatabase.where('second_half_total_diff_2000 is null')
+    games.each do |game|
+      countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_next_game_home, game.home_is_last_game_home)
+      secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_next_game_home, game.home_is_last_game_home)
+
+      puts countItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2)
+
+      fg_road_2000 = 0
+      fg_home_2000 = 0
+      fg_diff_2000 = 0
+      fg_count_2000 = 0
+
+      fg_road_1990 = 0
+      fg_home_1990 = 0
+      fg_diff_1990 = 0
+      fg_count_1990 = 0
+
+      first_half_road_2000 = 0
+      first_half_home_2000 = 0
+      first_half_diff_2000 = 0
+      first_half_count_2000 = 0
+
+      first_half_road_1990 = 0
+      first_half_home_1990 = 0
+      first_half_diff_1990 = 0
+      first_half_count_1990 = 0
+
+      second_half_road_2000 = 0
+      second_half_home_2000 = 0
+      second_half_diff_2000 = 0
+      second_half_count_2000 = 0
+
+      second_half_road_1990 = 0
+      second_half_home_1990 = 0
+      second_half_diff_1990 = 0
+      second_half_count_1990 = 0
+
+      fg_total_pt_2000 = 0
+      fg_total_line_2000 = 0
+      fg_total_diff_2000 = 0
+      first_half_total_pt_2000 = 0
+      first_half_total_line_2000 = 0
+      first_half_total_diff_2000 = 0
+      second_half_total_pt_2000 = 0
+      second_half_total_line_2000 = 0
+      second_half_total_diff_2000 = 0
+    end
+  end
 end
