@@ -42,8 +42,8 @@
       <file leaf-file-name="job.rake" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/tasks/job.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="725" column="53" lean-forward="true" selection-start-line="725" selection-start-column="53" selection-end-line="725" selection-end-column="53" />
+            <state relative-caret-position="236">
+              <caret line="711" column="0" lean-forward="true" selection-start-line="711" selection-start-column="0" selection-end-line="711" selection-end-column="0" />
               <folding>
                 <element signature="e#52#5322#0" expanded="false" />
                 <element signature="e#5362#7536#0" expanded="false" />
@@ -370,12 +370,12 @@
       <workItem from="1540278244846" duration="11779000" />
       <workItem from="1540319548668" duration="1211000" />
       <workItem from="1540333069967" duration="544000" />
-      <workItem from="1540450702522" duration="5662000" />
+      <workItem from="1540450702522" duration="7104000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36774000" />
+    <option name="totallyTimeSpent" value="38216000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="0" />
@@ -388,7 +388,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3246493" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.53707415" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -695,14 +695,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20181025091252_create_nba_databases.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="31" column="38" lean-forward="false" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="499">
@@ -715,10 +707,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20181025091252_create_nba_databases.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="29" column="6" lean-forward="false" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/job.rake">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="725" column="53" lean-forward="true" selection-start-line="725" selection-start-column="53" selection-end-line="725" selection-end-column="53" />
+        <state relative-caret-position="236">
+          <caret line="711" column="0" lean-forward="true" selection-start-line="711" selection-start-column="0" selection-end-line="711" selection-end-column="0" />
           <folding>
             <element signature="e#52#5322#0" expanded="false" />
             <element signature="e#5362#7536#0" expanded="false" />

@@ -707,8 +707,8 @@ namespace :job do
   task :getFiltervalue => :environment do
     games = NbaDatabase.where('id = 20771')
     games.each do |game|
-      countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_next_game_home, game.home_is_last_game_home)
-      secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_next_game_home, game.home_is_last_game_home)
+      countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_last_game_home, game.home_is_next_game_home)
+      secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_last_game_home, game.home_is_next_game_home)
 
       roadtotal = countItem.average(:roadfirsthalf).to_f + countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f
       hometotal = countItem.average(:homefirsthalf).to_f + countItem.average(:homethird).to_f + countItem.average(:homeforth).to_f
