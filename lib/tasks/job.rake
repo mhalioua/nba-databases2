@@ -718,8 +718,8 @@ namespace :job do
       fg_diff_2000 = (roadtotal - hometotal).round(2)
       fg_count_2000 = countItem.count(:totalpoint).to_i
 
-      roadtotal = secondItem.average(:roadfirsthalf).to_f + @secondItem.average(:roadthird).to_f + @secondItem.average(:roadforth).to_f
-      hometotal = secondItem.average(:homefirsthalf).to_f + @secondItem.average(:homethird).to_f + @secondItem.average(:homeforth).to_f
+      roadtotal = secondItem.average(:roadfirsthalf).to_f + secondItem.average(:roadthird).to_f + secondItem.average(:roadforth).to_f
+      hometotal = secondItem.average(:homefirsthalf).to_f + secondItem.average(:homethird).to_f + secondItem.average(:homeforth).to_f
 
       fg_road_1990 = roadtotal.round(2)
       fg_home_1990 = hometotal.round(2)
