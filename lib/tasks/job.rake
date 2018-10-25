@@ -705,52 +705,96 @@ namespace :job do
   end
 
   task :getFiltervalue => :environment do
-    games = NbaDatabase.where('second_half_total_diff_2000 is null')
+    games = NbaDatabase.where('id = 20771')
     games.each do |game|
       countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_next_game_home, game.home_is_last_game_home)
       secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_next_game_home, game.home_is_last_game_home)
 
-      puts countItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2)
+      roadtotal = countItem.average(:roadfirsthalf).to_f + countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f
+      hometotal = countItem.average(:homefirsthalf).to_f + countItem.average(:homethird).to_f + countItem.average(:homeforth).to_f
 
-      fg_road_2000 = 0
-      fg_home_2000 = 0
-      fg_diff_2000 = 0
-      fg_count_2000 = 0
+      fg_road_2000 = roadtotal.round(2)
+      fg_home_2000 = hometotal.round(2)
+      fg_diff_2000 = (roadtotal - hometotal).round(2)
+      fg_count_2000 = countItem.count(:totalpoint).to_i
 
-      fg_road_1990 = 0
-      fg_home_1990 = 0
-      fg_diff_1990 = 0
-      fg_count_1990 = 0
+      roadtotal = secondItem.average(:roadfirsthalf).to_f + @secondItem.average(:roadthird).to_f + @secondItem.average(:roadforth).to_f
+      hometotal = secondItem.average(:homefirsthalf).to_f + @secondItem.average(:homethird).to_f + @secondItem.average(:homeforth).to_f
 
-      first_half_road_2000 = 0
-      first_half_home_2000 = 0
-      first_half_diff_2000 = 0
-      first_half_count_2000 = 0
+      fg_road_1990 = roadtotal.round(2)
+      fg_home_1990 = hometotal.round(2)
+      fg_diff_1990 = (roadtotal - hometotal).round(2)
+      fg_count_1990 = secondItem.count(:totalpoint).to_i
 
-      first_half_road_1990 = 0
-      first_half_home_1990 = 0
-      first_half_diff_1990 = 0
-      first_half_count_1990 = 0
+      first_half_road_2000 = countItem.average(:roadfirsthalf).to_f.round(2)
+      first_half_home_2000 = countItem.average(:homefirsthalf).to_f.round(2)
+      first_half_diff_2000 = (countItem.average(:roadfirsthalf).to_f - countItem.average(:homefirsthalf).to_f).round(2)
+      first_half_count_2000 = countItem.count(:roadfirsthalf).to_i
 
-      second_half_road_2000 = 0
-      second_half_home_2000 = 0
-      second_half_diff_2000 = 0
-      second_half_count_2000 = 0
+      first_half_road_1990 = secondItem.average(:roadfirsthalf).to_f.round(2)
+      first_half_home_1990 = secondItem.average(:homefirsthalf).to_f.round(2)
+      first_half_diff_1990 = (secondItem.average(:roadfirsthalf).to_f - secondItem.average(:homefirsthalf).to_f).round(2)
+      first_half_count_1990 = secondItem.count(:roadfirsthalf).to_i
 
-      second_half_road_1990 = 0
-      second_half_home_1990 = 0
-      second_half_diff_1990 = 0
-      second_half_count_1990 = 0
+      second_half_road_2000 = (countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f).round(2)
+      second_half_home_2000 = (countItem.average(:homethird).to_f + countItem.average(:homeforth).to_f).round(2)
+      second_half_diff_2000 = (countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f - countItem.average(:homethird).to_f - countItem.average(:homeforth).to_f).round(2)
+      second_half_count_2000 = countItem.count(:roadthird).to_i
 
-      fg_total_pt_2000 = 0
-      fg_total_line_2000 = 0
-      fg_total_diff_2000 = 0
-      first_half_total_pt_2000 = 0
-      first_half_total_line_2000 = 0
-      first_half_total_diff_2000 = 0
-      second_half_total_pt_2000 = 0
-      second_half_total_line_2000 = 0
-      second_half_total_diff_2000 = 0
+      second_half_road_1990 = (secondItem.average(:roadthird).to_f + secondItem.average(:roadforth).to_f).round(2)
+      second_half_home_1990 = (secondItem.average(:homethird).to_f + secondItem.average(:homeforth).to_f).round(2)
+      second_half_diff_1990 = (secondItem.average(:roadthird).to_f + secondItem.average(:roadforth).to_f - secondItem.average(:homethird).to_f - secondItem.average(:homeforth).to_f).round(2)
+      second_half_count_1990 = secondItem.count(:roadthird).to_i
+
+      fg_total_pt_2000 = countItem.where("fglinetotal is not null AND fglinetotal != 0").average(:totalpoint).to_f.round(2)
+      fg_total_line_2000 = countItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2)
+      fg_total_diff_2000 = (fg_total_pt_2000 - fg_total_line_2000).round(2)
+      first_half_total_pt_2000 = countItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstpoint).to_f.round(2)
+      first_half_total_line_2000 = countItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstlinetotal).to_f.round(2)
+      first_half_total_diff_2000 = (first_half_total_pt_2000 - first_half_total_line_2000).round(2)
+      second_half_total_pt_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondpoint).to_f.round(2)
+      second_half_total_line_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondlinetotal).to_f.round(2)
+      second_half_total_diff_2000 = (second_half_total_pt_2000 - second_half_total_line_2000).round(2)
+
+      puts fg_road_2000
+      puts fg_home_2000
+      puts fg_diff_2000
+      puts fg_count_2000
+
+      puts fg_road_1990
+      puts fg_home_1990
+      puts fg_diff_1990
+      puts fg_count_1990
+
+      puts first_half_road_2000
+      puts first_half_home_2000
+      puts first_half_diff_2000
+      puts first_half_count_2000
+
+      puts first_half_road_1990
+      puts first_half_home_1990
+      puts first_half_diff_1990
+      puts first_half_count_1990
+
+      puts second_half_road_2000
+      puts second_half_home_2000
+      puts second_half_diff_2000
+      puts second_half_count_2000
+
+      puts second_half_road_1990
+      puts second_half_home_1990
+      puts second_half_diff_1990
+      puts second_half_count_1990
+
+      puts fg_total_pt_2000
+      puts fg_total_line_2000
+      puts fg_total_diff_2000
+      puts first_half_total_pt_2000
+      puts first_half_total_line_2000
+      puts first_half_total_diff_2000
+      puts second_half_total_pt_2000
+      puts second_half_total_line_2000
+      puts second_half_total_diff_2000
     end
   end
 end
