@@ -756,45 +756,60 @@ namespace :job do
       second_half_total_line_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondlinetotal).to_f.round(2)
       second_half_total_diff_2000 = (second_half_total_pt_2000 - second_half_total_line_2000).round(2)
 
-      puts fg_road_2000
-      puts fg_home_2000
-      puts fg_diff_2000
-      puts fg_count_2000
+      fg_total_pt_1990 = secondItem.where("fglinetotal is not null AND fglinetotal != 0").average(:totalpoint).to_f.round(2)
+      fg_total_line_1990 = secondItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2)
+      fg_total_diff_1990 = (fg_total_pt_1990 - fg_total_line_1990).round(2)
+      first_half_total_pt_1990 = secondItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstpoint).to_f.round(2)
+      first_half_total_line_1990 = secondItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstlinetotal).to_f.round(2)
+      first_half_total_diff_1990 = (first_half_total_pt_1990 - first_half_total_line_1990).round(2)
+      second_half_total_pt_1990 = secondItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondpoint).to_f.round(2)
+      second_half_total_line_1990 = secondItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondlinetotal).to_f.round(2)
+      second_half_total_diff_1990 = (second_half_total_pt_1990 - second_half_total_line_1990).round(2)
 
-      puts fg_road_1990
-      puts fg_home_1990
-      puts fg_diff_1990
-      puts fg_count_1990
-
-      puts first_half_road_2000
-      puts first_half_home_2000
-      puts first_half_diff_2000
-      puts first_half_count_2000
-
-      puts first_half_road_1990
-      puts first_half_home_1990
-      puts first_half_diff_1990
-      puts first_half_count_1990
-
-      puts second_half_road_2000
-      puts second_half_home_2000
-      puts second_half_diff_2000
-      puts second_half_count_2000
-
-      puts second_half_road_1990
-      puts second_half_home_1990
-      puts second_half_diff_1990
-      puts second_half_count_1990
-
-      puts fg_total_pt_2000
-      puts fg_total_line_2000
-      puts fg_total_diff_2000
-      puts first_half_total_pt_2000
-      puts first_half_total_line_2000
-      puts first_half_total_diff_2000
-      puts second_half_total_pt_2000
-      puts second_half_total_line_2000
-      puts second_half_total_diff_2000
+      game.update(
+        fg_road_2000: fg_road_2000,
+        fg_home_2000: fg_home_2000,
+        fg_diff_2000: fg_diff_2000,
+        fg_count_2000: fg_count_2000,
+        fg_road_1990: fg_road_1990,
+        fg_home_1990: fg_home_1990,
+        fg_diff_1990: fg_diff_1990,
+        fg_count_1990: fg_count_1990,
+        first_half_road_2000: first_half_road_2000,
+        first_half_home_2000: first_half_home_2000,
+        first_half_diff_2000: first_half_diff_2000,
+        first_half_count_2000: first_half_count_2000,
+        first_half_road_1990: first_half_road_1990,
+        first_half_home_1990: first_half_home_1990,
+        first_half_diff_1990: first_half_diff_1990,
+        first_half_count_1990: first_half_count_1990,
+        second_half_road_2000: second_half_road_2000,
+        second_half_home_2000: second_half_home_2000,
+        second_half_diff_2000: second_half_diff_2000,
+        second_half_count_2000: second_half_count_2000,
+        second_half_road_1990: second_half_road_1990,
+        second_half_home_1990: second_half_home_1990,
+        second_half_diff_1990: second_half_diff_1990,
+        second_half_count_1990: second_half_count_1990,
+        fg_total_pt_2000: fg_total_pt_2000,
+        fg_total_line_2000: fg_total_line_2000,
+        fg_total_diff_2000: fg_total_diff_2000,
+        first_half_total_pt_2000: first_half_total_pt_2000,
+        first_half_total_line_2000: first_half_total_line_2000,
+        first_half_total_diff_2000: first_half_total_diff_2000,
+        second_half_total_pt_2000: second_half_total_pt_2000,
+        second_half_total_line_2000: second_half_total_line_2000,
+        second_half_total_diff_2000: second_half_total_diff_2000,
+        fg_total_pt_1990: fg_total_pt_1990,
+        fg_total_line_1990: fg_total_line_1990,
+        fg_total_diff_1990: fg_total_diff_1990,
+        first_half_total_pt_1990: first_half_total_pt_1990,
+        first_half_total_line_1990: first_half_total_line_1990,
+        first_half_total_diff_1990: first_half_total_diff_1990,
+        second_half_total_pt_1990: second_half_total_pt_1990,
+        second_half_total_line_1990: second_half_total_line_1990,
+        second_half_total_diff_1990: second_half_total_diff_1990
+      )
     end
   end
 end
