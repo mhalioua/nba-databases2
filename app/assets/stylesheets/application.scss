@@ -163,13 +163,13 @@ th, .green {
     }
 
     .filterElement {
-        td:nth-child(2), td:nth-child(5), td:nth-child(10), td:nth-child(13) {
+        td:nth-child(7), td:nth-child(10), td:nth-child(15), td:nth-child(18) {
             background: linear-gradient(#4ac, #068);
         }
-        td:nth-child(1) {
+        td:nth-child(6) {
             background: darkgray;
         }
-        td:nth-child(3), td:nth-child(4), td:nth-child(6), td:nth-child(7), td:nth-child(8), td:nth-child(9), td:nth-child(11), td:nth-child(12) {
+        td:nth-child(8), td:nth-child(9), td:nth-child(11), td:nth-child(12), td:nth-child(13), td:nth-child(14), td:nth-child(16), td:nth-child(17) {
             background: yellow;
         }
     }
