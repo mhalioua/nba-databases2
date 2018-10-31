@@ -1236,6 +1236,10 @@ class IndexController < ApplicationController
 				result_element[:allcount] = temp_count3
 				result_element[:home_ortg] = (filter_second_element.map {|stat| stat.home_ortg.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
 				result_element[:away_ortg] = (filter_second_element.map {|stat| stat.away_ortg.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
+				result_element[:first_under] = filter_second_element_side.where("firstou = 'under'").count
+				result_element[:first_over] = filter_second_element_side.where("firstou = 'over'").count
+				result_element[:second_under] = filter_second_element_side.where("secondou = 'under'").count
+				result_element[:second_over] = filter_second_element_side.where("secondou = 'over'").count
 				if index == 1 || index == 2 || index > 9
 					result_element[:firsthalf_first] = (filter_second_element.map {|stat| stat.roadfirsthalf.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
 					result_element[:firsthalf_second] = (filter_second_element.map {|stat| stat.homefirsthalf.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
@@ -3056,7 +3060,11 @@ class IndexController < ApplicationController
 				away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
 				bj: filter_second_element.average(:fgside).to_f.round(2),
 				bg: filter_second_element.average(:firstside).to_f.round(2),
-				bh: filter_second_element.average(:secondside).to_f.round(2)
+				bh: filter_second_element.average(:secondside).to_f.round(2),
+				first_under: filter_second_element.where("firstou = 'under'").count,
+				first_over: filter_second_element.where("firstou = 'over'").count,
+				second_under: filter_second_element.where("secondou = 'under'").count,
+				second_over: filter_second_element.where("secondou = 'over'").count
 			}
 			result_element_secondtravel = {
 				first: filter_element_secondtravel.average(:firstvalue).to_f.round(2),

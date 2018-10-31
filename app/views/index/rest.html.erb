@@ -958,6 +958,11 @@ end
     <table border="1" class="tableSide totalAverage" style="width: 1%">
         <tbody>
             <tr>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
                 <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y")%></td>
                 <td></td>
                 <td></td>
@@ -974,6 +979,11 @@ end
             <tr>
                 <td></td>
                 <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td colspan="2" class="gameDate">TRAVEL</td>
                 <td class="gradient"></td>
                 <td><u><i>road</i></u></td>
@@ -988,6 +998,11 @@ end
                 <td></td>
             </tr>
             <tr>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
                 <td class="gameDate">RIVALS</td>
                 <td></td>
                 <td>last Y/N</td>
@@ -1006,6 +1021,11 @@ end
                 <td></td>
             </tr>
             <tr class="gameDate">
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
                 <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
                 <td></td>
                 <td></td>
@@ -1032,6 +1052,11 @@ end
                 <td colspan="3" class="red">ORTG</td>
             </tr>
             <tr>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
                 <td>RIVALS</td>
                 <td class="gradient"></td>
                 <td></td>
@@ -1058,6 +1083,11 @@ end
                 <td></td>
             </tr>
             <tr>
+                <td></td>
+                <td></td>
+                <td class="gradient"></td>
+                <td></td>
+                <td></td>
                 <td>ALL GAMES IN <%= @home_abbr %></td>
                 <td class="gradient"></td>
                 <td></td>
@@ -1084,6 +1114,9 @@ end
                 <td></td>
             </tr>
             <tr>
+                <td colspan="2">1st Half</td>
+                <td class="gradient"></td>
+                <td colspan="2">2nd Half</td>
                 <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A")%></td>
                 <td class="gradient"></td>
                 <td></td>
@@ -1134,6 +1167,11 @@ end
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <%
                 (0..16).each do |index|
@@ -1146,8 +1184,18 @@ end
             %>
                 <tr class="filterElement">
                   <% if index == 0 %>
+                    <td>under</td>
+                    <td>over</td>
+                    <td></td>
+                    <td>under</td>
+                    <td>over</td>
                     <td>Any</td>
                   <% else %>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
                       <div>
                         <%= first_one %>
@@ -1236,6 +1284,11 @@ end
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <% if index == 16 %>
                       <td></td>
                     <% end %>
@@ -1243,6 +1296,11 @@ end
                 <% end %>
             <% end %>
             <tr class="redgradient">
+              <td class="yellow">Away</td>
+              <td class="yellow">Home</td>
+              <td class="gradient"></td>
+              <td class="yellow">Away</td>
+              <td class="yellow">Home</td>
               <td class="yellow">GAMES</td>
               <td></td>
               <td></td>
@@ -1273,6 +1331,11 @@ end
               <td></td>
             </tr>
             <tr>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderTop borderRight borderLeft"><%= @filterResult[0][:allcount] %></td>
               <td class="gradient"></td>
               <td class="yellow border"></td>
@@ -1303,6 +1366,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[0][:bi_count] %></td>
             </tr>
             <tr style="background-color: #fcf !important">
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderRight borderLeft"><%= @filterResult[1][:allcount] %></td>
               <td class="gradient"></td>
               <td class="filter border">X</td>
@@ -1333,6 +1401,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[1][:bi_count] %></td>
             </tr>
             <tr>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderRight borderLeft"><%= @filterResult[20][:allcount] %></td>
               <td class="gradient"></td>
               <td class="filter border">X</td>
@@ -1363,6 +1436,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[20][:bi_count] %></td>
             </tr>
             <tr>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderRight borderLeft"><%= @filterResult[10][:allcount] %></td>
               <td class="gradient"></td>
               <td class="filter border">X</td>
@@ -1393,6 +1471,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[10][:bi_count] %></td>
             </tr>
             <tr>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderRight borderLeft"><%= @filterResult[11][:allcount] %></td>
               <td class="gradient"></td>
               <td class="filter border">X</td>
@@ -1423,6 +1506,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[11][:bi_count] %></td>
             </tr>
             <tr>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderRight borderLeft"><%= @filterResult[16][:allcount] %></td>
               <td class="gradient"></td>
               <td class="yellow border"></td>
@@ -1453,6 +1541,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[16][:bi_count] %></td>
             </tr>
             <tr>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderRight borderLeft"><%= @filterResult[17][:allcount] %></td>
               <td class="gradient"></td>
               <td class="filter border">X</td>
@@ -1483,6 +1576,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[17][:bi_count] %></td>
             </tr>
             <tr>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderRight borderLeft"><%= @filterResult[18][:allcount] %></td>
               <td class="gradient"></td>
               <td class="yellow border"></td>
@@ -1513,6 +1611,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[18][:bi_count] %></td>
             </tr>
             <tr>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderRight borderLeft"><%= @filterResult[19][:allcount] %></td>
               <td class="gradient"></td>
               <td class="yellow border"></td>
@@ -1543,6 +1646,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[19][:bi_count] %></td>
             </tr>
             <tr>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderRight borderLeft"><%= @filterResult[14][:allcount] %></td>
               <td class="gradient"></td>
               <td class="yellow border"></td>
@@ -1573,6 +1681,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[14][:bi_count] %></td>
             </tr>
             <tr>
+              <td></td>
+              <td></td>
+              <td class="gradient"></td>
+              <td></td>
+              <td></td>
               <td class="borderRight borderLeft borderBottom"><%= @filterResult[15][:allcount] %></td>
               <td class="gradient"></td>
               <td class="filter border">X</td>
@@ -1603,6 +1716,11 @@ end
               <td class="borderTop" style="background-color: #ccf"><%= @filterResult[15][:bi_count] %></td>
             </tr>
             <tr class="redgradient">
+              <td class="yellow"></td>
+              <td class="yellow"></td>
+              <td class="gradient"></td>
+              <td class="yellow"></td>
+              <td class="yellow"></td>
               <td class="yellow">GAMES</td>
               <td></td>
               <td></td>
