@@ -1287,7 +1287,7 @@ namespace :nba do
           player_fullname = player_fullname.gsub('.', '')
 		      player_element.update(ortg: ortg, drtg: drtg, count: count, player_link: player_link, player_fullname: player_fullname)
 				end
-				if index == 3
+				if index == 1
 					break
 				end
 			end
