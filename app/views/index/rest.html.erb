@@ -1191,11 +1191,11 @@ end
                     <td>over</td>
                     <td>Any</td>
                   <% else %>
+                    <td><%= @filterResult[index][:first_under] %></td>
+                    <td><%= @filterResult[index][:first_over] %></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><%= @filterResult[index][:second_under] %></td>
+                    <td><%= @filterResult[index][:second_over] %></td>
                     <td>
                       <div>
                         <%= first_one %>
