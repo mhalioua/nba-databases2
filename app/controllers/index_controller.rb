@@ -1227,14 +1227,10 @@ class IndexController < ApplicationController
 				second: (filter_element.map {|stat| stat.secondvalue.to_f }.sum / (temp_count1 == 0 ? 1 : temp_count1)).round(2),
 				full: (filter_element.map {|stat| stat.totalvalue.to_f }.sum / (temp_count1 == 0 ? 1 : temp_count1)).round(2),
 				count: temp_count1,
-				# first_half_away: filter_second_element_side.where("first_half_bigger = 'AWAY'").count,
-				# first_half_home: filter_second_element_side.where("first_half_bigger = 'HOME'").count,
-				# second_half_away: filter_second_element_side.where("second_half_bigger = 'AWAY'").count,
-				# second_half_home: filter_second_element_side.where("second_half_bigger = 'HOME'").count
-				first_half_away: 0,
-				first_half_home: 0,
-				second_half_away: 0,
-				second_half_home: 0
+				first_half_away: filter_second_element_side.where("first_half_bigger = 'AWAY'").count,
+				first_half_home: filter_second_element_side.where("first_half_bigger = 'HOME'").count,
+				second_half_away: filter_second_element_side.where("second_half_bigger = 'AWAY'").count,
+				second_half_home: filter_second_element_side.where("second_half_bigger = 'HOME'").count
 			}
 			if index != 0
 				temp_count3 = filter_second_element.count
@@ -3073,14 +3069,10 @@ class IndexController < ApplicationController
 				first_over: filter_second_element.where("firstou = 'over'").count,
 				second_under: filter_second_element.where("secondou = 'under'").count,
 				second_over: filter_second_element.where("secondou = 'over'").count,
-				# first_half_away: filter_second_element.where("first_half_bigger = 'AWAY'").count,
-				# first_half_home: filter_second_element.where("first_half_bigger = 'HOME'").count,
-				# second_half_away: filter_second_element.where("second_half_bigger = 'AWAY'").count,
-				# second_half_home: filter_second_element.where("second_half_bigger = 'HOME'").count
-				first_half_away: 0,
-				first_half_home: 0,
-				second_half_away: 0,
-				second_half_home: 0
+				first_half_away: filter_second_element.where("first_half_bigger = 'AWAY'").count,
+				first_half_home: filter_second_element.where("first_half_bigger = 'HOME'").count,
+				second_half_away: filter_second_element.where("second_half_bigger = 'AWAY'").count,
+				second_half_home: filter_second_element.where("second_half_bigger = 'HOME'").count
 			}
 			result_element_secondtravel = {
 				first: filter_element_secondtravel.average(:firstvalue).to_f.round(2),
