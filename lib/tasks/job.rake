@@ -705,7 +705,7 @@ namespace :job do
   end
 
   task :getFiltervalue => :environment do
-    games = NbaDatabase.where('second_half_total_diff_2000 is null')
+    games = NbaDatabase.where('fg_total_count_2000 is null')
     games.each do |game|
       countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ? AND id != ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_last_game_home, game.home_is_next_game_home, (game.id.to_i + 107398))
       secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_last_game_home, game.home_is_next_game_home)
@@ -756,6 +756,10 @@ namespace :job do
       second_half_total_line_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondlinetotal).to_f.round(2)
       second_half_total_diff_2000 = (second_half_total_pt_2000 - second_half_total_line_2000).round(2)
 
+      fg_total_count_2000 = countItem.where("fglinetotal is not null AND fglinetotal != 0").count(:fglinetotal).to_i
+      first_half_total_count_2000 = countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i
+      second_half_total_count_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i
+
       game.update(
         fg_road_2000: fg_road_2000,
         fg_home_2000: fg_home_2000,
@@ -789,7 +793,10 @@ namespace :job do
         first_half_total_diff_2000: first_half_total_diff_2000,
         second_half_total_pt_2000: second_half_total_pt_2000,
         second_half_total_line_2000: second_half_total_line_2000,
-        second_half_total_diff_2000: second_half_total_diff_2000
+        second_half_total_diff_2000: second_half_total_diff_2000,
+        fg_total_count_2000: fg_total_count_2000,
+        first_half_total_count_2000: first_half_total_count_2000,
+        second_half_total_count_2000: second_half_total_count_2000
       )
     end
   end
