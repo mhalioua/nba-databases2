@@ -4,8 +4,6 @@
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/controllers/index_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/index_controller.rb" />
-      <change beforePath="$PROJECT_DIR$/app/views/index/detail.html.erb" afterPath="$PROJECT_DIR$/app/views/index/detail.html.erb" />
-      <change beforePath="$PROJECT_DIR$/app/views/index/rest.html.erb" afterPath="$PROJECT_DIR$/app/views/index/rest.html.erb" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -22,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="detail.html.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="detail.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="3375" column="16" lean-forward="true" selection-start-line="3375" selection-start-column="16" selection-end-line="3375" selection-end-column="16" />
+            <state relative-caret-position="532">
+              <caret line="3402" column="60" lean-forward="true" selection-start-line="3402" selection-start-column="60" selection-end-line="3402" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -99,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index_controller.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="1232" column="95" lean-forward="true" selection-start-line="1232" selection-start-column="95" selection-end-line="1232" selection-end-column="95" />
+            <state relative-caret-position="267">
+              <caret line="3081" column="8" lean-forward="false" selection-start-line="3081" selection-start-column="8" selection-end-line="3081" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -143,7 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>addAVGs</find>
       <find>fix</find>
       <find>opponentsecond</find>
       <find>opponentsecond_current</find>
@@ -173,6 +170,7 @@
       <find>def detail</find>
       <find>away</find>
       <find>.where(&quot;fglinetotal is not null AND fglinetotal != 0&quot;)</find>
+      <find>first_half_bigger</find>
     </findStrings>
     <replaceStrings>
       <replace>5.hours</replace>
@@ -198,8 +196,8 @@
         <option value="$PROJECT_DIR$/db/migrate/20181101130454_add_bigger_to_nba_database.rb" />
         <option value="$PROJECT_DIR$/lib/tasks/job.rake" />
         <option value="$PROJECT_DIR$/app/views/index/rest.html.erb" />
-        <option value="$PROJECT_DIR$/app/controllers/index_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/index/detail.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/index_controller.rb" />
       </list>
     </option>
   </component>
@@ -427,12 +425,12 @@
       <workItem from="1540333069967" duration="544000" />
       <workItem from="1540450702522" duration="8822000" />
       <workItem from="1540964286496" duration="9085000" />
-      <workItem from="1541050743512" duration="8817000" />
+      <workItem from="1541050743512" duration="9398000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57836000" />
+    <option name="totallyTimeSpent" value="58417000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="0" />
@@ -1122,10 +1120,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="1232" column="95" lean-forward="true" selection-start-line="1232" selection-start-column="95" selection-end-line="1232" selection-end-column="95" />
+        <state relative-caret-position="532">
+          <caret line="3402" column="60" lean-forward="true" selection-start-line="3402" selection-start-column="60" selection-end-line="3402" selection-end-column="60" />
           <folding />
         </state>
       </provider>
@@ -1138,10 +1136,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="3375" column="16" lean-forward="true" selection-start-line="3375" selection-start-column="16" selection-end-line="3375" selection-end-column="16" />
+        <state relative-caret-position="267">
+          <caret line="3081" column="8" lean-forward="false" selection-start-line="3081" selection-start-column="8" selection-end-line="3081" selection-end-column="8" />
           <folding />
         </state>
       </provider>
