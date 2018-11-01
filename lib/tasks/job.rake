@@ -761,7 +761,7 @@ namespace :job do
       second_half_total_count_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i
 
       first_half_bigger = "0"
-      first_half_difference = game.away_first_half - game.home_first_half - game.first_half_side
+      first_half_difference = game.away_first_half.to_f - game.home_first_half.to_f - game.first_half_side.to_f
       if first_half_difference > 0
         first_half_bigger = "AWAY"
       elsif first_half_difference < 0
@@ -771,7 +771,7 @@ namespace :job do
       end
 
       second_half_bigger = "0"
-      second_half_difference = game.away_second_half - game.home_second_half - game.second_half_side
+      second_half_difference = game.away_second_half.to_f - game.home_second_half.to_f - game.second_half_side.to_f
       if second_half_difference > 0
         second_half_bigger = "AWAY"
       elsif second_half_difference < 0
@@ -781,7 +781,7 @@ namespace :job do
       end
 
       fullgame_bigger = "0"
-      fullgame_difference = game.road - game.home - game.fullgame_side
+      fullgame_difference = game.road.to_f - game.home.to_f - game.fullgame_side.to_f
       if fullgame_difference > 0
         fullgame_bigger = "AWAY"
       elsif fullgame_difference < 0
