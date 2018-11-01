@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/index_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/index_controller.rb" />
+      <change beforePath="$PROJECT_DIR$/lib/tasks/job.rake" afterPath="$PROJECT_DIR$/lib/tasks/job.rake" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -24,7 +24,7 @@
         <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="532">
-              <caret line="3402" column="60" lean-forward="true" selection-start-line="3402" selection-start-column="60" selection-end-line="3402" selection-end-column="60" />
+              <caret line="3402" column="60" lean-forward="false" selection-start-line="3402" selection-start-column="60" selection-end-line="3402" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -34,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="277">
-              <caret line="1681" column="8" lean-forward="true" selection-start-line="1681" selection-start-column="8" selection-end-line="1686" selection-end-column="58" />
+              <caret line="1681" column="8" lean-forward="false" selection-start-line="1681" selection-start-column="8" selection-end-line="1686" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -43,8 +43,8 @@
       <file leaf-file-name="application.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="162" column="5" lean-forward="false" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
+            <state relative-caret-position="298">
+              <caret line="156" column="21" lean-forward="false" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -54,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="183">
-              <caret line="1297" column="15" lean-forward="true" selection-start-line="1297" selection-start-column="15" selection-end-line="1297" selection-end-column="15" />
+              <caret line="1297" column="15" lean-forward="false" selection-start-line="1297" selection-start-column="15" selection-end-line="1297" selection-end-column="15" />
               <folding>
                 <element signature="e#51#1646#0" expanded="false" />
                 <element signature="e#3831#19734#0" expanded="false" />
@@ -97,21 +97,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index_controller.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index_controller.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="3081" column="8" lean-forward="false" selection-start-line="3081" selection-start-column="8" selection-end-line="3081" selection-end-column="8" />
+            <state relative-caret-position="312">
+              <caret line="3084" column="37" lean-forward="false" selection-start-line="3084" selection-start-column="37" selection-end-line="3084" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="job.rake" pinned="false" current-in-tab="false">
+      <file leaf-file-name="job.rake" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/tasks/job.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="775" column="34" lean-forward="false" selection-start-line="775" selection-start-column="30" selection-end-line="775" selection-end-column="34" />
+            <state relative-caret-position="438">
+              <caret line="863" column="35" lean-forward="true" selection-start-line="863" selection-start-column="35" selection-end-line="863" selection-end-column="35" />
               <folding>
                 <element signature="e#52#5322#0" expanded="false" />
                 <element signature="e#5362#7536#0" expanded="false" />
@@ -127,11 +127,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="20181101130454_add_bigger_to_nba_database.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/migrate/20181101130454_add_bigger_to_nba_database.rb">
+      <file leaf-file-name="20171125042129_create_fullseasons.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db/migrate/20171125042129_create_fullseasons.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="49" lean-forward="false" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="49" />
+            <state relative-caret-position="278">
+              <caret line="25" column="30" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -141,8 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fix</find>
-      <find>opponentsecond</find>
       <find>opponentsecond_current</find>
       <find>getinjury</find>
       <find>getPlayer</find>
@@ -166,19 +164,21 @@
       <find>nbadat</find>
       <find>fg_total_pt_2000</find>
       <find>def rest</find>
-      <find>countItem.where(&quot;fglinetotal is not null AND fglinetotal != 0&quot;).average(:totalpoint).to_f.round(2)</find>
       <find>def detail</find>
       <find>away</find>
       <find>.where(&quot;fglinetotal is not null AND fglinetotal != 0&quot;)</find>
       <find>first_half_bigger</find>
+      <find>away_first_half</find>
+      <find>fullseasons</find>
+      <find>countItem.where(&quot;fglinetotal is not null AND fglinetotal != 0&quot;).average(:totalpoint).to_f.round(2)</find>
     </findStrings>
     <replaceStrings>
       <replace>5.hours</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
-      <dir>$PROJECT_DIR$/db/migrate</dir>
       <dir>$PROJECT_DIR$/app/views/index</dir>
+      <dir>$PROJECT_DIR$/db/migrate</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -194,10 +194,11 @@
         <option value="$PROJECT_DIR$/app/assets/stylesheets/application.scss" />
         <option value="$PROJECT_DIR$/db/migrate/20181101125639_add_count_to_nba_databases.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20181101130454_add_bigger_to_nba_database.rb" />
-        <option value="$PROJECT_DIR$/lib/tasks/job.rake" />
         <option value="$PROJECT_DIR$/app/views/index/rest.html.erb" />
         <option value="$PROJECT_DIR$/app/views/index/detail.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/index_controller.rb" />
+        <option value="$PROJECT_DIR$/db/migrate/20181101145627_add_bigger_to_fullseason.rb" />
+        <option value="$PROJECT_DIR$/lib/tasks/job.rake" />
       </list>
     </option>
   </component>
@@ -425,12 +426,12 @@
       <workItem from="1540333069967" duration="544000" />
       <workItem from="1540450702522" duration="8822000" />
       <workItem from="1540964286496" duration="9085000" />
-      <workItem from="1541050743512" duration="9398000" />
+      <workItem from="1541050743512" duration="11120000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58417000" />
+    <option name="totallyTimeSpent" value="60139000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="0" />
@@ -441,19 +442,19 @@
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33466935" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,45 +470,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38865">
-          <caret line="2591" column="51" lean-forward="false" selection-start-line="2591" selection-start-column="51" selection-end-line="2591" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14355">
-          <caret line="957" column="63" lean-forward="false" selection-start-line="957" selection-start-column="63" selection-end-line="957" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45990">
-          <caret line="3066" column="19" lean-forward="false" selection-start-line="3066" selection-start-column="8" selection-end-line="3066" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2430">
-          <caret line="162" column="5" lean-forward="true" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/game.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11610">
-          <caret line="774" column="142" lean-forward="false" selection-start-line="774" selection-start-column="42" selection-end-line="774" selection-end-column="142" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4065">
@@ -1044,7 +1006,7 @@
     <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
-          <caret line="1297" column="15" lean-forward="true" selection-start-line="1297" selection-start-column="15" selection-end-line="1297" selection-end-column="15" />
+          <caret line="1297" column="15" lean-forward="false" selection-start-line="1297" selection-start-column="15" selection-end-line="1297" selection-end-column="15" />
           <folding>
             <element signature="e#51#1646#0" expanded="false" />
             <element signature="e#3831#19734#0" expanded="false" />
@@ -1086,18 +1048,90 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="3402" column="60" lean-forward="false" selection-start-line="3402" selection-start-column="60" selection-end-line="3402" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="1681" column="8" lean-forward="false" selection-start-line="1681" selection-start-column="8" selection-end-line="1686" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="3084" column="37" lean-forward="false" selection-start-line="3084" selection-start-column="37" selection-end-line="3084" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="162" column="5" lean-forward="false" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
+        <state relative-caret-position="298">
+          <caret line="156" column="21" lean-forward="false" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20181101145627_add_bigger_to_fullseason.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="54" lean-forward="true" selection-start-line="4" selection-start-column="54" selection-end-line="4" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20181101130454_add_bigger_to_nba_database.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="12" lean-forward="true" selection-start-line="1" selection-start-column="12" selection-end-line="4" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20180116082359_add_columns_to_full_season.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20180109120013_add_columns_to_fullseason.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="40" lean-forward="true" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20180126141917_add_fg_to_fullseason.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="20" column="53" lean-forward="true" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20171125042129_create_fullseasons.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="25" column="30" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/job.rake">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="775" column="34" lean-forward="false" selection-start-line="775" selection-start-column="30" selection-end-line="775" selection-end-column="34" />
+        <state relative-caret-position="438">
+          <caret line="863" column="35" lean-forward="true" selection-start-line="863" selection-start-column="35" selection-end-line="863" selection-end-column="35" />
           <folding>
             <element signature="e#52#5322#0" expanded="false" />
             <element signature="e#5362#7536#0" expanded="false" />
@@ -1109,38 +1143,6 @@
             <element signature="e#27421#27892#0" expanded="false" />
             <element signature="e#27913#28273#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20181101130454_add_bigger_to_nba_database.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="49" lean-forward="false" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="3402" column="60" lean-forward="true" selection-start-line="3402" selection-start-column="60" selection-end-line="3402" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="1681" column="8" lean-forward="true" selection-start-line="1681" selection-start-column="8" selection-end-line="1686" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="3081" column="8" lean-forward="false" selection-start-line="3081" selection-start-column="8" selection-end-line="3081" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>

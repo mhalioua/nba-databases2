@@ -833,4 +833,45 @@ namespace :job do
       )
     end
   end
+
+  task :addBiggerToFullseason => :environment do
+    games = Fullseason.where('first_half_bigger is null')
+    games.each do |game|
+      first_half_bigger = "0"
+      first_half_difference = game.roadfirsthalf.to_f - game.homefirsthalf.to_f - game.firstside.to_f
+      if first_half_difference > 0
+        first_half_bigger = "AWAY"
+      elsif first_half_difference < 0
+        first_half_bigger = "HOME"
+      else
+        first_half_bigger = "0"
+      end
+
+      second_half_bigger = "0"
+      second_half_difference = game.roadthird.to_f + game.roadforth.to_f - game.homethird.to_f - game.homeforth.to_f - game.secondside.to_f
+      if second_half_difference > 0
+        second_half_bigger = "AWAY"
+      elsif second_half_difference < 0
+        second_half_bigger = "HOME"
+      else
+        second_half_bigger = "0"
+      end
+
+      fullgame_bigger = "0"
+      fullgame_difference = game.roadtotal.to_f - game.hometotal.to_f - game.fgside.to_f
+      if fullgame_difference > 0
+        fullgame_bigger = "AWAY"
+      elsif fullgame_difference < 0
+        fullgame_bigger = "HOME"
+      else
+        fullgame_bigger = "0"
+      end
+
+      game.update(
+          first_half_bigger: first_half_bigger,
+          second_half_bigger: second_half_bigger,
+          fullgame_bigger: fullgame_bigger
+      )
+    end
+  end
 end
