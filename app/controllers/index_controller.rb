@@ -1219,16 +1219,20 @@ class IndexController < ApplicationController
 			search_string = search_string.join(" AND ")
 			search_second_string = search_second_string.join(" AND ")
 			filter_element = Fullseason.where(search_string).to_a
+			filter_second_element = Fullseason.where(search_second_string).to_a
+			filter_second_element_side = Fullseason.where(search_second_string)
 			temp_count1 = filter_element.count
 			result_element = {
 				first: (filter_element.map {|stat| stat.firstvalue.to_f }.sum / (temp_count1 == 0 ? 1 : temp_count1)).round(2),
 				second: (filter_element.map {|stat| stat.secondvalue.to_f }.sum / (temp_count1 == 0 ? 1 : temp_count1)).round(2),
 				full: (filter_element.map {|stat| stat.totalvalue.to_f }.sum / (temp_count1 == 0 ? 1 : temp_count1)).round(2),
-				count: temp_count1
+				count: temp_count1,
+				first_half_away: filter_second_element_side.where("first_half_bigger = 'AWAY'").count,
+				first_half_home: filter_second_element_side.where("first_half_bigger = 'HOME'").count,
+				second_half_away: filter_second_element_side.where("second_half_bigger = 'AWAY'").count,
+				second_half_home: filter_second_element_side.where("second_half_bigger = 'HOME'").count
 			}
 			if index != 0
-				filter_second_element = Fullseason.where(search_second_string).to_a
-				filter_second_element_side = Fullseason.where(search_second_string)
 				temp_count3 = filter_second_element.count
 				result_element[:allfirst] = (filter_second_element.map {|stat| stat.firstvalue.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
 				result_element[:allsecond] = (filter_second_element.map {|stat| stat.secondvalue.to_f }.sum / (temp_count3 == 0 ? 1 : temp_count3)).round(2)
@@ -3064,7 +3068,11 @@ class IndexController < ApplicationController
 				first_under: filter_second_element.where("firstou = 'under'").count,
 				first_over: filter_second_element.where("firstou = 'over'").count,
 				second_under: filter_second_element.where("secondou = 'under'").count,
-				second_over: filter_second_element.where("secondou = 'over'").count
+				second_over: filter_second_element.where("secondou = 'over'").count,
+				first_half_away: filter_second_element.where("first_half_bigger = 'AWAY'").count,
+				first_half_home: filter_second_element.where("first_half_bigger = 'HOME'").count,
+				second_half_away: filter_second_element.where("second_half_bigger = 'AWAY'").count,
+				second_half_home: filter_second_element.where("second_half_bigger = 'HOME'").count
 			}
 			result_element_secondtravel = {
 				first: filter_element_secondtravel.average(:firstvalue).to_f.round(2),
