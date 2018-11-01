@@ -760,6 +760,36 @@ namespace :job do
       first_half_total_count_2000 = countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i
       second_half_total_count_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i
 
+      first_half_bigger = "0"
+      first_half_difference = game.away_first_half - game.home_first_half - game.first_half_side
+      if first_half_difference > 0
+        first_half_bigger = "AWAY"
+      elsif first_half_difference < 0
+        first_half_bigger = "HOME"
+      else
+        first_half_bigger = "0"
+      end
+
+      second_half_bigger = "0"
+      second_half_difference = game.away_second_half - game.home_second_half - game.second_half_side
+      if second_half_difference > 0
+        second_half_bigger = "AWAY"
+      elsif second_half_difference < 0
+        second_half_bigger = "HOME"
+      else
+        second_half_bigger = "0"
+      end
+
+      fullgame_bigger = "0"
+      fullgame_difference = game.road - game.home - game.fullgame_side
+      if fullgame_difference > 0
+        fullgame_bigger = "AWAY"
+      elsif fullgame_difference < 0
+        fullgame_bigger = "HOME"
+      else
+        fullgame_bigger = "0"
+      end
+
       game.update(
         fg_road_2000: fg_road_2000,
         fg_home_2000: fg_home_2000,
@@ -796,7 +826,10 @@ namespace :job do
         second_half_total_diff_2000: second_half_total_diff_2000,
         fg_total_count_2000: fg_total_count_2000,
         first_half_total_count_2000: first_half_total_count_2000,
-        second_half_total_count_2000: second_half_total_count_2000
+        second_half_total_count_2000: second_half_total_count_2000,
+        first_half_bigger: first_half_bigger,
+        second_half_bigger: second_half_bigger,
+        fullgame_bigger: fullgame_bigger
       )
     end
   end
