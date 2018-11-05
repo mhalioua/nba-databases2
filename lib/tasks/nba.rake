@@ -311,7 +311,7 @@ namespace :nba do
       element.update(second_current: current, second_last_three: last_three, second_last_one: last_one, second_home: home, second_away: away, second_last: last)
     end
 
-    games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-4.hours)
+    games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-5.hours)
     games.each do |game|
       home_team = game.team_stats.find_or_create_by(abbr: game.home_abbr)
       match_team = Team.find_by(abbr: game.home_abbr)
@@ -608,7 +608,7 @@ namespace :nba do
 
 	task :getHalf => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-4.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-5.hours)
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
@@ -851,7 +851,7 @@ namespace :nba do
         if @nba_nicknames[away_name]
           away_name = @nba_nicknames[away_name]
         end
-        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
+        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
         matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
         if matched.size > 0
@@ -949,7 +949,7 @@ namespace :nba do
 		    if @nba_nicknames[away_name]
 		      away_name = @nba_nicknames[away_name]
 		    end
-				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
 				line_one = opener.index(" ")
 				opener_side = line_one ? opener[0..line_one] : ""
@@ -1073,7 +1073,7 @@ namespace :nba do
 		    if @nba_nicknames[away_name]
 		      away_name = @nba_nicknames[away_name]
 		    end
-				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
 				line_one = opener.index(" ")
 				opener_side = line_one ? opener[0..line_one] : ""
@@ -1297,7 +1297,7 @@ namespace :nba do
 	task :getUpdatePoss => [:environment] do
 		include Api
 		Time.zone = 'Eastern Time (US & Canada)'
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-4.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
 		games.each do |game|
 			players = game.players.where("player_name <> 'TEAM'")
 			players.each do |player|
@@ -1347,7 +1347,7 @@ namespace :nba do
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-4.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
 		puts games.size
 		games.each do |game|
 			players = game.players.all
@@ -2227,7 +2227,7 @@ namespace :nba do
 
   task :fixingscores => :environment do
     include Api
-    games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-4.hours)
+    games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
     puts games.size
     games.each do |game|
       date = DateTime.parse(game.game_date).in_time_zone
