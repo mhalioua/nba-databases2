@@ -835,7 +835,7 @@ namespace :job do
   end
 
   task :addBiggerToFullseason => :environment do
-    games = Fullseason.where('first_half_bigger is null')
+    games = Fullseason.where('first_half_bigger is null AND firstside is not null')
     games.each do |game|
       first_half_bigger = "0"
       first_half_difference = game.roadfirsthalf.to_f - game.homefirsthalf.to_f - game.firstside.to_f
