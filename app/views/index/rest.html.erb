@@ -957,11 +957,11 @@ end
   <table border="1" class="tableSide totalAverage firstTravel" style="width: 1%">
     <tbody>
     <tr>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y") %></td>
       <td></td>
       <td></td>
@@ -976,11 +976,11 @@ end
       <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE</td>
     </tr>
     <tr>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td colspan="2" class="gameDate">TRAVEL</td>
@@ -997,11 +997,11 @@ end
       <td></td>
     </tr>
     <tr>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td class="gameDate">RIVALS</td>
       <td></td>
       <td>last Y/N</td>
@@ -1020,11 +1020,11 @@ end
       <td></td>
     </tr>
     <tr class="gameDate">
-      <td style="display: none"></td>
-      <td style="display: none"></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
       <td></td>
       <td></td>
@@ -1051,11 +1051,11 @@ end
       <td colspan="3" class="red">ORTG</td>
     </tr>
     <tr>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td>RIVALS</td>
       <td class="gradient"></td>
       <td></td>
@@ -1082,11 +1082,11 @@ end
       <td></td>
     </tr>
     <tr>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td>ALL GAMES IN <%= @home_abbr %></td>
       <td class="gradient"></td>
       <td></td>
@@ -1113,9 +1113,9 @@ end
       <td></td>
     </tr>
     <tr>
-      <td style="display: none" colspan="2">1st Half</td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none" colspan="2">2nd Half</td>
+      <td colspan="2">1st Half</td>
+      <td class="gradient"></td>
+      <td colspan="2">2nd Half</td>
       <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A") %></td>
       <td class="gradient"></td>
       <td></td>
@@ -1142,11 +1142,11 @@ end
       <td>+/-</td>
     </tr>
     <tr class="gradient">
-      <td style="display: none"></td>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
-      <td style="display: none"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -1183,18 +1183,18 @@ end
  %>
       <tr class="filterElement">
         <% if index == 0 %>
-          <td style="display: none">under</td>
-          <td style="display: none">over</td>
-          <td style="display: none"></td>
-          <td style="display: none">under</td>
-          <td style="display: none">over</td>
+          <td>under</td>
+          <td>over</td>
+          <td></td>
+          <td>under</td>
+          <td>over</td>
           <td>Any</td>
         <% else %>
-          <td style="display: none"><%= @filterResult[index][:first_under] %></td>
-          <td style="display: none"><%= @filterResult[index][:first_over] %></td>
-          <td style="display: none"></td>
-          <td style="display: none"><%= @filterResult[index][:second_under] %></td>
-          <td style="display: none"><%= @filterResult[index][:second_over] %></td>
+          <td><%= @filterResult[index][:first_under] %></td>
+          <td><%= @filterResult[index][:first_over] %></td>
+          <td></td>
+          <td><%= @filterResult[index][:second_under] %></td>
+          <td><%= @filterResult[index][:second_over] %></td>
           <td>
             <div>
               <%= first_one %>
@@ -1259,11 +1259,11 @@ end
       </tr>
       <% if @break.include?(index) %>
         <tr class="gradient">
-          <td style="display: none"></td>
-          <td style="display: none"></td>
-          <td style="display: none"></td>
-          <td style="display: none"></td>
-          <td style="display: none"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>
@@ -1295,11 +1295,11 @@ end
       <% end %>
     <% end %>
     <tr class="redgradient">
-      <td style="display: none" class="yellow">Away</td>
-      <td style="display: none" class="yellow">Home</td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none" class="yellow">Away</td>
-      <td style="display: none" class="yellow">Home</td>
+      <td class="yellow">Away</td>
+      <td class="yellow">Home</td>
+      <td class="gradient"></td>
+      <td class="yellow">Away</td>
+      <td class="yellow">Home</td>
       <td class="yellow">GAMES</td>
       <td></td>
       <td></td>
@@ -1330,11 +1330,11 @@ end
       <td></td>
     </tr>
     <tr>
-      <td style="display: none"><%= @filterResult[0][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[0][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[0][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[0][:second_half_home] %></td>
+      <td><%= @filterResult[0][:first_half_away] %></td>
+      <td><%= @filterResult[0][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[0][:second_half_away] %></td>
+      <td><%= @filterResult[0][:second_half_home] %></td>
       <td class="borderTop borderRight borderLeft"><%= @filterResult[0][:allcount] %></td>
       <td class="gradient"></td>
       <td class="yellow border"></td>
@@ -1365,11 +1365,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[0][:bi_count] %></td>
     </tr>
     <tr style="background-color: #fcf !important">
-      <td style="display: none"><%= @filterResult[1][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[1][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[1][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[1][:second_half_home] %></td>
+      <td><%= @filterResult[1][:first_half_away] %></td>
+      <td><%= @filterResult[1][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[1][:second_half_away] %></td>
+      <td><%= @filterResult[1][:second_half_home] %></td>
       <td class="borderRight borderLeft"><%= @filterResult[1][:allcount] %></td>
       <td class="gradient"></td>
       <td class="filter border">X</td>
@@ -1400,11 +1400,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[1][:bi_count] %></td>
     </tr>
     <tr>
-      <td style="display: none"><%= @filterResult[20][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[20][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[20][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[20][:second_half_home] %></td>
+      <td><%= @filterResult[20][:first_half_away] %></td>
+      <td><%= @filterResult[20][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[20][:second_half_away] %></td>
+      <td><%= @filterResult[20][:second_half_home] %></td>
       <td class="borderRight borderLeft"><%= @filterResult[20][:allcount] %></td>
       <td class="gradient"></td>
       <td class="filter border">X</td>
@@ -1435,11 +1435,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[20][:bi_count] %></td>
     </tr>
     <tr>
-      <td style="display: none"><%= @filterResult[10][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[10][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[10][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[10][:second_half_home] %></td>
+      <td><%= @filterResult[10][:first_half_away] %></td>
+      <td><%= @filterResult[10][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[10][:second_half_away] %></td>
+      <td><%= @filterResult[10][:second_half_home] %></td>
       <td class="borderRight borderLeft"><%= @filterResult[10][:allcount] %></td>
       <td class="gradient"></td>
       <td class="filter border">X</td>
@@ -1470,11 +1470,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[10][:bi_count] %></td>
     </tr>
     <tr>
-      <td style="display: none"><%= @filterResult[11][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[11][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[11][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[11][:second_half_home] %></td>
+      <td><%= @filterResult[11][:first_half_away] %></td>
+      <td><%= @filterResult[11][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[11][:second_half_away] %></td>
+      <td><%= @filterResult[11][:second_half_home] %></td>
       <td class="borderRight borderLeft"><%= @filterResult[11][:allcount] %></td>
       <td class="gradient"></td>
       <td class="filter border">X</td>
@@ -1505,11 +1505,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[11][:bi_count] %></td>
     </tr>
     <tr>
-      <td style="display: none"><%= @filterResult[16][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[16][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[16][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[16][:second_half_home] %></td>
+      <td><%= @filterResult[16][:first_half_away] %></td>
+      <td><%= @filterResult[16][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[16][:second_half_away] %></td>
+      <td><%= @filterResult[16][:second_half_home] %></td>
       <td class="borderRight borderLeft"><%= @filterResult[16][:allcount] %></td>
       <td class="gradient"></td>
       <td class="yellow border"></td>
@@ -1540,11 +1540,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[16][:bi_count] %></td>
     </tr>
     <tr>
-      <td style="display: none"><%= @filterResult[17][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[17][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[17][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[17][:second_half_home] %></td>
+      <td><%= @filterResult[17][:first_half_away] %></td>
+      <td><%= @filterResult[17][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[17][:second_half_away] %></td>
+      <td><%= @filterResult[17][:second_half_home] %></td>
       <td class="borderRight borderLeft"><%= @filterResult[17][:allcount] %></td>
       <td class="gradient"></td>
       <td class="filter border">X</td>
@@ -1575,11 +1575,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[17][:bi_count] %></td>
     </tr>
     <tr>
-      <td style="display: none"><%= @filterResult[18][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[18][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[18][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[18][:second_half_home] %></td>
+      <td><%= @filterResult[18][:first_half_away] %></td>
+      <td><%= @filterResult[18][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[18][:second_half_away] %></td>
+      <td><%= @filterResult[18][:second_half_home] %></td>
       <td class="borderRight borderLeft"><%= @filterResult[18][:allcount] %></td>
       <td class="gradient"></td>
       <td class="yellow border"></td>
@@ -1610,11 +1610,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[18][:bi_count] %></td>
     </tr>
     <tr>
-      <td style="display: none"><%= @filterResult[19][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[19][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[19][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[19][:second_half_home] %></td>
+      <td><%= @filterResult[19][:first_half_away] %></td>
+      <td><%= @filterResult[19][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[19][:second_half_away] %></td>
+      <td><%= @filterResult[19][:second_half_home] %></td>
       <td class="borderRight borderLeft"><%= @filterResult[19][:allcount] %></td>
       <td class="gradient"></td>
       <td class="yellow border"></td>
@@ -1645,11 +1645,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[19][:bi_count] %></td>
     </tr>
     <tr>
-      <td style="display: none"><%= @filterResult[14][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[14][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[14][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[14][:second_half_home] %></td>
+      <td><%= @filterResult[14][:first_half_away] %></td>
+      <td><%= @filterResult[14][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[14][:second_half_away] %></td>
+      <td><%= @filterResult[14][:second_half_home] %></td>
       <td class="borderRight borderLeft"><%= @filterResult[14][:allcount] %></td>
       <td class="gradient"></td>
       <td class="yellow border"></td>
@@ -1680,11 +1680,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[14][:bi_count] %></td>
     </tr>
     <tr>
-      <td style="display: none"><%= @filterResult[15][:first_half_away] %></td>
-      <td style="display: none"><%= @filterResult[15][:first_half_home] %></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none"><%= @filterResult[15][:second_half_away] %></td>
-      <td style="display: none"><%= @filterResult[15][:second_half_home] %></td>
+      <td><%= @filterResult[15][:first_half_away] %></td>
+      <td><%= @filterResult[15][:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= @filterResult[15][:second_half_away] %></td>
+      <td><%= @filterResult[15][:second_half_home] %></td>
       <td class="borderRight borderLeft borderBottom"><%= @filterResult[15][:allcount] %></td>
       <td class="gradient"></td>
       <td class="filter border">X</td>
@@ -1715,11 +1715,11 @@ end
       <td class="borderTop" style="background-color: #ccf"><%= @filterResult[15][:bi_count] %></td>
     </tr>
     <tr class="redgradient">
-      <td style="display: none" class="yellow"></td>
-      <td style="display: none" class="yellow"></td>
-      <td style="display: none" class="gradient"></td>
-      <td style="display: none" class="yellow"></td>
-      <td style="display: none" class="yellow"></td>
+      <td class="yellow"></td>
+      <td class="yellow"></td>
+      <td class="gradient"></td>
+      <td class="yellow"></td>
+      <td class="yellow"></td>
       <td class="yellow">GAMES</td>
       <td></td>
       <td></td>
