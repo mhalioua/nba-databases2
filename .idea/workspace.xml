@@ -91,8 +91,8 @@
       <file leaf-file-name="index_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="3310" column="40" lean-forward="true" selection-start-line="3310" selection-start-column="40" selection-end-line="3310" selection-end-column="40" />
+            <state relative-caret-position="276">
+              <caret line="3310" column="39" lean-forward="false" selection-start-line="3310" selection-start-column="39" selection-end-line="3310" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -410,7 +410,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64500000" />
+    <option name="totallyTimeSpent" value="64724000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="0" />
@@ -951,8 +951,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="3310" column="40" lean-forward="true" selection-start-line="3310" selection-start-column="40" selection-end-line="3310" selection-end-column="40" />
+        <state relative-caret-position="276">
+          <caret line="3310" column="39" lean-forward="false" selection-start-line="3310" selection-start-column="39" selection-end-line="3310" selection-end-column="39" />
           <folding />
         </state>
       </provider>

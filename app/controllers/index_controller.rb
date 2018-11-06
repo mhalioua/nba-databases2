@@ -3308,7 +3308,7 @@ class IndexController < ApplicationController
 
     @game_date = DateTime.parse(@game.game_date)
     year = @game_date.year
-    date = @game_date.strftime("%b-%-d")
+    date = @game_date.strftime("%-d-%b")
 
     @countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", @game.away_last_fly, @game.away_next_fly, @game.away_last_game, @game.away_next_game, @game.home_next_game, @game.home_last_game, @game.home_next_fly, @game.home_last_fly)
     @countItem = @countItem.where("roadteam != ? OR year != ? OR date != ?", @game.away_team, year, date)
