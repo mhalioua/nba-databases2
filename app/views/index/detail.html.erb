@@ -2,14 +2,14 @@
 <div class="header row">
   <div class="col-md-1 col-md-offset-2">
     <p>POSSESSIONS</p>
-    <input type="text" class="awayPossessions"/>
+    <input type="text" class="awayPossessions" value="100"/>
   </div>
   <div class="col-md-4  col-md-offset-1">
     <h1><%= @head %></h1>
   </div>
   <div class="col-md-1 col-md-offset-1">
     <p>POSSESSIONS</p>
-    <input type="text"  class="homePossessions"/>
+    <input type="text"  class="homePossessions" value="100"/>
   </div>
 </div>
 
@@ -1656,7 +1656,11 @@ $(document).ready(function(){
   });
 });
 $('.awayPossessions').on('input', function() { 
-  var value = $(this).val();
+  awayInput();
+});
+
+function awayInput() {
+  var value = $('.awayPossessions').val();
 
   var injurysum1 = 0, injurysum2 = 0;
   <% @away_players.each_with_index do |player, index| 
@@ -1805,9 +1809,15 @@ $('.awayPossessions').on('input', function() {
   $('#awaysum').html(sum);
   $('#awaysum1').html(sum1);
   $('#awaysum2').html(sum2);
+}
+awayInput();
+
+$('.homePossessions').on('input', function() {
+    homeInput();
 });
-$('.homePossessions').on('input', function() { 
-  var value = $(this).val();
+
+function homeInput() {
+  var value = $(".homePossessions").val();
     var injurysum1 = 0, injurysum2 = 0;
    <% @home_players.each_with_index do |player, index| 
     count = 1
@@ -1955,7 +1965,8 @@ $('.homePossessions').on('input', function() {
     $('#homesum').html(sum);
     $('#homesum1').html(sum1);
     $('#homesum2').html(sum2);
-});
+}
+homeInput();
 </script>
 
 
