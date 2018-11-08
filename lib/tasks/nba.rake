@@ -1397,7 +1397,7 @@ namespace :nba do
           count = 0
           player_link = ""
           player_fullname = ""
-          player_elements = Tg.where("player_fullname = ? AND year >= 2017", player_name)
+          player_elements = Tg.where("player_fullname = ? AND year >= 2018", player_name)
           player_elements.each do |player_element|
             player_count = player_element.count ? player_element.count : 1
             count = count + player_count
