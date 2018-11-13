@@ -3163,8 +3163,6 @@ namespace :nba do
       away_or = 0
       elements.each_with_index do |element, index|
         next if element.children[0].text.squish == 'time'
-        puts element.children[0].text
-        puts element.children[2].text
         if element.children[0].text.squish == '0.0' && element.children[2].text.include?('End') && element.children[2].text.include?('2nd Quarter')
           game.update(
             home_fga_first: home_fga + home_pta,
