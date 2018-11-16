@@ -26,7 +26,6 @@ class IndexController < ApplicationController
 
 	def detail
 		@match = {
-	  		'NY' => 'NYK',
 	  		'PHX' => 'PHO',
 	  		'UTAH' => 'UTA',
 	  		'WSH' => 'WAS',
@@ -1739,7 +1738,6 @@ class IndexController < ApplicationController
 
 	def state
 		@match = {
-	  		'NY' => 'NYK',
 	  		'PHX' => 'PHO',
 	  		'UTAH' => 'UTA',
 	  		'WSH' => 'WAS',
@@ -2830,7 +2828,6 @@ class IndexController < ApplicationController
 
 	def rest
 		@match = {
-	  		'NY' => 'NYK',
 	  		'PHX' => 'PHO',
 	  		'UTAH' => 'UTA',
 	  		'WSH' => 'WAS',
