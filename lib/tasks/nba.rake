@@ -2647,7 +2647,7 @@ namespace :nba do
   task :getStarter => [:environment] do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    url = "https://www.rotowire.com/basketball/nba_lineups.php"
+    url = "https://www.rotowire.com/basketball/nba-lineups.php"
     0.upto(1) do |type|
       doc = download_document(url)
       times = doc.css(".lineup__time")[0..-2]
