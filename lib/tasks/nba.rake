@@ -2663,7 +2663,6 @@ namespace :nba do
         home_players = players[index*2 + 1]
         away_players.children.each_with_index do |away_player, index|
           next if index % 2 == 0 || index > 12 || index < 2
-          puts away_player.children[1].text.squish
           next if away_player.children.size < 3
           position = away_player.children[1].text.squish
           player_name = away_player.children[3].children[0].text.squish
