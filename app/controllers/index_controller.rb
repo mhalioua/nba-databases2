@@ -28,8 +28,7 @@ class IndexController < ApplicationController
 		@match = {
 	  		'PHX' => 'PHO',
 	  		'UTAH' => 'UTA',
-	  		'WSH' => 'WAS',
-	  		'NO' => 'NOP'
+	  		'WSH' => 'WAS'
 	  	}
 		@injuries = params[:injury]
 		unless @injuries
@@ -1740,8 +1739,7 @@ class IndexController < ApplicationController
 		@match = {
 	  		'PHX' => 'PHO',
 	  		'UTAH' => 'UTA',
-	  		'WSH' => 'WAS',
-	  		'NO' => 'NOP'
+	  		'WSH' => 'WAS'
 	  	}
 		@injuries = params[:injury]
 		unless @injuries
@@ -2830,8 +2828,7 @@ class IndexController < ApplicationController
 		@match = {
 	  		'PHX' => 'PHO',
 	  		'UTAH' => 'UTA',
-	  		'WSH' => 'WAS',
-	  		'NO' => 'NOP'
+	  		'WSH' => 'WAS'
 	  	}
 		@game_id = params[:id]
 		@game = Nba.find_by(game_id: @game_id)
