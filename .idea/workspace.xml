@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/index_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/index_controller.rb" />
+      <change beforePath="$PROJECT_DIR$/app/views/index/state.html.erb" afterPath="$PROJECT_DIR$/app/views/index/state.html.erb" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -33,18 +33,18 @@
       <file leaf-file-name="rest.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="state.html.erb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="state.html.erb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/index/state.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24120">
-              <caret line="1608" column="12" lean-forward="false" selection-start-line="1608" selection-start-column="12" selection-end-line="1608" selection-end-column="12" />
+            <state relative-caret-position="192">
+              <caret line="1603" column="32" lean-forward="false" selection-start-line="1603" selection-start-column="32" selection-end-line="1603" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -63,11 +63,10 @@
       <file leaf-file-name="nba.rake" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2760">
-              <caret line="2665" column="47" lean-forward="false" selection-start-line="2665" selection-start-column="47" selection-end-line="2665" selection-end-column="47" />
+            <state relative-caret-position="6075">
+              <caret line="1259" column="0" lean-forward="false" selection-start-line="1259" selection-start-column="0" selection-end-line="1259" selection-end-column="0" />
               <folding>
                 <element signature="e#1679#3801#0" expanded="false" />
-                <element signature="e#3831#19734#0" expanded="false" />
                 <element signature="e#19783#27231#0" expanded="false" />
                 <element signature="e#27266#29656#0" expanded="false" />
                 <element signature="e#29692#32263#0" expanded="false" />
@@ -108,11 +107,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index_controller.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index_controller.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="1744" column="20" lean-forward="true" selection-start-line="1744" selection-start-column="20" selection-end-line="1744" selection-end-column="20" />
+            <state relative-caret-position="407">
+              <caret line="1751" column="4" lean-forward="true" selection-start-line="1751" selection-start-column="4" selection-end-line="1751" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -151,9 +150,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>first_half_bigger</find>
-      <find>travel table</find>
-      <find>travel tab</find>
       <find>@countitem</find>
       <find>@countItem</find>
       <find>display:none</find>
@@ -181,6 +177,9 @@
       <find>'NO' =&gt; 'NOP'</find>
       <find>NY</find>
       <find>'NO'</find>
+      <find>task :fix</find>
+      <find>awaysum</find>
+      <find>homesum</find>
     </findStrings>
     <replaceStrings>
       <replace>5.hours</replace>
@@ -207,10 +206,10 @@
         <option value="$PROJECT_DIR$/lib/tasks/job.rake" />
         <option value="$PROJECT_DIR$/app/views/index/rest.html.erb" />
         <option value="$PROJECT_DIR$/app/views/index/detail.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/index/state.html.erb" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/lib/tasks/nba.rake" />
         <option value="$PROJECT_DIR$/app/controllers/index_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/index/state.html.erb" />
       </list>
     </option>
   </component>
@@ -242,8 +241,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="RailsProjectView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -289,6 +286,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="RailsProjectView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -439,12 +438,14 @@
       <workItem from="1542094152148" duration="1949000" />
       <workItem from="1542325212839" duration="1700000" />
       <workItem from="1542349179797" duration="2095000" />
-      <workItem from="1542444613595" duration="81000" />
+      <workItem from="1542444613595" duration="795000" />
+      <workItem from="1542610640063" duration="873000" />
+      <workItem from="1542707093199" duration="145000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75562000" />
+    <option name="totallyTimeSpent" value="77294000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="23" width="1879" height="1057" extended-state="0" />
@@ -528,7 +529,6 @@
           <caret line="294" column="73" lean-forward="true" selection-start-line="294" selection-start-column="11" selection-end-line="294" selection-end-column="73" />
           <folding>
             <element signature="e#1679#3801#0" expanded="false" />
-            <element signature="e#3831#19734#0" expanded="false" />
             <element signature="e#19783#27231#0" expanded="false" />
             <element signature="e#27266#29656#0" expanded="false" />
             <element signature="e#29692#32263#0" expanded="false" />
@@ -629,7 +629,6 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1679#3801#0" expanded="false" />
-            <element signature="e#3831#19734#0" expanded="false" />
             <element signature="e#19783#27231#0" expanded="false" />
             <element signature="e#27266#29656#0" expanded="false" />
             <element signature="e#29692#32263#0" expanded="false" />
@@ -675,7 +674,6 @@
           <caret line="1321" column="34" lean-forward="false" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
           <folding>
             <element signature="e#1679#3801#0" expanded="false" />
-            <element signature="e#3831#19734#0" expanded="false" />
             <element signature="e#19783#27231#0" expanded="false" />
             <element signature="e#27266#29656#0" expanded="false" />
             <element signature="e#29692#32263#0" expanded="false" />
@@ -737,7 +735,6 @@
           <caret line="1321" column="34" lean-forward="false" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
           <folding>
             <element signature="e#1679#3801#0" expanded="false" />
-            <element signature="e#3831#19734#0" expanded="false" />
             <element signature="e#19783#27231#0" expanded="false" />
             <element signature="e#27266#29656#0" expanded="false" />
             <element signature="e#29692#32263#0" expanded="false" />
@@ -799,7 +796,6 @@
           <caret line="1321" column="34" lean-forward="true" selection-start-line="1321" selection-start-column="34" selection-end-line="1321" selection-end-column="34" />
           <folding>
             <element signature="e#1679#3801#0" expanded="false" />
-            <element signature="e#3831#19734#0" expanded="false" />
             <element signature="e#19783#27231#0" expanded="false" />
             <element signature="e#27266#29656#0" expanded="false" />
             <element signature="e#29692#32263#0" expanded="false" />
@@ -956,14 +952,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2340">
-          <caret line="156" column="21" lean-forward="false" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/migrate/20181101130454_add_bigger_to_nba_database.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1018,22 +1006,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/state.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24120">
-          <caret line="1608" column="12" lean-forward="false" selection-start-line="1608" selection-start-column="12" selection-end-line="1608" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/job.rake">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1059,13 +1031,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/tasks/nba.rake">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2760">
-          <caret line="2665" column="47" lean-forward="false" selection-start-line="2665" selection-start-column="47" selection-end-line="2665" selection-end-column="47" />
+        <state relative-caret-position="6075">
+          <caret line="1259" column="0" lean-forward="false" selection-start-line="1259" selection-start-column="0" selection-end-line="1259" selection-end-column="0" />
           <folding>
             <element signature="e#1679#3801#0" expanded="false" />
-            <element signature="e#3831#19734#0" expanded="false" />
             <element signature="e#19783#27231#0" expanded="false" />
             <element signature="e#27266#29656#0" expanded="false" />
             <element signature="e#29692#32263#0" expanded="false" />
@@ -1105,18 +1084,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index/detail.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/application.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+        <state relative-caret-position="2340">
+          <caret line="156" column="21" lean-forward="false" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/index_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="1744" column="20" lean-forward="true" selection-start-line="1744" selection-start-column="20" selection-end-line="1744" selection-end-column="20" />
+        <state relative-caret-position="407">
+          <caret line="1751" column="4" lean-forward="true" selection-start-line="1751" selection-start-column="4" selection-end-line="1751" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index/state.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="1603" column="32" lean-forward="false" selection-start-line="1603" selection-start-column="32" selection-end-line="1603" selection-end-column="32" />
           <folding />
         </state>
       </provider>
