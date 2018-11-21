@@ -2087,7 +2087,7 @@ namespace :nba do
             player_link = player_element.player_link
             player_fullname = player_element.player_fullname
           end
-          count = 1 if count = 0
+          count = 1 if count == 0
 					ortg = (ortg.to_f / count).round(2)
 					drtg = (drtg.to_f / count).round(2)
 					player.update(ortg: ortg, drtg: drtg, player_link: player_link, player_fullname: player_name)
