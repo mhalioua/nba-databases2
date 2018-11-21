@@ -138,6 +138,7 @@
     <% @away_players_group2.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle = ""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -146,9 +147,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
       %>
       <tr>
@@ -213,6 +216,7 @@
     <% @away_players_group3.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle=""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -221,9 +225,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
       %>
       <tr>
@@ -344,6 +350,7 @@
     <% @home_players_group1.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle=""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -352,9 +359,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
       %>
       <tr>
@@ -416,6 +425,7 @@
     <% @home_players_group2.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle=""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -424,9 +434,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
       %>
       <tr>
@@ -491,6 +503,7 @@
     <% @home_players_group3.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle=""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -499,9 +512,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10 || @home_injury_name.include?(player.player_name)
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @injury_home_drtg_two_container.include?(player.id) || @injury_home_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
       %>
       <tr>
@@ -620,6 +635,7 @@
     <% @away_players_group1.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle=""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -628,9 +644,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
 
       %>
@@ -684,6 +702,7 @@
     <% @away_players_group2.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle=""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -692,9 +711,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
       %>
       <tr>
@@ -750,6 +771,7 @@
     <% @away_players_group3.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle=""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -758,9 +780,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @away_drtg_two_container.include?(player.id) || @away_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
       %>
       <tr>
@@ -869,6 +893,7 @@
     <% @home_players_group1.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle=""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -877,9 +902,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
       %>
       <tr>
@@ -932,6 +959,7 @@
     <% @home_players_group2.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle=""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -940,9 +968,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
       %>
       <tr>
@@ -998,6 +1028,7 @@
     <% @home_players_group3.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle=""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -1006,9 +1037,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @home_drtg_two_container.include?(player.id) || @home_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
       %>
       <tr>
