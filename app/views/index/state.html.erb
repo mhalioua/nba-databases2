@@ -62,6 +62,7 @@
     <% @away_players_group1.each_with_index do |player, index| 
           count = 1
           style =""
+          darkstyle = ""
           if player.possession
               count = player.possession.scan(/,/).count + 1
           end
@@ -70,9 +71,11 @@
           end
           if count < 10 || player.sum_mins/(count - 2) < 10 || @away_injury_name.include?(player.player_name)
             style="background:red;"
+            darkstyle="background:red;"
           end
           if @injury_away_drtg_two_container.include?(player.id) || @injury_away_drtg_one_container.include?(player.id)
             style="background:skyblue;"
+            darkstyle="background:dodgerblue;"
           end
 
       %>
@@ -114,12 +117,12 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group1.size %>"><%= '%.2f' % @injury_away_drtg_one %></td>
         <% end %>
-        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @away_injury_name.include?(player.player_name) %>
             <% if @injuries.include?(player.id.to_s) %>
@@ -186,12 +189,12 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @injury_away_drtg_two %></td>
         <% end %>
-        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @away_injury_name.include?(player.player_name) %>
             <% if @injuries.include?(player.id.to_s) %>
@@ -261,10 +264,10 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <td style='<%= style %>' ></td>
-        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @away_injury_name.include?(player.player_name) %>
             <% if @injuries.include?(player.id.to_s) %>
@@ -392,12 +395,12 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @home_players_group1.size %>"><%= '%.2f' % @injury_home_drtg_one %></td>
         <% end %>
-        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @home_injury_name.include?(player.player_name) %>
             <% if @injuries.include?(player.id.to_s) %>
@@ -464,12 +467,12 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @injury_home_drtg_two %></td>
         <% end %>
-        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @home_injury_name.include?(player.player_name) %>
             <% if @injuries.include?(player.id.to_s) %>
@@ -535,10 +538,10 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="injurychangeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <td style='<%= style %>' ></td>
-        <td style='<%= style %>'  class="injurychangeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="injurychangeDrtg<%= player.id %>"></td>
         <td style='<%= style %>'  class="checkbox<%= player.id %>">
           <% if @home_injury_name.include?(player.player_name) %>
             <% if @injuries.include?(player.id.to_s) %>
@@ -669,12 +672,12 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group1.size %>"><%= '%.2f' % @away_drtg_one %></td>
         <% end %>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
 
@@ -732,12 +735,12 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @away_drtg_two %></td>
         <% end %>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -798,10 +801,10 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <td style='<%= style %>' ></td>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -917,12 +920,12 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @home_players_group1.size %>"><%= '%.2f' % @home_drtg_one %></td>
         <% end %>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
 
@@ -980,12 +983,12 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @home_players_group2.size %>"><%= '%.2f' % @home_drtg_two %></td>
         <% end %>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -1042,10 +1045,10 @@
         <td style='<%= style %>' ></td>
         <% end %>
         <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= style %>'  class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeOrtg<%= player.id %>"></td>
         <td style='<%= style %>' ><%= player.drtg %></td>
         <td style='<%= style %>' ></td>
-        <td style='<%= style %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= darkstyle %>'  class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
