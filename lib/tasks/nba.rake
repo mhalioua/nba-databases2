@@ -2047,6 +2047,12 @@ namespace :nba do
 
           url = player.link
           puts player_name
+          if player.name === 'A. HarrisonA. Harrison'
+            player.update(
+                name: 'A. Harriso',
+                link: 'http://www.espn.com/nba/player/_/id/3064511'
+            )
+          end
           puts url
           doc = download_document(url)
           player_name = doc.css('h1').first.text
