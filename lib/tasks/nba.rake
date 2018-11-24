@@ -2042,17 +2042,15 @@ namespace :nba do
 				end
 		    if @team_nicknames[team_abbr]
 					team_abbr = @team_nicknames[team_abbr]
-					
-					player_name = player.player_name
-
-          puts player_name
-          if player.name === 'A. HarrisonA. Harrison'
+          if player.player_name === 'A. HarrisonA. Harrison'
             player.update(
                 player_name: 'A. Harriso',
                 link: 'http://www.espn.com/nba/player/_/id/3064511'
             )
           end
+          player_name = player.player_name
           url = player.link
+          puts player_name
           puts url
           doc = download_document(url)
           player_name = doc.css('h1').first.text
