@@ -2048,7 +2048,7 @@ namespace :nba do
           puts player_name
           if player.name === 'A. HarrisonA. Harrison'
             player.update(
-                name: 'A. Harriso',
+                player_name: 'A. Harriso',
                 link: 'http://www.espn.com/nba/player/_/id/3064511'
             )
           end
