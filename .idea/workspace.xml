@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e7f7b61b-6265-438c-a6b5-9cca57194558" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/index_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/index_controller.rb" />
       <change beforePath="$PROJECT_DIR$/app/views/index/rest.html.erb" afterPath="$PROJECT_DIR$/app/views/index/rest.html.erb" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
@@ -61,8 +60,8 @@
       <file leaf-file-name="rest.html.erb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="1902" column="15" lean-forward="true" selection-start-line="1902" selection-start-column="15" selection-end-line="1902" selection-end-column="15" />
+            <state relative-caret-position="282">
+              <caret line="1815" column="21" lean-forward="false" selection-start-line="1815" selection-start-column="21" selection-end-line="1815" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -82,7 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>@now</find>
       <find>@away_last</find>
       <find>@home_last</find>
       <find>away_flag</find>
@@ -112,6 +110,7 @@
       <find>17</find>
       <find>18</find>
       <find>19</find>
+      <find>24</find>
     </findStrings>
     <replaceStrings>
       <replace>5.hours</replace>
@@ -382,12 +381,12 @@
       <workItem from="1542953729034" duration="835000" />
       <workItem from="1543093264195" duration="2872000" />
       <workItem from="1543301899162" duration="975000" />
-      <workItem from="1543473279005" duration="2876000" />
+      <workItem from="1543473279005" duration="3045000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93957000" />
+    <option name="totallyTimeSpent" value="94126000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="43" y="23" width="1877" height="1057" extended-state="0" />
@@ -847,8 +846,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/index/rest.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="1902" column="15" lean-forward="true" selection-start-line="1902" selection-start-column="15" selection-end-line="1902" selection-end-column="15" />
+        <state relative-caret-position="282">
+          <caret line="1815" column="21" lean-forward="false" selection-start-line="1815" selection-start-column="21" selection-end-line="1815" selection-end-column="21" />
           <folding />
         </state>
       </provider>
