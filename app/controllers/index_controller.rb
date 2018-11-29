@@ -1128,13 +1128,14 @@ class IndexController < ApplicationController
 	    	[true, true, true, true, true, true, false, false],
 	    	[false, true, true, true, true, true, true, false],
 	    	[true, false, true, true, true, true, false, true],
+				[false, true, false, true, true, false, true, false],
+				[true, false, true, false, false, true, false, true],
 	    	[false, false, true, true, true, true, false, false],
+				[true, true, false, false, false, false, true, true],
 	    	[true, true, true, true, false, false, false, false],
-	    	[false, false, false, false, true, true, true, true],
-	    	[false, true, false, true, true, false, true, false],
-	    	[true, true, false, false, false, false, true, true]
+	    	[false, false, false, false, true, true, true, true]
 		]
-		@break = [9, 15, 16]
+		@break = [9, 17, 19]
 		@filterResult = []
 		@filterResult_secondtravel = []
 		@filters.each_with_index do |filter, index|
@@ -2954,29 +2955,30 @@ class IndexController < ApplicationController
 		end
 
 		@filters = [
-	    	[false, false, false, false, false, false, false, false],
-	    	[true, true, true, true, true, true, true, true],
-	    	[false, true, true, true, true, true, true, true],
-	    	[true, false, true, true, true, true, true, true],
-	    	[true, true, false, true, true, true, true, true],
-	    	[true, true, true, false, true, true, true, true],
-	    	[true, true, true, true, false, true, true, true],
-	    	[true, true, true, true, true, false, true, true],
-	    	[true, true, true, true, true, true, false, true],
-	    	[true, true, true, true, true, true, true, false],
-	    	[true, true, false, true, true, false, true, true],
-	    	[true, true, true, false, false, true, true, true],
-	    	[false, false, true, true, true, true, true, true],
-	    	[true, true, true, true, true, true, false, false],
-	    	[false, true, true, true, true, true, true, false],
-	    	[true, false, true, true, true, true, false, true],
-	    	[false, false, true, true, true, true, false, false],
-	    	[true, true, true, true, false, false, false, false],
-	    	[false, false, false, false, true, true, true, true],
-	    	[false, true, false, true, true, false, true, false],
-	    	[true, true, false, false, false, false, true, true]
+				[false, false, false, false, false, false, false, false],
+				[true, true, true, true, true, true, true, true],
+				[false, true, true, true, true, true, true, true],
+				[true, false, true, true, true, true, true, true],
+				[true, true, false, true, true, true, true, true],
+				[true, true, true, false, true, true, true, true],
+				[true, true, true, true, false, true, true, true],
+				[true, true, true, true, true, false, true, true],
+				[true, true, true, true, true, true, false, true],
+				[true, true, true, true, true, true, true, false],
+				[true, true, false, true, true, false, true, true],
+				[true, true, true, false, false, true, true, true],
+				[false, false, true, true, true, true, true, true],
+				[true, true, true, true, true, true, false, false],
+				[false, true, true, true, true, true, true, false],
+				[true, false, true, true, true, true, false, true],
+				[false, true, false, true, true, false, true, false],
+				[true, false, true, false, false, true, false, true],
+				[false, false, true, true, true, true, false, false],
+				[true, true, false, false, false, false, true, true],
+				[true, true, true, true, false, false, false, false],
+				[false, false, false, false, true, true, true, true]
 		]
-		@break = [9, 15, 16]
+		@break = [9, 17, 19]
 		@filterResult = []
 		@filterResult_secondtravel = []
 		@filters.each_with_index do |filter, index|
