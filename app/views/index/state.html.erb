@@ -313,7 +313,10 @@
         <td><%= (@injury_away_total_stl/@injury_away_total_min * 240).round(2) %></td>
         <td><%= (@injury_away_total_blk/@injury_away_total_min * 240).round(2) %></td>
         <td><%= (@injury_away_total_to/@injury_away_total_min * 240).round(2) %></td>
-        <td></td>
+        <td><%= (@injury_away_total_or/@injury_away_total_min * 240 +
+            @injury_away_total_stl/@injury_away_total_min * 240 +
+            @injury_away_total_blk/@injury_away_total_min * 240 -
+            @injury_away_total_to/@injury_away_total_min * 240).round(2) %></td>
         <td></td>
         <td></td>
         <td></td>
@@ -596,7 +599,10 @@
         <td><%= (@injury_home_total_stl/@injury_home_total_min * 240).round(2) %></td>
         <td><%= (@injury_home_total_blk/@injury_home_total_min * 240).round(2) %></td>
         <td><%= (@injury_home_total_to/@injury_home_total_min * 240).round(2) %></td>
-        <td></td>
+        <td><%= (@injury_home_total_or/@injury_home_total_min * 240 +
+            @injury_home_total_stl/@injury_home_total_min * 240 +
+            @injury_home_total_blk/@injury_home_total_min * 240 -
+            @injury_home_total_to/@injury_home_total_min * 240).round(2) %></td>
         <td></td>
         <td></td>
         <td></td>
@@ -858,7 +864,10 @@
         <td><%= (@away_total_stl/@away_total_min * 240).round(2) %></td>
         <td><%= (@away_total_blk/@away_total_min * 240).round(2) %></td>
         <td><%= (@away_total_to/@away_total_min * 240).round(2) %></td>
-        <td></td>
+        <td><%= (@away_total_or/@away_total_min * 240 +
+            @away_total_stl/@away_total_min * 240 +
+            @away_total_blk/@away_total_min * 240 -
+            @away_total_to/@away_total_min * 240).round(2) %></td>
         <td></td>
         <td></td>
         <td></td>
@@ -1111,7 +1120,10 @@
         <td><%= (@home_total_stl/@home_total_min * 240).round(2) %></td>
         <td><%= (@home_total_blk/@home_total_min * 240).round(2) %></td>
         <td><%= (@home_total_to/@home_total_min * 240).round(2) %></td>
-        <td></td>
+        <td><%= (@home_total_or/@home_total_min * 240 +
+            @home_total_stl/@home_total_min * 240 +
+            @home_total_blk/@home_total_min * 240 -
+            @home_total_to/@home_total_min * 240).round(2) %></td>
         <td></td>
         <td></td>
         <td></td>
