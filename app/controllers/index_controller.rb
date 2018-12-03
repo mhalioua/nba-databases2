@@ -1776,23 +1776,24 @@ class IndexController < ApplicationController
 
 		@date_id = Date.strptime(@game.game_date).strftime("%Y-%m-%d")
 
-		@away_players = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state).to_a
 		@away_players_search = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state)
+		@away_players = @away_players_search.to_a
 		@away_players_group1 = []
 		@away_players_group2 = []
-		@away_players_group3 = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state).to_a
+		@away_players_group3 = @away_players.dup
 		@away_starter_abbr = @away_abbr
 		@away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
 		@away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@away_starters.each do |away_starter|
-			selected_player = @away_players_search.select {|element|
-				player_name = element.player_fullname
-				player_name = player_name.gsub('-', ' ')
-				element_index = player_name.rindex(" ")
-				player_name = away_starter.player_name
-				player_name = player_name.gsub('-', ' ')
-				away_starter_index = player_name.rindex(" ")
-				element.player_fullname[element_index+1..-1] == away_starter.player_name[away_starter_index+1..-1]}.first
+			away_starter_player_name = away_starter.player_name
+			away_starter_player_fullname = away_starter_player_name.gsub('.', '')
+			selected_player = @away_players_search.where("player_fullname = ?", away_starter_player_fullname).first
+			selected_player = @away_players_search.where("player_name = ?", away_starter_player_name).first unless selected_player
+			if away_starter_player_name == 'J.R. Smith'
+				selected_player = @away_players_search.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").first
+			elsif away_starter_player_name == 'Taurean Prince'
+				selected_player = @away_players_search.where("player_fullname = 'Taurean Waller-Prince'").first
+			end
 			if selected_player
 				selected_player.position = away_starter.position
 				@away_players_group3.delete(selected_player)
@@ -1802,13 +1803,11 @@ class IndexController < ApplicationController
 					@away_players_group2.push(selected_player)
 				end
 			else
-				additional_player = Player.where("player_fullname = ? AND game_date < ?", away_starter.player_name, @now).order(:game_date).last
-				unless additional_player
-					additional_player = Player.where("player_name = ? AND game_date < ?", away_starter.player_name, @now).order(:game_date).last
-				end
-				if away_starter.player_name == 'J.R. Smith'
+				additional_player = Player.where("player_fullname = ? AND game_date < ?", away_starter_player_fullname, @now).order(:game_date).last
+				additional_player = Player.where("player_name = ? AND game_date < ?", away_starter_player_name, @now).order(:game_date).last unless additional_player
+				if away_starter_player_name == 'J.R. Smith'
 					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith' AND game_date < ?", @now).order(:game_date).last
-				elsif away_starter.player_name == 'Taurean Prince'
+				elsif away_starter_player_name == 'Taurean Prince'
 					additional_player = Player.where("player_fullname = 'Taurean Waller-Prince' AND game_date < ?", @now).order(:game_date).last
 				end
 				if additional_player
@@ -1823,23 +1822,25 @@ class IndexController < ApplicationController
 			end
 		end
 
-		@home_players = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state).to_a
 		@home_players_search = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state)
+		@home_players = @home_players_search.to_a
 		@home_players_group1 = []
 		@home_players_group2 = []
-		@home_players_group3 = @home_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @home_flag).order(:state).to_a
+		@home_players_group3 = @home_players.dup
 		@home_starter_abbr = @home_abbr
 		@home_starter_abbr = @match[@home_starter_abbr] if @match[@home_starter_abbr]
 		@home_starters = Starter.where('team = ? AND time = ?', @home_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
 		@home_starters.each do |home_starter|
-			selected_player = @home_players_search.select {|element|
-				player_name = element.player_fullname
-				player_name = player_name.gsub('-', ' ')
-				element_index = player_name.rindex(" ")
-				player_name = home_starter.player_name
-				player_name = player_name.gsub('-', ' ')
-				home_starter_index = player_name.rindex(" ")
-				element.player_fullname[element_index+1..-1] == home_starter.player_name[home_starter_index+1..-1]}.first
+			home_starter_player_name = home_starter.player_name
+			home_starter_player_fullname = home_starter_player_name.gsub('.', '')
+			selected_player = @home_players_search.where("player_fullname = ?", home_starter_player_fullname).first
+			selected_player = @home_players_search.where("player_name = ?", home_starter_player_name).first unless selected_player
+			if home_starter_player_name == 'J.R. Smith'
+				selected_player = @home_players_search.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith'").first
+			elsif home_starter_player_name == 'Taurean Prince'
+				selected_player = @home_players_search.where("player_fullname = 'Taurean Waller-Prince'").first
+			end
+
 			if selected_player
 				selected_player.position = home_starter.position
 				@home_players_group3.delete(selected_player)
@@ -1849,13 +1850,11 @@ class IndexController < ApplicationController
 					@home_players_group2.push(selected_player)
 				end
 			else
-				additional_player = Player.where("player_fullname = ? AND game_date < ?", home_starter.player_name, @now).order(:game_date).last
-				unless additional_player
-					additional_player = Player.where("player_name = ? AND game_date < ?", home_starter.player_name, @now).order(:game_date).last
-				end
-				if home_starter.player_name == 'J.R. Smith'
+				additional_player = Player.where("player_fullname = ? AND game_date < ?", home_starter_player_fullname, @now).order(:game_date).last
+				additional_player = Player.where("player_name = ? AND game_date < ?", home_starter_player_name, @now).order(:game_date).last unless additional_player
+				if home_starter_player_name == 'J.R. Smith'
 					additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith' AND game_date < ?", @now).order(:game_date).last
-				elsif home_starter.player_name == 'Taurean Prince'
+				elsif home_starter_player_name == 'Taurean Prince'
 					additional_player = Player.where("player_fullname = 'Taurean Waller-Prince' AND game_date < ?", @now).order(:game_date).last
 				end
 				if additional_player
@@ -1870,10 +1869,10 @@ class IndexController < ApplicationController
 			end
 		end
 
-		@home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.today)
-		@home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.yesterday) unless @home_injury.size
-		@away_injury = Injury.where("team = ? AND today = ?", @game.away_team, Date.today)
-		@away_injury = Injury.where("team = ? AND today = ?", @game.away_team, Date.yesterday) unless @away_injury.size
+		@home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.parse(@game.game_date))
+		@home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.parse(@game.game_date) - 1.day) unless @home_injury.size
+		@away_injury = Injury.where("team = ? AND today = ?", @game.away_team, Date.parse(@game.game_date))
+		@away_injury = Injury.where("team = ? AND today = ?", @game.away_team, Date.parse(@game.game_date) - 1.day) unless @away_injury.size
 
 		@away_injury_name = []
 		@away_injury.each_with_index do |injury, index|
