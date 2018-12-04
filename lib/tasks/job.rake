@@ -282,7 +282,7 @@ namespace :job do
           if opener_side.include?('½')
             if opener_side[0] == '-'
               opener_side = opener_side[0..-1].to_f - 0.5
-            elsif
+            else
               opener_side = opener_side[0..-1].to_f + 0.5
             end
           else
@@ -291,7 +291,7 @@ namespace :job do
           if closer_side.include?('½')
             if closer_side[0] == '-'
               closer_side = closer_side[0..-1].to_f - 0.5
-            elsif
+            else
               closer_side = closer_side[0..-1].to_f + 0.5
             end
           else
@@ -372,7 +372,7 @@ namespace :job do
           if opener_side.include?('½')
             if opener_side[0] == '-'
               opener_side = opener_side[0..-1].to_f - 0.5
-            elsif
+            else
               opener_side = opener_side[0..-1].to_f + 0.5
             end
           else
@@ -381,7 +381,7 @@ namespace :job do
           if closer_side.include?('½')
             if closer_side[0] == '-'
               closer_side = closer_side[0..-1].to_f - 0.5
-            elsif
+            else
               closer_side = closer_side[0..-1].to_f + 0.5
             end
           else
