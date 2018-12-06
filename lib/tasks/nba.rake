@@ -865,8 +865,8 @@ namespace :nba do
   task :getFiltervalue => :environment do
     games = Nba.where('fg_total_count_2000 is null')
     games.each do |game|
-      countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ? AND id != ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_last_game_home, game.home_is_next_game_home, (game.id.to_i + 107398))
-      secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_last_game_home, game.home_is_next_game_home)
+      countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ? AND id != ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_game, game.home_last_game, (game.id.to_i + 107398))
+      secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_game, game.home_last_game)
 
       roadtotal = countItem.average(:roadfirsthalf).to_f + countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f
       hometotal = countItem.average(:homefirsthalf).to_f + countItem.average(:homethird).to_f + countItem.average(:homeforth).to_f
@@ -919,7 +919,7 @@ namespace :nba do
       second_half_total_count_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i
 
       first_half_bigger = "0"
-      first_half_difference = game.away_first_half.to_f - game.home_first_half.to_f - game.first_half_side.to_f
+      first_half_difference = game.away_first_quarter.to_f + game.away_second_quarter.to_f - game.home_first_quarter.to_f - game.home_second_quarter.to_f - game.first_closer_side.to_f
       if first_half_difference > 0
         first_half_bigger = "AWAY"
       elsif first_half_difference < 0
@@ -929,7 +929,7 @@ namespace :nba do
       end
 
       second_half_bigger = "0"
-      second_half_difference = game.away_second_half.to_f - game.home_second_half.to_f - game.second_half_side.to_f
+      second_half_difference = game.away_third_quarter.to_f + game.away_forth_quarter.to_f - game.home_third_quarter.to_f - game.home_forth_quarter.to_f - game.second_closer_side.to_f
       if second_half_difference > 0
         second_half_bigger = "AWAY"
       elsif second_half_difference < 0
@@ -939,7 +939,7 @@ namespace :nba do
       end
 
       fullgame_bigger = "0"
-      fullgame_difference = game.road.to_f - game.home.to_f - game.fullgame_side.to_f
+      fullgame_difference = game.away_score.to_f - game.home_score.to_f - game.full_closer_side.to_f
       if fullgame_difference > 0
         fullgame_bigger = "AWAY"
       elsif fullgame_difference < 0
