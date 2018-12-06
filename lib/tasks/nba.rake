@@ -862,6 +862,136 @@ namespace :nba do
     end
   end
 
+  task :getFiltervalue => :environment do
+    games = Nba.where('fg_total_count_2000 is null')
+    games.each do |game|
+      countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ? AND id != ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_last_game_home, game.home_is_next_game_home, (game.id.to_i + 107398))
+      secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_is_last_game_home, game.away_is_next_game_home, game.away_last, game.away_next, game.home_next, game.home_last, game.home_is_last_game_home, game.home_is_next_game_home)
+
+      roadtotal = countItem.average(:roadfirsthalf).to_f + countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f
+      hometotal = countItem.average(:homefirsthalf).to_f + countItem.average(:homethird).to_f + countItem.average(:homeforth).to_f
+
+      fg_road_2000 = roadtotal.round(2)
+      fg_home_2000 = hometotal.round(2)
+      fg_diff_2000 = (roadtotal - hometotal).round(2)
+      fg_count_2000 = countItem.count(:totalpoint).to_i
+
+      roadtotal = secondItem.average(:roadfirsthalf).to_f + secondItem.average(:roadthird).to_f + secondItem.average(:roadforth).to_f
+      hometotal = secondItem.average(:homefirsthalf).to_f + secondItem.average(:homethird).to_f + secondItem.average(:homeforth).to_f
+
+      fg_road_1990 = roadtotal.round(2)
+      fg_home_1990 = hometotal.round(2)
+      fg_diff_1990 = (roadtotal - hometotal).round(2)
+      fg_count_1990 = secondItem.count(:totalpoint).to_i
+
+      first_half_road_2000 = countItem.average(:roadfirsthalf).to_f.round(2)
+      first_half_home_2000 = countItem.average(:homefirsthalf).to_f.round(2)
+      first_half_diff_2000 = (countItem.average(:roadfirsthalf).to_f - countItem.average(:homefirsthalf).to_f).round(2)
+      first_half_count_2000 = countItem.count(:roadfirsthalf).to_i
+
+      first_half_road_1990 = secondItem.average(:roadfirsthalf).to_f.round(2)
+      first_half_home_1990 = secondItem.average(:homefirsthalf).to_f.round(2)
+      first_half_diff_1990 = (secondItem.average(:roadfirsthalf).to_f - secondItem.average(:homefirsthalf).to_f).round(2)
+      first_half_count_1990 = secondItem.count(:roadfirsthalf).to_i
+
+      second_half_road_2000 = (countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f).round(2)
+      second_half_home_2000 = (countItem.average(:homethird).to_f + countItem.average(:homeforth).to_f).round(2)
+      second_half_diff_2000 = (countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f - countItem.average(:homethird).to_f - countItem.average(:homeforth).to_f).round(2)
+      second_half_count_2000 = countItem.count(:roadthird).to_i
+
+      second_half_road_1990 = (secondItem.average(:roadthird).to_f + secondItem.average(:roadforth).to_f).round(2)
+      second_half_home_1990 = (secondItem.average(:homethird).to_f + secondItem.average(:homeforth).to_f).round(2)
+      second_half_diff_1990 = (secondItem.average(:roadthird).to_f + secondItem.average(:roadforth).to_f - secondItem.average(:homethird).to_f - secondItem.average(:homeforth).to_f).round(2)
+      second_half_count_1990 = secondItem.count(:roadthird).to_i
+
+      fg_total_pt_2000 = countItem.where("fglinetotal is not null AND fglinetotal != 0").average(:totalpoint).to_f.round(2)
+      fg_total_line_2000 = countItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2)
+      fg_total_diff_2000 = (fg_total_pt_2000 - fg_total_line_2000).round(2)
+      first_half_total_pt_2000 = countItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstpoint).to_f.round(2)
+      first_half_total_line_2000 = countItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstlinetotal).to_f.round(2)
+      first_half_total_diff_2000 = (first_half_total_pt_2000 - first_half_total_line_2000).round(2)
+      second_half_total_pt_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondpoint).to_f.round(2)
+      second_half_total_line_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondlinetotal).to_f.round(2)
+      second_half_total_diff_2000 = (second_half_total_pt_2000 - second_half_total_line_2000).round(2)
+
+      fg_total_count_2000 = countItem.where("fglinetotal is not null AND fglinetotal != 0").count(:fglinetotal).to_i
+      first_half_total_count_2000 = countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i
+      second_half_total_count_2000 = countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i
+
+      first_half_bigger = "0"
+      first_half_difference = game.away_first_half.to_f - game.home_first_half.to_f - game.first_half_side.to_f
+      if first_half_difference > 0
+        first_half_bigger = "AWAY"
+      elsif first_half_difference < 0
+        first_half_bigger = "HOME"
+      else
+        first_half_bigger = "0"
+      end
+
+      second_half_bigger = "0"
+      second_half_difference = game.away_second_half.to_f - game.home_second_half.to_f - game.second_half_side.to_f
+      if second_half_difference > 0
+        second_half_bigger = "AWAY"
+      elsif second_half_difference < 0
+        second_half_bigger = "HOME"
+      else
+        second_half_bigger = "0"
+      end
+
+      fullgame_bigger = "0"
+      fullgame_difference = game.road.to_f - game.home.to_f - game.fullgame_side.to_f
+      if fullgame_difference > 0
+        fullgame_bigger = "AWAY"
+      elsif fullgame_difference < 0
+        fullgame_bigger = "HOME"
+      else
+        fullgame_bigger = "0"
+      end
+
+      game.update(
+          fg_road_2000: fg_road_2000,
+          fg_home_2000: fg_home_2000,
+          fg_diff_2000: fg_diff_2000,
+          fg_count_2000: fg_count_2000,
+          fg_road_1990: fg_road_1990,
+          fg_home_1990: fg_home_1990,
+          fg_diff_1990: fg_diff_1990,
+          fg_count_1990: fg_count_1990,
+          first_half_road_2000: first_half_road_2000,
+          first_half_home_2000: first_half_home_2000,
+          first_half_diff_2000: first_half_diff_2000,
+          first_half_count_2000: first_half_count_2000,
+          first_half_road_1990: first_half_road_1990,
+          first_half_home_1990: first_half_home_1990,
+          first_half_diff_1990: first_half_diff_1990,
+          first_half_count_1990: first_half_count_1990,
+          second_half_road_2000: second_half_road_2000,
+          second_half_home_2000: second_half_home_2000,
+          second_half_diff_2000: second_half_diff_2000,
+          second_half_count_2000: second_half_count_2000,
+          second_half_road_1990: second_half_road_1990,
+          second_half_home_1990: second_half_home_1990,
+          second_half_diff_1990: second_half_diff_1990,
+          second_half_count_1990: second_half_count_1990,
+          fg_total_pt_2000: fg_total_pt_2000,
+          fg_total_line_2000: fg_total_line_2000,
+          fg_total_diff_2000: fg_total_diff_2000,
+          first_half_total_pt_2000: first_half_total_pt_2000,
+          first_half_total_line_2000: first_half_total_line_2000,
+          first_half_total_diff_2000: first_half_total_diff_2000,
+          second_half_total_pt_2000: second_half_total_pt_2000,
+          second_half_total_line_2000: second_half_total_line_2000,
+          second_half_total_diff_2000: second_half_total_diff_2000,
+          fg_total_count_2000: fg_total_count_2000,
+          first_half_total_count_2000: first_half_total_count_2000,
+          second_half_total_count_2000: second_half_total_count_2000,
+          first_half_bigger: first_half_bigger,
+          second_half_bigger: second_half_bigger,
+          fullgame_bigger: fullgame_bigger
+      )
+    end
+  end
+
 	task :getFirstLines => [:environment] do
 		include Api
 		games = Nba.all

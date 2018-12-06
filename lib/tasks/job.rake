@@ -1,4 +1,5 @@
 namespace :job do
+  # WNBA
   task :getDate => [:environment] do |t, args|
     puts "----------Get Games----------"
     include Api
@@ -650,6 +651,8 @@ namespace :job do
       )
     end
   end
+
+  #####
 
   @sport_team = {
     'Phoenix Mercury' => 'Phoenix',
