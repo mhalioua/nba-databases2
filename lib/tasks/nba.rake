@@ -1298,6 +1298,7 @@ namespace :nba do
 					player_name = slice.children[0].text
 					link = ""
 					height = 0
+          birthdate = ""
 				end
 				position = ""
         if slice.children[0].children.size > 1
@@ -1361,6 +1362,7 @@ namespace :nba do
 					player_name = slice.children[0].text
 					link = ""
 					height = 0
+          birthdate = ""
 				end
 				position = ""
 				if slice.children[0].children.size > 1
