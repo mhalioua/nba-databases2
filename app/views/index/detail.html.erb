@@ -397,6 +397,7 @@
   <table border="1" class="tableSide">
     <thead>
       <tr>
+        <th>Birth Date</th>
         <th><%= @game.away_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
@@ -437,6 +438,12 @@
 
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td class="lists list<%= player.id %>"  style='<%= style %>' ><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -512,6 +519,12 @@
           end
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -590,6 +603,12 @@
           end
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td  style='<%= style %>' class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -688,6 +707,7 @@
 <table border="1" class="tableSide">
     <thead>
       <tr>
+        <th>Birth Date</th>
         <th><%= @game.home_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
@@ -727,6 +747,12 @@
           end
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -802,6 +828,12 @@
           end
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -880,6 +912,12 @@
           end
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -977,6 +1015,7 @@
   <table border="1" class="tableSide">
     <thead>
       <tr>
+        <th>Birth Date</th>
         <th><%= @game.away_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
@@ -1016,6 +1055,12 @@
 
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td class="lists list<%= player.id %>"  style='<%= style %>' ><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -1082,6 +1127,12 @@
           end
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -1151,6 +1202,12 @@
           end
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td  style='<%= style %>' class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -1238,6 +1295,7 @@
 <table border="1" class="tableSide">
     <thead>
       <tr>
+        <th>Birth Date</th>
         <th><%= @game.home_team %> <br> Starters</th>
         <th>POS</th>
         <th>HT</th>
@@ -1276,6 +1334,12 @@
           end
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -1342,6 +1406,12 @@
           end
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
@@ -1411,6 +1481,12 @@
           end
       %>
       <tr>
+        <%
+          if player.birthdate
+            birthdate_index = player.birthdate.index(" in ")
+          end
+        %>
+        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : "" %></td>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
         <% 
