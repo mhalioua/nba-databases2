@@ -1288,6 +1288,12 @@ namespace :nba do
           else
             height = nil
           end
+          birthdate = page.css(".player-metadata")[0]
+          if birthdate.children[0]
+            birthdate = birthdate.children[0].children[1].text
+          else
+            birthdate = nil
+          end
 				else
 					player_name = slice.children[0].text
 					link = ""
@@ -1326,7 +1332,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
          	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
         end
-        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date, ptsValue: pts_value, pfValue: pf_value )
+        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, birthdate: birthdate, link: link, game_date: game.game_date, ptsValue: pts_value, pfValue: pf_value )
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -1344,6 +1350,12 @@ namespace :nba do
             height = height.children[1].text
           else
             height = nil
+          end
+          birthdate = page.css(".player-metadata")[0]
+          if birthdate.children[0]
+            birthdate = birthdate.children[0].children[1].text
+          else
+            birthdate = nil
           end
 				else
 					player_name = slice.children[0].text
@@ -1383,7 +1395,7 @@ namespace :nba do
 				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
          	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
         end
-        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, link: link, game_date: game.game_date,  ptsValue: pts_value, pfValue: pf_value )
+        player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, birthdate: birthdate, link: link, game_date: game.game_date,  ptsValue: pts_value, pfValue: pf_value )
 			end
 		end
 	end
