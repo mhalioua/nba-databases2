@@ -3264,6 +3264,7 @@ namespace :nba do
   task :nbaplaybyplay => :environment do
     include Api
     games = Nba.where("year = '2018' AND away_foul_first is null")
+    puts games.count
     games.each do |game|
       url="http://www.espn.com/nba/playbyplay?gameId=#{game.game_id}"
       doc = download_document(url)
