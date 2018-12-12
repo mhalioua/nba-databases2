@@ -1736,35 +1736,35 @@ class IndexController < ApplicationController
 		@referee_part_three_last = Referee.where("referee_one = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_two = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_three = ? AND id < 43558", @game.referee_three).or(Referee.where("referee_one = ? AND id > 61549", @game.referee_three).or(Referee.where("referee_two = ? AND id > 61549", @game.referee_three).or(Referee.where("referee_three = ? AND id > 61549", @game.referee_three))))))
 
 
-		@away_injury_name = @away_injury_name.uniq
-		@away_injury_name.each do |injury|
-			injury_player_name = injury
-			selected_player = @away_players_search.where("player_fullname = ?", injury_player_name).first
-			selected_player = @away_players_search.where("player_name = ?", injury_player_name).first unless selected_player
-			unless selected_player
-				additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
-				additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
-				if additional_player
-					@away_players.push(additional_player)
-					@away_players_group3.push(additional_player)
-				end
-			end
-		end
-
-		@home_injury_name = @home_injury_name.uniq
-		@home_injury_name.each do |injury|
-			injury_player_name = injury
-			selected_player = @home_players_search.where("player_fullname = ?", injury_player_name).first
-			selected_player = @home_players_search.where("player_name = ?", injury_player_name).first unless selected_player
-			unless selected_player
-				additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
-				additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
-				if additional_player
-					@home_players.push(additional_player)
-					@home_players_group3.push(additional_player)
-				end
-			end
-		end
+		# @away_injury_name = @away_injury_name.uniq
+		# @away_injury_name.each do |injury|
+		# 	injury_player_name = injury
+		# 	selected_player = @away_players_search.where("player_fullname = ?", injury_player_name).first
+		# 	selected_player = @away_players_search.where("player_name = ?", injury_player_name).first unless selected_player
+		# 	unless selected_player
+		# 		additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
+		# 		additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
+		# 		if additional_player
+		# 			@away_players.push(additional_player)
+		# 			@away_players_group3.push(additional_player)
+		# 		end
+		# 	end
+		# end
+    #
+		# @home_injury_name = @home_injury_name.uniq
+		# @home_injury_name.each do |injury|
+		# 	injury_player_name = injury
+		# 	selected_player = @home_players_search.where("player_fullname = ?", injury_player_name).first
+		# 	selected_player = @home_players_search.where("player_name = ?", injury_player_name).first unless selected_player
+		# 	unless selected_player
+		# 		additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
+		# 		additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
+		# 		if additional_player
+		# 			@home_players.push(additional_player)
+		# 			@home_players_group3.push(additional_player)
+		# 		end
+		# 	end
+		# end
 	end
 
 	def state
@@ -2852,35 +2852,35 @@ class IndexController < ApplicationController
 	        @home_total_or = @home_total_or + player.sum_or.to_f/count
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
 			end
-		@away_injury_name = @away_injury_name.uniq
-		@away_injury_name.each do |injury|
-			injury_player_name = injury
-			selected_player = @away_players_search.where("player_fullname = ?", injury_player_name).first
-			selected_player = @away_players_search.where("player_name = ?", injury_player_name).first unless selected_player
-			unless selected_player
-				additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
-				additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
-				if additional_player
-					@away_players.push(additional_player)
-					@away_players_group3.push(additional_player)
-				end
-			end
-		end
-
-		@home_injury_name = @home_injury_name.uniq
-		@home_injury_name.each do |injury|
-			injury_player_name = injury
-			selected_player = @home_players_search.where("player_fullname = ?", injury_player_name).first
-			selected_player = @home_players_search.where("player_name = ?", injury_player_name).first unless selected_player
-			unless selected_player
-				additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
-				additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
-				if additional_player
-					@home_players.push(additional_player)
-					@home_players_group3.push(additional_player)
-				end
-			end
-		end
+		# @away_injury_name = @away_injury_name.uniq
+		# @away_injury_name.each do |injury|
+		# 	injury_player_name = injury
+		# 	selected_player = @away_players_search.where("player_fullname = ?", injury_player_name).first
+		# 	selected_player = @away_players_search.where("player_name = ?", injury_player_name).first unless selected_player
+		# 	unless selected_player
+		# 		additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
+		# 		additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
+		# 		if additional_player
+		# 			@away_players.push(additional_player)
+		# 			@away_players_group3.push(additional_player)
+		# 		end
+		# 	end
+		# end
+    #
+		# @home_injury_name = @home_injury_name.uniq
+		# @home_injury_name.each do |injury|
+		# 	injury_player_name = injury
+		# 	selected_player = @home_players_search.where("player_fullname = ?", injury_player_name).first
+		# 	selected_player = @home_players_search.where("player_name = ?", injury_player_name).first unless selected_player
+		# 	unless selected_player
+		# 		additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
+		# 		additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
+		# 		if additional_player
+		# 			@home_players.push(additional_player)
+		# 			@home_players_group3.push(additional_player)
+		# 		end
+		# 	end
+		# end
 	end
 
 
