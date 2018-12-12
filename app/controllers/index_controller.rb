@@ -2820,7 +2820,8 @@ class IndexController < ApplicationController
 	        @home_total_pf = @home_total_pf + player.sum_pf.to_i/count
 	        @home_total_or = @home_total_or + player.sum_or.to_f/count
 	        @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
-	    end
+			end
+		@away_injury_name = @away_injury_name.unique
 		@away_injury_name.each do |injury|
 			injury_player_name = injury
 			selected_player = @away_players_search.where("player_fullname = ?", injury_player_name).first
@@ -2835,6 +2836,7 @@ class IndexController < ApplicationController
 			end
 		end
 
+		@home_injury_name = @home_injury_name.unique
 		@home_injury_name.each do |injury|
 			injury_player_name = injury
 			selected_player = @home_players_search.where("player_fullname = ?", injury_player_name).first
