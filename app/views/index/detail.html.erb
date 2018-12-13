@@ -1589,10 +1589,7 @@
 </div>
 <% @away_players.each_with_index do |player, index|
   unless player.possession
-%>
-  <%= player.inspect %>
-<%
-  next
+    next
   end
 %>
 <div style="display:none" class="boxes box<%= player.id %>">
