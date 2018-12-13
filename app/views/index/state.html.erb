@@ -1230,7 +1230,14 @@
     </tbody>
 </table>
 </div>
-<% @away_players.each_with_index do |player, index| %>
+<% @away_players.each_with_index do |player, index|
+  unless player.possession
+%>
+  <%= player.inspect %>
+<%
+    next
+  end
+%>
 <div style="display:none" class="boxes box<%= player.id %>">
             <table border="1">
                 <thead>
