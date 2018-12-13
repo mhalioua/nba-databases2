@@ -785,12 +785,12 @@
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
-        <% if player.sum_poss != 0 && count > 2 %>
+        <% if player.sum_mins && count > 2 %>
         <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
-        <% if player.sum_poss != 0 %>
+        <% if player.sum_poss %>
         <td style='<%= style %>' ><%= @injury_home_total_poss != 0 ? '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) : 0 %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
@@ -867,12 +867,12 @@
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
-        <% if player.sum_poss != 0 && count > 2 %>
+        <% if player.sum_mins && count > 2 %>
         <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
-        <% if player.sum_poss != 0 %>
+        <% if player.sum_poss %>
         <td style='<%= style %>' ><%= @injury_home_total_poss != 0 ? '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @injury_home_total_poss ) : 0 %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
@@ -1098,12 +1098,12 @@
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
-        <% if player.sum_poss != 0 && count > 2 %>
+        <% if player.sum_mins && count > 2 %>
         <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
-        <% if player.sum_poss != 0 %>
+        <% if player.sum_poss %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
@@ -1171,12 +1171,12 @@
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
-        <% if player.sum_poss != 0 && count > 2 %>
+        <% if player.sum_mins && count > 2 %>
         <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
         <% else %>
         <td style='<%= style %>' ></td>
         <% end %>
-        <% if player.sum_poss != 0 %>
+        <% if player.sum_poss %>
         <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
         <% else %>
         <td style='<%= style %>' ></td>
