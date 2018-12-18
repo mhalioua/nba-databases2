@@ -3520,7 +3520,7 @@ namespace :nba do
 
   task :addPlayerToNba => :environment do
     include Api
-    games = Nba.where("away_player1_name is null")
+    games = Nba.where("home_player1_name is null")
     puts games.size
     games.each do |game|
       game_id = game.game_id
@@ -3529,7 +3529,7 @@ namespace :nba do
       doc = download_document(url)
 
       away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
-      (0..8).each do |element|
+      (0...8).each do |element|
         next unless away_players[element]
         slice = away_players[element]
 
@@ -3557,7 +3557,7 @@ namespace :nba do
       end
 
       home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
-      (0..8).each do |element|
+      (0...8).each do |element|
         next unless home_players[element]
         slice = home_players[element]
         if slice.children[0].children.size > 1
