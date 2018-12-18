@@ -3548,8 +3548,8 @@ namespace :nba do
           player_name = slice.children[0].text
           birthday = ""
         end
-        player_name_key = "away_player" + element + "_name"
-        player_birthday_key = "away_player" + element + "_birthday"
+        player_name_key = "away_player" + element.to_s + "_name"
+        player_birthday_key = "away_player" + element.to_s + "_birthday"
         game.update(
             player_name_key => player_name,
             player_birthday_key => birthday
@@ -3574,8 +3574,8 @@ namespace :nba do
           player_name = slice.children[0].text
           birthday = ""
         end
-        player_name_key = "home_player" + element + "_name"
-        player_birthday_key = "home_player" + element + "_birthday"
+        player_name_key = "home_player" + element.to_s + "_name"
+        player_birthday_key = "home_player" + element.to_s + "_birthday"
         game.update(
             player_name_key => player_name,
             player_birthday_key => birthday
