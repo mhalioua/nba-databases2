@@ -3534,10 +3534,10 @@ namespace :nba do
         slice = away_players[element]
 
         if slice.children[0].children.size > 1
-          player_name = slice.children[0].children[0].children[0].text
           link = slice.children[0].children[0]['href']
           puts link
           page = download_document(link)
+          player_name = page.css("h1")[0]
           birthday = page.css(".player-metadata")[0]
           if birthday.children[0]
             birthday = birthday.children[0].children[1].text
@@ -3561,9 +3561,9 @@ namespace :nba do
         next unless home_players[element]
         slice = home_players[element]
         if slice.children[0].children.size > 1
-          player_name = slice.children[0].children[0].children[0].text
           link = slice.children[0].children[0]['href']
           page = download_document(link)
+          player_name = page.css("h1")[0]
           birthday = page.css(".player-metadata")[0]
           if birthday.children[0]
             birthday = birthday.children[0].children[1].text
