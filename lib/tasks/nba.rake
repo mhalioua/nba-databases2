@@ -3518,6 +3518,72 @@ namespace :nba do
     end
   end
 
+  task :addPlayerToNba => :environment do
+    include Api
+    games = Nba.where("away_player1_name is null")
+    puts games.size
+    games.each do |game|
+      game_id = game.game_id
+      puts game_id
+      url = "http://www.espn.com/nba/boxscore?gameId=#{game_id}"
+      doc = download_document(url)
+
+      away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
+      (0..8).each do |element|
+        next unless away_players[element]
+        slice = away_players[element]
+
+        if slice.children[0].children.size > 1
+          player_name = slice.children[0].children[0].children[0].text
+          link = slice.children[0].children[0]['href']
+          puts link
+          page = download_document(link)
+          birthday = page.css(".player-metadata")[0]
+          if birthday.children[0]
+            birthday = birthday.children[0].children[1].text
+          else
+            birthday = nil
+          end
+        else
+          player_name = slice.children[0].text
+          birthday = ""
+        end
+        player_name_key = "away_player" + element + "_name"
+        player_birthday_key = "away_player" + element + "_birthday"
+        game.update(
+            player_name_key => player_name,
+            player_birthday_key => birthday
+        )
+      end
+
+      home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
+      (0..8).each do |element|
+        next unless home_players[element]
+        slice = home_players[element]
+        if slice.children[0].children.size > 1
+          player_name = slice.children[0].children[0].children[0].text
+          link = slice.children[0].children[0]['href']
+          page = download_document(link)
+          birthday = page.css(".player-metadata")[0]
+          if birthday.children[0]
+            birthday = birthday.children[0].children[1].text
+          else
+            birthday = nil
+          end
+        else
+          player_name = slice.children[0].text
+          birthday = ""
+        end
+        player_name_key = "home_player" + element + "_name"
+        player_birthday_key = "home_player" + element + "_birthday"
+        game.update(
+            player_name_key => player_name,
+            player_birthday_key => birthday
+        )
+      end
+    end
+  end
+
 
   @basket_names = {
     'Charlotte' => 'New Orleans',
