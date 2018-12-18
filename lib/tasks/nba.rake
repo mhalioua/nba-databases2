@@ -3520,7 +3520,7 @@ namespace :nba do
 
   task :addPlayerToNba => :environment do
     include Api
-    games = Nba.where("home_player1_name is null")
+    games = Nba.where("home_player8_name is null")
     puts games.size
     games.each do |game|
       game_id = game.game_id
