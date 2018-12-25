@@ -888,13 +888,12 @@ namespace :job do
     team_links = doc.css("tbody tr td:first-child a")
     team_links.each do |team_link|
       team_name = team_link.text
-      puts team_name
       team_url = 'https://basketball.realgm.com' + team_link['href'] + 'players'
       team_doc = download_document(team_url)
       players = team_doc.css("tbody tr")
       players.each do |player|
         next if player.children[15]['rel'] != '2019'
-        CBB.find_or_create(player: player.children[1].text, birthdate: player.children[9].text, team: team_name)
+        Cbb.find_or_create(player: player.children[1].text, birthdate: player.children[9].text, team: team_name)
       end
     end
   end

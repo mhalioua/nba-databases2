@@ -1,0 +1,2 @@
+class Cbb < ApplicationRecord
+end
