@@ -893,7 +893,7 @@ namespace :job do
       players = team_doc.css("tbody tr")
       players.each do |player|
         next if player.children[15]['rel'] != '2019'
-        Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team: team_name)
+        Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team_name: team_name)
       end
     end
   end
