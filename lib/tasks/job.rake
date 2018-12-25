@@ -689,6 +689,7 @@ namespace :job do
     'Sacramento' => -7
   }
 
+  ### NBA DATABASE IGNORE
   task :importNbaDatabase => :environment do
     require 'csv'
     filename = File.join Rails.root, 'csv', "nba_database.csv"
@@ -875,6 +876,26 @@ namespace :job do
           second_half_bigger: second_half_bigger,
           fullgame_bigger: fullgame_bigger
       )
+    end
+  end
+  ###
+
+  # CBB
+  task :getCBBPlayer => :environment do
+    include Api
+    url = "https://basketball.realgm.com/ncaa/teams"
+    doc = download_document(url)
+    team_links = doc.css("tbody tr td:first-child a")
+    team_links.each do |team_link|
+      team_name = team_link.text
+      puts team_name
+      team_url = 'https://basketball.realgm.com' + team_link['href'] + 'players'
+      team_doc = download_document(team_url)
+      players = team_doc.css("tbody tr")
+      players.each do |player|
+        next if player.children[15]['rel'] != '2019'
+        CBB.find_or_create(player: player.children[1].text, birthdate: player.children[9].text, team: team_name)
+      end
     end
   end
 end
