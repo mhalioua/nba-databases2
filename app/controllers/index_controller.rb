@@ -3040,7 +3040,6 @@ class IndexController < ApplicationController
     ]
     @break = [9, 17, 19]
     @filterResult = []
-    @filterResult_secondtravel = []
     @filters.each_with_index do |filter, index|
       search_string = []
       search_second_string = []
@@ -3104,8 +3103,6 @@ class IndexController < ApplicationController
       search_second_string = search_second_string.join(" AND ")
       filter_element = Fullseason.where(search_string)
       filter_second_element = Fullseason.where(search_second_string)
-      filter_element_secondtravel = Secondtravel.where(search_string)
-      filter_second_element_secondtravel = Secondtravel.where(search_second_string)
       result_element = {
           first: filter_element.average(:firstvalue).to_f.round(2),
           second: filter_element.average(:secondvalue).to_f.round(2),
@@ -3129,19 +3126,6 @@ class IndexController < ApplicationController
           second_half_away: filter_second_element.where("second_half_bigger = 'AWAY'").count,
           second_half_home: filter_second_element.where("second_half_bigger = 'HOME'").count
       }
-      result_element_secondtravel = {
-          first: filter_element_secondtravel.average(:firstvalue).to_f.round(2),
-          second: filter_element_secondtravel.average(:secondvalue).to_f.round(2),
-          full: filter_element_secondtravel.average(:totalvalue).to_f.round(2),
-          count: filter_element_secondtravel.count(:totalvalue).to_i,
-          allfirst: filter_second_element_secondtravel.average(:firstvalue).to_f.round(2),
-          allsecond: filter_second_element_secondtravel.average(:secondvalue).to_f.round(2),
-          allfull: filter_second_element_secondtravel.average(:totalvalue).to_f.round(2),
-          allcount: filter_second_element_secondtravel.count(:totalvalue).to_i,
-          bj: filter_second_element_secondtravel.average(:fgside).to_f.round(2),
-          bg: 0,
-          bh: 0
-      }
       if index < 2 || index > 9
         result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
         result_element[:full_second] = (filter_second_element.average(:homethird).to_f + filter_second_element.average(:homeforth).to_f + filter_second_element.average(:homefirsthalf).to_f).round(2)
@@ -3153,15 +3137,8 @@ class IndexController < ApplicationController
         result_element[:bi_one] = (filter_second_element_again.average(:roadfirsthalf).to_f - filter_second_element_again.average(:homefirsthalf).to_f).round(2)
         result_element[:bi_two] = (filter_second_element_again.average(:roadthird).to_f + filter_second_element_again.average(:roadforth).to_f - filter_second_element_again.average(:homethird).to_f - filter_second_element_again.average(:homeforth).to_f).round(2)
         result_element[:bi_count] = filter_second_element_again.count(:firstlinetotal).to_i
-        result_element_secondtravel[:full_first] = (filter_second_element_secondtravel.average(:roadthird).to_f + filter_second_element_secondtravel.average(:roadforth).to_f + filter_second_element_secondtravel.average(:roadfirsthalf).to_f).round(2)
-        result_element_secondtravel[:full_second] = (filter_second_element_secondtravel.average(:homethird).to_f + filter_second_element_secondtravel.average(:homeforth).to_f + filter_second_element_secondtravel.average(:homefirsthalf).to_f).round(2)
-        result_element_secondtravel[:firsthalf_first] = filter_second_element_secondtravel.average(:roadfirsthalf).to_f.round(2)
-        result_element_secondtravel[:firsthalf_second] = filter_second_element_secondtravel.average(:homefirsthalf).to_f.round(2)
-        result_element_secondtravel[:secondhalf_first] = (filter_second_element_secondtravel.average(:roadthird).to_f.round(2) + filter_second_element_secondtravel.average(:roadforth).to_f.round(2)).round(2)
-        result_element_secondtravel[:secondhalf_second] = (filter_second_element_secondtravel.average(:homethird).to_f.round(2) + filter_second_element_secondtravel.average(:homeforth).to_f.round(2)).round(2)
       end
       @filterResult.push(result_element)
-      @filterResult_secondtravel.push(result_element_secondtravel)
     end
     @home_team_info = Team.find_by(abbr: @home_abbr)
     @away_team_info = Team.find_by(abbr: @away_abbr)

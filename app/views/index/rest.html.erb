@@ -1177,10 +1177,10 @@ end
         filter = @filters[index]
         first_one = []
         filter.each do |element|
-            first_one.push(element ? element : "ANY")
+          first_one.push(element ? element : "ANY")
         end
         first_one = first_one.join("-")
- %>
+    %>
       <tr class="filterElement">
         <% if index == 0 %>
           <td>under</td>
@@ -1740,27 +1740,38 @@ end
     </tr>
     </tbody>
   </table>
-  <table border="1" class="tableSide totalAverage secondTravel" style="width: 1%">
+
+  <table border="1" class="tableSide totalAverage firstTravel" style="width: 1%">
     <tbody>
     <tr>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y") %></td>
       <td></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
       <td></td>
       <td class="line">1H LINE</td>
       <td class="line">2H LINE</td>
       <td class="line">FG LINE</td>
       <td></td>
-      <td colspan="8" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE</td>
+      <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE</td>
     </tr>
     <tr>
       <td></td>
       <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
       <td colspan="2" class="gameDate">TRAVEL</td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td><u><i>road</i></u></td>
       <td colspan="2">road DAYS REST home</td>
       <td><u><i>home</i></u></td>
@@ -1773,11 +1784,16 @@ end
       <td></td>
     </tr>
     <tr>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td class="gameDate">RIVALS</td>
       <td></td>
       <td>last Y/N</td>
       <td>next Y/N</td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td class="gameDate">last</td>
       <td colspan="2" class="gameDate">next game</td>
       <td class="gameDate">last</td>
@@ -1791,11 +1807,16 @@ end
       <td></td>
     </tr>
     <tr class="gameDate">
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
       <td></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td><%= @game.away_last_game %></td>
       <td><%= @game.away_next_game %></td>
       <td><%= @game.home_next_game %></td>
@@ -1808,83 +1829,114 @@ end
       <td>2ND<br>HALF</td>
       <td>FULL<br>GAME</td>
       <td>GAMES</td>
-      <td rowspan="27" class="gray"></td>
+      <td rowspan="27" class="gradient"></td>
       <td>1ST<br>HALF</td>
       <td>2ND<br>HALF</td>
       <td>FULL<br>GAME</td>
       <td>GAMES</td>
-      <td rowspan="28" colspan="3" class="gray"></td>
+      <td rowspan="28" colspan="3" class="gradient"></td>
+      <td colspan="3" class="red">ORTG</td>
     </tr>
     <tr>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td>RIVALS</td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
-      <td><%= @firstItem_result_secondtravel[:first] %></td>
-      <td><%= @firstItem_result_secondtravel[:second] %></td>
-      <td><%= @firstItem_result_secondtravel[:full] %></td>
-      <td><%= @firstItem_result_secondtravel[:count] %></td>
+      <td class="gradient"></td>
+      <td><%= @firstItem_result[:first] %></td>
+      <td><%= @firstItem_result[:second] %></td>
+      <td><%= @firstItem_result[:full] %></td>
+      <td><%= @firstItem_result[:count] %></td>
+      <td></td>
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
     <tr>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
       <td>ALL GAMES IN <%= @home_abbr %></td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
-      <td><%= @secondItem_result_secondtravel[:first] %></td>
-      <td><%= @secondItem_result_secondtravel[:second] %></td>
-      <td><%= @secondItem_result_secondtravel[:full] %></td>
-      <td><%= @secondItem_result_secondtravel[:count] %></td>
+      <td class="gradient"></td>
+      <td><%= @secondItem_result[:first] %></td>
+      <td><%= @secondItem_result[:second] %></td>
+      <td><%= @secondItem_result[:full] %></td>
+      <td><%= @secondItem_result[:count] %></td>
+      <td></td>
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
     <tr>
+      <td colspan="2">1st Half</td>
+      <td class="gradient"></td>
+      <td colspan="2">2nd Half</td>
       <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A") %></td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="gray"></td>
-      <td></td>
-      <td></td>
-      <td class="gray"></td>
-      <td><%= @thirdItem_result_secondtravel[:first] %></td>
-      <td><%= @thirdItem_result_secondtravel[:second] %></td>
-      <td><%= @thirdItem_result_secondtravel[:full] %></td>
-      <td><%= @thirdItem_result_secondtravel[:count] %></td>
+      <td class="gradient"></td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
+      <td class="gradient"></td>
+      <td></td>
+      <td></td>
+      <td class="gradient"></td>
+      <td><%= @thirdItem_result[:first] %></td>
+      <td><%= @thirdItem_result[:second] %></td>
+      <td><%= @thirdItem_result[:full] %></td>
+      <td><%= @thirdItem_result[:count] %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Away</td>
+      <td>Home</td>
+      <td>+/-</td>
     </tr>
-    <tr class="gray">
+    <tr class="gradient">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -1909,17 +1961,23 @@ end
     </tr>
     <%
       (0..19).each do |index|
-        filter = @filters[index]
-        first_one = []
-        filter.each do |element|
-            first_one.push(element ? element : "ANY")
-        end
-        first_one = first_one.join("-")
- %>
+        filter_element = @game.filters.find(index: index)
+        filter = filter_element.first_one.split("-")
+    %>
       <tr class="filterElement">
         <% if index == 0 %>
+          <td>under</td>
+          <td>over</td>
+          <td></td>
+          <td>under</td>
+          <td>over</td>
           <td>Any</td>
         <% else %>
+          <td><%= filter_element[:first_under] %></td>
+          <td><%= filter_element[:first_over] %></td>
+          <td></td>
+          <td><%= filter_element[:second_under] %></td>
+          <td><%= filter_element[:second_over] %></td>
           <td>
             <div>
               <%= first_one %>
@@ -1970,17 +2028,28 @@ end
           <td></td>
         <% end %>
         <td></td>
-        <td class="skyblue"><%= @filterResult_secondtravel[index][:first] %></td>
-        <td class="skyblue"><%= @filterResult_secondtravel[index][:second] %></td>
-        <td class="skyblue"><%= @filterResult_secondtravel[index][:full] %></td>
-        <td class="skyblue"><%= @filterResult_secondtravel[index][:count] %></td>
-        <td><%= @filterResult_secondtravel[index][:allfirst] %></td>
-        <td><%= @filterResult_secondtravel[index][:allsecond] %></td>
-        <td><%= @filterResult_secondtravel[index][:allfull] %></td>
-        <td><%= @filterResult_secondtravel[index][:allcount] %></td>
+        <td class="skyblue"><%= filter_element[:first] %></td>
+        <td class="skyblue"><%= filter_element[:second] %></td>
+        <td class="skyblue"><%= filter_element[:full] %></td>
+        <td class="skyblue"><%= filter_element[:count] %></td>
+        <td><%= filter_element[:allfirst] %></td>
+        <td><%= filter_element[:allsecond] %></td>
+        <td><%= filter_element[:allfull] %></td>
+        <td><%= filter_element[:allcount] %></td>
+        <td><%= filter_element[:away_ortg] %></td>
+        <td><%= filter_element[:home_ortg] %></td>
+        <td><%= (filter_element[:away_ortg] - filter_element[:home_ortg]).round(2) %></td>
       </tr>
       <% if @break.include?(index) %>
-        <tr class="gray">
+        <tr class="gradient">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>
@@ -2008,12 +2077,17 @@ end
         </tr>
       <% end %>
     <% end %>
-    <tr class="green">
+    <tr class="redgradient">
+      <td class="yellow">Away</td>
+      <td class="yellow">Home</td>
+      <td class="gradient"></td>
+      <td class="yellow">Away</td>
+      <td class="yellow">Home</td>
       <td class="yellow">GAMES</td>
       <td></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td></td>
       <td></td>
       <td></td>
@@ -2029,315 +2103,77 @@ end
       <td class="yellow">away</td>
       <td class="yellow">home</td>
       <td class="yellow">diff</td>
+      <td class="yellow">xxx</td>
       <td class="yellow">BG</td>
       <td class="green">away</td>
       <td class="green">home</td>
       <td class="green">diff</td>
+      <td class="green">xxx</td>
       <td class="green">BH</td>
+      <td></td>
     </tr>
+    <%
+      borders = [1, 5, 7]
+      values = [0, 1, 19, 18, 10, 11, 20, 21, 16, 14, 15]
+      values.each do |value|
+        filter_element = @game.filters.find(index: value)
+        filter = filter_element.first_one.split("-")
+    %>
     <tr>
-      <td class="borderTop borderRight borderLeft"><%= @filterResult_secondtravel[0][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="gray border"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="gray border"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="gray"></td>
-      <td class="borderTop borderLeft"><%= @filterResult_secondtravel[0][:full_first] %></td>
-      <td class="borderTop"><%= @filterResult_secondtravel[0][:full_second] %></td>
-      <td class="borderTop"><%= (@filterResult_secondtravel[0][:full_first] - @filterResult_secondtravel[0][:full_second]).round(2) %></td>
-      <td class="borderTop borderRight"><%= @filterResult_secondtravel[0][:bj] %></td>
-      <td class="borderTop borderLeft"><%= @filterResult_secondtravel[0][:firsthalf_first] %></td>
-      <td class="borderTop"><%= @filterResult_secondtravel[0][:firsthalf_second] %></td>
-      <td class="borderTop"><%= (@filterResult_secondtravel[0][:firsthalf_first] - @filterResult_secondtravel[0][:firsthalf_second]).round(2) %></td>
-      <td class="borderTop borderRight"><%= @filterResult_secondtravel[0][:bg] %></td>
-      <td class="borderTop borderLeft"><%= @filterResult_secondtravel[0][:secondhalf_first] %></td>
-      <td class="borderTop"><%= @filterResult_secondtravel[0][:secondhalf_second] %></td>
-      <td class="borderTop"><%= (@filterResult_secondtravel[0][:secondhalf_first] - @filterResult_secondtravel[0][:secondhalf_second]).round(2) %></td>
-      <td class="borderTop borderRight"><%= @filterResult_secondtravel[0][:bh] %></td>
+      <td><%= filter_element[:first_half_away] %></td>
+      <td><%= filter_element[:first_half_home] %></td>
+      <td class="gradient"></td>
+      <td><%= filter_element[:second_half_away] %></td>
+      <td><%= filter_element[:second_half_home] %></td>
+      <td class="borderRight borderLeft borderBottom"><%= filter_element[:allcount] %></td>
+      <td class="gradient"></td>
+      <%
+        (0..8).each do |index|
+          if filter[index]
+      %>
+          <td class="filter border">X</td>
+        <% else %>
+          <td class="yellow border"></td>
+        <%
+          end
+          if borders.include?(index)
+        %>
+          <td class="gradient border"></td>
+        <%
+          end
+        end
+      %>
+      <td class="gradient"></td>
+      <td class="borderLeft borderBottom"><%= filter_element[:full_first] %></td>
+      <td><%= filter_element[:full_second] %></td>
+      <td><%= (filter_element[:full_first] - filter_element[:full_second]).round(2) %></td>
+      <td class="borderRight borderBottom"><%= filter_element[:bj] %></td>
+      <td class="borderLeft borderBottom"><%= filter_element[:firsthalf_first] %></td>
+      <td><%= filter_element[:firsthalf_second] %></td>
+      <td><%= (filter_element[:firsthalf_first] - filter_element[:firsthalf_second]).round(2) %></td>
+      <td style="background-color: #ccf"><%= filter_element[:bi_one] %></td>
+      <td class="borderRight borderBottom"><%= filter_element[:bg] %></td>
+      <td class="borderLeft borderBottom"><%= filter_element[:secondhalf_first] %></td>
+      <td><%= filter_element[:secondhalf_second] %></td>
+      <td><%= (filter_element[:secondhalf_first] - filter_element[:secondhalf_second]).round(2) %></td>
+      <td style="background-color: #ccf"><%= filter_element[:bi_two] %></td>
+      <td class="borderRight borderBottom"><%= filter_element[:bh] %></td>
+      <td class="borderTop" style="background-color: #ccf"><%= filter_element[:bi_count] %></td>
     </tr>
-    <tr style="background-color: #fcf !important">
-      <td class="borderRight borderLeft"><%= @filterResult_secondtravel[1][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray"></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[1][:full_first] %></td>
-      <td><%= @filterResult_secondtravel[1][:full_second] %></td>
-      <td><%= (@filterResult_secondtravel[1][:full_first] - @filterResult_secondtravel[1][:full_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[1][:bj] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[1][:firsthalf_first] %></td>
-      <td><%= @filterResult_secondtravel[1][:firsthalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[1][:firsthalf_first] - @filterResult_secondtravel[1][:firsthalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[1][:bg] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[1][:secondhalf_first] %></td>
-      <td><%= @filterResult_secondtravel[1][:secondhalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[1][:secondhalf_first] - @filterResult_secondtravel[1][:secondhalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[1][:bh] %></td>
-    </tr>
-    <tr>
-      <td class="borderRight borderLeft"><%= @filterResult_secondtravel[19][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray"></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[19][:full_first] %></td>
-      <td><%= @filterResult_secondtravel[19][:full_second] %></td>
-      <td><%= (@filterResult_secondtravel[19][:full_first] - @filterResult_secondtravel[19][:full_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[19][:bj] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[19][:firsthalf_first] %></td>
-      <td><%= @filterResult_secondtravel[19][:firsthalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[19][:firsthalf_first] - @filterResult_secondtravel[19][:firsthalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[19][:bg] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[19][:secondhalf_first] %></td>
-      <td><%= @filterResult_secondtravel[19][:secondhalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[19][:secondhalf_first] - @filterResult_secondtravel[19][:secondhalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[19][:bh] %></td>
-    </tr>
-    <tr>
-      <td class="borderRight borderLeft"><%= @filterResult_secondtravel[18][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="gray"></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[18][:full_first] %></td>
-      <td><%= @filterResult_secondtravel[18][:full_second] %></td>
-      <td><%= (@filterResult_secondtravel[18][:full_first] - @filterResult_secondtravel[18][:full_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[18][:bj] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[18][:firsthalf_first] %></td>
-      <td><%= @filterResult_secondtravel[18][:firsthalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[18][:firsthalf_first] - @filterResult_secondtravel[18][:firsthalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[18][:bg] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[18][:secondhalf_first] %></td>
-      <td><%= @filterResult_secondtravel[18][:secondhalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[18][:secondhalf_first] - @filterResult_secondtravel[18][:secondhalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[18][:bh] %></td>
-    </tr>
-    <tr>
-      <td class="borderRight borderLeft"><%= @filterResult_secondtravel[10][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="yellow border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="yellow border"></td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray"></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[10][:full_first] %></td>
-      <td><%= @filterResult_secondtravel[10][:full_second] %></td>
-      <td><%= (@filterResult_secondtravel[10][:full_first] - @filterResult_secondtravel[10][:full_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[10][:bj] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[10][:firsthalf_first] %></td>
-      <td><%= @filterResult_secondtravel[10][:firsthalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[10][:firsthalf_first] - @filterResult_secondtravel[10][:firsthalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[10][:bg] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[10][:secondhalf_first] %></td>
-      <td><%= @filterResult_secondtravel[10][:secondhalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[10][:secondhalf_first] - @filterResult_secondtravel[10][:secondhalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[10][:bh] %></td>
-    </tr>
-    <tr>
-      <td class="borderRight borderLeft"><%= @filterResult_secondtravel[11][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray"></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[11][:full_first] %></td>
-      <td><%= @filterResult_secondtravel[11][:full_second] %></td>
-      <td><%= (@filterResult_secondtravel[11][:full_first] - @filterResult_secondtravel[11][:full_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[11][:bj] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[11][:firsthalf_first] %></td>
-      <td><%= @filterResult_secondtravel[11][:firsthalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[11][:firsthalf_first] - @filterResult_secondtravel[11][:firsthalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[11][:bg] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[11][:secondhalf_first] %></td>
-      <td><%= @filterResult_secondtravel[11][:secondhalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[11][:secondhalf_first] - @filterResult_secondtravel[11][:secondhalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[11][:bh] %></td>
-    </tr>
-    <tr>
-      <td class="borderRight borderLeft"><%= @filterResult_secondtravel[20][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="gray border"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="gray"></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[20][:full_first] %></td>
-      <td><%= @filterResult_secondtravel[20][:full_second] %></td>
-      <td><%= (@filterResult_secondtravel[20][:full_first] - @filterResult_secondtravel[20][:full_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[20][:bj] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[20][:firsthalf_first] %></td>
-      <td><%= @filterResult_secondtravel[20][:firsthalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[20][:firsthalf_first] - @filterResult_secondtravel[20][:firsthalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[20][:bg] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[20][:secondhalf_first] %></td>
-      <td><%= @filterResult_secondtravel[20][:secondhalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[20][:secondhalf_first] - @filterResult_secondtravel[20][:secondhalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[20][:bh] %></td>
-    </tr>
-    <tr>
-      <td class="borderRight borderLeft"><%= @filterResult_secondtravel[21][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="gray border"></td>
-      <td class="yellow border"></td>
-      <td class="yellow border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray"></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[21][:full_first] %></td>
-      <td><%= @filterResult_secondtravel[21][:full_second] %></td>
-      <td><%= (@filterResult_secondtravel[21][:full_first] - @filterResult_secondtravel[21][:full_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[21][:bj] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[21][:firsthalf_first] %></td>
-      <td><%= @filterResult_secondtravel[21][:firsthalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[21][:firsthalf_first] - @filterResult_secondtravel[21][:firsthalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[21][:bg] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[21][:secondhalf_first] %></td>
-      <td><%= @filterResult_secondtravel[21][:secondhalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[21][:secondhalf_first] - @filterResult_secondtravel[21][:secondhalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[21][:bh] %></td>
-    </tr>
-    <tr>
-      <td class="borderRight borderLeft"><%= @filterResult_secondtravel[16][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="yellow border"></td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="yellow border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="yellow border"></td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="yellow border"></td>
-      <td class="gray"></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[16][:full_first] %></td>
-      <td><%= @filterResult_secondtravel[16][:full_second] %></td>
-      <td><%= (@filterResult_secondtravel[16][:full_first] - @filterResult_secondtravel[16][:full_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[16][:bj] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[16][:firsthalf_first] %></td>
-      <td><%= @filterResult_secondtravel[16][:firsthalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[16][:firsthalf_first] - @filterResult_secondtravel[16][:firsthalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[16][:bg] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[16][:secondhalf_first] %></td>
-      <td><%= @filterResult_secondtravel[16][:secondhalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[16][:secondhalf_first] - @filterResult_secondtravel[16][:secondhalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[16][:bh] %></td>
-    </tr>
-    <tr>
-      <td class="borderRight borderLeft"><%= @filterResult_secondtravel[14][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="yellow border"></td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="yellow border"></td>
-      <td class="gray"></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[14][:full_first] %></td>
-      <td><%= @filterResult_secondtravel[14][:full_second] %></td>
-      <td><%= (@filterResult_secondtravel[14][:full_first] - @filterResult_secondtravel[14][:full_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[14][:bj] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[14][:firsthalf_first] %></td>
-      <td><%= @filterResult_secondtravel[14][:firsthalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[14][:firsthalf_first] - @filterResult_secondtravel[14][:firsthalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[14][:bg] %></td>
-      <td class="borderLeft"><%= @filterResult_secondtravel[14][:secondhalf_first] %></td>
-      <td><%= @filterResult_secondtravel[14][:secondhalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[14][:secondhalf_first] - @filterResult_secondtravel[14][:secondhalf_second]).round(2) %></td>
-      <td class="borderRight"><%= @filterResult_secondtravel[14][:bh] %></td>
-    </tr>
-    <tr>
-      <td class="borderRight borderLeft borderBottom"><%= @filterResult_secondtravel[15][:allcount] %></td>
-      <td class="gray"></td>
-      <td class="filter border">X</td>
-      <td class="yellow border"></td>
-      <td class="gray border"></td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="filter border">X</td>
-      <td class="gray border"></td>
-      <td class="yellow border"></td>
-      <td class="filter border">X</td>
-      <td class="gray"></td>
-      <td class="borderLeft borderBottom"><%= @filterResult_secondtravel[15][:full_first] %></td>
-      <td><%= @filterResult_secondtravel[15][:full_second] %></td>
-      <td><%= (@filterResult_secondtravel[15][:full_first] - @filterResult_secondtravel[15][:full_second]).round(2) %></td>
-      <td class="borderRight borderBottom"><%= @filterResult_secondtravel[15][:bj] %></td>
-      <td class="borderLeft borderBottom"><%= @filterResult_secondtravel[15][:firsthalf_first] %></td>
-      <td><%= @filterResult_secondtravel[15][:firsthalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[15][:firsthalf_first] - @filterResult_secondtravel[15][:firsthalf_second]).round(2) %></td>
-      <td class="borderRight borderBottom"><%= @filterResult_secondtravel[15][:bg] %></td>
-      <td class="borderLeft borderBottom"><%= @filterResult_secondtravel[15][:secondhalf_first] %></td>
-      <td><%= @filterResult_secondtravel[15][:secondhalf_second] %></td>
-      <td><%= (@filterResult_secondtravel[15][:secondhalf_first] - @filterResult_secondtravel[15][:secondhalf_second]).round(2) %></td>
-      <td class="borderRight borderBottom"><%= @filterResult_secondtravel[15][:bh] %></td>
-    </tr>
-    <tr class="green">
+      <%
+        end
+      %>
+    <tr class="redgradient">
+      <td class="yellow"></td>
+      <td class="yellow"></td>
+      <td class="gradient"></td>
+      <td class="yellow"></td>
+      <td class="yellow"></td>
       <td class="yellow">GAMES</td>
       <td></td>
       <td></td>
       <td></td>
-      <td class="gray"></td>
+      <td class="gradient"></td>
       <td></td>
       <td></td>
       <td></td>
@@ -2347,8 +2183,9 @@ end
       <td></td>
       <td></td>
       <td colspan="4" class="border">Full Game</td>
-      <td colspan="4" class="yellow border">1st Half</td>
-      <td colspan="4" class="green border">2nd Half</td>
+      <td colspan="5" class="yellow border">1st Half</td>
+      <td colspan="5" class="green border">2nd Half</td>
+      <td></td>
     </tr>
     </tbody>
   </table>
