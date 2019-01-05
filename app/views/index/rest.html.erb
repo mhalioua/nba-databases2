@@ -2113,7 +2113,7 @@ end
       <td></td>
     </tr>
     <%
-      borders = [1, 5, 7]
+      borders = [1, 5]
       values = [0, 1, 19, 18, 10, 11, 20, 21, 16, 14, 15]
       values.each do |value|
         filter_element = @game.filters.find_by(index: value)
@@ -2128,7 +2128,7 @@ end
       <td class="borderRight borderLeft borderBottom"><%= filter_element[:allcount] %></td>
       <td class="gradient"></td>
       <%
-        (0..8).each do |index|
+        (0...8).each do |index|
           if filter[index] != 'ANY'
       %>
           <td class="filter border">X</td>
