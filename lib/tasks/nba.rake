@@ -112,6 +112,9 @@ namespace :nba do
 
 		Rake::Task["nba:getUpdatePoss"].invoke
 		Rake::Task["nba:getUpdatePoss"].reenable
+
+    Rake::Task["nba:filterNba"].invoke
+    Rake::Task["nba:filterNba"].reenable
 	end
 
 	task :fix => :environment do
@@ -3725,7 +3728,6 @@ namespace :nba do
         end
         filter_element = Filter.find_or_create_by(nba_id: game.id, index: index)
         filter_element.update(result_element)
-        # @filterResult.push(result_element)
       end
     end
   end
