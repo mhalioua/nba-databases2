@@ -953,9 +953,9 @@ end
 </div>
 
 
-<select id="filter">
-  <% (2000..2018).each do |year| %>
-    <option value="<%= year %>"><%= year %></option>
+<select id="filter" style="margin: 0 auto; display: block;">
+  <% (0..18).each do |year| %>
+    <option value="<%= 2018 - year %>"><%= 2018 - year %></option>
   <% end %>
 </select>
 <div class="tableBody">

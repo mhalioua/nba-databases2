@@ -2747,9 +2747,9 @@ end
 
 
 
-<select id="filter">
-  <% (2000..2018).each do |year| %>
-    <option value="<%= year %>"><%= year %></option>
+<select id="filter" style="margin: 0 auto; display: block;">
+  <% (0..18).each do |year| %>
+    <option value="<%= 2018 - year %>"><%= 2018 - year %></option>
   <% end %>
 </select>
 <div class="tableBody">
@@ -3424,7 +3424,7 @@ end
         (0..19).each do |index|
           filter_element = @game.filters.find_by(index: index, year: year)
           filter = filter_element.first_one.split("-")
-%>
+      %>
         <tr class="filterElement">
           <% if index == 0 %>
             <td>under</td>
@@ -3579,7 +3579,7 @@ end
         values.each do |value|
           filter_element = @game.filters.find_by(index: value, year: year)
           filter = filter_element.first_one.split("-")
-%>
+      %>
         <tr>
           <td><%= filter_element[:first_half_away] %></td>
           <td><%= filter_element[:first_half_home] %></td>
@@ -3591,7 +3591,7 @@ end
           <%
             (0...8).each do |index|
               if filter[index] != 'ANY'
-%>
+          %>
             <td class="filter border">X</td>
           <% else %>
             <td class="yellow border"></td>
