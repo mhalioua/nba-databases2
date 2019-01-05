@@ -1985,44 +1985,44 @@ end
           </td>
         <% end %>
         <td></td>
-        <% if filter[0] %>
+        <% if filter[0] != 'ANY' %>
           <td class="filter">X</td>
         <% else %>
           <td></td>
         <% end %>
-        <% if filter[1] %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <td></td>
-        <% if filter[2] %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <% if filter[3] %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <% if filter[4] %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <% if filter[5] %>
+        <% if filter[1] != 'ANY' %>
           <td class="filter">X</td>
         <% else %>
           <td></td>
         <% end %>
         <td></td>
-        <% if filter[6] %>
+        <% if filter[2] != 'ANY' %>
           <td class="filter">X</td>
         <% else %>
           <td></td>
         <% end %>
-        <% if filter[7] %>
+        <% if filter[3] != 'ANY' %>
+          <td class="filter">X</td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <% if filter[4] != 'ANY' %>
+          <td class="filter">X</td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <% if filter[5] != 'ANY' %>
+          <td class="filter">X</td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td></td>
+        <% if filter[6] != 'ANY' %>
+          <td class="filter">X</td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <% if filter[7] != 'ANY' %>
           <td class="filter">X</td>
         <% else %>
           <td></td>
@@ -2129,7 +2129,7 @@ end
       <td class="gradient"></td>
       <%
         (0..8).each do |index|
-          if filter[index]
+          if filter[index] != 'ANY'
       %>
           <td class="filter border">X</td>
         <% else %>
