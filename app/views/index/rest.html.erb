@@ -1403,7 +1403,13 @@ end
     </tbody>
   </table>
 
-  <table border="1" class="tableSide totalAverage firstTravel" style="width: 1%">
+  <select id="filter">
+    <% (2018..2000).each do |year| %>
+      <option value="<%= year %>"><%= year %></option>
+    <% end %>
+  </select>
+  <% (2018..2000).each do |year| %>
+  <table border="1" class="tableSide totalAverage firstTravel filterPage" style="width: 1%; display: none;">
     <tbody>
     <tr>
       <td></td>
@@ -1623,7 +1629,7 @@ end
     </tr>
     <%
       (0..19).each do |index|
-        filter_element = @game.filters.find_by(index: index, year: 2018)
+        filter_element = @game.filters.find_by(index: index, year: year)
         filter = filter_element.first_one.split("-")
     %>
       <tr class="filterElement">
@@ -1778,7 +1784,7 @@ end
       borders = [1, 5]
       values = [0, 1, 19, 18, 10, 11, 20, 21, 16, 14, 15]
       values.each do |value|
-        filter_element = @game.filters.find_by(index: value, year: 2018)
+        filter_element = @game.filters.find_by(index: value, year: year)
         filter = filter_element.first_one.split("-")
     %>
       <tr>
@@ -1792,7 +1798,7 @@ end
         <%
           (0...8).each do |index|
             if filter[index] != 'ANY'
-%>
+        %>
           <td class="filter border">X</td>
         <% else %>
           <td class="yellow border"></td>
@@ -1851,6 +1857,7 @@ end
     </tr>
     </tbody>
   </table>
+    <% end %>
 </div>
 <div class="tableBody">
   <table border="1" class="tableSide" style="border:6px solid black">
@@ -2160,4 +2167,10 @@ end
   </table>
 </div>
 
-
+<script>
+    $('#filter').change(function() {
+       var value = 2020 - $(this).val();
+       $('.filterPage').hide();
+       $('.filterPage:nth-child(' + value + ')').show();
+    });
+</script>
