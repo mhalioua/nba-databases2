@@ -1961,7 +1961,7 @@ end
     </tr>
     <%
       (0..19).each do |index|
-        filter_element = @game.filters.find(index: index)
+        filter_element = @game.filters.find_by(index: index)
         filter = filter_element.first_one.split("-")
     %>
       <tr class="filterElement">
@@ -2116,7 +2116,7 @@ end
       borders = [1, 5, 7]
       values = [0, 1, 19, 18, 10, 11, 20, 21, 16, 14, 15]
       values.each do |value|
-        filter_element = @game.filters.find(index: value)
+        filter_element = @game.filters.find_by(index: value)
         filter = filter_element.first_one.split("-")
     %>
     <tr>
