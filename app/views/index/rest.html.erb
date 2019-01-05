@@ -1404,11 +1404,11 @@ end
   </table>
 
   <select id="filter">
-    <% (2018..2000).each do |year| %>
+    <% (2000..2018).each do |year| %>
       <option value="<%= year %>"><%= year %></option>
     <% end %>
   </select>
-  <% (2018..2000).each do |year| %>
+  <% (2000..2018).each do |year| %>
   <table border="1" class="tableSide totalAverage firstTravel filterPage" style="width: 1%; display: none;">
     <tbody>
     <tr>
@@ -2169,8 +2169,9 @@ end
 
 <script>
     $('#filter').change(function() {
-       var value = 2020 - $(this).val();
+       var value = $(this).val() - 1999;
        $('.filterPage').hide();
        $('.filterPage:nth-child(' + value + ')').show();
     });
+    $('#filter').value(2018);
 </script>
