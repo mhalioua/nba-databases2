@@ -1428,7 +1428,7 @@ end
       <td class="line">2H LINE</td>
       <td class="line">FG LINE</td>
       <td></td>
-      <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE</td>
+      <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE <%= year %></td>
     </tr>
     <tr>
       <td></td>
@@ -2169,9 +2169,9 @@ end
 
 <script>
     $('#filter').change(function() {
-       var value = $(this).val() - 1999;
+       var value = $(this).val() - 2000;
        $('.filterPage').hide();
        $('.filterPage:nth-child(' + value + ')').show();
     });
-    $('#filter').value(2018);
+    $('.filterPage:nth-child(18)').show();
 </script>
