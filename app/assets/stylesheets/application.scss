@@ -126,6 +126,7 @@ th, .green {
 
 .totalAverage {
     border: 2px solid black;
+    font-size: 10px;
 
     td, th {
         padding: 0;
@@ -134,7 +135,6 @@ th, .green {
     }
 
     .gameDate, .lineValue{
-        font-size: 12px;
         font-weight: 800;
         text-transform: uppercase;
     }
@@ -145,7 +145,6 @@ th, .green {
     }
 
     .line{
-        font-size: 10px;
         text-transform: uppercase;
     }
     tr {
@@ -180,7 +179,7 @@ th, .green {
     }
     .halfstats
     {
-        font-size: 25px;
+        font-size: 18px;
         font-family: fantasy;
         padding: 20px 40px;
     }
