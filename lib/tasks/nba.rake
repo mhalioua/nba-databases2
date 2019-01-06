@@ -3690,6 +3690,10 @@ namespace :nba do
         search_second_string = search_second_string.join(" AND ")
         filter_element = Fullseason.where(search_string)
         filter_second_element = Fullseason.where(search_second_string)
+        filter_element_source = filter_element.dup
+        filter_second_element_source = filter_second_element.dup
+        filter_element = filter_element_source.where('id >= 107399 AND id <= 129085')
+        filter_second_element = filter_second_element_source.where('id >= 107399 AND id <= 129085')
 
         filter_data = Filter.find_or_create_by(nba_id: game.id, index: index, year: 0)
         result_element = {
@@ -3729,8 +3733,6 @@ namespace :nba do
           result_element[:bi_count] = filter_second_element_again.count(:firstlinetotal).to_i
         end
         filter_data.update(result_element)
-        filter_element_source = filter_element.dup
-        filter_second_element_source = filter_second_element.dup
 
         (2000...2019).each do |year|
           filter_data = Filter.find_or_create_by(nba_id: game.id, index: index, year: year)
