@@ -3692,8 +3692,8 @@ namespace :nba do
         filter_second_element = Fullseason.where(search_second_string)
         filter_element_source = filter_element.dup
         filter_second_element_source = filter_second_element.dup
-        filter_element = filter_element_source.where('id >= 107399 AND id <= 129085')
-        filter_second_element = filter_second_element_source.where('id >= 107399 AND id <= 129085')
+        filter_element = filter_element_source.where('id >= 107399 AND id <= 128302')
+        filter_second_element = filter_second_element_source.where('id >= 107399 AND id <= 128302')
 
         filter_data = Filter.find_or_create_by(nba_id: game.id, index: index, year: 0)
         result_element = {
@@ -3787,12 +3787,15 @@ namespace :nba do
           elsif year === 2016
             filter_element = filter_element_source.where('id >= 107399 AND id <= 108629')
             filter_second_element = filter_second_element_source.where('id >= 107399 AND id <= 108629')
+          #elsif year === 2017
+          #  filter_element = filter_element_source.where('id >= 127853 AND id <= 129085')
+          #  filter_second_element = filter_second_element_source.where('id >= 127853 AND id <= 129085')
+          #elsif year === 2018
+          #  filter_element = filter_element_source.where('id >= 129086')
+          #  filter_second_element = filter_second_element_source.where('id >= 129086')
           elsif year === 2017
-            filter_element = filter_element_source.where('id >= 127853 AND id <= 129085')
-            filter_second_element = filter_second_element_source.where('id >= 127853 AND id <= 129085')
-          elsif year === 2018
-            filter_element = filter_element_source.where('id >= 129086')
-            filter_second_element = filter_second_element_source.where('id >= 129086')
+            filter_element = filter_element_source.where('id >= 127853 AND id <= 128302')
+            filter_second_element = filter_second_element_source.where('id >= 127853 AND id <= 128302')
           end
 
           result_element = {
