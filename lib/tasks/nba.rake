@@ -3784,6 +3784,31 @@ namespace :nba do
     end
   end
 
+  task :underOver => :environment do
+    games = Fullseason.where('id >= ﻿128303')
+    games.each do |game|
+      firstou = 0
+      if game.firstpoint > game.firstlinetotal
+        firstou = "over"
+      elsif game.firstpoint < game.firstlinetotal
+        firstou = "under"
+      end
+      secondou = 0
+      if game.secondpoint > game.secondlinetotal
+        secondou = "over"
+      elsif game.secondpoint < game.secondlinetotal
+        secondou = "under"
+      end
+      totalou = 0
+      if game.totalpoint > game.fglinetotal
+        totalou = "over"
+      elsif game.totalpoint < game.fglinetotal
+        totalou = "under"
+      end
+      game.update(firstou: firstou, secondou: secondou, totalou: totalou)
+    end
+  end
+
 
   @basket_names = {
     'Charlotte' => 'New Orleans',
