@@ -3785,7 +3785,7 @@ namespace :nba do
   end
 
   task :underOver => :environment do
-    games = Fullseason.where("id >= ﻿128303")
+    games = Fullseason.where("id >= 128303")
     games.each do |game|
       firstou = 0
       if game.firstpoint > game.firstlinetotal
