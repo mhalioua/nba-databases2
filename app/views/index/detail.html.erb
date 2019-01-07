@@ -2778,7 +2778,7 @@ end
 
 <div class="tableBody">
   <select id="firstFilter" style="margin: 0 auto; display: block;">
-    <% (2008..2017).each do |year| %>
+    <% (2017..2008).each do |year| %>
       <option value="<%= year %>">
         <% if year == 2008 %>
           2000-2017
@@ -2791,7 +2791,7 @@ end
     <% end %>
   </select>
   <select id="secondFilter" style="margin: 0 auto; display: block;">
-    <% (2010..2018).each do |year| %>
+    <% (2018..2010).each do |year| %>
       <option value="<%= year %>"><%= year.to_s + "-" + (year + 1).to_s %></option>
     <% end %>
   </select>
