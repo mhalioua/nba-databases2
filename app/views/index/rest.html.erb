@@ -973,14 +973,14 @@ end
         <% elsif year == 2009 %>
           2010-2017
         <% else %>
-          <%= year + "-" + (year + 1) %>
+          <%= year.to_s + "-" + (year + 1).to_s %>
         <% end %>
       </option>
     <% end %>
   </select>
   <select id="secondFilter" style="margin: 0 auto; display: block;">
     <% (2010..2018).each do |year| %>
-      <option value="<%= year %>"><%= year + "-" + (year + 1) %></option>
+      <option value="<%= year %>"><%= year.to_s + "-" + (year + 1).to_s %></option>
     <% end %>
   </select>
   <% (2008..2017).each do |year| %>
@@ -1009,7 +1009,7 @@ end
           <% elsif year == 2009 %>
             2010-2017
           <% else %>
-            <%= year + "-" + (year + 1) %>
+            <%= year.to_s + "-" + (year + 1).to_s %>
           <% end %>
         </td>
       </tr>
@@ -1463,7 +1463,7 @@ end
         <td class="line">FG LINE</td>
         <td></td>
         <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE
-          <%= year + "-" + (year + 1) %>
+          <%= year.to_s + "-" + (year + 1).to_s %>
         </td>
       </tr>
       <tr>
