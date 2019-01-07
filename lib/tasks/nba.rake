@@ -3692,80 +3692,26 @@ namespace :nba do
         filter_second_element = Fullseason.where(search_second_string)
         filter_element_source = filter_element.dup
         filter_second_element_source = filter_second_element.dup
-        filter_element = filter_element_source.where('id >= 107399 AND id <= 128302')
-        filter_second_element = filter_second_element_source.where('id >= 107399 AND id <= 128302')
 
-        filter_data = Filter.find_or_create_by(nba_id: game.id, index: index, year: 0)
-        result_element = {
-            first_one: first_one,
-            first: filter_element.average(:firstvalue).to_f.round(2),
-            second: filter_element.average(:secondvalue).to_f.round(2),
-            full: filter_element.average(:totalvalue).to_f.round(2),
-            count: filter_element.count(:totalvalue).to_i,
-            allfirst: filter_second_element.average(:firstvalue).to_f.round(2),
-            allsecond: filter_second_element.average(:secondvalue).to_f.round(2),
-            allfull: filter_second_element.average(:totalvalue).to_f.round(2),
-            allcount: filter_second_element.count(:totalvalue).to_i,
-            home_ortg: filter_second_element.average(:home_ortg).to_f.round(2),
-            away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
-            bj: filter_second_element.average(:fgside).to_f.round(2),
-            bg: filter_second_element.average(:firstside).to_f.round(2),
-            bh: filter_second_element.average(:secondside).to_f.round(2),
-            first_under: filter_second_element.where("firstou = 'under'").count,
-            first_over: filter_second_element.where("firstou = 'over'").count,
-            second_under: filter_second_element.where("secondou = 'under'").count,
-            second_over: filter_second_element.where("secondou = 'over'").count,
-            first_half_away: filter_second_element.where("first_half_bigger = 'AWAY'").count,
-            first_half_home: filter_second_element.where("first_half_bigger = 'HOME'").count,
-            second_half_away: filter_second_element.where("second_half_bigger = 'AWAY'").count,
-            second_half_home: filter_second_element.where("second_half_bigger = 'HOME'").count
-        }
-        if index < 2 || index > 9
-          result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
-          result_element[:full_second] = (filter_second_element.average(:homethird).to_f + filter_second_element.average(:homeforth).to_f + filter_second_element.average(:homefirsthalf).to_f).round(2)
-          result_element[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
-          result_element[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
-          result_element[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f.round(2) + filter_second_element.average(:roadforth).to_f.round(2)).round(2)
-          result_element[:secondhalf_second] = (filter_second_element.average(:homethird).to_f.round(2) + filter_second_element.average(:homeforth).to_f.round(2)).round(2)
-          filter_second_element_again = filter_second_element.where("firstlinetotal is not null AND firstlinetotal != 0")
-          result_element[:bi_one] = (filter_second_element_again.average(:roadfirsthalf).to_f - filter_second_element_again.average(:homefirsthalf).to_f).round(2)
-          result_element[:bi_two] = (filter_second_element_again.average(:roadthird).to_f + filter_second_element_again.average(:roadforth).to_f - filter_second_element_again.average(:homethird).to_f - filter_second_element_again.average(:homeforth).to_f).round(2)
-          result_element[:bi_count] = filter_second_element_again.count(:firstlinetotal).to_i
-        end
-        filter_data.update(result_element)
-
-        (2000...2019).each do |year|
+        # 2000-2017 - 2008
+        # 2010-2017 - 2009
+        # 2010-2011 - 2010
+        # 2011-2012 - 2011
+        # 2012-2013 - 2012
+        # 2013-2014 - 2013
+        # 2014-2015 - 2014
+        # 2015-2016 - 2015
+        # 2016-2017 - 2016
+        # 2017-2018 - 2017
+        # 2018-2019 - 2018
+        (2008...2019).each do |year|
           filter_data = Filter.find_or_create_by(nba_id: game.id, index: index, year: year)
-          if year === 2000
-            filter_element = filter_element_source.where('id >= 108630 AND id <= 109765')
-            filter_second_element = filter_second_element_source.where('id >= 108630 AND id <= 109765')
-          elsif year === 2001
-            filter_element = filter_element_source.where('id >= 109766 AND id <= 110955')
-            filter_second_element = filter_second_element_source.where('id >= 109766 AND id <= 110955')
-          elsif year === 2002
-            filter_element = filter_element_source.where('id >= 110956 AND id <= 112145')
-            filter_second_element = filter_second_element_source.where('id >= 110956 AND id <= 112145')
-          elsif year === 2003
-            filter_element = filter_element_source.where('id >= 112146 AND id <= 113335')
-            filter_second_element = filter_second_element_source.where('id >= 112146 AND id <= 113335')
-          elsif year === 2004
-            filter_element = filter_element_source.where('id >= 113336 AND id <= 114566')
-            filter_second_element = filter_second_element_source.where('id >= 113336 AND id <= 114566')
-          elsif year === 2005
-            filter_element = filter_element_source.where('id >= 114567 AND id <= 115785')
-            filter_second_element = filter_second_element_source.where('id >= 114567 AND id <= 115785')
-          elsif year === 2006
-            filter_element = filter_element_source.where('id >= 115786 AND id <= 117016')
-            filter_second_element = filter_second_element_source.where('id >= 115786 AND id <= 117016')
-          elsif year === 2007
-            filter_element = filter_element_source.where('id >= 117017 AND id <= 118247')
-            filter_second_element = filter_second_element_source.where('id >= 117017 AND id <= 118247')
-          elsif year === 2008
-            filter_element = filter_element_source.where('id >= 118248 AND id <= 119478')
-            filter_second_element = filter_second_element_source.where('id >= 118248 AND id <= 119478')
+          if year === 2008
+            filter_element = filter_element_source.where('id >= 107399 AND id <= 127852')
+            filter_second_element = filter_second_element_source.where('id >= 107399 AND id <= 127852')
           elsif year === 2009
-            filter_element = filter_element_source.where('id >= 119479 AND id <= 120709')
-            filter_second_element = filter_second_element_source.where('id >= 119479 AND id <= 120709')
+            filter_element = filter_element_source.where('id >= 120710 AND id <= 127852').or(filter_element_source.where('id >= 107399 AND id <= 108629'))
+            filter_second_element = filter_second_element_source.where('id >= 120710 AND id <= 127852').or(filter_second_element_source.where('id >= 107399 AND id <= 108629'))
           elsif year === 2010
             filter_element = filter_element_source.where('id >= 120710 AND id <= 121940')
             filter_second_element = filter_second_element_source.where('id >= 120710 AND id <= 121940')
@@ -3787,15 +3733,12 @@ namespace :nba do
           elsif year === 2016
             filter_element = filter_element_source.where('id >= 107399 AND id <= 108629')
             filter_second_element = filter_second_element_source.where('id >= 107399 AND id <= 108629')
-          #elsif year === 2017
-          #  filter_element = filter_element_source.where('id >= 127853 AND id <= 129085')
-          #  filter_second_element = filter_second_element_source.where('id >= 127853 AND id <= 129085')
-          #elsif year === 2018
-          #  filter_element = filter_element_source.where('id >= 129086')
-          #  filter_second_element = filter_second_element_source.where('id >= 129086')
           elsif year === 2017
-            filter_element = filter_element_source.where('id >= 127853 AND id <= 128302')
-            filter_second_element = filter_second_element_source.where('id >= 127853 AND id <= 128302')
+           filter_element = filter_element_source.where('id >= 127853 AND id <= 129085')
+           filter_second_element = filter_second_element_source.where('id >= 127853 AND id <= 129085')
+          elsif year === 2018
+           filter_element = filter_element_source.where('id >= 129086')
+           filter_second_element = filter_second_element_source.where('id >= 129086')
           end
 
           result_element = {

@@ -952,463 +952,39 @@ end
   </table>
 </div>
 
+<!--# 2000-2017 - 2008-->
+<!--# 2010-2017 - 2009-->
+<!--# 2010-2011 - 2010-->
+<!--# 2011-2012 - 2011-->
+<!--# 2012-2013 - 2012-->
+<!--# 2013-2014 - 2013-->
+<!--# 2014-2015 - 2014-->
+<!--# 2015-2016 - 2015-->
+<!--# 2016-2017 - 2016-->
+<!--# 2017-2018 - 2017-->
+<!--# 2018-2019 - 2018-->
 
-<select id="filter" style="margin: 0 auto; display: block;">
-  <% (0..17).each do |year| %>
-    <option value="<%= 2017 - year %>"><%= 2017 - year %></option>
-  <% end %>
-</select>
 <div class="tableBody">
-  <table border="1" class="tableSide totalAverage firstTravel" style="width: 1%">
-    <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y") %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
-      <td></td>
-      <td class="line">1H LINE</td>
-      <td class="line">2H LINE</td>
-      <td class="line">FG LINE</td>
-      <td></td>
-      <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td colspan="2" class="gameDate">TRAVEL</td>
-      <td class="gradient"></td>
-      <td><u><i>road</i></u></td>
-      <td colspan="2">road DAYS REST home</td>
-      <td><u><i>home</i></u></td>
-      <td></td>
-      <td colspan="2" class="gameDate">TRAVEL</td>
-      <td></td>
-      <td class="gameDate"><%= @game.first_closer_total %></td>
-      <td class="gameDate"><%= @game.second_closer_total %></td>
-      <td class="gameDate"><%= @game.full_closer_total %></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td class="gameDate">RIVALS</td>
-      <td></td>
-      <td>last Y/N</td>
-      <td>next Y/N</td>
-      <td class="gradient"></td>
-      <td class="gameDate">last</td>
-      <td colspan="2" class="gameDate">next game</td>
-      <td class="gameDate">last</td>
-      <td></td>
-      <td>next Y/N</td>
-      <td>last Y/N</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr class="gameDate">
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td><%= @game.away_last_game %></td>
-      <td><%= @game.away_next_game %></td>
-      <td><%= @game.home_next_game %></td>
-      <td><%= @game.home_last_game %></td>
-      <td></td>
-      <td><%= @game.home_next_fly[0] %></td>
-      <td><%= @game.home_last_fly[0] %></td>
-      <td></td>
-      <td>1ST<br>HALF</td>
-      <td>2ND<br>HALF</td>
-      <td>FULL<br>GAME</td>
-      <td>GAMES</td>
-      <td rowspan="27" class="gradient"></td>
-      <td>1ST<br>HALF</td>
-      <td>2ND<br>HALF</td>
-      <td>FULL<br>GAME</td>
-      <td>GAMES</td>
-      <td rowspan="28" colspan="3" class="gradient"></td>
-      <td colspan="3" class="red">ORTG</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td>RIVALS</td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td><%= @firstItem_result[:first] %></td>
-      <td><%= @firstItem_result[:second] %></td>
-      <td><%= @firstItem_result[:full] %></td>
-      <td><%= @firstItem_result[:count] %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td>ALL GAMES IN <%= @home_abbr %></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td><%= @secondItem_result[:first] %></td>
-      <td><%= @secondItem_result[:second] %></td>
-      <td><%= @secondItem_result[:full] %></td>
-      <td><%= @secondItem_result[:count] %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td colspan="2">1st Half</td>
-      <td class="gradient"></td>
-      <td colspan="2">2nd Half</td>
-      <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A") %></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td><%= @thirdItem_result[:first] %></td>
-      <td><%= @thirdItem_result[:second] %></td>
-      <td><%= @thirdItem_result[:full] %></td>
-      <td><%= @thirdItem_result[:count] %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Away</td>
-      <td>Home</td>
-      <td>+/-</td>
-    </tr>
-    <tr class="gradient">
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <%
-      (0..19).each do |index|
-        filter_element = @game.filters.find_by(index: index, year: 0)
-        filter = filter_element.first_one.split("-")
-     %>
-      <tr class="filterElement">
-        <% if index == 0 %>
-          <td>under</td>
-          <td>over</td>
-          <td></td>
-          <td>under</td>
-          <td>over</td>
-          <td>Any</td>
+  <select id="firstFilter" style="margin: 0 auto; display: block;">
+    <% (2008..2017).each do |year| %>
+      <option value="<%= year %>">
+        <% if year == 2008 %>
+          2000-2017
+        <% elsif year == 2009 %>
+          2010-2017
         <% else %>
-          <td><%= filter_element[:first_under] %></td>
-          <td><%= filter_element[:first_over] %></td>
-          <td></td>
-          <td><%= filter_element[:second_under] %></td>
-          <td><%= filter_element[:second_over] %></td>
-          <td>
-            <div>
-              <%= filter_element.first_one %>
-            </div>
-          </td>
+          <%= year + "-" + year + 1 %>
         <% end %>
-        <td></td>
-        <% if filter[0] != 'ANY' %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <% if filter[1] != 'ANY' %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <td></td>
-        <% if filter[2] != 'ANY' %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <% if filter[3] != 'ANY' %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <% if filter[4] != 'ANY' %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <% if filter[5] != 'ANY' %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <td></td>
-        <% if filter[6] != 'ANY' %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <% if filter[7] != 'ANY' %>
-          <td class="filter">X</td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <td></td>
-        <td class="skyblue"><%= filter_element[:first] %></td>
-        <td class="skyblue"><%= filter_element[:second] %></td>
-        <td class="skyblue"><%= filter_element[:full] %></td>
-        <td class="skyblue"><%= filter_element[:count] %></td>
-        <td><%= filter_element[:allfirst] %></td>
-        <td><%= filter_element[:allsecond] %></td>
-        <td><%= filter_element[:allfull] %></td>
-        <td><%= filter_element[:allcount] %></td>
-        <td><%= filter_element[:away_ortg] %></td>
-        <td><%= filter_element[:home_ortg] %></td>
-        <td><%= (filter_element[:away_ortg] - filter_element[:home_ortg]).round(2) %></td>
-      </tr>
-      <% if @break.include?(index) %>
-        <tr class="gradient">
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <% if index == 19 %>
-            <td></td>
-          <% end %>
-        </tr>
-      <% end %>
+      </option>
     <% end %>
-    <tr class="redgradient">
-      <td class="yellow">Away</td>
-      <td class="yellow">Home</td>
-      <td class="gradient"></td>
-      <td class="yellow">Away</td>
-      <td class="yellow">Home</td>
-      <td class="yellow">GAMES</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>away</td>
-      <td>home</td>
-      <td>diff</td>
-      <td>BJ</td>
-      <td class="yellow">away</td>
-      <td class="yellow">home</td>
-      <td class="yellow">diff</td>
-      <td class="yellow">xxx</td>
-      <td class="yellow">BG</td>
-      <td class="green">away</td>
-      <td class="green">home</td>
-      <td class="green">diff</td>
-      <td class="green">xxx</td>
-      <td class="green">BH</td>
-      <td></td>
-    </tr>
-    <%
-      borders = [1, 5]
-      values = [0, 1, 19, 18, 10, 11, 20, 21, 16, 14, 15]
-      values.each do |value|
-        filter_element = @game.filters.find_by(index: value, year: 0)
-        filter = filter_element.first_one.split("-")
-     %>
-      <tr>
-        <td><%= filter_element[:first_half_away] %></td>
-        <td><%= filter_element[:first_half_home] %></td>
-        <td class="gradient"></td>
-        <td><%= filter_element[:second_half_away] %></td>
-        <td><%= filter_element[:second_half_home] %></td>
-        <td><%= filter_element[:allcount] %></td>
-        <td class="gradient"></td>
-        <%
-          (0...8).each do |index|
-            if filter[index] != 'ANY'
- %>
-          <td class="filter border">X</td>
-        <% else %>
-          <td class="yellow border"></td>
-        <%
-          end
-          if borders.include?(index)
-        %>
-          <td class="gradient border"></td>
-        <%
-          end
-          end
-        %>
-        <td class="gradient"></td>
-        <td><%= filter_element[:full_first] %></td>
-        <td><%= filter_element[:full_second] %></td>
-        <td><%= (filter_element[:full_first] - filter_element[:full_second]).round(2) %></td>
-        <td><%= filter_element[:bj] %></td>
-        <td><%= filter_element[:firsthalf_first] %></td>
-        <td><%= filter_element[:firsthalf_second] %></td>
-        <td><%= (filter_element[:firsthalf_first] - filter_element[:firsthalf_second]).round(2) %></td>
-        <td style="background-color: #ccf"><%= filter_element[:bi_one] %></td>
-        <td><%= filter_element[:bg] %></td>
-        <td><%= filter_element[:secondhalf_first] %></td>
-        <td><%= filter_element[:secondhalf_second] %></td>
-        <td><%= (filter_element[:secondhalf_first] - filter_element[:secondhalf_second]).round(2) %></td>
-        <td style="background-color: #ccf"><%= filter_element[:bi_two] %></td>
-        <td><%= filter_element[:bh] %></td>
-        <td style="background-color: #ccf"><%= filter_element[:bi_count] %></td>
-      </tr>
-    <%
-      end
-    %>
-    <tr class="redgradient">
-      <td class="yellow"></td>
-      <td class="yellow"></td>
-      <td class="gradient"></td>
-      <td class="yellow"></td>
-      <td class="yellow"></td>
-      <td class="yellow">GAMES</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="gradient"></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td colspan="4" class="border">Full Game</td>
-      <td colspan="5" class="yellow border">1st Half</td>
-      <td colspan="5" class="green border">2nd Half</td>
-      <td></td>
-    </tr>
-    </tbody>
-  </table>
-  <% (2000..2017).each do |year| %>
-    <table border="1" class="tableSide totalAverage firstTravel filterPage" style="width: 1%; display: none;">
+  </select>
+  <select id="secondFilter" style="margin: 0 auto; display: block;">
+    <% (2010..2018).each do |year| %>
+      <option value="<%= year %>"><%= year + "-" + (year + 1) %></option>
+    <% end %>
+  </select>
+  <% (2008..2017).each do |year| %>
+    <table border="1" class="tableSide totalAverage firstTravel firstFilterPage firstFilterPage<%= year %>" style="width: 1%; display: none;">
       <tbody>
       <tr>
         <td></td>
@@ -1427,7 +1003,468 @@ end
         <td class="line">2H LINE</td>
         <td class="line">FG LINE</td>
         <td></td>
-        <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE <%= year %></td>
+        <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE
+          <% if year == 2008 %>
+            2000-2017
+          <% elsif year == 2009 %>
+            2010-2017
+          <% else %>
+            <%= year + " - " + year + 1 %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="2" class="gameDate">TRAVEL</td>
+        <td class="gradient"></td>
+        <td><u><i>road</i></u></td>
+        <td colspan="2">road DAYS REST home</td>
+        <td><u><i>home</i></u></td>
+        <td></td>
+        <td colspan="2" class="gameDate">TRAVEL</td>
+        <td></td>
+        <td class="gameDate"><%= @game.first_closer_total %></td>
+        <td class="gameDate"><%= @game.second_closer_total %></td>
+        <td class="gameDate"><%= @game.full_closer_total %></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td class="gameDate">RIVALS</td>
+        <td></td>
+        <td>last Y/N</td>
+        <td>next Y/N</td>
+        <td class="gradient"></td>
+        <td class="gameDate">last</td>
+        <td colspan="2" class="gameDate">next game</td>
+        <td class="gameDate">last</td>
+        <td></td>
+        <td>next Y/N</td>
+        <td>last Y/N</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr class="gameDate">
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td><%= @game.away_last_game %></td>
+        <td><%= @game.away_next_game %></td>
+        <td><%= @game.home_next_game %></td>
+        <td><%= @game.home_last_game %></td>
+        <td></td>
+        <td><%= @game.home_next_fly[0] %></td>
+        <td><%= @game.home_last_fly[0] %></td>
+        <td></td>
+        <td>1ST<br>HALF</td>
+        <td>2ND<br>HALF</td>
+        <td>FULL<br>GAME</td>
+        <td>GAMES</td>
+        <td rowspan="27" class="gradient"></td>
+        <td>1ST<br>HALF</td>
+        <td>2ND<br>HALF</td>
+        <td>FULL<br>GAME</td>
+        <td>GAMES</td>
+        <td rowspan="28" colspan="3" class="gradient"></td>
+        <td colspan="3" class="red">ORTG</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td>RIVALS</td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td><%= @firstItem_result[:first] %></td>
+        <td><%= @firstItem_result[:second] %></td>
+        <td><%= @firstItem_result[:full] %></td>
+        <td><%= @firstItem_result[:count] %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td>ALL GAMES IN <%= @home_abbr %></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td><%= @secondItem_result[:first] %></td>
+        <td><%= @secondItem_result[:second] %></td>
+        <td><%= @secondItem_result[:full] %></td>
+        <td><%= @secondItem_result[:count] %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="2">1st Half</td>
+        <td class="gradient"></td>
+        <td colspan="2">2nd Half</td>
+        <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A") %></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td><%= @thirdItem_result[:first] %></td>
+        <td><%= @thirdItem_result[:second] %></td>
+        <td><%= @thirdItem_result[:full] %></td>
+        <td><%= @thirdItem_result[:count] %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Away</td>
+        <td>Home</td>
+        <td>+/-</td>
+      </tr>
+      <tr class="gradient">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <%
+        (0..19).each do |index|
+          filter_element = @game.filters.find_by(index: index, year: year)
+          filter = filter_element.first_one.split("-")
+ %>
+        <tr class="filterElement">
+          <% if index == 0 %>
+            <td>under</td>
+            <td>over</td>
+            <td></td>
+            <td>under</td>
+            <td>over</td>
+            <td>Any</td>
+          <% else %>
+            <td><%= filter_element[:first_under] %></td>
+            <td><%= filter_element[:first_over] %></td>
+            <td></td>
+            <td><%= filter_element[:second_under] %></td>
+            <td><%= filter_element[:second_over] %></td>
+            <td>
+              <div>
+                <%= filter_element.first_one %>
+              </div>
+            </td>
+          <% end %>
+          <td></td>
+          <% if filter[0] != 'ANY' %>
+            <td class="filter">X</td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <% if filter[1] != 'ANY' %>
+            <td class="filter">X</td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <td></td>
+          <% if filter[2] != 'ANY' %>
+            <td class="filter">X</td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <% if filter[3] != 'ANY' %>
+            <td class="filter">X</td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <% if filter[4] != 'ANY' %>
+            <td class="filter">X</td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <% if filter[5] != 'ANY' %>
+            <td class="filter">X</td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <td></td>
+          <% if filter[6] != 'ANY' %>
+            <td class="filter">X</td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <% if filter[7] != 'ANY' %>
+            <td class="filter">X</td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <td></td>
+          <td class="skyblue"><%= filter_element[:first] %></td>
+          <td class="skyblue"><%= filter_element[:second] %></td>
+          <td class="skyblue"><%= filter_element[:full] %></td>
+          <td class="skyblue"><%= filter_element[:count] %></td>
+          <td><%= filter_element[:allfirst] %></td>
+          <td><%= filter_element[:allsecond] %></td>
+          <td><%= filter_element[:allfull] %></td>
+          <td><%= filter_element[:allcount] %></td>
+          <td><%= filter_element[:away_ortg] %></td>
+          <td><%= filter_element[:home_ortg] %></td>
+          <td><%= (filter_element[:away_ortg] - filter_element[:home_ortg]).round(2) %></td>
+        </tr>
+        <% if @break.include?(index) %>
+          <tr class="gradient">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <% if index == 19 %>
+              <td></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+      <tr class="redgradient">
+        <td class="yellow">Away</td>
+        <td class="yellow">Home</td>
+        <td class="gradient"></td>
+        <td class="yellow">Away</td>
+        <td class="yellow">Home</td>
+        <td class="yellow">GAMES</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>away</td>
+        <td>home</td>
+        <td>diff</td>
+        <td>BJ</td>
+        <td class="yellow">away</td>
+        <td class="yellow">home</td>
+        <td class="yellow">diff</td>
+        <td class="yellow">xxx</td>
+        <td class="yellow">BG</td>
+        <td class="green">away</td>
+        <td class="green">home</td>
+        <td class="green">diff</td>
+        <td class="green">xxx</td>
+        <td class="green">BH</td>
+        <td></td>
+      </tr>
+      <%
+        borders = [1, 5]
+        values = [0, 1, 19, 18, 10, 11, 20, 21, 16, 14, 15]
+        values.each do |value|
+          filter_element = @game.filters.find_by(index: value, year: year)
+          filter = filter_element.first_one.split("-")
+ %>
+        <tr>
+          <td><%= filter_element[:first_half_away] %></td>
+          <td><%= filter_element[:first_half_home] %></td>
+          <td class="gradient"></td>
+          <td><%= filter_element[:second_half_away] %></td>
+          <td><%= filter_element[:second_half_home] %></td>
+          <td><%= filter_element[:allcount] %></td>
+          <td class="gradient"></td>
+          <%
+            (0...8).each do |index|
+              if filter[index] != 'ANY'
+ %>
+            <td class="filter border">X</td>
+          <% else %>
+            <td class="yellow border"></td>
+          <%
+            end
+            if borders.include?(index)
+          %>
+            <td class="gradient border"></td>
+          <%
+            end
+            end
+          %>
+          <td class="gradient"></td>
+          <td><%= filter_element[:full_first] %></td>
+          <td><%= filter_element[:full_second] %></td>
+          <td><%= (filter_element[:full_first] - filter_element[:full_second]).round(2) %></td>
+          <td><%= filter_element[:bj] %></td>
+          <td><%= filter_element[:firsthalf_first] %></td>
+          <td><%= filter_element[:firsthalf_second] %></td>
+          <td><%= (filter_element[:firsthalf_first] - filter_element[:firsthalf_second]).round(2) %></td>
+          <td style="background-color: #ccf"><%= filter_element[:bi_one] %></td>
+          <td><%= filter_element[:bg] %></td>
+          <td><%= filter_element[:secondhalf_first] %></td>
+          <td><%= filter_element[:secondhalf_second] %></td>
+          <td><%= (filter_element[:secondhalf_first] - filter_element[:secondhalf_second]).round(2) %></td>
+          <td style="background-color: #ccf"><%= filter_element[:bi_two] %></td>
+          <td><%= filter_element[:bh] %></td>
+          <td style="background-color: #ccf"><%= filter_element[:bi_count] %></td>
+        </tr>
+      <%
+        end
+      %>
+      <tr class="redgradient">
+        <td class="yellow"></td>
+        <td class="yellow"></td>
+        <td class="gradient"></td>
+        <td class="yellow"></td>
+        <td class="yellow"></td>
+        <td class="yellow">GAMES</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="4" class="border">Full Game</td>
+        <td colspan="5" class="yellow border">1st Half</td>
+        <td colspan="5" class="green border">2nd Half</td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+  <% end %>
+
+  <% (2010..2018).each do |year| %>
+    <table border="1" class="tableSide totalAverage firstTravel secondFilterPage<%= year %>" style="width: 1%; display: none;">
+      <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td></td>
+        <td></td>
+        <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y") %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="gradient"></td>
+        <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
+        <td></td>
+        <td class="line">1H LINE</td>
+        <td class="line">2H LINE</td>
+        <td class="line">FG LINE</td>
+        <td></td>
+        <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE
+          <%= year + "-" + (year + 1) %>
+        </td>
       </tr>
       <tr>
         <td></td>
@@ -2167,10 +2204,16 @@ end
 </div>
 
 <script>
-    $('#filter').change(function () {
-        var value = $(this).val() - 1998;
-        $('.filterPage').hide();
-        $('.filterPage:nth-child(' + value + ')').show();
+    $('#firstFilter').change(function () {
+        var value = $(this).val();
+        $('.firstFilterPage').hide();
+        $('.firstFilterPage' + value).show();
     });
-    $('.filterPage:nth-child(19)').show();
+    $('.filterPage2017').show();
+    $('#secondFilter').change(function () {
+        var value = $(this).val();
+        $('.secondFilterPage').hide();
+        $('.secondFilterPage' + value).show();
+    });
+    $('.secondPage2018').show();
 </script>
