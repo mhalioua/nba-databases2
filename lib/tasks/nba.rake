@@ -1061,7 +1061,8 @@ namespace :nba do
   end
 
   task :getFiltervalue => :environment do
-    games = Nba.where('fg_total_count_2000 is null')
+    games = Nba.where("game_date between ? and ?", Date.new(2018, 12, 5).beginning_of_day, Date.new(2018, 12, 22).beginning_of_day)
+    # games = Nba.where('fg_total_count_2000 is null')
     games.each do |game|
       countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ? AND id != ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_fly, game.home_last_fly, (game.id.to_i + 107398))
       secondItem = Secondtravel.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_fly, game.home_last_fly)
