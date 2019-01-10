@@ -2778,7 +2778,7 @@ end
 
 <div class="tableBody">
   <select id="firstFilter" style="margin: 0 auto; display: block;">
-    <% 2017.downto(2008).each do |year| %>
+    <% (2008..2017).each do |year| %>
       <option value="<%= year %>">
         <% if year == 2008 %>
           2000-2017
@@ -4021,7 +4021,7 @@ end
         $('.firstFilterPage').hide();
         $('.firstFilterPage' + value).show();
     });
-    $('.firstFilterPage2017').show();
+    $('.firstFilterPage2008').show();
     $('#secondFilter').change(function () {
         var value = $(this).val();
         $('.secondFilterPage').hide();
