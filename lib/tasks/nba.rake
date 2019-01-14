@@ -3503,6 +3503,8 @@ namespace :nba do
       home_to = 0
       home_pf = 0
       home_or = 0
+      home_stl = 0
+      home_blk = 0
       away_fgm = 0
       away_fga = 0
       away_ptm = 0
@@ -3512,6 +3514,8 @@ namespace :nba do
       away_to = 0
       away_pf = 0
       away_or = 0
+      away_stl = 0
+      away_blk = 0
       elements.each_with_index do |element, index|
         next if element.children[0].text.squish == 'time'
         if element.children[0].text.squish == '0.0' && element.children[2].text.include?('End') && element.children[2].text.include?('2nd Quarter')
@@ -3524,6 +3528,8 @@ namespace :nba do
             home_ftm_first: home_ftm,
             home_or_first: home_or,
             home_to_first: home_to,
+            home_stl_first: home_stl,
+            home_blk_first: home_blk,
             home_foul_first: home_pf,
             away_fga_first: away_fga + away_pta,
             away_fgm_first: away_fgm + away_ptm,
@@ -3533,7 +3539,9 @@ namespace :nba do
             away_ftm_first: away_ftm,
             away_or_first: away_or,
             away_to_first: away_to,
-            away_foul_first: away_pf
+            away_foul_first: away_pf,
+            away_stl_first: away_stl,
+            away_blk_first: away_blk
           )
           home_fgm = 0
           home_fga = 0
@@ -3544,6 +3552,8 @@ namespace :nba do
           home_to = 0
           home_pf = 0
           home_or = 0
+          home_stl = 0
+          home_blk = 0
           away_fgm = 0
           away_fga = 0
           away_ptm = 0
@@ -3553,6 +3563,8 @@ namespace :nba do
           away_to = 0
           away_pf = 0
           away_or = 0
+          away_stl = 0
+          away_blk = 0
         end
         logo_element = element.children[1]
         team_abbr = 'undefined'
@@ -3568,6 +3580,12 @@ namespace :nba do
             home_or = home_or + 1
           else
             away_or = away_or + 1
+          end
+        elsif compare_string.include?("steal")
+          if team_abbr == home_abbr
+            home_stl = home_stl + 1
+          else
+            away_stl = away_stl + 1
           end
         elsif compare_string.include?("foul") || compare_string.include?("offensive charge")
           if compare_string.exclude?("technical foul") && compare_string.exclude?("illegal defense foul")
@@ -3673,6 +3691,11 @@ namespace :nba do
             end
           end
         elsif compare_string.include?("block")
+          if team_abbr == home_abbr
+            home_blk = home_blk + 1
+          else
+            away_blk = away_blk + 1
+          end
           if compare_string.include?("three")
             if team_abbr == home_abbr
               home_pta = home_pta + 1
@@ -3703,6 +3726,8 @@ namespace :nba do
         home_ftm_second: home_ftm,
         home_or_second: home_or,
         home_to_second: home_to,
+        home_stl_second: home_stl,
+        home_blk_second: home_blk,
         home_foul_second: home_pf,
         away_fga_second: away_fga + away_pta,
         away_fgm_second: away_fgm + away_ptm,
@@ -3712,7 +3737,79 @@ namespace :nba do
         away_ftm_second: away_ftm,
         away_or_second: away_or,
         away_to_second: away_to,
+        away_stl_second: away_stl,
+        away_blk_second: away_blk,
         away_foul_second: away_pf
+      )
+    end
+  end
+
+  task :nbaplaybyplayfix => :environment do
+    include Api
+    games = Nba.where("year >= '2010' AND away_stl_first is null")
+    puts games.count
+    games.each do |game|
+      url="http://www.espn.com/nba/playbyplay?gameId=#{game.game_id}"
+      doc = download_document(url)
+      puts url
+
+      team_logo = doc.css(".home .team-info-logo .team-logo")
+      home_abbr = 'undefined'
+      if team_logo.size != 0
+        logo_link = team_logo[0]['src']
+        logo_link_end = logo_link.rindex('.png')
+        logo_link_start = logo_link.rindex('/')
+        home_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
+      end
+
+      elements = doc.css(".accordion-item tr")
+      puts elements.size
+      home_stl = 0
+      home_blk = 0
+      away_stl = 0
+      away_blk = 0
+      elements.each_with_index do |element, index|
+        next if element.children[0].text.squish == 'time'
+        if element.children[0].text.squish == '0.0' && element.children[2].text.include?('End') && element.children[2].text.include?('2nd Quarter')
+          game.update(
+              home_stl_first: home_stl,
+              home_blk_first: home_blk,
+              away_stl_first: away_stl,
+              away_blk_first: away_blk
+          )
+          home_stl = 0
+          home_blk = 0
+          away_stl = 0
+          away_blk = 0
+        end
+        logo_element = element.children[1]
+        team_abbr = 'undefined'
+        if logo_element.children.size != 0
+          logo_link = logo_element.children[0]['src']
+          logo_link_end = logo_link.rindex('.png')
+          logo_link_start = logo_link.rindex('/')
+          team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
+        end
+        compare_string = element.children[2].text.downcase
+        if compare_string.include?("steal")
+          if team_abbr == home_abbr
+            home_stl = home_stl + 1
+          else
+            away_stl = away_stl + 1
+          end
+        elsif compare_string.include?("block")
+          if team_abbr == home_abbr
+            home_blk = home_blk + 1
+          else
+            away_blk = away_blk + 1
+          end
+        end
+      end
+      game.update(
+          home_stl_second: home_stl,
+          home_blk_second: home_blk,
+          away_stl_second: away_stl,
+          away_blk_second: away_blk
       )
     end
   end
