@@ -3752,6 +3752,7 @@ namespace :nba do
       url="http://www.espn.com/nba/playbyplay?gameId=#{game.game_id}"
       doc = download_document(url)
       puts url
+      next unless doc
 
       team_logo = doc.css(".home .team-info-logo .team-logo")
       home_abbr = 'undefined'
