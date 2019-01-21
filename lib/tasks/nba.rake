@@ -976,10 +976,14 @@ namespace :nba do
               first_over: filter_second_element.where("firstou = 'over'").count,
               second_under: filter_second_element.where("secondou = 'under'").count,
               second_over: filter_second_element.where("secondou = 'over'").count,
+              full_under: filter_second_element.where("totalou = 'under'").count,
+              full_over: filter_second_element.where("totalou = 'over'").count,
               first_half_away: filter_second_element.where("first_half_bigger = 'AWAY'").count,
               first_half_home: filter_second_element.where("first_half_bigger = 'HOME'").count,
               second_half_away: filter_second_element.where("second_half_bigger = 'AWAY'").count,
-              second_half_home: filter_second_element.where("second_half_bigger = 'HOME'").count
+              second_half_home: filter_second_element.where("second_half_bigger = 'HOME'").count,
+              full_half_away: filter_second_element.where("fullgame_bigger = 'AWAY'").count,
+              full_half_home: filter_second_element.where("fullgame_bigger = 'HOME'").count
           }
           if index < 2 || index > 9
             result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
