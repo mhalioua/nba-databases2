@@ -3270,13 +3270,6 @@ end
         <td class="gradient"></td>
         <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
         <td></td>
-        <td class="line">1H LINE</td>
-        <td class="line">2H LINE</td>
-        <td class="line">FG LINE</td>
-        <td></td>
-        <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE
-          <%= year.to_s + "-" + (year + 1).to_s %>
-        </td>
       </tr>
       <tr>
         <td></td>
@@ -3293,10 +3286,6 @@ end
         <td><u><i>home</i></u></td>
         <td></td>
         <td colspan="2" class="gameDate">TRAVEL</td>
-        <td></td>
-        <td class="gameDate"><%= @game.first_closer_total %></td>
-        <td class="gameDate"><%= @game.second_closer_total %></td>
-        <td class="gameDate"><%= @game.full_closer_total %></td>
         <td></td>
       </tr>
       <tr>
@@ -3316,10 +3305,6 @@ end
         <td></td>
         <td>next Y/N</td>
         <td>last Y/N</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <td></td>
       </tr>
       <tr class="gameDate">
@@ -3341,17 +3326,6 @@ end
         <td><%= @game.home_next_fly[0] %></td>
         <td><%= @game.home_last_fly[0] %></td>
         <td></td>
-        <td>1ST<br>HALF</td>
-        <td>2ND<br>HALF</td>
-        <td>FULL<br>GAME</td>
-        <td>GAMES</td>
-        <td rowspan="27" class="gradient"></td>
-        <td>1ST<br>HALF</td>
-        <td>2ND<br>HALF</td>
-        <td>FULL<br>GAME</td>
-        <td>GAMES</td>
-        <td rowspan="28" colspan="3" class="gradient"></td>
-        <td colspan="3" class="red">ORTG</td>
       </tr>
       <tr>
         <td></td>
@@ -3372,17 +3346,6 @@ end
         <td></td>
         <td></td>
         <td class="gradient"></td>
-        <td><%= @firstItem_result[:first] %></td>
-        <td><%= @firstItem_result[:second] %></td>
-        <td><%= @firstItem_result[:full] %></td>
-        <td><%= @firstItem_result[:count] %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
       </tr>
       <tr>
         <td></td>
@@ -3403,17 +3366,6 @@ end
         <td></td>
         <td></td>
         <td class="gradient"></td>
-        <td><%= @secondItem_result[:first] %></td>
-        <td><%= @secondItem_result[:second] %></td>
-        <td><%= @secondItem_result[:full] %></td>
-        <td><%= @secondItem_result[:count] %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
       </tr>
       <tr>
         <td colspan="2">1st Half</td>
@@ -3432,30 +3384,8 @@ end
         <td></td>
         <td></td>
         <td class="gradient"></td>
-        <td><%= @thirdItem_result[:first] %></td>
-        <td><%= @thirdItem_result[:second] %></td>
-        <td><%= @thirdItem_result[:full] %></td>
-        <td><%= @thirdItem_result[:count] %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Away</td>
-        <td>Home</td>
-        <td>+/-</td>
       </tr>
       <tr class="gradient">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -3544,31 +3474,9 @@ end
             <td></td>
           <% end %>
           <td></td>
-          <td class="skyblue"><%= filter_element[:first] %></td>
-          <td class="skyblue"><%= filter_element[:second] %></td>
-          <td class="skyblue"><%= filter_element[:full] %></td>
-          <td class="skyblue"><%= filter_element[:count] %></td>
-          <td><%= filter_element[:allfirst] %></td>
-          <td><%= filter_element[:allsecond] %></td>
-          <td><%= filter_element[:allfull] %></td>
-          <td><%= filter_element[:allcount] %></td>
-          <td><%= filter_element[:away_ortg] %></td>
-          <td><%= filter_element[:home_ortg] %></td>
-          <td><%= (filter_element[:away_ortg] - filter_element[:home_ortg]).round(2) %></td>
         </tr>
         <% if @break.include?(index) %>
           <tr class="gradient">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -3612,21 +3520,6 @@ end
         <td></td>
         <td></td>
         <td></td>
-        <td>away</td>
-        <td>home</td>
-        <td>diff</td>
-        <td>BJ</td>
-        <td class="yellow">away</td>
-        <td class="yellow">home</td>
-        <td class="yellow">diff</td>
-        <td class="yellow">xxx</td>
-        <td class="yellow">BG</td>
-        <td class="green">away</td>
-        <td class="green">home</td>
-        <td class="green">diff</td>
-        <td class="green">xxx</td>
-        <td class="green">BH</td>
-        <td></td>
       </tr>
       <%
         borders = [1, 5]
@@ -3660,21 +3553,6 @@ end
             end
           %>
           <td class="gradient"></td>
-          <td><%= filter_element[:full_first] %></td>
-          <td><%= filter_element[:full_second] %></td>
-          <td><%= (filter_element[:full_first] - filter_element[:full_second]).round(2) %></td>
-          <td><%= filter_element[:bj] %></td>
-          <td><%= filter_element[:firsthalf_first] %></td>
-          <td><%= filter_element[:firsthalf_second] %></td>
-          <td><%= (filter_element[:firsthalf_first] - filter_element[:firsthalf_second]).round(2) %></td>
-          <td style="background-color: #ccf"><%= filter_element[:bi_one] %></td>
-          <td><%= filter_element[:bg] %></td>
-          <td><%= filter_element[:secondhalf_first] %></td>
-          <td><%= filter_element[:secondhalf_second] %></td>
-          <td><%= (filter_element[:secondhalf_first] - filter_element[:secondhalf_second]).round(2) %></td>
-          <td style="background-color: #ccf"><%= filter_element[:bi_two] %></td>
-          <td><%= filter_element[:bh] %></td>
-          <td style="background-color: #ccf"><%= filter_element[:bi_count] %></td>
         </tr>
       <%
         end
@@ -3697,10 +3575,6 @@ end
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td colspan="4" class="border">Full Game</td>
-        <td colspan="5" class="yellow border">1st Half</td>
-        <td colspan="5" class="green border">2nd Half</td>
         <td></td>
       </tr>
       </tbody>
