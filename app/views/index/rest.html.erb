@@ -994,6 +994,7 @@ end
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
         <td class="gradient"></td>
         <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
         <td></td>
@@ -1015,6 +1016,7 @@ end
         <td></td>
         <td></td>
         <td class="gradient"></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -1044,6 +1046,7 @@ end
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
         <td>last Y/N</td>
         <td>next Y/N</td>
         <td class="gradient"></td>
@@ -1066,6 +1069,7 @@ end
         <td></td>
         <td></td>
         <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -1104,6 +1108,7 @@ end
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
         <td class="gradient"></td>
         <td></td>
         <td></td>
@@ -1137,6 +1142,7 @@ end
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
         <td class="gradient"></td>
         <td></td>
         <td></td>
@@ -1165,6 +1171,7 @@ end
         <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A") %></td>
         <td class="gradient"></td>
         <td colspan="2">Full Game</td>
+        <td></td>
         <td></td>
         <td></td>
         <td class="gradient"></td>
@@ -1220,6 +1227,7 @@ end
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
       </tr>
       <%
         (0..19).each do |index|
@@ -1234,6 +1242,10 @@ end
             <td>under</td>
             <td>over</td>
             <td>Any</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           <% else %>
             <td><%= filter_element[:first_under] %></td>
             <td><%= filter_element[:first_over] %></td>
@@ -1245,10 +1257,11 @@ end
                 <%= filter_element.first_one %>
               </div>
             </td>
+            <td></td>
+            <td><%= filter_element[:full_under] %></td>
+            <td><%= filter_element[:full_over] %></td>
+            <td></td>
           <% end %>
-          <td></td>
-          <td></td>
-          <td></td>
           <% if filter[0] != 'ANY' %>
             <td class="filter">X</td>
           <% else %>
@@ -1337,6 +1350,7 @@ end
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
             <% if index == 19 %>
               <td></td>
             <% end %>
@@ -1353,6 +1367,7 @@ end
         <td class="yellow"></td>
         <td class="yellow">Away</td>
         <td class="yellow">Home</td>
+        <td></td>
         <td></td>
         <td></td>
         <td class="gradient"></td>
@@ -1397,6 +1412,7 @@ end
           <td class="gradient"></td>
           <td><%= filter_element[:full_half_away] %></td>
           <td><%= filter_element[:full_half_home] %></td>
+          <td class="gradient"></td>
           <%
             (0...8).each do |index|
               if filter[index] != 'ANY'
@@ -1442,8 +1458,9 @@ end
         <td class="yellow">GAMES</td>
         <td class="yellow"></td>
         <td class="yellow"></td>
-        <td></td>
-        <td></td>
+        <td class="yellow"></td>
+        <td class="yellow"></td>
+        <td class="yellow"></td>
         <td></td>
         <td class="gradient"></td>
         <td></td>
@@ -1485,6 +1502,7 @@ end
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
         <td class="gradient"></td>
         <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
         <td></td>
@@ -1493,6 +1511,7 @@ end
         <td></td>
         <td></td>
         <td class="gradient"></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -1514,9 +1533,10 @@ end
         <td class="gradient"></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
         <td class="gameDate">RIVALS</td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td>last Y/N</td>
         <td>next Y/N</td>
@@ -1535,9 +1555,10 @@ end
         <td class="gradient"></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
         <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -1559,6 +1580,7 @@ end
         <td></td>
         <td>RIVALS</td>
         <td class="gradient"></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -1585,6 +1607,7 @@ end
         <td></td>
         <td></td>
         <td></td>
+        <td></td>
         <td class="gradient"></td>
         <td></td>
         <td></td>
@@ -1604,6 +1627,7 @@ end
         <td colspan="2">Full Game</td>
         <td></td>
         <td></td>
+        <td></td>
         <td class="gradient"></td>
         <td></td>
         <td></td>
@@ -1615,6 +1639,7 @@ end
         <td class="gradient"></td>
       </tr>
       <tr class="gradient">
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -1649,6 +1674,10 @@ end
             <td>under</td>
             <td>over</td>
             <td>Any</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           <% else %>
             <td><%= filter_element[:first_under] %></td>
             <td><%= filter_element[:first_over] %></td>
@@ -1660,10 +1689,11 @@ end
                 <%= filter_element.first_one %>
               </div>
             </td>
+            <td></td>
+            <td>%= filter_element[:full_under] %></td>
+            <td>%= filter_element[:full_over] %></td>
+            <td></td>
           <% end %>
-          <td></td>
-          <td></td>
-          <td></td>
           <% if filter[0] != 'ANY' %>
             <td class="filter">X</td>
           <% else %>
@@ -1730,6 +1760,7 @@ end
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
           </tr>
         <% end %>
       <% end %>
@@ -1743,8 +1774,8 @@ end
         <td class="yellow"></td>
         <td class="yellow">Away</td>
         <td class="yellow">Home</td>
-        <td></td>
-        <td></td>
+        <td class="gradient"></td>
+        <td class="gradient"></td>
         <td class="gradient"></td>
         <td></td>
         <td></td>
@@ -1769,6 +1800,7 @@ end
           <td><%= filter_element[:second_half_away] %></td>
           <td><%= filter_element[:second_half_home] %></td>
           <td><%= filter_element[:allcount] %></td>
+          <td class="gradient"></td>
           <td><%= filter_element[:full_half_away] %></td>
           <td><%= filter_element[:full_half_home] %></td>
           <td class="gradient"></td>
@@ -1802,8 +1834,9 @@ end
         <td class="yellow">GAMES</td>
         <td class="yellow"></td>
         <td class="yellow"></td>
-        <td></td>
-        <td></td>
+        <td class="yellow"></td>
+        <td class="yellow"></td>
+        <td class="yellow"></td>
         <td></td>
         <td class="gradient"></td>
         <td></td>
