@@ -3048,7 +3048,7 @@ end
             <% if index == 0 %>
               <td>under</td>
               <td>over</td>
-              <td></td>
+              <td class="gradient"></td>
               <td>under</td>
               <td>over</td>
               <td>Any</td>
@@ -3059,7 +3059,7 @@ end
             <% else %>
               <td><%= filter_element[:first_under] %></td>
               <td><%= filter_element[:first_over] %></td>
-              <td></td>
+              <td class="gradient"></td>
               <td><%= filter_element[:second_under] %></td>
               <td><%= filter_element[:second_over] %></td>
               <td>
@@ -3306,9 +3306,9 @@ end
           <td class="gradient"></td>
           <td></td>
           <td></td>
-          <td></td>
-          <td></td>
           <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y") %></td>
+          <td></td>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>
@@ -3392,7 +3392,7 @@ end
           <td class="gradient"></td>
           <td></td>
           <td></td>
-          <td></td>
+          <td class="gradient"></td>
           <td></td>
           <td></td>
           <td class="gradient"></td>
@@ -3415,7 +3415,7 @@ end
           <td class="gradient"></td>
           <td></td>
           <td></td>
-          <td></td>
+          <td class="gradient"></td>
           <td></td>
           <td></td>
           <td class="gradient"></td>
@@ -3435,7 +3435,7 @@ end
           <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A") %></td>
           <td class="gradient"></td>
           <td colspan="2">Full Game</td>
-          <td></td>
+          <td class="gradient"></td>
           <td></td>
           <td></td>
           <td class="gradient"></td>
@@ -3480,7 +3480,7 @@ end
             <% if index == 0 %>
               <td>under</td>
               <td>over</td>
-              <td></td>
+              <td class="gradient"></td>
               <td>under</td>
               <td>over</td>
               <td>Any</td>
@@ -3491,7 +3491,7 @@ end
             <% else %>
               <td><%= filter_element[:first_under] %></td>
               <td><%= filter_element[:first_over] %></td>
-              <td></td>
+              <td class="gradient"></td>
               <td><%= filter_element[:second_under] %></td>
               <td><%= filter_element[:second_over] %></td>
               <td>
@@ -3584,10 +3584,10 @@ end
           <td class="yellow"></td>
           <td class="yellow">Away</td>
           <td class="yellow">Home</td>
+          <td></td>
+          <td></td>
+          <td></td>
           <td class="gradient"></td>
-          <td></td>
-          <td></td>
-          <td></td>
           <td></td>
           <td></td>
           <td></td>
