@@ -2777,6 +2777,7 @@ end
 
 
 <div class="tableBody">
+  <div style="display: inline-block;">
   <select id="firstFilter" style="margin: 0 auto; display: block;">
     <% (2008..2018).each do |year| %>
       <option value="<%= year %>">
@@ -2790,13 +2791,8 @@ end
       </option>
     <% end %>
   </select>
-  <select id="secondFilter" style="margin: 0 auto; display: block;">
-    <% 2018.downto(2010).each do |year| %>
-      <option value="<%= year %>"><%= year.to_s + "-" + (year + 1).to_s %></option>
-    <% end %>
-  </select>
   <% (2008..2018).each do |year| %>
-    <table border="1" class="tableSide totalAverage firstTravel firstFilterPage firstFilterPage<%= year %>" style="width: 1%; display: none;">
+    <table border="1" class="tableSide totalAverage firstTravel firstFilterPage firstFilterPage<%= year %>" style="width: 100%; display: none;">
       <tbody>
       <tr>
         <td></td>
@@ -3253,9 +3249,16 @@ end
       </tbody>
     </table>
   <% end %>
+  </div>
 
+  <div style="display: inline-block;">
+  <select id="secondFilter" style="margin: 0 auto; display: block;">
+    <% 2018.downto(2010).each do |year| %>
+      <option value="<%= year %>"><%= year.to_s + "-" + (year + 1).to_s %></option>
+    <% end %>
+  </select>
   <% (2010..2018).each do |year| %>
-    <table border="1" class="tableSide totalAverage firstTravel secondFilterPage secondFilterPage<%= year %>" style="width: 1%; display: none;">
+    <table border="1" class="tableSide totalAverage firstTravel secondFilterPage secondFilterPage<%= year %>" style="width: 100%; display: none;">
       <tbody>
       <tr>
         <td></td>
@@ -3577,6 +3580,7 @@ end
       </tbody>
     </table>
   <% end %>
+  </div>
 </div>
 <div class="tableBody">
   <table border="1" class="tableSide" style="border:6px solid black">
