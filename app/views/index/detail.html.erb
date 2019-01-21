@@ -3523,7 +3523,7 @@ end
       </tr>
       <%
         borders = [1, 5]
-        values = [0, 1, 19, 18, 10, 11, 20, 21, 16, 14, 15]
+        values = [0, 1, 19, 18, 10, 11, 20, 21, 12, 13, 16, 17, 22, 14, 15]
         values.each do |value|
           filter_element = @game.filters.find_by(index: value, year: year)
           filter = filter_element.first_one.split("-")
