@@ -964,7 +964,7 @@ end
 <!--# 2017-2018 - 2017-->
 <!--# 2018-2019 - 2018-->
 
-<div class="tableBody">
+<div class="tableBody" style="display: flex">
   <div style="display: inline-block">
   <select id="firstFilter" style="margin: 0 auto; display: block;">
     <% (2008..2018).each do |year| %>
@@ -980,7 +980,7 @@ end
     <% end %>
   </select>
   <% (2008..2018).each do |year| %>
-    <table border="1" class="tableSide totalAverage firstTravel firstFilterPage firstFilterPage<%= year %>" style="width: 100%; display: none;">
+    <table border="1" class="tableSide totalAverage firstTravel firstFilterPage firstFilterPage<%= year %>" style="width: 1%; display: none;">
       <tbody>
       <tr>
         <td></td>
@@ -1446,7 +1446,7 @@ end
     <% end %>
   </select>
   <% (2010..2018).each do |year| %>
-    <table border="1" class="tableSide totalAverage firstTravel secondFilterPage secondFilterPage<%= year %>" style="width: 100%; display: none;">
+    <table border="1" class="tableSide totalAverage firstTravel secondFilterPage secondFilterPage<%= year %>" style="width: 1%; display: none;">
       <tbody>
       <tr>
         <td></td>
