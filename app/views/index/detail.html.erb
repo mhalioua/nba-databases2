@@ -2778,7 +2778,7 @@ end
 
 <div class="tableBody">
   <select id="firstFilter" style="margin: 0 auto; display: block;">
-    <% (2008..2017).each do |year| %>
+    <% (2008..2018).each do |year| %>
       <option value="<%= year %>">
         <% if year == 2008 %>
           2000-2017
@@ -2795,7 +2795,7 @@ end
       <option value="<%= year %>"><%= year.to_s + "-" + (year + 1).to_s %></option>
     <% end %>
   </select>
-  <% (2008..2017).each do |year| %>
+  <% (2008..2018).each do |year| %>
     <table border="1" class="tableSide totalAverage firstTravel firstFilterPage firstFilterPage<%= year %>" style="width: 1%; display: none;">
       <tbody>
       <tr>
