@@ -473,9 +473,7 @@ namespace :nba do
   		end
   		href = slice.children[index[:result]].child['href']
   		game_id = href[-9..-1]
-  		unless game = Nba.find_by(game_id: game_id)
-      	game = Nba.create(game_id: game_id)
-      end
+      game = Nba.find_or_create_by(game_id: game_id)
       if slice.children[index[:home_team]].children[0].children.size == 2
   			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
   			home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
@@ -1200,7 +1198,7 @@ namespace :nba do
 
 	task :getFirstLines => [:environment] do
 		include Api
-		games = Nba.all
+    games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, (Date.today + 3.days).end_of_day)
 		puts "----------Get First Lines----------"
 
 		index_date = Date.yesterday
@@ -1300,7 +1298,7 @@ namespace :nba do
 					if opener_side.include?('½')
 						if opener_side[0] == '-'
 							opener_side = opener_side[0..-1].to_f - 0.5
-						elsif
+						else
 							opener_side = opener_side[0..-1].to_f + 0.5
 						end
 					else
@@ -1309,7 +1307,7 @@ namespace :nba do
 					if closer_side.include?('½')
 						if closer_side[0] == '-'
 							closer_side = closer_side[0..-1].to_f - 0.5
-						elsif
+						else
 							closer_side = closer_side[0..-1].to_f + 0.5
 						end
 					else
@@ -1329,7 +1327,7 @@ namespace :nba do
 		
 	task :getSecondLines, [:type, :game_link] => [:environment] do |t, args|
 		include Api
-		games = Nba.all
+		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, (Date.today + 3.days).end_of_day)
 		game_link = args[:game_link]
 		type = args[:type]
 		puts "----------Get #{type} Lines----------"
@@ -1424,7 +1422,7 @@ namespace :nba do
 					if opener_side.include?('½')
 						if opener_side[0] == '-'
 							opener_side = opener_side[0..-1].to_f - 0.5
-						elsif
+						else
 							opener_side = opener_side[0..-1].to_f + 0.5
 						end
 					else
@@ -1433,7 +1431,7 @@ namespace :nba do
 					if closer_side.include?('½')
 						if closer_side[0] == '-'
 							closer_side = closer_side[0..-1].to_f - 0.5
-						elsif
+						else
 							closer_side = closer_side[0..-1].to_f + 0.5
 						end
 					else
@@ -1536,9 +1534,7 @@ namespace :nba do
           pf_value = slice.children[12].text.to_i
           poss = fga_value + to_value + (fta_value * 0.44) - or_value
         end
-				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
-         	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
-        end
+        player = game.players.find_or_create_by(player_name: player_name, team_abbr: team_abbr)
         player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, birthdate: birthdate, link: link, game_date: game.game_date, ptsValue: pts_value, pfValue: pf_value )
 			end
 
@@ -1600,9 +1596,7 @@ namespace :nba do
           pf_value = slice.children[12].text.to_i
           poss = fga_value + to_value + (fta_value * 0.44) - or_value
         end
-				unless player = game.players.find_by(player_name: player_name, team_abbr: team_abbr)
-         	player = game.players.create(player_name: player_name, team_abbr: team_abbr)
-        end
+				player = game.players.find_or_create_by(player_name: player_name, team_abbr: team_abbr)
         player.update(position: position, state: index + 1, poss: poss, mins: mins_value, fga: fga_value, fta:fta_value, toValue: to_value, orValue: or_value, stlValue:stl_value, blkValue:blk_value, height: height, birthdate: birthdate, link: link, game_date: game.game_date,  ptsValue: pts_value, pfValue: pf_value )
 			end
 		end
@@ -2670,9 +2664,7 @@ namespace :nba do
     elements = doc.css("abbr")
     puts elements.length
     elements.each_with_index do |element, index|
-      unless team = Team.find_by(abbr: element.text)
-        team = Team.create(abbr: element.text)
-      end
+      team = Team.find_or_create_by(abbr: element.text)
       team.update(order_one_seventeen: index + 1)
     end
 
@@ -2681,9 +2673,7 @@ namespace :nba do
     elements = doc.css("abbr")
     puts elements.length
     elements.each_with_index do |element, index|
-      unless team = Team.find_by(abbr: element.text)
-        team = Team.create(abbr: element.text)
-      end
+      team = Team.find_or_create_by(abbr: element.text)
       team.update(order_two_seventeen: index + 1)
     end
 
@@ -2692,9 +2682,7 @@ namespace :nba do
     elements = doc.css("abbr")
     puts elements.length
     elements.each_with_index do |element, index|
-      unless team = Team.find_by(abbr: element.text)
-        team = Team.create(abbr: element.text)
-      end
+      team = Team.find_or_create_by(abbr: element.text)
       team.update(order_thr_seventeen: index + 1)
     end
   end
@@ -3087,9 +3075,7 @@ namespace :nba do
         href = slice.children[index[:result]].child['href']
         game_id = href[-9..-1]
         
-        unless game = NbaClone.find_by(game_id: game_id)
-          game = NbaClone.create(game_id: game_id)
-        end
+        game = NbaClone.find_or_create_by(game_id: game_id)
         if slice.children[index[:home_team]].children[0].children.size == 2
           home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
           home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
