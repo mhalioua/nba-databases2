@@ -72,29 +72,6 @@ namespace :nba do
 		Rake::Task["nba:getLinkGame"].invoke
 		Rake::Task["nba:getLinkGame"].reenable
 
-		Rake::Task["nba:getFirstLines"].invoke
-		Rake::Task["nba:getFirstLines"].reenable
-
-		link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/2nd-half/?date="
-		Rake::Task["nba:getSecondLines"].invoke("second", link)
-		Rake::Task["nba:getSecondLines"].reenable
-
-		link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/?date="
-		Rake::Task["nba:getSecondLines"].invoke("full", link)
-		Rake::Task["nba:getSecondLines"].reenable
-
-		link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
-		Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
-		Rake::Task["nba:getSecondLines"].reenable
-
-		link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
-		Rake::Task["nba:getSecondLines"].invoke("secondTotal", link)
-		Rake::Task["nba:getSecondLines"].reenable
-
-		link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
-		Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
-		Rake::Task["nba:getSecondLines"].reenable
-
 		Rake::Task["nba:gettg"].invoke
 		Rake::Task["nba:gettg"].reenable
 
@@ -115,7 +92,32 @@ namespace :nba do
 
     Rake::Task["nba:filterNba"].invoke
     Rake::Task["nba:filterNba"].reenable
-	end
+  end
+
+  task :hourly => :environment do
+    Rake::Task["nba:getFirstLines"].invoke
+    Rake::Task["nba:getFirstLines"].reenable
+
+    link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/2nd-half/?date="
+    Rake::Task["nba:getSecondLines"].invoke("second", link)
+    Rake::Task["nba:getSecondLines"].reenable
+
+    link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/?date="
+    Rake::Task["nba:getSecondLines"].invoke("full", link)
+    Rake::Task["nba:getSecondLines"].reenable
+
+    link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/totals/1st-half/?date="
+    Rake::Task["nba:getSecondLines"].invoke("firstTotal", link)
+    Rake::Task["nba:getSecondLines"].reenable
+
+    link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/totals/2nd-half/?date="
+    Rake::Task["nba:getSecondLines"].invoke("secondTotal", link)
+    Rake::Task["nba:getSecondLines"].reenable
+
+    link = "https://classic.sportsbookreview.com/betting-odds/nba-basketball/totals/?date="
+    Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
+    Rake::Task["nba:getSecondLines"].reenable
+  end
 
 	task :fix => :environment do
 		include Api
