@@ -999,16 +999,9 @@ namespace :nba do
       doc = download_document(url)
       elements = doc.css(".event-holder")
       elements.each do |element|
-        if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
-          next
-        end
-        if element.children[0].children[5].children.size < 5
-          next
-        end
-
-        if element.children[0].children[3].children.size < 3
-          next
-        end
+        next if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
+        next if element.children[0].children[5].children.size < 5
+        next if element.children[0].children[3].children.size < 3
 
         home_name     = element.children[0].children[5].children[1].text
         away_name     = element.children[0].children[5].children[0].text
@@ -1023,19 +1016,12 @@ namespace :nba do
         hour = ind ? game_time[0..ind-1].to_i : 0
         min = ind ? game_time[ind+1..ind+3].to_i : 0
         ap = game_time[-1]
-        if ap == "p" && hour != 12
-          hour = hour + 12
-        end
-        if ap == "a" && hour == 12
-          hour = 24
-        end
+        hour = hour + 12 if ap == "p" && hour != 12
+        hour = 24 if ap == "a" && hour == 12
 
-        if @nba_nicknames[home_name]
-          home_name = @nba_nicknames[home_name]
-        end
-        if @nba_nicknames[away_name]
-          away_name = @nba_nicknames[away_name]
-        end
+        home_name = @nba_nicknames[home_name] if @nba_nicknames[home_name]
+        away_name = @nba_nicknames[away_name] if @nba_nicknames[away_name]
+
         date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
         matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
