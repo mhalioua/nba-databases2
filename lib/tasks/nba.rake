@@ -224,9 +224,8 @@ namespace :nba do
       ppg        =  slice.children[8].text.to_f
       opp        =  slice.children[9].text.to_f
       diff       =  slice.children[10].text.to_f
-      if element = Team.find_by(abbr: team_abbr)
-        element.update(record_won: w, record_lost: l, record_ppg: ppg, record_opp: opp, record_diff: diff)
-      end
+      element = Team.find_by(abbr: team_abbr)
+      element.update(record_won: w, record_lost: l, record_ppg: ppg, record_opp: opp, record_diff: diff) if element
     end
 
     url = "https://www.teamrankings.com/nba/stat/opponent-1st-half-points-per-game"
@@ -528,7 +527,7 @@ namespace :nba do
         home_blk_value = home_value.children[10].text.to_i
 			 end
 
-      addingDate = date
+      adding_date = date
       home_timezone = ''
       home_win_rank = 0
       home_ppg_rank = 0
@@ -543,13 +542,13 @@ namespace :nba do
         compare_home_team = @team_names[home_team]
         home_team_info = Team.find_by(team: compare_home_team)
         if home_team_info.timezone == 2
-          addingDate = addingDate - 3.hours
+          adding_date = adding_date - 3.hours
           home_timezone = "PACIFIC"
         elsif home_team_info.timezone == 3
-          addingDate = addingDate - 1.hours
+          adding_date = adding_date - 1.hours
           home_timezone = "CENTRAL"
         elsif home_team_info.timezone == 4
-          addingDate = addingDate - 2.hours
+          adding_date = adding_date - 2.hours
           home_timezone = "MOUNTAIN"
         elsif home_team_info.timezone == 1
           home_timezone = "EASTERN"
@@ -586,7 +585,7 @@ namespace :nba do
         tv_station.push(slice.children[5].text)
         game.update(tv_station: tv_station.join(','))
       end
-	  	game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), est_time: date.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
+	  	game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: adding_date.strftime("%Y"), date: adding_date.strftime("%b %e"), time: adding_date.strftime("%I:%M%p"), est_time: date.strftime("%I:%M%p"), week: adding_date.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
 	  end
   end
 
@@ -1742,47 +1741,28 @@ namespace :nba do
       next unless away_abbr
 
       now = Date.strptime(game.game_date)
-      if now > Time.now
-        now = Time.now
-      end
+      now = Time.now if now > Time.now
 
       away_last = Nba.where("home_abbr = ? AND game_date < ?", away_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", away_abbr, now)).order(:game_date).last
       home_last = Nba.where("home_abbr = ? AND game_date < ?", home_abbr, now).or(Nba.where("away_abbr = ? AND game_date < ?", home_abbr, now)).order(:game_date).last
-      
-      if away_abbr == away_last.away_abbr
-        away_flag = 0
-      else
-        away_flag = 1
-      end
 
-      if home_abbr == home_last.away_abbr
-        home_flag = 0
-      else
-        home_flag = 1
-      end
+      away_flag = 1
+      away_flag = 0 if away_abbr == away_last.away_abbr
+
+      home_flag = 1
+      home_flag = 0 if home_abbr == home_last.away_abbr
 
       home_pg_players = home_last.players.where("team_abbr = ? AND position = 'PG' AND player_name <> 'TEAM' AND player_link <> ''", home_flag).order(:state)
       away_pg_players = away_last.players.where("team_abbr = ? AND position = 'PG' AND player_name <> 'TEAM' AND player_link <> ''", away_flag).order(:state)
       home_pg_players.each_with_index do |home_pg_player, index|
-        if index == 3
-          break
-        end
-        unless home_pg_player.player_fullname
-          next
-        end
-        if home_pg_player.player_fullname == ""
-          next
-        end
+        break if index == 3
+        next unless home_pg_player.player_fullname
+        next if home_pg_player.player_fullname == ""
+
         away_pg_players.each_with_index do |away_pg_player, index|
-          if index == 3
-            break
-          end
-          unless away_pg_player.player_fullname
-            next
-          end
-          if away_pg_player.player_fullname == ""
-            next
-          end
+          break if index == 3
+          next unless away_pg_player.player_fullname
+          next if away_pg_player.player_fullname == ""
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
           Rake::Task["nba:getOnebyOne"].reenable
         end
@@ -1791,25 +1771,14 @@ namespace :nba do
       home_pg_players = home_last.players.where("team_abbr = ? AND position = 'SG' AND player_name <> 'TEAM' AND player_link <> ''", home_flag).order(:state)
       away_pg_players = away_last.players.where("team_abbr = ? AND position = 'SG' AND player_name <> 'TEAM' AND player_link <> ''", away_flag).order(:state)
       home_pg_players.each_with_index do |home_pg_player, index|
-        if index == 3
-          break
-        end
-        unless home_pg_player.player_fullname
-          next
-        end
-        if home_pg_player.player_fullname == ""
-          next
-        end
+        break if index == 3
+        next unless home_pg_player.player_fullname
+        next if home_pg_player.player_fullname == ""
+
         away_pg_players.each_with_index do |away_pg_player, index|
-          if index == 3
-            break
-          end
-          unless away_pg_player.player_fullname
-            next
-          end
-          if away_pg_player.player_fullname == ""
-            next
-          end
+          break if index == 3
+          next unless away_pg_player.player_fullname
+          next if away_pg_player.player_fullname == ""
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
           Rake::Task["nba:getOnebyOne"].reenable
         end
@@ -1817,26 +1786,15 @@ namespace :nba do
 
       home_pg_players = home_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM' AND player_link <> ''", home_flag).or(home_last.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM' AND player_link <> ''", home_flag).or(home_last.players.where("team_abbr = ? AND position = 'SF' AND player_name <> 'TEAM' AND player_link <> ''", home_flag))).order(:state)
       away_pg_players = away_last.players.where("team_abbr = ? AND position = 'PF' AND player_name <> 'TEAM' AND player_link <> ''", away_flag).or(away_last.players.where("team_abbr = ? AND position = 'C' AND player_name <> 'TEAM' AND player_link <> ''", away_flag).or(away_last.players.where("team_abbr = ? AND position = 'SF' AND player_name <> 'TEAM' AND player_link <> ''", away_flag))).order(:state)
-      home_pg_players.each_with_index do |home_pg_player, index|  
-        if index == 3
-          break
-        end
-        unless home_pg_player.player_fullname
-          next
-        end
-        if home_pg_player.player_fullname == ""
-          next
-        end
+      home_pg_players.each_with_index do |home_pg_player, index|
+        break if index == 3
+        next unless home_pg_player.player_fullname
+        next if home_pg_player.player_fullname == ""
+
         away_pg_players.each_with_index do |away_pg_player, index|
-          if index == 3
-            break
-          end
-          unless away_pg_player.player_fullname
-            next
-          end
-          if away_pg_player.player_fullname == ""
-            next
-          end
+          break if index == 3
+          next unless away_pg_player.player_fullname
+          next if away_pg_player.player_fullname == ""
           Rake::Task["nba:getOnebyOne"].invoke(game, home_pg_player, away_pg_player)
           Rake::Task["nba:getOnebyOne"].reenable
         end
@@ -1849,8 +1807,6 @@ namespace :nba do
     game = args[:game]
     home_pg_player = args[:home_pg_player]
     away_pg_player = args[:away_pg_player]
-
-
     
     home_full_name = home_pg_player.player_fullname
     home_full_name_link = home_full_name.gsub(' ', '+')
@@ -1874,9 +1830,8 @@ namespace :nba do
     doc = download_document(url)
     elements = doc.css('#all_stats tbody tr')
     if elements.size != 0
-      unless compare = game.compares.find_by(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
-        compare = game.compares.create(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
-      end
+      compare = game.compares.find_by(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link)
+      compare = game.compares.create(home_player_name: home_full_name, home_link: home_link, away_full_name: away_full_name, away_link: away_link) unless compare
       home_element = elements[0]
       away_element = elements[1]
       if home_element.children[0].text != home_full_name
@@ -2591,15 +2546,11 @@ namespace :nba do
         doc = download_document(url)
       end
       unless doc
-        if abbr == 'NOP'
-          abbr = 'NOK'
-        end
+        abbr = 'NOK' if abbr == 'NOP'
         url = "https://www.basketball-reference.com/boxscores/#{date.strftime('%Y%m%d')}0#{abbr}.html"
         doc = download_document(url)
       end
-      unless doc
-        next
-      end
+      next unless doc
       doc.xpath('//comment()').each { |comment| comment.replace(comment.text) }
       elements = doc.css(".suppress_all tr")
       away_first_quarter  = elements[2].children[3].text.to_i
@@ -2738,9 +2689,7 @@ namespace :nba do
 
         away_fg_percent = away_value.children[2].text
         home_fg_percent = home_value.children[2].text
-        if away_fg_percent == "-----"
-          home_fg_percent = "-----"
-        end
+        home_fg_percent = "-----" if away_fg_percent == "-----"
      end
 
       game.update(
@@ -3115,7 +3064,7 @@ namespace :nba do
           home_blk_value = home_value.children[10].text.to_i
          end
 
-        addingDate = date
+        adding_date = date
         home_timezone = ''
         home_win_rank = 0
         home_ppg_rank = 0
@@ -3130,13 +3079,13 @@ namespace :nba do
           compare_home_team = @team_names[home_team]
           home_team_info = Team.find_by(team: compare_home_team)
           if home_team_info.timezone == 2
-            addingDate = addingDate - 3.hours
+            adding_date = adding_date - 3.hours
             home_timezone = "PACIFIC"
           elsif home_team_info.timezone == 3
-            addingDate = addingDate - 1.hours
+            adding_date = adding_date - 1.hours
             home_timezone = "CENTRAL"
           elsif home_team_info.timezone == 4
-            addingDate = addingDate - 2.hours
+            adding_date = adding_date - 2.hours
             home_timezone = "MOUNTAIN"
           elsif home_team_info.timezone == 1
             home_timezone = "EASTERN"
@@ -3162,7 +3111,7 @@ namespace :nba do
           away_ppg_rank = away_team_info.order_two_seventeen
           away_oppppg_rank = away_team_info.order_thr_seventeen
         end
-        game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
+        game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: adding_date.strftime("%Y"), date: adding_date.strftime("%b %e"), time: adding_date.strftime("%I:%M%p"), week: adding_date.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
       end
       index_date = index_date + 1.days
     end
