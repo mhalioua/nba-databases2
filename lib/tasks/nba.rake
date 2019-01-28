@@ -2770,17 +2770,17 @@ namespace :nba do
     games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
     puts games.size
     games.each do |game|
-      countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_fly, game.home_last_fly)
-      avg_fg_road = (countItem.average(:roadfirsthalf).to_f + countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f).round(2)
-      avg_fg_home = (countItem.average(:homefirsthalf).to_f + countItem.average(:homethird).to_f + countItem.average(:homeforth).to_f).round(2)
-      avg_fg_total = countItem.average(:totalvalue).to_f.round(2)
-      avg_first_road = countItem.average(:roadfirsthalf).to_f.round(2)
-      avg_first_home = countItem.average(:homefirsthalf).to_f.round(2)
-      avg_first_total = countItem.average(:firstvalue).to_f.round(2)
-      avg_second_road = (countItem.average(:roadthird).to_f + countItem.average(:roadforth).to_f).round(2)
-      avg_second_home = (countItem.average(:homethird).to_f + countItem.average(:homeforth).to_f).round(2)
-      avg_second_total = countItem.average(:secondvalue).to_f.round(2)
-      avg_count = countItem.count(:totalvalue).to_i
+      count_item = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_fly, game.home_last_fly)
+      avg_fg_road = (count_item.average(:roadfirsthalf).to_f + count_item.average(:roadthird).to_f + count_item.average(:roadforth).to_f).round(2)
+      avg_fg_home = (count_item.average(:homefirsthalf).to_f + count_item.average(:homethird).to_f + count_item.average(:homeforth).to_f).round(2)
+      avg_fg_total = count_item.average(:totalvalue).to_f.round(2)
+      avg_first_road = count_item.average(:roadfirsthalf).to_f.round(2)
+      avg_first_home = count_item.average(:homefirsthalf).to_f.round(2)
+      avg_first_total = count_item.average(:firstvalue).to_f.round(2)
+      avg_second_road = (count_item.average(:roadthird).to_f + count_item.average(:roadforth).to_f).round(2)
+      avg_second_home = (count_item.average(:homethird).to_f + count_item.average(:homeforth).to_f).round(2)
+      avg_second_total = count_item.average(:secondvalue).to_f.round(2)
+      avg_count = count_item.count(:totalvalue).to_i
 
       game.update(
         avg_fg_road: avg_fg_road,
@@ -3000,9 +3000,8 @@ namespace :nba do
     Time.zone = 'Eastern Time (US & Canada)'
     games = Nba.where("game_date < ?", Date.new(2006, 10, 30).beginning_of_day)
     games.each do |game|
-      unless clonegame = NbaClone.find_by(game_id: game.game_id)
-        clonegame = NbaClone.create(game.attributes)
-      end
+      clonegame = NbaClone.find_by(game_id: game.game_id)
+      clonegame = NbaClone.create(game.attributes) unless clonegame
       clonegame.update(first_opener_side: nil,
         first_closer_side: nil,
         first_opener_total: nil,
@@ -3374,10 +3373,10 @@ namespace :nba do
             if @nba_nicknames[away_team]
               away_team = @nba_nicknames[away_team]
             end
-            unless game = NbaClone.find_by(home_team: home_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e") )
-              unless game = NbaClone.find_by(away_team: away_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e") )
-                game = NbaClone.create(home_team: home_team, away_team: away_team, game_date: data_date, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e"), time: data_date.strftime("%I:%M%p"), week: data_date.strftime("%a"), away_score: away_score, home_score: home_score, full_closer_side: full_closer_side, full_closer_total: full_closer_total )
-              end
+            game = NbaClone.find_by(home_team: home_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e"))
+            unless game
+              game = NbaClone.find_by(away_team: away_team, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e"))
+              game = NbaClone.create(home_team: home_team, away_team: away_team, game_date: data_date, year: data_date.strftime("%Y"), date: data_date.strftime("%b %e"), time: data_date.strftime("%I:%M%p"), week: data_date.strftime("%a"), away_score: away_score, home_score: home_score, full_closer_side: full_closer_side, full_closer_total: full_closer_total ) unless game
             end
             unless game.full_closer_side
               game.update(full_closer_side: full_closer_side, full_closer_total: full_closer_total)
@@ -3427,9 +3426,8 @@ namespace :nba do
         if @basket_names[home_team]
           home_team = @basket_names[home_team]
         end
-        if game = NbaClone.find_by(home_team: home_team, away_team: away_team, game_date: game_date + ' 20:00:00 -0400')
-          game.update(away_first_quarter: away_quarter_one, away_second_quarter: away_quarter_two, away_third_quarter: away_quarter_three, away_forth_quarter: away_quarter_four, away_score: away_score, home_first_quarter: home_quarter_one, home_second_quarter: home_quarter_two, home_third_quarter: home_quarter_three, home_forth_quarter: home_quarter_four, home_score: home_score, away_ot_quarter: away_ot, home_ot_quarter: home_ot)
-        end
+        game = NbaClone.find_by(home_team: home_team, away_team: away_team, game_date: game_date + ' 20:00:00 -0400')
+        game.update(away_first_quarter: away_quarter_one, away_second_quarter: away_quarter_two, away_third_quarter: away_quarter_three, away_forth_quarter: away_quarter_four, away_score: away_score, home_first_quarter: home_quarter_one, home_second_quarter: home_quarter_two, home_third_quarter: home_quarter_three, home_forth_quarter: home_quarter_four, home_score: home_score, away_ot_quarter: away_ot, home_ot_quarter: home_ot) if game
       end
       index_date = index_date + 1.days
     end
@@ -3618,20 +3616,20 @@ namespace :nba do
               away_ftm = away_ftm + 1
             end
           else
-            currentScore = element.children[3].text
-            previousScore = elements[index-1].children[3].text
-            previousScore = elements[index-2].children[3].text if previousScore == 'SCORE'
+            current_score = element.children[3].text
+            previous_score = elements[index-1].children[3].text
+            previous_score = elements[index-2].children[3].text if previous_score == 'SCORE'
             diff = 0
-            currentIndex = currentScore.index('-')
-            currentFirstScore = currentScore[0..currentIndex-1].to_i
-            currentSecondScore = currentScore[currentIndex+1..-1].to_i
-            previousIndex = previousScore.index('-')
-            previousFirstScore = previousScore[0..previousIndex-1].to_i
-            previousSecondScore = previousScore[previousIndex+1..-1].to_i
-            if currentFirstScore == previousFirstScore && currentSecondScore != previousSecondScore
-              diff = currentSecondScore - previousSecondScore
-            elsif currentFirstScore != previousFirstScore && currentSecondScore == previousSecondScore
-              diff = currentFirstScore - previousFirstScore
+            current_index = current_score.index('-')
+            current_first_score = current_score[0..current_index-1].to_i
+            current_second_score = current_score[current_index+1..-1].to_i
+            previous_index = previous_score.index('-')
+            previous_first_score = previous_score[0..previous_index-1].to_i
+            previous_second_score = previous_score[previous_index+1..-1].to_i
+            if current_first_score == previous_first_score && current_second_score != previous_second_score
+              diff = current_second_score - previous_second_score
+            elsif current_first_score != previous_first_score && current_second_score == previous_second_score
+              diff = current_first_score - previous_first_score
             end
             if diff == 3 && (compare_string.include?("foot step back jumpshot") || compare_string.include?("foot jump bank shot"))
               if team_abbr == home_abbr
@@ -3846,92 +3844,61 @@ namespace :nba do
 
 
   @basket_names = {
-    'Charlotte' => 'New Orleans',
+    :Charlotte => 'New Orleans',
     'New Jersey' => 'Brooklyn',
     'LA Clippers' => 'LAC',
     'LA Lakers' => 'LAL',
-    'Seattle' => 'Oklahoma City',
-    'Vancouver' => 'Memphis'
+    :Seattle => 'Oklahoma City',
+    :Vancouver => 'Memphis'
   }
 
-	@basket_abbr = [
-		'ATL',
-		'BOS',
-		'CHA',
-		'CHI',
-		'CLE',
-		'DAL',
-		'DEN',
-		'DET',
-		'HOU',
-		'IND',
-		'LAC',
-		'LAL',
-		'MEM',
-		'MIA',
-		'MIL',
-		'MIN',
-		'OKC',
-		'ORL',
-		'PHI',
-		'POR',
-		'SAC',
-		'TOR',
-		'NJN',
-		'GSW',
-		'NOH',
-		'NYK',
-		'PHO',
-		'SAS',
-		'UTA',
-		'WAS'
-	]
+	@basket_abbr = %w(ATL BOS CHA CHI CLE DAL DEN DET HOU IND LAC LAL MEM MIA MIL MIN OKC ORL PHI POR SAC TOR NJN GSW NOH NYK PHO SAS UTA WAS)
 
   @basket_nicknames = {
-    'BKN' => 'BRK',
-    'CHA' => 'CHO',
-    'PHX' => 'PHO',
-    'GS' => 'GSW',
-    'NO' => 'NOP',
-    'NY' => 'NYK',
-    'WSH' => 'WAS',
-    'SA' => 'SAS'
+    :BKN => 'BRK',
+    :CHA => 'CHO',
+    :PHX => 'PHO',
+    :GS => 'GSW',
+    :NO => 'NOP',
+    :NY => 'NYK',
+    :WSH => 'WAS',
+    :SA => 'SAS'
   }
 
 	@team_nicknames = {
-		'ATL' => 'ATL',
-		'BOS' => 'BOS',
-		'CHA' => 'CHA',
-		'CHI' => 'CHI',
-		'CLE' => 'CLE',
-		'DAL' => 'DAL',
-		'DEN' => 'DEN',
-		'DET' => 'DET',
-		'HOU' => 'HOU',
-		'IND' => 'IND',
-		'LAC' => 'LAC',
-		'LAL' => 'LAL',
-		'MEM' => 'MEM',
-		'MIA' => 'MIA',
-		'MIL' => 'MIL',
-		'MIN' => 'MIN',
-		'OKC' => 'OKC',
-		'ORL' => 'ORL',
-		'PHI' => 'PHI',
-		'POR' => 'POR',
-		'SAC' => 'SAC',
-		'TOR' => 'TOR',
-		'BKN' => 'NJN',
-		'NJ' => 'NJN',
-		'GS' => 'GSW',
-		'NO' => 'NOH',
-		'NY' => 'NYK',
-		'PHX' => 'PHO',
-		'SA' => 'SAS',
-		'UTAH' => 'UTA',
-		'WSH' => 'WAS',
-		'SEA' => 'OKC',
-		'VAN' => 'MEM'
+      :ATL => 'ATL',
+      :BOS => 'BOS',
+      :CHA => 'CHA',
+      :CHI => 'CHI',
+      :CLE => 'CLE',
+      :DAL => 'DAL',
+      :DEN => 'DEN',
+      :DET => 'DET',
+      :HOU => 'HOU',
+      :IND => 'IND',
+      :LAC => 'LAC',
+      :LAL => 'LAL',
+      :MEM => 'MEM',
+      :MIA => 'MIA',
+      :MIL => 'MIL',
+      :MIN => 'MIN',
+      :OKC => 'OKC',
+      :ORL => 'ORL',
+      :PHI => 'PHI',
+      :POR => 'POR',
+      :SAC => 'SAC',
+      :TOR => 'TOR',
+      :BKN => 'NJN',
+      :NJ => 'NJN',
+      :GS => 'GSW',
+      :NO => 'NOH',
+      :NY => 'NYK',
+      :PHX => 'PHO',
+      :SA => 'SAS',
+      :UTAH => 'UTA',
+      :WSH => 'WAS',
+      :SEA => 'OKC',
+      :VAN => 'MEM'
 	}
 
 	@nba_nicknames = {
@@ -3958,37 +3925,37 @@ namespace :nba do
   }
 
   @team_names = {
-    'Atlanta' => 'Atlanta',
-    'Boston' => 'Boston',
-    'Brooklyn' => 'Brooklyn',
-    'Charlotte' => 'Charlotte',
-    'Chicago' => 'Chicago',
-    'Cleveland' => 'Cleveland',
-    'Dallas' => 'Dallas',
-    'Denver' => 'Denver',
-    'Detroit' => 'Detroit',
-    'Golden State' => 'Golden State',
-    'Houston' => 'Houston',
-    'Indiana' => 'Indiana',
-    'LAC' => 'LA Clippers',
-    'LAL' => 'LA Lakers',
-    'Memphis' => 'Memphis',
-    'Miami' => 'Miami',
-    'Milwaukee' => 'Milwaukee',
-    'Minnesota' => 'Minnesota',
-    'New Orleans' => 'New Orleans',
-    'New York' => 'New York',
-    'Oklahoma City' => 'Okla City',
-    'NO/Oklahoma City' => 'Okla City',
-    'Orlando' => 'Orlando',
-    'Philadelphia' => 'Philadelphia',
-    'Phoenix' => 'Phoenix',
-    'Portland' => 'Portland',
-    'Sacramento' => 'Sacramento',
-    'San Antonio' => 'San Antonio',
-    'Toronto' => 'Toronto',
-    'Utah' => 'Utah',
-    'Washington' => 'Washington'
+      :Atlanta => 'Atlanta',
+      :Boston => 'Boston',
+      :Brooklyn => 'Brooklyn',
+      :Charlotte => 'Charlotte',
+      :Chicago => 'Chicago',
+      :Cleveland => 'Cleveland',
+      :Dallas => 'Dallas',
+      :Denver => 'Denver',
+      :Detroit => 'Detroit',
+      'Golden State' => 'Golden State',
+      :Houston => 'Houston',
+      :Indiana => 'Indiana',
+      :LAC => 'LA Clippers',
+      :LAL => 'LA Lakers',
+      :Memphis => 'Memphis',
+      :Miami => 'Miami',
+      :Milwaukee => 'Milwaukee',
+      :Minnesota => 'Minnesota',
+      'New Orleans' => 'New Orleans',
+      'New York' => 'New York',
+      'Oklahoma City' => 'Okla City',
+      'NO/Oklahoma City' => 'Okla City',
+      :Orlando => 'Orlando',
+      :Philadelphia => 'Philadelphia',
+      :Phoenix => 'Phoenix',
+      :Portland => 'Portland',
+      :Sacramento => 'Sacramento',
+      'San Antonio' => 'San Antonio',
+      :Toronto => 'Toronto',
+      :Utah => 'Utah',
+      :Washington => 'Washington'
   }
 
   @home_team = {
@@ -4029,8 +3996,8 @@ namespace :nba do
   }
 
   @match = {
-      'PHX' => 'PHO',
-      'UTAH' => 'UTA',
-      'WSH' => 'WAS'
+      :PHX => 'PHO',
+      :UTAH => 'UTA',
+      :WSH => 'WAS'
   }
 end
