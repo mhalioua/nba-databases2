@@ -97,6 +97,9 @@ namespace :cbb do
           pts_value = slice.children[13].text.to_i
         end
 
+        puts player_name
+        puts CbbPlayer.find_by(player_name: player_name).inspect
+
         player = CbbPlayer.find_or_create_by(player_name: player_name)
         player.update(link: link, cbb_team_id: away_team.id)
 				Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team_name: team_name)
