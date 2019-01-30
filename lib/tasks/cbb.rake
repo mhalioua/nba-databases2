@@ -80,8 +80,8 @@ namespace :cbb do
 
       game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date)
 
-      home_team = CbbTeam.find_or_create_by(name: home_team, abb: home_abbr, link: home_link)
-      away_team = CbbTeam.find_or_create_by(name: away_team, abb: away_abbr, link: away_link)
+      home_team = CbbTeam.find_or_create_by(name: home_team, abbr: home_abbr, link: home_link)
+      away_team = CbbTeam.find_or_create_by(name: away_team, abbr: away_abbr, link: away_link)
 
   		url = "http://www.espn.com/mens-college-basketball/boxscore?gameId=#{game_id}"
   		doc = download_document(url)
