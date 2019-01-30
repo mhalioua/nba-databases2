@@ -1676,7 +1676,6 @@ namespace :nba do
           end
           player_name = player.player_name
           url = player.link
-          puts player_name
           puts url
           doc = download_document(url)
           player_name = doc.css('h1').first.text
@@ -3799,17 +3798,6 @@ namespace :nba do
 
 	@basket_abbr = %w(ATL BOS CHA CHI CLE DAL DEN DET HOU IND LAC LAL MEM MIA MIL MIN OKC ORL PHI POR SAC TOR NJN GSW NOH NYK PHO SAS UTA WAS)
 
-  @basket_nicknames = {
-      'BKN' => 'BRK',
-      'CHA' => 'CHO',
-      'PHX' => 'PHO',
-      'GS' => 'GSW',
-      'NO' => 'NOP',
-      'NY' => 'NYK',
-      'WSH' => 'WAS',
-      'SA' => 'SAS'
-  }
-
 	@team_nicknames = {
       'ATL' => 'ATL',
       'BOS' => 'BOS',
@@ -3938,11 +3926,5 @@ namespace :nba do
 
   @player_nicknames = {
     'JT Orr' => 'J.T. Orr'
-  }
-
-  @match = {
-      'PHX' => 'PHO',
-      'UTAH' => 'UTA',
-      'WSH' => 'WAS'
   }
 end
