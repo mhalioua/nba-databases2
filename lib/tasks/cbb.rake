@@ -97,7 +97,9 @@ namespace :cbb do
           pts_value = slice.children[13].text.to_i
         end
 
-        player = CbbPlayer.find_or_create_by(player_name: player_name, link: link, cbb_team_id: away_team.id)
+        player = CbbPlayer.find_or_create_by(player_name: player_name)
+        player.update(link: link, cbb_team_id: away_team.id)
+				Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team_name: team_name)
 				record = CbbRecord.find_or_create_by(cbb_player_id: player.id, cbb_game_id: game.id)
         record.update(min: min_value, score: pts_value, team: 0, order: element)
 			end
@@ -121,7 +123,8 @@ namespace :cbb do
           min_value = slice.children[1].text.to_i
           pts_value = slice.children[13].text.to_i
         end
-				player = CbbPlayer.find_or_create_by(player_name: player_name, link: link, cbb_team_id: home_team.id)
+				player = CbbPlayer.find_or_create_by(player_name: player_name)
+				player.update(link: link, cbb_team_id: home_team.id)
 				record = CbbRecord.find_or_create_by(cbb_player_id: player.id, cbb_game_id: game.id)
 				record.update(min: min_value, score: pts_value, team: 1, order: element)
 			end
