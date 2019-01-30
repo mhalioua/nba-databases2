@@ -9,7 +9,7 @@ namespace :cbb do
     Rake::Task["cbb:getDate"].reenable
   end
 
-	task :getDate, [:game_date] => [:environment] do |args|
+	task :getDate, [:game_date] => [:environment] do |t, args|
 		puts "----------Get Games----------"
 		include Api
 		Time.zone = 'Eastern Time (US & Canada)'
@@ -32,7 +32,7 @@ namespace :cbb do
 
   		href = slice.children[index[:result]].child['href']
   		game_id = href[-9..-1]
-      game = CbbGame.find_or_create_by(game_id: game_id)
+      # game = CbbGame.find_or_create_by(game_id: game_id)
       if slice.children[index[:home_team]].children[0].children.size == 2
   			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
   			home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
