@@ -135,7 +135,7 @@ namespace :cbb do
     teams.each do |team|
       link = team.link
 
-      team_stats = link.gsub('_', 'stats/_')
+      team_stats = 'http://www.espn.com' + link.gsub('_', 'stats/_')
 			doc = download_document(team_stats)
 			puts team_stats
 			elements = doc.css(".mod-content tbody tr")
@@ -153,7 +153,7 @@ namespace :cbb do
         # player.update(ave_mins: slice.children[2].text)
       end
 
-			team_roster = ink.gsub('_', 'roster/_')
+			team_roster = 'http://www.espn.com' + link.gsub('_', 'roster/_')
 			doc = download_document(team_roster)
 			puts team_stats
 			elements = doc.css("tr tr tbody tr")
