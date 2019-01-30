@@ -68,16 +68,6 @@ namespace :cbb do
   		game_date = element.children[1]['data-date']
   		date = DateTime.parse(game_date).in_time_zone
 
-      puts home_team
-      puts home_abbr
-      puts home_link
-      puts away_team
-      puts away_abbr
-      puts away_link
-
-      puts game_id
-      puts date
-
       game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date)
 
       home_team = CbbTeam.find_or_create_by(name: home_team, abbr: home_abbr, link: home_link)
@@ -100,16 +90,16 @@ namespace :cbb do
           link = ""
         end
 
-        mins_value = 0
+        min_value = 0
         pts_value = 0
         if slice.children.size > 13
-          mins_value = slice.children[1].text.to_i
+          min_value = slice.children[1].text.to_i
           pts_value = slice.children[13].text.to_i
         end
 
-        player = CbbPlayer.find_or_create_by(player_name: player_name, team_id: away_team.id, link: link)
+        player = away_team.cbb_players.find_or_create_by(player_name: player_name, link: link)
 				record = CbbRecord.find_or_create_by(player_id: player.id, game_id: game.id)
-        record.update(min: mins_value, score: pts_value, team: 0, order: element)
+        record.update(min: min_value, score: pts_value, team: 0, order: element)
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -125,15 +115,15 @@ namespace :cbb do
 					link = ""
         end
 
-        mins_value = 0
+        min_value = 0
         pts_value = 0
         if slice.children.size > 13
-          mins_value = slice.children[1].text.to_i
+          min_value = slice.children[1].text.to_i
           pts_value = slice.children[13].text.to_i
         end
-        player = CbbPlayer.find_or_create_by(player_name: player_name, team_id: home_team.id, link: link)
+        player = home_team.cbb_players.find_or_create_by(player_name: player_name, link: link)
 				record = CbbRecord.find_or_create_by(player_id: player.id, game_id: game.id)
-				record.update(min: mins_value, score: pts_value, team: 1, order: element)
+				record.update(min: min_value, score: pts_value, team: 1, order: element)
 			end
 		end
   end
