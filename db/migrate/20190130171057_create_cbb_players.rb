@@ -1,7 +1,7 @@
 class CreateCbbPlayers < ActiveRecord::Migration[5.1]
   def change
     create_table :cbb_players do |t|
-      t.integer :team_id
+      t.integer :cbb_team_id
       t.string :player_name
       t.string :link
 
