@@ -32,33 +32,33 @@ namespace :cbb do
 
   		href = slice.children[index[:result]].child['href']
   		game_id = href[-9..-1]
-      # game = CbbGame.find_or_create_by(game_id: game_id)
+      game = CbbGame.find_or_create_by(game_id: game_id)
       if slice.children[index[:home_team]].children[0].children.size == 2
   			home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
   			home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
-        home_link = slice.children[index[:home_team]].children[0].children[1].href
+        home_link = slice.children[index[:home_team]].children[0].children[1]['href']
   		elsif slice.children[index[:home_team]].children[0].children.size == 3
   			home_team = slice.children[index[:home_team]].children[0].children[2].children[0].text
   			home_abbr = slice.children[index[:home_team]].children[0].children[2].children[2].text
-        home_link = slice.children[index[:home_team]].children[0].children[2].href
+        home_link = slice.children[index[:home_team]].children[0].children[2]['href']
   		elsif slice.children[index[:home_team]].children[0].children.size == 1
   			home_team = slice.children[index[:home_team]].children[0].children[0].children[0].text
   			home_abbr = slice.children[index[:home_team]].children[0].children[0].children[2].text
-        home_link = slice.children[index[:home_team]].children[0].children[0].href
+        home_link = slice.children[index[:home_team]].children[0].children[0]['href']
   		end
 
   		if slice.children[index[:away_team]].children.size == 2
 				away_abbr = slice.children[index[:away_team]].children[1].children[2].text
   			away_team = slice.children[index[:away_team]].children[1].children[0].text
-        away_link = slice.children[index[:away_team]].children[1].href
+        away_link = slice.children[index[:away_team]].children[1]['href']
 			elsif slice.children[index[:away_team]].children.size == 3
 				away_abbr = slice.children[index[:away_team]].children[2].children[2].text
 				away_team = slice.children[index[:away_team]].children[2].children[0].text
-        away_link = slice.children[index[:away_team]].children[2].href
+        away_link = slice.children[index[:away_team]].children[2]['href']
 			elsif slice.children[index[:away_team]].children.size == 1
 				away_abbr = slice.children[index[:away_team]].children[0].children[2].text
   			away_team = slice.children[index[:away_team]].children[0].children[0].text
-        away_link = slice.children[index[:away_team]].children[0].href
+        away_link = slice.children[index[:away_team]].children[0]['href']
 			end
 
   		url = "http://www.espn.com/mens-college-basketball/game?gameId=#{game_id}"
@@ -78,10 +78,10 @@ namespace :cbb do
       puts game_id
       puts date
 
-      # game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date)
+      game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date)
 
-      # home_team = CbbTeam.find_or_create_by(name: home_team, abb: home_abbr, link: home_link)
-      # away_team = CbbTeam.find_or_create_by(name: away_team, abb: away_abbr, link: away_link)
+      home_team = CbbTeam.find_or_create_by(name: home_team, abb: home_abbr, link: home_link)
+      away_team = CbbTeam.find_or_create_by(name: away_team, abb: away_abbr, link: away_link)
 
   		url = "http://www.espn.com/mens-college-basketball/boxscore?gameId=#{game_id}"
   		doc = download_document(url)
@@ -102,17 +102,14 @@ namespace :cbb do
 
         mins_value = 0
         pts_value = 0
-        if slice.children.size > 14
+        if slice.children.size > 13
           mins_value = slice.children[1].text.to_i
-          pts_value = slice.children[14].text.to_i
+          pts_value = slice.children[13].text.to_i
         end
 
-        puts player_name
-        puts link
-        puts mins_value
-        puts pts_value
-        # player = game.players.find_or_create_by(player_name: player_name, team_id: away_team.id link: link)
-        # player.update(mins: mins_value, ptsValue: pts_value)
+        player = game.cbb_players.find_or_create_by(player_name: player_name, team_id: away_team.id link: link)
+        record = game.cbb_records.find_or_create_by(player_id: player.id)
+        record.update(min: mins_value, score: pts_value, team: 0, order: element)
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
@@ -130,16 +127,13 @@ namespace :cbb do
 
         mins_value = 0
         pts_value = 0
-        if slice.children.size > 14
+        if slice.children.size > 13
           mins_value = slice.children[1].text.to_i
-          pts_value = slice.children[14].text.to_i
+          pts_value = slice.children[13].text.to_i
         end
-        puts player_name
-        puts link
-        puts mins_value
-        puts pts_value
-        # player = game.players.find_or_create_by(player_name: player_name, team_id: home_team.id, link: link)
-        # player.update(mins: mins_value, ptsValue: pts_value)
+        player = game.cbb_players.find_or_create_by(player_name: player_name, team_id: home_team.id, link: link)
+				record = game.cbb_records.find_or_create_by(player_id: player.id)
+				record.update(min: mins_value, score: pts_value, team: 1, order: element)
 			end
 		end
 	end
