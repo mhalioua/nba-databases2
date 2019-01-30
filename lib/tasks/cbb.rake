@@ -137,7 +137,6 @@ namespace :cbb do
 
       team_stats = 'http://www.espn.com' + link.gsub('_', 'stats/_')
 			doc = download_document(team_stats)
-			puts team_stats
 			elements = doc.css("tr")
 			elements.each do |slice|
 				next if slice.children.size < 12
@@ -147,15 +146,12 @@ namespace :cbb do
         player_link = slice.children[0].children[0]['href']
         player_link_break = player_link.rindex('/')
         player_link = player_link[0..player_link_break-1] if player_link_break
-        puts player_link
-        puts slice.children[2].text
-        # player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
-        # player.update(ave_mins: slice.children[2].text)
+        player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
+        player.update(ave_mins: slice.children[2].text)
       end
 
 			team_roster = 'http://www.espn.com' + link.gsub('_', 'roster/_')
 			doc = download_document(team_roster)
-			puts team_stats
 			elements = doc.css("tr tr tbody tr")
 			elements.each do |slice|
 				player_link = slice.children[1].children[0].children[0]['href']
