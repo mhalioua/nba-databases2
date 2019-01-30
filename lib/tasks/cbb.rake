@@ -104,7 +104,7 @@ namespace :cbb do
 			end
 
 			home_players = doc.css('#gamepackage-boxscore-module .gamepackage-home-wrap tbody tr')
-			end_index = home_players.size - 2
+			end_index = home_players.size - 3
 			(0..end_index).each do |element|
 				slice = home_players[element]
 				if slice.children[0].children.size > 1
