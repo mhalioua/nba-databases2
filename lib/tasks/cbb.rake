@@ -134,6 +134,7 @@ namespace :cbb do
 		teams = CbbTeam.all
     teams.each do |team|
       link = team.link
+      next unless link
 
       team_stats = 'http://www.espn.com' + link.gsub('_', 'stats/_')
 			doc = download_document(team_stats)
