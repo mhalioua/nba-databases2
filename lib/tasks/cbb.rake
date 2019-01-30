@@ -78,7 +78,7 @@ namespace :cbb do
       puts url
 
 			away_players = doc.css('#gamepackage-boxscore-module .gamepackage-away-wrap tbody tr')
-			end_index = away_players.size - 2
+			end_index = away_players.size - 3
 			(0..end_index).each do |element|
 				slice = away_players[element]
 
