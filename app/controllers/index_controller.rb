@@ -1762,7 +1762,9 @@ class IndexController < ApplicationController
     end
 
     if injury_drtg_count < 3
-      @away_players_group4 = @away_players_group3.select {|element| element.position == 'PG' || element.position == 'SG'}
+      @away_players_group4 = @away_players_group3.select do |element|
+        element.position == 'PG' || element.position == 'SG'
+      end
       max_one = 0
       one_value = 0
       max_two = 0
@@ -1866,7 +1868,9 @@ class IndexController < ApplicationController
       @injury_away_total_poss = @injury_away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
     end
     if injury_drtg_count < 3
-      @away_players_group4 = @away_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF'}
+      @away_players_group4 = @away_players_group3.select do |element|
+        element.position == 'C' || element.position == 'SF' || element.position == 'PF'
+      end
       max_one = 0
       one_value = 0
       max_two = 0

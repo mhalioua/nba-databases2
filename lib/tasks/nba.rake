@@ -3789,61 +3789,61 @@ namespace :nba do
 
 
   @basket_names = {
-    :Charlotte => 'New Orleans',
-    'New Jersey' => 'Brooklyn',
-    'LA Clippers' => 'LAC',
-    'LA Lakers' => 'LAL',
-    :Seattle => 'Oklahoma City',
-    :Vancouver => 'Memphis'
+      'Charlotte' => 'New Orleans',
+      'New Jersey' => 'Brooklyn',
+      'LA Clippers' => 'LAC',
+      'LA Lakers' => 'LAL',
+      'Seattle' => 'Oklahoma City',
+      'Vancouver' => 'Memphis'
   }
 
 	@basket_abbr = %w(ATL BOS CHA CHI CLE DAL DEN DET HOU IND LAC LAL MEM MIA MIL MIN OKC ORL PHI POR SAC TOR NJN GSW NOH NYK PHO SAS UTA WAS)
 
   @basket_nicknames = {
-    :BKN => 'BRK',
-    :CHA => 'CHO',
-    :PHX => 'PHO',
-    :GS => 'GSW',
-    :NO => 'NOP',
-    :NY => 'NYK',
-    :WSH => 'WAS',
-    :SA => 'SAS'
+      'BKN' => 'BRK',
+      'CHA' => 'CHO',
+      'PHX' => 'PHO',
+      'GS' => 'GSW',
+      'NO' => 'NOP',
+      'NY' => 'NYK',
+      'WSH' => 'WAS',
+      'SA' => 'SAS'
   }
 
 	@team_nicknames = {
-      :ATL => 'ATL',
-      :BOS => 'BOS',
-      :CHA => 'CHA',
-      :CHI => 'CHI',
-      :CLE => 'CLE',
-      :DAL => 'DAL',
-      :DEN => 'DEN',
-      :DET => 'DET',
-      :HOU => 'HOU',
-      :IND => 'IND',
-      :LAC => 'LAC',
-      :LAL => 'LAL',
-      :MEM => 'MEM',
-      :MIA => 'MIA',
-      :MIL => 'MIL',
-      :MIN => 'MIN',
-      :OKC => 'OKC',
-      :ORL => 'ORL',
-      :PHI => 'PHI',
-      :POR => 'POR',
-      :SAC => 'SAC',
-      :TOR => 'TOR',
-      :BKN => 'NJN',
-      :NJ => 'NJN',
-      :GS => 'GSW',
-      :NO => 'NOH',
-      :NY => 'NYK',
-      :PHX => 'PHO',
-      :SA => 'SAS',
-      :UTAH => 'UTA',
-      :WSH => 'WAS',
-      :SEA => 'OKC',
-      :VAN => 'MEM'
+      'ATL' => 'ATL',
+      'BOS' => 'BOS',
+      'CHA' => 'CHA',
+      'CHI' => 'CHI',
+      'CLE' => 'CLE',
+      'DAL' => 'DAL',
+      'DEN' => 'DEN',
+      'DET' => 'DET',
+      'HOU' => 'HOU',
+      'IND' => 'IND',
+      'LAC' => 'LAC',
+      'LAL' => 'LAL',
+      'MEM' => 'MEM',
+      'MIA' => 'MIA',
+      'MIL' => 'MIL',
+      'MIN' => 'MIN',
+      'OKC' => 'OKC',
+      'ORL' => 'ORL',
+      'PHI' => 'PHI',
+      'POR' => 'POR',
+      'SAC' => 'SAC',
+      'TOR' => 'TOR',
+      'BKN' => 'NJN',
+      'NJ' => 'NJN',
+      'GS' => 'GSW',
+      'NO' => 'NOH',
+      'NY' => 'NYK',
+      'PHX' => 'PHO',
+      'SA' => 'SAS',
+      'UTAH' => 'UTA',
+      'WSH' => 'WAS',
+      'SEA' => 'OKC',
+      'VAN' => 'MEM'
 	}
 
 	@nba_nicknames = {
@@ -3870,37 +3870,37 @@ namespace :nba do
   }
 
   @team_names = {
-      :Atlanta => 'Atlanta',
-      :Boston => 'Boston',
-      :Brooklyn => 'Brooklyn',
-      :Charlotte => 'Charlotte',
-      :Chicago => 'Chicago',
-      :Cleveland => 'Cleveland',
-      :Dallas => 'Dallas',
-      :Denver => 'Denver',
-      :Detroit => 'Detroit',
+      'Atlanta' => 'Atlanta',
+      'Boston' => 'Boston',
+      'Brooklyn' => 'Brooklyn',
+      'Charlotte' => 'Charlotte',
+      'Chicago' => 'Chicago',
+      'Cleveland' => 'Cleveland',
+      'Dallas' => 'Dallas',
+      'Denver' => 'Denver',
+      'Detroit' => 'Detroit',
       'Golden State' => 'Golden State',
-      :Houston => 'Houston',
-      :Indiana => 'Indiana',
-      :LAC => 'LA Clippers',
-      :LAL => 'LA Lakers',
-      :Memphis => 'Memphis',
-      :Miami => 'Miami',
-      :Milwaukee => 'Milwaukee',
-      :Minnesota => 'Minnesota',
+      'Houston' => 'Houston',
+      'Indiana' => 'Indiana',
+      'LAC' => 'LA Clippers',
+      'LAL' => 'LA Lakers',
+      'Memphis' => 'Memphis',
+      'Miami' => 'Miami',
+      'Milwaukee' => 'Milwaukee',
+      'Minnesota' => 'Minnesota',
       'New Orleans' => 'New Orleans',
       'New York' => 'New York',
       'Oklahoma City' => 'Okla City',
       'NO/Oklahoma City' => 'Okla City',
-      :Orlando => 'Orlando',
-      :Philadelphia => 'Philadelphia',
-      :Phoenix => 'Phoenix',
-      :Portland => 'Portland',
-      :Sacramento => 'Sacramento',
+      'Orlando' => 'Orlando',
+      'Philadelphia' => 'Philadelphia',
+      'Phoenix' => 'Phoenix',
+      'Portland' => 'Portland',
+      'Sacramento' => 'Sacramento',
       'San Antonio' => 'San Antonio',
-      :Toronto => 'Toronto',
-      :Utah => 'Utah',
-      :Washington => 'Washington'
+      'Toronto' => 'Toronto',
+      'Utah' => 'Utah',
+      'Washington' => 'Washington'
   }
 
   @home_team = {
@@ -3941,8 +3941,8 @@ namespace :nba do
   }
 
   @match = {
-      :PHX => 'PHO',
-      :UTAH => 'UTA',
-      :WSH => 'WAS'
+      'PHX' => 'PHO',
+      'UTAH' => 'UTA',
+      'WSH' => 'WAS'
   }
 end
