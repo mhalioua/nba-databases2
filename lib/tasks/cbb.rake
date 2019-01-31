@@ -180,20 +180,23 @@ namespace :cbb do
 		team_links = doc.css("tbody tr td:first-child a")
 		team_links.each do |team_link|
 			team_name = team_link.text
-			team_url = 'https://basketball.realgm.com' + team_link['href'] + 'players'
-			team_doc = download_document(team_url)
-			players = team_doc.css("tbody tr")
-			players.each do |player|
-				next if player.children[15]['rel'] != '2019'
-        player_name = player.children[1].text
-				birthday = player.children[9].text
-				matched_player = CbbPlayer.find_by(player_name: player_name)
-        puts team_name
-        puts player_name
-        puts birthday
-        puts matched_player
-				# Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team_name: team_name)
-			end
+			matched_team = CbbTeam.find_by(name: team_name)
+      puts matched_team
+			# team_url = 'https://basketball.realgm.com' + team_link['href'] + 'players'
+			# team_doc = download_document(team_url)
+			# players = team_doc.css("tbody tr")
+			# players.each do |player|
+			# 	next if player.children[15]['rel'] != '2019'
+       #  player_name = player.children[1].text
+			# 	birthday = player.children[9].text
+       #  matched_team = CbbTeam.find_by(name: matched_team)
+			# 	matched_player = CbbPlayer.find_by(player_name: player_name)
+       #  puts team_name
+       #  puts player_name
+       #  puts birthday
+       #  puts matched_player.inspect
+			# 	# Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team_name: team_name)
+			# end
 		end
 	end
 end
