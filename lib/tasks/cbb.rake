@@ -168,6 +168,10 @@ namespace :cbb do
 		players.each do |player|
       next unless player.link
 			doc = download_document(player.link)
+      unless doc
+        puts player.link
+        next
+      end
 			player_name = doc.css("h1")[0].text
       player.update(player_name: player_name)
     end
