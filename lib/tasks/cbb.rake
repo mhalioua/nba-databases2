@@ -168,7 +168,7 @@ namespace :cbb do
 		players.each do |player|
       next unless player.link
 			doc = download_document(player.link)
-			player_name = doc.css("h1").text
+			player_name = doc.css("h1")[0].text
       player.update(player_name: player_name)
     end
   end
@@ -186,12 +186,12 @@ namespace :cbb do
 			players.each do |player|
 				next if player.children[15]['rel'] != '2019'
         player_name = player.children[1].text
-        birthdate = player.children[9].text
-				player = CbbPlayer.find_by(player_name: player_name)
+				birthday = player.children[9].text
+				matched_player = CbbPlayer.find_by(player_name: player_name)
         puts team_name
         puts player_name
-        puts birthdate
-        puts player
+        puts birthday
+        puts matched_player
 				# Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team_name: team_name)
 			end
 		end
