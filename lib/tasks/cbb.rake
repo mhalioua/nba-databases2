@@ -160,5 +160,16 @@ namespace :cbb do
 				player.update(player_class: slice.children[5].children[0].text)
 			end
     end
-	end
+  end
+
+  task :player_names => :environment do
+		include Api
+		players = CbbPlayer.all
+		players.each do |player|
+      next unless player.link
+			doc = download_document(player.link)
+			player_name = doc.css("h1").text
+      player.update(player_name: player_name)
+    end
+  end
 end
