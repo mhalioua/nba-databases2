@@ -172,4 +172,28 @@ namespace :cbb do
       player.update(player_name: player_name)
     end
   end
+
+	task :getCBBPlayer => :environment do
+		include Api
+		url = "https://basketball.realgm.com/ncaa/teams"
+		doc = download_document(url)
+		team_links = doc.css("tbody tr td:first-child a")
+		team_links.each do |team_link|
+			team_name = team_link.text
+			team_url = 'https://basketball.realgm.com' + team_link['href'] + 'players'
+			team_doc = download_document(team_url)
+			players = team_doc.css("tbody tr")
+			players.each do |player|
+				next if player.children[15]['rel'] != '2019'
+        player_name = player.children[1].text
+        birthdate = player.children[9].text
+				player = CbbPlayer.find_by(player_name: player_name)
+        puts team_name
+        puts player_name
+        puts birthdate
+        puts player
+				# Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team_name: team_name)
+			end
+		end
+	end
 end
