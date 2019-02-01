@@ -216,7 +216,7 @@ namespace :cbb do
        #  puts birthday
        #  puts matched_player.inspect
 			# 	# Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team_name: team_name)
-			# end
+			end
 		end
   end
 
