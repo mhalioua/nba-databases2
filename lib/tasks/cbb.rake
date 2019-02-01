@@ -153,7 +153,7 @@ namespace :cbb do
 
       team_stats = 'http://www.espn.com' + link.gsub('_', 'stats/_')
 			doc = download_document(team_stats)
-			elements = doc.css("tr tr td")
+			elements = doc.css(".page-container section:nth-child(6) tr tbody td")
       elements.each do |slice|
         puts slice.text
       end
