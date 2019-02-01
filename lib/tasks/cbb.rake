@@ -201,16 +201,16 @@ namespace :cbb do
 			team_name = team_link.text
       team_name = @team_name[team_name] if @team_name[team_name]
 			matched_team = CbbTeam.find_by(name: team_name)
-      puts team_name unless matched_team
-			# team_url = 'https://basketball.realgm.com' + team_link['href'] + 'players'
-			# team_doc = download_document(team_url)
-			# players = team_doc.css("tbody tr")
-			# players.each do |player|
-			# 	next if player.children[15]['rel'] != '2019'
-       #  player_name = player.children[1].text
-			# 	birthday = player.children[9].text
-       #  matched_team = CbbTeam.find_by(name: matched_team)
-			# 	matched_player = CbbPlayer.find_by(player_name: player_name)
+      break unless matched_team
+			team_url = 'https://basketball.realgm.com' + team_link['href'] + 'players'
+			team_doc = download_document(team_url)
+			players = team_doc.css("tbody tr")
+			players.each do |player|
+				next if player.children[15]['rel'] != '2019'
+        player_name = player.children[1].text
+				birthday = player.children[9].text
+			 	matched_player = CbbPlayer.find_by(player_name: player_name, team_id: matched_team.id)
+        puts player_name unless matched_player
        #  puts team_name
        #  puts player_name
        #  puts birthday
