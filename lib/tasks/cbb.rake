@@ -240,7 +240,7 @@ namespace :cbb do
 
     players = CbbPlayer.all
     players.each do |player|
-      matched = CbbPlayer.where("player_name = ? AND link >= ?", player.player_name, player.link)
+      matched = CbbPlayer.where("player_name = ? AND link = ?", player.player_name, player.link)
       if matched.count(:id) > 1
         names.push(player.link)
       end
