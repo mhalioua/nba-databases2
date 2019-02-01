@@ -226,6 +226,7 @@ namespace :cbb do
 			'Cal State Bakersfield' => 'CSU Bakersfield',
 			'Cal State Fullerton' => 'CSU Fullerton',
 			'Cal State Northridge' => 'CSU Northridge',
+      'Central Connecticut State' => 'Central Connecticut',
 			'Citadel' => 'The Citadel',
 			'Connecticut' => 'UConn',
 			'Detroit-Mercy' => 'Detroit Mercy',
@@ -241,7 +242,20 @@ namespace :cbb do
 			'Miami (FL)' => 'Miami',
 			'Middle Tennessee State' => 'Middle Tennessee',
 			"Mount St. Mary's" => "Mt. St. Mary's",
-			'N.J.I.T' => 'NJIT',
-			'Nicholls State' => 'Nicholls'
+			'N.J.I.T.' => 'NJIT',
+			'Nicholls State' => 'Nicholls',
+			'San Jose State' => 'San José St',
+			'Southeast Missouri State' => 'SE Missouri St',
+			'Southeastern Louisiana' => 'SE Louisiana',
+			'Southern Methodist' => 'SMU',
+      'Southern Mississippi' => 'Southern Miss',
+      'St. Francis (NY)' => 'St. Francis (BKN)',
+      'Tennessee-Martin' => 'UT Martin',
+      'Texas Christian' => 'TCU',
+      'Texas-Arlington' => 'UT Arlington',
+      'Texas-RGV' => 'UT Rio Grande Valley',
+      'Texas-San Antonio' => 'UTSA',
+      'USC Upstate' => 'South Carolina Upstate',
+      'Virginia Military' => 'VMI'
 	}
 end
