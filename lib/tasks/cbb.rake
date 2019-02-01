@@ -207,7 +207,7 @@ namespace :cbb do
 			players = team_doc.css("tbody tr")
 			players.each do |player|
 				next if player.children[15]['rel'] != '2019'
-        player_name = player.children[1].text
+        player_name = player.children[1].text.squish
 				birthday = player.children[9].text
         player_name = player_name.remove(',')
         player_name = @player_name[player_name] if @player_name[player_name]
@@ -219,11 +219,7 @@ namespace :cbb do
           }
           missing_players.push(missing_player)
         end
-       #  puts team_name
-       #  puts player_name
        #  puts birthday
-       #  puts matched_player.inspect
-			 # Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team_name: team_name)
 			end
     end
     puts missing_players.inspect
