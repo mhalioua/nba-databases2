@@ -210,7 +210,7 @@ namespace :cbb do
         player_name = player.children[1].text.squish
 				birthday = player.children[9].text
         player_name = player_name.remove(',')
-        player_name = @player_another_name[player_name] if @player_another_name[player_name]
+        player_name = @cbb_player_name[player_name] if @cbb_player_name[player_name]
 			 	matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
         unless matched_player
           missing_player = {
@@ -264,11 +264,14 @@ namespace :cbb do
       'Virginia Military' => 'VMI'
 	}
 
-  @player_another_name = {
+  @cbb_player_name = {
       'Christopher Joyce' => 'Chris Joyce',
       "Charles O'Briant" => "Charlie O'Briant",
       'Ryan Swan-Ford' => 'Ryan Swan',
       'Loren Jackson' => 'Loren Cristian Jackson',
-      'Lepear Toles' => 'LePear Toles'
+      'Lepear Toles' => 'LePear Toles',
+      'Kira Lewis' => 'Kira Lewis Jr.',
+      'Herb Jones' => 'Herbert Jones',
+      'Walter Jones' => 'Walter Jones Jr.'
   }
 end
