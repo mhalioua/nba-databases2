@@ -217,6 +217,8 @@ namespace :cbb do
               'team_name' => team_name,
               'player_name' => player_name
           }
+          puts player_name
+          puts @player_name[player_name]
           puts missing_player
           break
           missing_players.push(missing_player)
