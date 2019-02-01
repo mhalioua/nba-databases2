@@ -229,11 +229,19 @@ namespace :cbb do
 
   task :duplicate => :environment do
     include Api
-    players = CbbPlayer.where("ave_mins is null AND player_class is null")
+    # players = CbbPlayer.where("ave_mins is null AND player_class is null")
+    # players.each do |player|
+    #   matched = CbbPlayer.where("player_name = ? AND link >= ?", player.player_name, player.link)
+    #   if matched.count(:id) > 1
+    #     player.delete
+    #   end
+    # end
+
+    players = CbbPlayer.all
     players.each do |player|
       matched = CbbPlayer.where("player_name = ? AND link >= ?", player.player_name, player.link)
       if matched.count(:id) > 1
-        player.delete
+        puts player.player_name
       end
     end
   end
