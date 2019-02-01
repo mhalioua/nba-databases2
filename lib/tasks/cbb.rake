@@ -209,6 +209,7 @@ namespace :cbb do
 				next if player.children[15]['rel'] != '2019'
         player_name = player.children[1].text.squish
 				birthday = player.children[9].text
+        next if birthday == '--'
         player_name = player_name.remove(',')
         player_name = @cbb_player_name[player_name] if @cbb_player_name[player_name]
 			 	matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
@@ -272,6 +273,13 @@ namespace :cbb do
       'Lepear Toles' => 'LePear Toles',
       'Kira Lewis' => 'Kira Lewis Jr.',
       'Herb Jones' => 'Herbert Jones',
-      'Walter Jones' => 'Walter Jones Jr.'
+      'Walter Jones' => 'Walter Jones Jr.',
+      'A.J. Farrar' => 'AJ Farrar',
+      'Leon Freeman-Daniels' => 'Leon Daniels',
+      'Reggie Gee' => 'Reginald Gee',
+      'Jabriel Allen' => 'Khari Jabriel Allen',
+      'Deshaw Andrews' => 'DeShaw Andrews',
+      'TyQuayion Smith' => 'TyQuaylon Smith'
+
   }
 end
