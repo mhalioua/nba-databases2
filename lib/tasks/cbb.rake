@@ -209,7 +209,7 @@ namespace :cbb do
 				next if player.children[15]['rel'] != '2019'
         player_name = player.children[1].text.squish
 				birthday = player.children[9].text
-        next if birthday == '--'
+        next if birthday == '-'
         player_name = player_name.remove(',')
         player_name = @cbb_player_name[player_name] if @cbb_player_name[player_name]
 			 	matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
@@ -219,8 +219,9 @@ namespace :cbb do
               'player_name' => player_name
           }
           missing_players.push(missing_player)
+          # next
         end
-       #  puts birthday
+				# matched_player.update(birthday: birthday)
 			end
     end
     puts missing_players.inspect
