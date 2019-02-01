@@ -236,14 +236,16 @@ namespace :cbb do
     #     player.delete
     #   end
     # end
+    names = []
 
     players = CbbPlayer.all
     players.each do |player|
       matched = CbbPlayer.where("player_name = ? AND link >= ?", player.player_name, player.link)
       if matched.count(:id) > 1
-        puts player.player_name
+        names.push(player.link)
       end
     end
+    puts names
   end
 
 	@team_name = {
