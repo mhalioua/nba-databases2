@@ -1,7 +1,22 @@
 namespace :cbb do
 
 	task :daily => :environment do
-		date = Date.yesterday
+		date = Date.today - 5.days
+		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
+		Rake::Task["cbb:getDate"].reenable
+
+
+		date = Date.today - 6.days
+		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
+		Rake::Task["cbb:getDate"].reenable
+
+
+		date = Date.today - 7.days
+		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
+		Rake::Task["cbb:getDate"].reenable
+
+
+		date = Date.today - 8.days
 		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
 		Rake::Task["cbb:getDate"].reenable
 
@@ -185,7 +200,7 @@ namespace :cbb do
 		team_links.each do |team_link|
 			team_name = team_link.text
 			matched_team = CbbTeam.find_by(name: team_name)
-      puts matched_team
+      puts team_name unless matched_team
 			# team_url = 'https://basketball.realgm.com' + team_link['href'] + 'players'
 			# team_doc = download_document(team_url)
 			# players = team_doc.css("tbody tr")
@@ -202,5 +217,30 @@ namespace :cbb do
 			# 	# Cbb.find_or_create_by(player: player.children[1].text, birthdate: player.children[9].text, team_name: team_name)
 			# end
 		end
-	end
+  end
+
+	@team_name = {
+			'American University' => 'American',
+			'Brigham Young' => 'BYU',
+			'Cal State Bakersfield' => 'CSU Bakersfield',
+			'Cal State Fullerton' => 'CSU Fullerton',
+			'Cal State Northridge' => 'CSU Northridge',
+			'Citadel' => 'The Citadel',
+			'Connecticut' => 'UConn',
+			'Detroit-Mercy' => 'Detroit Mercy',
+			'Fort Wayne' => 'Purdue Fort Wayne',
+			'Grambling State' => 'Grambling',
+			'Hawaii' => "Hawai'i",
+			'Illinois-Chicago' => 'UIC',
+			'Long Island' => 'LIU Brooklyn',
+			'Louisiana-Monroe' => 'UL Monroe',
+			'Loyola (IL)' => 'Loyola-Chicago',
+			'Massachusetts' => 'UMass',
+			'McNeese State' => 'McNeese',
+			'Miami (FL)' => 'Miami',
+			'Middle Tennessee State' => 'Middle Tennessee',
+			"Mount St. Mary's" => "Mt. St. Mary's",
+			'N.J.I.T' => 'NJIT',
+			'Nicholls State' => 'Nicholls'
+	}
 end
