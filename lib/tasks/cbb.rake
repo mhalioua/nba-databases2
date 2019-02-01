@@ -199,6 +199,7 @@ namespace :cbb do
 		team_links = doc.css("tbody tr td:first-child a")
 		team_links.each do |team_link|
 			team_name = team_link.text
+      team_name = @team_name[team_name] if @team_name[team_name]
 			matched_team = CbbTeam.find_by(name: team_name)
       puts team_name unless matched_team
 			# team_url = 'https://basketball.realgm.com' + team_link['href'] + 'players'
