@@ -209,6 +209,8 @@ namespace :cbb do
 				next if player.children[15]['rel'] != '2019'
         player_name = player.children[1].text
 				birthday = player.children[9].text
+        player_name = player_name.remove(',')
+        player_name = @player_name[player_name] if @player_name[player_name]
 			 	matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
         unless matched_player
           missing_player = {
@@ -225,27 +227,6 @@ namespace :cbb do
 			end
     end
     puts missing_players.inspect
-  end
-
-  task :duplicate => :environment do
-    include Api
-    # players = CbbPlayer.where("ave_mins is null AND player_class is null")
-    # players.each do |player|
-    #   matched = CbbPlayer.where("player_name = ? AND link >= ?", player.player_name, player.link)
-    #   if matched.count(:id) > 1
-    #     player.delete
-    #   end
-    # end
-    names = []
-
-    players = CbbPlayer.all
-    players.each do |player|
-      matched = CbbPlayer.where("player_name = ? AND link = ?", player.player_name, player.link)
-      if matched.count(:id) > 1
-        names.push(player.link)
-      end
-    end
-    puts names
   end
 
 	@team_name = {
