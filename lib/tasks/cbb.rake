@@ -227,6 +227,17 @@ namespace :cbb do
     puts missing_players.inspect
   end
 
+  task :duplicate => :environment do
+    include Api
+    players = CbbPlayer.where("ave_mins is null AND player_class is null")
+    players.each do |player|
+      matched = CbbPlayer.where("player_name = ? AND link >= ?", player.player_name, player.link)
+      if matched.count(:id) > 1
+        player.delete
+      end
+    end
+  end
+
 	@team_name = {
 			'American University' => 'American',
 			'Brigham Young' => 'BYU',
@@ -265,4 +276,12 @@ namespace :cbb do
       'USC Upstate' => 'South Carolina Upstate',
       'Virginia Military' => 'VMI'
 	}
+
+  @player_name = {
+      'Christopher Joyce' => 'Chris Joyce',
+      "Charles O'Briant" => "Charlie O'Briant",
+      'Ryan Swan-Ford' => 'Ryan Swan',
+      'Loren Jackson' => 'Loren Cristian Jackson',
+      'Lepear Toles' => 'LePear Toles'
+  }
 end
