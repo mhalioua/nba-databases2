@@ -213,12 +213,12 @@ namespace :cbb do
         player_name = @player_name[player_name] if @player_name[player_name]
 			 	matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
         unless matched_player
-          puts missing_player
-          break
           missing_player = {
               'team_name' => team_name,
               'player_name' => player_name
           }
+          puts missing_player
+          break
           missing_players.push(missing_player)
         end
        #  puts birthday
