@@ -209,7 +209,7 @@ namespace :cbb do
 				next if player.children[15]['rel'] != '2019'
         player_name = player.children[1].text
 				birthday = player.children[9].text
-			 	matched_player = CbbPlayer.find_by(player_name: player_name, team_id: matched_team.id)
+			 	matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
         puts player_name unless matched_player
        #  puts team_name
        #  puts player_name
