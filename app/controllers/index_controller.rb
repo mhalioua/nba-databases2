@@ -25,15 +25,15 @@ class IndexController < ApplicationController
     @start_date = @today - 4.days
     @end_date = @today + 4.days
     while @start_date <= @end_date
-      @sub_date = @start_date.strftime("%b %e")
+      @sub_date = @start_date.strftime("%b %-d")
 
-      @cbb_players = CbbPlayer.where("birthdate like '" + @start_date.strftime("%b %e") + "%'")
+      @cbb_players = CbbPlayer.where("birthdate like '" + @start_date.strftime("%b %-d") + "%'")
       if @cbb_players.length != 0
         @cbb_players.each_with_index do |cbb_player, index|
           if index == 0
             @records.push({
                 current: @today,
-                date: @start_date.strftime("%^A %^b %e"),
+                date: @start_date.strftime("%^A %^b %-d"),
                 player: cbb_player
             })
           else
@@ -47,7 +47,7 @@ class IndexController < ApplicationController
       else
         @records.push({
             current: @start_date,
-            date: @start_date.strftime("%^A %^b %e"),
+            date: @start_date.strftime("%^A %^b %-d"),
             player: 'NONE'
         })
       end
