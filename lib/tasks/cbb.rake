@@ -290,7 +290,6 @@ namespace :cbb do
 		url = "https://basketball.realgm.com/ncaa/teams"
 		doc = download_document(url)
 		team_links = doc.css("tbody tr td:first-child a")
-    missing_players = []
 		team_links.each do |team_link|
 			team_name = team_link.text
       team_name = @team_name[team_name] if @team_name[team_name]
@@ -326,18 +325,11 @@ namespace :cbb do
 					player_name = player_name.remove(' III')
 					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team_id)
 				end
-        unless matched_player
-          missing_player = {
-              'team_name' => team_name,
-              'player_name' => player.children[1].text.squish
-          }
-          missing_players.push(missing_player)
-          # next
+        if matched_player
+					matched_player.update(birthday: birthday)
         end
-				# matched_player.update(birthday: birthday)
 			end
     end
-    puts missing_players.inspect
   end
 
 	@team_name = {
