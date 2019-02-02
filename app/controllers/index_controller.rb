@@ -30,12 +30,10 @@ class IndexController < ApplicationController
       @cbb_players = []
       @cbb_games = CbbGame.where("game_date between ? and ?", @start_date.beginning_of_day, @start_date.end_of_day)
       @cbb_games.each do |cbb_game|
-        @cbb_records = CbbRecord.find_by(cbb_game_id: cbb_game.id)
-        @cbb_records.each do |cbb_record|
-          @cbb_player = CbbPlayer.find_by(id: cbb_record.cbb_player_id)
-          if @cbb_player.birthdate.include?(@start_date.strftime("%b %e"))
-              @cbb_players.push(@cbb_player)
-          end
+        @cbb_record = CbbRecord.find_by(cbb_game_id: cbb_game.id)
+        @cbb_player = CbbPlayer.find_by(id: @cbb_record.cbb_player_id)
+        if @cbb_player.birthdate.include?(@start_date.strftime("%b %e"))
+            @cbb_players.push(@cbb_player)
         end
       end
       if @cbb_players.length
