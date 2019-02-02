@@ -27,32 +27,29 @@ class IndexController < ApplicationController
     while @start_date <= @end_date
       @sub_date = @start_date.strftime("%b %e")
 
-      @cbb_players = []
+     @cbb_flag = false
       @cbb_games = CbbGame.where("game_date between ? and ?", @start_date.beginning_of_day, @start_date.end_of_day)
       @cbb_games.each do |cbb_game|
         @cbb_records = CbbRecord.where(cbb_game_id: cbb_game.id)
         @cbb_records.each do |cbb_record|
           @cbb_player = CbbPlayer.find_by(id: cbb_record.cbb_player_id)
           if @cbb_player && @cbb_player.birthdate && @cbb_player.birthdate.include?(@sub_date)
-              @cbb_players.push(@cbb_player)
+            if @cbb_flag = true
+              @records.push({
+                  date: @start_date.strftime("%^A %^b %e"),
+                  player: @cbb_player
+              })
+            else
+              @records.push({
+                  date: '-',
+                  player: @cbb_player
+              })
+            end
+            @cbb_flag = true
           end
         end
       end
-      if @cbb_players.length
-        @cbb_players.each_with_index do |cbb_player, index|
-          if index == 0
-            @records.push({
-                date: @start_date.strftime("%^A %^b %e"),
-                player: cbb_player
-            })
-          else
-            @records.push({
-                date: '-',
-                player: cbb_player
-            })
-          end
-        end
-      else
+      if !@cbb_flag
         @records.push({
             date: @start_date.strftime("%^A %^b %e"),
             player: 'NONE'
