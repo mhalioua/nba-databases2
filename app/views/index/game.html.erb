@@ -833,6 +833,26 @@
           <% (0..7).each do |index| %>
             <td>-</td>
           <% end %>
+
+          <% next_cbb_record = CbbRecord.where("cbb_team_id = " + record[:player].cbb_team_id + " AND game_date >= '" + record[:current]).order('game_date DESC') %>
+          <% if next_cbb_record.length %>
+            <td style="display:none"><%= Date.strptime(next_cbb_record[0].game_date).strftime("%^b %e") %></td>
+            <% next_record = CbbRecord.find_by(game_date: next_cbb_record[0].game_date, cbb_player_id: record[:player].id) %>
+            <% if next_record %>
+              <td style="display:none">YES</td>
+              <td style="display:none"><%= next_record.min %></td>
+              <td style="display:none"><%= next_record.score %></td>
+            <% else %>
+              <td style="display:none">NO</td>
+              <td style="display:none">-</td>
+              <td style="display:none">-</td>
+            <% end %>
+          <% else %>
+            <% (0..4).each do |index| %>
+              <td style="display:none">-</td>
+            <% end %>
+          <% end %>
+
           <% last_cbb_record = CbbRecord.where("cbb_team_id = " + record[:player].cbb_team_id + " AND game_date >= '" + record[:current]).order('game_date DESC') %>
           <% if last_cbb_record.length %>
             <td style="display:none"><%= Date.strptime(last_cbb_record[0].game_date).strftime("%^b %e") %></td>
