@@ -190,98 +190,17 @@ namespace :cbb do
     end
   end
 
-	task :createCBBPlayer => :environment do
-		matched_team = CbbTeam.find_by(name: 'Howard')
-    if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Dalique Mingo', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3158613')
-    end
-
-		matched_team = CbbTeam.find_by(name: 'LSU')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Wayde Sims', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4066274')
-			CbbPlayer.find_or_create_by(player_name: 'Noah Thomas', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3906794')
-    end
-
-		matched_team = CbbTeam.find_by(name: 'Memphis')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Karim Sameh Azab', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4072218')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Miami')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Miles Wilson', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4067911')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Michigan')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Naji Ozeir', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4277959')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Nevada')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Josiah Wood', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4287773')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'North Carolina A&T')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Japhet Kadji', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3136087')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Notre Dame')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Elijah Burns', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3908337')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Ohio')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Jaylin McDonald', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3951750')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Ole Miss')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Eric Horn', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4278087')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Rhode Island')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Mike Layssard', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4066787')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'San Francisco')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Mladen Djordjevic', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3918791')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Seattle')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Matthew Owies', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4066913')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Stephen F. Austin')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Harrison Perkins', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4278340')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'UT Arlington')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Deon Barrett', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4067071')
+  task :duplicatePlayer => :environment do
+		players = CbbPlayer.all
+		players.each do |player|
+			next unless player.link
+			dup = CbbPlayer.where(link: player.link)
+      if dup.count(:id) > 1
+        puts player.link
+      end
 		end
   end
+
 
 	task :getCBBPlayer => :environment do
 		include Api
