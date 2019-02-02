@@ -151,28 +151,32 @@ namespace :cbb do
       link = team.link
       next unless link
 
-      # team_stats = 'http://www.espn.com' + link.gsub('_', 'stats/_')
-      # doc = download_document(team_stats)
-      # elements = doc.css("tr")
-      # elements.each do |slice|
-				# next if slice.children.size < 12
-      #   next if slice.children[0].text == 'Player'
-      #   break if slice.children[0].text == 'Totals'
-      #
-      #   player_link = slice.children[0].children[0]['href']
-      #   player_link_break = player_link.rindex('/')
-      #   player_link = player_link[0..player_link_break-1] if player_link_break
-      #   player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
-      #   player.update(ave_mins: slice.children[2].text)
-      # end
+      team_stats = 'http://www.espn.com' + link.gsub('_', 'stats/_')
+      puts team_stats
+      doc = download_document(team_stats)
+      elements = doc.css('tr td tbody tr td')
+      records = doc.css('tr tr td tbody tr')
+      elements.each_with_index do |element, index|
+				break if element.text == 'Total'
+
+        player_link = slice.children[0].children[0]['href']
+        player_link_break = player_link.rindex('/')
+        player_link = player_link[0..player_link_break-1] if player_link_break
+        puts player_link
+        puts records[index].children[1].text
+        # player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
+        # player.update(ave_mins: slice.children[2].text)
+      end
 
 			team_roster = 'http://www.espn.com' + link.gsub('_', 'roster/_')
 			doc = download_document(team_roster)
 			elements = doc.css("tr tr tbody tr")
 			elements.each do |slice|
 				player_link = slice.children[1].children[0].children[0]['href']
-				player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
-				player.update(player_class: slice.children[5].children[0].text)
+        puts player_link
+        puts slice.children[5].children[0].text
+				# player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
+				# player.update(player_class: slice.children[5].children[0].text)
 			end
     end
   end
