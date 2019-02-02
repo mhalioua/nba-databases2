@@ -159,7 +159,7 @@ namespace :cbb do
       elements.each_with_index do |element, index|
 				break if element.text == 'Total'
 
-        player_link = slice.children[0].children[0]['href']
+        player_link = element.children[0].children[0]['href']
         player_link_break = player_link.rindex('/')
         player_link = player_link[0..player_link_break-1] if player_link_break
         puts player_link
