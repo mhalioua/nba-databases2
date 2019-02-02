@@ -22,8 +22,8 @@ class IndexController < ApplicationController
 
     @today = Date.strptime(@game_start_index)
     @records = []
-    @start_date = @today - 4.days
-    @end_date = @today + 4.days
+    @start_date = @today - 10.days
+    @end_date = @today + 10.days
     while @start_date <= @end_date
       @sub_date = @start_date.strftime("%b %e")
 
