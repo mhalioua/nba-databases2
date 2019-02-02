@@ -376,6 +376,6 @@ namespace :cbb do
       'Francisco Alonso' => 'Francis Alonso',
       'Kenny Nwuba' => 'Kenneth Nwuba',
 			"Ar'mond Davis" => "Ar'Mond Davis",
-      'Tamell Peason' =>﻿'Tamell Pearson'
+      "Tamell Peason" => "Tamell Pearson"
   }
 end
