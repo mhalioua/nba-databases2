@@ -34,7 +34,7 @@ class IndexController < ApplicationController
         @cbb_records.each do |cbb_record|
           @cbb_player = CbbPlayer.find_by(id: cbb_record.cbb_player_id)
           if @cbb_player && @cbb_player.birthdate && @cbb_player.birthdate.include?(@sub_date)
-            if @cbb_flag = true
+            if @cbb_flag
               @records.push({
                   date: @start_date.strftime("%^A %^b %e"),
                   player: @cbb_player
