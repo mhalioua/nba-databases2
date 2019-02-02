@@ -322,6 +322,14 @@ namespace :cbb do
       'Danilo Djurick' => 'Danilo Djuricic',
       'Brandon Kamga' => 'Brandonn Kamga',
       'Clifford Thomas' => 'Cliff Thomas Jr.',
-
+			'Charlie Thomas' => 'Charles Thomas IV',
+      'DeSean Murray' => 'Desean Murray',
+      'Doc Nelson' => 'Ricky Nelson',
+      'Mike Wynn' => 'Michael Wynn',
+      "Mike'l Simms" => "Mike'L Simms",
+      'Vincent Williams' => 'Vince Williams',
+      'Max Evans' => 'Maxwell Evans',
+			'Simi Shittu' => 'Simisola Shittu',
+      'Baker Evelyn' => 'Bakari Evelyn'
   }
 end
