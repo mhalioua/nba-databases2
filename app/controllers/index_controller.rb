@@ -27,7 +27,7 @@ class IndexController < ApplicationController
     while @start_date <= @end_date
       @sub_date = @start_date.strftime("%b %-d")
 
-      @cbb_players = CbbPlayer.where("birthdate like '" + @start_date.strftime("%b %-d") + "%'")
+      @cbb_players = CbbPlayer.where("birthdate like '" + @start_date.strftime("%b %-d") + ",%'")
       if @cbb_players.length != 0
         @cbb_players.each_with_index do |cbb_player, index|
           if index == 0
