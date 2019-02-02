@@ -825,11 +825,11 @@
             <td>-</td>
           <% end %>
         <% else %>
-          <%= record[:player].player_name %>
-          <%= record[:player].player_class ? record[:player].player_class : '-' %>
-          <%= record[:player].ave_mins ? record[:player].ave_mins : '-' %>
+          <td><%= record[:player].player_name %></td>
+          <td><%= record[:player].player_class ? record[:player].player_class : '-' %></td>
+          <td><%= record[:player].ave_mins ? record[:player].ave_mins : '-' %></td>
           <% cbb_team = CbbTeam.find_by(id: record[:player].cbb_team_id) %>
-          <%= cbb_team.name %>
+          <td><%= cbb_team.name %></td>
           <% (0..9).each do |index| %>
             <td>-</td>
           <% end %>
