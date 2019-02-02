@@ -33,7 +33,7 @@ class IndexController < ApplicationController
         @cbb_records = CbbRecord.where(cbb_game_id: cbb_game.id)
         @cbb_records.each do |cbb_record|
           @cbb_player = CbbPlayer.find_by(id: cbb_record.cbb_player_id)
-          if @cbb_player.birthdate && @cbb_player.birthdate.include?(@sub_date)
+          if @cbb_player && @cbb_player.birthdate && @cbb_player.birthdate.include?(@sub_date)
               @cbb_players.push(@cbb_player)
           end
         end
