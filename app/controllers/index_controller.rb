@@ -32,13 +32,13 @@ class IndexController < ApplicationController
         @cbb_players.each_with_index do |cbb_player, index|
           if index == 0
             @records.push({
-                current: @start_date,
+                current: @today,
                 date: @start_date.strftime("%^A %^b %e"),
                 player: cbb_player
             })
           else
             @records.push({
-                current: @start_date,
+                current: @today,
                 date: '-',
                 player: cbb_player
             })
