@@ -834,7 +834,7 @@
             <td>-</td>
           <% end %>
 
-          <% next_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date <= '" + record[:current].beginning_of_day + "'").order('game_date ASC') %>
+          <% next_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date < ?", record[:current].beginning_of_day).order('game_date ASC') %>
           <% if next_cbb_record.length %>
             <td style="display:none"><%= Date.strptime(next_cbb_record[0].game_date).strftime("%^b %e") %></td>
             <% next_record = CbbRecord.find_by(game_date: next_cbb_record[0].game_date, cbb_player_id: record[:player].id) %>
@@ -853,7 +853,7 @@
             <% end %>
           <% end %>
 
-          <% last_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date >= '" + record[:current].end_of_day + "'").order('game_date DESC') %>
+          <% last_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date >= ?" , record[:current].end_of_day).order('game_date DESC') %>
           <% if last_cbb_record.length %>
             <td style="display:none"><%= Date.strptime(last_cbb_record[0].game_date).strftime("%^b %e") %></td>
             <% last_record = CbbRecord.find_by(game_date: last_cbb_record[0].game_date, cbb_player_id: record[:player].id) %>
