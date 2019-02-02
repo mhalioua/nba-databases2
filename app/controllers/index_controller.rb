@@ -28,7 +28,7 @@ class IndexController < ApplicationController
       @sub_date = @start_date.strftime("%b %e")
 
       @cbb_players = CbbPlayer.where("birthdate like '" + @start_date.strftime("%b %e") + "%'")
-      if @cbb_players.length
+      if @cbb_players.length != 0
         @cbb_players.each_with_index do |cbb_player, index|
           if index == 0
             @records.push({

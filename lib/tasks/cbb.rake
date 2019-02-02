@@ -1,7 +1,7 @@
 namespace :cbb do
 
 	task :daily => :environment do
-    (-30..30).each do |element|
+    (-2..10).each do |element|
 			date = Date.today + element.days
 			Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
 			Rake::Task["cbb:getDate"].reenable
