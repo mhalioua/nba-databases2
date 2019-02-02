@@ -797,7 +797,7 @@
   });
 </script>
 
-<table>
+<table border="1">
   <thead>
   <tr>
     <td>DATE</td>
@@ -821,7 +821,7 @@
         <td><%= record[:date] %></td>
         <% if record[:player] == 'NONE' %>
           <td>NONE</td>
-          <% (0..12).each do |index| %>
+          <% (0..10).each do |index| %>
             <td>-</td>
           <% end %>
         <% else %>
@@ -830,7 +830,7 @@
           <td><%= record[:player].ave_mins ? record[:player].ave_mins : '-' %></td>
           <% cbb_team = CbbTeam.find_by(id: record[:player].cbb_team_id) %>
           <td><%= cbb_team.name %></td>
-          <% (0..9).each do |index| %>
+          <% (0..8).each do |index| %>
             <td>-</td>
           <% end %>
         <% end %>
