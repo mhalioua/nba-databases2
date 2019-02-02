@@ -1,41 +1,11 @@
 namespace :cbb do
 
 	task :daily => :environment do
-		date = Date.today - 1.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-		date = Date.today - 2.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-		date = Date.today - 3.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-		date = Date.today - 4.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-		date = Date.today + 1.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-		date = Date.today + 2.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-		date = Date.today + 3.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-		date = Date.today + 4.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-    date = Date.today
-    Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-    Rake::Task["cbb:getDate"].reenable
+    (-30..30).each do |element|
+			date = Date.today + element.days
+			Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
+			Rake::Task["cbb:getDate"].reenable
+    end
   end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
