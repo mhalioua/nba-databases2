@@ -821,7 +821,7 @@
         <td><%= record[:date] %></td>
         <% if record[:player] == 'NONE' %>
           <td>NONE</td>
-          <% (0..10).each do |index| %>
+          <% (0..9).each do |index| %>
             <td>-</td>
           <% end %>
         <% else %>
@@ -830,9 +830,28 @@
           <td><%= record[:player].ave_mins ? record[:player].ave_mins : '-' %></td>
           <% cbb_team = CbbTeam.find_by(id: record[:player].cbb_team_id) %>
           <td><%= cbb_team.name %></td>
-          <% (0..8).each do |index| %>
+          <% (0..7).each do |index| %>
             <td>-</td>
           <% end %>
+          <% last_cbb_record = CbbRecord.where("cbb_team_id = " + record[:player].cbb_team_id + " AND game_date >= '" + record[:current]).order('game_date DESC') %>
+          <% if last_cbb_record.length %>
+            <%= Date.strptime(last_cbb_record[0].game_date).strftime("%^b %e") %>
+            <% last_record = CbbRecord.find_by(game_date: last_cbb_record[0].game_date, cbb_player_id: record[:player].id) %>
+            <% if last_record %>
+              <td style="display:none">YES</td>
+              <%= last_record.min %>
+              <%= last_record.score %>
+              <% else %>
+              <td style="display:none">NO</td>
+              <td style="display:none">-</td>
+              <td style="display:none">-</td>
+            <% end %>
+          <% else %>
+            <% (0..4).each do |index| %>
+              <td style="display:none">-</td>
+            <% end %>
+          <% end %>
+
         <% end %>
       </tr>
     <% end %>
