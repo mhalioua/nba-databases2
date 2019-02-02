@@ -193,11 +193,96 @@ namespace :cbb do
   end
 
 	task :createCBBPlayer => :environment do
-		matched_team = CbbTeam.find_by(name: 'Akron')
+		matched_team = CbbTeam.find_by(name: 'Howard')
     if matched_team
 			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Eric Hester', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4066256')
+			CbbPlayer.find_or_create_by(player_name: 'Dalique Mingo', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3158613')
     end
+
+		matched_team = CbbTeam.find_by(name: 'LSU')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Wayde Sims', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4066274')
+			CbbPlayer.find_or_create_by(player_name: 'Noah Thomas', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3906794')
+    end
+
+		matched_team = CbbTeam.find_by(name: 'Memphis')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Karim Sameh Azab', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4072218')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'Miami')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Miles Wilson', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4067911')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'Michigan')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Naji Ozeir', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4277959')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'Nevada')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Josiah Wood', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4287773')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'North Carolina A&T')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Japhet Kadji', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3136087')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'Notre Dame')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Elijah Burns', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3908337')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'Ohio')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Jaylin McDonald', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3951750')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'Ole Miss')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Eric Horn', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4278087')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'Rhode Island')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Mike Layssard', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4066787')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'San Francisco')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Mladen Djordjevic', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3918791')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'Seattle')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Matthew Owies', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4066913')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'Stephen F. Austin')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Harrison Perkins', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4278340')
+		end
+
+		matched_team = CbbTeam.find_by(name: 'UT Arlington')
+		if matched_team
+			matched_team_id = matched_team.id
+			CbbPlayer.find_or_create_by(player_name: 'Deon Barrett', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4067071')
+		end
   end
 
 	task :getCBBPlayer => :environment do
@@ -352,7 +437,7 @@ namespace :cbb do
       'Luke Garza' => 'Luka Garza',
       'Nicholas Hobbs' => 'Nicolas Hobbs',
 			'Mitchell Lightfoot' => 'Mitch Lightfoot',
-      'Pierson Mcatee' => 'Pierson Mcatee',
+      'Pierson Mcatee' => 'Pierson McAtee',
       'B.J. Dulling' => 'BJ Duling',
 			'Dave Beatty' => 'David Beatty',
 			'Jorge Pacheco-Ortiz' => 'Georgie Pacheco-Ortiz',
@@ -367,7 +452,7 @@ namespace :cbb do
 			"Ja'Vonte Smart" => "Ja'vonte Smart",
       'Tom Capuano' => 'Thomas Capuano',
       'Matt Glassman' => 'Matthew Glassman',
-      'Anthony Lawrence, Jr.' => 'Anthony Lawrence II',
+      'Anthony Lawrence Jr.' => 'Anthony Lawrence II',
       'Connor George' => 'Conner George',
       'Josh Langford' => 'Joshua Langford',
 			"Chuck O'Bannon Jr." => "Charles O'Bannon Jr.",
@@ -376,6 +461,42 @@ namespace :cbb do
       'Francisco Alonso' => 'Francis Alonso',
       'Kenny Nwuba' => 'Kenneth Nwuba',
 			"Ar'mond Davis" => "Ar'Mond Davis",
-      "Tamell Peason" => "Tamell Pearson"
-  }
+      "Tamell Peason" => "Tamell Pearson",
+      "Bejamin Litteken" => 'Benjamin Litteken',
+			'Will Sessoms' => 'Wil Sessoms',
+      'Torrance Watson' => 'Torrence Watson',
+      'Joshua Webster' => 'Josh Webster',
+      'Kjell De Graff' => 'Kjell de Graaf',
+      'Thorir Thorbjarnarsson' => 'Thorir Thorbjarnarson',
+			"Karim Ezzedine" => 'Karim Ezzeddine',
+      'Qua Copeland' => 'Quavius Copeland',
+      'Reggie Garnder' => 'Reggie Gardner Jr.',
+  		'Brian Coffey Jr.' => 'Brian Coffey II',
+      'Cameron Copeland' => 'Cam Copeland',
+      'Victor Law' => 'Vic Law',
+      'Vontay Ott' => 'Vonte Ott',
+      'A.J. Oliver' => 'Anthony Oliver II',
+      'Alfredos Pilavios' => 'Alfis Pilavios',
+      'Stevie Thompson' => 'Stephen Thompson Jr.',
+      'Jahbril Pryce-Noel' => 'Jahbril Price-Noel',
+			"Sidy N'dir" => "Sidy N'Dir",
+      'B.J. Martin' => 'Robert Martin',
+			"Izayah Mauriohooho Le'Afa" => "Izayah Mauriohooho-Le'afa",
+			"Jarel Spellman" => "Jare'l Spellman",
+      'Ingvi Thor Gudmundsson' => 'Ingvi Gudmundsson',
+      'Craig Lecesne' => 'Craig LeCesne',
+      'Mattia Campo' => 'Mattia Da Campo',
+			"Trey'von Hopkins" => 'Trey Hopkins',
+      'Matthew Johns' => 'Matt Johns',
+			"David Ndiaye" => "Daouda N'Diaye",
+			"Marvin Clark Jr." => 'Marvin Clark II',
+      'Kezie Okpala' => 'KZ Okpala',
+      'OShae Brissett' => 'Oshae Brissett',
+      'Donte Fitzpatrick' => 'Donte Fitzpatrick-Dorsey',
+      'DelFincko Bogan' => 'Delfincko Bogan',
+      'Trent Williams' => 'Trenten Williams',
+			"Kerwin Roach Jr." => 'Kerwin Roach II',
+      'Joshua Mballa' => 'Josh Mballa',
+      "Mike Layssard Jr." => 'Mike Layssard'
+    }
 end
