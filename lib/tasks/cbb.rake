@@ -213,6 +213,15 @@ namespace :cbb do
         player_name = player_name.remove(',')
         player_name = @cbb_player_name[player_name] if @cbb_player_name[player_name]
 			 	matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
+				matched_player = CbbPlayer.find_by(player_name: player_name + ' Jr.', cbb_team_id: matched_team.id) unless matched_player
+				unless matched_player
+					player_name = player_name.remove(' Jr.')
+					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
+        end
+				unless matched_player
+					player_name = player_name.remove('.')
+					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
+				end
         unless matched_player
           missing_player = {
               'team_name' => team_name,
@@ -280,7 +289,30 @@ namespace :cbb do
       'Reggie Gee' => 'Reginald Gee',
       'Jabriel Allen' => 'Khari Jabriel Allen',
       'Deshaw Andrews' => 'DeShaw Andrews',
-      'TyQuayion Smith' => 'TyQuaylon Smith'
+      'TyQuayion Smith' => 'TyQuaylon Smith',
+			'Reginald Johnson Jr.' => 'Reginal Johnson',
+      'Mike Bibby' => 'Michael Bibby',
+      'Lugentz Dort' => 'Luguentz Dort',
+      'Mike Besselink' => 'Michael Besselink',
+      'Darrell Brown Jr.' => 'Darrell Brown',
+      'T.J. Haws' => 'TJ Haws',
+      'Sebastian Townes' => 'SaBastian Townes',
+      'Mantvydas Urmilevicius' => 'Monty Urmilevicius',
+      'C.J. Massinburg' => 'CJ Massinburg',
+      'Jeenathan Williams Jr.' => 'Jeenathan Williams',
+      'Justin Elder-Davis' => 'Justin Edler-Davis',
+      'Rodney Henderson' => 'Rodney Henderson Jr.',
+      'Larry Austin' => 'Larry Austin Jr.',
+  		'Laquill Hardnett' => 'LaQuill Hardnett',
+      'A.J. Martinka' => 'AJ Martinka',
+      'Elijah Parquet' => 'Eli Parquet',
+      'McKinley Wright' => 'McKinley Wright IV',
+      'C.J. Davis' => 'CJ Davis',
+      'Alter Gilbert' => 'Alterique Gilbert',
+      'Mitchell Ballock' => 'Mitch Ballock',
+      'Obi Toppin' => 'Obadiah Toppin',
+      'Ronnie Harrell' => 'Ronnie Harrell Jr.',
+      'Elijah Cain' => 'Eli Cain'
 
   }
 end
