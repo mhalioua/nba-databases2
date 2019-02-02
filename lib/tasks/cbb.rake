@@ -154,14 +154,16 @@ namespace :cbb do
       team_stats = 'http://www.espn.com' + link.gsub('_', 'stats/_')
       puts team_stats
       doc = download_document(team_stats)
-      elements = doc.css('tr td tbody tr td')
-      records = doc.css('tr tr td tbody tr')
-      elements.each_with_index do |element, index|
-				break if element.text == 'Total'
+      if doc
+				elements = doc.css('tr td tbody tr td')
+				records = doc.css('tr tr td tbody tr')
+				elements.each_with_index do |element, index|
+					break if element.text == 'Total'
 
-        player_link = element.children[0].children[0]['href']
-        player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
-        player.update(ave_mins: records[index].children[1].text)
+					player_link = element.children[0].children[0]['href']
+					player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
+					player.update(ave_mins: records[index].children[1].text)
+        end
       end
 
 			team_roster = 'http://www.espn.com' + link.gsub('_', 'roster/_')
