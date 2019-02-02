@@ -330,7 +330,7 @@ namespace :cbb do
 					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team_id)
 				end
         if matched_player
-					matched_player.update(birthday: birthday)
+					matched_player.update(birthdate: birthday)
         end
 			end
     end
