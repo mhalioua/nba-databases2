@@ -323,7 +323,7 @@ namespace :cbb do
       'Cameron Reddish' => 'Cam Reddish',
       'DeAundre Ballard' => 'Deaundrae Ballard',
       'Kevaughn Allen' => 'KeVaughn Allen',
-      'Raysean Scott' => 'RaySean Scott Jr.',
+      'Raysean Scott, Jr.' => 'RaySean Scott Jr.',
   		'Arnaldo Toro Barea' => 'Arnaldo Toro',
       'Joshua LeBlanc' => 'Josh LeBlanc',
       'Jagan Mosley' => 'Jagan Mosely',
@@ -331,7 +331,7 @@ namespace :cbb do
 			'Tank Hemphill' => 'Shanquan Hemphill',
       'Danilo Djurick' => 'Danilo Djuricic',
       'Brandon Kamga' => 'Brandonn Kamga',
-      'Clifford Thomas' => 'Cliff Thomas Jr.',
+      'Clifford Thomas, Jr.' => 'Cliff Thomas Jr.',
 			'Charlie Thomas' => 'Charles Thomas IV',
       'DeSean Murray' => 'Desean Murray',
       'Doc Nelson' => 'Ricky Nelson',
@@ -351,7 +351,14 @@ namespace :cbb do
 			'Jakob Forrester' => 'Jake Forrester',
       'Luke Garza' => 'Luka Garza',
       'Nicholas Hobbs' => 'Nicolas Hobbs',
-
-
+			'Mitchell Lightfoot' => 'Mitch Lightfoot',
+      'Pierson Mcatee' => 'Pierson Mcatee',
+      'B.J. Dulling' => 'BJ Duling',
+			'Dave Beatty' => 'David Beatty',
+			'Jorge Pacheco-Ortiz' => 'Georgie Pacheco-Ortiz',
+      'Zack Flener' => 'Zach Flener',
+      'Temidayo Yussef' => 'Temidayo Yussuf',
+      'Julius Van Sauers' => 'Julius van Sauers',
+      'Daquan Bracey' => 'DaQuan Bracey'
   }
 end
