@@ -227,6 +227,10 @@ namespace :cbb do
 					player_name = player_name.remove(' II')
 					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team_id)
 				end
+				unless matched_player
+					player_name = player_name.remove(' III')
+					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team_id)
+				end
         unless matched_player
           missing_player = {
               'team_name' => team_name,
@@ -298,7 +302,6 @@ namespace :cbb do
       'Mike Besselink' => 'Michael Besselink',
       'Sebastian Townes' => 'SaBastian Townes',
       'Mantvydas Urmilevicius' => 'Monty Urmilevicius',
-      'Jeenathan Williams Jr.' => 'Jeenathan Williams',
       'Justin Elder-Davis' => 'Justin Edler-Davis',
   		'Laquill Hardnett' => 'LaQuill Hardnett',
       'Elijah Parquet' => 'Eli Parquet',
@@ -308,14 +311,17 @@ namespace :cbb do
       'Obi Toppin' => 'Obadiah Toppin',
       'Elijah Cain' => 'Eli Cain',
       'Cameron Reddish' => 'Cam Reddish',
-      'Mike Lewis' => 'Mike Lewis II',
       'DeAundre Ballard' => 'Deaundrae Ballard',
       'Kevaughn Allen' => 'KeVaughn Allen',
       'Raysean Scott' => 'RaySean Scott Jr.',
   		'Arnaldo Toro Barea' => 'Arnaldo Toro',
       'Joshua LeBlanc' => 'Josh LeBlanc',
       'Jagan Mosley' => 'Jagan Mosely',
-      'Will Jackson' => 'William Jackson II'
+      'Will Jackson' => 'William Jackson II',
+			'Tank Hemphill' => 'Shanquan Hemphill',
+      'Danilo Djurick' => 'Danilo Djuricic',
+      'Brandon Kamga' => 'Brandonn Kamga',
+      'Clifford Thomas' => 'Cliff Thomas Jr.',
 
   }
 end
