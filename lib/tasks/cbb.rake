@@ -192,13 +192,15 @@ namespace :cbb do
 
   task :duplicatePlayer => :environment do
 		players = CbbPlayer.all
+    links = []
 		players.each do |player|
 			next unless player.link
 			dup = CbbPlayer.where(link: player.link)
       if dup.count(:id) > 1
-        puts player.link
+        links.push(player.link)
       end
-		end
+    end
+    puts links.inspect
   end
 
 
