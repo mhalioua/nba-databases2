@@ -1,22 +1,7 @@
 namespace :cbb do
 
 	task :daily => :environment do
-		date = Date.today - 5.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-
-		date = Date.today - 6.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-
-		date = Date.today - 7.days
-		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-		Rake::Task["cbb:getDate"].reenable
-
-
-		date = Date.today - 8.days
+		date = Date.today - yesterday
 		Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
 		Rake::Task["cbb:getDate"].reenable
 
@@ -114,7 +99,7 @@ namespace :cbb do
         end
 
         player = CbbPlayer.find_or_create_by(player_name: player_name, link: link, cbb_team_id: away_team.id)
-				record = CbbRecord.find_or_create_by(cbb_player_id: player.id, cbb_game_id: game.id)
+				record = CbbRecord.find_or_create_by(cbb_player_id: player.id, cbb_team_id: away_team.id, cbb_game_id: game.id)
         record.update(min: min_value, score: pts_value, team: 0, order: element)
 			end
 
@@ -138,7 +123,7 @@ namespace :cbb do
           pts_value = slice.children[13].text.to_i
         end
 				player = CbbPlayer.find_or_create_by(player_name: player_name, link: link, cbb_team_id: home_team.id)
-				record = CbbRecord.find_or_create_by(cbb_player_id: player.id, cbb_game_id: game.id)
+				record = CbbRecord.find_or_create_by(cbb_player_id: player.id, cbb_team_id: away_team.id, cbb_game_id: game.id)
 				record.update(min: min_value, score: pts_value, team: 1, order: element)
 			end
 		end

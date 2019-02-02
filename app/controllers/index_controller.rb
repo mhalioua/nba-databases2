@@ -19,6 +19,47 @@ class IndexController < ApplicationController
 
     @games = Nba.where("game_date between ? and ?", Date.strptime(@game_start_index).beginning_of_day, Date.strptime(@game_end_index).end_of_day)
                  .order("game_date", "home_number")
+
+    @today = Date.strptime(@game_start_index)
+    @records = []
+    @start_date = @today - 4.days
+    @end_date = @today + 4.days
+    while @start_date <= @end_date
+      @sub_date = @start_date.strftime("%b %e")
+
+      @cbb_players = []
+      @cbb_games = CbbGame.where("game_date between ? and ?", Date.strptime(@start_date).beginning_of_day, Date.strptime(@start_date).end_of_day)
+      @cbb_games.each do |cbb_game|
+        @cbb_records = CbbRecord.find_by(cbb_game_id: cbb_game.id)
+        @cbb_records.each do |cbb_record|
+          @cbb_player = CbbPlayer.find_by(id: cbb_record.cbb_player_id)
+          if @cbb_player.birthdate.include?(@start_date.strftime("%b %e"))
+              @cbb_players.push(@cbb_player)
+          end
+        end
+      end
+      if @cbb_players.length
+        @cbb_players.each_with_index do |cbb_player, index|
+          if index == 0
+            @records.push({
+                date: @start_date.strftime("%^A %^b %e"),
+                player: cbb_player
+            })
+          else
+            @records.push({
+                date: '-',
+                player: cbb_player
+            })
+          end
+        end
+      else
+        @records.push({
+            date: @start_date.strftime("%^A %^b %e"),
+            player: 'NONE'
+        })
+      end
+      @start_date = @start_date + 1.days
+    end
   end
 
   def referee
