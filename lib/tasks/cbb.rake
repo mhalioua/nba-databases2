@@ -198,50 +198,6 @@ namespace :cbb do
 			matched_team_id = matched_team.id
 			CbbPlayer.find_or_create_by(player_name: 'Eric Hester', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4066256')
     end
-
-
-		matched_team = CbbTeam.find_by(name: 'Belmont')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Mack Mercer', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3138505')
-    end
-
-		matched_team = CbbTeam.find_by(name: 'Canisius')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Andrew Crombie', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4284291')
-			CbbPlayer.find_or_create_by(player_name: 'Talmadge James', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4284292')
-    end
-
-		matched_team = CbbTeam.find_by(name: 'Dayton')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Dalton Stewart', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4279295')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Eastern Kentucky')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Jackson Davis', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3133595')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Florida International')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Kasper Christiansen', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3133595')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Gonzaga')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Jacob Larsen', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/4066647')
-		end
-
-		matched_team = CbbTeam.find_by(name: 'Wisconsin')
-		if matched_team
-			matched_team_id = matched_team.id
-			CbbPlayer.find_or_create_by(player_name: 'Alex Illikainen', cbb_team_id: matched_team_id, link: 'http://www.espn.com/mens-college-basketball/player/_/id/3908323')
-		end
   end
 
 	task :getCBBPlayer => :environment do
@@ -267,6 +223,8 @@ namespace :cbb do
         player_name = @cbb_player_name[player_name] if @cbb_player_name[player_name]
 			 	matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team_id)
 				matched_player = CbbPlayer.find_by(player_name: player_name + ' Jr.', cbb_team_id: matched_team_id) unless matched_player
+				matched_player = CbbPlayer.find_by(player_name: player_name + ' II', cbb_team_id: matched_team_id) unless matched_player
+				matched_player = CbbPlayer.find_by(player_name: player_name + ' III', cbb_team_id: matched_team_id) unless matched_player
 				unless matched_player
 					player_name = player_name.remove(' Jr.')
 					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team_id)
@@ -384,6 +342,11 @@ namespace :cbb do
 			'Simi Shittu' => 'Simisola Shittu',
       'Baker Evelyn' => 'Bakari Evelyn',
       'Kasper Christensen' => 'Kasper Christiansen',
+			'Jamal Hartwell' => 'Jamal Hartwell II',
+      'James Banks' => 'James Banks III',
+      'Elijah Pemberton' => 'Eli Pemberton',
+      'DeJon Jarreau' => 'Dejon Jarreau',
+      'Mike Barber' => 'Michael Barber',
 
   }
 end
