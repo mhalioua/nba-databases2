@@ -359,6 +359,16 @@ namespace :cbb do
       'Zack Flener' => 'Zach Flener',
       'Temidayo Yussef' => 'Temidayo Yussuf',
       'Julius Van Sauers' => 'Julius van Sauers',
-      'Daquan Bracey' => 'DaQuan Bracey'
+      'Daquan Bracey' => 'DaQuan Bracey',
+      'A.J. Durham' => 'Aljami Durham',
+      'Jacolby Pemberton' => 'JaColby Pemberton',
+      'James Batemon III' => 'James Batemon',
+      'Jeffrey McClendon' => 'Jeffery McClendon',
+			"Ja'Vonte Smart" => "Ja'vonte Smart",
+      'Tom Capuano' => 'Thomas Capuano',
+      'Matt Glassman' => 'Matthew Glassman',
+      'Anthony Lawrence, Jr.' => 'Anthony Lawrence II',
+      'Connor George' => 'Conner George',
+      'Josh Langford' => 'Joshua Langford'
   }
 end
