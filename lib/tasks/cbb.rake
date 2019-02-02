@@ -244,7 +244,7 @@ namespace :cbb do
         unless matched_player
           missing_player = {
               'team_name' => team_name,
-              'player_name' => player_name
+              'player_name' => player.children[1].text.squish
           }
           missing_players.push(missing_player)
           # next
@@ -347,6 +347,11 @@ namespace :cbb do
       'Elijah Pemberton' => 'Eli Pemberton',
       'DeJon Jarreau' => 'Dejon Jarreau',
       'Mike Barber' => 'Michael Barber',
+      'Desmond Balentine' => 'Des Balentine',
+			'Jakob Forrester' => 'Jake Forrester',
+      'Luke Garza' => 'Luka Garza',
+      'Nicholas Hobbs' => 'Nicolas Hobbs',
+
 
   }
 end
