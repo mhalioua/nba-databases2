@@ -49,7 +49,7 @@ class IndexController < ApplicationController
           end
         end
       end
-      if !@cbb_flag
+      unless @cbb_flag
         @records.push({
             date: @start_date.strftime("%^A %^b %e"),
             player: 'NONE'
