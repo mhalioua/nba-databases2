@@ -28,7 +28,7 @@ class IndexController < ApplicationController
       @sub_date = @start_date.strftime("%b %e")
 
       @cbb_players = []
-      @cbb_games = CbbGame.where("game_date between ? and ?", Date.strptime(@start_date).beginning_of_day, Date.strptime(@start_date).end_of_day)
+      @cbb_games = CbbGame.where("game_date between ? and ?", @start_date.beginning_of_day, @start_date.end_of_day)
       @cbb_games.each do |cbb_game|
         @cbb_records = CbbRecord.find_by(cbb_game_id: cbb_game.id)
         @cbb_records.each do |cbb_record|
