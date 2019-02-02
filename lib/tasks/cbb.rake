@@ -160,12 +160,8 @@ namespace :cbb do
 				break if element.text == 'Total'
 
         player_link = element.children[0].children[0]['href']
-        player_link_break = player_link.rindex('/')
-        player_link = player_link[0..player_link_break-1] if player_link_break
-        puts player_link
-        puts records[index].children[1].text
-        # player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
-        # player.update(ave_mins: slice.children[2].text)
+        player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
+        player.update(ave_mins: records[index].children[1].text)
       end
 
 			team_roster = 'http://www.espn.com' + link.gsub('_', 'roster/_')
@@ -173,10 +169,8 @@ namespace :cbb do
 			elements = doc.css("tr tr tbody tr")
 			elements.each do |slice|
 				player_link = slice.children[1].children[0].children[0]['href']
-        puts player_link
-        puts slice.children[5].children[0].text
-				# player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
-				# player.update(player_class: slice.children[5].children[0].text)
+				player = CbbPlayer.find_or_create_by(cbb_team_id: team.id, link: player_link)
+				player.update(player_class: slice.children[5].children[0].text)
 			end
     end
   end
