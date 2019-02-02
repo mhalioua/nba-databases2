@@ -202,6 +202,7 @@ namespace :cbb do
 			team_name = team_link.text
       team_name = @team_name[team_name] if @team_name[team_name]
 			matched_team = CbbTeam.find_by(name: team_name)
+			matched_team_id = matched_team.id
 			team_url = 'https://basketball.realgm.com' + team_link['href'] + 'players'
 			team_doc = download_document(team_url)
 			players = team_doc.css("tbody tr")
@@ -212,15 +213,19 @@ namespace :cbb do
         next if birthday == '-'
         player_name = player_name.remove(',')
         player_name = @cbb_player_name[player_name] if @cbb_player_name[player_name]
-			 	matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
-				matched_player = CbbPlayer.find_by(player_name: player_name + ' Jr.', cbb_team_id: matched_team.id) unless matched_player
+			 	matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team_id)
+				matched_player = CbbPlayer.find_by(player_name: player_name + ' Jr.', cbb_team_id: matched_team_id) unless matched_player
 				unless matched_player
 					player_name = player_name.remove(' Jr.')
-					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
+					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team_id)
         end
 				unless matched_player
 					player_name = player_name.remove('.')
-					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team.id)
+					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team_id)
+				end
+				unless matched_player
+					player_name = player_name.remove(' II')
+					matched_player = CbbPlayer.find_by(player_name: player_name, cbb_team_id: matched_team_id)
 				end
         unless matched_player
           missing_player = {
@@ -281,10 +286,7 @@ namespace :cbb do
       'Ryan Swan-Ford' => 'Ryan Swan',
       'Loren Jackson' => 'Loren Cristian Jackson',
       'Lepear Toles' => 'LePear Toles',
-      'Kira Lewis' => 'Kira Lewis Jr.',
       'Herb Jones' => 'Herbert Jones',
-      'Walter Jones' => 'Walter Jones Jr.',
-      'A.J. Farrar' => 'AJ Farrar',
       'Leon Freeman-Daniels' => 'Leon Daniels',
       'Reggie Gee' => 'Reginald Gee',
       'Jabriel Allen' => 'Khari Jabriel Allen',
@@ -294,25 +296,26 @@ namespace :cbb do
       'Mike Bibby' => 'Michael Bibby',
       'Lugentz Dort' => 'Luguentz Dort',
       'Mike Besselink' => 'Michael Besselink',
-      'Darrell Brown Jr.' => 'Darrell Brown',
-      'T.J. Haws' => 'TJ Haws',
       'Sebastian Townes' => 'SaBastian Townes',
       'Mantvydas Urmilevicius' => 'Monty Urmilevicius',
-      'C.J. Massinburg' => 'CJ Massinburg',
       'Jeenathan Williams Jr.' => 'Jeenathan Williams',
       'Justin Elder-Davis' => 'Justin Edler-Davis',
-      'Rodney Henderson' => 'Rodney Henderson Jr.',
-      'Larry Austin' => 'Larry Austin Jr.',
   		'Laquill Hardnett' => 'LaQuill Hardnett',
-      'A.J. Martinka' => 'AJ Martinka',
       'Elijah Parquet' => 'Eli Parquet',
       'McKinley Wright' => 'McKinley Wright IV',
-      'C.J. Davis' => 'CJ Davis',
       'Alter Gilbert' => 'Alterique Gilbert',
       'Mitchell Ballock' => 'Mitch Ballock',
       'Obi Toppin' => 'Obadiah Toppin',
-      'Ronnie Harrell' => 'Ronnie Harrell Jr.',
-      'Elijah Cain' => 'Eli Cain'
+      'Elijah Cain' => 'Eli Cain',
+      'Cameron Reddish' => 'Cam Reddish',
+      'Mike Lewis' => 'Mike Lewis II',
+      'DeAundre Ballard' => 'Deaundrae Ballard',
+      'Kevaughn Allen' => 'KeVaughn Allen',
+      'Raysean Scott' => 'RaySean Scott Jr.',
+  		'Arnaldo Toro Barea' => 'Arnaldo Toro',
+      'Joshua LeBlanc' => 'Josh LeBlanc',
+      'Jagan Mosley' => 'Jagan Mosely',
+      'Will Jackson' => 'William Jackson II'
 
   }
 end
