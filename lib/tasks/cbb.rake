@@ -369,6 +369,13 @@ namespace :cbb do
       'Matt Glassman' => 'Matthew Glassman',
       'Anthony Lawrence, Jr.' => 'Anthony Lawrence II',
       'Connor George' => 'Conner George',
-      'Josh Langford' => 'Joshua Langford'
+      'Josh Langford' => 'Joshua Langford',
+			"Chuck O'Bannon Jr." => "Charles O'Bannon Jr.",
+      'Jonathan Tchatchoua' => 'Jonathan Tchamwa Tchatchoua',
+			"Jay Greene" => 'Jay Green',
+      'Francisco Alonso' => 'Francis Alonso',
+      'Kenny Nwuba' => 'Kenneth Nwuba',
+			"Ar'mond Davis" => "Ar'Mond Davis",
+      'Tamell Peason' =>﻿'Tamell Pearson'
   }
 end
