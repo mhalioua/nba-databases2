@@ -244,12 +244,10 @@ namespace :cbb do
       team_name = team_name[0..team_bracket-1] if team_bracket
 			team_name = @team_name[team_name] if @team_name[team_name]
 			team_roster = 'http://www.espn.com' + team_link.gsub('_', 'roster/_')
-			puts team_roster
 			doc = download_document(team_roster)
 			elements = doc.css("tr tr tbody tr")
 			elements.each do |slice|
 				player_link = slice.children[1].children[0].children[0]['href']
-        puts slice.children[1].children[0].inspect
 				doc = download_document(player_link)
 				player_name = doc.css('h1')[0].text
 				birthdate = doc.css(".player-metadata")[0]
@@ -262,13 +260,8 @@ namespace :cbb do
 				else
 					birthdate = nil
         end
-        puts team_name
-        puts player_name
-        puts player_link
-        puts birthdate
-        break
-				# player = NbaPlayer.find_or_create_by(team_name: team_name, link: player_link)
-				# player.update(player_name: player_name, birthdate: birthdate)
+				player = NbaPlayer.find_or_create_by(team_name: team_name, link: player_link)
+				player.update(player_name: player_name, birthdate: birthdate)
 			end
     end
   end
