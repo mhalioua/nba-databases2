@@ -834,7 +834,7 @@
             <td>-</td>
           <% end %>
 
-          <% next_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date < ?", record[:current].beginning_of_day).order('game_date DESC') %>
+          <% next_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date >= ?", record[:current].beginning_of_day).order('game_date DESC') %>
           <% if next_cbb_record.length != 0 && next_cbb_record[0].game_date %>
             <td style="display:none"><%= Date.strptime(next_cbb_record[0].game_date).strftime("%^b %e") %></td>
             <% next_record = CbbRecord.find_by(game_date: next_cbb_record[0].game_date, cbb_player_id: record[:player].id) %>
@@ -853,7 +853,7 @@
             <% end %>
           <% end %>
 
-          <% last_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date > ?" , record[:current].beginning_of_day).order('game_date ASC') %>
+          <% last_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date < ?" , record[:current].beginning_of_day).order('game_date ASC') %>
           <% if last_cbb_record.length != 0 && last_cbb_record[0].game_date %>
             <td style="display:none"><%= Date.strptime(last_cbb_record[0].game_date).strftime("%^b %e") %></td>
             <% last_record = CbbRecord.find_by(game_date: last_cbb_record[0].game_date, cbb_player_id: record[:player].id) %>
@@ -875,5 +875,48 @@
         <% end %>
       </tr>
     <% end %>
+  </tbody>
+</table>
+
+
+<table border="1" style="display: none">
+  <thead>
+  <tr>
+    <td>DATE</td>
+    <td>NAME</td>
+    <td>TEAM</td>
+    <td>NEXT GAME</td>
+    <td>LAST GAME</td>
+  </tr>
+  </thead>
+  <tbody>
+  <% @nba_records.each do |record| %>
+    <tr>
+      <td><%= record[:date] %></td>
+      <% if record[:player] == 'NONE' %>
+        <td>NONE</td>
+        <% (0..2).each do |index| %>
+          <td>-</td>
+        <% end %>
+      <% else %>
+        <td><%= record[:player].player_name %></td>
+        <td><%= record[:player].team_name %></td>
+        <% next_game = Nba.where("home_team = ? AND game_date >= ?", record[:player].team_name, record[:current].beginning_of_day).or(Nba.where("away_team = ? AND game_date >= ?", record[:player].team_name, record[:current].beginning_of_day)).order(:game_date).first %>
+        <% if next_game %>
+          <td><%= Date.strptime(next_game[0].game_date).strftime("%^b %e") %></td>
+        <% else %>
+          <td>-</td>
+        <% end %>
+
+        <% last_game = Nba.where("home_team = ? AND game_date < ?", record[:player].team_name, record[:current].beginning_of_day).or(Nba.where("away_team = ? AND game_date < ?", record[:player].team_name, record[:current].beginning_of_day)).order(:game_date).last %>
+        <% if last_game %>
+          <td><%= Date.strptime(last_game[0].game_date).strftime("%^b %e") %></td>
+        <% else %>
+          <td>-</td>
+        <% end %>
+
+      <% end %>
+    </tr>
+  <% end %>
   </tbody>
 </table>

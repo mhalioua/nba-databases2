@@ -22,6 +22,7 @@ class IndexController < ApplicationController
 
     @today = Date.strptime(@game_start_index)
     @records = []
+    @nba_records = []
     @start_date = @today - 4.days
     @end_date = @today + 4.days
     while @start_date <= @end_date
@@ -46,7 +47,32 @@ class IndexController < ApplicationController
         end
       else
         @records.push({
-            current: @start_date,
+            current: @today,
+            date: @start_date.strftime("%^A %^b %-d"),
+            player: 'NONE'
+        })
+      end
+
+      @nba_players = NbaPlayer.where("birthdate like '" + @start_date.strftime("%b %-d") + ",%'")
+      if @nba_players.length != 0
+        @nba_players.each_with_index do |nba_player, index|
+          if index == 0
+            @nba_records.push({
+                current: @today,
+                date: @start_date.strftime("%^A %^b %-d"),
+                player: nba_player
+            })
+          else
+            @nba_records.push({
+                current: @today,
+                date: '-',
+                player: nba_player
+            })
+          end
+        end
+      else
+        @nba_records.push({
+            current: @today,
             date: @start_date.strftime("%^A %^b %-d"),
             player: 'NONE'
         })

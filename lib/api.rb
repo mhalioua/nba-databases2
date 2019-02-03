@@ -22,7 +22,7 @@ module Api
 		begin
 			if count > 0
 				count -= 1
-				Timeout::timeout(10){
+				Timeout::timeout(15){
 					doc = Nokogiri::HTML(open(url, allow_redirections: :all))
 				}
 			end
