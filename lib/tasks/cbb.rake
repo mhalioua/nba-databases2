@@ -248,6 +248,8 @@ namespace :cbb do
 			elements = doc.css("tr tr tbody tr")
 			elements.each do |slice|
 				player_link = slice.children[1].children[0].children[0]['href']
+				player = NbaPlayer.find_or_create_by(team_name: team_name, link: player_link)
+
 				doc = download_document(player_link)
         next unless doc
 				player_name = doc.css('h1')[0].text
@@ -261,7 +263,6 @@ namespace :cbb do
 				else
 					birthdate = nil
         end
-				player = NbaPlayer.find_or_create_by(team_name: team_name, link: player_link)
 				player.update(player_name: player_name, birthdate: birthdate)
 			end
     end
