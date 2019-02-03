@@ -235,11 +235,11 @@ namespace :cbb do
 		include Api
 		url = "http://www.espn.com/nba/teams"
 		doc = download_document(url)
-		teams = doc.css('.TeamLinks .pl3 a')
-    puts teams.inspect
+		teams = doc.css('.TeamLinks')
 		teams.each do |team|
-			team_link = team['href']
-      team_name = team.children[0].text
+      team_element = team.children[1].children[0]
+			team_link = team_element['href']
+      team_name = team_element.children[0].text
       team_bracket = team_name.rindex(' ')
       team_name = team_name[0..team_bracket-1] if team_bracket
 			team_name = @team_name[team_name] if @team_name[team_name]
@@ -254,7 +254,6 @@ namespace :cbb do
 				birthdate = doc.css(".player-metadata")[0]
 				if birthdate.children[0]
 					birthdate = birthdate.children[0].children[1].text
-					'Dec 9, 1986 in New Zealand (Age: 32)'
 					first_bracket = birthdate.rindex('(')
           birthdate = birthdate[0..first_bracket-1] if first_bracket
           second_bracket = birthdate.rindex(' in ')
