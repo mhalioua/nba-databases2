@@ -268,6 +268,29 @@ namespace :cbb do
     end
   end
 
+	task :nba_player_names => :environment do
+		include Api
+		players = NbaPlayer.where('player_name is null')
+		players.each do |player|
+      team = Team.find(name: player.team_name)
+      break unless team
+			doc = download_document(player.link)
+			next unless doc
+			player_name = doc.css('h1')[0].text
+			birthdate = doc.css(".player-metadata")[0]
+			if birthdate.children[0]
+				birthdate = birthdate.children[0].children[1].text
+				first_bracket = birthdate.rindex('(')
+				birthdate = birthdate[0..first_bracket-1] if first_bracket
+				second_bracket = birthdate.rindex(' in ')
+				birthdate = birthdate[0..second_bracket-1] if second_bracket
+			else
+				birthdate = nil
+			end
+			player.update(player_name: player_name, birthdate: birthdate)
+		end
+	end
+
 	@team_name = {
 			'American University' => 'American',
 			'Brigham Young' => 'BYU',
