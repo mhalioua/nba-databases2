@@ -249,6 +249,7 @@ namespace :cbb do
 			elements = doc.css("tr tr tbody tr")
 			elements.each do |slice|
 				player_link = slice.children[1].children[0].children[0]['href']
+        puts slice.children[1].children[0].inspect
 				doc = download_document(player_link)
 				player_name = doc.css('h1')[0].text
 				birthdate = doc.css(".player-metadata")[0]
