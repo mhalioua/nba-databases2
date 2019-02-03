@@ -819,10 +819,13 @@
     <% @records.each do |record| %>
       <tr>
         <%
-          record_date = record[:date].strftime("%^A %^b %-d")
-          record_date = 'Today' if record[:date] == Date.today
-          record_date = 'Yesterday' if record[:date] == Date.yesterday
-          record_date = 'Tomorrow' if record[:date] == Date.tomorrow
+          record_date = record[:date]
+          if record_date != '-'
+            record_date = record[:date].strftime("%^A %^b %-d")
+            record_date = 'Today' if record[:date] == Date.today
+            record_date = 'Yesterday' if record[:date] == Date.yesterday
+            record_date = 'Tomorrow' if record[:date] == Date.tomorrow
+          end
         %>
         <td><%= record_date %></td>
         <% if record[:player] == 'NONE' %>
@@ -899,10 +902,13 @@
   <% @nba_records.each do |record| %>
     <tr>
       <%
-        record_date = record[:date].strftime("%^A %^b %-d")
-        record_date = 'Today' if record[:date] == Date.today
-        record_date = 'Yesterday' if record[:date] == Date.yesterday
-        record_date = 'Tomorrow' if record[:date] == Date.tomorrow
+        record_date = record[:date]
+        if record_date != '-'
+          record_date = record[:date].strftime("%^A %^b %-d")
+          record_date = 'Today' if record[:date] == Date.today
+          record_date = 'Yesterday' if record[:date] == Date.yesterday
+          record_date = 'Tomorrow' if record[:date] == Date.tomorrow
+        end
       %>
       <td><%= record_date %></td>
       <% if record[:player] == 'NONE' %>
