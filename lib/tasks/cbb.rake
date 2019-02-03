@@ -250,7 +250,7 @@ namespace :cbb do
 				player_link = slice.children[1].children[0].children[0]['href']
 				doc = download_document(player_link)
 				player_name = doc.css('h1')[0].text
-				birthdate = page.css(".player-metadata")[0]
+				birthdate = doc.css(".player-metadata")[0]
 				if birthdate.children[0]
 					birthdate = birthdate.children[0].children[1].text
 					'Dec 9, 1986 in New Zealand (Age: 32)'
