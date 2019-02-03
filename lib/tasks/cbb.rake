@@ -272,8 +272,6 @@ namespace :cbb do
 		include Api
 		players = NbaPlayer.where('player_name is null')
 		players.each do |player|
-      team = Team.find_by(team: player.team_name)
-      break unless team
 			doc = download_document(player.link)
 			next unless doc
 			player_name = doc.css('h1')[0].text
