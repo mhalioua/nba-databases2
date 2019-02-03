@@ -236,6 +236,7 @@ namespace :cbb do
 		url = "http://www.espn.com/nba/teams"
 		doc = download_document(url)
 		teams = doc.css('.TeamLinks .pl3 a')
+    puts teams.inspect
 		teams.each do |team|
 			team_link = team['href']
       team_name = team.children[0].text
