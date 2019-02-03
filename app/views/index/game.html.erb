@@ -818,7 +818,13 @@
   <tbody>
     <% @records.each do |record| %>
       <tr>
-        <td><%= record[:date] %></td>
+        <%
+          record_date = record[:date].strftime("%^A %^b %-d")
+          record_date = 'Today' if record[:date] == Date.today
+          record_date = 'Yesterday' if record[:date] == Date.yesterday
+          record_date = 'Tomorrow' if record[:date] == Date.tomorrow
+        %>
+        <td><%= record_date %></td>
         <% if record[:player] == 'NONE' %>
           <td>NONE</td>
           <% (0..10).each do |index| %>
@@ -892,7 +898,13 @@
   <tbody>
   <% @nba_records.each do |record| %>
     <tr>
-      <td><%= record[:date] %></td>
+      <%
+        record_date = record[:date].strftime("%^A %^b %-d")
+        record_date = 'Today' if record[:date] == Date.today
+        record_date = 'Yesterday' if record[:date] == Date.yesterday
+        record_date = 'Tomorrow' if record[:date] == Date.tomorrow
+      %>
+      <td><%= record_date %></td>
       <% if record[:player] == 'NONE' %>
         <td>NONE</td>
         <% (0..2).each do |index| %>

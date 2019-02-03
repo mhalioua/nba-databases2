@@ -34,7 +34,7 @@ class IndexController < ApplicationController
           if index == 0
             @records.push({
                 current: @today,
-                date: @start_date.strftime("%^A %^b %-d"),
+                date: @start_date,
                 player: cbb_player
             })
           else
@@ -48,7 +48,7 @@ class IndexController < ApplicationController
       else
         @records.push({
             current: @today,
-            date: @start_date.strftime("%^A %^b %-d"),
+            date: @start_date,
             player: 'NONE'
         })
       end
@@ -59,7 +59,7 @@ class IndexController < ApplicationController
           if index == 0
             @nba_records.push({
                 current: @today,
-                date: @start_date.strftime("%^A %^b %-d"),
+                date: @start_date,
                 player: nba_player
             })
           else
@@ -73,7 +73,7 @@ class IndexController < ApplicationController
       else
         @nba_records.push({
             current: @today,
-            date: @start_date.strftime("%^A %^b %-d"),
+            date: @start_date,
             player: 'NONE'
         })
       end
