@@ -249,6 +249,7 @@ namespace :cbb do
 			elements.each do |slice|
 				player_link = slice.children[1].children[0].children[0]['href']
 				doc = download_document(player_link)
+        next unless doc
 				player_name = doc.css('h1')[0].text
 				birthdate = doc.css(".player-metadata")[0]
 				if birthdate.children[0]
