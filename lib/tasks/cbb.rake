@@ -184,7 +184,6 @@ namespace :cbb do
     puts links.inspect
   end
 
-
 	task :getCBBPlayer => :environment do
 		include Api
 		url = "https://basketball.realgm.com/ncaa/teams"
@@ -232,6 +231,47 @@ namespace :cbb do
     end
   end
 
+  task :getNbaPlayer => :environment do
+		include Api
+		url = "http://www.espn.com/nba/teams"
+		doc = download_document(url)
+		teams = doc.css('.TeamLinks .pl3 a')
+		teams.each do |team|
+			team_link = team['href']
+      team_name = team.children[0].text
+      team_bracket = team_name.rindex(' ')
+      team_name = team_name[0..team_bracket-1] if team_bracket
+			team_name = @team_name[team_name] if @team_name[team_name]
+			team_roster = 'http://www.espn.com' + team_link.gsub('_', 'roster/_')
+			puts team_roster
+			doc = download_document(team_roster)
+			elements = doc.css("tr tr tbody tr")
+			elements.each do |slice|
+				player_link = slice.children[1].children[0].children[0]['href']
+				doc = download_document(player_link)
+				player_name = doc.css('h1')[0].text
+				birthdate = page.css(".player-metadata")[0]
+				if birthdate.children[0]
+					birthdate = birthdate.children[0].children[1].text
+					'Dec 9, 1986 in New Zealand (Age: 32)'
+					first_bracket = birthdate.rindex('(')
+          birthdate = birthdate[0..first_bracket-1] if first_bracket
+          second_bracket = birthdate.rindex(' in ')
+					birthdate = birthdate[0..second_bracket-1] if second_bracket
+				else
+					birthdate = nil
+        end
+        puts team_name
+        puts player_name
+        puts player_link
+        puts birthdate
+        break
+				# player = NbaPlayer.find_or_create_by(team_name: team_name, link: player_link)
+				# player.update(player_name: player_name, birthdate: birthdate)
+			end
+    end
+  end
+
 	@team_name = {
 			'American University' => 'American',
 			'Brigham Young' => 'BYU',
@@ -268,7 +308,9 @@ namespace :cbb do
       'Texas-RGV' => 'UT Rio Grande Valley',
       'Texas-San Antonio' => 'UTSA',
       'USC Upstate' => 'South Carolina Upstate',
-      'Virginia Military' => 'VMI'
+      'Virginia Military' => 'VMI',
+      'LA' => 'LAC',
+      'Los Angeles' => 'LAL'
 	}
 
   @cbb_player_name = {
