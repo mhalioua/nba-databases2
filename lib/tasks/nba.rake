@@ -1453,16 +1453,21 @@ namespace :nba do
 					link = slice.children[0].children[0]['href']
 					puts link
 					page = download_document(link)
-          height = page.css(".general-info")[0]
-          if height.children[1]
-            height = height.children[1].text
+          if page
+            height = page.css(".general-info")[0]
+            if height.children[1]
+              height = height.children[1].text
+            else
+              height = nil
+            end
+            birthdate = page.css(".player-metadata")[0]
+            if birthdate.children[0]
+              birthdate = birthdate.children[0].children[1].text
+            else
+              birthdate = nil
+            end
           else
             height = nil
-          end
-          birthdate = page.css(".player-metadata")[0]
-          if birthdate.children[0]
-            birthdate = birthdate.children[0].children[1].text
-          else
             birthdate = nil
           end
 				else
@@ -1515,17 +1520,22 @@ namespace :nba do
 					link = slice.children[0].children[0]['href']
 					puts link
 					page = download_document(link)
-					height = page.css(".general-info")[0]
-          if height.children[1]
-            height = height.children[1].text
-          else
-            height = nil
-          end
-          birthdate = page.css(".player-metadata")[0]
-          if birthdate.children[0]
-            birthdate = birthdate.children[0].children[1].text
+          if page
+            height = page.css(".general-info")[0]
+            if height.children[1]
+              height = height.children[1].text
+            else
+              height = nil
+            end
+            birthdate = page.css(".player-metadata")[0]
+            if birthdate.children[0]
+              birthdate = birthdate.children[0].children[1].text
+            else
+              birthdate = nil
+            end
           else
             birthdate = nil
+            height = nil
           end
 				else
 					player_name = slice.children[0].text
