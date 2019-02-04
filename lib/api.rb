@@ -18,7 +18,7 @@ module Api
 	def download_document(url)
 		require 'open-uri'
 		doc = nil
-		count = 3
+		count = 10
 		begin
 			if count > 0
 				count -= 1
