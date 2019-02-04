@@ -1687,11 +1687,8 @@ namespace :nba do
           player_name = player.player_name
           url = player.link
           puts url
-          doc = nil
-          loop do
-            doc = download_document(url)
-            break if doc
-          end
+          doc = download_document(url)
+          next unless doc
           player_name = doc.css('h1').first.text
 
 					player_name_index = player_name.index(" Jr.")
