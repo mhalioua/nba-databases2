@@ -796,27 +796,20 @@
     window.location.href = window.location.href;
   });
 </script>
-
-<table border="1">
-  <thead>
-  <tr>
-    <td>DATE</td>
-    <td>NAME</td>
-    <td>CLASS</td>
-    <td>AVE MINS</td>
-    <td>TEAM</td>
-    <td>NEXT GAME</td>
-    <td>Did he play</td>
-    <td>How many mins</td>
-    <td>Score</td>
-    <td>LAST GAME</td>
-    <td>Did he play</td>
-    <td>How many mins</td>
-    <td>Score</td>
-  </tr>
-  </thead>
-  <tbody>
-    <% @records.each do |record| %>
+<div style="display: none">
+<div style="display: inline-block">
+  <table border="1">
+    <thead>
+    <tr>
+      <td>DATE</td>
+      <td>NAME</td>
+      <td>TEAM</td>
+      <td>NEXT GAME</td>
+      <td>LAST GAME</td>
+    </tr>
+    </thead>
+    <tbody>
+    <% @nba_records.each do |record| %>
       <tr>
         <%
           record_date = record[:date]
@@ -830,110 +823,117 @@
         <td><%= record_date %></td>
         <% if record[:player] == 'NONE' %>
           <td>NONE</td>
-          <% (0..10).each do |index| %>
+          <% (0..2).each do |index| %>
             <td>-</td>
           <% end %>
         <% else %>
           <td><%= record[:player].player_name %></td>
-          <td><%= record[:player].player_class ? record[:player].player_class : '-' %></td>
-          <td><%= record[:player].ave_mins ? record[:player].ave_mins : '-' %></td>
-          <% cbb_team = CbbTeam.find_by(id: record[:player].cbb_team_id) %>
-          <td><%= cbb_team.name %></td>
-          <% (0..7).each do |index| %>
+          <td><%= record[:player].team_name %></td>
+          <% next_game = Nba.where("home_team = ? AND game_date >= ?", record[:player].team_name, record[:current].beginning_of_day).or(Nba.where("away_team = ? AND game_date >= ?", record[:player].team_name, record[:current].beginning_of_day)).order(:game_date).first %>
+          <% if next_game %>
+            <td><%= Date.strptime(next_game.game_date).strftime("%^b %e") %></td>
+          <% else %>
             <td>-</td>
           <% end %>
 
-          <% next_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date >= ?", record[:current].beginning_of_day).order('game_date DESC') %>
-          <% if next_cbb_record.length != 0 && next_cbb_record[0].game_date %>
-            <td style="display:none"><%= Date.strptime(next_cbb_record[0].game_date).strftime("%^b %e") %></td>
-            <% next_record = CbbRecord.find_by(game_date: next_cbb_record[0].game_date, cbb_player_id: record[:player].id) %>
-            <% if next_record %>
-              <td style="display:none">YES</td>
-              <td style="display:none"><%= next_record.min %></td>
-              <td style="display:none"><%= next_record.score %></td>
-            <% else %>
-              <td style="display:none">NO</td>
-              <td style="display:none">-</td>
-              <td style="display:none">-</td>
-            <% end %>
+          <% last_game = Nba.where("home_team = ? AND game_date < ?", record[:player].team_name, record[:current].beginning_of_day).or(Nba.where("away_team = ? AND game_date < ?", record[:player].team_name, record[:current].beginning_of_day)).order(:game_date).last %>
+          <% if last_game %>
+            <td><%= Date.strptime(last_game.game_date).strftime("%^b %e") %></td>
           <% else %>
-            <% (0..3).each do |index| %>
-              <td style="display:none">-</td>
-            <% end %>
+            <td>-</td>
           <% end %>
-
-          <% last_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date < ?" , record[:current].beginning_of_day).order('game_date ASC') %>
-          <% if last_cbb_record.length != 0 && last_cbb_record[0].game_date %>
-            <td style="display:none"><%= Date.strptime(last_cbb_record[0].game_date).strftime("%^b %e") %></td>
-            <% last_record = CbbRecord.find_by(game_date: last_cbb_record[0].game_date, cbb_player_id: record[:player].id) %>
-            <% if last_record %>
-              <td style="display:none">YES</td>
-              <td style="display:none"><%= last_record.min %></td>
-              <td style="display:none"><%= last_record.score %></td>
-              <% else %>
-              <td style="display:none">NO</td>
-              <td style="display:none">-</td>
-              <td style="display:none">-</td>
-            <% end %>
-          <% else %>
-            <% (0..3).each do |index| %>
-              <td style="display:none">-</td>
-            <% end %>
-          <% end %>
-
         <% end %>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
+  <div style="display: inline-block">
+  <table border="1">
+    <thead>
+      <tr>
+        <td>DATE</td>
+        <td>NAME</td>
+        <td>CLASS</td>
+        <td>AVE MINS</td>
+        <td>TEAM</td>
+        <td>NEXT GAME</td>
+        <td>Did he play</td>
+        <td>How many mins</td>
+        <td>Score</td>
+        <td>LAST GAME</td>
+        <td>Did he play</td>
+        <td>How many mins</td>
+        <td>Score</td>
+      </tr>
+      </thead>
+      <tbody>
+        <% @records.each do |record| %>
+          <tr>
+            <%
+              record_date = record[:date]
+              if record_date != '-'
+                record_date = record[:date].strftime("%^A %^b %-d")
+                record_date = 'Today' if record[:date] == Date.today
+                record_date = 'Yesterday' if record[:date] == Date.yesterday
+                record_date = 'Tomorrow' if record[:date] == Date.tomorrow
+              end
+            %>
+            <td><%= record_date %></td>
+            <% if record[:player] == 'NONE' %>
+              <td>NONE</td>
+              <% (0..10).each do |index| %>
+                <td>-</td>
+              <% end %>
+            <% else %>
+              <td><%= record[:player].player_name %></td>
+              <td><%= record[:player].player_class ? record[:player].player_class : '-' %></td>
+              <td><%= record[:player].ave_mins ? record[:player].ave_mins : '-' %></td>
+              <% cbb_team = CbbTeam.find_by(id: record[:player].cbb_team_id) %>
+              <td><%= cbb_team.name %></td>
 
+              <% next_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date >= ?", record[:current].beginning_of_day).order('game_date DESC') %>
+              <% if next_cbb_record.length != 0 && next_cbb_record[0].game_date %>
+                <td style="display:none"><%= Date.strptime(next_cbb_record[0].game_date).strftime("%^b %e") %></td>
+                <% next_record = CbbRecord.find_by(game_date: next_cbb_record[0].game_date, cbb_player_id: record[:player].id) %>
+                <% if next_record %>
+                  <td>YES</td>
+                  <td><%= next_record.min %></td>
+                  <td><%= next_record.score %></td>
+                <% else %>
+                  <td>NO</td>
+                  <td>-</td>
+                  <td>-</td>
+                <% end %>
+              <% else %>
+                <% (0..3).each do |index| %>
+                  <td>-</td>
+                <% end %>
+              <% end %>
 
-<table border="1" style="display: none">
-  <thead>
-  <tr>
-    <td>DATE</td>
-    <td>NAME</td>
-    <td>TEAM</td>
-    <td>NEXT GAME</td>
-    <td>LAST GAME</td>
-  </tr>
-  </thead>
-  <tbody>
-  <% @nba_records.each do |record| %>
-    <tr>
-      <%
-        record_date = record[:date]
-        if record_date != '-'
-          record_date = record[:date].strftime("%^A %^b %-d")
-          record_date = 'Today' if record[:date] == Date.today
-          record_date = 'Yesterday' if record[:date] == Date.yesterday
-          record_date = 'Tomorrow' if record[:date] == Date.tomorrow
-        end
-      %>
-      <td><%= record_date %></td>
-      <% if record[:player] == 'NONE' %>
-        <td>NONE</td>
-        <% (0..2).each do |index| %>
-          <td>-</td>
-        <% end %>
-      <% else %>
-        <td><%= record[:player].player_name %></td>
-        <td><%= record[:player].team_name %></td>
-        <% next_game = Nba.where("home_team = ? AND game_date >= ?", record[:player].team_name, record[:current].beginning_of_day).or(Nba.where("away_team = ? AND game_date >= ?", record[:player].team_name, record[:current].beginning_of_day)).order(:game_date).first %>
-        <% if next_game %>
-          <td><%= Date.strptime(next_game.game_date).strftime("%^b %e") %></td>
-        <% else %>
-          <td>-</td>
-        <% end %>
+              <% last_cbb_record = CbbRecord.where("cbb_team_id = '" + record[:player].cbb_team_id.to_s + "' AND game_date < ?" , record[:current].beginning_of_day).order('game_date ASC') %>
+              <% if last_cbb_record.length != 0 && last_cbb_record[0].game_date %>
+                <td><%= Date.strptime(last_cbb_record[0].game_date).strftime("%^b %e") %></td>
+                <% last_record = CbbRecord.find_by(game_date: last_cbb_record[0].game_date, cbb_player_id: record[:player].id) %>
+                <% if last_record %>
+                  <td>YES</td>
+                  <td><%= last_record.min %></td>
+                  <td><%= last_record.score %></td>
+                  <% else %>
+                  <td>NO</td>
+                  <td>-</td>
+                  <td>-</td>
+                <% end %>
+              <% else %>
+                <% (0..3).each do |index| %>
+                  <td>-</td>
+                <% end %>
+              <% end %>
 
-        <% last_game = Nba.where("home_team = ? AND game_date < ?", record[:player].team_name, record[:current].beginning_of_day).or(Nba.where("away_team = ? AND game_date < ?", record[:player].team_name, record[:current].beginning_of_day)).order(:game_date).last %>
-        <% if last_game %>
-          <td><%= Date.strptime(last_game.game_date).strftime("%^b %e") %></td>
-        <% else %>
-          <td>-</td>
+            <% end %>
+          </tr>
         <% end %>
-      <% end %>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+</div>
