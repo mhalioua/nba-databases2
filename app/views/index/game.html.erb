@@ -815,9 +815,9 @@
           record_date = record[:date]
           if record_date != '-'
             record_date = record[:date].strftime("%^A %^b %-d")
-            record_date = 'Today' if record[:date] == Date.today
-            record_date = 'Yesterday' if record[:date] == Date.yesterday
-            record_date = 'Tomorrow' if record[:date] == Date.tomorrow
+            record_date = 'Today' if record[:date] == @today
+            record_date = 'Yesterday' if record[:date] == @today - 1.days
+            record_date = 'Tomorrow' if record[:date] == @today + 1.days
           end
         %>
         <td><%= record_date %></td>
@@ -874,9 +874,9 @@
               record_date = record[:date]
               if record_date != '-'
                 record_date = record[:date].strftime("%^A %^b %-d")
-                record_date = 'Today' if record[:date] == Date.today
-                record_date = 'Yesterday' if record[:date] == Date.yesterday
-                record_date = 'Tomorrow' if record[:date] == Date.tomorrow
+                record_date = 'Today' if record[:date] == @today
+                record_date = 'Yesterday' if record[:date] == @today - 1.days
+                record_date = 'Tomorrow' if record[:date] == @today + 1.days
               end
             %>
             <td><%= record_date %></td>

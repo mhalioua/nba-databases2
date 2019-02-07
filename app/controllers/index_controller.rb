@@ -33,13 +33,13 @@ class IndexController < ApplicationController
         @cbb_players.each_with_index do |cbb_player, index|
           if index == 0
             @records.push({
-                current: @today,
+                current: @start_date,
                 date: @start_date,
                 player: cbb_player
             })
           else
             @records.push({
-                current: @today,
+                current: @start_date,
                 date: '-',
                 player: cbb_player
             })
@@ -47,7 +47,7 @@ class IndexController < ApplicationController
         end
       else
         @records.push({
-            current: @today,
+            current: @start_date,
             date: @start_date,
             player: 'NONE'
         })
@@ -58,13 +58,13 @@ class IndexController < ApplicationController
         @nba_players.each_with_index do |nba_player, index|
           if index == 0
             @nba_records.push({
-                current: @today,
+                current: @start_date,
                 date: @start_date,
                 player: nba_player
             })
           else
             @nba_records.push({
-                current: @today,
+                current: @start_date,
                 date: '-',
                 player: nba_player
             })
@@ -72,7 +72,7 @@ class IndexController < ApplicationController
         end
       else
         @nba_records.push({
-            current: @today,
+            current: @start_date,
             date: @start_date,
             player: 'NONE'
         })
