@@ -869,7 +869,7 @@
       </thead>
       <tbody>
         <% @records.each do |record| %>
-          <tr style="display: none">
+          <tr>
             <%
               record_date = record[:date]
               if record_date != '-'
