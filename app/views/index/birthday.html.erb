@@ -1,0 +1,203 @@
+<% content_for :title, @head + " Matchups" %>
+<div class="header row">
+  <h1><%= @head + " Matchups"%></h1>
+</div>
+
+<ul>
+  <li><%= link_to 'Home', { action: 'home' }%></li>
+</ul>
+<div class="dateselect" style="text-align: center;">
+  <button class="btn btn-primary prevbutton" style="margin:10px; padding: 5px 20px;">Prev Day</button>
+  <button class="btn btn-primary nextbutton" style="margin:10px; padding: 5px 20px;">Next Day</button>
+  <input type="text" data-toggle="daterangepicker" name="timestamp" data-filter-type="date-range" style="width: 400px; text-align:center; margin: 20px;" class="daterange">
+</div>
+<script type="text/javascript">
+  var start = moment("<%= @game_start_index %>").format('MMM DD, YYYY');
+  var end = moment("<%= @game_end_index %>").format('MMM DD, YYYY') ;
+  $('.daterange').daterangepicker({
+    showDropdowns: true,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Next 7 Days': [moment(), moment().add(6, 'days')],
+           'This Week': [moment().startOf('week'), moment().endOf('week')],
+           'Last Week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')]
+        },
+        locale: {
+      format: 'MMM DD, YYYY'
+    },
+        startDate: start,
+        endDate: end
+    }, cb);
+    function cb(start, end) {
+      window.location.href = "/index/birthday/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+    }
+    $('.prevbutton').click(function(){
+        var start = moment("<%= @game_start_index %>").subtract(1, 'days');
+    var end = moment("<%= @game_end_index %>").subtract(1, 'days');
+    $('.daterange').val(start.format('MMM DD, YYYY') + ' - ' + end.format('MMM DD, YYYY'));
+        window.location.href = "/index/birthday/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+    }); 
+    $('.nextbutton').click(function(){
+        var start = moment("<%= @game_start_index %>").add(1, 'days');
+    var end = moment("<%= @game_end_index %>").add(1, 'days');
+    $('.daterange').val(start.format('MMM DD, YYYY') + ' - ' + end.format('MMM DD, YYYY'));
+        window.location.href = "/index/birthday/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+    });
+</script>
+
+<div style="
+    position: absolute;
+    top: 10px;
+    left: 10px;
+">
+  <button class="btn btn-danger refreshbutton">Refresh</button>
+</div>
+  
+<script>
+ $('.refreshbutton').click(function(){
+    window.location.href = window.location.href;
+  });
+</script>
+<div style="display: flex">
+<div style="display: inline-block">
+  <table border="1">
+    <thead>
+    <tr>
+      <td>DATE</td>
+      <td>NAME</td>
+      <td>TEAM</td>
+      <td>NEXT GAME</td>
+      <td>LAST GAME</td>
+    </tr>
+    </thead>
+    <tbody>
+    <% @nba_records.each do |record| %>
+      <tr>
+        <%
+          record_date = record[:date]
+          if record_date != '-'
+            record_date = record[:date].strftime("%^A %^b %-d")
+            # record_date = 'Today' if record[:date] == @today
+            # record_date = 'Yesterday' if record[:date] == @today - 1.days
+            # record_date = 'Tomorrow' if record[:date] == @today + 1.days
+          end
+        %>
+        <td><%= record_date %></td>
+        <% if record[:player] == 'NONE' %>
+          <td>NONE</td>
+          <% (0..2).each do |index| %>
+            <td>-</td>
+          <% end %>
+        <% else %>
+          <td><%= record[:player].player_name %></td>
+          <td><%= record[:player].team_name %></td>
+          <% next_game = Nba.where("home_team = ? AND game_date >= ?", record[:player].team_name, record[:current].beginning_of_day).or(Nba.where("away_team = ? AND game_date >= ?", record[:player].team_name, record[:current].beginning_of_day)).order(:game_date).first %>
+          <% if next_game %>
+            <td><%= Date.strptime(next_game.game_date).strftime("%^b %e") %></td>
+          <% else %>
+            <td>-</td>
+          <% end %>
+
+          <% last_game = Nba.where("home_team = ? AND game_date < ?", record[:player].team_name, record[:current].beginning_of_day).or(Nba.where("away_team = ? AND game_date < ?", record[:player].team_name, record[:current].beginning_of_day)).order(:game_date).last %>
+          <% if last_game %>
+            <td><%= Date.strptime(last_game.game_date).strftime("%^b %e") %></td>
+          <% else %>
+            <td>-</td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+  <div style="display: inline-block">
+  <table border="1">
+    <thead>
+      <tr>
+        <td>DATE</td>
+        <td>NAME</td>
+        <td>CLASS</td>
+        <td>AVE MINS</td>
+        <td>TEAM</td>
+        <td>NEXT GAME</td>
+        <td>Did he play</td>
+        <td>How many mins</td>
+        <td>Score</td>
+        <td>LAST GAME</td>
+        <td>Did he play</td>
+        <td>How many mins</td>
+        <td>Score</td>
+      </tr>
+      </thead>
+      <tbody>
+        <% @records.each do |record| %>
+          <tr>
+            <%
+              record_date = record[:date]
+              if record_date != '-'
+                record_date = record[:date].strftime("%^A %^b %-d")
+                # record_date = 'Today' if record[:date] == @today
+                # record_date = 'Yesterday' if record[:date] == @today - 1.days
+                # record_date = 'Tomorrow' if record[:date] == @today + 1.days
+              end
+            %>
+            <td><%= record_date %></td>
+            <% if record[:player] == 'NONE' %>
+              <td>NONE</td>
+              <% (0..10).each do |index| %>
+                <td>-</td>
+              <% end %>
+            <% else %>
+              <td><%= record[:player].player_name %></td>
+              <td><%= record[:player].player_class ? record[:player].player_class : '-' %></td>
+              <td><%= record[:player].ave_mins ? record[:player].ave_mins : '-' %></td>
+              <% cbb_team = CbbTeam.find_by(id: record[:player].cbb_team_id) %>
+              <td><%= cbb_team.name %></td>
+
+              <% next_cbb_record = CbbGame.where("home_team = ? AND game_date >= ?", cbb_team.name, record[:current].beginning_of_day).or(CbbGame.where("away_team = ? AND game_date >= ?", cbb_team.name, record[:current].beginning_of_day)).order(:game_date).first %>
+              <% if next_cbb_record && next_cbb_record.game_date %>
+                <td><%= Date.strptime(next_cbb_record.game_date).strftime("%^b %e") %></td>
+                <% next_record = CbbRecord.find_by(game_date: next_cbb_record.game_date, cbb_player_id: record[:player].id) %>
+                <% if next_record %>
+                  <td>YES</td>
+                  <td><%= next_record.min %></td>
+                  <td><%= next_record.score %></td>
+                <% else %>
+                  <td>NO</td>
+                  <td>-</td>
+                  <td>-</td>
+                <% end %>
+              <% else %>
+                <% (0..3).each do |index| %>
+                  <td>-</td>
+                <% end %>
+              <% end %>
+
+              <% last_cbb_record = CbbGame.where("home_team = ? AND game_date < ?", cbb_team.name, record[:current].beginning_of_day).or(CbbGame.where("away_team = ? AND game_date < ?", cbb_team.name, record[:current].beginning_of_day)).order(:game_date).last %>
+              <% if last_cbb_record && last_cbb_record.game_date %>
+                <td><%= Date.strptime(last_cbb_record.game_date).strftime("%^b %e") %></td>
+                <% last_record = CbbRecord.find_by(game_date: last_cbb_record.game_date, cbb_player_id: record[:player].id) %>
+                <% if last_record %>
+                  <td>YES</td>
+                  <td><%= last_record.min %></td>
+                  <td><%= last_record.score %></td>
+                  <% else %>
+                  <td>NO</td>
+                  <td>-</td>
+                  <td>-</td>
+                <% end %>
+              <% else %>
+                <% (0..3).each do |index| %>
+                  <td>-</td>
+                <% end %>
+              <% end %>
+
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
