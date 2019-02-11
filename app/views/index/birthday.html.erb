@@ -77,12 +77,7 @@
       <tr>
         <%
           record_date = record[:date]
-          if record_date != '-'
-            record_date = record[:date].strftime("%^A %^b %-d")
-            # record_date = 'Today' if record[:date] == @today
-            # record_date = 'Yesterday' if record[:date] == @today - 1.days
-            # record_date = 'Tomorrow' if record[:date] == @today + 1.days
-          end
+          record_date = record[:date].strftime("%^A %^b %-d") if record_date != '-'
         %>
         <td><%= record_date %></td>
         <% if record[:player] == 'NONE' %>
@@ -136,12 +131,7 @@
           <tr>
             <%
               record_date = record[:date]
-              if record_date != '-'
-                record_date = record[:date].strftime("%^A %^b %-d")
-                # record_date = 'Today' if record[:date] == @today
-                # record_date = 'Yesterday' if record[:date] == @today - 1.days
-                # record_date = 'Tomorrow' if record[:date] == @today + 1.days
-              end
+              record_date = record[:date].strftime("%^A %^b %-d") if record_date != '-'
             %>
             <td><%= record_date %></td>
             <% if record[:player] == 'NONE' %>
