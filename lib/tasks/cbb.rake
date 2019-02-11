@@ -420,12 +420,9 @@ namespace :cbb do
 					hour = 24
 				end
 
-        if @cbb_nicknames[home_name]
-					home_name = @cbb_nicknames[home_name]
-        end
-        if @cbb_nicknames[away_name]
-					away_name = @cbb_nicknames[away_name]
-        end
+				home_name = @cbb_nicknames[home_name] if @cbb_nicknames[home_name]
+				away_name = @cbb_nicknames[away_name] if @cbb_nicknames[away_name]
+
         home_name_index = home_name.index(') ')
         home_name = home_name[home_name_index+2..-1] if home_name_index
 				away_name_index = away_name.index(') ')

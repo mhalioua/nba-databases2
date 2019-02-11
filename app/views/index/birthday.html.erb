@@ -111,19 +111,48 @@
   <table border="1">
     <thead>
       <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Opponent</td>
+        <td></td>
+        <td></td>
+        <td colspan="2">what was line</td>
+        <td colspan="2">final score</td>
+        <td></td>
+        <td></td>
+        <td>Opponent</td>
+        <td></td>
+        <td></td>
+        <td colspan="2">what was line</td>
+        <td colspan="2">final score</td>
+      </tr>
+      <tr>
         <td>DATE</td>
         <td>NAME</td>
         <td>CLASS</td>
         <td>AVE MINS</td>
         <td>TEAM</td>
         <td>NEXT GAME</td>
+        <td>VS or @</td>
         <td>Did he play</td>
         <td>How many mins</td>
-        <td>Score</td>
+        <td>Side</td>
+        <td>Total</td>
+        <td>Away</td>
+        <td>Home</td>
+        <td></td>
         <td>LAST GAME</td>
+        <td>VS or @</td>
         <td>Did he play</td>
         <td>How many mins</td>
-        <td>Score</td>
+        <td>Side</td>
+        <td>Total</td>
+        <td>Away</td>
+        <td>Home</td>
       </tr>
       </thead>
       <tbody>
@@ -136,7 +165,7 @@
             <td><%= record_date %></td>
             <% if record[:player] == 'NONE' %>
               <td>NONE</td>
-              <% (0..10).each do |index| %>
+              <% (0..18).each do |index| %>
                 <td>-</td>
               <% end %>
             <% else %>
@@ -149,18 +178,21 @@
               <% next_cbb_record = CbbGame.where("home_team = ? AND game_date >= ?", cbb_team.name, record[:current].beginning_of_day).or(CbbGame.where("away_team = ? AND game_date >= ?", cbb_team.name, record[:current].beginning_of_day)).order(:game_date).first %>
               <% if next_cbb_record && next_cbb_record.game_date %>
                 <td><%= Date.strptime(next_cbb_record.game_date).strftime("%^b %e") %></td>
+                <td>@ <%= next_cbb_record.home_team == cbb_team.name ? next_cbb_record.away_team : next_cbb_record.home_team %></td>
                 <% next_record = CbbRecord.find_by(game_date: next_cbb_record.game_date, cbb_player_id: record[:player].id) %>
                 <% if next_record %>
                   <td>YES</td>
                   <td><%= next_record.min %></td>
-                  <td><%= next_record.score %></td>
                 <% else %>
                   <td>NO</td>
                   <td>-</td>
-                  <td>-</td>
                 <% end %>
+                <td><%= next_cbb_record.full_closer_side %></td>
+                <td><%= next_cbb_record.full_closer_total %></td>
+                <td><%= next_cbb_record.away_score %></td>
+                <td><%= next_cbb_record.home_score %></td>
               <% else %>
-                <% (0..3).each do |index| %>
+                <% (0..6).each do |index| %>
                   <td>-</td>
                 <% end %>
               <% end %>
@@ -168,18 +200,21 @@
               <% last_cbb_record = CbbGame.where("home_team = ? AND game_date < ?", cbb_team.name, record[:current].beginning_of_day).or(CbbGame.where("away_team = ? AND game_date < ?", cbb_team.name, record[:current].beginning_of_day)).order(:game_date).last %>
               <% if last_cbb_record && last_cbb_record.game_date %>
                 <td><%= Date.strptime(last_cbb_record.game_date).strftime("%^b %e") %></td>
+                <td>@ <%= last_cbb_record.home_team == cbb_team.name ? last_cbb_record.away_team : last_cbb_record.home_team %></td>
                 <% last_record = CbbRecord.find_by(game_date: last_cbb_record.game_date, cbb_player_id: record[:player].id) %>
                 <% if last_record %>
                   <td>YES</td>
                   <td><%= last_record.min %></td>
-                  <td><%= last_record.score %></td>
                   <% else %>
                   <td>NO</td>
                   <td>-</td>
-                  <td>-</td>
                 <% end %>
+                <td><%= last_cbb_record.full_closer_side %></td>
+                <td><%= last_cbb_record.full_closer_total %></td>
+                <td><%= last_cbb_record.away_score %></td>
+                <td><%= last_cbb_record.home_score %></td>
               <% else %>
-                <% (0..3).each do |index| %>
+                <% (0..6).each do |index| %>
                   <td>-</td>
                 <% end %>
               <% end %>
