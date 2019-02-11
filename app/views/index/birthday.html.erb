@@ -197,6 +197,8 @@
                 <% end %>
               <% end %>
 
+              <td></td>
+
               <% last_cbb_record = CbbGame.where("home_team = ? AND game_date < ?", cbb_team.name, record[:current].beginning_of_day).or(CbbGame.where("away_team = ? AND game_date < ?", cbb_team.name, record[:current].beginning_of_day)).order(:game_date).last %>
               <% if last_cbb_record && last_cbb_record.game_date %>
                 <td><%= Date.strptime(last_cbb_record.game_date).strftime("%^b %e") %></td>
