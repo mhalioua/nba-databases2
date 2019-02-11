@@ -384,6 +384,7 @@ namespace :cbb do
 			url = "#{game_link}#{game_day}"
 			doc = download_document(url)
 			elements = doc.css(".event-holder")
+      puts elements.count
 			elements.each do |element|
         puts children[5].inspect
 				if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
