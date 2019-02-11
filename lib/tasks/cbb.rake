@@ -420,12 +420,12 @@ namespace :cbb do
 					hour = 24
 				end
 
-        # if @nba_nicknames[home_name]
-					# home_name = @nba_nicknames[home_name]
-        # end
-        # if @nba_nicknames[away_name]
-					# away_name = @nba_nicknames[away_name]
-        # end
+        if @cbb_nicknames[home_name]
+					home_name = @cbb_nicknames[home_name]
+        end
+        if @cbb_nicknames[away_name]
+					away_name = @cbb_nicknames[away_name]
+        end
         home_name_index = home_name.index(') ')
         home_name = home_name[home_name_index+2..-1] if home_name_index
 				away_name_index = away_name.index(') ')
@@ -473,6 +473,14 @@ namespace :cbb do
 			index_date = index_date + 1.days
 		end
 	end
+
+	@cbb_nicknames = {
+			"St. Peter's" => "Saint Peter's",
+      "Connecticut" => "UConn",
+      "Loyola (IL)" => "Loyola-Chicago",
+      "Southern University" => "Southern",
+      "Grambling State" => "Grambling"
+	}
 
 	@team_name = {
 			'American University' => 'American',
