@@ -31,12 +31,12 @@ namespace :cbb do
 
   task :getLines => :environment do
 		link = "https://classic.sportsbookreview.com/betting-odds/ncaa-basketball/?date="
-		Rake::Task["nba:getSecondLines"].invoke("full", link)
-		Rake::Task["nba:getSecondLines"].reenable
+		Rake::Task["cbb:getSecondLines"].invoke("full", link)
+		Rake::Task["cbb:getSecondLines"].reenable
 
 		link = "https://classic.sportsbookreview.com/betting-odds/ncaa-basketball/totals/?date="
-		Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
-		Rake::Task["nba:getSecondLines"].reenable
+		Rake::Task["cbb:getSecondLines"].invoke("fullTotal", link)
+		Rake::Task["cbb:getSecondLines"].reenable
   end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
@@ -384,9 +384,7 @@ namespace :cbb do
 			url = "#{game_link}#{game_day}"
 			doc = download_document(url)
 			elements = doc.css(".event-holder")
-      puts elements.count
 			elements.each do |element|
-        puts children[5].inspect
 				if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
 					next
 				end
