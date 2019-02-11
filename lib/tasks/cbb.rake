@@ -426,6 +426,10 @@ namespace :cbb do
         # if @nba_nicknames[away_name]
 					# away_name = @nba_nicknames[away_name]
         # end
+        home_name_index = home_name.index(') ')
+        home_name = home_name[home_name_index+1..-1] if home_name_index
+				away_name_index = away_name.index(') ')
+				away_name = away_name[away_name_index+1..-1] if away_name_index
         puts home_name
         puts away_name
 
