@@ -10,13 +10,8 @@ namespace :cbb do
 		Rake::Task["cbb:getScore"].invoke
 		Rake::Task["cbb:getScore"].reenable
 
-		link = "https://classic.sportsbookreview.com/betting-odds/ncaa-basketball/?date="
-		Rake::Task["nba:getSecondLines"].invoke("full", link)
-		Rake::Task["nba:getSecondLines"].reenable
-
-		link = "https://classic.sportsbookreview.com/betting-odds/ncaa-basketball/totals/?date="
-		Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
-		Rake::Task["nba:getSecondLines"].reenable
+		Rake::Task["cbb:getLines"].invoke
+		Rake::Task["cbb:getLines"].reenable
 
 		Rake::Task["cbb:team_stats"].invoke
 		Rake::Task["cbb:team_stats"].reenable
@@ -32,6 +27,16 @@ namespace :cbb do
 
 		Rake::Task["cbb:nba_player_names"].invoke
 		Rake::Task["cbb:nba_player_names"].reenable
+  end
+
+  task :getLines => :environment do
+		link = "https://classic.sportsbookreview.com/betting-odds/ncaa-basketball/?date="
+		Rake::Task["nba:getSecondLines"].invoke("full", link)
+		Rake::Task["nba:getSecondLines"].reenable
+
+		link = "https://classic.sportsbookreview.com/betting-odds/ncaa-basketball/totals/?date="
+		Rake::Task["nba:getSecondLines"].invoke("fullTotal", link)
+		Rake::Task["nba:getSecondLines"].reenable
   end
 
 	task :getDate, [:game_date] => [:environment] do |t, args|
