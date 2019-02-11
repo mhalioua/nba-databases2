@@ -110,41 +110,41 @@
   <div style="display: inline-block">
   <table border="1">
     <thead>
-      <tr>
+      <tr bgcolor="lightgray">
         <td></td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td>Opponent</td>
-        <td></td>
-        <td></td>
-        <td colspan="2">what was line</td>
-        <td colspan="2">final score</td>
-        <td></td>
-        <td></td>
-        <td>Opponent</td>
-        <td></td>
-        <td></td>
-        <td colspan="2">what was line</td>
-        <td colspan="2">final score</td>
+        <td bgcolor="yellow"></td>
+        <td bgcolor="yellow">Opponent</td>
+        <td bgcolor="yellow"></td>
+        <td bgcolor="yellow"></td>
+        <td bgcolor="orange" colspan="2">what was line</td>
+        <td bgcolor="orange" colspan="2">final score</td>
+        <td bgcolor="black"></td>
+        <td bgcolor="purple"></td>
+        <td bgcolor="purple">Opponent</td>
+        <td bgcolor="purple"></td>
+        <td bgcolor="purple"></td>
+        <td bgcolor="mediumpurple" colspan="2">what was line</td>
+        <td bgcolor="mediumpurple" colspan="2">final score</td>
       </tr>
-      <tr>
+      <tr bgcolor="lightgray">
         <td>DATE</td>
         <td>NAME</td>
         <td>CLASS</td>
         <td>AVE MINS</td>
         <td>TEAM</td>
-        <td>NEXT GAME</td>
-        <td>VS or @</td>
-        <td>Did he play</td>
-        <td>How many mins</td>
-        <td>Side</td>
-        <td>Total</td>
-        <td>Away</td>
-        <td>Home</td>
-        <td></td>
+        <td bgcolor="yellow">NEXT GAME</td>
+        <td bgcolor="yellow">VS or @</td>
+        <td bgcolor="yellow">Did he play</td>
+        <td bgcolor="yellow">How many mins</td>
+        <td bgcolor="yellow">Side</td>
+        <td bgcolor="yellow">Total</td>
+        <td bgcolor="yellow">Away</td>
+        <td bgcolor="yellow">Home</td>
+        <td bgcolor="black"></td>
         <td>LAST GAME</td>
         <td>VS or @</td>
         <td>Did he play</td>
@@ -187,14 +187,18 @@
                   <td>NO</td>
                   <td>-</td>
                 <% end %>
-                <td><%= next_cbb_record.full_closer_side %></td>
-                <td><%= next_cbb_record.full_closer_total %></td>
+                <td bgcolor="yellow"><%= next_cbb_record.full_closer_side %></td>
+                <td bgcolor="yellow"><%= next_cbb_record.full_closer_total %></td>
                 <td><%= next_cbb_record.away_score %></td>
                 <td><%= next_cbb_record.home_score %></td>
               <% else %>
-                <% (0..6).each do |index| %>
+                <% (0..4).each do |index| %>
                   <td>-</td>
                 <% end %>
+                <td bgcolor="yellow"></td>
+                <td bgcolor="yellow"></td>
+                <td></td>
+                <td></td>
               <% end %>
 
               <td></td>
@@ -211,14 +215,18 @@
                   <td>NO</td>
                   <td>-</td>
                 <% end %>
-                <td><%= last_cbb_record.full_closer_side %></td>
-                <td><%= last_cbb_record.full_closer_total %></td>
+                <td bgcolor="mediumpurple"><%= last_cbb_record.full_closer_side %></td>
+                <td bgcolor="mediumpurple"><%= last_cbb_record.full_closer_total %></td>
                 <td><%= last_cbb_record.away_score %></td>
                 <td><%= last_cbb_record.home_score %></td>
               <% else %>
-                <% (0..6).each do |index| %>
+                <% (0..4).each do |index| %>
                   <td>-</td>
                 <% end %>
+                <td bgcolor="mediumpurple"></td>
+                <td bgcolor="mediumpurple"></td>
+                <td></td>
+                <td></td>
               <% end %>
 
             <% end %>
