@@ -123,12 +123,12 @@
         <td bgcolor="orange" colspan="2">what was line</td>
         <td bgcolor="orange" colspan="2">final score</td>
         <td bgcolor="black"></td>
-        <td bgcolor="rebeccapurple"></td>
-        <td bgcolor="rebeccapurple">Opponent</td>
-        <td bgcolor="rebeccapurple"></td>
-        <td bgcolor="rebeccapurple"></td>
-        <td bgcolor="mediumpurple" colspan="2">what was line</td>
-        <td bgcolor="mediumpurple" colspan="2">final score</td>
+        <td bgcolor="mediumpurple"></td>
+        <td bgcolor="mediumpurple">Opponent</td>
+        <td bgcolor="mediumpurple"></td>
+        <td bgcolor="mediumpurple"></td>
+        <td bgcolor="pink" colspan="2">what was line</td>
+        <td bgcolor="pink" colspan="2">final score</td>
       </tr>
       <tr bgcolor="lightgray">
         <td>DATE</td>
@@ -145,14 +145,14 @@
         <td bgcolor="yellow">Away</td>
         <td bgcolor="yellow">Home</td>
         <td bgcolor="black"></td>
-        <td bgcolor="rebeccapurple">LAST GAME</td>
-        <td bgcolor="rebeccapurple">VS or @</td>
-        <td bgcolor="rebeccapurple">Did he play</td>
-        <td bgcolor="rebeccapurple">How many mins</td>
-        <td bgcolor="rebeccapurple">Side</td>
-        <td bgcolor="rebeccapurple">Total</td>
-        <td bgcolor="rebeccapurple">Away</td>
-        <td bgcolor="rebeccapurple">Home</td>
+        <td bgcolor="mediumpurple">LAST GAME</td>
+        <td bgcolor="mediumpurple">VS or @</td>
+        <td bgcolor="mediumpurple">Did he play</td>
+        <td bgcolor="mediumpurple">How many mins</td>
+        <td bgcolor="mediumpurple">Side</td>
+        <td bgcolor="mediumpurple">Total</td>
+        <td bgcolor="mediumpurple">Away</td>
+        <td bgcolor="mediumpurple">Home</td>
       </tr>
       </thead>
       <tbody>
@@ -215,16 +215,16 @@
                   <td>NO</td>
                   <td>-</td>
                 <% end %>
-                <td bgcolor="mediumpurple"><%= last_cbb_record.full_closer_side %></td>
-                <td bgcolor="mediumpurple"><%= last_cbb_record.full_closer_total %></td>
+                <td bgcolor="pink"><%= last_cbb_record.full_closer_side %></td>
+                <td bgcolor="pink"><%= last_cbb_record.full_closer_total %></td>
                 <td><%= last_cbb_record.away_score %></td>
                 <td><%= last_cbb_record.home_score %></td>
               <% else %>
                 <% (0..4).each do |index| %>
                   <td>-</td>
                 <% end %>
-                <td bgcolor="mediumpurple"></td>
-                <td bgcolor="mediumpurple"></td>
+                <td bgcolor="pink"></td>
+                <td bgcolor="pink"></td>
                 <td></td>
                 <td></td>
               <% end %>
