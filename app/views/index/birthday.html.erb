@@ -123,10 +123,10 @@
         <td bgcolor="orange" colspan="2">what was line</td>
         <td bgcolor="orange" colspan="2">final score</td>
         <td bgcolor="black"></td>
-        <td bgcolor="purple"></td>
-        <td bgcolor="purple">Opponent</td>
-        <td bgcolor="purple"></td>
-        <td bgcolor="purple"></td>
+        <td bgcolor="rebeccapurple"></td>
+        <td bgcolor="rebeccapurple">Opponent</td>
+        <td bgcolor="rebeccapurple"></td>
+        <td bgcolor="rebeccapurple"></td>
         <td bgcolor="mediumpurple" colspan="2">what was line</td>
         <td bgcolor="mediumpurple" colspan="2">final score</td>
       </tr>
@@ -145,14 +145,14 @@
         <td bgcolor="yellow">Away</td>
         <td bgcolor="yellow">Home</td>
         <td bgcolor="black"></td>
-        <td>LAST GAME</td>
-        <td>VS or @</td>
-        <td>Did he play</td>
-        <td>How many mins</td>
-        <td>Side</td>
-        <td>Total</td>
-        <td>Away</td>
-        <td>Home</td>
+        <td bgcolor="rebeccapurple">LAST GAME</td>
+        <td bgcolor="rebeccapurple">VS or @</td>
+        <td bgcolor="rebeccapurple">Did he play</td>
+        <td bgcolor="rebeccapurple">How many mins</td>
+        <td bgcolor="rebeccapurple">Side</td>
+        <td bgcolor="rebeccapurple">Total</td>
+        <td bgcolor="rebeccapurple">Away</td>
+        <td bgcolor="rebeccapurple">Home</td>
       </tr>
       </thead>
       <tbody>
@@ -201,7 +201,7 @@
                 <td></td>
               <% end %>
 
-              <td></td>
+              <td bgcolor="black"></td>
 
               <% last_cbb_record = CbbGame.where("home_team = ? AND game_date < ?", cbb_team.name, record[:current].beginning_of_day).or(CbbGame.where("away_team = ? AND game_date < ?", cbb_team.name, record[:current].beginning_of_day)).order(:game_date).last %>
               <% if last_cbb_record && last_cbb_record.game_date %>
