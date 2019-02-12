@@ -463,7 +463,7 @@ namespace :cbb do
 					if type == "full"
 						update_game.update(full_opener_side: opener_side, full_closer_side: closer_side)
 					elsif type == "fullTotal"
-							update_game.update(full_opener_total: opener_side, full_opener_total: closer_side)
+							update_game.update(full_opener_total: opener_side, full_closer_total: closer_side)
 					end
 				end
 			end
