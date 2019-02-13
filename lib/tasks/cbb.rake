@@ -97,10 +97,12 @@ namespace :cbb do
 			puts url
       if doc
 				element = doc.css(".game-date-time").first
-				game_date = element.children[1]['data-date']
-				date = DateTime.parse(game_date).in_time_zone
+        if element
+					game_date = element.children[1]['data-date']
+					date = DateTime.parse(game_date).in_time_zone
 
-				game.update(game_date: date)
+					game.update(game_date: date)
+        end
 			end
 
       home_team = CbbTeam.find_or_create_by(name: home_team, abbr: home_abbr, link: home_link)
