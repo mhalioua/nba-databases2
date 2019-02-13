@@ -481,7 +481,7 @@ namespace :cbb do
 
   # Clone
 	task :dailyClone => :environment do
-		date = Date.new(2018, 11, 24)
+		date = Date.new(2019, 1, 2)
 		while date <= Date.tomorrow  do
 			Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
 			Rake::Task["cbb:getDate"].reenable
