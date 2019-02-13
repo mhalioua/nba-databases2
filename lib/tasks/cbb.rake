@@ -471,6 +471,180 @@ namespace :cbb do
 		end
 	end
 
+
+  # Clone
+	task :dailyClone => :environment do
+		date = Date.new(2018, 11, 5)
+		while date <= Date.tomorrow  do
+			Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
+			Rake::Task["cbb:getDate"].reenable
+			date = date + 1.days
+		end
+
+		Rake::Task["cbb:getScoreClone"].invoke
+		Rake::Task["cbb:getScoreClone"].reenable
+
+		link = "https://classic.sportsbookreview.com/betting-odds/ncaa-basketball/?date="
+		Rake::Task["cbb:getSecondLinesClone"].invoke("full", link)
+		Rake::Task["cbb:getSecondLinesClone"].reenable
+
+		link = "https://classic.sportsbookreview.com/betting-odds/ncaa-basketball/totals/?date="
+		Rake::Task["cbb:getSecondLinesClone"].invoke("fullTotal", link)
+		Rake::Task["cbb:getSecondLinesClone"].reenable
+  end
+
+	task :getScoreClone => [:environment] do
+		include Api
+		games = CbbGame.where("game_date between ? and ?", Date.new(2018, 11, 5).beginning_of_day, Date.today.end_of_day)
+		puts games.size
+		games.each do |game|
+			game_id = game.game_id
+
+			url = "http://www.espn.com/mens-college-basketball/game?gameId=#{game_id}"
+			doc = download_document(url)
+			puts url
+			elements = doc.css("#linescore tbody tr")
+			if elements.size > 1
+				if elements[0].children.size > 3
+					away_first_quarter 	= elements[0].children[1].text.to_i
+					away_second_quarter = elements[0].children[2].text.to_i
+					away_ot_quarter 	= 0
+
+					home_first_quarter 	= elements[1].children[1].text.to_i
+					home_second_quarter = elements[1].children[2].text.to_i
+					home_ot_quarter 	= 0
+
+					if elements[0].children.size > 4
+						away_ot_quarter = elements[0].children[3].text.to_i
+						home_ot_quarter = elements[1].children[3].text.to_i
+					end
+				end
+			else
+				away_first_quarter 	= 0
+				away_second_quarter = 0
+				away_ot_quarter 	= 0
+
+				home_first_quarter 	= 0
+				home_second_quarter = 0
+				home_ot_quarter 	= 0
+			end
+			away_score = away_first_quarter + away_second_quarter + away_ot_quarter
+			home_score = home_first_quarter + home_second_quarter + home_ot_quarter
+
+			game.update(
+					away_first_quarter: away_first_quarter,
+					home_first_quarter: home_first_quarter,
+					away_second_quarter: away_second_quarter,
+					home_second_quarter: home_second_quarter,
+					away_ot_quarter: away_ot_quarter,
+					home_ot_quarter: home_ot_quarter,
+					away_score: away_score,
+					home_score: home_score)
+		end
+	end
+
+	task :getSecondLinesClone, [:type, :game_link] => [:environment] do |t, args|
+		include Api
+		games = CbbGame.where("game_date between ? and ?", Date.new(2018, 11, 5).beginning_of_day, (Date.today + 3.days).end_of_day)
+		game_link = args[:game_link]
+		type = args[:type]
+		puts "----------Get #{type} Lines----------"
+
+		index_date = Date.new(2018, 11, 5)
+		while index_date <= Date.tomorrow  do
+			game_day = index_date.strftime("%Y%m%d")
+			puts game_day
+			url = "#{game_link}#{game_day}"
+			doc = download_document(url)
+			elements = doc.css(".event-holder")
+			elements.each do |element|
+				if element.children[0].children[1].children.size > 2 && element.children[0].children[1].children[2].children[1].children.size == 1
+					next
+				end
+				if element.children[0].children[5].children.size < 5
+					next
+				end
+
+				score_element = element.children[0].children[11]
+				score_element = element.children[0].children[9] if score_element.children[1].text == ""
+				score_element = element.children[0].children[13] if score_element.children[1].text == ""
+				score_element = element.children[0].children[12] if score_element.children[1].text == ""
+				score_element = element.children[0].children[10] if score_element.children[1].text == ""
+				score_element = element.children[0].children[17] if score_element.children[1].text == ""
+				score_element = element.children[0].children[18] if score_element.children[1].text == ""
+				score_element = element.children[0].children[14] if score_element.children[1].text == ""
+				score_element = element.children[0].children[15] if score_element.children[1].text == ""
+				score_element = element.children[0].children[16] if score_element.children[1].text == ""
+
+				home_name 		= element.children[0].children[5].children[1].text
+				away_name 		= element.children[0].children[5].children[0].text
+				closer 			= score_element.children[1].text
+				opener 			= element.children[0].children[7].children[1].text
+
+				game_time = element.children[0].children[4].text
+				ind = game_time.index(":")
+				hour = ind ? game_time[0..ind-1].to_i : 0
+				min = ind ? game_time[ind+1..ind+3].to_i : 0
+				ap = game_time[-1]
+				if ap == "p" && hour != 12
+					hour = hour + 12
+				end
+				if ap == "a" && hour == 12
+					hour = 24
+				end
+
+				home_name = @cbb_nicknames[home_name] if @cbb_nicknames[home_name]
+				away_name = @cbb_nicknames[away_name] if @cbb_nicknames[away_name]
+
+				home_name_index = home_name.index(') ')
+				home_name = home_name[home_name_index+2..-1] if home_name_index
+				away_name_index = away_name.index(') ')
+				away_name = away_name[away_name_index+2..-1] if away_name_index
+				puts home_name
+				puts away_name
+
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
+
+				line_one = opener.index(" ")
+				opener_side = line_one ? opener[0..line_one] : ""
+				line_two = closer.index(" ")
+				closer_side = line_two ? closer[0..line_two] : ""
+
+				matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
+				if matched.size > 0
+					update_game = matched.first
+					if opener_side.include?('½')
+						if opener_side[0] == '-'
+							opener_side = opener_side[0..-1].to_f - 0.5
+						else
+							opener_side = opener_side[0..-1].to_f + 0.5
+						end
+					else
+						opener_side = opener_side.to_f
+					end
+					if closer_side.include?('½')
+						if closer_side[0] == '-'
+							closer_side = closer_side[0..-1].to_f - 0.5
+						else
+							closer_side = closer_side[0..-1].to_f + 0.5
+						end
+					else
+						closer_side = closer_side.to_f
+					end
+					puts opener_side
+					puts closer_side
+					if type == "full"
+						update_game.update(full_opener_side: opener_side, full_closer_side: closer_side)
+					elsif type == "fullTotal"
+						update_game.update(full_opener_total: opener_side, full_closer_total: closer_side)
+					end
+				end
+			end
+			index_date = index_date + 1.days
+    end
+  end
+
+
 	@cbb_nicknames = {
 			"St. Peter's" => "Saint Peter's",
       "Connecticut" => "UConn",
