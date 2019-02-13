@@ -178,7 +178,7 @@
               <% next_cbb_record = CbbGame.where("home_team = ? AND game_date >= ?", cbb_team.name, record[:current].beginning_of_day).or(CbbGame.where("away_team = ? AND game_date >= ?", cbb_team.name, record[:current].beginning_of_day)).order(:game_date).first %>
               <% if next_cbb_record && next_cbb_record.game_date %>
                 <td><%= Date.strptime(next_cbb_record.game_date).strftime("%^b %e") %></td>
-                <td><%= next_cbb_record.home_team == cbb_team.name ? '@ ' + next_cbb_record.away_team : 'vs ' + next_cbb_record.home_team %></td>
+                <td><%= next_cbb_record.home_team == cbb_team.name ? 'vs ' + next_cbb_record.away_team : '@ ' + next_cbb_record.home_team %></td>
                 <% next_record = CbbRecord.find_by(game_date: next_cbb_record.game_date, cbb_player_id: record[:player].id) %>
                 <% if next_record %>
                   <td>YES</td>
@@ -206,7 +206,7 @@
               <% last_cbb_record = CbbGame.where("home_team = ? AND game_date < ?", cbb_team.name, record[:current].beginning_of_day).or(CbbGame.where("away_team = ? AND game_date < ?", cbb_team.name, record[:current].beginning_of_day)).order(:game_date).last %>
               <% if last_cbb_record && last_cbb_record.game_date %>
                 <td><%= Date.strptime(last_cbb_record.game_date).strftime("%^b %e") %></td>
-                <td><%= last_cbb_record.home_team == cbb_team.name ? '@ ' + last_cbb_record.away_team : 'vs ' + last_cbb_record.home_team %></td>
+                <td><%= last_cbb_record.home_team == cbb_team.name ? 'vs ' + last_cbb_record.away_team : '@ ' + last_cbb_record.home_team %></td>
                 <% last_record = CbbRecord.find_by(game_date: last_cbb_record.game_date, cbb_player_id: record[:player].id) %>
                 <% if last_record %>
                   <td>YES</td>
