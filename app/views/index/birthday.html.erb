@@ -187,7 +187,7 @@
                   <td>NO</td>
                   <td>-</td>
                 <% end %>
-                <td bgcolor="yellow"><%= next_cbb_record.home_team == cbb_team.name ?  - next_cbb_record.full_closer_side.to_f : next_cbb_record.full_closer_side %></td>
+                <td bgcolor="yellow"><%= next_cbb_record.home_team == cbb_team.name ?  (next_cbb_record.full_closer_side ? - next_cbb_record.full_closer_side.to_f : '') : next_cbb_record.full_closer_side %></td>
                 <td bgcolor="yellow"><%= next_cbb_record.full_closer_total %></td>
                 <td><%= next_cbb_record.away_score %></td>
                 <td><%= next_cbb_record.home_score %></td>
@@ -215,7 +215,7 @@
                   <td>NO</td>
                   <td>-</td>
                 <% end %>
-                <td bgcolor="hotpink"><%= last_cbb_record.home_team == cbb_team.name ?  - last_cbb_record.full_closer_side.to_f : last_cbb_record.full_closer_side %></td>
+                <td bgcolor="hotpink"><%= last_cbb_record.home_team == cbb_team.name ?  (last_cbb_record.full_closer_side ? - last_cbb_record.full_closer_side.to_f : '') : last_cbb_record.full_closer_side %></td>
                 <td bgcolor="hotpink"><%= last_cbb_record.full_closer_total %></td>
                 <td><%= last_cbb_record.away_score %></td>
                 <td><%= last_cbb_record.home_score %></td>
