@@ -444,7 +444,7 @@ namespace :cbb do
 				line_two = closer.index(" ")
 				closer_side = line_two ? closer[0..line_two] : ""
 
-				matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
+				matched = games.select{|field| ((field.home_team.include?(home_name) || field.away_team.include?(away_name)) || (field.home_team.include?(away_name) || field.away_team.include?(home_name))) && (date == field.game_date) }
 				if matched.size > 0
 					update_game = matched.first
 					if opener_side.include?('½')
@@ -657,7 +657,21 @@ namespace :cbb do
       "Connecticut" => "UConn",
       "Loyola (IL)" => "Loyola-Chicago",
       "Southern University" => "Southern",
-      "Grambling State" => "Grambling"
+      "Grambling State" => "Grambling",
+      "North Carolina State" => "NC State",
+      "Saint Joseph's (PA)" => "Saint Joseph's",
+      "Massachusetts-Lowell" => "UMass Lowell",
+      "Massachusetts" => "UMass",
+      "American University" => "American",
+      "N.J.I.T." => "NJIT",
+      "Nicholls State" => "Nicholls",
+      "Southeastern Louisian" => "SE Louisiana",
+      "San Jose State" => "San José St",
+      "NC-Wilmington" => "UNC Wilmington",
+      "Bryant University" => "Bryant",
+      "Central Connecticut State" => "Central Connecticut",
+      "Mount St. Mary's" => "Mt. St. Mary's",
+      "Texas-Arlington" => "UT Arlington"
 	}
 
 	@team_name = {
