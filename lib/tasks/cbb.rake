@@ -481,15 +481,6 @@ namespace :cbb do
 
   # Clone
 	task :dailyClone => :environment do
-		date = Date.new(2019, 1, 2)
-		while date <= Date.tomorrow  do
-			Rake::Task["cbb:getDate"].invoke(date.strftime("%Y%m%d"))
-			Rake::Task["cbb:getDate"].reenable
-			date = date + 1.days
-		end
-
-		Rake::Task["cbb:getScoreClone"].invoke
-		Rake::Task["cbb:getScoreClone"].reenable
 
 		link = "https://classic.sportsbookreview.com/betting-odds/ncaa-basketball/?date="
 		Rake::Task["cbb:getSecondLinesClone"].invoke("full", link)
