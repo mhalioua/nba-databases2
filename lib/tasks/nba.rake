@@ -706,6 +706,7 @@ namespace :nba do
 			game_date = game.game_date
 
 			away_last_game = ""
+      away_team_city = ""
       away_last_fly = ""
       away_last_ot = ""
 			away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
@@ -713,8 +714,11 @@ namespace :nba do
 				away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
         if away_team_prev.home_team == away_team
           away_last_fly = "YES"
+          away_team_city = "home"
         else
           away_last_fly = "NO"
+          away_team_city = away_team_prev.home_team
+          away_team_city = @team_city[away_team_prev.home_team] if @team_city[away_team_prev.home_team]
         end
         if away_team_prev.away_ot_quarter != nil &&  away_team_prev.home_ot_quarter != nil
           if away_team_prev.away_ot_quarter > 0 || away_team_prev.home_ot_quarter > 0
@@ -740,13 +744,17 @@ namespace :nba do
 			home_last_game = ""
 			home_last_fly = ""
       home_last_ot = ""
+      home_team_city = ""
 			home_team_prev = Nba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
 			if home_team_prev
 				home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
 				if home_team_prev.home_team == home_team
 					home_last_fly = "NO"
+          home_team_city = "home"
 				else
 					home_last_fly = "YES"
+          home_team_city = home_team_prev.home_team
+          home_team_city = @team_city[home_team_prev.home_team] if @team_city[home_team_prev.home_team]
 				end
         if home_team_prev.away_ot_quarter != nil && home_team_prev.home_ot_quarter != nil
           if home_team_prev.away_ot_quarter > 0 || home_team_prev.home_ot_quarter > 0
@@ -799,7 +807,9 @@ namespace :nba do
           away_last_home: away_last_home,
           away_next_home: away_next_home,
           home_last_home: home_last_home,
-          home_next_home: home_next_home
+          home_next_home: home_next_home,
+          away_team_city: away_team_city,
+          home_team_city: home_team_city
       )
 		end
 	end
@@ -3842,6 +3852,46 @@ namespace :nba do
     end
   end
 
+  task :getCity => [:environment] do
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+
+    games = Nba.where("away_team_city is null")
+    puts games.size
+    games.each do |game|
+      home_team = game.home_team
+      away_team = game.away_team
+      game_date = game.game_date
+
+      away_team_city = ""
+      away_team_prev = Nba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
+      if away_team_prev
+        if away_team_prev.home_team == away_team
+          away_team_city = "home"
+        else
+          away_team_city = away_team_prev.home_team
+          away_team_city = @team_city[away_team_prev.home_team] if @team_city[away_team_prev.home_team]
+        end
+      end
+
+      home_team_city = ""
+      home_team_prev = Nba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
+      if home_team_prev
+        if home_team_prev.home_team == home_team
+          home_team_city = "home"
+        else
+          home_team_city = home_team_prev.home_team
+          home_team_city = @team_city[home_team_prev.home_team] if @team_city[home_team_prev.home_team]
+        end
+      end
+
+      game.update(
+          away_team_city: away_team_city,
+          home_team_city: home_team_city
+      )
+    end
+  end
+
 
   @basket_names = {
       'Charlotte' => 'New Orleans',
@@ -3982,5 +4032,17 @@ namespace :nba do
 
   @player_nicknames = {
     'JT Orr' => 'J.T. Orr'
+  }
+
+  @team_city = {
+      'Boston' => 'Boston',
+      'Indiana' => 'Indianapolis',
+      'Minnesota' => 'Minneapolis',
+      'Utah' => 'Salt Lake City',
+      'Golden State' => 'Oakland',
+      'LAC' => 'Los Angeles',
+      'LAL' => 'Los Angeles',
+      'NO/Oklahoma City' => 'Oklahoma City',
+      'New Jersey' => 'Brooklyn'
   }
 end
