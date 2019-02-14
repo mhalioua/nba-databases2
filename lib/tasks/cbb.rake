@@ -491,56 +491,6 @@ namespace :cbb do
 		Rake::Task["cbb:getSecondLinesClone"].reenable
   end
 
-	task :getScoreClone => [:environment] do
-		include Api
-		games = CbbGame.where("game_date between ? and ?", Date.new(2018, 11, 5).beginning_of_day, Date.today.end_of_day)
-		puts games.size
-		games.each do |game|
-			game_id = game.game_id
-
-			url = "http://www.espn.com/mens-college-basketball/game?gameId=#{game_id}"
-			doc = download_document(url)
-			puts url
-			elements = doc.css("#linescore tbody tr")
-			if elements.size > 1
-				if elements[0].children.size > 3
-					away_first_quarter 	= elements[0].children[1].text.to_i
-					away_second_quarter = elements[0].children[2].text.to_i
-					away_ot_quarter 	= 0
-
-					home_first_quarter 	= elements[1].children[1].text.to_i
-					home_second_quarter = elements[1].children[2].text.to_i
-					home_ot_quarter 	= 0
-
-					if elements[0].children.size > 4
-						away_ot_quarter = elements[0].children[3].text.to_i
-						home_ot_quarter = elements[1].children[3].text.to_i
-					end
-				end
-			else
-				away_first_quarter 	= 0
-				away_second_quarter = 0
-				away_ot_quarter 	= 0
-
-				home_first_quarter 	= 0
-				home_second_quarter = 0
-				home_ot_quarter 	= 0
-			end
-			away_score = away_first_quarter + away_second_quarter + away_ot_quarter
-			home_score = home_first_quarter + home_second_quarter + home_ot_quarter
-
-			game.update(
-					away_first_quarter: away_first_quarter,
-					home_first_quarter: home_first_quarter,
-					away_second_quarter: away_second_quarter,
-					home_second_quarter: home_second_quarter,
-					away_ot_quarter: away_ot_quarter,
-					home_ot_quarter: home_ot_quarter,
-					away_score: away_score,
-					home_score: home_score)
-		end
-	end
-
 	task :getSecondLinesClone, [:type, :game_link] => [:environment] do |t, args|
 		include Api
 		games = CbbGame.where("game_date between ? and ?", Date.new(2018, 11, 5).beginning_of_day, (Date.today + 3.days).end_of_day)
@@ -608,7 +558,7 @@ namespace :cbb do
 				line_two = closer.index(" ")
 				closer_side = line_two ? closer[0..line_two] : ""
 
-				matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
+				matched = games.select{|field| ((field.home_team.include?(home_name) || field.away_team.include?(away_name)) || (field.home_team.include?(away_name) || field.away_team.include?(home_name))) && (date == field.game_date) }
 				if matched.size > 0
 					update_game = matched.first
 					if opener_side.include?('½')
