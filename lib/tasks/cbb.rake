@@ -612,7 +612,10 @@ namespace :cbb do
       "Bryant University" => "Bryant",
       "Central Connecticut State" => "Central Connecticut",
       "Mount St. Mary's" => "Mt. St. Mary's",
-      "Texas-Arlington" => "UT Arlington"
+      "Texas-Arlington" => "UT Arlington",
+      "Tennessee-Martin" => "UT Martin",
+      "Hawaii" => "Hawai'i"
+
 	}
 
 	@team_name = {
