@@ -3843,7 +3843,7 @@ namespace :nba do
     games = Fullseason.where("home_team_next_city is null")
     puts games.size
     games.each do |game|
-      year = game.year
+      year = game.year.to_s
       date = game.date
       date_split = date.index('-')
       day = date[0..date_split-1]
