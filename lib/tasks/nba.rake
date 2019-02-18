@@ -3849,6 +3849,7 @@ namespace :nba do
           home_next_away: home_next_away
       )
     end
+  end
 
 
   @basket_names = {
