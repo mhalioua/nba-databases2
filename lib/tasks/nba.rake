@@ -785,13 +785,13 @@ namespace :nba do
       away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).order(:game_date).first
       away_next_home = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1 if away_team_next
 
-      home_last_home = ""
-      home_team_prev = Nba.where("home_team = ? AND game_date < ?", home_team, game_date).order(:game_date).last
-      home_last_home = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1 if home_team_prev
+      home_last_away = ""
+      home_team_prev = Nba.where("away_team = ? AND game_date < ?", home_team, game_date).order(:game_date).last
+      home_last_away = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1 if home_team_prev
 
-      home_next_home = ""
-      home_team_next = Nba.where("home_team = ? AND game_date > ?", home_team, game_date).order(:game_date).first
-      home_next_home = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1 if home_team_next
+      home_next_away = ""
+      home_team_next = Nba.where("away_team = ? AND game_date > ?", home_team, game_date).order(:game_date).first
+      home_next_away = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1 if home_team_next
 
 			game.update(
           away_last_game: away_last_game,
@@ -806,10 +806,10 @@ namespace :nba do
           away_last_ot: away_last_ot,
           away_last_home: away_last_home,
           away_next_home: away_next_home,
-          home_last_home: home_last_home,
-          home_next_home: home_next_home,
           away_team_city: away_team_city,
-          home_team_city: home_team_city
+          home_team_city: home_team_city,
+          home_last_away: home_last_away,
+          home_next_away: home_next_away
       )
 		end
 	end
@@ -3825,6 +3825,30 @@ namespace :nba do
       end
     end
   end
+
+  task :getHomeAway => [:environment] do
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+
+    games = Nba.where("home_last_away is null")
+    puts games.size
+    games.each do |game|
+      home_team = game.home_team
+      game_date = game.game_date
+
+      home_last_away = ""
+      home_team_prev = Nba.where("away_team = ? AND game_date < ?", home_team, game_date).order(:game_date).last
+      home_last_away = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1 if home_team_prev
+
+      home_next_away = ""
+      home_team_next = Nba.where("away_team = ? AND game_date > ?", home_team, game_date).order(:game_date).first
+      home_next_away = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1 if home_team_next
+
+      game.update(
+          home_last_away: home_last_away,
+          home_next_away: home_next_away
+      )
+    end
 
 
   @basket_names = {
