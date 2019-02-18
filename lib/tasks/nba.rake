@@ -718,7 +718,7 @@ namespace :nba do
         else
           away_last_fly = "NO"
           away_team_city = away_team_prev.home_team
-          away_team_city = @team_city[away_team_prev.home_team] if @team_city[away_team_prev.home_team]
+          away_team_city = @team_city[away_team_city] if @team_city[away_team_city]
         end
         if away_team_prev.away_ot_quarter != nil &&  away_team_prev.home_ot_quarter != nil
           if away_team_prev.away_ot_quarter > 0 || away_team_prev.home_ot_quarter > 0
@@ -731,13 +731,17 @@ namespace :nba do
 
 			away_next_game = ""
       away_next_fly = ""
+      away_team_next_city = ""
 			away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
 			if away_team_next
 				away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
         if away_team_next.home_team == away_team
           away_next_fly = "YES"
+          away_team_next_city = "home"
         else
           away_next_fly = "NO"
+          away_team_next_city = away_team_next.home_team
+          away_team_next_city = @team_city[away_team_next_city] if @team_city[away_team_next_city]
         end
 			end
 
@@ -754,7 +758,7 @@ namespace :nba do
 				else
 					home_last_fly = "YES"
           home_team_city = home_team_prev.home_team
-          home_team_city = @team_city[home_team_prev.home_team] if @team_city[home_team_prev.home_team]
+          home_team_city = @team_city[home_team_city] if @team_city[home_team_city]
 				end
         if home_team_prev.away_ot_quarter != nil && home_team_prev.home_ot_quarter != nil
           if home_team_prev.away_ot_quarter > 0 || home_team_prev.home_ot_quarter > 0
@@ -767,13 +771,17 @@ namespace :nba do
 
 			home_next_game = ""
 			home_next_fly = ""
+      home_team_next_city = ""
 			home_team_next = Nba.where("home_team = ? AND game_date > ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
 			if home_team_next
 				home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
 				if home_team_next.home_team == home_team
 					home_next_fly = "NO"
+          home_team_next_city = "home"
 				else
 					home_next_fly = "YES"
+          home_team_next_city = home_team_next.home_team
+          home_team_next_city = @team_city[home_team_next_city] if @team_city[home_team_next_city]
 				end
 			end
 
@@ -809,7 +817,9 @@ namespace :nba do
           away_team_city: away_team_city,
           home_team_city: home_team_city,
           home_last_away: home_last_away,
-          home_next_away: home_next_away
+          home_next_away: home_next_away,
+          away_team_next_city: away_team_next_city,
+          home_team_next_city: home_team_next_city
       )
 		end
 	end
@@ -3847,6 +3857,45 @@ namespace :nba do
       game.update(
           home_last_away: home_last_away,
           home_next_away: home_next_away
+      )
+    end
+  end
+
+  task :getNextGame => [:environment] do
+    include Api
+    Time.zone = 'Eastern Time (US & Canada)'
+    games = Nba.where("away_team_next_city is null")
+    puts games.size
+    games.each do |game|
+      home_team = game.home_team
+      away_team = game.away_team
+      game_date = game.game_date
+
+      away_team_next_city = ""
+      away_team_next = Nba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
+      if away_team_next
+        if away_team_next.home_team == away_team
+          away_team_next_city = "home"
+        else
+          away_team_next_city = away_team_next.home_team
+          away_team_next_city = @team_city[away_team_next_city] if @team_city[away_team_next_city]
+        end
+      end
+
+      home_team_next_city = ""
+      home_team_next = Nba.where("home_team = ? AND game_date > ?", home_team, game_date).or(Nba.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
+      if home_team_next
+        if home_team_next.home_team == home_team
+          home_team_next_city = "home"
+        else
+          home_team_next_city = home_team_next.home_team
+          home_team_next_city = @team_city[home_team_next_city] if @team_city[home_team_next_city]
+        end
+      end
+
+      game.update(
+          away_team_next_city: away_team_next_city,
+          home_team_next_city: home_team_next_city
       )
     end
   end
