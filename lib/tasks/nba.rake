@@ -3848,7 +3848,6 @@ namespace :nba do
       date_split = date.index('-')
       day = date[0..date_split-1]
       month = date[date_split+1..-1]
-      day = (" " + day)[-2..-1]
       date = month + ' ' + day
       away_team = game.roadteam
       home_team = game.hometeam
