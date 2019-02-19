@@ -3836,35 +3836,6 @@ namespace :nba do
     end
   end
 
-  task :getFullseason => [:environment] do
-    include Api
-    Time.zone = 'Eastern Time (US & Canada)'
-
-    games = Fullseason.where("home_team_next_city is null")
-    puts games.size
-    games.each do |game|
-      year = game.year.to_s
-      date = game.date
-      date_split = date.index('-')
-      day = date[0..date_split-1]
-      month = date[date_split+1..-1]
-      date = day + ' ' + month
-      away_team = game.roadteam
-      home_team = game.hometeam
-      nba_game = Nba.where("year = ? AND date = ? AND away_team = ? AND home_team = ?", year, date, away_team, home_team).first
-      if nba_game
-        game.update(
-            away_team_city: nba_game.away_team_city,
-            home_team_city: nba_game.home_team_city,
-            home_last_away: nba_game.home_last_away,
-            home_next_away: nba_game.home_next_away,
-            away_team_next_city: nba_game.away_team_next_city,
-            home_team_next_city: nba_game.home_team_next_city
-        )
-      end
-    end
-  end
-
 
   @basket_names = {
       'Charlotte' => 'New Orleans',
