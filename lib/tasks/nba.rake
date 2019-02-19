@@ -1071,8 +1071,9 @@ namespace :nba do
     end
   end
 
+  # For Excel file
   task :getFiltervalue => :environment do
-    games = Nba.where("game_date between ? and ?", Date.new(2018, 12, 5).beginning_of_day, Date.new(2018, 12, 22).beginning_of_day)
+    games = Nba.where("game_date between ? and ?", Date.new(2019, 1, 7).beginning_of_day, Date.new(2019, 2, 22).beginning_of_day)
     # games = Nba.where('fg_total_count_2000 is null')
     games.each do |game|
       countItem = Fullseason.where("awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ? AND id != ?", game.away_last_fly, game.away_next_fly, game.away_last_game, game.away_next_game, game.home_next_game, game.home_last_game, game.home_next_fly, game.home_last_fly, (game.id.to_i + 107398))
@@ -3427,6 +3428,7 @@ namespace :nba do
     end
   end
 
+  # For Excel file
   task :nbaplaybyplay => :environment do
     include Api
     games = Nba.where("year >= '2018' AND away_foul_first is null")
@@ -3697,77 +3699,7 @@ namespace :nba do
     end
   end
 
-  task :nbaplaybyplayfix => :environment do
-    include Api
-    games = Nba.where("year >= '2010' AND away_stl_first is null")
-    puts games.count
-    games.each do |game|
-      url="http://www.espn.com/nba/playbyplay?gameId=#{game.game_id}"
-      doc = download_document(url)
-      puts url
-      next unless doc
-
-      team_logo = doc.css(".home .team-info-logo .team-logo")
-      home_abbr = 'undefined'
-      if team_logo.size != 0
-        logo_link = team_logo[0]['src']
-        logo_link_end = logo_link.rindex('.png')
-        logo_link_start = logo_link.rindex('/')
-        home_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
-      end
-
-      elements = doc.css(".accordion-item tr")
-      puts elements.size
-      home_stl = 0
-      home_blk = 0
-      away_stl = 0
-      away_blk = 0
-      elements.each_with_index do |element, index|
-        next if element.children[0].text.squish == 'time'
-        if element.children[0].text.squish == '0.0' && element.children[2].text.include?('End') && element.children[2].text.include?('2nd Quarter')
-          game.update(
-              home_stl_first: home_stl,
-              home_blk_first: home_blk,
-              away_stl_first: away_stl,
-              away_blk_first: away_blk
-          )
-          home_stl = 0
-          home_blk = 0
-          away_stl = 0
-          away_blk = 0
-        end
-        logo_element = element.children[1]
-        team_abbr = 'undefined'
-        if logo_element.children.size != 0
-          logo_link = logo_element.children[0]['src']
-          logo_link_end = logo_link.rindex('.png')
-          logo_link_start = logo_link.rindex('/')
-          team_abbr = logo_link[logo_link_start+1..logo_link_end-1].upcase
-        end
-        compare_string = element.children[2].text.downcase
-        if compare_string.include?("steal")
-          if team_abbr == home_abbr
-            home_stl = home_stl + 1
-          else
-            away_stl = away_stl + 1
-          end
-        elsif compare_string.include?("block")
-          if team_abbr == home_abbr
-            home_blk = home_blk + 1
-          else
-            away_blk = away_blk + 1
-          end
-        end
-      end
-      game.update(
-          home_stl_second: home_stl,
-          home_blk_second: home_blk,
-          away_stl_second: away_stl,
-          away_blk_second: away_blk
-      )
-    end
-  end
-
+  # For Excel file
   task :addPlayerToNba => :environment do
     include Api
     games = Nba.where("home_player8_name is null")
