@@ -76,6 +76,7 @@
         <th class="gray">Days until</th>
         <th class="gray">Days until</th>
         <th class="yellow"></th>
+        <th class="yellow"></th>
         <th class="gray"></th>
         <th class="gray"></th>
         <th class="gray"></th>
@@ -177,6 +178,7 @@
         <th class="gray">Last game home</th>
         <th class="gray">Next game home</th>
         <th class="yellow">Last City</th>
+        <th class="yellow">Next City</th>
         <th class="gray">PPG rank</th>
         <th class="gray">OPP PPG rank</th>
         <th class="gray">Wins rank</th>
@@ -458,6 +460,7 @@
       <td class="gray" rowspan="2"><%= game.away_last_home %></td>
       <td class="gray" rowspan="2"><%= game.away_next_home %></td>
       <td class="yellow"><%= game.away_team_city %></td>
+      <td class="yellow"><%= game.away_team_next_city %></td>
       <td class="gray"><%= game.away_ppg_rank %></td>
       <td class="gray"><%= game.away_oppppg_rank %></td>
       <td class="gray"><%= game.away_win_rank %></td>
@@ -578,6 +581,7 @@
       <td class="red"><%= @home_team_info.opponentsecond_home %></td>
 
       <td class="yellow"><%= game.home_team_city %></td>
+      <td class="yellow"><%= game.home_team_next_city %></td>
       <td class="gray"><%= game.home_ppg_rank %></td>
       <td class="gray"><%= game.home_oppppg_rank %></td>
       <td class="gray"><%= game.home_win_rank %></td>
@@ -697,6 +701,7 @@
       <td class="skyblue"><%= (@away_team_info.opponentfirst_away + @home_team_info.opponentfirst_home).round(2) %></td>
       <td class="skyblue"><%= (@away_team_info.opponentsecond_away + @home_team_info.opponentsecond_home).round(2) %></td>
 
+      <td class="skyblue"></td>
       <td class="skyblue"></td>
       <td class="skyblue"></td>
       <td class="skyblue"></td>
