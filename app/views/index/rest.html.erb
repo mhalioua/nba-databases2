@@ -798,10 +798,37 @@ end
 <% end %>
 
 <%
-  fullseason1 = Fullseason.where("away_team_city = ? AND roadlast = ?", @game.away_team_city, @game.away_last_game)
-  fullseason2 = Fullseason.where("away_team_next_city = ? AND roadnext = ?", @game.away_team_next_city, @game.away_next_game)
-  fullseason3 = Fullseason.where("home_team_city = ? AND homelast = ?", @game.home_team_city, @game.home_last_game)
-  fullseason4 = Fullseason.where("home_team_next_city = ? AND homenext = ?", @game.home_team_next_city, @game.home_next_game)
+  away_team_city = @game.away_team_city
+  fullseason1 = Fullseason.where("away_team_city = ? AND roadlast = ?", away_team_city, @game.away_last_game)
+  if away_team_city == "home"
+    away_team_city = @game.away_team
+    away_team_city = @team_city[away_team_city] if @team_city[away_team_city]
+    fullseason1 = fullseason1.where("roadteam = ?", away_team_city)
+  end
+
+  away_team_next_city = @game.away_team_next_city
+  fullseason2 = Fullseason.where("away_team_next_city = ? AND roadnext = ?", away_team_next_city, @game.away_next_game)
+  if away_team_next_city == "home"
+    away_team_next_city = @game.away_team
+    away_team_next_city = @team_city[away_team_next_city] if @team_city[away_team_next_city]
+    fullseason2 = fullseason2.where("roadteam = ?", away_team_next_city)
+  end
+
+  home_team_city = @game.home_team_city
+  fullseason3 = Fullseason.where("home_team_city = ? AND homelast = ?", home_team_city, @game.home_last_game)
+  if home_team_city == "home"
+    home_team_city = @game.home_team
+    home_team_city = @team_city[home_team_city] if @team_city[home_team_city]
+    fullseason3 = fullseason3.where("hometeam = ?", home_team_city)
+  end
+
+  home_team_next_city = @game.home_team_next_city
+  fullseason4 = Fullseason.where("home_team_next_city = ? AND homenext = ?", home_team_next_city, @game.home_next_game)
+  if home_team_next_city == "home"
+    home_team_next_city = @game.home_team
+    home_team_next_city = @team_city[home_team_next_city] if @team_city[home_team_next_city]
+    fullseason4 = fullseason4.where("hometeam = ?", home_team_next_city)
+  end
 %>
 <div class="tableContainer">
   <table border="1" class="numbers">
@@ -856,7 +883,7 @@ end
       <td style="display: none" bgcolor="yellow"><%= fullseason1 ? fullseason1.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("secondou = 'over'").count.to_i : "" %></td>
       <td style="display: none" bgcolor="yellow"><%= fullseason1 ? fullseason1.where("totalou = 'under'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("totalou = 'over'").count.to_i : "" %></td>
       <td style="display: none" bgcolor="lightgray"><%= @game.away_abbr %></td>
-      <td style="display: none" bgcolor="yellow"><%= "#{@game.away_team_city} (#{@game.away_last_game})" %></td>
+      <td style="display: none" bgcolor="yellow"><%= "#{away_team_city} (#{@game.away_last_game})" %></td>
       <td><%= @game.away_last_fly %></td>
       <td><%= @game.away_next_fly %></td>
       <td><%= @game.away_last_game %></td>
@@ -894,7 +921,7 @@ end
       <td class="yellow"></td>
       <td class="green"></td>
       <td class="green"></td>
-      <td style="display: none" bgcolor="yellow"><%= "#{@game.away_team_next_city} (#{@game.away_next_game})" %></td>
+      <td style="display: none" bgcolor="yellow"><%= "#{away_team_next_city} (#{@game.away_next_game})" %></td>
       <td style="display: none" bgcolor="lightgray"><%= @game.away_abbr %></td>
       <td style="display: none" bgcolor="yellow"><%= fullseason2 ? fullseason2.where("firstou = 'under'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("firstou = 'over'").count.to_i : "" %></td>
       <td style="display: none" bgcolor="yellow"><%= fullseason2 ? fullseason2.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("secondou = 'over'").count.to_i : "" %></td>
@@ -905,7 +932,7 @@ end
       <td style="display: none" bgcolor="yellow"><%= fullseason3 ? fullseason3.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("secondou = 'over'").count.to_i : "" %></td>
       <td style="display: none" bgcolor="yellow"><%= fullseason3 ? fullseason3.where("totalou = 'under'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("totalou = 'over'").count.to_i : "" %></td>
       <td style="display: none" bgcolor="lightgray"><%= @game.home_abbr %></td>
-      <td style="display: none" bgcolor="yellow"><%= "#{@game.home_team_city} (#{@game.home_last_game})" %></td>
+      <td style="display: none" bgcolor="yellow"><%= "#{home_team_city} (#{@game.home_last_game})" %></td>
       <td>ALL</td>
       <td>ALL</td>
       <td>ALL</td>
@@ -939,7 +966,7 @@ end
       <td class="yellow"><%= @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i : "" %></td>
       <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i : "" %></td>
       <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i : "" %></td>
-      <td style="display: none" bgcolor="yellow"><%= "#{@game.home_team_next_city} (#{@game.home_next_game})" %></td>
+      <td style="display: none" bgcolor="yellow"><%= "#{home_team_next_city} (#{@game.home_next_game})" %></td>
       <td style="display: none" bgcolor="lightgray"><%= @game.home_abbr %></td>
       <td style="display: none" bgcolor="yellow"><%= fullseason4 ? fullseason4.where("firstou = 'under'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("firstou = 'over'").count.to_i : "" %></td>
       <td style="display: none" bgcolor="yellow"><%= fullseason4 ? fullseason4.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("secondou = 'over'").count.to_i : "" %></td>
