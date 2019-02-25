@@ -798,6 +798,18 @@ end
 <% end %>
 
 <%
+  @team_city = {
+      'Boston' => 'Boston',
+      'Indiana' => 'Indianapolis',
+      'Minnesota' => 'Minneapolis',
+      'Utah' => 'Salt Lake City',
+      'Golden State' => 'Oakland',
+      'LAC' => 'Los Angeles',
+      'LAL' => 'Los Angeles',
+      'NO/Oklahoma City' => 'Oklahoma City',
+      'New Jersey' => 'Brooklyn'
+  }
+
   away_team_city = @game.away_team_city
   fullseason1 = Fullseason.where("away_team_city = ? AND roadlast = ?", away_team_city, @game.away_last_game)
   if away_team_city == "home"
