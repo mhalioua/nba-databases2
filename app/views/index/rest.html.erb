@@ -798,10 +798,10 @@ end
 <% end %>
 
 <%
-  fullseason1 = Fullseason.where("away_team_city = ? AND roadlast = ?", away_team_city, @game.away_last_game)
-  fullseason2 = Fullseason.where("away_team_next_city = ? AND roadnext = ?", away_team_next_city, @game.away_next_game)
-  fullseason3 = Fullseason.where("home_team_city = ? AND homelast = ?", home_team_city, @game.home_last_game)
-  fullseason4 = Fullseason.where("home_team_next_city = ? AND homenext = ?", home_team_next_city, @game.home_next_game)
+  fullseason1 = Fullseason.where("away_team_city = ? AND roadlast = ?", @game.away_team_city, @game.away_last_game)
+  fullseason2 = Fullseason.where("away_team_next_city = ? AND roadnext = ?", @game.away_team_next_city, @game.away_next_game)
+  fullseason3 = Fullseason.where("home_team_city = ? AND homelast = ?", @game.home_team_city, @game.home_last_game)
+  fullseason4 = Fullseason.where("home_team_next_city = ? AND homenext = ?", @game.home_team_next_city, @game.home_next_game)
 %>
 <div class="tableContainer">
   <table border="1" class="numbers">
