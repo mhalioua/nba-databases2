@@ -215,12 +215,12 @@ th, .green {
         background: gray;
     }
     tr {
-        td:nth-child(9),td:nth-child(14),td:nth-child(16),td:nth-child(21),td:nth-child(26) {
+        td:nth-child(14),td:nth-child(19),td:nth-child(21),td:nth-child(26),td:nth-child(31) {
             background: black;
         }
     }
     tr:nth-child(n+2) {
-        td:nth-child(12),td:nth-child(19),td:nth-child(24) {
+        td:nth-child(17),td:nth-child(24),td:nth-child(29) {
             background: mediumpurple;
        }
     }
