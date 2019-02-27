@@ -815,7 +815,7 @@ end
   if away_team_city == "home"
     away_team_city = @game.away_team
     away_team_city = @team_city[away_team_city] if @team_city[away_team_city]
-    fullseason1 = fullseason1.where("roadteam = ?", away_team_city)
+    fullseason1 = fullseason1.where("roadteam = ?", @game.away_team)
   end
 
   away_team_next_city = @game.away_team_next_city
@@ -823,7 +823,7 @@ end
   if away_team_next_city == "home"
     away_team_next_city = @game.away_team
     away_team_next_city = @team_city[away_team_next_city] if @team_city[away_team_next_city]
-    fullseason2 = fullseason2.where("roadteam = ?", away_team_next_city)
+    fullseason2 = fullseason2.where("roadteam = ?", @game.away_team)
   end
 
   home_team_city = @game.home_team_city
@@ -831,7 +831,7 @@ end
   if home_team_city == "home"
     home_team_city = @game.home_team
     home_team_city = @team_city[home_team_city] if @team_city[home_team_city]
-    fullseason3 = fullseason3.where("hometeam = ?", home_team_city)
+    fullseason3 = fullseason3.where("hometeam = ?", @game.home_team)
   end
 
   home_team_next_city = @game.home_team_next_city
@@ -839,7 +839,7 @@ end
   if home_team_next_city == "home"
     home_team_next_city = @game.home_team
     home_team_next_city = @team_city[home_team_next_city] if @team_city[home_team_next_city]
-    fullseason4 = fullseason4.where("hometeam = ?", home_team_next_city)
+    fullseason4 = fullseason4.where("hometeam = ?", @game.home_team)
   end
 %>
 <div class="tableContainer">
