@@ -3768,6 +3768,206 @@ namespace :nba do
     end
   end
 
+  task :filterNbaPast => :environment do
+    filters = [
+        [false, false, false, false, false, false, false, false],
+        [true, true, true, true, true, true, true, true],
+        [false, true, true, true, true, true, true, true],
+        [true, false, true, true, true, true, true, true],
+        [true, true, false, true, true, true, true, true],
+        [true, true, true, false, true, true, true, true],
+        [true, true, true, true, false, true, true, true],
+        [true, true, true, true, true, false, true, true],
+        [true, true, true, true, true, true, false, true],
+        [true, true, true, true, true, true, true, false],
+        [true, true, false, true, true, false, true, true],
+        [true, true, true, false, false, true, true, true],
+        [false, false, true, true, true, true, true, true],
+        [true, true, true, true, true, true, false, false],
+        [false, true, true, true, true, true, true, false],
+        [true, false, true, true, true, true, false, true],
+        [true, true, false, false, true, true, true, true],
+        [true, true, true, true, false, false, true, true],
+        [false, false, true, true, true, true, false, false],
+        [true, true, false, false, false, false, true, true],
+        [true, true, true, true, false, false, false, false],
+        [false, false, false, false, true, true, true, true],
+        [false, true, false, true, true, false, true, false]
+    ]
+    games = Nba.where("game_date between ? and ?", Date.new(2018, 10, 15), Date.new(2019, 2, 1))
+    puts games.size
+    games.each do |game|
+      filters.each_with_index do |filter, index|
+        search_string = []
+        search_second_string = []
+        first_one = []
+        if filter[0]
+          search_string.push("awaylastfly = '#{game.away_last_fly}'")
+          search_second_string.push("awaylastfly = '#{game.away_last_fly}'")
+          first_one.push(game.away_last_fly[0])
+        else
+          search_string.push("awaylastfly <> '#{game.away_last_fly}'")
+          first_one.push("ANY")
+        end
+        if filter[1]
+          search_string.push("awaynextfly = '#{game.away_next_fly}'")
+          search_second_string.push("awaynextfly = '#{game.away_next_fly}'")
+          first_one.push(game.away_next_fly[0])
+        else
+          search_string.push("awaynextfly <> '#{game.away_next_fly}'")
+          first_one.push("ANY")
+        end
+        if filter[2]
+          search_string.push("roadlast = '#{game.away_last_game}'")
+          search_second_string.push("roadlast = '#{game.away_last_game}'")
+          first_one.push(game.away_last_game)
+        else
+          search_string.push("roadlast <> '#{game.away_last_game}'")
+          first_one.push("ANY")
+        end
+        if filter[3]
+          search_string.push("roadnext = '#{game.away_next_game}'")
+          search_second_string.push("roadnext = '#{game.away_next_game}'")
+          first_one.push(game.away_next_game)
+        else
+          search_string.push("roadnext <> '#{game.away_next_game}'")
+          first_one.push("ANY")
+        end
+        if filter[4]
+          search_string.push("homenext = '#{game.home_next_game}'")
+          search_second_string.push("homenext = '#{game.home_next_game}'")
+          first_one.push(game.home_next_game)
+        else
+          search_string.push("homenext <> '#{game.home_next_game}'")
+          first_one.push("ANY")
+        end
+        if filter[5]
+          search_string.push("homelast = '#{game.home_last_game}'")
+          search_second_string.push("homelast = '#{game.home_last_game}'")
+          first_one.push(game.home_last_game)
+        else
+          search_string.push("homelast <> '#{game.home_last_game}'")
+          first_one.push("ANY")
+        end
+        if filter[6]
+          search_string.push("homenextfly = '#{game.home_next_fly}'")
+          search_second_string.push("homenextfly = '#{game.home_next_fly}'")
+          first_one.push(game.home_next_fly[0])
+        else
+          search_string.push("homenextfly <> '#{game.home_next_fly}'")
+          first_one.push("ANY")
+        end
+        if filter[7]
+          search_string.push("homelastfly = '#{game.home_last_fly}'")
+          search_second_string.push("homelastfly = '#{game.home_last_fly}'")
+          first_one.push(game.home_last_fly[0])
+        else
+          search_string.push("homelastfly <> '#{game.home_last_fly}'")
+          first_one.push("ANY")
+        end
+        first_one = first_one.join("-")
+        search_string = search_string.join(" AND ")
+        search_second_string = search_second_string.join(" AND ")
+        filter_element = Fullseason.where(search_string)
+        filter_second_element = Fullseason.where(search_second_string)
+        filter_element_source = filter_element.dup
+        filter_second_element_source = filter_second_element.dup
+
+        # 2000-2017 - 2008
+        # 2010-2017 - 2009
+        # 2010-2011 - 2010
+        # 2011-2012 - 2011
+        # 2012-2013 - 2012
+        # 2013-2014 - 2013
+        # 2014-2015 - 2014
+        # 2015-2016 - 2015
+        # 2016-2017 - 2016
+        # 2017-2018 - 2017
+        # 2018-2019 - 2018
+        (2008...2019).each do |year|
+          filter_data = Filter.find_or_create_by(nba_id: game.id, index: index, year: year)
+          if year === 2008
+            filter_element = filter_element_source.where('id >= 107399 AND id <= 127852')
+            filter_second_element = filter_second_element_source.where('id >= 107399 AND id <= 127852')
+          elsif year === 2009
+            filter_element = filter_element_source.where('id >= 120710 AND id <= 127852').or(filter_element_source.where('id >= 107399 AND id <= 108629'))
+            filter_second_element = filter_second_element_source.where('id >= 120710 AND id <= 127852').or(filter_second_element_source.where('id >= 107399 AND id <= 108629'))
+          elsif year === 2010
+            filter_element = filter_element_source.where('id >= 120710 AND id <= 121940')
+            filter_second_element = filter_second_element_source.where('id >= 120710 AND id <= 121940')
+          elsif year === 2011
+            filter_element = filter_element_source.where('id >= 121941 AND id <= 122931')
+            filter_second_element = filter_second_element_source.where('id >= 121941 AND id <= 122931')
+          elsif year === 2012
+            filter_element = filter_element_source.where('id >= 122932 AND id <= 124161')
+            filter_second_element = filter_second_element_source.where('id >= 122932 AND id <= 124161')
+          elsif year === 2013
+            filter_element = filter_element_source.where('id >= 124162 AND id <= 125390')
+            filter_second_element = filter_second_element_source.where('id >= 124162 AND id <= 125390')
+          elsif year === 2014
+            filter_element = filter_element_source.where('id >= 125391 AND id <= 126621')
+            filter_second_element = filter_second_element_source.where('id >= 125391 AND id <= 126621')
+          elsif year === 2015
+            filter_element = filter_element_source.where('id >= 126622 AND id <= 127852')
+            filter_second_element = filter_second_element_source.where('id >= 126622 AND id <= 127852')
+          elsif year === 2016
+            filter_element = filter_element_source.where('id >= 107399 AND id <= 108629')
+            filter_second_element = filter_second_element_source.where('id >= 107399 AND id <= 108629')
+          elsif year === 2017
+            filter_element = filter_element_source.where('id >= 127853 AND id <= 129085')
+            filter_second_element = filter_second_element_source.where('id >= 127853 AND id <= 129085')
+          elsif year === 2018
+            filter_element = filter_element_source.where('id >= 129086')
+            filter_second_element = filter_second_element_source.where('id >= 129086')
+          end
+
+          result_element = {
+              first_one: first_one,
+              first: filter_element.average(:firstvalue).to_f.round(2),
+              second: filter_element.average(:secondvalue).to_f.round(2),
+              full: filter_element.average(:totalvalue).to_f.round(2),
+              count: filter_element.count(:totalvalue).to_i,
+              allfirst: filter_second_element.average(:firstvalue).to_f.round(2),
+              allsecond: filter_second_element.average(:secondvalue).to_f.round(2),
+              allfull: filter_second_element.average(:totalvalue).to_f.round(2),
+              allcount: filter_second_element.count(:totalvalue).to_i,
+              home_ortg: filter_second_element.average(:home_ortg).to_f.round(2),
+              away_ortg: filter_second_element.average(:away_ortg).to_f.round(2),
+              bj: filter_second_element.average(:fgside).to_f.round(2),
+              bg: filter_second_element.average(:firstside).to_f.round(2),
+              bh: filter_second_element.average(:secondside).to_f.round(2),
+              first_under: filter_second_element.where("firstou = 'under'").count,
+              first_over: filter_second_element.where("firstou = 'over'").count,
+              second_under: filter_second_element.where("secondou = 'under'").count,
+              second_over: filter_second_element.where("secondou = 'over'").count,
+              full_under: filter_second_element.where("totalou = 'under'").count,
+              full_over: filter_second_element.where("totalou = 'over'").count,
+              first_half_away: filter_second_element.where("first_half_bigger = 'AWAY'").count,
+              first_half_home: filter_second_element.where("first_half_bigger = 'HOME'").count,
+              second_half_away: filter_second_element.where("second_half_bigger = 'AWAY'").count,
+              second_half_home: filter_second_element.where("second_half_bigger = 'HOME'").count,
+              full_half_away: filter_second_element.where("fullgame_bigger = 'AWAY'").count,
+              full_half_home: filter_second_element.where("fullgame_bigger = 'HOME'").count
+          }
+          if index < 2 || index > 9
+            result_element[:full_first] = (filter_second_element.average(:roadthird).to_f + filter_second_element.average(:roadforth).to_f + filter_second_element.average(:roadfirsthalf).to_f).round(2)
+            result_element[:full_second] = (filter_second_element.average(:homethird).to_f + filter_second_element.average(:homeforth).to_f + filter_second_element.average(:homefirsthalf).to_f).round(2)
+            result_element[:firsthalf_first] = filter_second_element.average(:roadfirsthalf).to_f.round(2)
+            result_element[:firsthalf_second] = filter_second_element.average(:homefirsthalf).to_f.round(2)
+            result_element[:secondhalf_first] = (filter_second_element.average(:roadthird).to_f.round(2) + filter_second_element.average(:roadforth).to_f.round(2)).round(2)
+            result_element[:secondhalf_second] = (filter_second_element.average(:homethird).to_f.round(2) + filter_second_element.average(:homeforth).to_f.round(2)).round(2)
+            filter_second_element_again = filter_second_element.where("firstlinetotal is not null AND firstlinetotal != 0")
+            result_element[:bi_one] = (filter_second_element_again.average(:roadfirsthalf).to_f - filter_second_element_again.average(:homefirsthalf).to_f).round(2)
+            result_element[:bi_two] = (filter_second_element_again.average(:roadthird).to_f + filter_second_element_again.average(:roadforth).to_f - filter_second_element_again.average(:homethird).to_f - filter_second_element_again.average(:homeforth).to_f).round(2)
+            result_element[:bi_count] = filter_second_element_again.count(:firstlinetotal).to_i
+          end
+          filter_data.update(result_element)
+        end
+
+      end
+    end
+  end
+
 
   @basket_names = {
       'Charlotte' => 'New Orleans',
