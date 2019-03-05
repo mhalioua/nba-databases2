@@ -3794,7 +3794,7 @@ namespace :nba do
         [false, false, false, false, true, true, true, true],
         [false, true, false, true, true, false, true, false]
     ]
-    games = Nba.where("game_date between ? and ?", Date.new(2018, 12, 1), Date.new(2019, 1, 1))
+    games = Nba.where("game_date between ? and ?", Date.new(2018, 11, 1), Date.new(2018, 12, 1))
     puts games.size
     games.each do |game|
       filters.each_with_index do |filter, index|
