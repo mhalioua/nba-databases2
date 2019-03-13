@@ -1,13 +1,7 @@
 <% content_for :title, @game.away_abbr + " @ " + @game.home_abbr %>
 <div class="header row">
-  <div class="col-md-1 col-md-offset-2">
-    <p>POSSESSIONS</p>
-  </div>
-  <div class="col-md-4  col-md-offset-1">
+  <div class="col-md-12">
     <h1><%= @head %></h1>
-  </div>
-  <div class="col-md-1 col-md-offset-1">
-    <p>POSSESSIONS</p>
   </div>
 </div>
 
@@ -1032,6 +1026,21 @@ end
       <td bgcolor="gray">U - O</td>
       <td bgcolor="gray">U - O</td>
       <td bgcolor="gray">U - O</td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("firstou = 'under'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("totalou = 'under'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("totalou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= @game.home_abbr %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (H & I)</td>
+      <td></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (J & K) ==>></td>
+      <td bgcolor="yellow"><%= "#{away_team_next_city} (#{@game.away_next_game})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("firstou = 'under'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("totalou = 'under'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("totalou = 'over'").count.to_i : "" %></td>
     </tr>
     </tbody>
   </table>
