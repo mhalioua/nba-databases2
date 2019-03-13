@@ -1041,6 +1041,9 @@ end
       <td bgcolor="gray">U - O</td>
     </tr>
     <tr>
+      <td class="black" colspan="43"></td>
+    </tr>
+    <tr>
       <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason5 ? fullseason5.where("firstou = 'over'").count.to_i : "" %></td>
       <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason5 ? fullseason5.where("secondou = 'over'").count.to_i : "" %></td>
       <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason5 ? fullseason5.where("totalou = 'over'").count.to_i : "" %></td>
@@ -1114,6 +1117,9 @@ end
       <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("firstou = 'over'").count.to_i : "" %></td>
       <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason14 ? fullseason14.where("secondou = 'over'").count.to_i : "" %></td>
       <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("totalou = 'over'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="gray" colspan="43"></td>
     </tr>
     </tbody>
   </table>
