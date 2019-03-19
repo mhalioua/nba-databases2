@@ -1734,7 +1734,8 @@ namespace :nba do
           puts url
           doc = download_document(url)
           next unless doc
-          player_name = doc.css('.PlayerHeader__Name').first.text
+          player_name = doc.css('.PlayerHeader__Name').first
+          player_name = player_name.children[0].text + ' ' + player_name.children[1].text
 
 					player_name_index = player_name.index(" Jr.")
 					player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
@@ -3726,10 +3727,11 @@ namespace :nba do
           next unless link
           puts link
           page = download_document(link)
-          player_name = page.css("h1")[0].text
-          birthday = page.css(".player-metadata")[0]
-          if birthday.children[0]
-            birthday = birthday.children[0].children[1].text
+          player_name = page.css('.PlayerHeader__Name').first
+          player_name = player_name.children[0].text + ' ' + player_name.children[1].text
+          birthday = page.css(".PlayerHeader__Bio_List")[0]
+          if birthday.children[1]
+            birthday = birthday.children[1].children[1].text
           else
             birthday = nil
           end
@@ -3753,10 +3755,11 @@ namespace :nba do
           link = slice.children[0].children[0]['href']
           next unless link
           page = download_document(link)
-          player_name = page.css("h1")[0].text
-          birthday = page.css(".player-metadata")[0]
-          if birthday.children[0]
-            birthday = birthday.children[0].children[1].text
+          player_name = page.css('.PlayerHeader__Name').first
+          player_name = player_name.children[0].text + ' ' + player_name.children[1].text
+          birthday = page.css(".PlayerHeader__Bio_List")[0]
+          if birthday.children[1]
+            birthday = birthday.children[1].children[1].text
           else
             birthday = nil
           end
