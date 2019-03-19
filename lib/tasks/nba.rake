@@ -1648,6 +1648,11 @@ namespace :nba do
 					player_element = Tg.find_or_create_by(player_name: player_name, team_abbr: team_abbr, year: year)
           player_fullname = player.children[1].children[0].text
           player_fullname = player_fullname.gsub('.', '')
+          puts ortg
+          puts drtg
+          puts count
+          puts player_link
+          puts player_fullname
 		      player_element.update(ortg: ortg, drtg: drtg, count: count, player_link: player_link, player_fullname: player_fullname)
 				end
         break if index == 1
