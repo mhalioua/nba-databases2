@@ -1495,15 +1495,15 @@ namespace :nba do
 					page = download_document(link)
           if page
             height = page.css(".PlayerHeader__Bio_List")[0]
-            if height.children[1]
-              height = height.children[1].text
+            if height.children[0]
+              height = height.children[0].children[1].text
               puts height
             else
               height = nil
             end
             birthdate = page.css(".PlayerHeader__Bio_List")[0]
-            if birthdate.children[2]
-              birthdate = birthdate.children[2].children[1].text
+            if birthdate.children[1]
+              birthdate = birthdate.children[1].children[1].text
               puts birthdate
             else
               birthdate = nil
@@ -1564,15 +1564,15 @@ namespace :nba do
 					page = download_document(link)
           if page
             height = page.css(".PlayerHeader__Bio_List")[0]
-            if height.children[1]
-              height = height.children[1].text
+            if height.children[0]
+              height = height.children[0].children[1].text
               puts height
             else
               height = nil
             end
             birthdate = page.css(".PlayerHeader__Bio_List")[0]
-            if birthdate.children[2]
-              birthdate = birthdate.children[2].children[1].text
+            if birthdate.children[1]
+              birthdate = birthdate.children[1].children[1].text
               puts birthdate
             else
               birthdate = nil
