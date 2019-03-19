@@ -1707,7 +1707,7 @@ namespace :nba do
 		end
   end
 
-  task :getUpdateTG => [:environment] do
+  task :getUpdate => [:environment] do
     include Api
     games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Time.now-4.hours)
     puts games.size
