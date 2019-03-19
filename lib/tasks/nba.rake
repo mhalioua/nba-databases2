@@ -1705,11 +1705,87 @@ namespace :nba do
 				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins, sum_blk: sum_blk, sum_or: sum_or, sum_stl: sum_stl, sum_pf: sum_pf, sum_to: sum_to)
 			end
 		end
-	end
+  end
+
+  task :getUpdateTG => [:environment] do
+    include Api
+    games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Time.now-4.hours)
+    puts games.size
+    games.each do |game|
+      players = game.players.all
+      players.each do |player|
+        if player.player_name == "TEAM"
+          next
+        end
+        team_abbr = game.home_abbr
+        if player.team_abbr == 0
+          team_abbr = game.away_abbr
+        end
+        if @team_nicknames[team_abbr]
+          team_abbr = @team_nicknames[team_abbr]
+          if player.player_name === 'A. HarrisonA. Harrison'
+            player.update(
+                player_name: 'A. Harriso',
+                link: 'http://www.espn.com/nba/player/_/id/3064511'
+            )
+          end
+          player_name = player.player_name
+          url = player.link
+          puts url
+          doc = download_document(url)
+          next unless doc
+          player_name = doc.css('.PlayerHeader__Name').first
+          player_name = player_name.children[0].text + ' ' + player_name.children[1].text
+
+          player_name_index = player_name.index(" Jr.")
+          player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
+
+          player_name_index = player_name.index(" II")
+          player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
+
+          player_name_index = player_name.index(" III")
+          player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
+
+          player_name_index = player_name.index(" IV")
+          player_name = player_name_index ? player_name[0..player_name_index-1] : player_name
+
+          player_name = player_name.gsub('.', '')
+
+          # if @player_name[player_name]
+          # 	player_name = @player_name[player_name]
+          # end
+
+          if @player_another_name[player_name]
+            player_name = @player_another_name[player_name]
+          end
+
+          ortg = 0
+          drtg = 0
+          count = 0
+          player_link = ""
+          player_fullname = ""
+          player_elements = Tg.where("player_fullname = ? AND year >= 2018", player_name)
+          player_elements.each do |player_element|
+            player_count = (player_element.count != 0) ? player_element.count : 1
+            count = count + player_count
+            ortg = ortg + player_count * (player_element.ortg ? player_element.ortg : 0)
+            drtg = drtg + player_count * (player_element.drtg ? player_element.drtg : 0)
+            player_link = player_element.player_link
+            player_fullname = player_element.player_fullname
+          end
+          count = 1 if count == 0
+          ortg = (ortg.to_f / count).round(2)
+          drtg = (drtg.to_f / count).round(2)
+          puts player_name
+          player.update(ortg: ortg, drtg: drtg, player_link: player_link, player_fullname: player_name)
+        end
+      end
+    end
+  end
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-4.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Time.now-4.hours)
 		puts games.size
 		games.each do |game|
 			players = game.players.all
