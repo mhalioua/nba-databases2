@@ -1759,25 +1759,7 @@ namespace :nba do
             player_name = @player_another_name[player_name]
           end
 
-          ortg = 0
-          drtg = 0
-          count = 0
-          player_link = ""
-          player_fullname = ""
-          player_elements = Tg.where("player_fullname = ? AND year >= 2018", player_name)
-          player_elements.each do |player_element|
-            player_count = (player_element.count != 0) ? player_element.count : 1
-            count = count + player_count
-            ortg = ortg + player_count * (player_element.ortg ? player_element.ortg : 0)
-            drtg = drtg + player_count * (player_element.drtg ? player_element.drtg : 0)
-            player_link = player_element.player_link
-            player_fullname = player_element.player_fullname
-          end
-          count = 1 if count == 0
-          ortg = (ortg.to_f / count).round(2)
-          drtg = (drtg.to_f / count).round(2)
-          puts player_name
-          player.update(ortg: ortg, drtg: drtg, player_link: player_link, player_fullname: player_name)
+          player.update(player_fullname: player_name)
         end
       end
     end
