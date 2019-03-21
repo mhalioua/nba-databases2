@@ -75,6 +75,8 @@
         <th>only one</th>
         <th class="gray">Days until</th>
         <th class="gray">Days until</th>
+        <th class="gray">Days until</th>
+        <th class="gray">Days until</th>
         <th class="yellow"></th>
         <th class="yellow"></th>
         <th class="gray"></th>
@@ -177,6 +179,8 @@
         <th class="red">Opp 2h</th>
         <th class="gray">Last game home</th>
         <th class="gray">Next game home</th>
+        <th class="gray">Home Team Last Load Game</th>
+        <th class="gray">Home Team Next Load Game</th>
         <th class="yellow">Last City</th>
         <th class="yellow">Next City</th>
         <th class="gray">PPG rank</th>
@@ -459,6 +463,8 @@
 
       <td class="gray" rowspan="2"><%= game.away_last_home %></td>
       <td class="gray" rowspan="2"><%= game.away_next_home %></td>
+      <td class="gray" rowspan="2"><%= game.home_last_away %></td>
+      <td class="gray" rowspan="2"><%= game.home_next_away %></td>
       <td class="yellow"><%= game.away_team_city %></td>
       <td class="yellow"><%= game.away_team_next_city %></td>
       <td class="gray"><%= game.away_ppg_rank %></td>
@@ -713,6 +719,8 @@
       <td class="skyblue"><%= game.away_abbr %></td>
 
       <td></td>
+      <td class="skygreen"></td>
+      <td class="skygreen"></td>
       <td class="skygreen"></td>
       <td class="skygreen"></td>
       <td class="skygreen"></td>
