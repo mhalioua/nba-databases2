@@ -2770,24 +2770,13 @@ class IndexController < ApplicationController
     @away_abbr = @game.away_abbr
 
     @now = Date.strptime(@game.game_date)
-    if @now > Time.now
-      @now = Time.now
-    end
+    @now = Time.now if @now > Time.now
 
     @away_last = Nba.where("home_abbr = ? AND game_date < ? AND total_point != 0", @away_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ? AND total_point != 0", @away_abbr, @now)).order(:game_date).last
     @home_last = Nba.where("home_abbr = ? AND game_date < ? AND total_point != 0", @home_abbr, @now).or(Nba.where("away_abbr = ? AND game_date < ? AND total_point != 0", @home_abbr, @now)).order(:game_date).last
 
-    if @away_abbr == @away_last.away_abbr
-      @away_flag = 0
-    else
-      @away_flag = 1
-    end
-
-    if @home_abbr == @home_last.away_abbr
-      @home_flag = 0
-    else
-      @home_flag = 1
-    end
+    @away_flag = @away_abbr == @away_last.away_abbr ? 0 : 1
+    @home_flag = @home_abbr == @home_last.away_abbr ? 0 : 1
 
     @date_id = Date.strptime(@game.game_date).strftime("%Y-%m-%d")
 
@@ -2818,14 +2807,7 @@ class IndexController < ApplicationController
         end
       else
         additional_player = Player.where("player_fullname = ? AND game_date < ?", away_starter.player_name, @now).order(:game_date).last
-        unless additional_player
-          additional_player = Player.where("player_name = ? AND game_date < ?", away_starter.player_name, @now).order(:game_date).last
-        end
-        if away_starter.player_name == 'J.R. Smith'
-          additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith' AND game_date < ?", @now).order(:game_date).last
-        elsif away_starter.player_name == 'Taurean Prince'
-          additional_player = Player.where("player_fullname = 'Taurean Waller-Prince' AND game_date < ?", @now).order(:game_date).last
-        end
+        additional_player = Player.where("player_name = ? AND game_date < ?", away_starter.player_name, @now).order(:game_date).last unless additional_player
         if additional_player
           additional_player.position = away_starter.position
           @away_players.push(additional_player)
@@ -2865,14 +2847,7 @@ class IndexController < ApplicationController
         end
       else
         additional_player = Player.where("player_fullname = ? AND game_date < ?", home_starter.player_name, @now).order(:game_date).last
-        unless additional_player
-          additional_player = Player.where("player_name = ? AND game_date < ?", home_starter.player_name, @now).order(:game_date).last
-        end
-        if home_starter.player_name == 'J.R. Smith'
-          additional_player = Player.where("link = 'http://www.espn.com/nba/player/_/id/2444/jr-smith' AND game_date < ?", @now).order(:game_date).last
-        elsif home_starter.player_name == 'Taurean Prince'
-          additional_player = Player.where("player_fullname = 'Taurean Waller-Prince' AND game_date < ?", @now).order(:game_date).last
-        end
+        additional_player = Player.where("player_name = ? AND game_date < ?", home_starter.player_name, @now).order(:game_date).last unless additional_player
         if additional_player
           additional_player.position = home_starter.position
           @home_players.push(additional_player)
@@ -3240,12 +3215,12 @@ class IndexController < ApplicationController
         search_array = search_array.join(" AND ")
         referee_filter_result = Referee.where(search_array)
         @referee_filter_results.push([
-                                         referee_filter_result.average(:tp_1h).to_f.round(2),
-                                         referee_filter_result.average(:tp_2h).to_f.round(2),
-                                         (referee_filter_result.average(:away_pf).to_f.round(2) + referee_filter_result.average(:home_pf).to_f.round(2)).round(2),
-                                         (referee_filter_result.average(:away_fta).to_f.round(2) + referee_filter_result.average(:home_fta).to_f.round(2)).round(2),
-                                         referee_filter_result.count(:tp_1h).to_i
-                                     ])
+           referee_filter_result.average(:tp_1h).to_f.round(2),
+           referee_filter_result.average(:tp_2h).to_f.round(2),
+           (referee_filter_result.average(:away_pf).to_f.round(2) + referee_filter_result.average(:home_pf).to_f.round(2)).round(2),
+           (referee_filter_result.average(:away_fta).to_f.round(2) + referee_filter_result.average(:home_fta).to_f.round(2)).round(2),
+           referee_filter_result.count(:tp_1h).to_i
+        ])
       else
         @referee_filter_results.push(['-', '-', '-', '-', '-'])
       end
