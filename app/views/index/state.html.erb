@@ -643,14 +643,14 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= @injury_home_total_min && (@injury_home_total_or/@injury_home_total_min * 240).round(2) %></td>
-        <td><%= @injury_home_total_min && (@injury_home_total_stl/@injury_home_total_min * 240).round(2) %></td>
-        <td><%= @injury_home_total_min && (@injury_home_total_blk/@injury_home_total_min * 240).round(2) %></td>
-        <td><%= @injury_home_total_min && (@injury_home_total_to/@injury_home_total_min * 240).round(2) %></td>
-        <td class="red"><%= @injury_home_total_min && (@injury_home_total_or/@injury_home_total_min * 240 +
+        <td><%= @injury_home_total_min ? (@injury_home_total_or/@injury_home_total_min * 240).round(2) : "" %></td>
+        <td><%= @injury_home_total_min ? (@injury_home_total_stl/@injury_home_total_min * 240).round(2) : "" %></td>
+        <td><%= @injury_home_total_min ? (@injury_home_total_blk/@injury_home_total_min * 240).round(2) : "" %></td>
+        <td><%= @injury_home_total_min ? (@injury_home_total_to/@injury_home_total_min * 240).round(2) : "" %></td>
+        <td class="red"><%= @injury_home_total_min ? (@injury_home_total_or/@injury_home_total_min * 240 +
             @injury_home_total_stl/@injury_home_total_min * 240 +
             @injury_home_total_blk/@injury_home_total_min * 240 -
-            @injury_home_total_to/@injury_home_total_min * 240).round(2) %></td>
+            @injury_home_total_to/@injury_home_total_min * 240).round(2) : "" %></td>
         <td></td>
         <td></td>
         <td></td>
