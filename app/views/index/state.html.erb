@@ -333,14 +333,14 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= (@injury_away_total_or/@injury_away_total_min * 240).round(2) %></td>
-        <td><%= (@injury_away_total_stl/@injury_away_total_min * 240).round(2) %></td>
-        <td><%= (@injury_away_total_blk/@injury_away_total_min * 240).round(2) %></td>
-        <td><%= (@injury_away_total_to/@injury_away_total_min * 240).round(2) %></td>
-        <td class="red"><%= (@injury_away_total_or/@injury_away_total_min * 240 +
+        <td><%= @injury_away_total_min != 0 ? (@injury_away_total_or/@injury_away_total_min * 240).round(2) : "" %></td>
+        <td><%= @injury_away_total_min != 0 ? (@injury_away_total_stl/@injury_away_total_min * 240).round(2) : "" %></td>
+        <td><%= @injury_away_total_min != 0 ? (@injury_away_total_blk/@injury_away_total_min * 240).round(2) : "" %></td>
+        <td><%= @injury_away_total_min != 0 ? (@injury_away_total_to/@injury_away_total_min * 240).round(2) : "" %></td>
+        <td class="red"><%= @injury_away_total_min != 0 ? (@injury_away_total_or/@injury_away_total_min * 240 +
             @injury_away_total_stl/@injury_away_total_min * 240 +
             @injury_away_total_blk/@injury_away_total_min * 240 -
-            @injury_away_total_to/@injury_away_total_min * 240).round(2) %></td>
+            @injury_away_total_to/@injury_away_total_min * 240).round(2) : "" %></td>
         <td></td>
         <td></td>
         <td></td>
@@ -932,14 +932,14 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= (@away_total_or/@away_total_min * 240).round(2) %></td>
-        <td><%= (@away_total_stl/@away_total_min * 240).round(2) %></td>
-        <td><%= (@away_total_blk/@away_total_min * 240).round(2) %></td>
-        <td><%= (@away_total_to/@away_total_min * 240).round(2) %></td>
-        <td class="red"><%= (@away_total_or/@away_total_min * 240 +
+        <td><%= @away_total_min != 0 ? (@away_total_or/@away_total_min * 240).round(2) : "" %></td>
+        <td><%= @away_total_min != 0 ? (@away_total_stl/@away_total_min * 240).round(2) : "" %></td>
+        <td><%= @away_total_min != 0 ? (@away_total_blk/@away_total_min * 240).round(2) : "" %></td>
+        <td><%= @away_total_min != 0 ? (@away_total_to/@away_total_min * 240).round(2) : "" %></td>
+        <td class="red"><%= @away_total_min != 0 ? (@away_total_or/@away_total_min * 240 +
             @away_total_stl/@away_total_min * 240 +
             @away_total_blk/@away_total_min * 240 -
-            @away_total_to/@away_total_min * 240).round(2) %></td>
+            @away_total_to/@away_total_min * 240).round(2) : "" %></td>
         <td></td>
         <td></td>
         <td></td>
