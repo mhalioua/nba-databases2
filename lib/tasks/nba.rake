@@ -81,8 +81,8 @@ namespace :nba do
     Rake::Task["nba:getpg"].invoke
     Rake::Task["nba:getpg"].reenable
 
-    Rake::Task["nba:addAVGs"].invoke
-    Rake::Task["nba:addAVGs"].reenable
+    # Rake::Task["nba:addAVGs"].invoke
+    # Rake::Task["nba:addAVGs"].reenable
 
 		Rake::Task["nba:getUpdateTG"].invoke
 		Rake::Task["nba:getUpdateTG"].reenable
@@ -1019,7 +1019,6 @@ namespace :nba do
           end
           filter_data.update(result_element)
         end
-
       end
     end
   end
@@ -1767,7 +1766,7 @@ namespace :nba do
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Time.now-4.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 4.days).beginning_of_day, Time.now-4.hours)
 		puts games.size
 		games.each do |game|
 			players = game.players.all
