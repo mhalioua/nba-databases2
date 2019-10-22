@@ -27,7 +27,7 @@ namespace :nba do
           name = list.children[0].children[0].children[1].text[1..-1]
           status = list.children[1].children[0].text
           text = list.children[1].children[2].text
-          element = Injury.find_or_create_by(team: team, link: link, date: date, name: name, status: status, text: text, today: today)
+          Injury.find_or_create_by(team: team, link: link, date: date, name: name, status: status, text: text, today: today)
         end
       end
     end
@@ -215,7 +215,7 @@ namespace :nba do
     url = "http://www.espn.com/nba/standings/_/group/league"
     doc = download_document(url)
     teams = doc.css("abbr")
-    elements = doc.css(".Table2__table .Table2__shadow-scroller .Table2__table-scroller tbody tr")
+    elements = doc.css(".Table__Scroller .Table__TBODY .Table__TR")
     puts elements.size
     elements.each_with_index do |slice, index|
       team_abbr  =  teams[index].text
@@ -553,9 +553,9 @@ namespace :nba do
         elsif home_team_info.timezone == 1
           home_timezone = "EASTERN"
         end
-        home_win_rank = home_team_info.order_one_seventeen
-        home_ppg_rank = home_team_info.order_two_seventeen
-        home_oppppg_rank = home_team_info.order_thr_seventeen
+        home_win_rank = home_team_info.order_one_nineteen
+        home_ppg_rank = home_team_info.order_two_nineteen
+        home_oppppg_rank = home_team_info.order_thr_nineteen
       end
 
       if @team_names[away_team]
@@ -570,9 +570,9 @@ namespace :nba do
         elsif away_team_info.timezone == 1
           away_timezone = "EASTERN"
         end
-        away_win_rank = away_team_info.order_one_seventeen
-        away_ppg_rank = away_team_info.order_two_seventeen
-        away_oppppg_rank = away_team_info.order_thr_seventeen
+        away_win_rank = away_team_info.order_one_nineteen
+        away_ppg_rank = away_team_info.order_two_nineteen
+        away_oppppg_rank = away_team_info.order_thr_nineteen
       end
       tv_station = []
       if slice.children.size > 7
@@ -2695,7 +2695,7 @@ namespace :nba do
     puts elements.length
     elements.each_with_index do |element, index|
       team = Team.find_or_create_by(abbr: element.text)
-      team.update(order_one_seventeen: index + 1)
+      team.update(order_one_nineteen: index + 1)
     end
 
     url = "http://www.espn.com/nba/standings/_/sort/avgpointsfor/dir/desc/group/league"
@@ -2704,7 +2704,7 @@ namespace :nba do
     puts elements.length
     elements.each_with_index do |element, index|
       team = Team.find_or_create_by(abbr: element.text)
-      team.update(order_two_seventeen: index + 1)
+      team.update(order_two_nineteen: index + 1)
     end
 
     url = "http://www.espn.com/nba/standings/_/sort/avgpointsagainst/dir/desc/group/league"
@@ -2713,7 +2713,7 @@ namespace :nba do
     puts elements.length
     elements.each_with_index do |element, index|
       team = Team.find_or_create_by(abbr: element.text)
-      team.update(order_thr_seventeen: index + 1)
+      team.update(order_thr_nineteen: index + 1)
     end
   end
 
@@ -3201,9 +3201,9 @@ namespace :nba do
           elsif home_team_info.timezone == 1
             home_timezone = "EASTERN"
           end
-          home_win_rank = home_team_info.order_one_seventeen
-          home_ppg_rank = home_team_info.order_two_seventeen
-          home_oppppg_rank = home_team_info.order_thr_seventeen
+          home_win_rank = home_team_info.order_one_nineteen
+          home_ppg_rank = home_team_info.order_two_nineteen
+          home_oppppg_rank = home_team_info.order_thr_nineteen
         end
 
         if @team_names[away_team]
@@ -3218,9 +3218,9 @@ namespace :nba do
           elsif away_team_info.timezone == 1
             away_timezone = "EASTERN"
           end
-          away_win_rank = away_team_info.order_one_seventeen
-          away_ppg_rank = away_team_info.order_two_seventeen
-          away_oppppg_rank = away_team_info.order_thr_seventeen
+          away_win_rank = away_team_info.order_one_nineteen
+          away_ppg_rank = away_team_info.order_two_nineteen
+          away_oppppg_rank = away_team_info.order_thr_nineteen
         end
         game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: adding_date.strftime("%Y"), date: adding_date.strftime("%b %e"), time: adding_date.strftime("%I:%M%p"), week: adding_date.strftime("%a"), away_mins: away_mins_value, away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_mins: home_mins_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value, home_timezone: home_timezone, home_win_rank: home_win_rank, home_ppg_rank: home_ppg_rank, home_oppppg_rank: home_oppppg_rank, away_timezone: away_timezone, away_win_rank: away_win_rank, away_ppg_rank: away_ppg_rank, away_oppppg_rank: away_oppppg_rank, away_stl: away_stl_value, away_blk: away_blk_value, home_stl: home_stl_value, home_blk: home_blk_value, away_pf: away_pf_value, home_pf: home_pf_value)
       end

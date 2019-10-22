@@ -8,7 +8,7 @@ class AddmoreToTeam < ActiveRecord::Migration[5.1]
 	rename_column :teams, :order_two_six, :order_two_sixteen
 	rename_column :teams, :order_thr_six, :order_thr_sixteen
 
-  	add_column :teams, :order_one_one, :integer
+  add_column :teams, :order_one_one, :integer
 	add_column :teams, :order_two_one, :integer
 	add_column :teams, :order_thr_one, :integer
 
