@@ -1674,6 +1674,7 @@ namespace :nba do
 				count = 0
 				mins_min = 100
 				mins_max = 0
+        last_players = []
         if player.player_name == "K. O'Quinn"
           last_players = Player.where("game_date <= '" + player.game_date + "' AND link = 'http://www.espn.com/nba/player/_/id/6615/kyle-oquinn'").order('game_date DESC')
         else
