@@ -1709,7 +1709,7 @@ namespace :nba do
         if sum_mins < 0
           sum_mins = 0
         end
-				player.update(sum_poss: sum_poss, team_poss: team_poss, possession: possession.join(","), sum_mins: sum_mins, sum_blk: sum_blk, sum_or: sum_or, sum_stl: sum_stl, sum_pf: sum_pf, sum_to: sum_to)
+				player.update(sum_poss: sum_poss.round(2), team_poss: team_poss.round(2), possession: possession.join(","), sum_mins: sum_mins, sum_blk: sum_blk, sum_or: sum_or, sum_stl: sum_stl, sum_pf: sum_pf, sum_to: sum_to)
 			end
 		end
   end
