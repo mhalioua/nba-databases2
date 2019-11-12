@@ -18,7 +18,7 @@ class IndexController < ApplicationController
     @head = Date.strptime(@game_start_index, '%Y-%m-%d').strftime("%B %e")
 
     @games = Nba.where("game_date between ? and ?", Date.strptime(@game_start_index).beginning_of_day, Date.strptime(@game_end_index).end_of_day)
-                 .order("game_date", "home_number")
+               .order("game_date", "home_number")
   end
 
   def birthday
@@ -32,7 +32,7 @@ class IndexController < ApplicationController
     @head = Date.strptime(@game_start_index, '%Y-%m-%d').strftime("%B %e")
 
     @games = Nba.where("game_date between ? and ?", Date.strptime(@game_start_index).beginning_of_day, Date.strptime(@game_end_index).end_of_day)
-                 .order("game_date", "home_number")
+               .order("game_date", "home_number")
 
     @today = Date.strptime(@game_start_index)
     @records = []
@@ -47,23 +47,23 @@ class IndexController < ApplicationController
         @cbb_players.each_with_index do |cbb_player, index|
           if index == 0
             @records.push({
-                              current: @start_date,
-                              date: @start_date,
-                              player: cbb_player
+                            current: @start_date,
+                            date: @start_date,
+                            player: cbb_player
                           })
           else
             @records.push({
-                              current: @start_date,
-                              date: '-',
-                              player: cbb_player
+                            current: @start_date,
+                            date: '-',
+                            player: cbb_player
                           })
           end
         end
       else
         @records.push({
-                          current: @start_date,
-                          date: @start_date,
-                          player: 'NONE'
+                        current: @start_date,
+                        date: @start_date,
+                        player: 'NONE'
                       })
       end
 
@@ -72,23 +72,23 @@ class IndexController < ApplicationController
         @nba_players.each_with_index do |nba_player, index|
           if index == 0
             @nba_records.push({
-                                  current: @start_date,
-                                  date: @start_date,
-                                  player: nba_player
+                                current: @start_date,
+                                date: @start_date,
+                                player: nba_player
                               })
           else
             @nba_records.push({
-                                  current: @start_date,
-                                  date: '-',
-                                  player: nba_player
+                                current: @start_date,
+                                date: '-',
+                                player: nba_player
                               })
           end
         end
       else
         @nba_records.push({
-                              current: @start_date,
-                              date: @start_date,
-                              player: 'NONE'
+                            current: @start_date,
+                            date: @start_date,
+                            player: 'NONE'
                           })
       end
       @start_date = @start_date + 1.days
@@ -101,9 +101,9 @@ class IndexController < ApplicationController
 
   def detail
     @match = {
-        'PHX' => 'PHO',
-        'UTAH' => 'UTA',
-        'WSH' => 'WAS'
+      'PHX' => 'PHO',
+      'UTAH' => 'UTA',
+      'WSH' => 'WAS'
     }
     @injuries = params[:injury]
     unless @injuries
@@ -300,7 +300,7 @@ class IndexController < ApplicationController
     end
 
     if injury_drtg_count < 3
-      @away_players_group4 = @away_players_group3.select {|element| element.position == 'PG' || element.position == 'SG'}
+      @away_players_group4 = @away_players_group3.select { |element| element.position == 'PG' || element.position == 'SG' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -404,7 +404,7 @@ class IndexController < ApplicationController
       @injury_away_total_poss = @injury_away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
     end
     if injury_drtg_count < 3
-      @away_players_group4 = @away_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF'}
+      @away_players_group4 = @away_players_group3.select { |element| element.position == 'C' || element.position == 'SF' || element.position == 'PF' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -538,7 +538,7 @@ class IndexController < ApplicationController
       @injury_home_drtg_one_container.push(player.id)
     end
     if injury_drtg_count < 3
-      @home_players_group4 = @home_players_group3.select {|element| element.position == 'PG' || element.position == 'SG'}
+      @home_players_group4 = @home_players_group3.select { |element| element.position == 'PG' || element.position == 'SG' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -642,7 +642,7 @@ class IndexController < ApplicationController
       @injury_home_drtg_two_container.push(player.id)
     end
     if injury_drtg_count < 3
-      @home_players_group4 = @home_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF'}
+      @home_players_group4 = @home_players_group3.select { |element| element.position == 'C' || element.position == 'SF' || element.position == 'PF' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -774,7 +774,7 @@ class IndexController < ApplicationController
     end
 
     if drtg_count < 3
-      @away_players_group4 = @away_players_group3.select {|element| element.position == 'PG' || element.position == 'SG'}
+      @away_players_group4 = @away_players_group3.select { |element| element.position == 'PG' || element.position == 'SG' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -872,7 +872,7 @@ class IndexController < ApplicationController
       @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
     end
     if drtg_count < 3
-      @away_players_group4 = @away_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF'}
+      @away_players_group4 = @away_players_group3.select { |element| element.position == 'C' || element.position == 'SF' || element.position == 'PF' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -997,7 +997,7 @@ class IndexController < ApplicationController
       @home_drtg_one_container.push(player.id)
     end
     if drtg_count < 3
-      @home_players_group4 = @home_players_group3.select {|element| element.position == 'PG' || element.position == 'SG'}
+      @home_players_group4 = @home_players_group3.select { |element| element.position == 'PG' || element.position == 'SG' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -1095,7 +1095,7 @@ class IndexController < ApplicationController
       @home_drtg_two_container.push(player.id)
     end
     if drtg_count < 3
-      @home_players_group4 = @home_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF'}
+      @home_players_group4 = @home_players_group3.select { |element| element.position == 'C' || element.position == 'SF' || element.position == 'PF' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -1306,83 +1306,83 @@ class IndexController < ApplicationController
     end
 
     @team_more = {
-        'Atlanta' => 'EAST',
-        'Boston' => 'EAST',
-        'Brooklyn' => 'EAST',
-        'Charlotte' => 'EAST',
-        'Chicago' => 'MID-WEST',
-        'Cleveland' => 'EAST',
-        'Dallas' => 'TEXANS',
-        'Denver' => 'ROCKIES',
-        'Detroit' => 'EAST',
-        'Golden State' => 'WEST COAST',
-        'Houston' => 'TEXANS',
-        'Indiana' => 'EAST',
-        'LAC' => 'WEST COAST',
-        'LAL' => 'WEST COAST',
-        'Memphis' => 'NULL',
-        'Miami' => 'EAST',
-        'Milwaukee' => 'MID-WEST',
-        'Minnesota' => 'MID-WEST',
-        'New Jersey' => 'EAST',
-        'New Orleans' => 'NULL',
-        'New York' => 'EAST',
-        'NO/Oklahoma City' => 'NULL',
-        'Oklahoma City' => 'NULL',
-        'Orlando' => 'EAST',
-        'Philadelphia' => 'EAST',
-        'Phoenix' => 'NULL',
-        'Portland' => 'WEST COAST',
-        'Sacramento' => 'WEST COAST',
-        'San Antonio' => 'TEXANS',
-        'Seattle' => 'NULL',
-        'Toronto' => 'EAST',
-        'Utah' => 'ROCKIES',
-        'Vancouver' => 'NULL',
-        'Washington' => 'EAST'
+      'Atlanta' => 'EAST',
+      'Boston' => 'EAST',
+      'Brooklyn' => 'EAST',
+      'Charlotte' => 'EAST',
+      'Chicago' => 'MID-WEST',
+      'Cleveland' => 'EAST',
+      'Dallas' => 'TEXANS',
+      'Denver' => 'ROCKIES',
+      'Detroit' => 'EAST',
+      'Golden State' => 'WEST COAST',
+      'Houston' => 'TEXANS',
+      'Indiana' => 'EAST',
+      'LAC' => 'WEST COAST',
+      'LAL' => 'WEST COAST',
+      'Memphis' => 'NULL',
+      'Miami' => 'EAST',
+      'Milwaukee' => 'MID-WEST',
+      'Minnesota' => 'MID-WEST',
+      'New Jersey' => 'EAST',
+      'New Orleans' => 'NULL',
+      'New York' => 'EAST',
+      'NO/Oklahoma City' => 'NULL',
+      'Oklahoma City' => 'NULL',
+      'Orlando' => 'EAST',
+      'Philadelphia' => 'EAST',
+      'Phoenix' => 'NULL',
+      'Portland' => 'WEST COAST',
+      'Sacramento' => 'WEST COAST',
+      'San Antonio' => 'TEXANS',
+      'Seattle' => 'NULL',
+      'Toronto' => 'EAST',
+      'Utah' => 'ROCKIES',
+      'Vancouver' => 'NULL',
+      'Washington' => 'EAST'
     }
 
     firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL")
     secondItem = Fullseason.where(hometeam: @game.home_team)
     thirdItem = Fullseason.where(week: @game.week)
     @firstItem_result = {
-        first: firstItem.average(:firstpoint).to_f.round(2),
-        second: firstItem.average(:secondpoint).to_f.round(2),
-        full: firstItem.average(:totalpoint).to_f.round(2),
-        count: firstItem.count(:totalpoint).to_i
+      first: firstItem.average(:firstpoint).to_f.round(2),
+      second: firstItem.average(:secondpoint).to_f.round(2),
+      full: firstItem.average(:totalpoint).to_f.round(2),
+      count: firstItem.count(:totalpoint).to_i
     }
     @secondItem_result = {
-        first: secondItem.average(:firstpoint).to_f.round(2),
-        second: secondItem.average(:secondpoint).to_f.round(2),
-        full: secondItem.average(:totalpoint).to_f.round(2),
-        count: secondItem.count(:totalpoint).to_i
+      first: secondItem.average(:firstpoint).to_f.round(2),
+      second: secondItem.average(:secondpoint).to_f.round(2),
+      full: secondItem.average(:totalpoint).to_f.round(2),
+      count: secondItem.count(:totalpoint).to_i
     }
     @thirdItem_result = {
-        first: thirdItem.average(:firstpoint).to_f.round(2),
-        second: thirdItem.average(:secondpoint).to_f.round(2),
-        full: thirdItem.average(:totalpoint).to_f.round(2),
-        count: thirdItem.count(:totalpoint).to_i
+      first: thirdItem.average(:firstpoint).to_f.round(2),
+      second: thirdItem.average(:secondpoint).to_f.round(2),
+      full: thirdItem.average(:totalpoint).to_f.round(2),
+      count: thirdItem.count(:totalpoint).to_i
     }
 
     secondItem_secondtravel = Secondtravel.where(hometeam: @game.home_team)
     thirdItem_secondtravel = Secondtravel.where(week: @game.week)
     @firstItem_result_secondtravel = {
-        first: '',
-        second: '',
-        full: '',
-        count: ''
+      first: '',
+      second: '',
+      full: '',
+      count: ''
     }
     @secondItem_result_secondtravel = {
-        first: secondItem_secondtravel.average(:firstpoint).to_f.round(2),
-        second: secondItem_secondtravel.average(:secondpoint).to_f.round(2),
-        full: secondItem_secondtravel.average(:totalpoint).to_f.round(2),
-        count: secondItem_secondtravel.count(:totalpoint).to_i
+      first: secondItem_secondtravel.average(:firstpoint).to_f.round(2),
+      second: secondItem_secondtravel.average(:secondpoint).to_f.round(2),
+      full: secondItem_secondtravel.average(:totalpoint).to_f.round(2),
+      count: secondItem_secondtravel.count(:totalpoint).to_i
     }
     @thirdItem_result_secondtravel = {
-        first: thirdItem_secondtravel.average(:firstpoint).to_f.round(2),
-        second: thirdItem_secondtravel.average(:secondpoint).to_f.round(2),
-        full: thirdItem_secondtravel.average(:totalpoint).to_f.round(2),
-        count: thirdItem_secondtravel.count(:totalpoint).to_i
+      first: thirdItem_secondtravel.average(:firstpoint).to_f.round(2),
+      second: thirdItem_secondtravel.average(:secondpoint).to_f.round(2),
+      full: thirdItem_secondtravel.average(:totalpoint).to_f.round(2),
+      count: thirdItem_secondtravel.count(:totalpoint).to_i
     }
 
     @game_date = DateTime.parse(@game.game_date)
@@ -1542,11 +1542,11 @@ class IndexController < ApplicationController
         search_array = search_array.join(" AND ")
         referee_filter_result = Referee.where(search_array)
         @referee_filter_results.push([
-                                         referee_filter_result.average(:tp_1h).to_f.round(2),
-                                         referee_filter_result.average(:tp_2h).to_f.round(2),
-                                         (referee_filter_result.average(:away_pf).to_f.round(2) + referee_filter_result.average(:home_pf).to_f.round(2)).round(2),
-                                         (referee_filter_result.average(:away_fta).to_f.round(2) + referee_filter_result.average(:home_fta).to_f.round(2)).round(2),
-                                         referee_filter_result.count(:tp_1h).to_i
+                                       referee_filter_result.average(:tp_1h).to_f.round(2),
+                                       referee_filter_result.average(:tp_2h).to_f.round(2),
+                                       (referee_filter_result.average(:away_pf).to_f.round(2) + referee_filter_result.average(:home_pf).to_f.round(2)).round(2),
+                                       (referee_filter_result.average(:away_fta).to_f.round(2) + referee_filter_result.average(:home_fta).to_f.round(2)).round(2),
+                                       referee_filter_result.count(:tp_1h).to_i
                                      ])
       else
         @referee_filter_results.push(['-', '-', '-', '-', '-'])
@@ -1605,41 +1605,14 @@ class IndexController < ApplicationController
 
 
     @away_injury_name = @away_injury_name.uniq
-    # @away_injury_name.each do |injury|
-    #   injury_player_name = injury
-    #   selected_player = @away_players_search.where("player_fullname = ?", injury_player_name).first
-    #   selected_player = @away_players_search.where("player_name = ?", injury_player_name).first unless selected_player
-    #   unless selected_player
-    #     additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
-    #     additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
-    #     if additional_player
-    #       @away_players.push(additional_player)
-    #       @away_players_group3.push(additional_player)
-    #     end
-    #   end
-    # end
-
     @home_injury_name = @home_injury_name.uniq
-    # @home_injury_name.each do |injury|
-    #   injury_player_name = injury
-    #   selected_player = @home_players_search.where("player_fullname = ?", injury_player_name).first
-    #   selected_player = @home_players_search.where("player_name = ?", injury_player_name).first unless selected_player
-    #   unless selected_player
-    #     additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
-    #     additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
-    #     if additional_player
-    #       @home_players.push(additional_player)
-    #       @home_players_group3.push(additional_player)
-    #     end
-    #   end
-    # end
   end
 
   def state
     @match = {
-        'PHX' => 'PHO',
-        'UTAH' => 'UTA',
-        'WSH' => 'WAS'
+      'PHX' => 'PHO',
+      'UTAH' => 'UTA',
+      'WSH' => 'WAS'
     }
     @injuries = params[:injury]
     unless @injuries
@@ -2078,7 +2051,7 @@ class IndexController < ApplicationController
       @injury_home_drtg_one_container.push(player.id)
     end
     if injury_drtg_count < 3
-      @home_players_group4 = @home_players_group3.select {|element| element.position == 'PG' || element.position == 'SG'}
+      @home_players_group4 = @home_players_group3.select { |element| element.position == 'PG' || element.position == 'SG' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -2182,7 +2155,7 @@ class IndexController < ApplicationController
       @injury_home_drtg_two_container.push(player.id)
     end
     if injury_drtg_count < 3
-      @home_players_group4 = @home_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF'}
+      @home_players_group4 = @home_players_group3.select { |element| element.position == 'C' || element.position == 'SF' || element.position == 'PF' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -2314,7 +2287,7 @@ class IndexController < ApplicationController
     end
 
     if drtg_count < 3
-      @away_players_group4 = @away_players_group3.select {|element| element.position == 'PG' || element.position == 'SG'}
+      @away_players_group4 = @away_players_group3.select { |element| element.position == 'PG' || element.position == 'SG' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -2412,7 +2385,7 @@ class IndexController < ApplicationController
       @away_total_poss = @away_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
     end
     if drtg_count < 3
-      @away_players_group4 = @away_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF'}
+      @away_players_group4 = @away_players_group3.select { |element| element.position == 'C' || element.position == 'SF' || element.position == 'PF' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -2537,7 +2510,7 @@ class IndexController < ApplicationController
       @home_drtg_one_container.push(player.id)
     end
     if drtg_count < 3
-      @home_players_group4 = @home_players_group3.select {|element| element.position == 'PG' || element.position == 'SG'}
+      @home_players_group4 = @home_players_group3.select { |element| element.position == 'PG' || element.position == 'SG' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -2635,7 +2608,7 @@ class IndexController < ApplicationController
       @home_drtg_two_container.push(player.id)
     end
     if drtg_count < 3
-      @home_players_group4 = @home_players_group3.select {|element| element.position == 'C' || element.position == 'SF' || element.position == 'PF'}
+      @home_players_group4 = @home_players_group3.select { |element| element.position == 'C' || element.position == 'SF' || element.position == 'PF' }
       max_one = 0
       one_value = 0
       max_two = 0
@@ -2725,42 +2698,15 @@ class IndexController < ApplicationController
       @home_total_poss = @home_total_poss + (100 * player.sum_poss.to_f / player.team_poss)
     end
     @away_injury_name = @away_injury_name.uniq
-    # @away_injury_name.each do |injury|
-    #   injury_player_name = injury
-    #   selected_player = @away_players_search.where("player_fullname = ?", injury_player_name).first
-    #   selected_player = @away_players_search.where("player_name = ?", injury_player_name).first unless selected_player
-    #   unless selected_player
-    #     additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
-    #     additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
-    #     if additional_player
-    #       @away_players.push(additional_player)
-    #       @away_players_group3.push(additional_player)
-    #     end
-    #   end
-    # end
-
     @home_injury_name = @home_injury_name.uniq
-    # @home_injury_name.each do |injury|
-    #   injury_player_name = injury
-    #   selected_player = @home_players_search.where("player_fullname = ?", injury_player_name).first
-    #   selected_player = @home_players_search.where("player_name = ?", injury_player_name).first unless selected_player
-    #   unless selected_player
-    #     additional_player = Player.where("player_fullname = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last
-    #     additional_player = Player.where("player_name = ? AND game_date < ?", injury_player_name, @now).order(:game_date).last unless additional_player
-    #     if additional_player
-    #       @home_players.push(additional_player)
-    #       @home_players_group3.push(additional_player)
-    #     end
-    #   end
-    # end
   end
 
 
   def rest
     @match = {
-        'PHX' => 'PHO',
-        'UTAH' => 'UTA',
-        'WSH' => 'WAS'
+      'PHX' => 'PHO',
+      'UTAH' => 'UTA',
+      'WSH' => 'WAS'
     }
     @game_id = params[:id]
     @game = Nba.find_by(game_id: @game_id)
@@ -2789,14 +2735,14 @@ class IndexController < ApplicationController
     @away_starter_abbr = @match[@away_starter_abbr] if @match[@away_starter_abbr]
     @away_starters = Starter.where('team = ? AND time = ?', @away_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
     @away_starters.each do |away_starter|
-      selected_player = @away_players_search.select {|element|
+      selected_player = @away_players_search.select { |element|
         player_name = element.player_fullname
         player_name = player_name.gsub('-', ' ')
         element_index = player_name.rindex(" ")
         player_name = away_starter.player_name
         player_name = player_name.gsub('-', ' ')
         away_starter_index = player_name.rindex(" ")
-        element.player_fullname[element_index + 1..-1] == away_starter.player_name[away_starter_index + 1..-1]}.first
+        element.player_fullname[element_index + 1..-1] == away_starter.player_name[away_starter_index + 1..-1] }.first
       if selected_player
         selected_player.position = away_starter.position
         @away_players_group3.delete(selected_player)
@@ -2829,14 +2775,14 @@ class IndexController < ApplicationController
     @home_starter_abbr = @match[@home_starter_abbr] if @match[@home_starter_abbr]
     @home_starters = Starter.where('team = ? AND time = ?', @home_starter_abbr, DateTime.parse(@game.game_date).strftime("%FT%T+00:00")).order(:index)
     @home_starters.each do |home_starter|
-      selected_player = @home_players_search.select {|element|
+      selected_player = @home_players_search.select { |element|
         player_name = element.player_fullname
         player_name = player_name.gsub('-', ' ')
         element_index = player_name.rindex(" ")
         player_name = home_starter.player_name
         player_name = player_name.gsub('-', ' ')
         home_starter_index = player_name.rindex(" ")
-        element.player_fullname[element_index + 1..-1] == home_starter.player_name[home_starter_index + 1..-1]}.first
+        element.player_fullname[element_index + 1..-1] == home_starter.player_name[home_starter_index + 1..-1] }.first
       if selected_player
         selected_player.position = home_starter.position
         @home_players_group3.delete(selected_player)
@@ -2979,83 +2925,83 @@ class IndexController < ApplicationController
     end
 
     @team_more = {
-        'Atlanta' => 'EAST',
-        'Boston' => 'EAST',
-        'Brooklyn' => 'EAST',
-        'Charlotte' => 'EAST',
-        'Chicago' => 'MID-WEST',
-        'Cleveland' => 'EAST',
-        'Dallas' => 'TEXANS',
-        'Denver' => 'ROCKIES',
-        'Detroit' => 'EAST',
-        'Golden State' => 'WEST COAST',
-        'Houston' => 'TEXANS',
-        'Indiana' => 'EAST',
-        'LAC' => 'WEST COAST',
-        'LAL' => 'WEST COAST',
-        'Memphis' => 'NULL',
-        'Miami' => 'EAST',
-        'Milwaukee' => 'MID-WEST',
-        'Minnesota' => 'MID-WEST',
-        'New Jersey' => 'EAST',
-        'New Orleans' => 'NULL',
-        'New York' => 'EAST',
-        'NO/Oklahoma City' => 'NULL',
-        'Oklahoma City' => 'NULL',
-        'Orlando' => 'EAST',
-        'Philadelphia' => 'EAST',
-        'Phoenix' => 'NULL',
-        'Portland' => 'WEST COAST',
-        'Sacramento' => 'WEST COAST',
-        'San Antonio' => 'TEXANS',
-        'Seattle' => 'NULL',
-        'Toronto' => 'EAST',
-        'Utah' => 'ROCKIES',
-        'Vancouver' => 'NULL',
-        'Washington' => 'EAST'
+      'Atlanta' => 'EAST',
+      'Boston' => 'EAST',
+      'Brooklyn' => 'EAST',
+      'Charlotte' => 'EAST',
+      'Chicago' => 'MID-WEST',
+      'Cleveland' => 'EAST',
+      'Dallas' => 'TEXANS',
+      'Denver' => 'ROCKIES',
+      'Detroit' => 'EAST',
+      'Golden State' => 'WEST COAST',
+      'Houston' => 'TEXANS',
+      'Indiana' => 'EAST',
+      'LAC' => 'WEST COAST',
+      'LAL' => 'WEST COAST',
+      'Memphis' => 'NULL',
+      'Miami' => 'EAST',
+      'Milwaukee' => 'MID-WEST',
+      'Minnesota' => 'MID-WEST',
+      'New Jersey' => 'EAST',
+      'New Orleans' => 'NULL',
+      'New York' => 'EAST',
+      'NO/Oklahoma City' => 'NULL',
+      'Oklahoma City' => 'NULL',
+      'Orlando' => 'EAST',
+      'Philadelphia' => 'EAST',
+      'Phoenix' => 'NULL',
+      'Portland' => 'WEST COAST',
+      'Sacramento' => 'WEST COAST',
+      'San Antonio' => 'TEXANS',
+      'Seattle' => 'NULL',
+      'Toronto' => 'EAST',
+      'Utah' => 'ROCKIES',
+      'Vancouver' => 'NULL',
+      'Washington' => 'EAST'
     }
 
     firstItem = Fullseason.where(homemore: @team_more[@game.home_team] ? @team_more[@game.home_team] : "NULL", roadmore: @team_more[@game.away_team] ? @team_more[@game.away_team] : "NULL")
     secondItem = Fullseason.where(hometeam: @game.home_team)
     thirdItem = Fullseason.where(week: @game.week)
     @firstItem_result = {
-        first: firstItem.average(:firstpoint).to_f.round(2),
-        second: firstItem.average(:secondpoint).to_f.round(2),
-        full: firstItem.average(:totalpoint).to_f.round(2),
-        count: firstItem.count(:totalpoint).to_i
+      first: firstItem.average(:firstpoint).to_f.round(2),
+      second: firstItem.average(:secondpoint).to_f.round(2),
+      full: firstItem.average(:totalpoint).to_f.round(2),
+      count: firstItem.count(:totalpoint).to_i
     }
     @secondItem_result = {
-        first: secondItem.average(:firstpoint).to_f.round(2),
-        second: secondItem.average(:secondpoint).to_f.round(2),
-        full: secondItem.average(:totalpoint).to_f.round(2),
-        count: secondItem.count(:totalpoint).to_i
+      first: secondItem.average(:firstpoint).to_f.round(2),
+      second: secondItem.average(:secondpoint).to_f.round(2),
+      full: secondItem.average(:totalpoint).to_f.round(2),
+      count: secondItem.count(:totalpoint).to_i
     }
     @thirdItem_result = {
-        first: thirdItem.average(:firstpoint).to_f.round(2),
-        second: thirdItem.average(:secondpoint).to_f.round(2),
-        full: thirdItem.average(:totalpoint).to_f.round(2),
-        count: thirdItem.count(:totalpoint).to_i
+      first: thirdItem.average(:firstpoint).to_f.round(2),
+      second: thirdItem.average(:secondpoint).to_f.round(2),
+      full: thirdItem.average(:totalpoint).to_f.round(2),
+      count: thirdItem.count(:totalpoint).to_i
     }
 
     secondItem_secondtravel = Secondtravel.where(hometeam: @game.home_team)
     thirdItem_secondtravel = Secondtravel.where(week: @game.week)
     @firstItem_result_secondtravel = {
-        first: '',
-        second: '',
-        full: '',
-        count: ''
+      first: '',
+      second: '',
+      full: '',
+      count: ''
     }
     @secondItem_result_secondtravel = {
-        first: secondItem_secondtravel.average(:firstpoint).to_f.round(2),
-        second: secondItem_secondtravel.average(:secondpoint).to_f.round(2),
-        full: secondItem_secondtravel.average(:totalpoint).to_f.round(2),
-        count: secondItem_secondtravel.count(:totalpoint).to_i
+      first: secondItem_secondtravel.average(:firstpoint).to_f.round(2),
+      second: secondItem_secondtravel.average(:secondpoint).to_f.round(2),
+      full: secondItem_secondtravel.average(:totalpoint).to_f.round(2),
+      count: secondItem_secondtravel.count(:totalpoint).to_i
     }
     @thirdItem_result_secondtravel = {
-        first: thirdItem_secondtravel.average(:firstpoint).to_f.round(2),
-        second: thirdItem_secondtravel.average(:secondpoint).to_f.round(2),
-        full: thirdItem_secondtravel.average(:totalpoint).to_f.round(2),
-        count: thirdItem_secondtravel.count(:totalpoint).to_i
+      first: thirdItem_secondtravel.average(:firstpoint).to_f.round(2),
+      second: thirdItem_secondtravel.average(:secondpoint).to_f.round(2),
+      full: thirdItem_secondtravel.average(:totalpoint).to_f.round(2),
+      count: thirdItem_secondtravel.count(:totalpoint).to_i
     }
 
     @game_date = DateTime.parse(@game.game_date)
@@ -3214,13 +3160,15 @@ class IndexController < ApplicationController
         end
         search_array = search_array.join(" AND ")
         referee_filter_result = Referee.where(search_array)
-        @referee_filter_results.push([
-           referee_filter_result.average(:tp_1h).to_f.round(2),
-           referee_filter_result.average(:tp_2h).to_f.round(2),
-           (referee_filter_result.average(:away_pf).to_f.round(2) + referee_filter_result.average(:home_pf).to_f.round(2)).round(2),
-           (referee_filter_result.average(:away_fta).to_f.round(2) + referee_filter_result.average(:home_fta).to_f.round(2)).round(2),
-           referee_filter_result.count(:tp_1h).to_i
-        ])
+        @referee_filter_results.push(
+          [
+            referee_filter_result.average(:tp_1h).to_f.round(2),
+            referee_filter_result.average(:tp_2h).to_f.round(2),
+            (referee_filter_result.average(:away_pf).to_f.round(2) + referee_filter_result.average(:home_pf).to_f.round(2)).round(2),
+            (referee_filter_result.average(:away_fta).to_f.round(2) + referee_filter_result.average(:home_fta).to_f.round(2)).round(2),
+            referee_filter_result.count(:tp_1h).to_i
+          ]
+        )
       else
         @referee_filter_results.push(['-', '-', '-', '-', '-'])
       end
