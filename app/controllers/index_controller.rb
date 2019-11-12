@@ -46,50 +46,62 @@ class IndexController < ApplicationController
       if @cbb_players.length != 0
         @cbb_players.each_with_index do |cbb_player, index|
           if index == 0
-            @records.push({
-                            current: @start_date,
-                            date: @start_date,
-                            player: cbb_player
-                          })
+            @records.push(
+              {
+                current: @start_date,
+                date: @start_date,
+                player: cbb_player
+              }
+            )
           else
-            @records.push({
-                            current: @start_date,
-                            date: '-',
-                            player: cbb_player
-                          })
+            @records.push(
+              {
+                current: @start_date,
+                date: '-',
+                player: cbb_player
+              }
+            )
           end
         end
       else
-        @records.push({
-                        current: @start_date,
-                        date: @start_date,
-                        player: 'NONE'
-                      })
+        @records.push(
+          {
+            current: @start_date,
+            date: @start_date,
+            player: 'NONE'
+          }
+        )
       end
 
       @nba_players = NbaPlayer.where("birthdate like '" + @start_date.strftime("%b %-d") + ",%'")
       if @nba_players.length != 0
         @nba_players.each_with_index do |nba_player, index|
           if index == 0
-            @nba_records.push({
-                                current: @start_date,
-                                date: @start_date,
-                                player: nba_player
-                              })
+            @nba_records.push(
+              {
+                current: @start_date,
+                date: @start_date,
+                player: nba_player
+              }
+            )
           else
-            @nba_records.push({
-                                current: @start_date,
-                                date: '-',
-                                player: nba_player
-                              })
+            @nba_records.push(
+              {
+                current: @start_date,
+                date: '-',
+                player: nba_player
+              }
+            )
           end
         end
       else
-        @nba_records.push({
-                            current: @start_date,
-                            date: @start_date,
-                            player: 'NONE'
-                          })
+        @nba_records.push(
+          {
+            current: @start_date,
+            date: @start_date,
+            player: 'NONE'
+          }
+        )
       end
       @start_date = @start_date + 1.days
     end
@@ -1541,13 +1553,15 @@ class IndexController < ApplicationController
         end
         search_array = search_array.join(" AND ")
         referee_filter_result = Referee.where(search_array)
-        @referee_filter_results.push([
-                                       referee_filter_result.average(:tp_1h).to_f.round(2),
-                                       referee_filter_result.average(:tp_2h).to_f.round(2),
-                                       (referee_filter_result.average(:away_pf).to_f.round(2) + referee_filter_result.average(:home_pf).to_f.round(2)).round(2),
-                                       (referee_filter_result.average(:away_fta).to_f.round(2) + referee_filter_result.average(:home_fta).to_f.round(2)).round(2),
-                                       referee_filter_result.count(:tp_1h).to_i
-                                     ])
+        @referee_filter_results.push(
+          [
+            referee_filter_result.average(:tp_1h).to_f.round(2),
+            referee_filter_result.average(:tp_2h).to_f.round(2),
+            (referee_filter_result.average(:away_pf).to_f.round(2) + referee_filter_result.average(:home_pf).to_f.round(2)).round(2),
+            (referee_filter_result.average(:away_fta).to_f.round(2) + referee_filter_result.average(:home_fta).to_f.round(2)).round(2),
+            referee_filter_result.count(:tp_1h).to_i
+          ]
+        )
       else
         @referee_filter_results.push(['-', '-', '-', '-', '-'])
       end
