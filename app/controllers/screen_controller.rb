@@ -1,4 +1,4 @@
-class IndexController < ApplicationController
+class ScreenController < ApplicationController
   def rest
     @match = {
       'PHX' => 'PHO',
