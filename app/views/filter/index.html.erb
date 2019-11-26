@@ -8,7 +8,7 @@
       <li class="list-group-item"><%= link_to 'Home', { controller: 'index', action: 'home' }%></li>
 <!--      <li class="list-group-item"><%#= link_to 'Filter', { controller: 'filter', action: 'filter' } %></li>-->
       <% @teams.each do |team| %>
-        <li class="list-group-item"><%= link_to team.name, { controller: 'filter', action: 'show', id: team.id } %></li>
+        <li class="list-group-item"><%= link_to team.team, { controller: 'filter', action: 'show', id: team.id } %></li>
       <% end %>
     </ul>
   </div>
