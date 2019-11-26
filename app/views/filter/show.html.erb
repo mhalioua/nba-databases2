@@ -1,4 +1,4 @@
-<% content_for :title, @team.name %>
+<% content_for :title, @team.team %>
 <div style="display: flex;">
   <% (1..((@games.length + 9 )/10).to_i).each do |index| %>
     <button class="btn-primary apply apply<%= index %>"><%= "#{index * 10 - 9} - #{index * 10 < @games.length ? index * 10 : @games.length}" %></button>
