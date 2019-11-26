@@ -7,6 +7,7 @@
 	<li><%= link_to @yesterday.strftime("%B %e"),  	{ action: 'game', id: @yesterday.strftime("%Y-%m-%d") + " - " + @yesterday.strftime("%Y-%m-%d") } %> </li>
 	<li><%= link_to @today.strftime("%B %e"),      	{ action: 'game', id: @today.strftime("%Y-%m-%d") + " - " + @today.strftime("%Y-%m-%d") } %> </li>
 	<li><%= link_to @tomorrow.strftime("%B %e"),   	{ action: 'game', id: @tomorrow.strftime("%Y-%m-%d") + " - " + @tomorrow.strftime("%Y-%m-%d") } %> </li>
+  <li><%= link_to 'Teams',			  		            { controller: 'filter', action: 'index' } %></li>
 	<li><%= link_to 'History', 					   	        { action: 'history' } %> </li>
 	<li><%= link_to 'Referees', 					          { action: 'referee' } %> </li>
   <li><%= link_to 'Birthday',      	              { action: 'birthday', id: @today.strftime("%Y-%m-%d") + " - " + @today.strftime("%Y-%m-%d") } %> </li>

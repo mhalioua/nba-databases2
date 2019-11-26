@@ -1,6 +1,6 @@
 class FilterController < ApplicationController
   def index
-    @teams = Team.all.order('name')
+    @teams = Team.all.order('team')
   end
 
   def show
