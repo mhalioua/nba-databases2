@@ -1,0 +1,151 @@
+<% content_for :title, 'Filter' %>
+<style>
+  .class {
+    display: none;
+  }
+
+  .class1 {
+    display: block;
+  }
+</style>
+<%= @team_id %>
+<%= @wind_dir %>
+<%= @wind_speed %>
+<%= @baro %>
+<%= @dp %>
+<%= @hum %>
+<%= @game_start_index %>
+<%= @game_end_index %>
+<%= form_tag("/team/filter", method: "get") do %>
+  <label>Stadium: </label>
+  <select name="team_id">
+    <option value="0" <%= @team_id == 0 ? "selected" : '' %>>All</option>
+    <% @teams.each do |team| %>
+      <option value="<%= team.id %>" <%= @team_id == team.id ? "selected" : '' %>><%= team.name %></option>
+    <% end %>
+  </select>
+
+  <label>Wind Direction: </label>
+  <input type="text" name="wind_dir" value="<%= @wind_dir %>" />
+
+  <label>Wind Speed: </label>
+  <input type="number" step="1" name="wind_speed" value="<%= @wind_speed %>" />
+
+  <label>Baro: </label>
+  <input type="number" step="0.01" name="baro" value="<%= @baro %>" />
+
+  <label>DP: </label>
+  <input type="number" step="1" name="dp" value="<%= @dp %>" />
+
+  <label>Humidity: </label>
+  <input type="number" step="1" name="hum" value="<%= @hum %>" />
+
+  <input type="text" data-toggle="daterangepicker" name="date" data-filter-type="date-range" style="width: 400px; text-align:center; margin: 20px;" class="daterange">
+
+  <input type="submit" value="Filter">
+<% end %>
+<div style="display: flex;">
+  <% (1..((@games.length + 9)/10).to_i).each do |index| %>
+    <button class="btn-primary apply apply<%= index %>"><%= "#{index * 10 - 9} - #{index * 10 < @games.length ? index * 10 : @games.length}" %></button>
+  <% end %>
+</div>
+<% @games.each_with_index do |game, index| %>
+  <div style="border-bottom: 20px solid black;" class="class class<%= (index/10).to_i + 1 %>">
+    <img style="border-radius: 0;" src="https://s3.amazonaws.com/mlb-daemon/images/<%= game.id %>.png" />
+  </div>
+<% end %>
+
+<ul class="list-group">
+  <li class="list-group-item"><%= link_to 'Home', { controller: 'index', action: 'home' }%></li>
+</ul>
+<script>
+    $(document).ready(function(){
+        $(".apply1").click(function(){
+            $(".class").css("display", "none");
+            $(".class1").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply2").click(function(){
+            $(".class").css("display", "none");
+            $(".class2").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply3").click(function(){
+            $(".class").css("display", "none");
+            $(".class3").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply4").click(function(){
+            $(".class").css("display", "none");
+            $(".class4").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply5").click(function(){
+            $(".class").css("display", "none");
+            $(".class5").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply6").click(function(){
+            $(".class").css("display", "none");
+            $(".class6").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply7").click(function(){
+            $(".class").css("display", "none");
+            $(".class7").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply8").click(function(){
+            $(".class").css("display", "none");
+            $(".class8").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply9").click(function(){
+            $(".class").css("display", "none");
+            $(".class9").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply10").click(function(){
+            $(".class").css("display", "none");
+            $(".class10").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+
+        $(".apply1").addClass("active");
+    });
+
+    var start = moment("<%= @game_start_index %>").format('MMM DD, YYYY');
+    var end = moment("<%= @game_end_index %>").format('MMM DD, YYYY');
+    $('.daterange').daterangepicker({
+        showCustomRangeLabel: true,
+        showDropdowns: true,
+        alwaysShowCalendars: true,
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Next 7 Days': [moment(), moment().add(6, 'days')],
+            'This Week': [moment().startOf('week'), moment().endOf('week')],
+            'Last Week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')]
+        },
+        locale: {
+            format: 'MMM DD, YYYY'
+        },
+        startDate: start,
+        endDate: end
+    });
+
+    // function cb(start, end) {
+    //     window.location.href = "/welcome/index/" + start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD');
+    // }
+</script>

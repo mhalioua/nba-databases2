@@ -1,0 +1,81 @@
+<% content_for :title, @team.name %>
+<div style="display: flex;">
+  <% (1..((@games.length + 9 )/10).to_i).each do |index| %>
+    <button class="btn-primary apply apply<%= index %>"><%= "#{index * 10 - 9} - #{index * 10 < @games.length ? index * 10 : @games.length}" %></button>
+  <% end %>
+</div>
+<% @games.each_with_index do |game, index| %>
+  <div style="border-bottom: 20px solid black;" class="class class<%= (index/10).to_i + 1 %>">
+    <img style="border-radius: 0;" src="https://s3.amazonaws.com/nba-daemon/images/<%= game.game_id %>.png" />
+  </div>
+<% end %>
+
+<ul class="list-group">
+  <li class="list-group-item"><%= link_to 'Home', { controller: 'index', action: 'home' }%></li>
+</ul>
+<script>
+    $(document).ready(function(){
+        $(".apply1").click(function(){
+            $(".class").css("display", "none");
+            $(".class1").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply2").click(function(){
+            $(".class").css("display", "none");
+            $(".class2").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply3").click(function(){
+            $(".class").css("display", "none");
+            $(".class3").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply4").click(function(){
+            $(".class").css("display", "none");
+            $(".class4").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply5").click(function(){
+            $(".class").css("display", "none");
+            $(".class5").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply6").click(function(){
+            $(".class").css("display", "none");
+            $(".class6").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply7").click(function(){
+            $(".class").css("display", "none");
+            $(".class7").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply8").click(function(){
+            $(".class").css("display", "none");
+            $(".class8").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply9").click(function(){
+            $(".class").css("display", "none");
+            $(".class9").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $(".apply10").click(function(){
+            $(".class").css("display", "none");
+            $(".class10").css("display", "block");
+            $(".active").removeClass("active");
+            $(this).addClass("active");
+        });
+
+        $(".apply1").addClass("active");
+    });
+</script>
