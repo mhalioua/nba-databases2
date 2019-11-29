@@ -17,7 +17,7 @@ class FilterController < ApplicationController
     @game_index = params[:date]
     @game_start_index = @game_index[0..12]
     @game_end_index = @game_index[15..27]
-    @games = Nba.where("game_date between ? and ? AND id >= 26796", Date.strptime(@game_start_index).beginning_of_day, Date.strptime(@game_end_index).end_of_day)
-                  .or(Nba.where("game_date between ? and ? AND id <= 26573 AND id >= 25261", Date.strptime(@game_start_index).beginning_of_day, Date.strptime(@game_end_index).end_of_day)).order('id DESC')
+    @games = Nba.where("game_date between ? and ? AND id >= 26796", Date.strptime(@game_start_index, '%b %d, %Y').beginning_of_day, Date.strptime(@game_end_index, '%b %d, %Y').end_of_day)
+                  .or(Nba.where("game_date between ? and ? AND id <= 26573 AND id >= 25261", Date.strptime(@game_start_index, '%b %d, %Y').beginning_of_day, Date.strptime(@game_end_index, '%b %d, %Y').end_of_day)).order('id DESC')
   end
 end
