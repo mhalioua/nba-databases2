@@ -10,7 +10,7 @@
 </style>
 <%= @game_start_index %>
 <%= @game_end_index %>
-<%= form_tag("/team/filter", method: "get") do %>
+<%= form_tag("/filter/filter", method: "get") do %>
   <input type="text" data-toggle="daterangepicker" name="date" data-filter-type="date-range" style="width: 400px; text-align:center; margin: 20px;" class="daterange">
 
   <input type="submit" value="Filter">
