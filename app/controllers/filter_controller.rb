@@ -25,13 +25,13 @@ class FilterController < ApplicationController
     @home_team_id = 0
     @away_team_id = 0
     if params[:home_team_id].present?
-      @home_team_id = params[:home_team_id]
+      @home_team_id = params[:home_team_id].to_i
       @home_team = Team.find_by(id: params[:home_team_id])
       @games = @games.where("home_team = ?", @home_team.team) if @home_team != nil
     end
 
     if params[:away_team_id].present?
-      @away_team_id = params[:away_team_id]
+      @away_team_id = params[:away_team_id].to_i
       @away_team = Team.find_by(id: params[:away_team_id])
       @games = @games.where("away_team = ?", @away_team.team) if @away_team != nil
     end
