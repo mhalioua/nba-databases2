@@ -11,6 +11,22 @@
 <%= @game_start_index %>
 <%= @game_end_index %>
 <%= form_tag("/filter/filter", method: "get") do %>
+  <label>Home Team: </label>
+  <select name="home_team_id">
+    <option value="0" <%= @home_team_id == 0 ? "selected" : '' %>>All</option>
+    <% @teams.each do |team| %>
+      <option value="<%= team.id %>" <%= @home_team_id == team.id ? "selected" : '' %>><%= team.team %></option>
+    <% end %>
+  </select>
+
+  <label>Away Team: </label>
+  <select name="away_team_id">
+    <option value="0" <%= @away_team_id == 0 ? "selected" : '' %>>All</option>
+    <% @teams.each do |team| %>
+      <option value="<%= team.id %>" <%= @away_team_id == team.id ? "selected" : '' %>><%= team.team %></option>
+    <% end %>
+  </select>
+
   <input type="text" data-toggle="daterangepicker" name="date" data-filter-type="date-range" style="width: 400px; text-align:center; margin: 20px;" class="daterange">
 
   <input type="submit" value="Filter">
