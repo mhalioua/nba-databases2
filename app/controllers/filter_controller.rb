@@ -27,13 +27,23 @@ class FilterController < ApplicationController
     if params[:home_team_id].present?
       @home_team_id = params[:home_team_id].to_i
       @home_team = Team.find_by(id: params[:home_team_id])
-      @games = @games.where("home_team = ?", @home_team.team) if @home_team != nil
+      if @home_team != nil
+        home_team_name = @home_team.team
+        home_team_name = 'LAC' if home_team_name == 'LA Clippers'
+        home_team_name = 'LAL' if home_team_name == 'LA Lakers'
+        @games = @games.where("home_team = ?", home_team_name)
+      end
     end
 
     if params[:away_team_id].present?
       @away_team_id = params[:away_team_id].to_i
       @away_team = Team.find_by(id: params[:away_team_id])
-      @games = @games.where("away_team = ?", @away_team.team) if @away_team != nil
+      if @away_team != nil
+        away_team_name = @away_team.team
+        away_team_name = 'LAC' if away_team_name == 'LA Clippers'
+        away_team_name = 'LAL' if away_team_name == 'LA Lakers'
+        @games = @games.where("away_team = ?", away_team_name)
+      end
     end
   end
 end
