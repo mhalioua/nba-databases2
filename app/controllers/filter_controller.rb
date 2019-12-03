@@ -22,16 +22,18 @@ class FilterController < ApplicationController
                .or(Nba.where("game_date between ? and ? AND id <= 26573 AND id >= 25261", Date.strptime(@game_start_index, '%b %d, %Y').beginning_of_day, Date.strptime(@game_end_index, '%b %d, %Y').end_of_day)).order('id DESC')
 
     @teams = Team.all.order('team')
-    @home_team = nil
-    @away_team = nil
+    @home_team_id = 0
+    @away_team_id = 0
     if params[:home_team_id].present?
+      @home_team_id = params[:home_team_id]
       @home_team = Team.find_by(id: params[:home_team_id])
-      @games = @games.where("home_team = ?", @home_team.team)
+      @games = @games.where("home_team = ?", @home_team.team) if @home_team
     end
 
     if params[:away_team_id].present?
+      @away_team_id = params[:away_team_id]
       @away_team = Team.find_by(id: params[:away_team_id])
-      @games = @games.where("away_team = ?", @away_team.team)
+      @games = @games.where("away_team = ?", @away_team.team) if @away_team
     end
   end
 end
