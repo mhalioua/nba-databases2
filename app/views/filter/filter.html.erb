@@ -32,7 +32,7 @@
   <label for="datePicker">All dates</label>
 
   <input type="text" data-toggle="daterangepicker" name="date" data-filter-type="date-range"
-         style="width: 400px; text-align:center; margin: 20px; display: <%= @datePicker ? "none" : "block" %>"
+         style="width: 400px; text-align:center; margin: 20px; display: <%= @datePicker ? "none" : "inline" %>"
          class="daterange"
   >
 
@@ -44,7 +44,7 @@
         if (value) {
             $(".daterange").css("display", "none");
         } else {
-            $(".daterange").css("display", "block");
+            $(".daterange").css("display", "inline");
         }
     });
 </script>
