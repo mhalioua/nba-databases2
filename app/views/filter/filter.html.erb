@@ -27,10 +27,27 @@
     <% end %>
   </select>
 
-  <input type="text" data-toggle="daterangepicker" name="date" data-filter-type="date-range" style="width: 400px; text-align:center; margin: 20px;" class="daterange">
+
+  <input type="checkbox" name="datePicker" id="datePicker" <%= @datePicker ? "checked" : "" %> />
+  <label for="datePicker">All dates</label>
+
+  <input type="text" data-toggle="daterangepicker" name="date" data-filter-type="date-range"
+         style="width: 400px; text-align:center; margin: 20px; display: <%= @datePicker ? "none" : "block" %>"
+         class="daterange"
+  >
 
   <input type="submit" value="Filter">
 <% end %>
+<script>
+    $('#datePicker').change(function () {
+        var value = this.checked;
+        if (value) {
+            $(".daterange").css("display", "none");
+        } else {
+            $(".daterange").css("display", "block");
+        }
+    });
+</script>
 <div style="display: flex;">
   <% (1..((@games.length + 9)/10).to_i).each do |index| %>
     <button class="btn-primary apply apply<%= index %>"><%= "#{index * 10 - 9} - #{index * 10 < @games.length ? index * 10 : @games.length}" %></button>
