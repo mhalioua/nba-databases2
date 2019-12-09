@@ -14,6 +14,86 @@
     <table border="1">
       <thead>
       <tr>
+        <th class="gray" colspan="<%= @game.home_ot_quarter != 0 ? 8 : 7 %>">FINAL SCORE</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="gray">
+        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <% if @game.away_ot_quarter != 0 %>
+          <td>
+            OT
+          </td>
+        <% end %>
+        <td></td>
+        <td>Total</td>
+      </tr>
+      <tr>
+        <td>
+          <%= @away_abbr %>
+        </td>
+        <td>
+          <%= @game.away_first_quarter %>
+        </td>
+        <td>
+          <%= @game.away_second_quarter %>
+        </td>
+        <td>
+          <%= @game.away_third_quarter %>
+        </td>
+        <td>
+          <%= @game.away_forth_quarter %>
+        </td>
+        <% if @game.away_ot_quarter != 0 %>
+          <td>
+            <%= @game.away_ot_quarter %>
+          </td>
+        <% end %>
+        <td class="gray"></td>
+        <td>
+          <%= @game.away_score %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= @home_abbr %>
+        </td>
+        <td>
+          <%= @game.home_first_quarter %>
+        </td>
+        <td>
+          <%= @game.home_second_quarter %>
+        </td>
+        <td>
+          <%= @game.home_third_quarter %>
+        </td>
+        <td>
+          <%= @game.home_forth_quarter %>
+        </td>
+        <% if @game.home_ot_quarter != 0 %>
+          <td>
+            <%= @game.home_ot_quarter %>
+          </td>
+        <% end %>
+        <td class="gray"></td>
+        <td>
+          <%= @game.home_score %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="tableBody">
+  <div style="display:inline-block;">
+    <table border="1">
+      <thead>
+      <tr>
         <th colspan="7">REBOUNDS</th>
         <th class="between"></th>
         <th colspan="9">OFFENSIVE REBOUNDS</th>
