@@ -433,39 +433,7 @@
       <td width="80">full game</td>
       <td></td>
       <td bgcolor="yellow" width="160">Last Game City</td>
-      <td></td>
-      <td></td>
-      <td>LAST ROAD</td>
-      <td>NEXT ROAD</td>
-      <td>NEXT HOME</td>
-      <td>LAST HOME</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>ROAD</td>
-      <td>HOME</td>
-      <td></td>
-      <td>+/-</td>
-      <td></td>
-      <td style="background: #fa0">GMS</td>
-      <td></td>
-      <td>1H ROAD</td>
-      <td>1H HOME</td>
-      <td></td>
-      <td>+/-</td>
-      <td></td>
-      <td>2H ROAD</td>
-      <td>2H HOME</td>
-      <td></td>
-      <td>+/-</td>
-      <td></td>
-      <td>fg total point</td>
-      <td>total lines</td>
-      <td></td>
-      <td>1h total pts</td>
-      <td>1h total lines</td>
-      <td>2h total pts</td>
-      <td>2h total lines</td>
+      <td colspan="33" bgcolor="black"></td>
       <td bgcolor="yellow" width="160">Next Game City</td>
       <td></td>
       <td width="80">1st half</td>
@@ -478,7 +446,7 @@
       <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="lightgray"><%= @game.away_abbr %></td>
       <td bgcolor="yellow"><%= "#{away_team_city} (#{@game.away_last_game})" %></td>
-      <td colspan="33"></td>
+      <td colspan="33" bgcolor="black"></td>
       <td bgcolor="yellow"><%= "#{away_team_next_city} (#{@game.away_next_game})" %></td>
       <td bgcolor="lightgray"><%= @game.away_abbr %></td>
       <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
@@ -491,7 +459,7 @@
       <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="lightgray"><%= @game.home_abbr %></td>
       <td bgcolor="yellow"><%= "#{home_team_city} (#{@game.home_last_game})" %></td>
-      <td colspan="33"></td>
+      <td colspan="33" bgcolor="black"></td>
       <td bgcolor="yellow"><%= "#{home_team_next_city} (#{@game.home_next_game})" %></td>
       <td bgcolor="lightgray"><%= @game.home_abbr %></td>
       <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
@@ -504,7 +472,7 @@
       <td bgcolor="gray">A - H</td>
       <td bgcolor="gray"></td>
       <td bgcolor="gray"></td>
-      <td colspan="33"></td>
+      <td colspan="33" bgcolor="black"></td>
       <td bgcolor="gray"></td>
       <td bgcolor="gray"></td>
       <td bgcolor="gray">A - H</td>
