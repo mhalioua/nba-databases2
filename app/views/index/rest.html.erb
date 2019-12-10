@@ -1206,145 +1206,6 @@ end
 </div>
 
 
-<div class="tableContainer">
-  <table border="1" class="numbers">
-    <tbody>
-    <tr>
-      <td width="80">1st half</td>
-      <td width="80">2nd half</td>
-      <td width="80">full game</td>
-      <td></td>
-      <td bgcolor="yellow" width="160">Last Game City</td>
-      <td colspan="33" bgcolor="black"></td>
-      <td bgcolor="yellow" width="160">Next Game City</td>
-      <td></td>
-      <td width="80">1st half</td>
-      <td width="80">2nd half</td>
-      <td width="80">full game</td>
-    </tr>
-    <tr>
-      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="lightgray"><%= @game.away_abbr %></td>
-      <td bgcolor="yellow"><%= "#{away_team_city} (#{@game.away_last_game})" %></td>
-      <td colspan="33" bgcolor="black"></td>
-      <td bgcolor="yellow"><%= "#{away_team_next_city} (#{@game.away_next_game})" %></td>
-      <td bgcolor="lightgray"><%= @game.away_abbr %></td>
-      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-    </tr>
-    <tr style="background: #fa0">
-      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="lightgray"><%= @game.home_abbr %></td>
-      <td bgcolor="yellow"><%= "#{home_team_city} (#{@game.home_last_game})" %></td>
-      <td colspan="33" bgcolor="black"></td>
-      <td bgcolor="yellow"><%= "#{home_team_next_city} (#{@game.home_next_game})" %></td>
-      <td bgcolor="lightgray"><%= @game.home_abbr %></td>
-      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-    </tr>
-    <tr>
-      <td bgcolor="gray">A - H</td>
-      <td bgcolor="gray">A - H</td>
-      <td bgcolor="gray">A - H</td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="gray"></td>
-      <td colspan="33" bgcolor="black"></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="gray">A - H</td>
-      <td bgcolor="gray">A - H</td>
-      <td bgcolor="gray">A - H</td>
-    </tr>
-    <tr>
-      <td class="black" colspan="43"></td>
-    </tr>
-    <tr>
-      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason5 ? fullseason5.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason5 ? fullseason5.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason5 ? fullseason5.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_game}-#{@game.away_next_game})" %></td>
-      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (H & I)</td>
-      <td class="black"></td>
-      <td colspan="17">filter CURRENT CITY (AH) + columns (J & K) ==>></td>
-      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_last_game})" %></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason10 ? fullseason10.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason10 ? fullseason10.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason10 ? fullseason10.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-    </tr>
-    <tr>
-      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason6 ? fullseason6.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason6 ? fullseason6.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason6 ? fullseason6.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_last_game})" %></td>
-      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F & H)</td>
-      <td class="black"></td>
-      <td colspan="17">filter CURRENT CITY (AH) + columns (K & M) ==>></td>
-      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_last_game}-#{@game.home_last_fly})" %></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason11 ? fullseason11.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason11 ? fullseason11.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason11 ? fullseason11.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-    </tr>
-    <tr>
-      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason7 ? fullseason7.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason7 ? fullseason7.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason7 ? fullseason7.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_next_fly})" %></td>
-      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F & G)</td>
-      <td class="black"></td>
-      <td colspan="17">filter CURRENT CITY (AH) + columns (L & M) ==>></td>
-      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_fly}-#{@game.home_last_fly})" %></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason12 ? fullseason12.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason12 ? fullseason12.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason12 ? fullseason12.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-    </tr>
-    <tr>
-      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason8 ? fullseason8.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason8 ? fullseason8.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason8 ? fullseason8.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_next_game}-#{@game.away_next_fly})" %></td>
-      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (I & G)</td>
-      <td class="black"></td>
-      <td colspan="17">filter CURRENT CITY (AH) + columns (J & L) ==>></td>
-      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_next_fly})" %></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason13 ? fullseason13.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason13 ? fullseason13.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason13 ? fullseason13.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-    </tr>
-    <tr>
-      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason9 ? fullseason9.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason9 ? fullseason9.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason9 ? fullseason9.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_next_fly}-#{@game.away_last_game}-#{@game.away_next_game})" %></td>
-      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F, G, H & I)</td>
-      <td class="black"></td>
-      <td colspan="17">filter CURRENT CITY (AH) + columns (J, K, L & M) ==>></td>
-      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_last_game}-#{@game.home_next_fly}-#{@game.home_last_fly})" %></td>
-      <td bgcolor="gray"></td>
-      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason14 ? fullseason14.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-    </tr>
-    <tr>
-      <td bgcolor="gray" colspan="43"></td>
-    </tr>
-    </tbody>
-  </table>
-</div>
 
 <!--# 2000-2017 - 2008-->
 <!--# 2010-2017 - 2009-->
@@ -2552,6 +2413,146 @@ end
       <td colspan="2"></td>
       <td></td>
       <td class="black"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="tableContainer">
+  <table border="1" class="numbers">
+    <tbody>
+    <tr>
+      <td width="80">1st half</td>
+      <td width="80">2nd half</td>
+      <td width="80">full game</td>
+      <td></td>
+      <td bgcolor="yellow" width="160">Last Game City</td>
+      <td colspan="33" bgcolor="black"></td>
+      <td bgcolor="yellow" width="160">Next Game City</td>
+      <td></td>
+      <td width="80">1st half</td>
+      <td width="80">2nd half</td>
+      <td width="80">full game</td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="lightgray"><%= @game.away_abbr %></td>
+      <td bgcolor="yellow"><%= "#{away_team_city} (#{@game.away_last_game})" %></td>
+      <td colspan="33" bgcolor="black"></td>
+      <td bgcolor="yellow"><%= "#{away_team_next_city} (#{@game.away_next_game})" %></td>
+      <td bgcolor="lightgray"><%= @game.away_abbr %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr style="background: #fa0">
+      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="lightgray"><%= @game.home_abbr %></td>
+      <td bgcolor="yellow"><%= "#{home_team_city} (#{@game.home_last_game})" %></td>
+      <td colspan="33" bgcolor="black"></td>
+      <td bgcolor="yellow"><%= "#{home_team_next_city} (#{@game.home_next_game})" %></td>
+      <td bgcolor="lightgray"><%= @game.home_abbr %></td>
+      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="gray">A - H</td>
+      <td bgcolor="gray">A - H</td>
+      <td bgcolor="gray">A - H</td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="gray"></td>
+      <td colspan="33" bgcolor="black"></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="gray">A - H</td>
+      <td bgcolor="gray">A - H</td>
+      <td bgcolor="gray">A - H</td>
+    </tr>
+    <tr>
+      <td class="black" colspan="43"></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason5 ? fullseason5.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason5 ? fullseason5.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason5 ? fullseason5.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_game}-#{@game.away_next_game})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (H & I)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (J & K) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_last_game})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason10 ? fullseason10.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason10 ? fullseason10.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason10 ? fullseason10.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason6 ? fullseason6.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason6 ? fullseason6.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason6 ? fullseason6.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_last_game})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F & H)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (K & M) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_last_game}-#{@game.home_last_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason11 ? fullseason11.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason11 ? fullseason11.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason11 ? fullseason11.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason7 ? fullseason7.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason7 ? fullseason7.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason7 ? fullseason7.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_next_fly})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F & G)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (L & M) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_fly}-#{@game.home_last_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason12 ? fullseason12.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason12 ? fullseason12.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason12 ? fullseason12.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason8 ? fullseason8.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason8 ? fullseason8.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason8 ? fullseason8.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_next_game}-#{@game.away_next_fly})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (I & G)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (J & L) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_next_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason13 ? fullseason13.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason13 ? fullseason13.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason13 ? fullseason13.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason9 ? fullseason9.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason9 ? fullseason9.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason9 ? fullseason9.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_next_fly}-#{@game.away_last_game}-#{@game.away_next_game})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F, G, H & I)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (J, K, L & M) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_last_game}-#{@game.home_next_fly}-#{@game.home_last_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason14 ? fullseason14.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="gray" colspan="43"></td>
     </tr>
     </tbody>
   </table>
