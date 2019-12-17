@@ -1,7 +1,46 @@
 <% content_for :title, @game.away_abbr + " @ " + @game.home_abbr %>
 <div class="header row">
-  <div class="col-md-12">
+  <div class="col-md-3">
+    <table>
+      <tr>
+        <td colspan="4" style="color: red">LINES for SIDES</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>FULL GAME</td>
+        <td>1ST HALF</td>
+        <td>2ND HALF</td>
+      </tr>
+      <tr>
+        <td><%= @game.away_team %></td>
+        <td><%= -@game.first_closer_side %></td>
+        <td><%= -@game.second_closer_side %></td>
+        <td><%= -@game.full_closer_side %></td>
+      </tr>
+      <tr>
+        <td><%= @game.home_team %></td>
+        <td><%= @game.first_closer_side %></td>
+        <td><%= @game.second_closer_side %></td>
+        <td><%= @game.full_closer_side %></td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="color: red">LINES for TOTALS</td>
+      </tr>
+      <tr>
+        <td><%= @away_abbr %> @ <%= @home_abbr %></td>
+        <td><%= @game.first_closer_total %></td>
+        <td><%= @game.second_closer_total %></td>
+        <td><%= @game.full_closer_total %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6">
     <h1><%= @head %></h1>
+  </div>
+  <div class="col-md-3">
   </div>
 </div>
 
