@@ -88,7 +88,7 @@ class FilterController < ApplicationController
         next_city_home_team_name = @next_city_home_team.team
         next_city_home_team_name = 'LAC' if next_city_home_team_name == 'LA Clippers'
         next_city_home_team_name = 'LAL' if next_city_home_team_name == 'LA Lakers'
-        @games = @games.where("home_team_city = ?", next_city_home_team_name).or(@games.where("home_team_city = 'home' AND home_team = ?", next_city_home_team_name))
+        @games = @games.where("home_team_next_city = ?", next_city_home_team_name).or(@games.where("home_team_next_city = 'home' AND home_team = ?", next_city_home_team_name))
       end
     end
 
@@ -99,7 +99,7 @@ class FilterController < ApplicationController
         next_city_away_team_name = @next_city_away_team.team
         next_city_away_team_name = 'LAC' if next_city_away_team_name == 'LA Clippers'
         next_city_away_team_name = 'LAL' if next_city_away_team_name == 'LA Lakers'
-        @games = @games.where("away_team_city = ?", next_city_away_team_name).or(@games.where("away_team_city = 'home' AND away_team = ?", next_city_away_team_name))
+        @games = @games.where("away_team_next_city = ?", next_city_away_team_name).or(@games.where("away_team_next_city = 'home' AND away_team = ?", next_city_away_team_name))
       end
     end
   end
