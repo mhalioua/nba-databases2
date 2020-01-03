@@ -1141,6 +1141,7 @@ namespace :nba do
         # 2017-2018 - 2017
         # 2018-2019 - 2018
         (2008...2019).each do |year|
+          next if year >= 2010 && year <= 2015
           filter_data = Filter.find_or_create_by(nba_id: game.id, index: index, year: year)
           if year === 2008
             filter_element = filter_element_source.where('id >= 107399 AND id <= 127852')
@@ -1149,23 +1150,23 @@ namespace :nba do
             filter_element = filter_element_source.where('id >= 120710 AND id <= 127852').or(filter_element_source.where('id >= 107399 AND id <= 108629'))
             filter_second_element = filter_second_element_source.where('id >= 120710 AND id <= 127852').or(filter_second_element_source.where('id >= 107399 AND id <= 108629'))
           elsif year === 2010
-            filter_element = 0
-            filter_second_element = 0
+            filter_element = filter_element_source.where('id >= 120710 AND id <= 121940')
+            filter_second_element = filter_second_element_source.where('id >= 120710 AND id <= 121940')
           elsif year === 2011
-            filter_element = 0
-            filter_second_element = 0
+            filter_element = filter_element_source.where('id >= 121941 AND id <= 122931')
+            filter_second_element = filter_second_element_source.where('id >= 121941 AND id <= 122931')
           elsif year === 2012
-            filter_element = 0
-            filter_second_element = 0
+            filter_element = filter_element_source.where('id >= 122932 AND id <= 124161')
+            filter_second_element = filter_second_element_source.where('id >= 122932 AND id <= 124161')
           elsif year === 2013
-            filter_element = 0
-            filter_second_element = 0
+            filter_element = filter_element_source.where('id >= 124162 AND id <= 125390')
+            filter_second_element = filter_second_element_source.where('id >= 124162 AND id <= 125390')
           elsif year === 2014
-            filter_element = 0
-            filter_second_element = 0
+            filter_element = filter_element_source.where('id >= 125391 AND id <= 126621')
+            filter_second_element = filter_second_element_source.where('id >= 125391 AND id <= 126621')
           elsif year === 2015
-            filter_element = 0
-            filter_second_element = 0
+            filter_element = filter_element_source.where('id >= 126622 AND id <= 127852')
+            filter_second_element = filter_second_element_source.where('id >= 126622 AND id <= 127852')
           elsif year === 2016
             filter_element = filter_element_source.where('id >= 107399 AND id <= 108629')
             filter_second_element = filter_second_element_source.where('id >= 107399 AND id <= 108629')
