@@ -10,6 +10,7 @@ class FilterController < ApplicationController
                .or(Nba.where("home_team = ? AND game_date <= ? AND id <= 26573 AND id >= 25261", @team.team, Date.current)).order('id DESC').limit(100)
   end
 
+
   def filter
     unless params[:datePicker]
       params[:datePicker] = false
