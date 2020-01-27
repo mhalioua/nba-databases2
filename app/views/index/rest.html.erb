@@ -1237,6 +1237,71 @@ end
       <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason14 ? fullseason14.where("secondou = 'over'").count.to_i : "" %></td>
       <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("totalou = 'over'").count.to_i : "" %></td>
     </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+    <tr>
+      <td bgcolor="blue"><%= ""  %>-<%=  "" %></td>
+      <td bgcolor="blue"><%= "" %>-<%= fullseason15 ? "" %></td>
+      <td bgcolor="blue"><%= ""  %>-<%= "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="blue"><%= "#{away_team_city} (#{@game.away_last_game})" %></td>
+      <td colspan="15">< AWAY LAST CITY (P) + (J) + (L)</td>
+      <td class="black"></td>
+      <td colspan="17">AWAY NEXT CITY (Q) + (K) + (I)</td>
+      <td bgcolor="yellow"><%= "#{away_team_next_city} (#{@game.away_next_game})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="blue"><%= ""  %>-<%= "" %></td>
+      <td bgcolor="blue"><%= "" %>-<%= "" %></td>
+      <td bgcolor="blue"><%= ""  %>-<%= "" %></td>
+    </tr>
+
+
+
+
+
+    <tr>
+      <td bgcolor="blue"><%= ""  %>-<%= "" %></td>
+      <td bgcolor="blue"><%= "" %>-<%=  "" %></td>
+      <td bgcolor="blue"><%= ""  %>-<%= "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="blue"><%= "#{home_team_city} (#{@game.home_last_game})" %></td>
+      <td colspan="15">< HOME LAST CITY (AK) + (AF) + (AE)</td>
+      <td class="black"></td>
+      <td colspan="17">HOME NEXT CITY (AL) + (AD) + (AG)</td>
+      <td bgcolor="yellow"><%= "#{home_team_next_city} (#{@game.home_next_game})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="blue"><%= ""  %>-<%= "" %></td>
+      <td bgcolor="blue"><%= "" %>-<%= "" %></td>
+      <td bgcolor="blue"><%= ""  %>-<%= "" %></td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <tr>
       <td bgcolor="gray" colspan="43"></td>
     </tr>
