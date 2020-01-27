@@ -971,7 +971,7 @@ end
   fullseason15 = Fullseason.where("away_team_city = ? AND roadlast = ? AND homelastfly = ?", away_team_city, @game.away_last_game, @game.home_last_fly)
   fullseason16 = Fullseason.where("away_team_next_city = ? AND roadnext = ? AND homelastfly = ?", away_team_next_city, @game.away_next_game, @game.home_last_fly)
   fullseason17 = Fullseason.where("home_team_city = ? AND homelast = ? AND homenextfly = ?", home_team_city, @game.home_next_game, @game.home_next_fly)
-  fullseason18 = Fullseason.where("home_team_next_city = ? AND homenext = ? homenextfly = ?", home_team_next_city, @game.home_next_game, @game.home_next_fly)
+  fullseason18 = Fullseason.where("home_team_next_city = ? AND homenext = ? AND homenextfly = ?", home_team_next_city, @game.home_next_game, @game.home_next_fly)
 
 %>
 <div class="tableContainer">
