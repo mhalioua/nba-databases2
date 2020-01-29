@@ -2387,7 +2387,7 @@ end
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason17 ? fullseason17.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason17 ? fullseason17.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="gray"></td>
-      <td class="green"><%= "#{home_team_city} (#{@game.home_last_game}) (#{@game.home_next_fly.chars.first.upcase})" %></td>
+      <td bgcolor="skyblue"><%= "#{home_team_city} (#{@game.home_last_game}) (#{@game.home_next_fly.chars.first.upcase})" %></td>
       <td colspan="15">AWAY (M) team + NEXT CITY (P)</td>
       <td class="black"></td>
       <td colspan="17">HOME (AH) team + NEXT CITY (AK) ===>></td>
