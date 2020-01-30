@@ -13,9 +13,9 @@
       </tr>
       <tr>
         <td><%= @game.away_team %></td>
-        <td><%= -@game.first_closer_side %></td>
-        <td><%= -@game.second_closer_side %></td>
-        <td><%= -@game.full_closer_side %></td>
+        <td><%= @game.first_closer_side ? -@game.first_closer_side : "-" %></td>
+        <td><%= @game.second_closer_side ? -@game.second_closer_side : "-" %></td>
+        <td><%= @game.full_closer_side ? -@game.full_closer_side : "-" %></td>
       </tr>
       <tr>
         <td><%= @game.home_team %></td>
