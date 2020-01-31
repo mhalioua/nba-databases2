@@ -32,6 +32,17 @@ class FilterController < ApplicationController
       @games = @games.where("game_date between ? and ?", Date.strptime(@game_start_index, '%b %d, %Y').beginning_of_day, Date.strptime(@game_end_index, '%b %d, %Y').end_of_day)
     end
     @teams = Team.all.order('team')
+    @team_city = {
+      'Boston' => 'Boston',
+      'Indiana' => 'Indianapolis',
+      'Minnesota' => 'Minneapolis',
+      'Utah' => 'Salt Lake City',
+      'Golden State' => 'Oakland',
+      'LAC' => 'Los Angeles',
+      'LAL' => 'Los Angeles',
+      'NO/Oklahoma City' => 'Oklahoma City',
+      'New Jersey' => 'Brooklyn'
+    }
     @home_team_id = 0
     @away_team_id = 0
     @last_city_home = 0
