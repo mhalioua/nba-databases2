@@ -1,0 +1,1978 @@
+<% content_for :title, @game.away_abbr + " @ " + @game.home_abbr %>
+<div class="header row">
+  <div class="col-md-3">
+    <table border="1">
+      <tr>
+        <td colspan="4" style="color: red">LINES for SIDES</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>FULL GAME</td>
+        <td>1ST HALF</td>
+        <td>2ND HALF</td>
+      </tr>
+      <tr>
+        <td><%= @game.away_team %></td>
+        <td><%= @game.first_closer_side ? -@game.first_closer_side : "" %></td>
+        <td><%= @game.second_closer_side ? -@game.second_closer_side : "" %></td>
+        <td><%= @game.full_closer_side ? -@game.full_closer_side : "" %></td>
+      </tr>
+      <tr>
+        <td><%= @game.home_team %></td>
+        <td><%= @game.first_closer_side %></td>
+        <td><%= @game.second_closer_side %></td>
+        <td><%= @game.full_closer_side %></td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="color: red">LINES for TOTALS</td>
+      </tr>
+      <tr>
+        <td><%= @away_abbr %> @ <%= @home_abbr %></td>
+        <td><%= @game.first_closer_total %></td>
+        <td><%= @game.second_closer_total %></td>
+        <td><%= @game.full_closer_total %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <h1><%= @head %></h1>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
+
+<ul>
+  <li><%= link_to 'Back', {action: 'game', id: @date_id + ' - ' + @date_id} %></li>
+</ul>
+
+<div class="tableBody">
+  <div style="display:inline-block;">
+    <table border="1">
+      <thead>
+        <tr>
+          <th class="gray" colspan="<%= @game.home_ot_quarter != 0 ? 8 : 7 %>">FINAL SCORE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="gray">
+          <td></td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <% if @game.away_ot_quarter != 0 %>
+            <td>
+              OT
+            </td>
+          <% end %>
+          <td></td>
+          <td>Total</td>
+        </tr>
+        <tr>
+          <td>
+            <%= @away_abbr %>
+          </td>
+          <td>
+            <%= @game.away_first_quarter %>
+          </td>
+          <td>
+            <%= @game.away_second_quarter %>
+          </td>
+          <td>
+            <%= @game.away_third_quarter %>
+          </td>
+          <td>
+            <%= @game.away_forth_quarter %>
+          </td>
+          <% if @game.away_ot_quarter != 0 %>
+            <td>
+              <%= @game.away_ot_quarter %>
+            </td>
+          <% end %>
+          <td class="gray"></td>
+          <td>
+            <%= @game.away_score %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= @home_abbr %>
+          </td>
+          <td>
+            <%= @game.home_first_quarter %>
+          </td>
+          <td>
+            <%= @game.home_second_quarter %>
+          </td>
+          <td>
+            <%= @game.home_third_quarter %>
+          </td>
+          <td>
+            <%= @game.home_forth_quarter %>
+          </td>
+          <% if @game.home_ot_quarter != 0 %>
+            <td>
+              <%= @game.home_ot_quarter %>
+            </td>
+          <% end %>
+          <td class="gray"></td>
+          <td>
+            <%= @game.home_score %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+<%
+  @team_city = {
+      'Boston' => 'Boston',
+      'Indiana' => 'Indianapolis',
+      'Minnesota' => 'Minneapolis',
+      'Utah' => 'Salt Lake City',
+      'Golden State' => 'Oakland',
+      'LAC' => 'Los Angeles',
+      'LAL' => 'Los Angeles',
+      'NO/Oklahoma City' => 'Oklahoma City',
+      'New Jersey' => 'Brooklyn'
+  }
+
+  away_team_city = @game.away_team_city
+  fullseason15 = Fullseason.where("away_team_city = ? AND roadlast = ? AND awaynextfly = ?", away_team_city, @game.away_last_game, @game.away_next_fly)
+  fullseason1 = Fullseason.where("away_team_city = ? AND roadlast = ?", away_team_city, @game.away_last_game)
+  if away_team_city == "home"
+    away_team_city = @game.away_team
+    away_team_city = @team_city[away_team_city] if @team_city[away_team_city]
+    fullseason1 = fullseason1.where("roadteam = ?", @game.away_team)
+    fullseason15 = fullseason15.where("roadteam = ?", @game.away_team)
+  end
+
+  away_team_next_city = @game.away_team_next_city
+  fullseason16 = Fullseason.where("away_team_next_city = ? AND roadnext = ? AND awaylastfly = ?", away_team_next_city, @game.away_next_game, @game.away_last_fly)
+  fullseason2 = Fullseason.where("away_team_next_city = ? AND roadnext = ?", away_team_next_city, @game.away_next_game)
+  if away_team_next_city == "home"
+    away_team_next_city = @game.away_team
+    away_team_next_city = @team_city[away_team_next_city] if @team_city[away_team_next_city]
+    fullseason2 = fullseason2.where("roadteam = ?", @game.away_team)
+    fullseason16 = fullseason16.where("roadteam = ?", @game.away_team)
+  end
+
+  home_team_city = @game.home_team_city
+  fullseason17 = Fullseason.where("home_team_city = ? AND homelast = ? AND homenextfly = ?", home_team_city, @game.home_last_game, @game.home_next_fly)
+  fullseason3 = Fullseason.where("home_team_city = ? AND homelast = ?", home_team_city, @game.home_last_game)
+  if home_team_city == "home"
+    home_team_city = @game.home_team
+    home_team_city = @team_city[home_team_city] if @team_city[home_team_city]
+    fullseason3 = fullseason3.where("hometeam = ?", @game.home_team)
+    fullseason17 = fullseason17.where("hometeam = ?", @game.home_team)
+  end
+
+  home_team_next_city = @game.home_team_next_city
+  fullseason18 = Fullseason.where("home_team_next_city = ? AND homenext = ? AND homelastfly = ?", home_team_next_city, @game.home_next_game, @game.home_last_fly)
+  fullseason4 = Fullseason.where("home_team_next_city = ? AND homenext = ?", home_team_next_city, @game.home_next_game)
+  if home_team_next_city == "home"
+    home_team_next_city = @game.home_team
+    home_team_next_city = @team_city[home_team_next_city] if @team_city[home_team_next_city]
+    fullseason4 = fullseason4.where("hometeam = ?", @game.home_team)
+    fullseason18 = fullseason18.where("hometeam = ?", @game.home_team)
+  end
+
+  fullseason5  = Fullseason.where("hometeam = ? AND roadlast = ? AND roadnext = ?", @game.home_team, @game.away_last_game, @game.away_next_game)
+  fullseason6  = Fullseason.where("hometeam = ? AND awaylastfly = ? AND roadlast = ?", @game.home_team, @game.away_last_fly, @game.away_last_game)
+  fullseason7  = Fullseason.where("hometeam = ? AND awaylastfly = ? AND awaynextfly = ?", @game.home_team, @game.away_last_fly, @game.away_next_fly)
+  fullseason8  = Fullseason.where("hometeam = ? AND roadnext = ? AND awaynextfly = ?", @game.home_team, @game.away_next_game, @game.away_next_fly)
+  fullseason9  = Fullseason.where("hometeam = ? AND awaylastfly = ? AND awaynextfly = ? AND roadlast = ? AND roadnext = ?", @game.home_team, @game.away_last_fly, @game.away_next_fly, @game.away_last_game, @game.away_next_game)
+
+  fullseason10 = Fullseason.where("hometeam = ? AND homelast = ? AND homenext = ?", @game.home_team, @game.home_last_game, @game.home_next_game)
+  fullseason11 = Fullseason.where("hometeam = ? AND homelast = ? AND homelastfly = ?", @game.home_team, @game.home_last_game, @game.home_last_fly)
+  fullseason12 = Fullseason.where("hometeam = ? AND homenextfly = ? AND homelastfly = ?", @game.home_team, @game.home_next_fly, @game.home_last_fly)
+  fullseason13 = Fullseason.where("hometeam = ? AND homenext = ? AND homenextfly = ?", @game.home_team, @game.home_next_game, @game.home_next_fly)
+  fullseason14 = Fullseason.where("hometeam = ? AND homenext = ? AND homelast = ? AND homenextfly = ? AND homelastfly = ?", @game.home_team, @game.home_next_game, @game.home_last_game, @game.home_next_fly, @game.home_last_fly)
+
+
+  #fullseason15 = Fullseason.where("away_team_city = ? AND roadlast = ? AND awaynextfly = ?", away_team_city, @game.away_last_game, @game.away_next_fly)
+  #fullseason16 = Fullseason.where("away_team_next_city = ? AND roadnext = ? AND awaylastfly = ?", away_team_next_city, @game.away_next_game, @game.away_last_fly)
+  #fullseason17 = Fullseason.where("home_team_city = ? AND homelast = ? AND homenextfly = ?", home_team_city, @game.home_last_game, @game.home_next_fly)
+  #fullseason18 = Fullseason.where("home_team_next_city = ? AND homenext = ? AND homelastfly = ?", home_team_next_city, @game.home_next_game, @game.home_last_fly)
+  fullseason19 = Fullseason.where("away_team_city = ? AND roadlast = ? AND awaylastfly = ?", away_team_city, @game.away_last_game, @game.away_last_fly)
+  fullseason20 = Fullseason.where("home_team_city = ? AND homelast = ? AND homelastfly = ?", home_team_city, @game.home_last_game, @game.home_last_fly)
+
+%>
+<div class="tableContainer">
+  <table border="1" class="numbers">
+    <tbody>
+    <tr>
+      <td width="80">1st half</td>
+      <td width="80">2nd half</td>
+      <td width="80">full game</td>
+      <td></td>
+      <td bgcolor="yellow" width="160">Last Game City</td>
+      <td></td>
+      <td></td>
+      <td>LAST ROAD</td>
+      <td>NEXT ROAD</td>
+      <td>NEXT HOME</td>
+      <td>LAST HOME</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>ROAD</td>
+      <td>HOME</td>
+      <td></td>
+      <td>+/-</td>
+      <td></td>
+      <td style="background: #fa0">GMS</td>
+      <td></td>
+      <td>1H ROAD</td>
+      <td>1H HOME</td>
+      <td></td>
+      <td>+/-</td>
+      <td></td>
+      <td>2H ROAD</td>
+      <td>2H HOME</td>
+      <td></td>
+      <td>+/-</td>
+      <td></td>
+      <td>fg total point</td>
+      <td>total lines</td>
+      <td></td>
+      <td>1h total pts</td>
+      <td>1h total lines</td>
+      <td>2h total pts</td>
+      <td>2h total lines</td>
+      <td bgcolor="yellow" width="160">Next Game City</td>
+      <td></td>
+      <td width="80">1st half</td>
+      <td width="80">2nd half</td>
+      <td width="80">full game</td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("firstou = 'under'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("totalou = 'under'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("totalou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="lightgray"><%= @game.away_abbr %></td>
+      <td bgcolor="yellow"><%= "#{away_team_city} (#{@game.away_last_game})" %></td>
+      <td><%= @game.away_last_fly %></td>
+      <td><%= @game.away_next_fly %></td>
+      <td><%= @game.away_last_game %></td>
+      <td><%= @game.away_next_game %></td>
+      <td><%= @game.home_next_game %></td>
+      <td><%= @game.home_last_game %></td>
+      <td><%= @game.home_next_fly %></td>
+      <td><%= @game.home_last_fly %></td>
+      <td></td>
+      <%
+        roadtotal = @secondItem.average(:roadfirsthalf).to_f + @secondItem.average(:roadthird).to_f + @secondItem.average(:roadforth).to_f
+        hometotal = @secondItem.average(:homefirsthalf).to_f + @secondItem.average(:homethird).to_f + @secondItem.average(:homeforth).to_f
+      %>
+      <td><%= @secondItem ? roadtotal.round(2) : "" %></td>
+      <td><%= @secondItem ? hometotal.round(2) : "" %></td>
+      <td><%= @secondItem ? @secondItem.average(:totalvalue).to_f.round(2) : "" %></td>
+      <td><%= @secondItem ? (roadtotal - hometotal).round(2) : "" %></td>
+      <td></td>
+      <td style="background: #fa0"><%= @secondItem ? @secondItem.count(:totalpoint).to_i : "" %></td>
+      <td></td>
+      <td><%= @secondItem ? @secondItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
+      <td><%= @secondItem ? @secondItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
+      <td><%= @secondItem ? @secondItem.average(:firstvalue).to_f.round(2) : "" %></td>
+      <td><%= @secondItem ? (@secondItem.average(:roadfirsthalf).to_f - @secondItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
+      <td></td>
+      <td><%= @secondItem ? (@secondItem.average(:roadthird).to_f + @secondItem.average(:roadforth).to_f).round(2) : "" %></td>
+      <td><%= @secondItem ? (@secondItem.average(:homethird).to_f + @secondItem.average(:homeforth).to_f).round(2) : "" %></td>
+      <td><%= @secondItem ? @secondItem.average(:secondvalue).to_f.round(2) : "" %></td>
+      <td><%= @secondItem ? (@secondItem.average(:roadthird).to_f + @secondItem.average(:roadforth).to_f - @secondItem.average(:homethird).to_f - @secondItem.average(:homeforth).to_f).round(2) : "" %></td>
+      <td></td>
+      <td class="filter"><%= @secondItem ? @secondItem.where("fglinetotal is not null AND fglinetotal != 0").average(:totalpoint).to_f.round(2) : "" %></td>
+      <td class="filter"><%= @secondItem ? @secondItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2) : "" %></td>
+      <td class="red">1990-2000</td>
+      <td class="yellow"></td>
+      <td class="yellow"></td>
+      <td class="green"></td>
+      <td class="green"></td>
+      <td bgcolor="yellow"><%= "#{away_team_next_city} (#{@game.away_next_game})" %></td>
+      <td bgcolor="lightgray"><%= @game.away_abbr %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("firstou = 'under'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("totalou = 'under'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("totalou = 'over'").count.to_i : "" %></td>
+    </tr>
+    <tr style="background: #fa0">
+      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("firstou = 'under'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("totalou = 'under'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("totalou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="lightgray"><%= @game.home_abbr %></td>
+      <td bgcolor="yellow"><%= "#{home_team_city} (#{@game.home_last_game})" %></td>
+      <td>ALL</td>
+      <td>ALL</td>
+      <td>ALL</td>
+      <td>ALL</td>
+      <td>ALL</td>
+      <td>ALL</td>
+      <td>ALL</td>
+      <td>ALL</td>
+      <td></td>
+      <td>96.52</td>
+      <td>99.57</td>
+      <td>196.09</td>
+      <td>-3.05</td>
+      <td></td>
+      <td style="background: #fa0">20904</td>
+      <td></td>
+      <td>48.62</td>
+      <td>50.47</td>
+      <td>99.09</td>
+      <td>-1.85</td>
+      <td></td>
+      <td>47.9</td>
+      <td>49.1</td>
+      <td>97</td>
+      <td>-1.2</td>
+      <td></td>
+      <td class="filter"><%= @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").count(:fglinetotal).to_i : "" %></td>
+      <td class="filter"><%= @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").count(:fglinetotal).to_i : "" %></td>
+      <td></td>
+      <td class="yellow"><%= @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i : "" %></td>
+      <td class="yellow"><%= @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").count(:firstlinetotal).to_i : "" %></td>
+      <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i : "" %></td>
+      <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null AND secondlinetotal != 0").count(:secondlinetotal).to_i : "" %></td>
+      <td bgcolor="yellow"><%= "#{home_team_next_city} (#{@game.home_next_game})" %></td>
+      <td bgcolor="lightgray"><%= @game.home_abbr %></td>
+      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("firstou = 'under'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("totalou = 'under'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("totalou = 'over'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="gray">U - O</td>
+      <td bgcolor="gray">U - O</td>
+      <td bgcolor="gray">U - O</td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="gray"></td>
+      <td><%= @game.away_last_fly %></td>
+      <td><%= @game.away_next_fly %></td>
+      <td><%= @game.away_last_game %></td>
+      <td><%= @game.away_next_game %></td>
+      <td><%= @game.home_next_game %></td>
+      <td><%= @game.home_last_game %></td>
+      <td><%= @game.home_next_fly %></td>
+      <td><%= @game.home_last_fly %></td>
+      <td></td>
+      <%
+        roadtotal = @countItem.average(:roadfirsthalf).to_f + @countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f
+        hometotal = @countItem.average(:homefirsthalf).to_f + @countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f
+      %>
+      <td><%= @countItem ? roadtotal.round(2) : "" %></td>
+      <td><%= @countItem ? hometotal.round(2) : "" %></td>
+      <td><%= @countItem ? @countItem.average(:totalvalue).to_f.round(2) : "" %></td>
+      <td><%= @countItem ? (roadtotal - hometotal).round(2) : "" %></td>
+      <td></td>
+      <td style="background: #fa0"><%= @countItem ? @countItem.count(:totalpoint).to_i : "" %></td>
+      <td></td>
+      <td><%= @countItem ? @countItem.average(:roadfirsthalf).to_f.round(2) : "" %></td>
+      <td><%= @countItem ? @countItem.average(:homefirsthalf).to_f.round(2) : "" %></td>
+      <td><%= @countItem ? @countItem.average(:firstvalue).to_f.round(2) : "" %></td>
+      <td><%= @countItem ? (@countItem.average(:roadfirsthalf).to_f - @countItem.average(:homefirsthalf).to_f).round(2) : "" %></td>
+      <td></td>
+      <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f).round(2) : "" %></td>
+      <td><%= @countItem ? (@countItem.average(:homethird).to_f + @countItem.average(:homeforth).to_f).round(2) : "" %></td>
+      <td><%= @countItem ? @countItem.average(:secondvalue).to_f.round(2) : "" %></td>
+      <td><%= @countItem ? (@countItem.average(:roadthird).to_f + @countItem.average(:roadforth).to_f - @countItem.average(:homethird).to_f - @countItem.average(:homeforth).to_f).round(2) : "" %></td>
+      <td></td>
+      <td class="filter"><%= @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").average(:totalpoint).to_f.round(2) : "" %></td>
+      <td class="filter"><%= @countItem ? @countItem.where("fglinetotal is not null AND fglinetotal != 0").average(:fglinetotal).to_f.round(2) : "" %></td>
+      <td class="green">2000-2017</td>
+      <td class="yellow"><%= @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstpoint).to_f.round(2) : "" %></td>
+      <td class="yellow"><%= @countItem ? @countItem.where("firstlinetotal is not null AND firstlinetotal != 0").average(:firstlinetotal).to_f.round(2) : "" %></td>
+      <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondpoint).to_f.round(2) : "" %></td>
+      <td class="green"><%= @countItem ? @countItem.where("secondlinetotal is not null AND secondlinetotal != 0").average(:secondlinetotal).to_f.round(2) : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="gray">U - O</td>
+      <td bgcolor="gray">U - O</td>
+      <td bgcolor="gray">U - O</td>
+    </tr>
+    <tr>
+      <td class="black" colspan="43"></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason5 ? fullseason5.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason5 ? fullseason5.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason5 ? fullseason5.where("totalou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_game}-#{@game.away_next_game})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (H & I)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (J & K) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_last_game})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason10 ? fullseason10.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason10 ? fullseason10.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason10 ? fullseason10.where("totalou = 'over'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason6 ? fullseason6.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason6 ? fullseason6.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason6 ? fullseason6.where("totalou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_last_game})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F & H)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (K & M) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_last_game}-#{@game.home_last_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason11 ? fullseason11.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason11 ? fullseason11.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason11 ? fullseason11.where("totalou = 'over'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason7 ? fullseason7.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason7 ? fullseason7.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason7 ? fullseason7.where("totalou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_next_fly})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F & G)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (L & M) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_fly}-#{@game.home_last_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason12 ? fullseason12.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason12 ? fullseason12.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason12 ? fullseason12.where("totalou = 'over'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason8 ? fullseason8.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason8 ? fullseason8.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason8 ? fullseason8.where("totalou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_next_game}-#{@game.away_next_fly})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (I & G)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (J & L) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_next_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason13 ? fullseason13.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason13 ? fullseason13.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason13 ? fullseason13.where("totalou = 'over'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason9 ? fullseason9.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason9 ? fullseason9.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason9 ? fullseason9.where("totalou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_next_fly}-#{@game.away_last_game}-#{@game.away_next_game})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F, G, H & I)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (J, K, L & M) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_last_game}-#{@game.home_next_fly}-#{@game.home_last_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("firstou = 'under'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason14 ? fullseason14.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("totalou = 'over'").count.to_i : "" %></td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+    <tr>
+      <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("firstou = 'under'").count.to_i : "" %>-<%=  fullseason15 ? fullseason15.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason15 ? fullseason15.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason15 ? fullseason15.where("totalou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="skyblue"><%= "#{away_team_city} (#{@game.away_last_game}) (#{@game.away_next_fly.chars.first.upcase})" %></td>
+      <td colspan="15">AWAY LAST CITY (P) + (J) + (L)</td>
+      <td class="black"></td>
+      <td colspan="17">AWAY NEXT CITY (Q) + (K) + (I)</td>
+      <td bgcolor="skyblue"><%= "#{away_team_next_city} (#{@game.away_next_game}) (#{@game.away_last_fly.chars.first.upcase})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="skyblue"><%= fullseason16 ? fullseason16.where("firstou = 'under'").count.to_i : "" %>-<%=  fullseason16 ? fullseason16.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason16 ? fullseason16.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason16 ? fullseason16.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason16 ? fullseason16.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason16 ? fullseason16.where("totalou = 'over'").count.to_i : "" %></td>
+    </tr>
+
+
+
+
+
+    <tr>
+      <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("firstou = 'under'").count.to_i : "" %>-<%=  fullseason17 ? fullseason17.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason17 ? fullseason17.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason17 ? fullseason17.where("totalou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="skyblue"><%= "#{home_team_city} (#{@game.home_last_game}) (#{@game.home_next_fly.chars.first.upcase})" %></td>
+      <td colspan="15">HOME LAST CITY (AK) + (AF) + (AE)</td>
+      <td class="black"></td>
+      <td colspan="17">HOME NEXT CITY (AL) + (AD) + (AG)</td>
+      <td bgcolor="skyblue"><%= "#{home_team_next_city} (#{@game.home_next_game}) (#{@game.home_last_fly.chars.first.upcase})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="skyblue"><%= fullseason18 ? fullseason18.where("firstou = 'under'").count.to_i : "" %>-<%=  fullseason18 ? fullseason18.where("firstou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason18 ? fullseason18.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason18 ? fullseason18.where("secondou = 'over'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason18 ? fullseason18.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason18 ? fullseason18.where("totalou = 'over'").count.to_i : "" %></td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <tr>
+      <td bgcolor="gray" colspan="43"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+<!--# 2000-2017 - 2008-->
+<!--# 2010-2017 - 2009-->
+<!--# 2010-2011 - 2010-->
+<!--# 2011-2012 - 2011-->
+<!--# 2012-2013 - 2012-->
+<!--# 2013-2014 - 2013-->
+<!--# 2014-2015 - 2014-->
+<!--# 2015-2016 - 2015-->
+<!--# 2016-2017 - 2016-->
+<!--# 2017-2018 - 2017-->
+<!--# 2018-2019 - 2018-->
+
+
+<div class="tableBody" style="display: flex">
+  <div style="display: inline-block">
+    <select id="firstFilter" style="margin: 0 auto; display: block;">
+      <% (2008..2018).each do |year| %>
+        <option value="<%= year %>">
+          <% if year == 2008 %>
+            2000-2017
+          <% elsif year == 2009 %>
+            2010-2017
+          <% else %>
+            <%= year.to_s + "-" + (year + 1).to_s %>
+          <% end %>
+        </option>
+      <% end %>
+    </select>
+    <% (2008..2018).each do |year| %>
+      <table border="1" class="tableSide totalAverage firstTravel firstFilterPage firstFilterPage<%= year %>" style="width: 1%; display: none;">
+        <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y") %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
+          <td></td>
+          <td class="line">1H LINE</td>
+          <td class="line">2H LINE</td>
+          <td class="line">FG LINE</td>
+          <td></td>
+          <td colspan="11" rowspan="3" class="gray halfstats" style="color: blueviolet;">TRAVEL TABLE
+            <% if year == 2008 %>
+              2000-2017
+            <% elsif year == 2009 %>
+              2010-2017
+            <% else %>
+              <%= year.to_s + "-" + (year + 1).to_s %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td colspan="2" class="gameDate">TRAVEL</td>
+          <td class="gradient"></td>
+          <td><u><i>road</i></u></td>
+          <td colspan="2">road DAYS REST home</td>
+          <td><u><i>home</i></u></td>
+          <td></td>
+          <td colspan="2" class="gameDate">TRAVEL</td>
+          <td></td>
+          <td class="gameDate"><%= @game.first_closer_total %></td>
+          <td class="gameDate"><%= @game.second_closer_total %></td>
+          <td class="gameDate"><%= @game.full_closer_total %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gameDate">RIVALS</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>last Y/N</td>
+          <td>next Y/N</td>
+          <td class="gradient"></td>
+          <td class="gameDate">last</td>
+          <td colspan="2" class="gameDate">next game</td>
+          <td class="gameDate">last</td>
+          <td></td>
+          <td>next Y/N</td>
+          <td>last Y/N</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr class="gameDate">
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td><%= @game.away_last_game %></td>
+          <td><%= @game.away_next_game %></td>
+          <td><%= @game.home_next_game %></td>
+          <td><%= @game.home_last_game %></td>
+          <td></td>
+          <td><%= @game.home_next_fly[0] %></td>
+          <td><%= @game.home_last_fly[0] %></td>
+          <td></td>
+          <td>1ST<br>HALF</td>
+          <td>2ND<br>HALF</td>
+          <td>FULL<br>GAME</td>
+          <td>GAMES</td>
+          <td rowspan="27" class="gradient"></td>
+          <td>1ST<br>HALF</td>
+          <td>2ND<br>HALF</td>
+          <td>FULL<br>GAME</td>
+          <td>GAMES</td>
+          <td rowspan="28" colspan="3" class="gradient"></td>
+          <td colspan="3" class="red">ORTG</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td>RIVALS</td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td><%= @firstItem_result[:first] %></td>
+          <td><%= @firstItem_result[:second] %></td>
+          <td><%= @firstItem_result[:full] %></td>
+          <td><%= @firstItem_result[:count] %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td>ALL GAMES IN <%= @home_abbr %></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td><%= @secondItem_result[:first] %></td>
+          <td><%= @secondItem_result[:second] %></td>
+          <td><%= @secondItem_result[:full] %></td>
+          <td><%= @secondItem_result[:count] %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="2">1st Half</td>
+          <td class="gradient"></td>
+          <td colspan="2">2nd Half</td>
+          <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A") %></td>
+          <td class="gradient"></td>
+          <td colspan="2">Full Game</td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td><%= @thirdItem_result[:first] %></td>
+          <td><%= @thirdItem_result[:second] %></td>
+          <td><%= @thirdItem_result[:full] %></td>
+          <td><%= @thirdItem_result[:count] %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Away</td>
+          <td>Home</td>
+          <td>+/-</td>
+        </tr>
+        <tr class="gradient">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <%
+          (0..19).each do |index|
+            filter_element = @game.filters.find_by(index: index, year: year)
+            filter = filter_element.first_one.split("-")
+%>
+          <tr class="filterElement">
+            <% if index == 0 %>
+              <td>under</td>
+              <td>over</td>
+              <td class="gradient"></td>
+              <td>under</td>
+              <td>over</td>
+              <td>Any</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            <% else %>
+              <td><%= filter_element[:first_under] %></td>
+              <td><%= filter_element[:first_over] %></td>
+              <td class="gradient"></td>
+              <td><%= filter_element[:second_under] %></td>
+              <td><%= filter_element[:second_over] %></td>
+              <td>
+                <div>
+                  <%= filter_element.first_one %>
+                </div>
+              </td>
+              <td></td>
+              <td><%= filter_element[:full_under] %></td>
+              <td><%= filter_element[:full_over] %></td>
+              <td></td>
+            <% end %>
+            <% if filter[0] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[1] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td></td>
+            <% if filter[2] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[3] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[4] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[5] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td></td>
+            <% if filter[6] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[7] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td></td>
+            <td class="skyblue"><%= filter_element[:first] %></td>
+            <td class="skyblue"><%= filter_element[:second] %></td>
+            <td class="skyblue"><%= filter_element[:full] %></td>
+            <td class="skyblue"><%= filter_element[:count] %></td>
+            <td><%= filter_element[:allfirst] %></td>
+            <td><%= filter_element[:allsecond] %></td>
+            <td><%= filter_element[:allfull] %></td>
+            <td><%= filter_element[:allcount] %></td>
+            <td><%= filter_element[:away_ortg] %></td>
+            <td><%= filter_element[:home_ortg] %></td>
+            <td><%= (filter_element[:away_ortg] - filter_element[:home_ortg]).round(2) %></td>
+          </tr>
+          <% if @break.include?(index) %>
+            <tr class="gradient">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <% if index == 19 %>
+                <td></td>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+        <tr class="redgradient">
+          <td class="yellow">Away</td>
+          <td class="yellow">Home</td>
+          <td class="gradient"></td>
+          <td class="yellow">Away</td>
+          <td class="yellow">Home</td>
+          <td class="yellow">GAMES</td>
+          <td class="yellow"></td>
+          <td class="yellow">Away</td>
+          <td class="yellow">Home</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>away</td>
+          <td>home</td>
+          <td>diff</td>
+          <td>BJ</td>
+          <td class="yellow">away</td>
+          <td class="yellow">home</td>
+          <td class="yellow">diff</td>
+          <td class="yellow">xxx</td>
+          <td class="yellow">BG</td>
+          <td class="green">away</td>
+          <td class="green">home</td>
+          <td class="green">diff</td>
+          <td class="green">xxx</td>
+          <td class="green">BH</td>
+          <td></td>
+        </tr>
+        <%
+          borders = [1, 5]
+          values = [0, 1, 19, 18, 10, 11, 20, 21, 12, 13, 16, 17, 22, 14, 15]
+          values.each do |value|
+            filter_element = @game.filters.find_by(index: value, year: year)
+            filter = filter_element.first_one.split("-")
+%>
+          <tr>
+            <td><%= filter_element[:first_half_away] %></td>
+            <td><%= filter_element[:first_half_home] %></td>
+            <td class="gradient"></td>
+            <td><%= filter_element[:second_half_away] %></td>
+            <td><%= filter_element[:second_half_home] %></td>
+            <td><%= filter_element[:allcount] %></td>
+            <td class="gradient"></td>
+            <td><%= filter_element[:full_half_away] %></td>
+            <td><%= filter_element[:full_half_home] %></td>
+            <td class="gradient"></td>
+            <%
+              (0...8).each do |index|
+                if filter[index] != 'ANY'
+            %>
+              <td class="filter border">X</td>
+            <% else %>
+              <td class="yellow border"></td>
+            <%
+              end
+              if borders.include?(index)
+            %>
+              <td class="gradient border"></td>
+            <%
+              end
+              end
+            %>
+            <td class="gradient"></td>
+            <td><%= filter_element[:full_first] %></td>
+            <td><%= filter_element[:full_second] %></td>
+            <td><%= (filter_element[:full_first] - filter_element[:full_second]).round(2) %></td>
+            <td><%= filter_element[:bj] %></td>
+            <td><%= filter_element[:firsthalf_first] %></td>
+            <td><%= filter_element[:firsthalf_second] %></td>
+            <td><%= (filter_element[:firsthalf_first] - filter_element[:firsthalf_second]).round(2) %></td>
+            <td style="background-color: #ccf"><%= filter_element[:bi_one] %></td>
+            <td><%= filter_element[:bg] %></td>
+            <td><%= filter_element[:secondhalf_first] %></td>
+            <td><%= filter_element[:secondhalf_second] %></td>
+            <td><%= (filter_element[:secondhalf_first] - filter_element[:secondhalf_second]).round(2) %></td>
+            <td style="background-color: #ccf"><%= filter_element[:bi_two] %></td>
+            <td><%= filter_element[:bh] %></td>
+            <td style="background-color: #ccf"><%= filter_element[:bi_count] %></td>
+          </tr>
+        <%
+          end
+        %>
+        <tr class="redgradient">
+          <td class="yellow"></td>
+          <td class="yellow"></td>
+          <td class="gradient"></td>
+          <td class="yellow"></td>
+          <td class="yellow"></td>
+          <td class="yellow">GAMES</td>
+          <td class="yellow"></td>
+          <td class="yellow"></td>
+          <td class="yellow"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td colspan="4" class="border">Full Game</td>
+          <td colspan="5" class="yellow border">1st Half</td>
+          <td colspan="5" class="green border">2nd Half</td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+
+  <div style="display: inline-block;">
+    <select id="secondFilter" style="margin: 0 auto; display: block;">
+      <% 2018.downto(2010).each do |year| %>
+        <option value="<%= year %>"><%= year.to_s + "-" + (year + 1).to_s %></option>
+      <% end %>
+    </select>
+    <% (2010..2018).each do |year| %>
+      <table border="1" class="tableSide totalAverage firstTravel secondFilterPage secondFilterPage<%= year %>" style="width: 1%; display: none;">
+        <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gameDate"><%= Date.strptime(@game.game_date).strftime("%A %b #{Date.strptime(@game.game_date).day.ordinalize} %Y") %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td colspan="7"><u><h4 class="gameTeam"><%= @head %></h4></u></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td colspan="2" class="gameDate">TRAVEL</td>
+          <td class="gradient"></td>
+          <td><u><i>road</i></u></td>
+          <td colspan="2">road DAYS REST home</td>
+          <td><u><i>home</i></u></td>
+          <td></td>
+          <td colspan="2" class="gameDate">TRAVEL</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gameDate">RIVALS</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>last Y/N</td>
+          <td>next Y/N</td>
+          <td class="gradient"></td>
+          <td class="gameDate">last</td>
+          <td colspan="2" class="gameDate">next game</td>
+          <td class="gameDate">last</td>
+          <td></td>
+          <td>next Y/N</td>
+          <td>last Y/N</td>
+          <td></td>
+        </tr>
+        <tr class="gameDate">
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td><%= @game.away_abbr + " @ " + @game.home_abbr %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td><%= @game.away_last_game %></td>
+          <td><%= @game.away_next_game %></td>
+          <td><%= @game.home_next_game %></td>
+          <td><%= @game.home_last_game %></td>
+          <td></td>
+          <td><%= @game.home_next_fly[0] %></td>
+          <td><%= @game.home_last_fly[0] %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td>RIVALS</td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td>ALL GAMES IN <%= @home_abbr %></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+        </tr>
+        <tr>
+          <td colspan="2">1st Half</td>
+          <td class="gradient"></td>
+          <td colspan="2">2nd Half</td>
+          <td>ALL GAMES ON <%= Date.strptime(@game.game_date).strftime("%A") %></td>
+          <td class="gradient"></td>
+          <td colspan="2">Full Game</td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+        </tr>
+        <tr class="gradient">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <%
+          (0..19).each do |index|
+            filter_element = @game.filters.find_by(index: index, year: year)
+            filter = filter_element.first_one.split("-")
+%>
+          <tr class="filterElement">
+            <% if index == 0 %>
+              <td>under</td>
+              <td>over</td>
+              <td class="gradient"></td>
+              <td>under</td>
+              <td>over</td>
+              <td>Any</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            <% else %>
+              <td><%= filter_element[:first_under] %></td>
+              <td><%= filter_element[:first_over] %></td>
+              <td class="gradient"></td>
+              <td><%= filter_element[:second_under] %></td>
+              <td><%= filter_element[:second_over] %></td>
+              <td>
+                <div>
+                  <%= filter_element.first_one %>
+                </div>
+              </td>
+              <td></td>
+              <td><%= filter_element[:full_under] %></td>
+              <td><%= filter_element[:full_over] %></td>
+              <td></td>
+            <% end %>
+            <% if filter[0] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[1] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td></td>
+            <% if filter[2] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[3] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[4] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[5] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td></td>
+            <% if filter[6] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[7] != 'ANY' %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td></td>
+          </tr>
+          <% if @break.include?(index) %>
+            <tr class="gradient">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          <% end %>
+        <% end %>
+        <tr class="redgradient">
+          <td class="yellow">Away</td>
+          <td class="yellow">Home</td>
+          <td class="gradient"></td>
+          <td class="yellow">Away</td>
+          <td class="yellow">Home</td>
+          <td class="yellow">GAMES</td>
+          <td class="yellow"></td>
+          <td class="yellow">Away</td>
+          <td class="yellow">Home</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <%
+          borders = [1, 5]
+          values = [0, 1, 19, 18, 10, 11, 20, 21, 12, 13, 16, 17, 22, 14, 15]
+          values.each do |value|
+            filter_element = @game.filters.find_by(index: value, year: year)
+            filter = filter_element.first_one.split("-")
+%>
+          <tr>
+            <td><%= filter_element[:first_half_away] %></td>
+            <td><%= filter_element[:first_half_home] %></td>
+            <td class="gradient"></td>
+            <td><%= filter_element[:second_half_away] %></td>
+            <td><%= filter_element[:second_half_home] %></td>
+            <td><%= filter_element[:allcount] %></td>
+            <td class="gradient"></td>
+            <td><%= filter_element[:full_half_away] %></td>
+            <td><%= filter_element[:full_half_home] %></td>
+            <td class="gradient"></td>
+            <%
+              (0...8).each do |index|
+                if filter[index] != 'ANY'
+%>
+              <td class="filter border">X</td>
+            <% else %>
+              <td class="yellow border"></td>
+            <%
+              end
+              if borders.include?(index)
+            %>
+              <td class="gradient border"></td>
+            <%
+              end
+              end
+            %>
+            <td class="gradient"></td>
+          </tr>
+        <%
+          end
+        %>
+        <tr class="redgradient">
+          <td class="yellow"></td>
+          <td class="yellow"></td>
+          <td class="gradient"></td>
+          <td class="yellow"></td>
+          <td class="yellow"></td>
+          <td class="yellow">GAMES</td>
+          <td class="yellow"></td>
+          <td class="yellow"></td>
+          <td class="yellow"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="gradient"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
+
+<div class="tableContainer">
+  <table border="1" class="numbers">
+    <tbody>
+    <tr>
+      <td width="80">1st half</td>
+      <td width="80">2nd half</td>
+      <td width="80">full game</td>
+      <td></td>
+      <td bgcolor="yellow" width="160">Last Game City</td>
+      <td colspan="33" bgcolor="black"></td>
+      <td bgcolor="yellow" width="160">Next Game City</td>
+      <td></td>
+      <td width="80">1st half</td>
+      <td width="80">2nd half</td>
+      <td width="80">full game</td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason1 ? fullseason1.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason1 ? fullseason1.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="lightgray"><%= @game.away_abbr %></td>
+      <td bgcolor="yellow"><%= "#{away_team_city} (#{@game.away_last_game})" %></td>
+      <td colspan="33" bgcolor="black"></td>
+      <td bgcolor="yellow"><%= "#{away_team_next_city} (#{@game.away_next_game})" %></td>
+      <td bgcolor="lightgray"><%= @game.away_abbr %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason2 ? fullseason2.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason2 ? fullseason2.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr style="background: #fa0">
+      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason3 ? fullseason3.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason3 ? fullseason3.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="lightgray"><%= @game.home_abbr %></td>
+      <td bgcolor="yellow"><%= "#{home_team_city} (#{@game.home_last_game})" %></td>
+      <td colspan="33" bgcolor="black"></td>
+      <td bgcolor="yellow"><%= "#{home_team_next_city} (#{@game.home_next_game})" %></td>
+      <td bgcolor="lightgray"><%= @game.home_abbr %></td>
+      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason4 ? fullseason4.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason4 ? fullseason4.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="gray">A - H</td>
+      <td bgcolor="gray">A - H</td>
+      <td bgcolor="gray">A - H</td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="gray"></td>
+      <td colspan="33" bgcolor="black"></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="gray">A - H</td>
+      <td bgcolor="gray">A - H</td>
+      <td bgcolor="gray">A - H</td>
+    </tr>
+    <tr>
+      <td class="black" colspan="43"></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason5 ? fullseason5.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason5 ? fullseason5.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason5 ? fullseason5.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason5 ? fullseason5.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_game}-#{@game.away_next_game})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (H & I)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (J & K) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_last_game})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason10 ? fullseason10.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason10 ? fullseason10.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason10 ? fullseason10.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason10 ? fullseason10.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason6 ? fullseason6.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason6 ? fullseason6.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason6 ? fullseason6.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason6 ? fullseason6.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_last_game})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F & H)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (K & M) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_last_game}-#{@game.home_last_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason11 ? fullseason11.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason11 ? fullseason11.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason11 ? fullseason11.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason11 ? fullseason11.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason7 ? fullseason7.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason7 ? fullseason7.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason7 ? fullseason7.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason7 ? fullseason7.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_next_fly})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F & G)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (L & M) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_fly}-#{@game.home_last_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason12 ? fullseason12.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason12 ? fullseason12.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason12 ? fullseason12.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason12 ? fullseason12.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason8 ? fullseason8.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason8 ? fullseason8.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason8 ? fullseason8.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason8 ? fullseason8.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_next_game}-#{@game.away_next_fly})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (I & G)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (J & L) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_next_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason13 ? fullseason13.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason13 ? fullseason13.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason13 ? fullseason13.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason13 ? fullseason13.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    <tr>
+      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason9 ? fullseason9.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason9 ? fullseason9.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason9 ? fullseason9.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason9 ? fullseason9.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.away_last_fly}-#{@game.away_next_fly}-#{@game.away_last_game}-#{@game.away_next_game})" %></td>
+      <td colspan="15"><<== filter CURRENT CITY (AH) + columns (F, G, H & I)</td>
+      <td class="black"></td>
+      <td colspan="17">filter CURRENT CITY (AH) + columns (J, K, L & M) ==>></td>
+      <td bgcolor="yellow"><%= "#{@game.home_abbr} (#{@game.home_next_game}-#{@game.home_last_game}-#{@game.home_next_fly}-#{@game.home_last_fly})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason14 ? fullseason14.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="yellow"><%= fullseason14 ? fullseason14.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason14 ? fullseason14.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+    <tr>
+      <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason15 ? fullseason15.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason15 ? fullseason15.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason15 ? fullseason15.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="skyblue"><%= "#{away_team_city} (#{@game.away_last_game}) (#{@game.away_next_fly.chars.first.upcase})" %></td>
+      <td colspan="15">AWAY (M) team + LAST CITY (P)</td>
+      <td class="black"></td>
+      <td colspan="17">HOME (AH) team + LAST CITY (AK) ===>></td>
+      <td bgcolor="skyblue"><%= "#{away_team_next_city} (#{@game.away_next_game}) (#{@game.away_last_fly.chars.first.upcase})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="skyblue"><%= fullseason16 ? fullseason16.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason16 ? fullseason16.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason16 ? fullseason16.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason16 ? fullseason16.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason16 ? fullseason16.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason16 ? fullseason16.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+
+
+
+
+
+    <tr>
+      <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason17 ? fullseason17.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason17 ? fullseason17.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason17 ? fullseason17.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="skyblue"><%= "#{home_team_city} (#{@game.home_last_game}) (#{@game.home_next_fly.chars.first.upcase})" %></td>
+      <td colspan="15">AWAY (M) team + NEXT CITY (P)</td>
+      <td class="black"></td>
+      <td colspan="17">HOME (AH) team + NEXT CITY (AK) ===>></td>
+      <td bgcolor="skyblue"><%= "#{home_team_next_city} (#{@game.home_next_game}) (#{@game.home_last_fly.chars.first.upcase})" %></td>
+      <td bgcolor="gray"></td>
+      <td bgcolor="skyblue"><%= fullseason18 ? fullseason18.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason18 ? fullseason18.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason18 ? fullseason18.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason18 ? fullseason18.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td bgcolor="skyblue"><%= fullseason18 ? fullseason18.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason18 ? fullseason18.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+    <tr>
+      <td bgcolor="gray" colspan="43"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="tableBody">
+  <table border="1" class="tableSide" style="border:6px solid black">
+    <tbody>
+    <tr class="gray">
+      <td colspan="3" class="green"></td>
+      <td rowspan="9" class="gradient"></td>
+      <td>Referee #1<br>
+        Referee #2<br>
+        Referee #3
+      </td>
+      <td colspan="7" class="gameDate">Last</td>
+      <td></td>
+      <td class="gameDate skyblue">1H</td>
+      <td class="gameDate skyblue">2H</td>
+      <td class="gameDate skyblue">PF</td>
+      <td class="gameDate skyblue">FTA</td>
+      <td>gms</td>
+      <td rowspan="9" class="black"></td>
+      <td class="gameDate skyblue">1H</td>
+      <td class="gameDate skyblue">2H</td>
+      <td class="gameDate skyblue">PF</td>
+      <td class="gameDate skyblue">FTA</td>
+      <td>gms</td>
+      <td></td>
+      <td class="green" colspan="2">1st Half</td>
+    </tr>
+    <tr>
+      <td rowspan="3" class="borderTop borderBottom gray">Referee #1<br>
+        Referee #2<br>
+        Referee #3
+      </td>
+      <td colspan="2" class="green border"></td>
+      <td><%= @game.referee_one %></td>
+      <td><%= @referee_filter[0][0] %></td>
+      <td><%= @referee_filter[0][1] %></td>
+      <td><%= @referee_filter[0][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter[3][0] %></td>
+      <td><%= @referee_filter[3][1] %></td>
+      <td><%= @referee_filter[3][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter_results[0][0] %></td>
+      <td><%= @referee_filter_results[0][1] %></td>
+      <td class="gray"><%= @referee_filter_results[0][2] %></td>
+      <td><%= @referee_filter_results[0][3] %></td>
+      <td><%= @referee_filter_results[0][4] %></td>
+      <td><%= @referee_filter_results[3][0] %></td>
+      <td><%= @referee_filter_results[3][1] %></td>
+      <td class="gray"><%= @referee_filter_results[3][2] %></td>
+      <td><%= @referee_filter_results[3][3] %></td>
+      <td><%= @referee_filter_results[3][4] %></td>
+      <td class="black"></td>
+      <td rowspan="3" colspan="2"><%= @referee_part ? @referee_part.last_first : "" %></td>
+    </tr>
+    <tr>
+      <td rowspan="2" class="borderTop borderBottom gray">last</td>
+      <td rowspan="2" class="borderTop borderBottom borderRight gray">next</td>
+      <td><%= @game.referee_two %></td>
+      <td><%= @referee_filter[1][0] %></td>
+      <td><%= @referee_filter[1][1] %></td>
+      <td><%= @referee_filter[1][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter[4][0] %></td>
+      <td><%= @referee_filter[4][1] %></td>
+      <td><%= @referee_filter[4][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter_results[1][0] %></td>
+      <td><%= @referee_filter_results[1][1] %></td>
+      <td class="gray"><%= @referee_filter_results[1][2] %></td>
+      <td><%= @referee_filter_results[1][3] %></td>
+      <td><%= @referee_filter_results[1][4] %></td>
+      <td><%= @referee_filter_results[4][0] %></td>
+      <td><%= @referee_filter_results[4][1] %></td>
+      <td class="gray"><%= @referee_filter_results[4][2] %></td>
+      <td><%= @referee_filter_results[4][3] %></td>
+      <td><%= @referee_filter_results[4][4] %></td>
+      <td class="black"></td>
+    </tr>
+    <tr>
+      <td><%= @game.referee_three %></td>
+      <td><%= @referee_filter[2][0] %></td>
+      <td><%= @referee_filter[2][1] %></td>
+      <td><%= @referee_filter[2][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter[5][0] %></td>
+      <td><%= @referee_filter[5][1] %></td>
+      <td><%= @referee_filter[5][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter_results[2][0] %></td>
+      <td><%= @referee_filter_results[2][1] %></td>
+      <td class="gray"><%= @referee_filter_results[2][2] %></td>
+      <td><%= @referee_filter_results[2][3] %></td>
+      <td><%= @referee_filter_results[2][4] %></td>
+      <td><%= @referee_filter_results[5][0] %></td>
+      <td><%= @referee_filter_results[5][1] %></td>
+      <td class="gray"><%= @referee_filter_results[5][2] %></td>
+      <td><%= @referee_filter_results[5][3] %></td>
+      <td><%= @referee_filter_results[5][4] %></td>
+      <td class="black"></td>
+    </tr>
+    <tr>
+      <td><%= @game.referee_one %></td>
+      <td><%= @game.referee_one_last %></td>
+      <td><%= @game.referee_one_next %></td>
+      <td rowspan="2" class="gray">Referee #1<br>
+        Referee #2<br>
+        Referee #3
+      </td>
+      <td colspan="7" class="gameDate gray" rowspan="2">Next</td>
+      <td class="black" rowspan="2"></td>
+      <td class="gameDate skyblue" rowspan="2">1H</td>
+      <td class="gameDate skyblue" rowspan="2">2H</td>
+      <td class="gameDate skyblue" rowspan="2">PF</td>
+      <td class="gameDate skyblue" rowspan="2">FTA</td>
+      <td rowspan="2" class="gray">gms</td>
+      <td class="gameDate skyblue" rowspan="2">1H</td>
+      <td class="gameDate skyblue" rowspan="2">2H</td>
+      <td class="gameDate skyblue" rowspan="2">PF</td>
+      <td class="gameDate skyblue" rowspan="2">FTA</td>
+      <td rowspan="2" class="gray">gms</td>
+      <td class="black" rowspan="2"></td>
+      <td rowspan="3" colspan="2"><%= @referee_part ? @referee_part.last_second : '' %></td>
+    </tr>
+    <tr>
+      <td><%= @game.referee_two %></td>
+      <td><%= @game.referee_two_last %></td>
+      <td><%= @game.referee_two_next %></td>
+    </tr>
+    <tr>
+      <td><%= @game.referee_three %></td>
+      <td><%= @game.referee_three_last %></td>
+      <td><%= @game.referee_three_next %></td>
+      <td><%= @game.referee_one %></td>
+      <td><%= @referee_filter[9][0] %></td>
+      <td><%= @referee_filter[9][1] %></td>
+      <td><%= @referee_filter[9][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter[6][0] %></td>
+      <td><%= @referee_filter[6][1] %></td>
+      <td><%= @referee_filter[6][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter_results[9][0] %></td>
+      <td><%= @referee_filter_results[9][1] %></td>
+      <td class="gray"><%= @referee_filter_results[9][2] %></td>
+      <td><%= @referee_filter_results[9][3] %></td>
+      <td><%= @referee_filter_results[9][4] %></td>
+      <td><%= @referee_filter_results[6][0] %></td>
+      <td><%= @referee_filter_results[6][1] %></td>
+      <td class="gray"><%= @referee_filter_results[6][2] %></td>
+      <td><%= @referee_filter_results[6][3] %></td>
+      <td><%= @referee_filter_results[6][4] %></td>
+      <td class="black"></td>
+    </tr>
+    <tr>
+      <td colspan="3" rowspan="2" class="green borderRight"></td>
+      <td><%= @game.referee_two %></td>
+      <td><%= @referee_filter[10][0] %></td>
+      <td><%= @referee_filter[10][1] %></td>
+      <td><%= @referee_filter[10][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter[7][0] %></td>
+      <td><%= @referee_filter[7][1] %></td>
+      <td><%= @referee_filter[7][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter_results[10][0] %></td>
+      <td><%= @referee_filter_results[10][1] %></td>
+      <td class="gray"><%= @referee_filter_results[10][2] %></td>
+      <td><%= @referee_filter_results[10][3] %></td>
+      <td><%= @referee_filter_results[10][4] %></td>
+      <td><%= @referee_filter_results[7][0] %></td>
+      <td><%= @referee_filter_results[7][1] %></td>
+      <td class="gray"><%= @referee_filter_results[7][2] %></td>
+      <td><%= @referee_filter_results[7][3] %></td>
+      <td><%= @referee_filter_results[7][4] %></td>
+      <td class="black"></td>
+      <td rowspan="2" class="green" colspan="2">2nd Half</td>
+    </tr>
+    <tr>
+      <td><%= @game.referee_three %></td>
+      <td><%= @referee_filter[11][0] %></td>
+      <td><%= @referee_filter[11][1] %></td>
+      <td><%= @referee_filter[11][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter[8][0] %></td>
+      <td><%= @referee_filter[8][1] %></td>
+      <td><%= @referee_filter[8][2] %></td>
+      <td class="black"></td>
+      <td><%= @referee_filter_results[11][0] %></td>
+      <td><%= @referee_filter_results[11][1] %></td>
+      <td class="gray"><%= @referee_filter_results[11][2] %></td>
+      <td><%= @referee_filter_results[11][3] %></td>
+      <td><%= @referee_filter_results[11][4] %></td>
+      <td><%= @referee_filter_results[8][0] %></td>
+      <td><%= @referee_filter_results[8][1] %></td>
+      <td class="gray"><%= @referee_filter_results[8][2] %></td>
+      <td><%= @referee_filter_results[8][3] %></td>
+      <td><%= @referee_filter_results[8][4] %></td>
+      <td class="black"></td>
+    </tr>
+    <tr>
+      <td class="black border" colspan="5"></td>
+      <td colspan="2" class="border">Total Games</td>
+      <td colspan="2" class="border">1st Half</td>
+      <td colspan="2" class="border">2nd Half</td>
+      <td colspan="2" class="border">Personal fouls</td>
+      <td colspan="2" class="border">FTA's</td>
+      <td class="black border"></td>
+      <td colspan="2" class="border">Total Games Last 3 years</td>
+      <td colspan="2" class="border">1st Half</td>
+      <td colspan="2" class="border">2nd Half</td>
+      <td colspan="2" class="border">Personal fouls</td>
+      <td class="border">FTA's</td>
+      <td class="black" class="border"></td>
+    </tr>
+    <tr>
+      <td colspan="5" class="border"><%= @game.referee_one %></td>
+      <td colspan="2"><%= @referee_part_one.count(:tp_1h).to_i %></td>
+      <td colspan="2"><%= @referee_part_one.average(:tp_1h).to_f.round(2) %></td>
+      <td colspan="2"><%= @referee_part_one.average(:tp_2h).to_f.round(2) %></td>
+      <td colspan="2" class="gray"><%= (@referee_part_one.average(:away_pf).to_f.round(2) + @referee_part_one.average(:home_pf).to_f.round(2)).round(2) %></td>
+      <td colspan="2"><%= (@referee_part_one.average(:away_fta).to_f.round(2) + @referee_part_one.average(:home_fta).to_f.round(2)).round(2) %></td>
+      <td class="black"></td>
+      <td colspan="2"><%= @referee_part_one_last.count(:tp_1h).to_i %></td>
+      <td colspan="2"><%= @referee_part_one_last.average(:tp_1h).to_f.round(2) %></td>
+      <td colspan="2"><%= @referee_part_one_last.average(:tp_2h).to_f.round(2) %></td>
+      <td colspan="2" class="gray"><%= (@referee_part_one_last.average(:away_pf).to_f.round(2) + @referee_part_one_last.average(:home_pf).to_f.round(2)).round(2) %></td>
+      <td><%= (@referee_part_one_last.average(:away_fta).to_f.round(2) + @referee_part_one_last.average(:home_fta).to_f.round(2)).round(2) %></td>
+      <td class="black"></td>
+    </tr>
+    <tr class="black border">
+      <td colspan="5"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td class="black"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td></td>
+      <td class="black"></td>
+    </tr>
+    <tr>
+      <td colspan="5" class="border"><%= @game.referee_two %></td>
+      <td colspan="2"><%= @referee_part_two.count(:tp_1h).to_i %></td>
+      <td colspan="2"><%= @referee_part_two.average(:tp_1h).to_f.round(2) %></td>
+      <td colspan="2"><%= @referee_part_two.average(:tp_2h).to_f.round(2) %></td>
+      <td colspan="2" class="gray"><%= (@referee_part_two.average(:away_pf).to_f.round(2) + @referee_part_two.average(:home_pf).to_f.round(2)).round(2) %></td>
+      <td colspan="2"><%= (@referee_part_two.average(:away_fta).to_f.round(2) + @referee_part_two.average(:home_fta).to_f.round(2)).round(2) %></td>
+      <td class="black"></td>
+      <td colspan="2"><%= @referee_part_two_last.count(:tp_1h).to_i %></td>
+      <td colspan="2"><%= @referee_part_two_last.average(:tp_1h).to_f.round(2) %></td>
+      <td colspan="2"><%= @referee_part_two_last.average(:tp_2h).to_f.round(2) %></td>
+      <td colspan="2" class="gray"><%= (@referee_part_two_last.average(:away_pf).to_f.round(2) + @referee_part_two_last.average(:home_pf).to_f.round(2)).round(2) %></td>
+      <td><%= (@referee_part_two_last.average(:away_fta).to_f.round(2) + @referee_part_two_last.average(:home_fta).to_f.round(2)).round(2) %></td>
+      <td class="black"></td>
+    </tr>
+    <tr class="black border">
+      <td colspan="5"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td class="black"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td></td>
+      <td class="black"></td>
+    </tr>
+    <tr>
+      <td colspan="5" class="border"><%= @game.referee_three %></td>
+      <td colspan="2"><%= @referee_part_three.count(:tp_1h).to_i %></td>
+      <td colspan="2"><%= @referee_part_three.average(:tp_1h).to_f.round(2) %></td>
+      <td colspan="2"><%= @referee_part_three.average(:tp_2h).to_f.round(2) %></td>
+      <td colspan="2" class="gray"><%= (@referee_part_three.average(:away_pf).to_f.round(2) + @referee_part_three.average(:home_pf).to_f.round(2)).round(2) %></td>
+      <td colspan="2"><%= (@referee_part_three.average(:away_fta).to_f.round(2) + @referee_part_three.average(:home_fta).to_f.round(2)).round(2) %></td>
+      <td class="black"></td>
+      <td colspan="2"><%= @referee_part_three_last.count(:tp_1h).to_i %></td>
+      <td colspan="2"><%= @referee_part_three_last.average(:tp_1h).to_f.round(2) %></td>
+      <td colspan="2"><%= @referee_part_three_last.average(:tp_2h).to_f.round(2) %></td>
+      <td colspan="2" class="gray"><%= (@referee_part_three_last.average(:away_pf).to_f.round(2) + @referee_part_three_last.average(:home_pf).to_f.round(2)).round(2) %></td>
+      <td><%= (@referee_part_three_last.average(:away_fta).to_f.round(2) + @referee_part_three_last.average(:home_fta).to_f.round(2)).round(2) %></td>
+      <td class="black"></td>
+    </tr>
+    <tr class="black border">
+      <td colspan="5"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td class="black"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td colspan="2"></td>
+      <td></td>
+      <td class="black"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<script>
+    $('#firstFilter').change(function () {
+        var value = $(this).val();
+        $('.firstFilterPage').hide();
+        $('.firstFilterPage' + value).show();
+    });
+    $('.firstFilterPage2008').show();
+    $('#secondFilter').change(function () {
+        var value = $(this).val();
+        $('.secondFilterPage').hide();
+        $('.secondFilterPage' + value).show();
+    });
+    $('.secondFilterPage2018').show();
+</script>
