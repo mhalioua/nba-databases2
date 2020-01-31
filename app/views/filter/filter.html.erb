@@ -29,9 +29,13 @@
 
   <label>Last City Home: </label>
   <select name="last_city_home">
-    <option value="0" <%= @last_city_home == 0 ? "selected" : '' %>>All</option>
+    <option value="0" <%= @last_city_home.to_s == "0" ? "selected" : '' %>>All</option>
     <% @teams.each do |team| %>
-      <option value="<%= team.id %>" <%= @last_city_home == team.id ? "selected" : '' %>><%= team.team %></option>
+      <option value="<%= team.id %>" <%= @last_city_home.to_s == team.id.to_s ? "selected" : '' %>><%= team.team %></option>
+      <option value="<%= team.id %>" <%= @last_city_home.to_s == "#{team.id}-0" ? "selected" : '' %>><%= team.team+"-0" %></option>
+      <option value="<%= team.id %>" <%= @last_city_home.to_s == "#{team.id}-0" ? "selected" : '' %>><%= team.team+"-1" %></option>
+      <option value="<%= team.id %>" <%= @last_city_home.to_s == "#{team.id}-0" ? "selected" : '' %>><%= team.team+"-2" %></option>
+      <option value="<%= team.id %>" <%= @last_city_home.to_s == "#{team.id}-0" ? "selected" : '' %>><%= team.team+"-3" %></option>
     <% end %>
   </select>
 

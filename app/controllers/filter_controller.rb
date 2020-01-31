@@ -61,14 +61,18 @@ class FilterController < ApplicationController
     end
 
     if params[:last_city_home].present?
-      @last_city_home = params[:last_city_home].to_i
-      @last_city_home_team = Team.find_by(id: params[:last_city_home])
+      @last_city_home, home_last_game = params[:last_city_home].split("_").map(&:to_i)
+      @last_city_home_team = Team.find_by(id: @last_city_home)
       if @last_city_home_team != nil
         last_city_home_team_name = @last_city_home_team.team
         last_city_home_team_name = 'LAC' if last_city_home_team_name == 'LA Clippers'
         last_city_home_team_name = 'LAL' if last_city_home_team_name == 'LA Lakers'
         last_city_home_team_name = 'Oklahoma City' if last_city_home_team_name == 'Okla City'
-        @games = @games.where("home_team_city = ?", last_city_home_team_name).or(@games.where("home_team_city = 'home' AND home_team = ?", last_city_home_team_name))
+        if home_last_game.nil?
+          @games = @games.where("home_team_city = ?", last_city_home_team_name).or(@games.where("home_team_city = 'home' AND home_team = ?", last_city_home_team_name))
+        else
+          @games = @games.where("home_team_city = ? AND home_last_game = ?", last_city_home_team_name, home_last_game).or(@games.where("home_team_city = 'home' AND home_team = ? AND home_last_game = ?", last_city_home_team_name, home_last_game))
+        end
       end
     end
 
