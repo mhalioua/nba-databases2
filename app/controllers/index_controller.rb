@@ -3462,6 +3462,7 @@ class IndexController < ApplicationController
       @home_avg_to = @home_avg_to + 48 / average_mins * average_to
     end
 =end
+    @break = [9, 17, 19]
     @team_more = {
       'Atlanta' => 'EAST',
       'Boston' => 'EAST',
