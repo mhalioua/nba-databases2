@@ -38,6 +38,7 @@ class FilterController < ApplicationController
     @last_city_away = 0
     @next_city_home = 0
     @next_city_away = 0
+    @selected_value = 0
     if params[:home_team_id].present?
       @home_team_id = params[:home_team_id].to_i
       @home_team = Team.find_by(id: params[:home_team_id])
@@ -61,9 +62,9 @@ class FilterController < ApplicationController
     end
 
     if params[:last_city_home].present?
-      @selected_value = params[:last_city_home]
-      @last_city_home, home_last_game = params[:last_city_home].split("-").map(&:to_i)
-      @last_city_home_team = Team.find_by(id: @last_city_home)
+      @last_city_home = params[:last_city_home]
+      last_city_home_id, home_last_game = params[:last_city_home].split("-").map(&:to_i)
+      @last_city_home_team = Team.find_by(id: last_city_home_id)
       if @last_city_home_team != nil
         last_city_home_team_name = @last_city_home_team.team
         last_city_home_team_name = 'LAC' if last_city_home_team_name == 'LA Clippers'
@@ -78,38 +79,53 @@ class FilterController < ApplicationController
     end
 
     if params[:last_city_away].present?
-      @last_city_away = params[:last_city_away].to_i
-      @last_city_away_team = Team.find_by(id: params[:last_city_away])
+      @last_city_away = params[:last_city_away]
+      last_city_away_id, away_last_game = params[:last_city_away].split("-").map(&:to_i)
+      @last_city_away_team = Team.find_by(id: last_city_away_id)
       if @last_city_away_team != nil
         last_city_away_team_name = @last_city_away_team.team
         last_city_away_team_name = 'LAC' if last_city_away_team_name == 'LA Clippers'
         last_city_away_team_name = 'LAL' if last_city_away_team_name == 'LA Lakers'
         last_city_away_team_name = 'Oklahoma City' if last_city_away_team_name == 'Okla City'
-        @games = @games.where("away_team_city = ?", last_city_away_team_name).or(@games.where("away_team_city = 'home' AND away_team = ?", last_city_away_team_name))
+        if away_last_game.nil?
+          @games = @games.where("away_team_city = ?", last_city_away_team_name).or(@games.where("away_team_city = 'home' AND away_team = ?", last_city_away_team_name))
+        else
+          @games = @games.where("away_team_city = ? AND away_last_game = ?", last_city_away_team_name, away_last_game).or(@games.where("away_team_city = 'home' AND away_team = ? AND away_last_game = ?", last_city_away_team_name, away_last_game))
+        end
       end
     end
 
     if params[:next_city_home].present?
-      @next_city_home = params[:next_city_home].to_i
-      @next_city_home_team = Team.find_by(id: params[:next_city_home])
+      @next_city_home = params[:next_city_home]
+      next_city_home_id, home_next_game = params[:next_city_home].split("-").map(&:to_i)
+      @next_city_home_team = Team.find_by(id: next_city_home_id)
       if @next_city_home_team != nil
         next_city_home_team_name = @next_city_home_team.team
         next_city_home_team_name = 'LAC' if next_city_home_team_name == 'LA Clippers'
         next_city_home_team_name = 'LAL' if next_city_home_team_name == 'LA Lakers'
         next_city_home_team_name = 'Oklahoma City' if next_city_home_team_name == 'Okla City'
-        @games = @games.where("home_team_next_city = ?", next_city_home_team_name).or(@games.where("home_team_next_city = 'home' AND home_team = ?", next_city_home_team_name))
+        if home_next_game.nil?
+          @games = @games.where("home_team_next_city = ?", next_city_home_team_name).or(@games.where("home_team_next_city = 'home' AND home_team = ?", next_city_home_team_name))
+        else
+          @games = @games.where("home_team_next_city = ? AND home_next_game = ?", next_city_home_team_name, home_next_game).or(@games.where("home_team_next_city = 'home' AND home_team = ? AND home_next_game = ?", next_city_home_team_name, home_next_game))
+        end
       end
     end
 
     if params[:next_city_away].present?
-      @next_city_away = params[:next_city_away].to_i
-      @next_city_away_team = Team.find_by(id: params[:next_city_away])
+      @next_city_away = params[:next_city_away]
+      next_city_away_id, away_next_game = params[:next_city_away].split("-").map(&:to_i)
+      @next_city_away_team = Team.find_by(id: next_city_away_id)
       if @next_city_away_team != nil
         next_city_away_team_name = @next_city_away_team.team
         next_city_away_team_name = 'LAC' if next_city_away_team_name == 'LA Clippers'
         next_city_away_team_name = 'LAL' if next_city_away_team_name == 'LA Lakers'
         next_city_away_team_name = 'Oklahoma City' if next_city_away_team_name == 'Okla City'
-        @games = @games.where("away_team_next_city = ?", next_city_away_team_name).or(@games.where("away_team_next_city = 'home' AND away_team = ?", next_city_away_team_name))
+        if away_next_game.nil?
+          @games = @games.where("away_team_next_city = ?", next_city_away_team_name).or(@games.where("away_team_next_city = 'home' AND away_team = ?", next_city_away_team_name))
+        else
+          @games = @games.where("away_team_next_city = ? AND away_next_game = ?", next_city_away_team_name, away_next_game).or(@games.where("away_team_next_city = 'home' AND away_team = ? AND away_next_game = ?", next_city_away_team_name, away_next_game))
+        end
       end
     end
   end

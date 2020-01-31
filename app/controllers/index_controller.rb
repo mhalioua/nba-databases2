@@ -3263,7 +3263,7 @@ class IndexController < ApplicationController
     @home_flag = @home_abbr == @home_last.away_abbr ? 0 : 1
 
     @date_id = Date.strptime(@game.game_date).strftime("%Y-%m-%d")
-
+=begin
     @away_players = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state).to_a
     @away_players_search = @away_last.players.where("team_abbr = ? AND player_fullname is not null AND player_fullname != ''", @away_flag).order(:state)
     @away_players_group1 = []
@@ -3461,7 +3461,7 @@ class IndexController < ApplicationController
       @home_avg_or = @home_avg_or + 48 / average_mins * average_or
       @home_avg_to = @home_avg_to + 48 / average_mins * average_to
     end
-
+=end
     @team_more = {
       'Atlanta' => 'EAST',
       'Boston' => 'EAST',
