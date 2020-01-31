@@ -61,7 +61,7 @@ class FilterController < ApplicationController
     end
 
     if params[:last_city_home].present?
-      @last_city_home, home_last_game = params[:last_city_home].split("_").map(&:to_i)
+      @last_city_home, home_last_game = params[:last_city_home].split("-").map(&:to_i)
       @last_city_home_team = Team.find_by(id: @last_city_home)
       if @last_city_home_team != nil
         last_city_home_team_name = @last_city_home_team.team
