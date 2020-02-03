@@ -55,6 +55,8 @@ gem 'mechanize', '~> 2.6.0'
 
 gem 'nokogiri'
 
+gem 'imgkit'
+
 gem 'jquery-ui-rails'
 
 gem 'jquery-rails'
