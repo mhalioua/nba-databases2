@@ -1,5 +1,5 @@
 class IndexController < ApplicationController
-  before_action :confirm_logged_in
+  before_action :confirm_logged_in, except: ["rest_view"]
 
   def home
     @yesterday = Time.now - 1.days

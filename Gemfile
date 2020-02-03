@@ -57,6 +57,8 @@ gem 'nokogiri'
 
 gem 'imgkit'
 
+gem 'wkhtmltoimage-binary'
+
 gem 'aws-sdk'
 
 gem 'jquery-ui-rails'
