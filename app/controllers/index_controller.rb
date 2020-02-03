@@ -5,6 +5,9 @@ class IndexController < ApplicationController
     @yesterday = Time.now - 1.days
     @today = Time.now
     @tomorrow = Time.now + 1.days
+    @two_days_from_today = Time.now + 2.days
+    @three_days_from_today = Time.now + 3.days
+    @four_days_from_today = Time.now + 4.days
   end
 
   def game
