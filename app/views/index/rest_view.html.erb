@@ -321,9 +321,6 @@ th, .green {
   </div>
 </div>
 
-<ul>
-  <li><%= link_to 'Back', {action: 'game', id: @date_id + ' - ' + @date_id} %></li>
-</ul>
 
 <div class="tableBody">
   <div style="display:inline-block;">
@@ -838,19 +835,6 @@ th, .green {
 
 <div class="tableBody" style="display: flex">
   <div style="display: inline-block">
-    <select id="firstFilter" style="margin: 0 auto; display: block;">
-      <% (2008..2018).each do |year| %>
-        <option value="<%= year %>">
-          <% if year == 2008 %>
-            2000-2017
-          <% elsif year == 2009 %>
-            2010-2017
-          <% else %>
-            <%= year.to_s + "-" + (year + 1).to_s %>
-          <% end %>
-        </option>
-      <% end %>
-    </select>
     <% (2008..2018).each do |year| %>
       <table border="1" class="tableSide totalAverage firstTravel firstFilterPage firstFilterPage<%= year %>" style="width: 1%; display: none;">
         <tbody>
@@ -1354,11 +1338,6 @@ th, .green {
   </div>
 
   <div style="display: inline-block;">
-    <select id="secondFilter" style="margin: 0 auto; display: block;">
-      <% 2018.downto(2010).each do |year| %>
-        <option value="<%= year %>"><%= year.to_s + "-" + (year + 1).to_s %></option>
-      <% end %>
-    </select>
     <% (2010..2018).each do |year| %>
       <table border="1" class="tableSide totalAverage firstTravel secondFilterPage secondFilterPage<%= year %>" style="width: 1%; display: none;">
         <tbody>
