@@ -1607,6 +1607,7 @@ end
         if @game.filters.any?
           (0..19).each do |index|
             filter = []
+            filter_element = {}
             filter_element = @game.filters.find_by(index: index, year: year)
             filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
@@ -1778,6 +1779,7 @@ end
           if @game.filters
             values.each do |value|
               filter = []
+              filter_element = {}
               filter_element = @game.filters.find_by(index: value, year: year)
               filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
@@ -2045,6 +2047,7 @@ end
           if @game.filters.any?
           (0..19).each do |index|
             filter = []
+            filter_element = {}
             filter_element = @game.filters.find_by(index: index, year: year)
             filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
@@ -2176,6 +2179,7 @@ end
           if @game.filters.any?
           values.each do |value|
             filter = []
+            filter_element = {}
             filter_element = @game.filters.find_by(index: value, year: year)
             filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
