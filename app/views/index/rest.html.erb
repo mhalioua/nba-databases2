@@ -1692,7 +1692,7 @@ end
             <td><%= filter_element[:allcount] ? filter_element[:allcount] : "" %></td>
             <td><%= filter_element[:away_ortg] ? filter_element[:away_ortg] : "" %></td>
             <td><%= filter_element[:home_ortg] ? filter_element[:home_ortg] : "" %></td>
-            <td><%= (filter_element[:away_ortg] ? filter_element[:away_ortg] : "" - filter_element[:home_ortg] ? filter_element[:home_ortg] : "").round(2) %></td>
+            <td><%= (filter_element[:away_ortg] ? filter_element[:away_ortg] : "" %> - <%= filter_element[:home_ortg] ? filter_element[:home_ortg] : "").round(2) %></td>
           </tr>
           <% if @break.include?(index) %>
             <tr class="gradient">
@@ -1817,12 +1817,12 @@ end
             <td><%= filter_element[:bj] ? filter_element[:bj] : "" %></td>
             <td><%= filter_element[:firsthalf_first] ? filter_element[:firsthalf_first] : "" %></td>
             <td><%= filter_element[:firsthalf_second] ? filter_element[:firsthalf_second] : "" %></td>
-            <td><%= (filter_element[:firsthalf_first] ? filter_element[:firsthalf_first] : "" - filter_element[:firsthalf_second] ? filter_element[:firsthalf_second] : "").round(2) %></td>
+            <td><%= (filter_element[:firsthalf_first] ? filter_element[:firsthalf_first] : "" %> - <%= filter_element[:firsthalf_second] ? filter_element[:firsthalf_second] : "").round(2) %></td>
             <td style="background-color: #ccf"><%= filter_element[:bi_one] ? filter_element[:bi_one] : "" %></td>
             <td><%= filter_element[:bg] ? filter_element[:bg] : "" %></td>
             <td><%= filter_element[:secondhalf_first] ? filter_element[:secondhalf_first] : "" %></td>
             <td><%= filter_element[:secondhalf_second] ? filter_element[:secondhalf_second] : "" %></td>
-            <td><%= (filter_element[:secondhalf_first] ? filter_element[:secondhalf_first] : "" - filter_element[:secondhalf_second] ? filter_element[:secondhalf_second] : "").round(2) %></td>
+            <td><%= (filter_element[:secondhalf_first] ? filter_element[:secondhalf_first] : "" %> - <%= filter_element[:secondhalf_second] ? filter_element[:secondhalf_second] : "").round(2) %></td>
             <td style="background-color: #ccf"><%= filter_element[:bi_two] ? filter_element[:bi_two] : "" %></td>
             <td><%= filter_element[:bh] %></td>
             <td style="background-color: #ccf"><%= filter_element[:bi_count] ? filter_element[:bi_count] : "" %></td>
