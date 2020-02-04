@@ -1624,19 +1624,19 @@ end
               <td></td>
               <td></td>
             <% else %>
-              <td><%= filter_element[:first_under] %></td>
-              <td><%= filter_element[:first_over] %></td>
+              <td><%= filter_element[:first_under] ? filter_element[:first_under] : "" %></td>
+              <td><%= filter_element[:first_over] ? filter_element[:first_under] : "" %></td>
               <td class="gradient"></td>
-              <td><%= filter_element[:second_under] %></td>
-              <td><%= filter_element[:second_over] %></td>
+              <td><%= filter_element[:second_under] ? filter_element[:second_under] : "" %></td>
+              <td><%= filter_element[:second_over] ? filter_element[:second_over] : "" %></td>
               <td>
                 <div>
-                  <%= filter_element.first_one %>
+                  <%= filter_element.first_one ? filter_element.first_one : "" %>
                 </div>
               </td>
               <td></td>
-              <td><%= filter_element[:full_under] %></td>
-              <td><%= filter_element[:full_over] %></td>
+              <td><%= filter_element[:full_under] ? filter_element[:full_under] : "" %></td>
+              <td><%= filter_element[:full_over] ? filter_element[:full_over] : "" %></td>
               <td></td>
             <% end %>
             <% if filter[0] != 'ANY' and filter.any? %>
@@ -1682,17 +1682,17 @@ end
               <td></td>
             <% end %>
             <td></td>
-            <td class="skyblue"><%= filter_element[:first] %></td>
-            <td class="skyblue"><%= filter_element[:second] %></td>
-            <td class="skyblue"><%= filter_element[:full] %></td>
-            <td class="skyblue"><%= filter_element[:count] %></td>
-            <td><%= filter_element[:allfirst] %></td>
-            <td><%= filter_element[:allsecond] %></td>
-            <td><%= filter_element[:allfull] %></td>
-            <td><%= filter_element[:allcount] %></td>
-            <td><%= filter_element[:away_ortg] %></td>
-            <td><%= filter_element[:home_ortg] %></td>
-            <td><%= (filter_element[:away_ortg] - filter_element[:home_ortg]).round(2) %></td>
+            <td class="skyblue"><%= filter_element[:first] ? filter_element[:first] : "" %></td>
+            <td class="skyblue"><%= filter_element[:second] ? filter_element[:second] : "" %></td>
+            <td class="skyblue"><%= filter_element[:full] ? filter_element[:full] : "" %></td>
+            <td class="skyblue"><%= filter_element[:count] ? filter_element[:count] : "" %></td>
+            <td><%= filter_element[:allfirst] ? filter_element[:allfirst] : "" %></td>
+            <td><%= filter_element[:allsecond] ? filter_element[:allsecond] : "" %></td>
+            <td><%= filter_element[:allfull] ? filter_element[:allfull] : "" %></td>
+            <td><%= filter_element[:allcount] ? filter_element[:allcount] : "" %></td>
+            <td><%= filter_element[:away_ortg] ? filter_element[:away_ortg] : "" %></td>
+            <td><%= filter_element[:home_ortg] ? filter_element[:home_ortg] : "" %></td>
+            <td><%= (filter_element[:away_ortg] ? filter_element[:away_ortg] : "" - filter_element[:home_ortg] ? filter_element[:home_ortg] : "").round(2) %></td>
           </tr>
           <% if @break.include?(index) %>
             <tr class="gradient">
