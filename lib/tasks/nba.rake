@@ -8,13 +8,21 @@ namespace :nba do
       puts "*"*20
       puts game.id
       if game.filters.present?
-        kit = IMGKit.new("https://nba-databases.herokuapp.com/index/rest_view/#{game.game_id}", :quality => 50)
-        file = kit.to_file("#{Rails.root}/tmp/rest_view#{game.game_id}.png")
-        obj = S3.object("imgaes_new/#{game.game_id}.png")
-        obj.upload_file(file, acl:'public-read')
-        File.delete(file)
+        begin
+          f = open("https://nba-daemon.s3.us-east-1.amazonaws.com/imgaes_new/#{game.game_id}.png")
+          f.close  
+        rescue
+        
+          kit = IMGKit.new("https://nba-databases.herokuapp.com/index/rest_view/#{game.game_id}", :quality => 50)
+          file = kit.to_file("#{Rails.root}/tmp/rest_view#{game.game_id}.png")
+          obj = S3.object("imgaes_new/#{game.game_id}.png")
+          obj.upload_file(file, acl:'public-read')
+          File.delete(file)
+        end
       end
     end
+    
+    
   end
 
 	task :getInjury => :environment do
