@@ -5,6 +5,8 @@ namespace :nba do
     game_end_index = (Date.today).to_s
     games = Nba.where("game_date between ? and ?", Date.strptime(game_start_index).beginning_of_day, Date.strptime(game_end_index).end_of_day)
     games.each do |game|
+      puts "*"*20
+      puts game.id
       if game.filters.present?
         kit = IMGKit.new("https://nba-databases.herokuapp.com/index/rest_view/#{game.game_id}", :quality => 50)
         file = kit.to_file("#{Rails.root}/tmp/rest_view#{game.game_id}.png")
