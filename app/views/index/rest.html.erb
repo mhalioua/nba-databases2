@@ -1609,7 +1609,8 @@ end
             filter = []
             filter_element = {}
             filter_element = @game.filters.find_by(index: index, year: year)
-            filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
+            if filter_element.any?
+              filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
           <tr class="filterElement">
             <% if index == 0 %>
@@ -1734,6 +1735,7 @@ end
             </tr>
           <% end %>
           <% end %>
+          <% end %>
         <% end %>
         <tr class="redgradient">
           <td class="yellow">Away</td>
@@ -1781,7 +1783,8 @@ end
               filter = []
               filter_element = {}
               filter_element = @game.filters.find_by(index: value, year: year)
-              filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
+              if filter_element.any?
+                filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
           <tr>
             <td><%= filter_element[:first_half_away] ? filter_element[:first_half_away] : "" %></td>
@@ -1830,6 +1833,7 @@ end
         <%
           end
         end
+      end
         %>
         <tr class="redgradient">
           <td class="yellow"></td>
@@ -2049,7 +2053,8 @@ end
             filter = []
             filter_element = {}
             filter_element = @game.filters.find_by(index: index, year: year)
-            filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
+            if filter_element.any?
+              filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
           <tr class="filterElement">
             <% if index == 0 %>
@@ -2150,6 +2155,7 @@ end
           <% end %>
         <% end %>
         <% end %>
+        <% end %>
         <tr class="redgradient">
           <td class="yellow">Away</td>
           <td class="yellow">Home</td>
@@ -2181,7 +2187,8 @@ end
             filter = []
             filter_element = {}
             filter_element = @game.filters.find_by(index: value, year: year)
-            filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
+            if filter_element.any?
+              filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
           <tr>
             <td><%= filter_element[:first_half_away] ? filter_element[:first_half_away] : "" %></td>
@@ -2215,6 +2222,7 @@ end
         <%
           end
         end
+      end
         %>
         <tr class="redgradient">
           <td class="yellow"></td>
