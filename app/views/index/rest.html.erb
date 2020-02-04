@@ -1604,9 +1604,11 @@ end
           <td></td>
         </tr>
         <%
+        if @game.filters.any?
           (0..19).each do |index|
+            filter = []
             filter_element = @game.filters.find_by(index: index, year: year)
-            filter = filter_element.first_one.split("-")
+            filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
           <tr class="filterElement">
             <% if index == 0 %>
@@ -1636,44 +1638,44 @@ end
               <td><%= filter_element[:full_over] %></td>
               <td></td>
             <% end %>
-            <% if filter[0] != 'ANY' %>
+            <% if filter[0] != 'ANY' and filter.any? %>
               <td class="filter">X</td>
             <% else %>
               <td></td>
             <% end %>
-            <% if filter[1] != 'ANY' %>
-              <td class="filter">X</td>
-            <% else %>
-              <td></td>
-            <% end %>
-            <td></td>
-            <% if filter[2] != 'ANY' %>
-              <td class="filter">X</td>
-            <% else %>
-              <td></td>
-            <% end %>
-            <% if filter[3] != 'ANY' %>
-              <td class="filter">X</td>
-            <% else %>
-              <td></td>
-            <% end %>
-            <% if filter[4] != 'ANY' %>
-              <td class="filter">X</td>
-            <% else %>
-              <td></td>
-            <% end %>
-            <% if filter[5] != 'ANY' %>
+            <% if filter[1] != 'ANY' and filter.any? %>
               <td class="filter">X</td>
             <% else %>
               <td></td>
             <% end %>
             <td></td>
-            <% if filter[6] != 'ANY' %>
+            <% if filter[2] != 'ANY' and filter.any? %>
               <td class="filter">X</td>
             <% else %>
               <td></td>
             <% end %>
-            <% if filter[7] != 'ANY' %>
+            <% if filter[3] != 'ANY' and filter.any? %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[4] != 'ANY' and filter.any? %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[5] != 'ANY' and filter.any? %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td></td>
+            <% if filter[6] != 'ANY' and filter.any? %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[7] != 'ANY' and filter.any? %>
               <td class="filter">X</td>
             <% else %>
               <td></td>
@@ -1730,6 +1732,7 @@ end
               <% end %>
             </tr>
           <% end %>
+          <% end %>
         <% end %>
         <tr class="redgradient">
           <td class="yellow">Away</td>
@@ -1772,9 +1775,11 @@ end
         <%
           borders = [1, 5]
           values = [0, 1, 19, 18, 10, 11, 20, 21, 12, 13, 16, 17, 22, 14, 15]
-          values.each do |value|
-            filter_element = @game.filters.find_by(index: value, year: year)
-            filter = filter_element.first_one.split("-")
+          if @game.filters
+            values.each do |value|
+              filter = []
+              filter_element = @game.filters.find_by(index: value, year: year)
+              filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
           <tr>
             <td><%= filter_element[:first_half_away] %></td>
@@ -1789,7 +1794,7 @@ end
             <td class="gradient"></td>
             <%
               (0...8).each do |index|
-                if filter[index] != 'ANY'
+                if filter[index] != 'ANY' and filter.any?
             %>
               <td class="filter border">X</td>
             <% else %>
@@ -1802,6 +1807,7 @@ end
             <%
               end
               end
+            end
             %>
             <td class="gradient"></td>
             <td><%= filter_element[:full_first] %></td>
@@ -2036,9 +2042,11 @@ end
           <td></td>
         </tr>
         <%
+          if @game.filters.any?
           (0..19).each do |index|
+            filter = []
             filter_element = @game.filters.find_by(index: index, year: year)
-            filter = filter_element.first_one.split("-")
+            filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
           <tr class="filterElement">
             <% if index == 0 %>
@@ -2068,44 +2076,44 @@ end
               <td><%= filter_element[:full_over] %></td>
               <td></td>
             <% end %>
-            <% if filter[0] != 'ANY' %>
+            <% if filter[0] != 'ANY' and filter.any? %>
               <td class="filter">X</td>
             <% else %>
               <td></td>
             <% end %>
-            <% if filter[1] != 'ANY' %>
-              <td class="filter">X</td>
-            <% else %>
-              <td></td>
-            <% end %>
-            <td></td>
-            <% if filter[2] != 'ANY' %>
-              <td class="filter">X</td>
-            <% else %>
-              <td></td>
-            <% end %>
-            <% if filter[3] != 'ANY' %>
-              <td class="filter">X</td>
-            <% else %>
-              <td></td>
-            <% end %>
-            <% if filter[4] != 'ANY' %>
-              <td class="filter">X</td>
-            <% else %>
-              <td></td>
-            <% end %>
-            <% if filter[5] != 'ANY' %>
+            <% if filter[1] != 'ANY' and filter.any? %>
               <td class="filter">X</td>
             <% else %>
               <td></td>
             <% end %>
             <td></td>
-            <% if filter[6] != 'ANY' %>
+            <% if filter[2] != 'ANY' and filter.any? %>
               <td class="filter">X</td>
             <% else %>
               <td></td>
             <% end %>
-            <% if filter[7] != 'ANY' %>
+            <% if filter[3] != 'ANY' and filter.any? %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[4] != 'ANY' and filter.any? %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[5] != 'ANY' and filter.any? %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td></td>
+            <% if filter[6] != 'ANY' and filter.any? %>
+              <td class="filter">X</td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <% if filter[7] != 'ANY' and filter.any? %>
               <td class="filter">X</td>
             <% else %>
               <td></td>
@@ -2138,6 +2146,7 @@ end
             </tr>
           <% end %>
         <% end %>
+        <% end %>
         <tr class="redgradient">
           <td class="yellow">Away</td>
           <td class="yellow">Home</td>
@@ -2164,9 +2173,11 @@ end
         <%
           borders = [1, 5]
           values = [0, 1, 19, 18, 10, 11, 20, 21, 12, 13, 16, 17, 22, 14, 15]
+          if @game.filters.any?
           values.each do |value|
+            filter = []
             filter_element = @game.filters.find_by(index: value, year: year)
-            filter = filter_element.first_one.split("-")
+            filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
           <tr>
             <td><%= filter_element[:first_half_away] %></td>
@@ -2181,7 +2192,7 @@ end
             <td class="gradient"></td>
             <%
               (0...8).each do |index|
-                if filter[index] != 'ANY'
+                if filter[index] != 'ANY' and filter.any?
 %>
               <td class="filter border">X</td>
             <% else %>
@@ -2194,6 +2205,7 @@ end
             <%
               end
               end
+            end
             %>
             <td class="gradient"></td>
           </tr>
