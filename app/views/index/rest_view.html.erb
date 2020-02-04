@@ -557,10 +557,10 @@
 <!--# 2018-2019 - 2018-->
 
 
-<div class="tableBody" style="display: flex">
-  <div style="display: inline-block">
+<div class="tableBody">
+  <div style="display: inline-block; float:left; width: 65%;">
     <% (2008..2018).each do |year| %>
-      <table border="1" class="tableSide totalAverage firstTravel firstFilterPage firstFilterPage<%= year %>" style="width: 1%; display: none;">
+      <table border="1" class="tableSide totalAverage firstTravel firstFilterPage firstFilterPage<%= year %>" style="display: none;">
         <tbody>
         <tr>
           <td></td>
@@ -1061,9 +1061,9 @@
     <% end %>
   </div>
 
-  <div style="display: inline-block;">
+  <div style="display: inline-block; width: 30%">
     <% (2010..2018).each do |year| %>
-      <table border="1" class="tableSide totalAverage firstTravel secondFilterPage secondFilterPage<%= year %>" style="width: 1%; display: none;">
+      <table border="1" class="tableSide totalAverage firstTravel secondFilterPage secondFilterPage<%= year %>" style="display: none;">
         <tbody>
         <tr>
           <td></td>
