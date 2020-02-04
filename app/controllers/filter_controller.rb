@@ -82,9 +82,17 @@ class FilterController < ApplicationController
         last_city_home_team_name = 'LAL' if last_city_home_team_name == 'LA Lakers'
         last_city_home_team_name = 'Oklahoma City' if last_city_home_team_name == 'Okla City'
         if home_last_game.nil?
-          @games = @games.where("home_team_city = ?", last_city_home_team_name).or(@games.where("home_team_city = 'home' AND home_team = ?", last_city_home_team_name))
+          if @team_city[last_city_home_team_name]
+            @games = @games.where("home_team_city = ?", @team_city[last_city_home_team_name]).or(@games.where("home_team_city = 'home' AND home_team = ?", last_city_home_team_name)).uniq
+          else
+            @games = @games.where("home_team_city = ?", last_city_home_team_name).or(@games.where("home_team_city = 'home' AND home_team = ?", last_city_home_team_name))
+          end
         else
-          @games = @games.where("home_team_city = ? AND home_last_game = ?", last_city_home_team_name, home_last_game).or(@games.where("home_team_city = 'home' AND home_team = ? AND home_last_game = ?", last_city_home_team_name, home_last_game))
+          if @team_city[last_city_home_team_name]
+            @games = @games.where("home_team_city = ? AND home_last_game = ?", @team_city[last_city_home_team_name], home_last_game).or(@games.where("home_team_city = 'home' AND home_team = ? AND home_last_game = ?", last_city_home_team_name, home_last_game)).uniq
+          else
+            @games = @games.where("home_team_city = ? AND home_last_game = ?", last_city_home_team_name, home_last_game).or(@games.where("home_team_city = 'home' AND home_team = ? AND home_last_game = ?", last_city_home_team_name, home_last_game))
+          end
         end
       end
     end
