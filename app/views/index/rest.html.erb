@@ -1782,15 +1782,15 @@ end
               filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
           <tr>
-            <td><%= filter_element[:first_half_away] %></td>
-            <td><%= filter_element[:first_half_home] %></td>
+            <td><%= filter_element[:first_half_away] ? filter_element[:first_half_away] : "" %></td>
+            <td><%= filter_element[:first_half_home] ? filter_element[:first_half_home] : "" %></td>
             <td class="gradient"></td>
-            <td><%= filter_element[:second_half_away] %></td>
-            <td><%= filter_element[:second_half_home] %></td>
-            <td><%= filter_element[:allcount] %></td>
+            <td><%= filter_element[:second_half_away] ? filter_element[:second_half_away] : "" %></td>
+            <td><%= filter_element[:second_half_home] ? filter_element[:second_half_home] : "" %></td>
+            <td><%= filter_element[:allcount] ? filter_element[:allcount] : "" %></td>
             <td class="gradient"></td>
-            <td><%= filter_element[:full_half_away] %></td>
-            <td><%= filter_element[:full_half_home] %></td>
+            <td><%= filter_element[:full_half_away] ? filter_element[:full_half_away] : "" %></td>
+            <td><%= filter_element[:full_half_home] ? filter_element[:full_half_home] : "" %></td>
             <td class="gradient"></td>
             <%
               (0...8).each do |index|
@@ -1810,21 +1810,21 @@ end
             end
             %>
             <td class="gradient"></td>
-            <td><%= filter_element[:full_first] %></td>
-            <td><%= filter_element[:full_second] %></td>
-            <td><%= (filter_element[:full_first] - filter_element[:full_second]).round(2) %></td>
-            <td><%= filter_element[:bj] %></td>
-            <td><%= filter_element[:firsthalf_first] %></td>
-            <td><%= filter_element[:firsthalf_second] %></td>
-            <td><%= (filter_element[:firsthalf_first] - filter_element[:firsthalf_second]).round(2) %></td>
-            <td style="background-color: #ccf"><%= filter_element[:bi_one] %></td>
-            <td><%= filter_element[:bg] %></td>
-            <td><%= filter_element[:secondhalf_first] %></td>
-            <td><%= filter_element[:secondhalf_second] %></td>
-            <td><%= (filter_element[:secondhalf_first] - filter_element[:secondhalf_second]).round(2) %></td>
-            <td style="background-color: #ccf"><%= filter_element[:bi_two] %></td>
+            <td><%= filter_element[:full_first] ? filter_element[:full_first] : "" %></td>
+            <td><%= filter_element[:full_second] ? filter_element[:full_second] : "" %></td>
+            <td><%= (filter_element[:full_first] ? filter_element[:full_first] : "" - filter_element[:full_second] ? filter_element[:full_second] : "").round(2) %></td>
+            <td><%= filter_element[:bj] ? filter_element[:bj] : "" %></td>
+            <td><%= filter_element[:firsthalf_first] ? filter_element[:firsthalf_first] : "" %></td>
+            <td><%= filter_element[:firsthalf_second] ? filter_element[:firsthalf_second] : "" %></td>
+            <td><%= (filter_element[:firsthalf_first] ? filter_element[:firsthalf_first] : "" - filter_element[:firsthalf_second] ? filter_element[:firsthalf_second] : "").round(2) %></td>
+            <td style="background-color: #ccf"><%= filter_element[:bi_one] ? filter_element[:bi_one] : "" %></td>
+            <td><%= filter_element[:bg] ? filter_element[:bg] : "" %></td>
+            <td><%= filter_element[:secondhalf_first] ? filter_element[:secondhalf_first] : "" %></td>
+            <td><%= filter_element[:secondhalf_second] ? filter_element[:secondhalf_second] : "" %></td>
+            <td><%= (filter_element[:secondhalf_first] ? filter_element[:secondhalf_first] : "" - filter_element[:secondhalf_second] ? filter_element[:secondhalf_second] : "").round(2) %></td>
+            <td style="background-color: #ccf"><%= filter_element[:bi_two] ? filter_element[:bi_two] : "" %></td>
             <td><%= filter_element[:bh] %></td>
-            <td style="background-color: #ccf"><%= filter_element[:bi_count] %></td>
+            <td style="background-color: #ccf"><%= filter_element[:bi_count] ? filter_element[:bi_count] : "" %></td>
           </tr>
         <%
           end
@@ -2061,19 +2061,19 @@ end
               <td></td>
               <td></td>
             <% else %>
-              <td><%= filter_element[:first_under] %></td>
-              <td><%= filter_element[:first_over] %></td>
+              <td><%= filter_element[:first_under] ? filter_element[:first_under] : "" %></td>
+              <td><%= filter_element[:first_over] ? filter_element[:first_over] : "" %></td>
               <td class="gradient"></td>
-              <td><%= filter_element[:second_under] %></td>
-              <td><%= filter_element[:second_over] %></td>
+              <td><%= filter_element[:second_under] ? filter_element[:second_under] : "" %></td>
+              <td><%= filter_element[:second_over] ? filter_element[:second_over] : "" %></td>
               <td>
                 <div>
-                  <%= filter_element.first_one %>
+                  <%= filter_element.first_one ? filter_element.first_one : "" %>
                 </div>
               </td>
               <td></td>
-              <td><%= filter_element[:full_under] %></td>
-              <td><%= filter_element[:full_over] %></td>
+              <td><%= filter_element[:full_under] ? filter_element[:full_under] : "" %></td>
+              <td><%= filter_element[:full_over] ? filter_element[:full_over] : "" %></td>
               <td></td>
             <% end %>
             <% if filter[0] != 'ANY' and filter.any? %>
@@ -2180,15 +2180,15 @@ end
             filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
           <tr>
-            <td><%= filter_element[:first_half_away] %></td>
-            <td><%= filter_element[:first_half_home] %></td>
+            <td><%= filter_element[:first_half_away] ? filter_element[:first_half_away] : "" %></td>
+            <td><%= filter_element[:first_half_home] ? filter_element[:first_half_home] : "" %></td>
             <td class="gradient"></td>
-            <td><%= filter_element[:second_half_away] %></td>
-            <td><%= filter_element[:second_half_home] %></td>
-            <td><%= filter_element[:allcount] %></td>
+            <td><%= filter_element[:second_half_away] ? filter_element[:second_half_away] : "" %></td>
+            <td><%= filter_element[:second_half_home] ? filter_element[:second_half_home] : "" %></td>
+            <td><%= filter_element[:allcount] ? filter_element[:allcount] : "" %></td>
             <td class="gradient"></td>
-            <td><%= filter_element[:full_half_away] %></td>
-            <td><%= filter_element[:full_half_home] %></td>
+            <td><%= filter_element[:full_half_away] ? filter_element[:full_half_away] : "" %></td>
+            <td><%= filter_element[:full_half_home] ? filter_element[:full_half_home] : "" %></td>
             <td class="gradient"></td>
             <%
               (0...8).each do |index|
