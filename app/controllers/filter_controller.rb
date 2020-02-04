@@ -92,7 +92,7 @@ class FilterController < ApplicationController
             @games = @games.where("home_team_city = ? AND home_last_game = ?", @team_city[last_city_home_team_name], home_last_game).or(@games.where("home_team_city = 'home' AND home_team = ? AND home_last_game = ?", last_city_home_team_name, home_last_game)).uniq
           else
             @games = @games.where("home_team_city = ? AND home_last_game = ?", last_city_home_team_name, home_last_game).or(@games.where("home_team_city = 'home' AND home_team = ? AND home_last_game = ?", last_city_home_team_name, home_last_game))
-          end
+          end 
         end
       end
     end
