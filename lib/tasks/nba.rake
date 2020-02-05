@@ -1,7 +1,7 @@
 namespace :nba do
 
   task :aws_upload => :environment do
-    game_start_index = '2018-01-01'
+    game_start_index = '2019-01-01'
     game_end_index = (Date.today).to_s
     games = Nba.where("game_date between ? and ?", Date.strptime(game_start_index).beginning_of_day, Date.strptime(game_end_index).end_of_day)
     games.each do |game|
