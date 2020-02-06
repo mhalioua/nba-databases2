@@ -3,7 +3,47 @@
   <div class="col-md-3">
     <table border="1">
       <tr>
-        <td colspan="4" style="color: red">LINES for SIDES</td>
+        <td colspan="4" style="color: red">Opening LINES for SIDES</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1ST HALF</td>
+        <td>2ND HALF</td>
+        <td>FULL GAME</td>
+      </tr>
+      <tr>
+        <td><%= @game.away_team %></td>
+        <td><%= @game.first_opener_side ? -@game.first_opener_side : "" %></td>
+        <td><%= @game.second_opener_side ? -@game.second_opener_side : "" %></td>
+        <td><%= @game.full_opener_side ? -@game.full_opener_side : "" %></td>
+      </tr>
+      <tr>
+        <td><%= @game.home_team %></td>
+        <td><%= @game.first_opener_side %></td>
+        <td><%= @game.second_opener_side %></td>
+        <td><%= @game.full_opener_side %></td>
+      </tr>
+      <tr>
+        <td colspan="4"></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="color: red">Opening LINES for TOTALS</td>
+      </tr>
+      <tr>
+        <td><%= @away_abbr %> @ <%= @home_abbr %></td>
+        <td><%= @game.first_opener_total %></td>
+        <td><%= @game.second_opener_total %></td>
+        <td><%= @game.full_opener_total %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <h1><%= @head %></h1>
+  </div>
+  <div class="col-md-3">
+    <table border="1">
+      <tr>
+        <td colspan="4" style="color: red">Closing LINES for SIDES</td>
       </tr>
       <tr>
         <td></td>
@@ -27,7 +67,7 @@
         <td colspan="4"></td>
       </tr>
       <tr>
-        <td colspan="4" style="color: red">LINES for TOTALS</td>
+        <td colspan="4" style="color: red">Closing LINES for TOTALS</td>
       </tr>
       <tr>
         <td><%= @away_abbr %> @ <%= @home_abbr %></td>
@@ -36,11 +76,6 @@
         <td><%= @game.full_closer_total %></td>
       </tr>
     </table>
-  </div>
-  <div class="col-md-6">
-    <h1><%= @head %></h1>
-  </div>
-  <div class="col-md-3">
   </div>
 </div>
 
