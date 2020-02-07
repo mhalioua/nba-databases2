@@ -7,7 +7,6 @@ namespace :nba do
     games.each do |game|
       puts "*"*20
       puts game.id
-      if game.filters.present?
           url = URI.parse("https://nba-daemon.s3.amazonaws.com/imgaes_new/#{game.game_id}.png")
           http = Net::HTTP.new(url.host, url.port)
           http.use_ssl = true if url.scheme == 'https'
@@ -18,7 +17,6 @@ namespace :nba do
             obj.upload_file(file, acl:'public-read')
             File.delete(file)
           end
-      end
       puts "*"*200
       puts "finished"
     end
