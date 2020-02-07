@@ -13,9 +13,9 @@ namespace :nba do
           unless http.request_head(url.path).code == "200"
             kit = IMGKit.new("https://nba-databases.herokuapp.com/index/rest_view/#{game.game_id}", :quality => 50)
             file = kit.to_file("#{Rails.root}/tmp/rest_view#{game.game_id}.png")
-            S3.put_object(key: "images_new/#{game.game_id}.png", body: file, acl: 'public-read')
-            #obj = S3.object("images_new/#{game.game_id}.png")
-            #obj.upload_file(file, acl:'public-read')
+            #S3.put_object(key: "images_new/#{game.game_id}.png", body: file, acl: 'public-read')
+            obj = S3.object("images_new/#{game.game_id}.png")
+            obj.upload_file(file, acl:'public-read')
             File.delete(file)
           end
       puts "*"*200
