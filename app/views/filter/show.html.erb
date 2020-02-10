@@ -6,7 +6,7 @@
 </div>
 <% @games.each_with_index do |game, index| %>
   <div style="border-bottom: 20px solid black;" class="class class<%= (index/10).to_i + 1 %>">
-    <img style="border-radius: 0;" src="https://s3.amazonaws.com/nba-daemon/images/<%= game.game_id %>.png" />
+    <img style="border-radius: 0;" src="https://nba-daemon.s3.amazonaws.com/imgaes_new/<%= game.game_id %>.png" />
   </div>
 <% end %>
 
