@@ -18,7 +18,7 @@ namespace :nba do
             obj.upload_file(file, acl:'public-read')
             File.delete(file)
           end
-      puts "*"*200
+      puts "*"*200 
       puts "finished"
     end
     
