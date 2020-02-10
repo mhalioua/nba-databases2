@@ -1303,11 +1303,11 @@ end
       <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason15 ? fullseason15.where("secondou = 'over'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason15 ? fullseason15.where("totalou = 'over'").count.to_i : "" %></td>
       <td bgcolor="gray"></td>
-      <td bgcolor="skyblue"><%= "#{away_team_city} (#{@game.away_last_game}) (#{@game.away_next_fly.chars.first.upcase})" %></td>
+      <td bgcolor="skyblue"><%= "#{away_team_city} (#{@game.away_last_game}) (" %> <%= @game.away_next_fly.nil? || @game.away_next_fly.empty? ? "" : @game.away_next_fly.chars.first.upcase %>)</td>
       <td colspan="15">AWAY LAST CITY (P) + (J) + (L)</td>
       <td class="black"></td>
       <td colspan="17">AWAY NEXT CITY (Q) + (K) + (I)</td>
-      <td bgcolor="skyblue"><%= "#{away_team_next_city} (#{@game.away_next_game}) (#{@game.away_last_fly.chars.first.upcase})" %></td>
+      <td bgcolor="skyblue"><%= "#{away_team_next_city} (#{@game.away_next_game}) (" %> <%= @game.away_last_fly.nil? || @game.away_last_fly.empty? ? "" : @game.away_last_fly.chars.first.upcase %>)</td>
       <td bgcolor="gray"></td>
       <td bgcolor="skyblue"><%= fullseason16 ? fullseason16.where("firstou = 'under'").count.to_i : "" %>-<%=  fullseason16 ? fullseason16.where("firstou = 'over'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason16 ? fullseason16.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason16 ? fullseason16.where("secondou = 'over'").count.to_i : "" %></td>
@@ -1323,11 +1323,11 @@ end
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason17 ? fullseason17.where("secondou = 'over'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason17 ? fullseason17.where("totalou = 'over'").count.to_i : "" %></td>
       <td bgcolor="gray"></td>
-      <td bgcolor="skyblue"><%= "#{home_team_city} (#{@game.home_last_game}) (#{@game.home_next_fly.chars.first.upcase})" %></td>
+      <td bgcolor="skyblue"><%= "#{home_team_city} (#{@game.home_last_game}) (" %> <%= @game.home_next_fly.nil? || @game.home_next_fly.empty? ? "" : @game.home_next_fly.chars.first.upcase %>)</td>
       <td colspan="15">HOME LAST CITY (AK) + (AF) + (AE)</td>
       <td class="black"></td>
       <td colspan="17">HOME NEXT CITY (AL) + (AD) + (AG)</td>
-      <td bgcolor="skyblue"><%= "#{home_team_next_city} (#{@game.home_next_game}) (#{@game.home_last_fly.chars.first.upcase})" %></td>
+      <td bgcolor="skyblue"><%= "#{home_team_next_city} (#{@game.home_next_game}) (" %> <%= @game.home_last_fly.nil? || @game.home_last_fly.empty? ? "" : @game.home_last_fly.chars.first.upcase %>)</td>
       <td bgcolor="gray"></td>
       <td bgcolor="skyblue"><%= fullseason18 ? fullseason18.where("firstou = 'under'").count.to_i : "" %>-<%=  fullseason18 ? fullseason18.where("firstou = 'over'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason18 ? fullseason18.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason18 ? fullseason18.where("secondou = 'over'").count.to_i : "" %></td>
@@ -2439,11 +2439,11 @@ end
       <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason15 ? fullseason15.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason15 ? fullseason15.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="gray"></td>
-      <td bgcolor="skyblue"><%= "#{away_team_city} (#{@game.away_last_game}) (#{@game.away_next_fly.chars.first.upcase})" %></td>
+      <td bgcolor="skyblue"><%= "#{away_team_city} (#{@game.away_last_game}) (" %> <%= @game.away_next_fly.nil? || @game.away_next_fly.empty? ? "" : @game.away_next_fly.chars.first.upcase %>)</td>
       <td colspan="15">AWAY (M) team + LAST CITY (P)</td>
       <td class="black"></td>
       <td colspan="17">HOME (AH) team + LAST CITY (AK) ===>></td>
-      <td bgcolor="skyblue"><%= "#{away_team_next_city} (#{@game.away_next_game}) (#{@game.away_last_fly.chars.first.upcase})" %></td>
+      <td bgcolor="skyblue"><%= "#{away_team_next_city} (#{@game.away_next_game}) (" %> <%= @game.away_last_fly.nil? || @game.away_last_fly.empty? ? "" : @game.away_last_fly.chars.first.upcase %>)</td>
       <td bgcolor="gray"></td>
       <td bgcolor="skyblue"><%= fullseason16 ? fullseason16.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason16 ? fullseason16.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason16 ? fullseason16.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason16 ? fullseason16.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
@@ -2459,11 +2459,11 @@ end
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason17 ? fullseason17.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason17 ? fullseason17.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="gray"></td>
-      <td bgcolor="skyblue"><%= "#{home_team_city} (#{@game.home_last_game}) (#{@game.home_next_fly.chars.first.upcase})" %></td>
+      <td bgcolor="skyblue"><%= "#{home_team_city} (#{@game.home_last_game}) (" %> <%= @game.home_next_fly.nil? || @game.home_next_fly.empty? ? "" : @game.home_next_fly.chars.first.upcase %>)</td>
       <td colspan="15">AWAY (M) team + NEXT CITY (P)</td>
       <td class="black"></td>
       <td colspan="17">HOME (AH) team + NEXT CITY (AK) ===>></td>
-      <td bgcolor="skyblue"><%= "#{home_team_next_city} (#{@game.home_next_game}) (#{@game.home_last_fly.chars.first.upcase})" %></td>
+      <td bgcolor="skyblue"><%= "#{home_team_next_city} (#{@game.home_next_game}) (" %> <%= @game.home_last_fly.nil? || @game.home_last_fly.empty? ? "" : @game.home_last_fly.chars.first.upcase %>)</td>
       <td bgcolor="gray"></td>
       <td bgcolor="skyblue"><%= fullseason18 ? fullseason18.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason18 ? fullseason18.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason18 ? fullseason18.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason18 ? fullseason18.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
