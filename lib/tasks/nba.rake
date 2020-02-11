@@ -1443,12 +1443,10 @@ namespace :nba do
 					next
 				end
 
-				#score_element = element.children[0].children[11]
-        score_element = element.children[0].children[9]
+        score_element = element.children[0].children[11]
 
 				if score_element.children[1].text == ""
-					#score_element = element.children[0].children[9]
-          score_element = element.children[0].children[11]
+					score_element = element.children[0].children[9]
 				end
 
 				if score_element.children[1].text == ""
@@ -1572,12 +1570,10 @@ namespace :nba do
 					next
 				end
 
-        score_element = element.children[0].children[9]
-				#score_element = element.children[0].children[11]
+				score_element = element.children[0].children[11]
 
 				if score_element.children[1].text == ""
-					#score_element = element.children[0].children[9]
-          score_element = element.children[0].children[11]
+					score_element = element.children[0].children[9]
 				end
 
 				if score_element.children[1].text == ""
