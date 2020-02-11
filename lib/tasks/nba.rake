@@ -1,7 +1,7 @@
 namespace :nba do
 
   task :aws_upload => :environment do
-    if Time.now.monday? or Time.now.wednesday? or Time.now.friday?
+    if Date.today.monday? or Date.today.wednesday? or Date.today.friday?
       game_start_index = (Date.today - 5.days).to_s
       game_end_index = (Date.today).to_s
       games = Nba.where("game_date between ? and ?", Date.strptime(game_start_index).beginning_of_day, Date.strptime(game_end_index).end_of_day)
@@ -1443,10 +1443,12 @@ namespace :nba do
 					next
 				end
 
-				score_element = element.children[0].children[11]
+				#score_element = element.children[0].children[11]
+        score_element = element.children[0].children[9]
 
 				if score_element.children[1].text == ""
-					score_element = element.children[0].children[9]
+					#score_element = element.children[0].children[9]
+          score_element = element.children[0].children[11]
 				end
 
 				if score_element.children[1].text == ""
@@ -1508,10 +1510,10 @@ namespace :nba do
 		    end
 				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
 
-				line_one = opener.index(" ")
+				line_one = opener.index(" ")
 				opener_side = line_one ? opener[0..line_one] : ""
 				opener_total = line_one ? opener[line_one+2..-1] : ""
-				line_two = closer.index(" ")
+        line_two = closer.index(" ")
 				closer_side = line_two ? closer[0..line_two] : ""
 				closer_total = line_two ? closer[line_two+2..-1] : ""
 
@@ -1551,9 +1553,9 @@ namespace :nba do
 	task :getSecondLines, [:type, :game_link] => [:environment] do |t, args|
 		include Api
 		games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, (Date.today + 3.days).end_of_day)
-		game_link = args[:game_link]
+    game_link = args[:game_link]
 		type = args[:type]
-		puts "----------Get #{type} Lines----------"
+    puts "----------Get #{type} Lines----------"
 
 		index_date = Date.yesterday
 		while index_date <= Date.tomorrow  do
@@ -1569,10 +1571,13 @@ namespace :nba do
 				if element.children[0].children[5].children.size < 5
 					next
 				end
-				score_element = element.children[0].children[11]
+
+        score_element = element.children[0].children[9]
+				#score_element = element.children[0].children[11]
 
 				if score_element.children[1].text == ""
-					score_element = element.children[0].children[9]
+					#score_element = element.children[0].children[9]
+          score_element = element.children[0].children[11]
 				end
 
 				if score_element.children[1].text == ""
