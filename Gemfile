@@ -67,6 +67,8 @@ gem 'jquery-rails'
 
 gem 'bcrypt'
 
+gem "spreadsheet"
+
 gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'rufus-scheduler'

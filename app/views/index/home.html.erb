@@ -15,5 +15,6 @@
 	<li><%= link_to 'History', 					   	        { action: 'history' } %> </li>
 	<li><%= link_to 'Referees', 					          { action: 'referee' } %> </li>
   <li><%= link_to 'Birthday',      	              { action: 'birthday', id: @today.strftime("%Y-%m-%d") + " - " + @today.strftime("%Y-%m-%d") } %> </li>
+  <li><%= link_to 'Get Data Sheet',	 { controller: 'data_sheet', action: 'get_data_sheet' } %></li>
 	<li><%= link_to 'Logout', 					   	        { controller: 'access', action: 'logout' } %> </li>
 </ul>
