@@ -1,4 +1,7 @@
 <% content_for :title, @team.team %>
+<ul class="list-group">
+  <li class="list-group-item"><%= link_to 'Home', { controller: 'index', action: 'home' }%></li>
+</ul>
 <div style="display: flex;">
   <% (1..((@games.length + 9 )/10).to_i).each do |index| %>
     <button class="btn-primary apply apply<%= index %>"><%= "#{index * 10 - 9} - #{index * 10 < @games.length ? index * 10 : @games.length}" %></button>
@@ -10,9 +13,6 @@
   </div>
 <% end %>
 
-<ul class="list-group">
-  <li class="list-group-item"><%= link_to 'Home', { controller: 'index', action: 'home' }%></li>
-</ul>
 <script>
     $(document).ready(function(){
         $(".apply1").click(function(){

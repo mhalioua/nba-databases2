@@ -4,9 +4,9 @@ class DataSheetController < ApplicationController
 			begin
    				AdminMailer.send_nba_data(params[:email]).deliver_now!
    			rescue Exception => e
-   				flash[:notice] = "Something went wrong!!!"
+   				flash.now[:notice] = "Something went wrong!!!"
    			end
-			flash[:notice] = "File sent"
+			flash.now[:notice] = "File sent"
 		end
 	end
 

@@ -1,14 +1,20 @@
-<div class="container">
+<div class="header row">
 	<h1>Get Data Sheet</h1>
-	<% if !flash[:notice].blank? %>
-		<div class="notice">
-	  		<%= flash[:notice] %>
-		</div>
-	<% end %>
-	<%= form_tag("/data_sheet/get_data_sheet", method: "post") do %>
-	    <%= label_tag :email %>
-	    <%= text_field_tag :email, params[:email], type: "email", required: true, class: "form-control", style: "width:30%;margin-bottom:20px;" %>
-	    <%= submit_tag "Get Data", class: "btn btn-primary", style: "margin-bottom:20px;" %>
-	<% end %>
-	<%= link_to 'Home', { controller: 'index', action: 'home' } , class: "btn btn-primary" %>
+</div>
+<div >
+	<ul>
+		<li>
+			<% if !flash.now[:notice].blank? %>
+				<div class="notice">
+			  		<%= flash[:notice] %>
+				</div>
+			<% end %>
+			<%= form_tag("/data_sheet/get_data_sheet", method: "post") do %>
+			    <%= label_tag :email %>
+			    <%= text_field_tag :email, params[:email], type: "email", required: true, class: "form-control", style: "width:30%;margin-bottom:20px;margin-left:500px;text-align:center;" %>
+			    <%= submit_tag "Get Data", class: "btn btn-primary", style: "margin-bottom:20px;" %>
+			<% end %>
+			<%= link_to 'Home', { controller: 'index', action: 'home' } , class: "btn btn-primary", style: "margin-bottom:20px;" %>
+		</li>
+	</ul>
 </div>
