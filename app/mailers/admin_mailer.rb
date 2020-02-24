@@ -1,5 +1,5 @@
 class AdminMailer < ActionMailer::Base
-  default from: "hammad417@gmail.com"
+  default from: "no-reply@nbadatabases.com"
 
   require 'net/http'
   require 'stringio'
