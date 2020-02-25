@@ -69,6 +69,18 @@ gem 'bcrypt'
 
 gem "spreadsheet"
 
+gem "roo"
+
+gem "axlsx"
+
+gem 'rubyzip'
+
+gem 'zip-zip'
+
+gem "rubyXL"
+
+gem 'xlsxtream'
+
 gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'rufus-scheduler'
