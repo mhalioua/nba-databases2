@@ -23,13 +23,14 @@ class FilterController < ApplicationController
     @game_index = params[:date]
     @game_start_index = @game_index[0..12]
     @game_end_index = @game_index[15..27]
-
-    @games = Nba.where("id >= 26796").or(Nba.where("id <= 26573 AND id >= 25261")).order('id DESC')
+    #@games = Nba.where("id >= 26796").or(Nba.where("id <= 26573 AND id >= 25261")).order('id DESC')
 
     if @datePicker
-      @games = @games.where("game_date <= ?", Date.today.end_of_day)
+      #@games = @games.where("game_date <= ?", Date.today.end_of_day)
+      @games = Nba.where("game_date <= ?", Date.today.end_of_day).order('id DESC')
     else
-      @games = @games.where("game_date between ? and ?", Date.strptime(@game_start_index, '%b %d, %Y').beginning_of_day, Date.strptime(@game_end_index, '%b %d, %Y').end_of_day)
+      #@games = @games.where("game_date between ? and ?", Date.strptime(@game_start_index, '%b %d, %Y').beginning_of_day, Date.strptime(@game_end_index, '%b %d, %Y').end_of_day)
+      @games = Nba.where("game_date between ? and ?", Date.strptime(@game_start_index, '%b %d, %Y').beginning_of_day, Date.strptime(@game_end_index, '%b %d, %Y').end_of_day).order('id DESC')
     end
     @teams = Team.all.order('team')
     @team_city = {
