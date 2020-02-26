@@ -973,8 +973,8 @@ GEM
     et-orbi (1.0.7)
       tzinfo
     execjs (2.7.0)
-    ffi (1.9.18)
-    ffi (1.9.18-x86-mingw32)
+    ffi (1.12.2)
+    ffi (1.12.2-x86-mingw32)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     htmlentities (4.3.4)
