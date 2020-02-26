@@ -8,7 +8,7 @@ class AdminMailer < ActionMailer::Base
   	#@att = export_file_path
   	#@att = "https://nba-databases.herokuapp.com/exports/nba_databases_data.xls"
   	#attachments["nba_data.xls"] = File.read(export_file_path)
-  	@att = "https://nba-daemon.s3.amazonaws.com/nba_data/nba_data_sheet.xls"
+  	@att = "https://nba-daemon.s3.amazonaws.com/nba_data/nba_data_sheet_2018_to_2020.xlsx"
     mail(:to => email, subject: "NBA Data")
   end
 end

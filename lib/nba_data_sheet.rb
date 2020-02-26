@@ -1,6 +1,6 @@
 class NbaDataSheet
 	def self.generate_data_sheet(game_start_date,game_end_date)
-    
+
     data_file_path = [Rails.root, "csv", "nba_data_sheet.xlsx"].join("/")
 		package = Axlsx::Package.new
     workbook = package.workbook
@@ -108,12 +108,9 @@ class NbaDataSheet
           #games = Nba.find([1,2])
           games = Nba.where("game_date between ? and ?", Date.strptime(game_start_date).beginning_of_day, Date.strptime(game_end_date).end_of_day)
           games.each do |game|
+            puts "starting game #{game.game_id}"
             date = DateTime.parse(game.game_date)
             day_month = date.strftime('%d-%b')[0]=="0" ? date.strftime('%d-%b')[1..5] : date.strftime('%d-%b')
-            full_season_data = Fullseason.where(roadteam: game.away_team, hometeam: game.home_team, year: date.strftime('%Y'),date: day_month,time: date.strftime('%I:%M %p'))
-            first_ou = full_season_data.empty? ? '' : full_season_data.firstou
-            second_ou = full_season_data.empty? ? '' : full_season_data.secondou
-            total_ou = full_season_data.empty? ? '' : full_season_data.totalou 
 
             away_first_second_quarter = (game.away_first_quarter.nil? ? 0 : game.away_first_quarter) + (game.away_second_quarter.nil? ? 0 : game.away_second_quarter)
             away_first_sec_third_quarter = (game.away_first_quarter.nil? ? 0 : game.away_first_quarter)+(game.away_second_quarter.nil? ? 0 : game.away_second_quarter)+(game.away_third_quarter.nil? ? 0 : game.away_third_quarter)
@@ -126,7 +123,10 @@ class NbaDataSheet
             home_last_next_away = (game.home_last_away.nil? ? 0 : game.home_last_away)+(game.home_next_away.nil? ? 0 : game.home_next_away)
             first_half_home_or_away = (game.first_closer_side.nil? ? 0 : game.first_closer_side) + home_first_second_quarter > away_first_second_quarter ? 'HOME' : 'AWAY'
             second_half_home_or_away = (game.second_closer_side.nil? ? 0 : game.second_closer_side) + home_third_forth_quarter > away_third_forth_quarter ? 'HOME' : 'AWAY'
-            fullgame_home_or_away = (game.full_closer_side.nil? ? 0 : game.full_closer_side) + game.home_score > game.away_score ? 'HOME' : 'AWAY'
+            fullgame_home_or_away = (game.full_closer_side.nil? ? 0 : game.full_closer_side) + (game.home_score.nil? ? 0 : game.home_score) > (game.away_score.nil? ? 0 : game.away_score) ? 'HOME' : 'AWAY'
+            first_half_under_over = (game.first_point.nil? ? 0 : game.first_point) > (game.first_closer_total.nil? ? 0 : game.first_closer_total) ? 'over' : 'under'
+            second_half_under_over = (game.second_point.nil? ? 0 : game.second_point) > (game.second_closer_total.nil? ? 0 : game.second_closer_total) ? 'over' : 'under'
+            total_point_under_over = (game.total_point.nil? ? 0 : game.total_point) > (game.full_closer_total.nil? ? 0 : game.full_closer_total) ? 'over' : 'under'
 
             sheet.add_row ['',date.strftime('%Y'),date.strftime('%b %d'),convert_timezone(date,game.home_timezone),date.strftime('%a'),game.tv_station.nil? ? '' : game.tv_station.split(",")[0],
             game.tv_station.nil? ? '' : game.tv_station.split(",")[1],game.game_count,game.away_last_fly,game.away_last_game,game.away_next_game,
@@ -138,8 +138,8 @@ class NbaDataSheet
             game.home_first_quarter,game.home_second_quarter,home_first_second_quarter,game.home_third_quarter,
             home_first_sec_third_quarter,game.home_forth_quarter,home_third_forth_quarter,game.home_ot_quarter,
             '','','','','',game.away_score,game.home_score,away_home_score,game.first_point,game.second_point,
-            '','','','',game.total_point,game.first_point > game.first_closer_total ? 'over' : 'under', game.second_point > game.second_closer_total ? 'over' : 'under',
-            game.total_point > game.full_closer_total ? 'over' : 'under',
+            '','','','',game.total_point,first_half_under_over, second_half_under_over,
+            total_point_under_over,
             game.first_closer_total,game.second_closer_total,game.full_closer_total,first_half_home_or_away,
             second_half_home_or_away,fullgame_home_or_away,game.first_closer_side,game.second_closer_side,'',game.full_closer_side,
             game.home_last_ot,game.away_last_ot,'','','','','','','','','','','','','','','','','','','','','','','','','','','','',
@@ -216,6 +216,7 @@ class NbaDataSheet
                   header_color_white, header_color_white, header_color_white, header_color_white, header_color_white, 
                   header_color_white, header_color_white, header_color_white, header_color_white, header_color_white, header_color_white, header_color_white,
                   header_color_white, header_color_white,header_color_white, header_color_white]
+          puts "ending game #{game.game_id}"
           end
       end
       package.serialize(data_file_path)
