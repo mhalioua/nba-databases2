@@ -12,7 +12,9 @@
     <img style="border-radius: 0;" src="https://nba-daemon.s3.amazonaws.com/imgaes_new/<%= game.game_id %>.png" />
   </div>
 <% end %>
-
+<ul class="list-group">
+  <li class="list-group-item"><%= link_to 'Home', { controller: 'index', action: 'home' }%></li>
+</ul>
 <script>
     $(document).ready(function(){
         $(".apply1").click(function(){
