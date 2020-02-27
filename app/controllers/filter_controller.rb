@@ -51,6 +51,9 @@ class FilterController < ApplicationController
     @next_city_home = 0
     @next_city_away = 0
     @selected_value = 0
+
+    return if @games.empty? || @games.nil?
+    
     if params[:home_team_id].present?
       @home_team_id = params[:home_team_id].to_i
       @home_team = Team.find_by(id: params[:home_team_id])
