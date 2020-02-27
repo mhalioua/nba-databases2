@@ -41,6 +41,8 @@ class FilterController < ApplicationController
       'Golden State' => 'Oakland',
       'LAC' => 'Los Angeles',
       'LAL' => 'Los Angeles',
+      'LA Clippers' => 'Los Angeles',
+      'LA Lakers' => 'Los Angeles',
       'NO/Oklahoma City' => 'Oklahoma City',
       'New Jersey' => 'Brooklyn'
     }
@@ -101,8 +103,6 @@ class FilterController < ApplicationController
       end
     end
 
-    return if @games.empty?
-
     if params[:last_city_away].present?
       @last_city_away = params[:last_city_away]
       last_city_away_id, away_last_game = params[:last_city_away].split("-").map(&:to_i)
@@ -130,8 +130,6 @@ class FilterController < ApplicationController
       end
     end
 
-    return if @games.empty?
-
     if params[:next_city_home].present?
       @next_city_home = params[:next_city_home]
       next_city_home_id, home_next_game = params[:next_city_home].split("-").map(&:to_i)
@@ -158,8 +156,6 @@ class FilterController < ApplicationController
         end
       end
     end
-
-    return if @games.empty?
 
     if params[:next_city_away].present?
       @next_city_away = params[:next_city_away]
