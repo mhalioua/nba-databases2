@@ -46,6 +46,7 @@ class FilterController < ApplicationController
       'NO/Oklahoma City' => 'Oklahoma City',
       'New Jersey' => 'Brooklyn'
     }
+    
     @home_team_id = 0
     @away_team_id = 0
     @last_city_home = 0
