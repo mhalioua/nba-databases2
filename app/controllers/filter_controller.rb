@@ -34,7 +34,7 @@ class FilterController < ApplicationController
     end
 
     @teams = Team.all.order('team')
-    @teams_cities = Team.where.not("team": "LA Lakers").order('team')
+    #@teams_cities = Team.where.not("team": "LA Lakers").order('team')
     @team_city = {
       'Boston' => 'Boston',
       'Indiana' => 'Indianapolis',
