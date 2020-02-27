@@ -33,7 +33,7 @@ class FilterController < ApplicationController
       @games = Nba.where("game_date between ? and ?", Date.strptime(@game_start_index, '%b %d, %Y').beginning_of_day, Date.strptime(@game_end_index, '%b %d, %Y').end_of_day).order('id DESC')
     end
 
-    @team = Team.all.order('team')
+    @teams = Team.all.order('team')
     @teams_cities = Team.where.not("team": "LA Lakers").order('team')
     @team_city = {
       'Boston' => 'Boston',
