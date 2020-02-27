@@ -51,9 +51,9 @@ class FilterController < ApplicationController
     @next_city_home = 0
     @next_city_away = 0
     @selected_value = 0
-
-    return if @games.empty? || @games.nil?
     
+    return if @games.empty?
+
     if params[:home_team_id].present?
       @home_team_id = params[:home_team_id].to_i
       @home_team = Team.find_by(id: params[:home_team_id])
@@ -65,6 +65,8 @@ class FilterController < ApplicationController
       end
     end
 
+    return if @games.empty?
+
     if params[:away_team_id].present?
       @away_team_id = params[:away_team_id].to_i
       @away_team = Team.find_by(id: params[:away_team_id])
@@ -75,6 +77,8 @@ class FilterController < ApplicationController
         @games = @games.where("away_team = ?", away_team_name)
       end
     end
+
+    return if @games.empty?
 
     if params[:last_city_home].present?
       @last_city_home = params[:last_city_home]
@@ -101,6 +105,8 @@ class FilterController < ApplicationController
       end
     end
 
+    return if @games.empty?
+
     if params[:last_city_away].present?
       @last_city_away = params[:last_city_away]
       last_city_away_id, away_last_game = params[:last_city_away].split("-").map(&:to_i)
@@ -126,6 +132,8 @@ class FilterController < ApplicationController
       end
     end
 
+    return if @games.empty?
+
     if params[:next_city_home].present?
       @next_city_home = params[:next_city_home]
       next_city_home_id, home_next_game = params[:next_city_home].split("-").map(&:to_i)
@@ -150,6 +158,8 @@ class FilterController < ApplicationController
         end
       end
     end
+
+    return if @games.empty?
 
     if params[:next_city_away].present?
       @next_city_away = params[:next_city_away]
