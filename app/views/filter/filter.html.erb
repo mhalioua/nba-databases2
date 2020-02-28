@@ -108,9 +108,10 @@
     <button class="btn-primary apply apply<%= index %>"><%= "#{index * 10 - 9} - #{index * 10 < @games.length ? index * 10 : @games.length}" %></button>
   <% end %>
 </div>
+
 <% @games.each_with_index do |game, index| %>
   <div style="border-bottom: 20px solid black;" class="class class<%= (index/10).to_i + 1 %>">
-    <img style="border-radius: 0;" src="https://nba-daemon.s3.amazonaws.com/imgaes_new/<%= game.game_id %>.png" />
+    <img style="border-radius: 0;" src="https://nba-daemon.s3.amazonaws.com/imgaes_new/<%= game['game_id'] %>.png" />
   </div>
 <% end %>
 <ul class="list-group">
