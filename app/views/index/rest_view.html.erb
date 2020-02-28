@@ -942,6 +942,19 @@
         <% end %>
         <% end %>
         <!-- removed end -->
+
+        <%
+          borders = [1, 5]
+          values = [0, 1, 19, 18, 10, 11, 20, 21, 12, 13, 16, 17, 22, 14, 15]
+          if @game.filters.any?
+            iter = 1
+          values.each do |value|
+            filter = []
+            filter_element = @game.filters.find_by(index: value, year: year)
+            if filter_element
+              filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
+%>
+<% if iter == 1 %>
         <tr class="redgradient">
           <td class="yellow">Away</td>
           <td class="yellow">Home</td>
@@ -980,16 +993,7 @@
           <td class="green">BH</td>
           <td></td>
         </tr>
-        <%
-          borders = [1, 5]
-          values = [0, 1, 19, 18, 10, 11, 20, 21, 12, 13, 16, 17, 22, 14, 15]
-          if @game.filters.any?
-          values.each do |value|
-            filter = []
-            filter_element = @game.filters.find_by(index: value, year: year)
-            if filter_element
-              filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
-%>
+      <% end %>
           <tr>
             <td><%= filter_element[:first_half_away] ? filter_element[:first_half_away] : "" %></td>
             <td><%= filter_element[:first_half_home] ? filter_element[:first_half_home] : "" %></td>
@@ -1034,12 +1038,8 @@
             <td><%= filter_element[:bh] %></td>
             <td style="background-color: #ccf"><%= filter_element[:bi_count] ? filter_element[:bi_count] : "" %></td>
           </tr>
-        <%
-          end
-        end
-      end
-        %>
-        <tr class="redgradient">
+          <% if iter == 1 %>
+           <tr class="redgradient">
           <td class="yellow"></td>
           <td class="yellow"></td>
           <td class="gradient"></td>
@@ -1066,6 +1066,14 @@
           <td colspan="5" class="green border">2nd Half</td>
           <td></td>
         </tr>
+          <% end %>
+        <%
+          end
+          iter = iter + 1
+        end
+      end
+        %>
+       
 
         <% end %>
         </tbody>
@@ -1356,7 +1364,7 @@
         <% end %>
         <% end %>
         <!-- removed end--> 
-        <tr class="redgradient">
+          <tr class="redgradient">
           <td class="yellow">Away</td>
           <td class="yellow">Home</td>
           <td class="gradient"></td>
@@ -1378,10 +1386,11 @@
           <td></td>
           <td></td>
           <td></td>
-        </tr>
+          </tr>
         <%
           borders = [1, 5]
           values = [0, 1, 19, 18, 10, 11, 20, 21, 12, 13, 16, 17, 22, 14, 15]
+          #iter = 1
           if @game.filters.any?
           values.each do |value|
             filter = []
@@ -1389,6 +1398,9 @@
             if filter_element
               filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
+<% #if iter == 1 %>
+
+<% #end %>
           <tr>
             <td><%= filter_element[:first_half_away] ? filter_element[:first_half_away] : "" %></td>
             <td><%= filter_element[:first_half_home] ? filter_element[:first_half_home] : "" %></td>
@@ -1418,8 +1430,12 @@
             %>
             <td class="gradient"></td>
           </tr>
+          <% #if iter == 1 %>
+
+          <% #end %>
         <%
           end
+          #iter = iter + 1
         end
       end
         %>
