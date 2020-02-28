@@ -816,7 +816,7 @@
             filter_element = @game.filters.find_by(index: index, year: year)
             if filter_element
               filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
-%>
+        %>
           <tr class="filterElement">
             <% if index == 0 %>
               <td>under</td>
@@ -941,7 +941,7 @@
           <% end %>
         <% end %>
         <% end %>
-        <% end %>
+        <!-- removed end -->
         <tr class="redgradient">
           <td class="yellow">Away</td>
           <td class="yellow">Home</td>
@@ -1066,6 +1066,8 @@
           <td colspan="5" class="green border">2nd Half</td>
           <td></td>
         </tr>
+
+        <% end %>
         </tbody>
       </table>
     <% end %>
@@ -1353,7 +1355,7 @@
           <% end %>
         <% end %>
         <% end %>
-        <% end %>
+        <!-- removed end--> 
         <tr class="redgradient">
           <td class="yellow">Away</td>
           <td class="yellow">Home</td>
@@ -1444,6 +1446,8 @@
           <td></td>
           <td></td>
         </tr>
+
+        <% end %>
         </tbody>
       </table>
     <% end %>
