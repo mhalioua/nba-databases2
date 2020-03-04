@@ -31,7 +31,7 @@
   <label>Last City Home: </label>
   <select name="last_city_home">
     <option value="0" <%= @last_city_home.to_s == "0" ? "selected" : '' %>>All</option>
-    <% @teams.each do |team| %>
+    <% @teams_cities.each do |team| %>
       <option value="<%= team.id %>" <%= @last_city_home == team.id.to_s ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team] : team.team %></option>
       <option value="<%= team.id.to_s+'-0' %>" <%= @last_city_home == team.id.to_s+"-0" ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team].to_s+" (0)" : team.team+" (0)" %></option>
       <option value="<%= team.id.to_s+'-1' %>" <%= @last_city_home == team.id.to_s+"-1" ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team].to_s+" (1)" : team.team+" (1)" %></option>
@@ -43,7 +43,7 @@
   <label>Last City Away: </label>
   <select name="last_city_away">
     <option value="0" <%= @last_city_away.to_s == "0" ? "selected" : '' %>>All</option>
-    <% @teams.each do |team| %>
+    <% @teams_cities.each do |team| %>
       <option value="<%= team.id %>" <%= @last_city_away == team.id.to_s ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team] : team.team %></option>
       <option value="<%= team.id.to_s+'-0' %>" <%= @last_city_away == team.id.to_s+"-0" ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team].to_s+" (0)" : team.team+" (0)" %></option>
       <option value="<%= team.id.to_s+'-1' %>" <%= @last_city_away == team.id.to_s+"-1" ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team].to_s+" (1)" : team.team+" (1)" %></option>
@@ -55,7 +55,7 @@
   <label>Next City Home: </label>
   <select name="next_city_home">
     <option value="0" <%= @next_city_home.to_s == "0" ? "selected" : '' %>>All</option>
-    <% @teams.each do |team| %>
+    <% @teams_cities.each do |team| %>
       <option value="<%= team.id %>" <%= @next_city_home == team.id.to_s ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team] : team.team %></option>
       <option value="<%= team.id.to_s+'-0' %>" <%= @next_city_home == team.id.to_s+"-0" ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team].to_s+" (0)" : team.team+" (0)" %></option>
       <option value="<%= team.id.to_s+'-1' %>" <%= @next_city_home == team.id.to_s+"-1" ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team].to_s+" (1)" : team.team+" (1)" %></option>
@@ -67,7 +67,7 @@
   <label>Next City Away: </label>
   <select name="next_city_away">
     <option value="0" <%= @next_city_away.to_s == "0" ? "selected" : '' %>>All</option>
-    <% @teams.each do |team| %>
+    <% @teams_cities.each do |team| %>
       <option value="<%= team.id %>" <%= @next_city_home == team.id.to_s ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team] : team.team %></option>
       <option value="<%= team.id.to_s+'-0' %>" <%= @next_city_away == team.id.to_s+"-0" ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team].to_s+" (0)" : team.team+" (0)" %></option>
       <option value="<%= team.id.to_s+'-1' %>" <%= @next_city_away == team.id.to_s+"-1" ? "selected" : '' %>><%= @team_city[team.team] ? @team_city[team.team].to_s+" (1)" : team.team+" (1)" %></option>

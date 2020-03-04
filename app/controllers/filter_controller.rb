@@ -26,7 +26,7 @@ class FilterController < ApplicationController
     #@games = Nba.where("id >= 26796").or(Nba.where("id <= 26573 AND id >= 25261")).order('id DESC')
 
     if @datePicker
-      date_query = " where game_date <= '#{Date.today.end_of_day}' "
+      date_query = " where game_date between '#{Date.strptime("Jan 01, 2016", '%b %d, %Y').beginning_of_day}' and '#{Date.today.end_of_day}' "
       #@games = @games.where("game_date <= ?", Date.today.end_of_day)
       #@games = Nba.where("game_date <= ?", Date.today.end_of_day).order('id DESC')
     else
@@ -36,7 +36,8 @@ class FilterController < ApplicationController
     end
 
     @teams = Team.all.order('team')
-    #@teams_cities = Team.where.not("team": "LA Lakers").order('team')
+    @teams_cities = Team.where.not("team": "LA Lakers").order('team')
+    
     @team_city = {
       'Boston' => 'Boston',
       'Indiana' => 'Indianapolis',
@@ -89,24 +90,29 @@ class FilterController < ApplicationController
       @last_city_home_team = Team.find_by(id: last_city_home_id)
       if @last_city_home_team != nil
         last_city_home_team_name = @last_city_home_team.team
-        last_city_home_team_name = 'LAC' if last_city_home_team_name == 'LA Clippers'
-        last_city_home_team_name = 'LAL' if last_city_home_team_name == 'LA Lakers'
+        if last_city_home_team_name == 'LA Clippers'
+          last_city_home_team_name_query = " ( home_team = 'LAC' OR home_team = 'LAL') "
+        else
+          last_city_home_team_name_query = " home_team = '#{last_city_home_team_name}'"
+        end
+        #last_city_home_team_name = 'LAC' if last_city_home_team_name == 'LA Clippers'
+        #last_city_home_team_name = 'LAL' if last_city_home_team_name == 'LA Lakers'
         last_city_home_team_name = 'Oklahoma City' if last_city_home_team_name == 'Okla City'
         #unless @games.empty?
           if home_last_game.nil?
             if @team_city[last_city_home_team_name]
-              home_team_city_query = " and (home_team_city = '#{@team_city[last_city_home_team_name]}' OR (home_team_city = 'home' AND home_team = '#{last_city_home_team_name}'))"
+              home_team_city_query = " and (home_team_city = '#{@team_city[last_city_home_team_name]}' OR (home_team_city = 'home' AND #{last_city_home_team_name_query}))"
               #@games = @games.where("home_team_city = ?", @team_city[last_city_home_team_name]).or(@games.where("home_team_city = 'home' AND home_team = ?", last_city_home_team_name)).uniq
             else
-              home_team_city_query = " and (home_team_city = '#{last_city_home_team_name}' OR (home_team_city = 'home' AND home_team = '#{last_city_home_team_name}'))"
+              home_team_city_query = " and (home_team_city = '#{last_city_home_team_name}' OR (home_team_city = 'home' AND #{last_city_home_team_name_query}))"
               #@games = @games.where("home_team_city = ?", last_city_home_team_name).or(@games.where("home_team_city = 'home' AND home_team = ?", last_city_home_team_name))
             end
           else
             if @team_city[last_city_home_team_name]
-              home_team_city_query = " and ((home_team_city = '#{@team_city[last_city_home_team_name]}' and home_last_game = #{home_last_game}) OR (home_team_city = 'home' AND home_team = '#{last_city_home_team_name}' AND home_last_game = #{home_last_game}))"
+              home_team_city_query = " and ((home_team_city = '#{@team_city[last_city_home_team_name]}' and home_last_game = #{home_last_game}) OR (home_team_city = 'home' AND #{last_city_home_team_name_query} AND home_last_game = #{home_last_game}))"
               #@games = @games.where("home_team_city = ? AND home_last_game = ?", @team_city[last_city_home_team_name], home_last_game).or(@games.where("home_team_city = 'home' AND home_team = ? AND home_last_game = ?", last_city_home_team_name, home_last_game)).uniq
             else
-              home_team_city_query = " and ((home_team_city = '#{last_city_home_team_name}' and home_last_game = #{home_last_game}) OR (home_team_city = 'home' AND home_team = '#{last_city_home_team_name}' AND home_last_game = #{home_last_game}))"
+              home_team_city_query = " and ((home_team_city = '#{last_city_home_team_name}' and home_last_game = #{home_last_game}) OR (home_team_city = 'home' AND #{last_city_home_team_name_query} AND home_last_game = #{home_last_game}))"
               #@games = @games.where("home_team_city = ? AND home_last_game = ?", last_city_home_team_name, home_last_game).or(@games.where("home_team_city = 'home' AND home_team = ? AND home_last_game = ?", last_city_home_team_name, home_last_game))
             end 
           end
@@ -120,24 +126,29 @@ class FilterController < ApplicationController
       @last_city_away_team = Team.find_by(id: last_city_away_id)
       if @last_city_away_team != nil
         last_city_away_team_name = @last_city_away_team.team
-        last_city_away_team_name = 'LAC' if last_city_away_team_name == 'LA Clippers'
-        last_city_away_team_name = 'LAL' if last_city_away_team_name == 'LA Lakers'
+        if last_city_away_team_name == 'LA Clippers'
+          last_city_away_team_name_query = " ( away_team = 'LAC' OR away_team = 'LAL') "
+        else
+          last_city_away_team_name_query = " away_team = '#{last_city_away_team_name}'"
+        end
+        #last_city_away_team_name = 'LAC' if last_city_away_team_name == 'LA Clippers'
+        #ast_city_away_team_name = 'LAL' if last_city_away_team_name == 'LA Lakers'
         last_city_away_team_name = 'Oklahoma City' if last_city_away_team_name == 'Okla City'
         #unless @games.empty?
           if away_last_game.nil?
             if @team_city[last_city_away_team_name]
-              away_team_city_query = " and (away_team_city = '#{@team_city[last_city_away_team_name]}' OR (away_team_city = 'home' AND away_team = '#{last_city_away_team_name}'))"
+              away_team_city_query = " and (away_team_city = '#{@team_city[last_city_away_team_name]}' OR (away_team_city = 'home' AND #{last_city_away_team_name_query}))"
               #@games = @games.where("away_team_city = ?", @team_city[last_city_away_team_name]).or(@games.where("away_team_city = 'home' AND away_team = ?", last_city_away_team_name)).uniq
             else
-              away_team_city_query = " and (away_team_city = '#{last_city_away_team_name}' OR (away_team_city = 'home' AND away_team = '#{last_city_away_team_name}'))"
+              away_team_city_query = " and (away_team_city = '#{last_city_away_team_name}' OR (away_team_city = 'home' AND #{last_city_away_team_name_query}))"
               #@games = @games.where("away_team_city = ?", last_city_away_team_name).or(@games.where("away_team_city = 'home' AND away_team = ?", last_city_away_team_name))
             end
           else
             if @team_city[last_city_away_team_name]
-              away_team_city_query = " and ((away_team_city = '#{@team_city[last_city_away_team_name]}' and away_last_game = #{away_last_game}) OR (away_team_city = 'home' AND away_team = '#{last_city_away_team_name}' AND away_last_game = #{away_last_game}))"
+              away_team_city_query = " and ((away_team_city = '#{@team_city[last_city_away_team_name]}' and away_last_game = #{away_last_game}) OR (away_team_city = 'home' AND #{last_city_away_team_name_query} AND away_last_game = #{away_last_game}))"
               #@games = @games.where("away_team_city = ? AND away_last_game = ?", @team_city[last_city_away_team_name], away_last_game).or(@games.where("away_team_city = 'home' AND away_team = ? AND away_last_game = ?", last_city_away_team_name, away_last_game)).uniq
             else
-              away_team_city_query = " and ((away_team_city = '#{last_city_away_team_name}' and away_last_game = #{away_last_game}) OR (away_team_city = 'home' AND away_team = '#{last_city_away_team_name}' AND away_last_game = #{away_last_game}))"
+              away_team_city_query = " and ((away_team_city = '#{last_city_away_team_name}' and away_last_game = #{away_last_game}) OR (away_team_city = 'home' AND #{last_city_away_team_name_query} AND away_last_game = #{away_last_game}))"
               #@games = @games.where("away_team_city = ? AND away_last_game = ?", last_city_away_team_name, away_last_game).or(@games.where("away_team_city = 'home' AND away_team = ? AND away_last_game = ?", last_city_away_team_name, away_last_game))
             end
           end
@@ -151,24 +162,29 @@ class FilterController < ApplicationController
       @next_city_home_team = Team.find_by(id: next_city_home_id)
       if @next_city_home_team != nil
         next_city_home_team_name = @next_city_home_team.team
-        next_city_home_team_name = 'LAC' if next_city_home_team_name == 'LA Clippers'
-        next_city_home_team_name = 'LAL' if next_city_home_team_name == 'LA Lakers'
+        if next_city_home_team_name == 'LA Clippers'
+          next_city_home_team_name_query = " ( home_team = 'LAC' OR home_team = 'LAL') "
+        else
+          next_city_home_team_name_query = " home_team = '#{next_city_home_team_name}'"
+        end
+        #next_city_home_team_name = 'LAC' if next_city_home_team_name == 'LA Clippers'
+        #next_city_home_team_name = 'LAL' if next_city_home_team_name == 'LA Lakers'
         next_city_home_team_name = 'Oklahoma City' if next_city_home_team_name == 'Okla City'
         #unless @games.empty?
           if home_next_game.nil?
             if @team_city[next_city_home_team_name]
-              home_team_next_city_query = " and (home_team_next_city = '#{@team_city[next_city_home_team_name]}' OR (home_team_next_city = 'home' AND home_team = '#{next_city_home_team_name}'))"
+              home_team_next_city_query = " and (home_team_next_city = '#{@team_city[next_city_home_team_name]}' OR (home_team_next_city = 'home' AND #{next_city_home_team_name_query}))"
               #@games = @games.where("home_team_next_city = ?", @team_city[next_city_home_team_name]).or(@games.where("home_team_next_city = 'home' AND home_team = ?", next_city_home_team_name)).uniq
             else
-              home_team_next_city_query = " and (home_team_next_city = '#{next_city_home_team_name}' OR (home_team_next_city = 'home' AND home_team = '#{next_city_home_team_name}'))"
+              home_team_next_city_query = " and (home_team_next_city = '#{next_city_home_team_name}' OR (home_team_next_city = 'home' AND #{next_city_home_team_name_query}))"
               #@games = @games.where("home_team_next_city = ?", next_city_home_team_name).or(@games.where("home_team_next_city = 'home' AND home_team = ?", next_city_home_team_name))
             end
           else
             if @team_city[next_city_home_team_name]
-              home_team_next_city_query = " and ((home_team_next_city = '#{@team_city[next_city_home_team_name]}' and home_next_game = #{home_next_game}) OR (home_team_next_city = 'home' AND home_team = '#{next_city_home_team_name}' AND home_next_game = #{home_next_game}))"
+              home_team_next_city_query = " and ((home_team_next_city = '#{@team_city[next_city_home_team_name]}' and home_next_game = #{home_next_game}) OR (home_team_next_city = 'home' AND #{next_city_home_team_name_query} AND home_next_game = #{home_next_game}))"
               #@games = @games.where("home_team_next_city = ? AND home_next_game = ?", @team_city[next_city_home_team_name], home_next_game).or(@games.where("home_team_next_city = 'home' AND home_team = ? AND home_next_game = ?", next_city_home_team_name, home_next_game)).uniq
             else
-              home_team_next_city_query = " and ((home_team_next_city = '#{next_city_home_team_name}' and home_next_game = #{home_next_game}) OR (home_team_next_city = 'home' AND home_team = '#{next_city_home_team_name}' AND home_next_game = #{home_next_game}))"
+              home_team_next_city_query = " and ((home_team_next_city = '#{next_city_home_team_name}' and home_next_game = #{home_next_game}) OR (home_team_next_city = 'home' AND #{next_city_home_team_name_query} AND home_next_game = #{home_next_game}))"
               #@games = @games.where("home_team_next_city = ? AND home_next_game = ?", next_city_home_team_name, home_next_game).or(@games.where("home_team_next_city = 'home' AND home_team = ? AND home_next_game = ?", next_city_home_team_name, home_next_game))
             end
           end
@@ -182,24 +198,29 @@ class FilterController < ApplicationController
       @next_city_away_team = Team.find_by(id: next_city_away_id)
       if @next_city_away_team != nil
         next_city_away_team_name = @next_city_away_team.team
-        next_city_away_team_name = 'LAC' if next_city_away_team_name == 'LA Clippers'
-        next_city_away_team_name = 'LAL' if next_city_away_team_name == 'LA Lakers'
+        if next_city_away_team_name == 'LA Clippers'
+          next_city_away_team_name_query = " ( away_team = 'LAC' OR away_team = 'LAL') "
+        else
+          next_city_away_team_name_query = " away_team = '#{next_city_away_team_name}'"
+        end
+        #next_city_away_team_name = 'LAC' if next_city_away_team_name == 'LA Clippers'
+        #next_city_away_team_name = 'LAL' if next_city_away_team_name == 'LA Lakers'
         next_city_away_team_name = 'Oklahoma City' if next_city_away_team_name == 'Okla City'
         #unless @games.empty?
           if away_next_game.nil?
             if @team_city[next_city_away_team_name]
-              away_team_next_city_query = " and (away_team_next_city = '#{@team_city[next_city_away_team_name]}' OR (away_team_next_city = 'home' AND away_team = '#{next_city_away_team_name}'))"
+              away_team_next_city_query = " and (away_team_next_city = '#{@team_city[next_city_away_team_name]}' OR (away_team_next_city = 'home' AND #{next_city_away_team_name_query}))"
               #@games = @games.where("away_team_next_city = ?", @team_city[next_city_away_team_name]).or(@games.where("away_team_next_city = 'home' AND away_team = ?", next_city_away_team_name)).uniq
             else
-              away_team_next_city_query = " and (away_team_next_city = '#{next_city_away_team_name}' OR (away_team_next_city = 'home' AND away_team = '#{next_city_away_team_name}'))"
+              away_team_next_city_query = " and (away_team_next_city = '#{next_city_away_team_name}' OR (away_team_next_city = 'home' AND #{next_city_away_team_name_query}))"
               #@games = @games.where("away_team_next_city = ?", next_city_away_team_name).or(@games.where("away_team_next_city = 'home' AND away_team = ?", next_city_away_team_name))
             end
           else
             if @team_city[next_city_away_team_name]
-              away_team_next_city_query = " and ((away_team_next_city = '#{@team_city[next_city_away_team_name]}' and away_next_game = #{away_next_game}) OR (away_team_next_city = 'home' AND away_team = '#{next_city_away_team_name}' AND away_next_game = #{away_next_game}))"
+              away_team_next_city_query = " and ((away_team_next_city = '#{@team_city[next_city_away_team_name]}' and away_next_game = #{away_next_game}) OR (away_team_next_city = 'home' AND #{next_city_away_team_name_query} AND away_next_game = #{away_next_game}))"
               #@games = @games.where("away_team_next_city = ? AND away_next_game = ?", @team_city[next_city_away_team_name], away_next_game).or(@games.where("away_team_next_city = 'home' AND away_team = ? AND away_next_game = ?", next_city_away_team_name, away_next_game)).uniq
             else
-              away_team_next_city_query = " and ((away_team_next_city = '#{next_city_away_team_name}' and away_next_game = #{away_next_game}) OR (away_team_next_city = 'home' AND away_team = '#{next_city_away_team_name}' AND away_next_game = #{away_next_game}))"
+              away_team_next_city_query = " and ((away_team_next_city = '#{next_city_away_team_name}' and away_next_game = #{away_next_game}) OR (away_team_next_city = 'home' AND #{next_city_away_team_name_query} AND away_next_game = #{away_next_game}))"
               #@games = @games.where("away_team_next_city = ? AND away_next_game = ?", next_city_away_team_name, away_next_game).or(@games.where("away_team_next_city = 'home' AND away_team = ? AND away_next_game = ?", next_city_away_team_name, away_next_game))
             end
           end
