@@ -1353,11 +1353,11 @@ end
 
   <div class="tableContainer" style="display: inline-block;">
     <select id="firstFilterTeamCities" style="margin: 0 auto; display: block;">
+      <option value="Nov">Nov-Dec-Jan</option>
+      <option value="Feb">Feb-Mar-Apr</option>
       <% 2019.downto(2018).each do |year| %>
         <option value="<%= year %>"><%= year.to_s + "-" + (year + 1).to_s %></option>
       <% end %>
-      <option value="Nov">Nov-Dec-Jan</option>
-      <option value="Feb">Feb-Mar-Apr</option>
     </select>
     <% (2018..2019).each do |year| %>
     <table border="1" class="numbers firstFilterPageTeamCities firstFilterPageTeamCities<%= year %>" style=" display: none;">
@@ -3505,11 +3505,11 @@ end
 
   <div class="tableContainer" style="display: inline-block;">
     <select id="secondFilterTeamCities" style="margin: 0 auto; display: block;">
+      <option value="Nov">Nov-Dec-Jan</option>
+      <option value="Feb">Feb-Mar-Apr</option>
       <% 2019.downto(2018).each do |year| %>
         <option value="<%= year %>"><%= year.to_s + "-" + (year + 1).to_s %></option>
       <% end %>
-      <option value="Nov">Nov-Dec-Jan</option>
-      <option value="Feb">Feb-Mar-Apr</option>
     </select>
     <% (2018..2019).each do |year| %>
     <table border="1" class="numbers secondFilterPageTeamCities secondFilterPageTeamCities<%= year %>" style=" display: none;">
@@ -4383,11 +4383,11 @@ end
         $('.firstFilterPageTeamCities').hide();
         $('.firstFilterPageTeamCities' + value).show();
     });
-    $('.firstFilterPageTeamCities2019').show();
+    $('.firstFilterPageTeamCitiesNov').show();
     $('#secondFilterTeamCities').change(function () {
         var value = $(this).val();
         $('.secondFilterPageTeamCities').hide();
         $('.secondFilterPageTeamCities' + value).show();
     });
-    $('.secondFilterPageTeamCities2019').show();
+    $('.secondFilterPageTeamCitiesNov').show();
 </script>
