@@ -291,24 +291,20 @@ namespace :nba do
         team_index = team.rindex(' ')
         team = team[0..team_index]
       end
-      puts slice
-      puts team
-      puts slice['value']
       link = 'https://www.espn.com/nba/team/injuries/_/name/' + slice['value']
       page = download_document(link)
-      lists = page.css('tr')
-      date = ""
+      dates = page.css('.brdr-clr-gray-07')
+      lists = page.css('.ContentList')
       lists.each_with_index do |list, index|
-        if index == 0
-          next
-        end
-        if list.children.size == 1
-          date = list.children[0].text
-        elsif list.children.size == 2
-          name = list.children[0].children[0].children[1].text[1..-1]
-          status = list.children[1].children[0].text
-          text = list.children[1].children[2].text
-          Injury.find_or_create_by(team: team, link: link, date: date, name: name, status: status, text: text, today: today)
+        date = dates[index].text
+        list.children.each do |item|
+          name = item.children[0].children[0].children[1].children[0].children[0].text
+          status = item.children[0].children[0].children[1].children[1].children[1].text
+          text = item.children[0].children[0].children[2].text
+          puts name
+          puts status
+          puts text
+          # Injury.find_or_create_by(team: team, link: link, date: date, name: name, status: status, text: text, today: today)
         end
       end
     end
