@@ -3490,6 +3490,7 @@ namespace :nba do
       away_teams = doc.css(".is-visit .lineup__abbr")
       home_teams = doc.css(".is-home .lineup__abbr")
       players = doc.css(".lineup__list")
+      puts times
       puts away_teams.length
       puts home_teams.length
       puts players.length
