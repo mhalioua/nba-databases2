@@ -297,10 +297,12 @@ namespace :nba do
       lists = page.css('.ContentList')
       lists.each_with_index do |list, index|
         date = dates[index].text
+        puts date
         list.children.each do |item|
+          puts item.children[0].children[0]
           name = item.children[0].children[0].children[1].children[0].children[0].text
           status = item.children[0].children[0].children[1].children[1].children[1].text
-          text = item.children[0].children[0].children[2].text
+          text = item.children[0].children[0].children[1].children[2].text
           puts name
           puts status
           puts text
