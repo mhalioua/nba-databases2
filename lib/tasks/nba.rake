@@ -302,11 +302,8 @@ namespace :nba do
           puts item.children[0].children[0]
           name = item.children[0].children[0].children[1].children[0].children[0].text
           status = item.children[0].children[0].children[1].children[1].children[1].text
-          text = item.children[0].children[0].children[1].children[2].text
-          puts name
-          puts status
-          puts text
-          # Injury.find_or_create_by(team: team, link: link, date: date, name: name, status: status, text: text, today: today)
+          text = item.children[0].children[0].children[1].children.length > 2 ? item.children[0].children[0].children[1].children[2].text : ''
+          Injury.find_or_create_by(team: team, link: link, date: date, name: name, status: status, text: text, today: today)
         end
       end
     end
