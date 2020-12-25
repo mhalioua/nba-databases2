@@ -338,8 +338,8 @@ namespace :nba do
 		Rake::Task["nba:getScore"].invoke
 		Rake::Task["nba:getScore"].reenable
 
-    Rake::Task["nba:fixingscores"].invoke
-    Rake::Task["nba:fixingscores"].reenable
+    # Rake::Task["nba:fixingscores"].invoke
+    # Rake::Task["nba:fixingscores"].reenable
 
 		Rake::Task["nba:getLinkGame"].invoke
 		Rake::Task["nba:getLinkGame"].reenable
@@ -748,7 +748,6 @@ namespace :nba do
 				away_abbr = slice.children[index[:away_team]].children[0].children[2].text
   			away_team = slice.children[index[:away_team]].children[0].children[0].text
 			end
-      	result = slice.children[index[:result]].text
 
       if home_team == "Los Angeles" ||  home_team == "LA"
 	      home_team = home_abbr
