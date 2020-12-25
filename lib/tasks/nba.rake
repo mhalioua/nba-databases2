@@ -301,7 +301,7 @@ namespace :nba do
           name = item.children[0].children[0].children[1].children[0].children[0].text
           status = item.children[0].children[0].children[1].children[1].children[1].text
           text = item.children[0].children[0].children[1].children.length > 2 ? item.children[0].children[0].children[1].children[2].text : ''
-          Injury.find_or_create_by(team: team, link: link, date: date, name: name, status: status, text: text, today: today)
+          Injury.find_or_create_by(team: team, link: link, date: date.text, name: name, status: status, text: text, today: today)
         end
       end
     end
