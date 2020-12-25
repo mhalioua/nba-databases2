@@ -4354,7 +4354,8 @@ namespace :nba do
     "LA Clippers" => "LAC",
     "LA Lakers" => "LAL",
     "Portland Trail Blazers" => "Portland",
-    "Oklahoma City Thunder" => "Okla City"
+    "Oklahoma City Thunder" => "Okla City",
+    "Los Angeles Lakers" => "LA Lakers"
 	}
 
 	@player_name = {
