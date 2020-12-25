@@ -276,14 +276,20 @@ namespace :nba do
     today = Date.today
 		url = "http://www.espn.com/nba/injuries"
     doc = download_document(url)
-    elements = doc.css(".tablesm option")
+    elements = doc.css("option")
     elements.each_with_index do |slice, index|
       if index == 0
         next
       end
+      if index == 31
+        break
+      end
       team = slice.text
       if @nba_nicknames[team]
         team = @nba_nicknames[team]
+      else
+        team_index = team.rindex(' ')
+        team = team[0..team_index]
       end
       link = 'http:' + slice['value']
       page = download_document(link)
@@ -3197,17 +3203,10 @@ namespace :nba do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
 
-    games = Nba.where("pg_away_one_name is null")
     games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
     puts games.size
     games.each do |game|
       players = game.players.where("team_abbr = 0 AND position = 'PG'").order(mins: :desc)
-      pg_away_one_name = ""
-      pg_away_one_min = 0
-      pg_away_two_name = ""
-      pg_away_two_min = 0
-      pg_away_three_name = ""
-      pg_away_three_min = 0
       away_fg_percent = ""
       home_fg_percent = ""
       if players[0]
@@ -3235,12 +3234,6 @@ namespace :nba do
       end
 
       players = game.players.where("team_abbr = 1 AND position = 'PG'").order(mins: :desc)
-      pg_home_one_name = ""
-      pg_home_one_min = 0
-      pg_home_two_name = ""
-      pg_home_two_min = 0
-      pg_home_three_name = ""
-      pg_home_three_min = 0
       if players[0]
         pg_home_one_name = players[0].player_name
         pg_home_one_min = players[0].mins
@@ -3302,7 +3295,6 @@ namespace :nba do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
 
-    games = Nba.where("avg_fg_road is null")
     games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
     puts games.size
     games.each do |game|
