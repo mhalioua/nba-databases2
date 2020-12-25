@@ -271,6 +271,14 @@ namespace :nba do
     end
   end
 
+  task :test => :environment do
+    @game = Game.find_by(game_id: '401266794')
+    @home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.parse(@game.game_date))
+    @home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.parse(@game.game_date) - 1.day) unless @home_injury.size
+    @away_injury = Injury.where("team = ? AND today = ?", @game.away_team, Date.parse(@game.game_date))
+    @away_injury = Injury.where("team = ? AND today = ?", @game.away_team, Date.parse(@game.game_date) - 1.day) unless @away_injury.size
+  end
+
 	task :getInjury => :environment do
     include Api
     today = Date.today
