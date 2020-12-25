@@ -271,14 +271,6 @@ namespace :nba do
     end
   end
 
-  task :test => :environment do
-    @game = Nba.find_by(game_id: '401266794')
-    @home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.parse(@game.game_date))
-    @home_injury = Injury.where("team = ? AND today = ?", @game.home_team, Date.parse(@game.game_date) - 1.day) unless @home_injury.size
-    @away_injury = Injury.where("team = ? AND today = ?", @game.away_team, Date.parse(@game.game_date))
-    @away_injury = Injury.where("team = ? AND today = ?", @game.away_team, Date.parse(@game.game_date) - 1.day) unless @away_injury.size
-  end
-
 	task :getInjury => :environment do
     include Api
     today = Date.today
@@ -297,7 +289,7 @@ namespace :nba do
         team = @nba_nicknames[team]
       else
         team_index = team.rindex(' ')
-        team = team[0..team_index]
+        team = team[0..team_index - 1]
       end
       link = 'https://www.espn.com/nba/team/injuries/_/name/' + slice['value']
       page = download_document(link)
