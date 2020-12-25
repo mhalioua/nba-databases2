@@ -3490,11 +3490,8 @@ namespace :nba do
       away_teams = doc.css(".is-visit .lineup__abbr")
       home_teams = doc.css(".is-home .lineup__abbr")
       players = doc.css(".lineup__list")
-      puts times
-      puts away_teams.length
-      puts home_teams.length
-      puts players.length
-      times.each_with_index do |time_element, index|
+      away_teams.each_with_index do |element, index|
+        time_element = times[index]
         time = DateTime.parse(time_element.children[0].text)
         time = time + type.days
         puts time
