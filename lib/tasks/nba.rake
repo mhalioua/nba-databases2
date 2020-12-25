@@ -291,7 +291,10 @@ namespace :nba do
         team_index = team.rindex(' ')
         team = team[0..team_index]
       end
-      link = 'http:' + slice['value']
+      puts slice
+      puts team
+      puts slice['value']
+      link = 'https://www.espn.com/nba/team/injuries/_/name/' + slice['value']
       page = download_document(link)
       lists = page.css('tr')
       date = ""
