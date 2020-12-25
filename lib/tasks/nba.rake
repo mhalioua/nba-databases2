@@ -295,11 +295,13 @@ namespace :nba do
       page = download_document(link)
       dates = page.css('.brdr-clr-gray-07')
       lists = page.css('.ContentList')
+      puts slice['value']
+      puts lists.length
+      puts dates.length
       lists.each_with_index do |list, index|
         date = dates[index].text
         puts date
         list.children.each do |item|
-          puts item.children[0].children[0]
           name = item.children[0].children[0].children[1].children[0].children[0].text
           status = item.children[0].children[0].children[1].children[1].children[1].text
           text = item.children[0].children[0].children[1].children.length > 2 ? item.children[0].children[0].children[1].children[2].text : ''
