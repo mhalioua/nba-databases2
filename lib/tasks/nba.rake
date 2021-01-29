@@ -2156,7 +2156,7 @@ namespace :nba do
         elsif player.player_name == "K. O'Quinn"
           last_players = Player.where("game_date <= '" + player.game_date + "' AND link like 'http://www.espn.com/nba/player/_/id/6615%'").order('game_date DESC')
         else
-          last_players = Player.where("game_date <= '" + player.game_date + "' AND player_name = '" + player.player_name + "'").order('game_date DESC')
+          last_players = Player.where("game_date <= '" + player.game_date + "' AND link like '" + player.link + "'").order('game_date DESC')
         end
 				last_players.each do |last_player|
 					if count == 10
