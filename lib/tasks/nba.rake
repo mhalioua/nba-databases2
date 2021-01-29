@@ -2196,6 +2196,9 @@ namespace :nba do
     games.each do |game|
       players = game.players.all
       players.each do |player|
+        puts player.ortg
+        puts player.drtg
+        next if player.ortg != 0 || player.drtg != 0
         if player.player_name == "TEAM"
           next
         end
