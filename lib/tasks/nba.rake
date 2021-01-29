@@ -4371,7 +4371,15 @@ namespace :nba do
   @player_another_name = {
     'Taurean Prince' => 'Taurean Waller-Prince',
     'Maximilian Kleber' => 'Maxi Kleber',
-    'Walt Lemon' => 'Walt Lemon, Jr'
+    'Walt Lemon' => 'Walt Lemon, Jr',
+    'Svi Mykhailiuk' => 'Sviatoslav Mykhailiuk',
+    'Marcus Morris Sr' => 'Marcus Morris',
+    'Theo Maledon' => 'Théo Maledon',
+    'Wes Iwundu' => 'Wesley Iwundu',
+    'Kristaps Porzingis' => 'Kristaps Porziņģis',
+    'Nicolo Melli' => 'Nicolò Melli',
+    'Vlatko Cancar' => 'Vlatko Čančar',
+    'Timothe Luwawu-Cabarrot' => 'Timothé Luwawu-Cabarrot'
   }
 
   @team_names = {
