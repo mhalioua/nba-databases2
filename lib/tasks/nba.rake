@@ -2204,14 +2204,12 @@ namespace :nba do
           team_abbr = game.away_abbr
         end
         if @team_nicknames[team_abbr]
-          team_abbr = @team_nicknames[team_abbr]
           if player.player_name === 'A. HarrisonA. Harrison'
             player.update(
                 player_name: 'A. Harriso',
                 link: 'http://www.espn.com/nba/player/_/id/3064511'
             )
           end
-          player_name = player.player_name
           url = player.link
           puts url
           doc = download_document(url)
@@ -2241,7 +2239,23 @@ namespace :nba do
             player_name = @player_another_name[player_name]
           end
 
-          player.update(player_fullname: player_name)
+          ortg = 0
+          drtg = 0
+          count = 0
+          player_link = ""
+          player_elements = Tg.where("player_fullname = ? AND year >= 2019", player_name)
+          player_elements.each do |player_element|
+            player_count = player_element.year == 2019 ? player_element.count * 0.25 : player_element.count
+            count = count + player_count
+            ortg = ortg + player_count * (player_element.ortg ? player_element.ortg : 0)
+            drtg = drtg + player_count * (player_element.drtg ? player_element.drtg : 0)
+            player_link = player_element.player_link
+          end
+          count = 1 if count == 0
+          ortg = (ortg.to_f / count).round(2)
+          drtg = (drtg.to_f / count).round(2)
+          puts player_name
+          player.update(ortg: ortg, drtg: drtg, player_link: player_link, player_fullname: player_name)
         end
       end
     end
