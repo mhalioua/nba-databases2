@@ -4379,7 +4379,10 @@ namespace :nba do
     'Kristaps Porzingis' => 'Kristaps Porziņģis',
     'Nicolo Melli' => 'Nicolò Melli',
     'Vlatko Cancar' => 'Vlatko Čančar',
-    'Timothe Luwawu-Cabarrot' => 'Timothé Luwawu-Cabarrot'
+    'Timothe Luwawu-Cabarrot' => 'Timothé Luwawu-Cabarrot',
+    'Mo Bamba' => 'Mohamed Bamba',
+    'Karim Mane' => 'Karim Mané',
+    'Luka Samanic' => 'Luka Šamanić'
   }
 
   @team_names = {
