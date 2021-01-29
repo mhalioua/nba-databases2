@@ -2196,8 +2196,6 @@ namespace :nba do
     games.each do |game|
       players = game.players.all
       players.each do |player|
-        puts player.ortg
-        puts player.drtg
         next if player.ortg != 0 || player.drtg != 0
         if player.player_name == "TEAM"
           next
@@ -2209,8 +2207,8 @@ namespace :nba do
         if @team_nicknames[team_abbr]
           if player.player_name === 'A. HarrisonA. Harrison'
             player.update(
-                player_name: 'A. Harriso',
-                link: 'http://www.espn.com/nba/player/_/id/3064511'
+              player_name: 'A. Harriso',
+              link: 'http://www.espn.com/nba/player/_/id/3064511'
             )
           end
           url = player.link
@@ -4399,7 +4397,9 @@ namespace :nba do
     'Timothe Luwawu-Cabarrot' => 'Timothé Luwawu-Cabarrot',
     'Mo Bamba' => 'Mohamed Bamba',
     'Karim Mane' => 'Karim Mané',
-    'Luka Samanic' => 'Luka Šamanić'
+    'Luka Samanic' => 'Luka Šamanić',
+    'Juancho Hernangomez' => 'Juan Hernangómez',
+    'Anzejs Pasecniks' => 'Anžejs Pasečņiks'
   }
 
   @team_names = {
