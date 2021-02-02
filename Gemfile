@@ -51,7 +51,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'open_uri_redirections'
 
-gem 'mechanize', '~> 2.6.0'
+gem 'mechanize', '~> 2.7.7'
 
 gem 'nokogiri'
 
