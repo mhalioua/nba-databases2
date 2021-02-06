@@ -1326,7 +1326,7 @@ end
   city2 = Fullseason.where("hometeam = ? AND home_team_city = ?", @game.home_team, @game.home_team_city)
   city3 = Fullseason.where("hometeam = ? AND away_team_next_city = ?", @game.home_team, @game.away_team_next_city)
   city4 = Fullseason.where("hometeam = ? AND home_team_next_city = ?", @game.home_team, @game.home_team_next_city)
-  city5 = Fullseason.where("awayteam = ? AND awaylastfly = ? AND awaynextfly = ?", @game.away_team, @game.away_last_fly, @game.away_next_fly)
+  city5 = Fullseason.where("roadteam = ? AND awaylastfly = ? AND awaynextfly = ?", @game.away_team, @game.away_last_fly, @game.away_next_fly)
 %>
 
 
