@@ -1331,8 +1331,8 @@ end
 
 
 
-<div style="display: flex; max-width: 800px; margin: 20px auto;">
-  <table border="1" class="numbers" style="flex: 1;">
+<div style="display: flex; margin: 20px auto;">
+  <table border="1" class="numbers" style="width: 300px;">
     <tbody>
     <tr>
       <td>1H</td>
@@ -1374,7 +1374,7 @@ end
     </tbody>
   </table>
 
-  <table border="1" class="numbers" style="flex: 1;">
+  <table border="1" class="numbers" style="width: 300px;">
     <tbody>
     <tr>
       <td>1H</td>
@@ -1400,7 +1400,7 @@ end
     </tbody>
   </table>
 
-  <table border="1" class="numbers" style="flex: 1;">
+  <table border="1" class="numbers" style="width: 300px;">
     <tbody>
     <tr>
       <td>1H</td>
@@ -1443,93 +1443,6 @@ end
   </table>
 </div>
 
-<div style="display: flex; max-width: 800px; margin: 20px auto;">
-  <table border="1" class="numbers" style="flex: 1;">
-    <tbody>
-    <tr>
-      <td>1H</td>
-      <td>2H</td>
-      <td>FULL</td>
-      <td class="black"></td>
-      <td>1H</td>
-      <td>2H</td>
-      <td>FULL</td>
-    </tr>
-    <tr>
-      <td colspan="3">CURRENT CITY (<%= @home_abbr %>)</td>
-      <td class="black"></td>
-      <td colspan="3">CURRENT CITY (<%= @home_abbr %>)</td>
-    </tr>
-    <tr>
-      <td colspan="3">LAST CITY AWAY (<%= away_team_city %>)</td>
-      <td class="black"></td>
-      <td colspan="3">LAST CITY HOME (<%= home_team_city %>)</td>
-    </tr>
-    <tr>
-      <td>A / H</td>
-      <td>A / H</td>
-      <td>A / H</td>
-      <td class="black"></td>
-      <td>A / H</td>
-      <td>A / H</td>
-      <td>A / H</td>
-    </tr>
-    <tr>
-      <td><%= city1 ? city1.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city1 ? city1.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td><%= city1 ? city1.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city1 ? city1.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td><%= city1 ? city1.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= city1 ? city1.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td class="black"></td>
-      <td><%= city2 ? city2.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city2 ? city2.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td><%= city2 ? city2.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city2 ? city2.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td><%= city2 ? city2.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= city2 ? city2.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-    </tr>
-    </tbody>
-  </table>
-
-  <div style="flex: 1;"></div>
-
-  <table border="1" class="numbers" style="flex: 1;">
-    <tbody>
-    <tr>
-      <td>1H</td>
-      <td>2H</td>
-      <td>FULL</td>
-      <td class="black"></td>
-      <td>1H</td>
-      <td>2H</td>
-      <td>FULL</td>
-    </tr>
-    <tr>
-      <td colspan="3">CURRENT CITY (<%= @home_abbr %>)</td>
-      <td class="black"></td>
-      <td colspan="3">CURRENT CITY (<%= @home_abbr %>)</td>
-    </tr>
-    <tr>
-      <td colspan="3">NEXT CITY AWAY (<%= away_team_city %>)</td>
-      <td class="black"></td>
-      <td colspan="3">NEXT CITY HOME (<%= home_team_city %>)</td>
-    </tr>
-    <tr>
-      <td>A / H</td>
-      <td>A / H</td>
-      <td>A / H</td>
-      <td class="black"></td>
-      <td>A / H</td>
-      <td>A / H</td>
-      <td>A / H</td>
-    </tr>
-    <tr>
-      <td><%= city3 ? city3.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city3 ? city3.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td><%= city3 ? city3.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city3 ? city3.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td><%= city3 ? city3.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= city3 ? city3.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td class="black"></td>
-      <td><%= city4 ? city4.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city4 ? city4.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td><%= city4 ? city4.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city4 ? city4.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
-      <td><%= city4 ? city4.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= city4 ? city4.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-    </tr>
-    </tbody>
-  </table>
-</div>
 
 
   <div class="tableContainer" style="display: inline-block;">
@@ -3643,6 +3556,95 @@ end
     </tr>
     <tr>
       <td bgcolor="gray" colspan="43"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div style="display: flex; margin: 20px auto;">
+  <table border="1" class="numbers" style="width: 300px;">
+    <tbody>
+    <tr>
+      <td>1H</td>
+      <td>2H</td>
+      <td>FULL</td>
+      <td class="black"></td>
+      <td>1H</td>
+      <td>2H</td>
+      <td>FULL</td>
+    </tr>
+    <tr>
+      <td colspan="3">CURRENT CITY (<%= @home_abbr %>)</td>
+      <td class="black"></td>
+      <td colspan="3">CURRENT CITY (<%= @home_abbr %>)</td>
+    </tr>
+    <tr>
+      <td colspan="3">LAST CITY AWAY (<%= away_team_city %>)</td>
+      <td class="black"></td>
+      <td colspan="3">LAST CITY HOME (<%= home_team_city %>)</td>
+    </tr>
+    <tr>
+      <td>A / H</td>
+      <td>A / H</td>
+      <td>A / H</td>
+      <td class="black"></td>
+      <td>A / H</td>
+      <td>A / H</td>
+      <td>A / H</td>
+    </tr>
+    <tr>
+      <td><%= city1 ? city1.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city1 ? city1.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td><%= city1 ? city1.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city1 ? city1.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td><%= city1 ? city1.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= city1 ? city1.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td class="black"></td>
+      <td><%= city2 ? city2.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city2 ? city2.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td><%= city2 ? city2.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city2 ? city2.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td><%= city2 ? city2.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= city2 ? city2.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div style="width: 300px;"></div>
+
+  <table border="1" class="numbers" style="width: 300px;">
+    <tbody>
+    <tr>
+      <td>1H</td>
+      <td>2H</td>
+      <td>FULL</td>
+      <td class="black"></td>
+      <td>1H</td>
+      <td>2H</td>
+      <td>FULL</td>
+    </tr>
+    <tr>
+      <td colspan="3">CURRENT CITY (<%= @home_abbr %>)</td>
+      <td class="black"></td>
+      <td colspan="3">CURRENT CITY (<%= @home_abbr %>)</td>
+    </tr>
+    <tr>
+      <td colspan="3">NEXT CITY AWAY (<%= away_team_city %>)</td>
+      <td class="black"></td>
+      <td colspan="3">NEXT CITY HOME (<%= home_team_city %>)</td>
+    </tr>
+    <tr>
+      <td>A / H</td>
+      <td>A / H</td>
+      <td>A / H</td>
+      <td class="black"></td>
+      <td>A / H</td>
+      <td>A / H</td>
+      <td>A / H</td>
+    </tr>
+    <tr>
+      <td><%= city3 ? city3.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city3 ? city3.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td><%= city3 ? city3.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city3 ? city3.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td><%= city3 ? city3.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= city3 ? city3.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
+      <td class="black"></td>
+      <td><%= city4 ? city4.where("first_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city4 ? city4.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td><%= city4 ? city4.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= city4 ? city4.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
+      <td><%= city4 ? city4.where("fullgame_bigger = 'AWAY'").count.to_i : "" %>-<%= city4 ? city4.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
     </tr>
     </tbody>
   </table>
