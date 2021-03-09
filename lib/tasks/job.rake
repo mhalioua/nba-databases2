@@ -4,8 +4,8 @@ namespace :job do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    index_date = Date.new(2010, 5, 15)
-    while index_date <= Date.new(2010, 8, 18)
+    index_date = Date.new(2020, 7, 25)
+    while index_date <= Date.new(2020, 10, 6)
       game_date = index_date.strftime("%Y%m%d")
       url = "http://www.espn.com/wnba/schedule/_/date/#{game_date}"
       doc = download_document(url)
@@ -22,10 +22,8 @@ namespace :job do
         end
         href = slice.children[index[:result]].child['href']
         game_id = href[-9..-1]
-        next if game_id == '300710096'
-        unless game = Wnba.find_by(game_id: game_id)
-          game = Wnba.create(game_id: game_id)
-        end
+        # next if game_id == '300710096'
+        game = Wnba.find_or_create_by(game_id: game_id)
         if slice.children[index[:home_team]].children[0].children.size == 2
           home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
           home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
@@ -47,7 +45,6 @@ namespace :job do
           away_abbr = slice.children[index[:away_team]].children[0].children[2].text
           away_team = slice.children[index[:away_team]].children[0].children[0].text
         end
-        result = slice.children[index[:result]].text
 
         url = "http://www.espn.com/wnba/game?gameId=#{game_id}"
         doc = download_document(url)
@@ -90,7 +87,26 @@ namespace :job do
          end
 
         addingDate = date + 5.hours + @team_timezone[home_team].hours
-        game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), est_time: date.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
+        game.update(
+          away_team: away_team,
+          home_team: home_team,
+          home_abbr: home_abbr,
+          away_abbr: away_abbr,
+          game_date: date,
+          year: addingDate.strftime("%Y"),
+          date: addingDate.strftime("%b %e"),
+          time: addingDate.strftime("%I:%M%p"),
+          est_time: date.strftime("%I:%M%p"),
+          week: addingDate.strftime("%a"),
+          away_fga: away_fga_value,
+          away_fta: away_fta_value,
+          away_toValue: away_to_value,
+          away_orValue: away_or_value,
+          home_fga: home_fga_value,
+          home_fta: home_fta_value,
+          home_toValue: home_to_value,
+          home_orValue: home_or_value
+        )
       end
       index_date = index_date + 1.days
     end
