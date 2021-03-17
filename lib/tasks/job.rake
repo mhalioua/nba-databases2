@@ -86,7 +86,7 @@ namespace :job do
           home_blk_value = home_value.children[10].text.to_i
          end
 
-        addingDate = date + 5.hours + @team_timezone[home_team].hours
+        addingDate = date + 4.hours + @team_timezone[home_team].hours
         game.update(
           away_team: away_team,
           home_team: home_team,
@@ -284,7 +284,7 @@ namespace :job do
           hour = 24
         end
 
-        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
+        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
 
         line_one = opener.index(" ")
         opener_side = line_one ? opener[0..line_one] : ""
@@ -374,7 +374,7 @@ namespace :job do
           hour = 24
         end
 
-        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
+        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
 
         line_one = opener.index(" ")
         opener_side = line_one ? opener[0..line_one] : ""
