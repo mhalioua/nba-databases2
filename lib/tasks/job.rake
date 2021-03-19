@@ -22,7 +22,7 @@ namespace :job do
         end
         href = slice.children[index[:result]].child['href']
         game_id = href[-9..-1]
-        next if game_id == '400470769'
+        next if game_id == '310723099'
         game = Wnba.find_or_create_by(game_id: game_id)
         if slice.children[index[:home_team]].children[0].children.size == 2
           home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
