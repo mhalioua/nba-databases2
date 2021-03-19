@@ -4,8 +4,8 @@ namespace :job do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    index_date = Date.new(2011, 5, 24)
-    while index_date <= Date.new(2011, 10, 7)
+    index_date = Date.new(2010, 5, 4)
+    while index_date <= Date.new(2010, 9, 16)
       game_date = index_date.strftime("%Y%m%d")
       url = "http://www.espn.com/wnba/schedule/_/date/#{game_date}"
       doc = download_document(url)
@@ -45,6 +45,8 @@ namespace :job do
           away_abbr = slice.children[index[:away_team]].children[0].children[2].text
           away_team = slice.children[index[:away_team]].children[0].children[0].text
         end
+
+        next if home_team === 'China' || away_team === 'China' || home_team === 'Great Britain' || away_team === 'Great Britain' || home_team === 'Japan' || away_team === 'Japan'
 
         url = "http://www.espn.com/wnba/game?gameId=#{game_id}"
         doc = download_document(url)
@@ -238,8 +240,8 @@ namespace :job do
     games = Wnba.all
     puts "----------Get First Lines----------"
 
-    index_date = Date.new(2011, 5, 24)
-    while index_date <= Date.new(2011, 10, 7) do
+    index_date = Date.new(2010, 5, 4)
+    while index_date <= Date.new(2010, 9, 16) do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "https://classic.sportsbookreview.com/betting-odds/wnba-basketball/1st-half/?date=#{game_day}"
@@ -328,8 +330,8 @@ namespace :job do
     type = args[:type]
     puts "----------Get #{type} Lines----------"
 
-    index_date = Date.new(2011, 5, 24)
-    while index_date <= Date.new(2011, 10, 7) do
+    index_date = Date.new(2010, 5, 4)
+    while index_date <= Date.new(2010, 9, 16) do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "#{game_link}#{game_day}"
