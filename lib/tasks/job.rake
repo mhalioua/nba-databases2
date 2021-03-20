@@ -129,32 +129,65 @@ namespace :job do
       home_team = game.home_team
       away_team = game.away_team
       game_date = game.game_date
+      home_team_timezone = @team_timezone[home_team]
+      away_team_timezone = @team_timezone[away_team]
 
-      away_last_game = ""
+      away_last_game_city = ""
+      away_last_game_home = ""
+      away_last_game_rest_days = ""
       away_team_prev = Wnba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Wnba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
       if away_team_prev
-        away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+        away_last_game_city = @city[away_team_prev.home_team]
+        away_last_game_home = away_team_prev.home_team === away_team ? "YES" : "NO"
+        away_last_game_rest_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
       end
 
-      away_next_game = ""
+      away_next_game_city = ""
+      away_next_game_home = ""
+      away_next_game_rest_days = ""
       away_team_next = Wnba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Wnba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
       if away_team_next
-        away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+        away_next_game_city = @city[away_team_next.home_team]
+        away_next_game_home = away_team_next.home_team === away_team ? "YES" : "NO"
+        away_next_game_rest_days = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
       end
 
-      home_last_game = ""
+      home_last_game_city = ""
+      home_last_game_home = ""
+      home_last_game_rest_days = ""
       home_team_prev = Wnba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Wnba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
       if home_team_prev
-        home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+        home_last_game_city = @city[home_team_prev.home_team]
+        home_last_game_home = home_team_prev.home_team === home_team ? "YES" : "NO"
+        home_last_game_rest_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
       end
 
-      home_next_game = ""
+      home_next_game_city = ""
+      home_next_game_home = ""
+      home_next_game_rest_days = ""
       home_team_next = Wnba.where("home_team = ? AND game_date > ?", home_team, game_date).or(Wnba.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
       if home_team_next
-        home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+        home_next_game_city = @city[home_team_next.home_team]
+        home_next_game_home = home_team_next.home_team === home_team ? "YES" : "NO"
+        home_next_game_rest_days = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
       end
 
-      game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game)
+      game.update(
+        away_last_game: away_last_game_rest_days,
+        away_next_game: away_next_game_rest_days,
+        home_last_game: home_last_game_rest_days,
+        home_next_game: home_next_game_rest_days,
+        home_team_timezone: home_team_timezone,
+        away_team_timezone: away_team_timezone,
+        away_last_game_city: away_last_game_city,
+        away_next_game_city: away_next_game_city,
+        home_last_game_city: home_last_game_city,
+        home_next_game_city: home_next_game_city,
+        away_last_game_home: away_last_game_home,
+        away_next_game_home: away_next_game_home,
+        home_last_game_home: home_last_game_home,
+        home_next_game_home: home_next_game_home
+      )
     end
   end
 
@@ -705,6 +738,23 @@ namespace :job do
     'Tulsa' => -5,
     'Detroit' => -4,
     'Sacramento' => -7
+  }
+
+  @city = {
+    'Las Vegas' => 'Las Vegas',
+    'Seattle' => 'Seattle',
+    'Washington' => 'Washington',
+    'New York' => 'New York',
+    'Chicago' => 'Chicago',
+    'Minnesota' => 'Minneapolis',
+    'Connecticut' => 'Uncasville',
+    'Phoenix' => 'Phoenix',
+    'Atlanta' => 'Atlanta',
+    'Los Angeles' => 'Los Angeles',
+    'Indiana' => 'Indianapolis',
+    'Dallas' => 'Arlington',
+    'San Antonio' => 'San Antonio',
+    'Tulsa' => 'Tulsa',
   }
 
   ### NBA DATABASE IGNORE
