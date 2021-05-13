@@ -39,121 +39,236 @@ namespace :nba do
       end
   end
 
-  task :update_sheet_in_data_file => :environment do
-    start_date = '2018-01-01'
-    end_date = (Date.today).to_s
-    data_file_path = [Rails.root, "csv", "nba_data_sheet.xlsx"].join("/")
-    workbook = RubyXL::Parser.parse(open('https://nba-daemon.s3.amazonaws.com/nba_data/nba_data_sheet_original.xlsx'))
-    puts "read file"
-    worksheet = workbook.add_worksheet('MAIN (6)')
-    puts "sheet added"
-    header = [nil, "Year", "Date", "Time", "Week", "tv2", "tv", "count", "is last game home", "last", "next", "is next game home",
-           "Away Team", "away_win_rank", true, "last city", "next city", "away_ppg_rank", "away_oppppg_rank", "FROM", "TO", "1Q", "2Q",
-           nil, "3Q", nil, "4Q", "OT", nil, "next", "FLY", "last", "FLY", "Home Team", "home_win_rank", nil, "last city", "next city",
-           "home_ppg_rank", "home_oppppg_rank", "Timezone", "1Q", "2Q", nil, "3Q", nil, "4Q", nil, "OT", "lead @ HALF", "3RD Q lead",
-           "final", "TRUE 2H PTS", "4TH Q", "road", "home", "total", "1H Point", "2H Point", "1q", "2q", "3q", "4q", "Total Point",
-           "1h", "2h", "f", "1H Line Total", "2H Line Total", "FG Line Total", "1H", "2h", "fg", "1H Side", "2H Side", "XXX",
-           "FG Side", "did home team play over time last game", "did road team play over time last game", "PtsPerPoss",
-           "last 1h away under", "last 1h away over", " last 1h away %", "last 1h home under", "last 1h home over",
-           "last 1h home %", "next 1h away under", "next 1h away over", "next 1h away %", "next 1h home under", "next 1h home over",
-           "next 1h home %", "last 2h away under", "last 2h away over", " last 2h away %", "last 2h home under", "last 2h home over",
-           "last 2h home %", "next 2h away under", "next 2h away over", "next 2h away %", "next 2h home under", "next 2h home over",
-           "next 2h home %", "last fg away under", "last fg away over", " last fg away %", "last fg home under", "last fg home over",
-           "last fg home %", "next fg away under", "next fg away over", "next fg away %", "next fg home under", "next fg home over",
-           "next fg home %", "1hawayFGA", "1hawayFG", "1hawayFG %", "1hawayFTA", "1haway3PA", "1haway3P", "1haway3P %",
-           "1haway OR's", "1hawaySTEALS", "1hawayBLOCKS", "1haway TO's", "OR+BL+STl-TO", "1hhomeFGA", "1hhomeFG",
-           "1hhomeFG %", "1hhomeFTA", "1hhome3PA", "1hhome3P", "1hhome3P %", "1hhome OR's", "1hhomeSTEALS", "1hhomeBLOCKS",
-           "1hhome TO's", "OR+BL+STl-TO", "FG% diff", "3P% diff", "OR diff", "TO diff", "CE-CQ", "1h home possession",
-           "1h road possession", "1h total possession", "2h home possession", "2h road possession", "2h total possession",
-           "pace", "away_ortg", "home_ortg", "away_last_home", "away_next_home", "DM  + DN", nil, "home teams last road game",
-           "home teams next road game", "DQ+DR", 99.09, 97.01, "1h points", "2h points", "total points", "fg road 2000",
-           "fg home 2000", "fg diff 2000", "fg count 2000", nil, "fg road 1990", "fg home 1990", "fg diff 1990", "fg count 1990",
-           "1h road 2000", "1h home 2000", "1h diff 2000", "1h  count 2000", nil, "1h road 1990", "1h home 1990", "1h diff 1990", 
-           "1h  count 1990", "2h road 2000", "2h home 2000", "2h diff 2000", "2h count 2000", nil, "2h road 1990", "2h home 1990", 
-           "2h diff 1990", "2h count 1990", nil, "fg total pt 2000", "fg total line 2000", "fg total diff 2000", "fg total count 2000", 
-           "1h total pt 2000", "1h total line 2000", "1h total diff 2000", "1h total count 2000", "2h total pt 2000", "2h total line 2000", 
-           "2h total diff 2000", "2h total count 2000", "fg pt 1990", "fg line 1990", "1h pt 1990", "1h line 1990", "2h pts 1990", 
-           "2h line 1990", "bday yesterday", "yest home", "yest away", "bday today", "today home", "today away", "bday tomorrow", 
-           "morrow home", "morrow away", "Away Player1", nil, "Away Player2", nil, "Away Player3", nil, "Away Player4", nil, "Away Player5",
-           nil, "Away Player6", nil, "Away Player7", nil, "Away Player8", nil, "Home Player1", nil, "Home Player2", nil, "Home Player3", 
-           nil, "Home Player4", nil, "Home Player5", nil, "Home Player6", nil, "Home Player7", nil, "Home Player8", nil]
-      for indx in 0...253
-        worksheet.add_cell(0, indx, header[indx])
-      end 
-      puts "header added"
-      games = Nba.where("game_date between ? and ?", Date.strptime(start_date).beginning_of_day, Date.strptime(end_date).end_of_day)      
-      game_row_index = 1
-      games.each do |game|
-        date = DateTime.parse(game.game_date)
-        day_month = date.strftime('%d-%b')[0]=="0" ? date.strftime('%d-%b')[1..5] : date.strftime('%d-%b')
-        full_season_data = Fullseason.where(roadteam: game.away_team, hometeam: game.home_team, year: date.strftime('%Y'),date: day_month,time: date.strftime('%I:%M %p'))
-        first_ou = full_season_data.empty? ? '' : full_season_data.firstou
-        second_ou = full_season_data.empty? ? '' : full_season_data.secondou
-        total_ou = full_season_data.empty? ? '' : full_season_data.totalou 
+  task :update_data_sheet => :environment do
 
-        away_first_second_quarter = (game.away_first_quarter.nil? ? 0 : game.away_first_quarter) + (game.away_second_quarter.nil? ? 0 : game.away_second_quarter)
-        away_first_sec_third_quarter = (game.away_first_quarter.nil? ? 0 : game.away_first_quarter)+(game.away_second_quarter.nil? ? 0 : game.away_second_quarter)+(game.away_third_quarter.nil? ? 0 : game.away_third_quarter)
-        home_first_second_quarter = (game.home_first_quarter.nil? ? 0 : game.home_first_quarter)+(game.home_second_quarter.nil? ? 0 : game.home_second_quarter)
-        home_first_sec_third_quarter = (game.home_first_quarter.nil? ? 0 : game.home_first_quarter)+(game.home_second_quarter.nil? ? 0 : game.home_second_quarter)+(game.home_third_quarter.nil? ? 0 : game.home_third_quarter)
-        away_home_score = (game.away_score.nil? ? 0 : game.away_score)+(game.home_score.nil? ? 0 : game.home_score)
-        away_last_next_home = (game.away_last_home.nil? ? 0 : game.away_last_home)+(game.away_next_home.nil? ? 0 : game.away_next_home)
-        home_last_next_away = (game.home_last_away.nil? ? 0 : game.home_last_away)+(game.home_next_away.nil? ? 0 : game.home_next_away)
+    if Date.today.monday?
+      data_file_path = [Rails.root, "csv", "nba_data_sheet.xlsx"].join("/")
+      package = Axlsx::Package.new
+      workbook = package.workbook
+      workbook.add_worksheet(name: 'MAIN (6)') do |sheet|
+          
+        
+        header_red_cell = sheet.styles.add_style(bg_color: 'FF0000', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_cell_peach = sheet.styles.add_style(bg_color: 'FF8080', fg_color: '000000',:border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_mustard = sheet.styles.add_style(bg_color: 'FFCC00', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_green = sheet.styles.add_style(bg_color: '339966', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_skin = sheet.styles.add_style(bg_color: 'FFCC99', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_lightskin = sheet.styles.add_style(bg_color: 'FFE0C4', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_white = sheet.styles.add_style(bg_color: 'FFFFFF', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_seagreen = sheet.styles.add_style(bg_color: '33CCCC', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_lightpurple = sheet.styles.add_style(bg_color: 'CCCCFF', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_green2 = sheet.styles.add_style(bg_color: '99CC00', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_lightgreen = sheet.styles.add_style(bg_color: 'CCFFCC', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_orange = sheet.styles.add_style(bg_color: 'FF9900', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_darkorange = sheet.styles.add_style(bg_color: 'e9692c', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_skyblue = sheet.styles.add_style(bg_color: '8EE5EE', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_darkred = sheet.styles.add_style(bg_color: 'a52a2a', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_mildblue = sheet.styles.add_style(bg_color: '5190ED', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})      
+        header_color_lightorange = sheet.styles.add_style(bg_color: 'FFCC99', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_purple = sheet.styles.add_style(bg_color: '9999FF', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_yellow = sheet.styles.add_style(bg_color: 'FFFF00', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_darkblue = sheet.styles.add_style(bg_color: '003366', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_lightyellow = sheet.styles.add_style(bg_color: 'FFFF99', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_lightblue = sheet.styles.add_style(bg_color: '99CCFF', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_black = sheet.styles.add_style(bg_color: '000000', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+        header_color_greenlast = sheet.styles.add_style(bg_color: '567E3A', fg_color: '000000', :border => { :style => :thin, :color => 'D3D3D3'})
+            
+        sheet.add_row [nil, "Year", "Date", "Time", "Week", "tv2", "tv", "count", "is last game home", "last", "next", "is next game home",
+             "Away Team", nil, "TRUE", "last city", "next city", "away_ppg_rank", "away_oppppg_rank", "FROM", "TO", "1Q", "2Q",
+             "1h total", "3Q", nil, "4Q", "OT", nil, "next", "FLY", "last", "FLY", "Home Team", "home_win_rank", nil, "last city", "next city",
+             "home_ppg_rank", "home_oppppg_rank", "Timezone", "1Q", "2Q", nil, "3Q", nil, "4Q", "2h total", "OT", "lead @ HALF", "3RD Q lead",
+             "final", "TRUE 2H PTS", "4TH Q", "road", "home", "total", "1H Point", "2H Point", "1q", "2q", "3q", "4q", "Total Point",
+             "1h", "2h", "f", "1H Line Total", "2H Line Total", "FG Line Total", "1H", "2h", "fg", "1H Side", "2H Side", "XXX",
+             "FG Side", "did home team play over time last game", "did road team play over time last game", "PtsPerPoss",
+             "last 1h away under", "last 1h away over", " last 1h away %", "last 1h home under", "last 1h home over",
+             "last 1h home %", "next 1h away under", "next 1h away over", "next 1h away %", "next 1h home under", "next 1h home over",
+             "next 1h home %", "last 2h away under", "last 2h away over", " last 2h away %", "last 2h home under", "last 2h home over",
+             "last 2h home %", "next 2h away under", "next 2h away over", "next 2h away %", "next 2h home under", "next 2h home over",
+             "next 2h home %", "last fg away under", "last fg away over", " last fg away %", "last fg home under", "last fg home over",
+             "last fg home %", "next fg away under", "next fg away over", "next fg away %", "next fg home under", "next fg home over",
+             "next fg home %", "1hawayFGA", "1hawayFG", "1hawayFG %", "1hawayFTA", "1haway3PA", "1haway3P", "1haway3P %",
+             "1haway OR's", "1hawaySTEALS", "1hawayBLOCKS", "1haway TO's", "OR+BL+STl-TO", "1hhomeFGA", "1hhomeFG",
+             "1hhomeFG %", "1hhomeFTA", "1hhome3PA", "1hhome3P", "1hhome3P %", "1hhome OR's", "1hhomeSTEALS", "1hhomeBLOCKS",
+             "1hhome TO's", "OR+BL+STl-TO", "FG% diff", "3P% diff", "OR diff", "TO diff", "CE-CQ", "1h home possession",
+             "1h road possession", "1h total possession", "2h home possession", "2h road possession", "2h total possession",
+             "pace", "away_ortg", "home_ortg", "away_last_home", "away_next_home", "DM  + DN", nil, "home teams last road game",
+             "home teams next road game", "DQ+DR", 99.09, 97.01, "1h points", "2h points", "total points", "fg road 2000",
+             "fg home 2000", "fg diff 2000", "fg count 2000", nil, "fg road 1990", "fg home 1990", "fg diff 1990", "fg count 1990",
+             "1h road 2000", "1h home 2000", "1h diff 2000", "1h  count 2000", nil, "1h road 1990", "1h home 1990", "1h diff 1990", 
+             "1h  count 1990", "2h road 2000", "2h home 2000", "2h diff 2000", "2h count 2000", nil, "2h road 1990", "2h home 1990", 
+             "2h diff 1990", "2h count 1990", nil, "fg total pt 2000", "fg total line 2000", "fg total diff 2000", "fg total count 2000", 
+             "1h total pt 2000", "1h total line 2000", "1h total diff 2000", "1h total count 2000", "2h total pt 2000", "2h total line 2000", 
+             "2h total diff 2000", "2h total count 2000", "fg pt 1990", "fg line 1990", "1h pt 1990", "1h line 1990", "2h pts 1990", 
+             "2h line 1990", "bday yesterday", "yest home", "yest away", "bday today", "today home", "today away", "bday tomorrow", 
+             "morrow home", "morrow away", "Away Player1", nil, "Away Player2", nil, "Away Player3", nil, "Away Player4", nil, "Away Player5",
+             nil, "Away Player6", nil, "Away Player7", nil, "Away Player8", nil, "Home Player1", nil, "Home Player2", nil, "Home Player3", 
+             nil, "Home Player4", nil, "Home Player5", nil, "Home Player6", nil, "Home Player7", nil, "Home Player8", nil],
+
+            style:  [header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_cell_peach, header_cell_peach, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_cell_peach, header_cell_peach, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_red_cell, header_red_cell, header_red_cell,header_red_cell, header_red_cell, header_red_cell, header_color_mustard,
+                    header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_red_cell, header_color_green2, header_color_green2, header_color_green2, header_color_green2,
+                    header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_color_skin, header_color_white, header_color_skin, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_color_seagreen, header_color_seagreen,
+                    header_color_lightpurple, header_color_seagreen, header_color_seagreen, header_color_lightpurple, header_color_seagreen,
+                    header_color_seagreen, header_color_lightpurple, header_color_seagreen, header_color_seagreen,
+                    header_color_lightpurple, header_color_green2, header_color_green2, header_color_lightgreen, header_color_green2,
+                    header_color_green2, header_color_lightgreen, header_color_green2, header_color_green2, header_color_lightgreen,
+                    header_color_green2, header_color_green2, header_color_lightgreen, header_color_orange, header_color_orange,
+                    header_color_lightorange, header_color_orange, header_color_orange, header_color_lightorange, header_color_orange,
+                    header_color_orange, header_color_lightorange, header_color_orange, header_color_orange, header_color_lightorange, 
+                    header_color_lightpurple, header_color_lightpurple, header_color_lightpurple, header_color_lightpurple, header_color_lightpurple,
+                    header_color_lightpurple, header_color_lightpurple, header_color_lightpurple, header_color_lightpurple, header_color_lightpurple,
+                    header_color_lightpurple, header_color_lightpurple, header_color_skin,header_color_skin, header_color_skin, header_color_skin,
+                    header_color_skin, header_color_skin, header_color_skin, header_color_skin, header_color_skin, header_color_skin,
+                    header_color_skin, header_color_skin, header_cell_peach, header_cell_peach, header_cell_peach, header_cell_peach, header_cell_peach,
+                    header_color_lightpurple, header_color_lightpurple, header_color_purple, header_color_lightpurple, header_color_lightpurple,
+                    header_color_purple, header_red_cell, header_red_cell,header_red_cell, header_color_yellow, header_color_yellow,
+                    header_color_yellow, header_color_darkblue, header_color_lightyellow, header_color_lightyellow, header_color_lightyellow,
+                    header_red_cell, header_red_cell, header_red_cell,header_red_cell, header_red_cell, header_color_lightblue,
+                    header_color_lightblue, header_color_lightblue, header_color_lightblue, header_color_black, header_color_lightblue, header_color_lightblue, header_color_lightblue, header_color_lightblue,
+                    header_color_lightblue, header_color_lightblue, header_color_lightblue, header_color_lightblue, header_color_black, header_color_lightblue,
+                    header_color_lightblue, header_color_lightblue, 
+                    header_color_lightblue, header_color_lightblue, header_color_lightblue, header_color_lightblue, header_color_lightblue, header_color_black, header_color_lightblue, header_color_lightblue, 
+                    header_color_lightblue, header_color_lightblue, header_color_black, header_color_skin, header_color_skin, header_color_skin, header_color_skin, 
+                    header_cell_peach, header_cell_peach, header_cell_peach, header_cell_peach, header_color_skin, header_color_skin, 
+                    header_color_skin, header_color_skin, header_color_greenlast, header_color_greenlast, header_color_greenlast, header_color_greenlast,header_color_greenlast, 
+                    header_color_greenlast, header_color_mustard, header_color_skin, header_color_skin, header_color_mustard, header_color_skin, header_color_skin, header_color_mustard, 
+                    header_color_skin, header_color_skin, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_red_cell, header_red_cell,header_red_cell,
+                    header_red_cell, header_red_cell, header_red_cell,header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, 
+                    header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_red_cell, header_red_cell,header_red_cell, header_red_cell]
       
-        game_data_array = ['',date.strftime('%Y'),date.strftime('%b %d'),date.strftime('%I:%M %p'),date.strftime('%a'),game.tv_station.nil? ? '' : game.tv_station.split(",")[0],
-            game.tv_station.nil? ? '' : game.tv_station.split(",")[1],game.game_count,game.away_last_fly,game.away_last_game,game.away_next_game,
-            game.away_next_fly,game.away_team,game.away_win_rank,'',game.away_team_city,game.away_team_next_city,game.away_ppg_rank,
-            game.away_oppppg_rank,game.away_timezone,game.home_timezone,game.away_first_quarter,game.away_second_quarter,away_first_second_quarter,
-            game.away_third_quarter,away_first_sec_third_quarter,game.away_forth_quarter,
-            game.away_ot_quarter,'',game.home_next_game,game.home_next_fly,game.home_last_game,game.home_last_fly,game.home_team,
-            game.home_win_rank,'',game.home_team_city,game.home_team_next_city,game.home_ppg_rank,game.home_oppppg_rank,game.home_timezone,
-            game.home_first_quarter,game.home_second_quarter,home_first_second_quarter,game.home_third_quarter,
-            home_first_sec_third_quarter,game.home_forth_quarter,'',game.home_ot_quarter,
-            '','','','','',game.away_score,game.home_score,away_home_score,game.first_point,game.second_point,
-            '','','','',game.total_point,first_ou,second_ou,total_ou,
-            game.first_closer_total,game.second_closer_total,game.full_closer_total,game.first_half_bigger,
-            game.second_half_bigger,game.fullgame_bigger,game.first_closer_side,game.second_closer_side,'',game.full_closer_side,
-            game.home_last_ot,game.away_last_ot,'','','','','','','','','','','','','','','','','','','','','','','','','','','','',
-            '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
-            game.pace,game.away_ortg,game.home_ortg,game.away_last_home,game.away_next_home,away_last_next_home,
-            '',game.home_last_away,game.home_next_away,home_last_next_away,'','','','','',game.fg_road_2000,game.fg_home_2000,
-            game.fg_diff_2000,game.fg_count_2000,'',game.fg_road_1990,game.fg_home_1990,game.fg_diff_1990,game.fg_count_1990,game.first_half_road_2000,
-            game.first_half_home_2000,game.first_half_diff_2000,game.first_half_count_2000,'',game.first_half_road_1990,game.first_half_home_1990,
-            game.first_half_diff_1990,game.first_half_count_1990,game.second_half_road_2000,game.second_half_home_2000,game.second_half_diff_2000,
-            game.second_half_count_2000,'',game.second_half_road_1990,game.second_half_home_1990,game.second_half_diff_1990,game.second_half_count_1990,
-            '',game.fg_total_pt_2000,game.fg_total_line_2000,game.fg_total_diff_2000,game.fg_total_count_2000,game.first_half_total_pt_2000,
-            game.first_half_total_line_2000,game.first_half_total_diff_2000,game.first_half_total_count_2000,game.second_half_total_pt_2000,
-            game.second_half_total_line_2000,game.second_half_total_diff_2000,game.second_half_total_count_2000,game.fg_total_pt_1990,game.fg_total_line_1990,
-            game.first_half_total_pt_1990,game.first_half_total_line_1990,game.second_half_total_pt_1990,game.second_half_total_line_1990,
-            '','','','','','','','','',game.away_player1_name,game.away_player1_birthday.nil? ? '' : game.away_player1_birthday[0..11],
-            game.away_player2_name,game.away_player2_birthday.nil? ? '' : game.away_player2_birthday[0..11],
-            game.away_player3_name,game.away_player3_birthday.nil? ? '' : game.away_player3_birthday[0..11],
-            game.away_player4_name,game.away_player4_birthday.nil? ? '' : game.away_player4_birthday[0..11],
-            game.away_player5_name,game.away_player5_birthday.nil? ? '' : game.away_player5_birthday[0..11],
-            game.away_player6_name,game.away_player6_birthday.nil? ? '' : game.away_player6_birthday[0..11],
-            game.away_player7_name,game.away_player7_birthday.nil? ? '' : game.away_player7_birthday[0..11],
-            game.away_player8_name,game.away_player8_birthday.nil? ? '' : game.away_player8_birthday[0..11],
-            game.home_player1_name,game.home_player1_birthday.nil? ? '' : game.home_player1_birthday[0..11],
-            game.home_player2_name,game.home_player2_birthday.nil? ? '' : game.home_player2_birthday[0..11],
-            game.home_player3_name,game.home_player3_birthday.nil? ? '' : game.home_player3_birthday[0..11],
-            game.home_player4_name,game.home_player4_birthday.nil? ? '' : game.home_player4_birthday[0..11],
-            game.home_player5_name,game.home_player5_birthday.nil? ? '' : game.home_player5_birthday[0..11],
-            game.home_player6_name,game.home_player6_birthday.nil? ? '' : game.home_player6_birthday[0..11],
-            game.home_player7_name,game.home_player7_birthday.nil? ? '' : game.home_player7_birthday[0..11],
-            game.home_player8_name,game.home_player8_birthday.nil? ? '' : game.home_player8_birthday[0..11]
-          ]
+            
+            game_start_date = '2018-01-01'
+            game_end_date = (Date.today).to_s
 
-            for col in 0...253
-              worksheet.add_cell(game_row_index, col, game_data_array[col])
+            games = Nba.where("game_date between ? and ?", Date.strptime(game_start_date).beginning_of_day, Date.strptime(game_end_date).end_of_day)
+            games.each do |game|
+              puts "starting game #{game.game_id}"
+              date = DateTime.parse(game.game_date)
+              day_month = date.strftime('%d-%b')[0]=="0" ? date.strftime('%d-%b')[1..5] : date.strftime('%d-%b')
+
+              away_first_second_quarter = (game.away_first_quarter.nil? ? 0 : game.away_first_quarter) + (game.away_second_quarter.nil? ? 0 : game.away_second_quarter)
+              away_first_sec_third_quarter = (game.away_first_quarter.nil? ? 0 : game.away_first_quarter)+(game.away_second_quarter.nil? ? 0 : game.away_second_quarter)+(game.away_third_quarter.nil? ? 0 : game.away_third_quarter)
+              away_third_forth_quarter = (game.away_third_quarter.nil? ? 0 : game.away_third_quarter)+(game.away_forth_quarter.nil? ? 0 : game.away_forth_quarter)
+              home_first_second_quarter = (game.home_first_quarter.nil? ? 0 : game.home_first_quarter)+(game.home_second_quarter.nil? ? 0 : game.home_second_quarter)
+              home_first_sec_third_quarter = (game.home_first_quarter.nil? ? 0 : game.home_first_quarter)+(game.home_second_quarter.nil? ? 0 : game.home_second_quarter)+(game.home_third_quarter.nil? ? 0 : game.home_third_quarter)
+              home_third_forth_quarter = (game.home_third_quarter.nil? ? 0 : game.home_third_quarter)+(game.home_forth_quarter.nil? ? 0 : game.home_forth_quarter)
+              away_home_score = (game.away_score.nil? ? 0 : game.away_score)+(game.home_score.nil? ? 0 : game.home_score)
+              away_last_next_home = (game.away_last_home.nil? ? 0 : game.away_last_home)+(game.away_next_home.nil? ? 0 : game.away_next_home)
+              home_last_next_away = (game.home_last_away.nil? ? 0 : game.home_last_away)+(game.home_next_away.nil? ? 0 : game.home_next_away)
+              first_half_home_or_away = (game.first_closer_side.nil? ? 0 : game.first_closer_side) + home_first_second_quarter > away_first_second_quarter ? 'HOME' : 'AWAY'
+              second_half_home_or_away = (game.second_closer_side.nil? ? 0 : game.second_closer_side) + home_third_forth_quarter > away_third_forth_quarter ? 'HOME' : 'AWAY'
+              fullgame_home_or_away = (game.full_closer_side.nil? ? 0 : game.full_closer_side) + (game.home_score.nil? ? 0 : game.home_score) > (game.away_score.nil? ? 0 : game.away_score) ? 'HOME' : 'AWAY'
+              first_half_under_over = (game.first_point.nil? ? 0 : game.first_point) > (game.first_closer_total.nil? ? 0 : game.first_closer_total) ? 'over' : 'under'
+              second_half_under_over = (game.second_point.nil? ? 0 : game.second_point) > (game.second_closer_total.nil? ? 0 : game.second_closer_total) ? 'over' : 'under'
+              total_point_under_over = (game.total_point.nil? ? 0 : game.total_point) > (game.full_closer_total.nil? ? 0 : game.full_closer_total) ? 'over' : 'under'
+
+              sheet.add_row ['',date.strftime('%Y'),date.strftime('%b %d'),convert_timezone(date,game.home_timezone),date.strftime('%a'),game.tv_station.nil? ? '' : game.tv_station.split(",")[0],
+              game.tv_station.nil? ? '' : game.tv_station.split(",")[1],game.game_count,game.away_last_fly,game.away_last_game,game.away_next_game,
+              game.away_next_fly,game.away_team,'','',game.away_team_city,game.away_team_next_city,game.away_ppg_rank,
+              game.away_oppppg_rank,game.away_timezone,game.home_timezone,game.away_first_quarter,game.away_second_quarter,away_first_second_quarter,
+              game.away_third_quarter,away_first_sec_third_quarter,game.away_forth_quarter,
+              game.away_ot_quarter,away_third_forth_quarter,game.home_next_game,game.home_next_fly,game.home_last_game,game.home_last_fly,game.home_team,
+              game.home_win_rank,'',game.home_team_city,game.home_team_next_city,game.home_ppg_rank,game.home_oppppg_rank,game.home_timezone,
+              game.home_first_quarter,game.home_second_quarter,home_first_second_quarter,game.home_third_quarter,
+              home_first_sec_third_quarter,game.home_forth_quarter,home_third_forth_quarter,game.home_ot_quarter,
+              '','','','','',game.away_score,game.home_score,away_home_score,game.first_point,game.second_point,
+              '','','','',game.total_point,first_half_under_over, second_half_under_over,
+              total_point_under_over,
+              game.first_closer_total,game.second_closer_total,game.full_closer_total,first_half_home_or_away,
+              second_half_home_or_away,fullgame_home_or_away,game.first_closer_side,game.second_closer_side,'',game.full_closer_side,
+              game.home_last_ot,game.away_last_ot,'','','','','','','','','','','','','','','','','','','','','','','','','','','','',
+              '','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
+              game.pace,game.away_ortg,game.home_ortg,game.away_last_home,game.away_next_home,away_last_next_home,
+              '',game.home_last_away,game.home_next_away,home_last_next_away,'','','','','',game.fg_road_2000,game.fg_home_2000,
+              game.fg_diff_2000,game.fg_count_2000,'',game.fg_road_1990,game.fg_home_1990,game.fg_diff_1990,game.fg_count_1990,game.first_half_road_2000,
+              game.first_half_home_2000,game.first_half_diff_2000,game.first_half_count_2000,'',game.first_half_road_1990,game.first_half_home_1990,
+              game.first_half_diff_1990,game.first_half_count_1990,game.second_half_road_2000,game.second_half_home_2000,game.second_half_diff_2000,
+              game.second_half_count_2000,'',game.second_half_road_1990,game.second_half_home_1990,game.second_half_diff_1990,game.second_half_count_1990,
+              '',game.fg_total_pt_2000,game.fg_total_line_2000,game.fg_total_diff_2000,game.fg_total_count_2000,game.first_half_total_pt_2000,
+              game.first_half_total_line_2000,game.first_half_total_diff_2000,game.first_half_total_count_2000,game.second_half_total_pt_2000,
+              game.second_half_total_line_2000,game.second_half_total_diff_2000,game.second_half_total_count_2000,game.fg_total_pt_1990,game.fg_total_line_1990,
+              game.first_half_total_pt_1990,game.first_half_total_line_1990,game.second_half_total_pt_1990,game.second_half_total_line_1990,
+              '','','','','','','','','',game.away_player1_name,game.away_player1_birthday.nil? ? '' : game.away_player1_birthday[0..11],
+              game.away_player2_name,game.away_player2_birthday.nil? ? '' : game.away_player2_birthday[0..11],
+              game.away_player3_name,game.away_player3_birthday.nil? ? '' : game.away_player3_birthday[0..11],
+              game.away_player4_name,game.away_player4_birthday.nil? ? '' : game.away_player4_birthday[0..11],
+              game.away_player5_name,game.away_player5_birthday.nil? ? '' : game.away_player5_birthday[0..11],
+              game.away_player6_name,game.away_player6_birthday.nil? ? '' : game.away_player6_birthday[0..11],
+              game.away_player7_name,game.away_player7_birthday.nil? ? '' : game.away_player7_birthday[0..11],
+              game.away_player8_name,game.away_player8_birthday.nil? ? '' : game.away_player8_birthday[0..11],
+              game.home_player1_name,game.home_player1_birthday.nil? ? '' : game.home_player1_birthday[0..11],
+              game.home_player2_name,game.home_player2_birthday.nil? ? '' : game.home_player2_birthday[0..11],
+              game.home_player3_name,game.home_player3_birthday.nil? ? '' : game.home_player3_birthday[0..11],
+              game.home_player4_name,game.home_player4_birthday.nil? ? '' : game.home_player4_birthday[0..11],
+              game.home_player5_name,game.home_player5_birthday.nil? ? '' : game.home_player5_birthday[0..11],
+              game.home_player6_name,game.home_player6_birthday.nil? ? '' : game.home_player6_birthday[0..11],
+              game.home_player7_name,game.home_player7_birthday.nil? ? '' : game.home_player7_birthday[0..11],
+              game.home_player8_name,game.home_player8_birthday.nil? ? '' : game.home_player8_birthday[0..11]
+
+            ],
+
+            style:  [header_color_white, header_color_white, header_color_white, header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_lightskin, header_color_darkorange, header_color_skyblue, header_color_lightskin, header_color_white, header_red_cell,
+                    header_color_darkred, header_cell_peach, header_cell_peach, header_color_yellow, header_color_greenlast,
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_lightskin, header_color_white, header_color_lightskin, header_color_white, header_color_white,
+                    header_color_lightskin, header_color_skyblue, header_color_lightskin, header_color_darkorange, header_color_lightskin, header_color_white, header_red_cell,
+                    header_color_darkred, header_cell_peach, header_cell_peach, header_color_yellow, header_color_greenlast, header_color_white, header_color_white,
+                    header_color_white, header_color_lightskin, header_color_white, header_color_lightskin,header_color_white, header_color_lightskin, header_color_white, header_color_mustard,
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_lightskin, header_color_lightskin, header_color_white,
+                    header_color_mildblue, header_color_skyblue, header_color_green2, header_color_green2, header_color_green2, header_color_green2,
+                    header_red_cell, header_color_lightskin, header_color_lightskin, header_color_lightskin, header_color_white, header_color_white, header_color_white,
+                    header_color_skin, header_color_skin, header_color_skin, header_color_white, header_color_white, header_color_darkred,
+                    header_red_cell, header_color_white, header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_white, 
+                    header_color_lightpurple, header_color_lightpurple, header_color_lightpurple, header_color_lightpurple, header_color_lightpurple,
+                    header_color_lightpurple, header_color_lightpurple, header_color_lightpurple, header_color_lightpurple, header_color_lightpurple,
+                    header_color_lightpurple, header_color_lightpurple, header_color_skin,header_color_skin, header_color_skin, header_color_skin,
+                    header_color_skin, header_color_skin, header_color_skin, header_color_skin, header_color_skin, header_color_skin,
+                    header_color_skin, header_color_skin, header_cell_peach, header_cell_peach, header_cell_peach, header_cell_peach, header_cell_peach,
+                    header_color_lightpurple, header_color_lightpurple, header_color_purple, header_color_lightpurple, header_color_lightpurple,
+                    header_color_purple, header_color_white, header_color_lightskin,header_color_skin, header_color_yellow, header_color_yellow,
+                    header_color_yellow, header_color_darkblue, header_color_lightyellow, header_color_lightyellow, header_color_lightyellow,
+                    header_color_white, header_color_white, header_red_cell,header_cell_peach, header_color_lightpurple, header_color_lightblue,
+                    header_color_lightblue, header_color_lightblue, header_color_lightblue, header_color_black, header_color_lightblue, header_color_lightblue, header_color_lightblue, header_color_lightblue,
+                    header_color_lightskin, header_color_lightskin, header_color_lightskin, header_color_lightskin, header_color_black, header_color_lightskin,
+                    header_color_lightskin, header_color_lightskin, 
+                    header_color_lightskin, header_color_lightgreen, header_color_lightgreen, header_color_lightgreen, header_color_lightgreen, header_color_black, header_color_lightgreen, header_color_lightgreen, 
+                    header_color_lightgreen, header_color_lightgreen, header_color_black, header_red_cell, header_red_cell, header_red_cell, header_red_cell,
+                    header_cell_peach, header_cell_peach, header_cell_peach, header_cell_peach, header_red_cell, header_red_cell, 
+                    header_red_cell, header_red_cell, header_color_greenlast, header_color_greenlast, header_color_greenlast, header_color_greenlast,header_color_greenlast, 
+                    header_color_greenlast, header_color_mustard, header_color_skin, header_color_skin, header_color_mustard, header_color_skin, header_color_skin, header_color_mustard, 
+                    header_color_skin, header_color_skin,
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_white, header_color_white,header_color_white,
+                    header_color_white, header_color_white, header_color_white,header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_white, 
+                    header_color_white, header_color_white, header_color_white, header_color_white, header_color_white, header_color_white, header_color_white,
+                    header_color_white, header_color_white,header_color_white, header_color_white]
+            puts "ending game #{game.game_id}"
             end
-            puts "game #{game_row_index} added"
-            game_row_index = game_row_index + 1
-      end
-      workbook.write(data_file_path)
-      puts "file updated"
-      obj = S3.object("nba_data/nba_data_sheet_all.xlsx")
-      obj.upload_file(data_file_path, acl:'public-read')
-      File.delete(data_file_path)
-      return obj.public_url
+        end
+        package.serialize(data_file_path)
+        obj = S3.object("nba_data/nba_data_sheet_2018_to_2020.xlsx")
+        obj.upload_file(data_file_path, acl:'public-read')
+        puts obj.public_url
+    end
   end
 
 	task :getInjury => :environment do
@@ -161,30 +276,32 @@ namespace :nba do
     today = Date.today
 		url = "http://www.espn.com/nba/injuries"
     doc = download_document(url)
-    elements = doc.css(".tablesm option")
+    elements = doc.css("option")
     elements.each_with_index do |slice, index|
       if index == 0
         next
       end
+      if index == 31
+        break
+      end
       team = slice.text
       if @nba_nicknames[team]
         team = @nba_nicknames[team]
+      else
+        team_index = team.rindex(' ')
+        team = team[0..team_index - 1]
       end
-      link = 'http:' + slice['value']
+      link = 'https://www.espn.com/nba/team/injuries/_/name/' + slice['value']
       page = download_document(link)
-      lists = page.css('tr')
-      date = ""
-      lists.each_with_index do |list, index|
-        if index == 0
-          next
-        end
-        if list.children.size == 1
-          date = list.children[0].text
-        elsif list.children.size == 2
-          name = list.children[0].children[0].children[1].text[1..-1]
-          status = list.children[1].children[0].text
-          text = list.children[1].children[2].text
-          Injury.find_or_create_by(team: team, link: link, date: date, name: name, status: status, text: text, today: today)
+      dates = page.css('.brdr-clr-gray-07')
+      lists = page.css('.ContentList')
+      dates.each_with_index do |date, index|
+        list = lists[index]
+        list.children.each do |item|
+          name = item.children[0].children[0].children[1].children[0].children[0].text
+          status = item.children[0].children[0].children[1].children[1].children[1].text
+          text = item.children[0].children[0].children[1].children.length > 2 ? item.children[0].children[0].children[1].children[2].text : ''
+          Injury.find_or_create_by(team: team, link: link, date: date.text, name: name, status: status, text: text, today: today)
         end
       end
     end
@@ -223,8 +340,8 @@ namespace :nba do
 		Rake::Task["nba:getScore"].invoke
 		Rake::Task["nba:getScore"].reenable
 
-    Rake::Task["nba:fixingscores"].invoke
-    Rake::Task["nba:fixingscores"].reenable
+    # Rake::Task["nba:fixingscores"].invoke
+    # Rake::Task["nba:fixingscores"].reenable
 
 		Rake::Task["nba:getLinkGame"].invoke
 		Rake::Task["nba:getLinkGame"].reenable
@@ -453,7 +570,7 @@ namespace :nba do
       element.update(second_current: current, second_last_three: last_three, second_last_one: last_one, second_home: home, second_away: away, second_last: last)
     end
 
-    games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-5.hours)
+    games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-4.hours)
     games.each do |game|
       home_team = game.team_stats.find_or_create_by(abbr: game.home_abbr)
       match_team = Team.find_by(abbr: game.home_abbr)
@@ -633,7 +750,6 @@ namespace :nba do
 				away_abbr = slice.children[index[:away_team]].children[0].children[2].text
   			away_team = slice.children[index[:away_team]].children[0].children[0].text
 			end
-      	result = slice.children[index[:result]].text
 
       if home_team == "Los Angeles" ||  home_team == "LA"
 	      home_team = home_abbr
@@ -748,7 +864,7 @@ namespace :nba do
 
 	task :getHalf => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-5.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 2.days).beginning_of_day, Time.now-4.hours)
 		puts games.size
 		games.each do |game|
 			game_id = game.game_id
@@ -1417,7 +1533,7 @@ namespace :nba do
         home_name = @nba_nicknames[home_name] if @nba_nicknames[home_name]
         away_name = @nba_nicknames[away_name] if @nba_nicknames[away_name]
 
-        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
+        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
 
         matched = games.select{|field| ((field.home_team.include?(home_name) && field.away_team.include?(away_name)) || (field.home_team.include?(away_name) && field.away_team.include?(home_name))) && (date == field.game_date) }
         if matched.size > 0
@@ -1647,7 +1763,7 @@ namespace :nba do
 		    if @nba_nicknames[away_name]
 		      away_name = @nba_nicknames[away_name]
 		    end
-				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
 
 				line_one = opener.index(" ")
 				opener_side = line_one ? opener[0..line_one] : ""
@@ -1772,7 +1888,7 @@ namespace :nba do
 		    if @nba_nicknames[away_name]
 		      away_name = @nba_nicknames[away_name]
 		    end
-				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
+				date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
 
 				line_one = opener.index(" ")
 				opener_side = line_one ? opener[0..line_one] : ""
@@ -2017,7 +2133,7 @@ namespace :nba do
 	task :getUpdatePoss => [:environment] do
 		include Api
 		Time.zone = 'Eastern Time (US & Canada)'
-		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-4.hours)
 		games.each do |game|
 			players = game.players.where("player_name <> 'TEAM'")
 			players.each do |player|
@@ -2040,7 +2156,7 @@ namespace :nba do
         elsif player.player_name == "K. O'Quinn"
           last_players = Player.where("game_date <= '" + player.game_date + "' AND link like 'http://www.espn.com/nba/player/_/id/6615%'").order('game_date DESC')
         else
-          last_players = Player.where("game_date <= '" + player.game_date + "' AND player_name = '" + player.player_name + "'").order('game_date DESC')
+          last_players = Player.where("game_date <= '" + player.game_date + "' AND link like '" + player.link + "'").order('game_date DESC')
         end
 				last_players.each do |last_player|
 					if count == 10
@@ -2075,11 +2191,12 @@ namespace :nba do
 
   task :getUpdate => [:environment] do
     include Api
-    games = Nba.where("game_date between ? and ?", (Date.today - 30.days).beginning_of_day, Time.now-5.hours)
+    games = Nba.where("game_date between ? and ?", (Date.today - 50.days).beginning_of_day, Time.now-4.hours)
     puts games.size
     games.each do |game|
       players = game.players.all
       players.each do |player|
+        next if player.ortg != 0 || player.drtg != 0
         if player.player_name == "TEAM"
           next
         end
@@ -2088,14 +2205,12 @@ namespace :nba do
           team_abbr = game.away_abbr
         end
         if @team_nicknames[team_abbr]
-          team_abbr = @team_nicknames[team_abbr]
           if player.player_name === 'A. HarrisonA. Harrison'
             player.update(
-                player_name: 'A. Harriso',
-                link: 'http://www.espn.com/nba/player/_/id/3064511'
+              player_name: 'A. Harriso',
+              link: 'http://www.espn.com/nba/player/_/id/3064511'
             )
           end
-          player_name = player.player_name
           url = player.link
           puts url
           doc = download_document(url)
@@ -2125,7 +2240,23 @@ namespace :nba do
             player_name = @player_another_name[player_name]
           end
 
-          player.update(player_fullname: player_name)
+          ortg = 0
+          drtg = 0
+          count = 0
+          player_link = ""
+          player_elements = Tg.where("player_fullname = ? AND year >= 2019", player_name)
+          player_elements.each do |player_element|
+            player_count = player_element.year == 2019 ? player_element.count * 0.25 : player_element.count
+            count = count + player_count
+            ortg = ortg + player_count * (player_element.ortg ? player_element.ortg : 0)
+            drtg = drtg + player_count * (player_element.drtg ? player_element.drtg : 0)
+            player_link = player_element.player_link
+          end
+          count = 1 if count == 0
+          ortg = (ortg.to_f / count).round(2)
+          drtg = (drtg.to_f / count).round(2)
+          puts player_name
+          player.update(ortg: ortg, drtg: drtg, player_link: player_link, player_fullname: player_name)
         end
       end
     end
@@ -2133,7 +2264,7 @@ namespace :nba do
 
 	task :getUpdateTG => [:environment] do
 		include Api
-		games = Nba.where("game_date between ? and ?", (Date.today - 4.days).beginning_of_day, Time.now-5.hours)
+		games = Nba.where("game_date between ? and ?", (Date.today - 4.days).beginning_of_day, Time.now-4.hours)
 		puts games.size
 		games.each do |game|
 			players = game.players.all
@@ -2972,7 +3103,7 @@ namespace :nba do
 
   task :fixingscores => :environment do
     include Api
-    games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-5.hours)
+    games = Nba.where("game_date between ? and ?", (Date.today - 5.days).beginning_of_day, Time.now-4.hours)
     puts games.size
     games.each do |game|
       date = DateTime.parse(game.game_date).in_time_zone
@@ -3083,17 +3214,10 @@ namespace :nba do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
 
-    games = Nba.where("pg_away_one_name is null")
     games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
     puts games.size
     games.each do |game|
       players = game.players.where("team_abbr = 0 AND position = 'PG'").order(mins: :desc)
-      pg_away_one_name = ""
-      pg_away_one_min = 0
-      pg_away_two_name = ""
-      pg_away_two_min = 0
-      pg_away_three_name = ""
-      pg_away_three_min = 0
       away_fg_percent = ""
       home_fg_percent = ""
       if players[0]
@@ -3121,12 +3245,6 @@ namespace :nba do
       end
 
       players = game.players.where("team_abbr = 1 AND position = 'PG'").order(mins: :desc)
-      pg_home_one_name = ""
-      pg_home_one_min = 0
-      pg_home_two_name = ""
-      pg_home_two_min = 0
-      pg_home_three_name = ""
-      pg_home_three_min = 0
       if players[0]
         pg_home_one_name = players[0].player_name
         pg_home_one_min = players[0].mins
@@ -3188,7 +3306,6 @@ namespace :nba do
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
 
-    games = Nba.where("avg_fg_road is null")
     games = Nba.where("game_date between ? and ?", (Date.today - 3.days).beginning_of_day, Date.today.end_of_day)
     puts games.size
     games.each do |game|
@@ -3388,9 +3505,11 @@ namespace :nba do
       away_teams = doc.css(".is-visit .lineup__abbr")
       home_teams = doc.css(".is-home .lineup__abbr")
       players = doc.css(".lineup__list")
-      times.each_with_index do |time_element, index|
+      away_teams.each_with_index do |element, index|
+        time_element = times[index]
         time = DateTime.parse(time_element.children[0].text)
         time = time + type.days
+        puts time
         away_team = away_teams[index].text.squish
         home_team = home_teams[index].text.squish
         away_players = players[index*2]
@@ -4248,7 +4367,10 @@ namespace :nba do
 		"L.A. Lakers" => "LAL",
 		"L.A. Clippers" => "LAC",
     "LA Clippers" => "LAC",
-    "LA Lakers" => "LAL"
+    "LA Lakers" => "LAL",
+    "Portland Trail Blazers" => "Portland",
+    "Oklahoma City Thunder" => "Okla City",
+    "Los Angeles Lakers" => "LAL"
 	}
 
 	@player_name = {
@@ -4264,7 +4386,20 @@ namespace :nba do
   @player_another_name = {
     'Taurean Prince' => 'Taurean Waller-Prince',
     'Maximilian Kleber' => 'Maxi Kleber',
-    'Walt Lemon' => 'Walt Lemon, Jr'
+    'Walt Lemon' => 'Walt Lemon, Jr',
+    'Svi Mykhailiuk' => 'Sviatoslav Mykhailiuk',
+    'Marcus Morris Sr' => 'Marcus Morris',
+    'Theo Maledon' => 'Théo Maledon',
+    'Wes Iwundu' => 'Wesley Iwundu',
+    'Kristaps Porzingis' => 'Kristaps Porziņģis',
+    'Nicolo Melli' => 'Nicolò Melli',
+    'Vlatko Cancar' => 'Vlatko Čančar',
+    'Timothe Luwawu-Cabarrot' => 'Timothé Luwawu-Cabarrot',
+    'Mo Bamba' => 'Mohamed Bamba',
+    'Karim Mane' => 'Karim Mané',
+    'Luka Samanic' => 'Luka Šamanić',
+    'Juancho Hernangomez' => 'Juan Hernangómez',
+    'Anzejs Pasecniks' => 'Anžejs Pasečņiks'
   }
 
   @team_names = {

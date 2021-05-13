@@ -691,12 +691,8 @@
           count = 1
           style =""
           darkstyle=""
-          if player.possession
-              count = player.possession.scan(/,/).count + 1
-          end
-          if count == 2
-            count = 1
-          end
+          count = player.possession.scan(/,/).count + 1 if player.possession
+          count = 1 if count == 2
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
             darkstyle="background:red;"
@@ -705,7 +701,6 @@
             style="background:skyblue;"
             darkstyle="background:dodgerblue;"
           end
-
       %>
       <tr>
         <%
@@ -717,20 +712,14 @@
         <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : player.birthdate %></td>
         <td class="lists list<%= player.id %>"  style='<%= style %>' ><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
-        <% 
-        if player.height
-          height_index = player.height.index(",")
-        end
+        <%
+          height_index = player.height.index(",") if player.height
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
         <%
           count = 1
-          if player.possession
-            count = player.possession.scan(/,/).count + 1
-          end
-          if count == 2
-            count = 1
-          end
+          count = player.possession.scan(/,/).count + 1 if player.possession
+          count = 1 if count == 2
         %>
         <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(2) %></td>
         <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(2) %></td>
@@ -765,12 +754,8 @@
           count = 1
           style =""
           darkstyle=""
-          if player.possession
-              count = player.possession.scan(/,/).count + 1
-          end
-          if count == 2
-            count = 1
-          end
+          count = player.possession.scan(/,/).count + 1 if player.possession
+          count = 1 if count == 2
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
             darkstyle="background:red;"
@@ -787,15 +772,15 @@
             birthdate_index = player.birthdate.index("(Age") unless birthdate_index
           end
         %>
-        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : player.birthdate %></td>
-        <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
-        <td style='<%= style %>' ><%= player.position %></td>
+        <td style='<%= style %>'><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : player.birthdate %></td>
+        <td style='<%= style %>' class="lists list<%= player.id %>"><%= player.player_name %></td>
+        <td style='<%= style %>'><%= player.position %></td>
         <% 
         if player.height
           height_index = player.height.index(",")
         end
         %>
-        <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td style='<%= style %>'><%= height_index ? player.height[0..height_index-1] : "" %></td>
         <%
           count = 1
           if player.possession
@@ -805,28 +790,28 @@
             count = 1
           end
         %>
-        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(2) %></td>
-        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(2) %></td>
-        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(2) %></td>
-        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(2) %></td>
+        <td style='<%= style %>'><%= (player.sum_or.to_f/count).round(2) %></td>
+        <td style='<%= style %>'><%= (player.sum_stl.to_f/count).round(2) %></td>
+        <td style='<%= style %>'><%= (player.sum_blk.to_f/count).round(2) %></td>
+        <td style='<%= style %>'><%= (player.sum_to.to_f/count).round(2) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <td style='<%= style %>'><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
-        <td style='<%= style %>' ></td>
+        <td style='<%= style %>'></td>
         <% end %>
         <% if player.sum_mins %>
-        <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
+        <td style='<%= style %>'><%= player.sum_mins/(count - 2) %></td>
         <% else %>
-        <td style='<%= style %>' ></td>
+        <td style='<%= style %>'></td>
         <% end %>
         <% if player.sum_poss %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
+        <td style='<%= style %>'><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
         <% else %>
-        <td style='<%= style %>' ></td>
+        <td style='<%= style %>'></td>
         <% end %>
-        <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= darkstyle %>'  class="changeOrtg<%= player.id %>"></td>
-        <td style='<%= style %>' ><%= player.drtg %></td>
+        <td style='<%= style %>'><%= player.ortg %></td>
+        <td style='<%= darkstyle %>' class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>'><%= player.drtg %></td>
         <% if index == 0 %>
         <td rowspan="<%= @away_players_group2.size %>"><%= '%.2f' % @away_drtg_two %></td>
         <% end %>
@@ -841,12 +826,8 @@
           count = 1
           style =""
           darkstyle=""
-          if player.possession
-              count = player.possession.scan(/,/).count + 1
-          end
-          if count == 2
-            count = 1
-          end
+          count = player.possession.scan(/,/).count + 1 if player.possession
+          count = 1 if count == 2
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
             darkstyle="background:red;"
@@ -863,48 +844,42 @@
             birthdate_index = player.birthdate.index("(Age") unless birthdate_index
           end
         %>
-        <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : player.birthdate %></td>
+        <td style='<%= style %>'><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : player.birthdate %></td>
         <td  style='<%= style %>' class="lists list<%= player.id %>"><%= player.player_name %></td>
-        <td style='<%= style %>' ><%= player.position %></td>
-        <% 
-        if player.height
-          height_index = player.height.index(",")
-        end
+        <td style='<%= style %>'><%= player.position %></td>
+        <%
+          height_index = player.height.index(",") if player.height
         %>
-        <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
+        <td style='<%= style %>'><%= height_index ? player.height[0..height_index-1] : "" %></td>
         <%
           count = 1
-          if player.possession
-            count = player.possession.scan(/,/).count + 1
-          end
-          if count == 2
-            count = 1
-          end
+          count = player.possession.scan(/,/).count + 1 if player.possession
+          count = 1 if count == 2
         %>
-        <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(2) %></td>
-        <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(2) %></td>
-        <td style='<%= style %>' ><%= (player.sum_blk.to_f/count).round(2) %></td>
-        <td style='<%= style %>' ><%= (player.sum_to.to_f/count).round(2) %></td>
+        <td style='<%= style %>'><%= (player.sum_or.to_f/count).round(2) %></td>
+        <td style='<%= style %>'><%= (player.sum_stl.to_f/count).round(2) %></td>
+        <td style='<%= style %>'><%= (player.sum_blk.to_f/count).round(2) %></td>
+        <td style='<%= style %>'><%= (player.sum_to.to_f/count).round(2) %></td>
          <% if player.sum_poss && player.team_poss && player.team_poss != 0 %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
+        <td style='<%= style %>'><%= '%.2f' % (100 * player.sum_poss.to_f/player.team_poss) %>%</td>
         <% else %>
-        <td style='<%= style %>' ></td>
+        <td style='<%= style %>'></td>
         <% end %>
         <% if player.sum_mins %>
-        <td style='<%= style %>' ><%= player.sum_mins/(count - 2) %></td>
+        <td style='<%= style %>'><%= player.sum_mins/(count - 2) %></td>
         <% else %>
-        <td style='<%= style %>' ></td>
+        <td style='<%= style %>'></td>
         <% end %>
         <% if player.sum_poss %>
-        <td style='<%= style %>' ><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
+        <td style='<%= style %>'><%= '%.2f' % (100 * (100 * player.sum_poss.to_f/player.team_poss) / @away_total_poss ) %>%</td>
         <% else %>
-        <td style='<%= style %>' ></td>
+        <td style='<%= style %>'></td>
         <% end %>
-        <td style='<%= style %>' ><%= player.ortg %></td>
-        <td style='<%= darkstyle %>'  class="changeOrtg<%= player.id %>"></td>
-        <td style='<%= style %>' ><%= player.drtg %></td>
-        <td style='<%= style %>' ></td>
-        <td style='<%= darkstyle %>'  class="changeDrtg<%= player.id %>"></td>
+        <td style='<%= style %>'><%= player.ortg %></td>
+        <td style='<%= darkstyle %>' class="changeOrtg<%= player.id %>"></td>
+        <td style='<%= style %>'><%= player.drtg %></td>
+        <td style='<%= style %>'></td>
+        <td style='<%= darkstyle %>' class="changeDrtg<%= player.id %>"></td>
       </tr>
     <% end %>
       <tr style="background: grey">
@@ -976,12 +951,8 @@
           count = 1
           style =""
           darkstyle=""
-          if player.possession
-              count = player.possession.scan(/,/).count + 1
-          end
-          if count == 2
-            count = 1
-          end
+          count = player.possession.scan(/,/).count + 1 if player.possession
+          count = 1 if count == 2
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
             darkstyle="background:red;"
@@ -1001,20 +972,14 @@
         <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : player.birthdate %></td>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
-        <% 
-        if player.height
-          height_index = player.height.index(",")
-        end
+        <%
+          height_index = player.height.index(",") if player.height
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
         <%
           count = 1
-          if player.possession
-            count = player.possession.scan(/,/).count + 1
-          end
-          if count == 2
-            count = 1
-          end
+          count = player.possession.scan(/,/).count + 1 if player.possession
+          count = 1 if count == 2
         %>
         <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(2) %></td>
         <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(2) %></td>
@@ -1049,12 +1014,8 @@
           count = 1
           style =""
           darkstyle=""
-          if player.possession
-              count = player.possession.scan(/,/).count + 1
-          end
-          if count == 2
-            count = 1
-          end
+          count = player.possession.scan(/,/).count + 1 if player.possession
+          count = 1 if count == 2
           if count < 10 || player.sum_mins/(count - 2) < 10
             style="background:red;"
             darkstyle="background:red;"
@@ -1074,20 +1035,14 @@
         <td style='<%= style %>' ><%= birthdate_index ? player.birthdate[0..birthdate_index-1] : player.birthdate %></td>
         <td style='<%= style %>'  class="lists list<%= player.id %>"><%= player.player_name %></td>
         <td style='<%= style %>' ><%= player.position %></td>
-        <% 
-        if player.height
-          height_index = player.height.index(",")
-        end
+        <%
+          height_index = player.height.index(",") if player.height
         %>
         <td style='<%= style %>' ><%= height_index ? player.height[0..height_index-1] : "" %></td>
         <%
           count = 1
-          if player.possession
-            count = player.possession.scan(/,/).count + 1
-          end
-          if count == 2
-            count = 1
-          end
+          count = player.possession.scan(/,/).count + 1 if player.possession
+          count = 1 if count == 2
         %>
         <td style='<%= style %>' ><%= (player.sum_or.to_f/count).round(2) %></td>
         <td style='<%= style %>' ><%= (player.sum_stl.to_f/count).round(2) %></td>

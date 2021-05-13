@@ -4,8 +4,8 @@ namespace :job do
     puts "----------Get Games----------"
     include Api
     Time.zone = 'Eastern Time (US & Canada)'
-    index_date = Date.new(2010, 5, 15)
-    while index_date <= Date.new(2010, 8, 18)
+    index_date = Date.new(2010, 5, 4)
+    while index_date <= Date.new(2010, 9, 16)
       game_date = index_date.strftime("%Y%m%d")
       url = "http://www.espn.com/wnba/schedule/_/date/#{game_date}"
       doc = download_document(url)
@@ -23,9 +23,7 @@ namespace :job do
         href = slice.children[index[:result]].child['href']
         game_id = href[-9..-1]
         next if game_id == '300710096'
-        unless game = Wnba.find_by(game_id: game_id)
-          game = Wnba.create(game_id: game_id)
-        end
+        game = Wnba.find_or_create_by(game_id: game_id)
         if slice.children[index[:home_team]].children[0].children.size == 2
           home_team = slice.children[index[:home_team]].children[0].children[1].children[0].text
           home_abbr = slice.children[index[:home_team]].children[0].children[1].children[2].text
@@ -47,7 +45,8 @@ namespace :job do
           away_abbr = slice.children[index[:away_team]].children[0].children[2].text
           away_team = slice.children[index[:away_team]].children[0].children[0].text
         end
-        result = slice.children[index[:result]].text
+
+        next if home_team === 'China' || away_team === 'China' || home_team === 'Great Britain' || away_team === 'Great Britain' || home_team === 'Japan' || away_team === 'Japan'
 
         url = "http://www.espn.com/wnba/game?gameId=#{game_id}"
         doc = download_document(url)
@@ -89,8 +88,27 @@ namespace :job do
           home_blk_value = home_value.children[10].text.to_i
          end
 
-        addingDate = date + 5.hours + @team_timezone[home_team].hours
-        game.update(away_team: away_team, home_team: home_team, home_abbr: home_abbr, away_abbr: away_abbr, game_date: date, year: addingDate.strftime("%Y"), date: addingDate.strftime("%b %e"), time: addingDate.strftime("%I:%M%p"), est_time: date.strftime("%I:%M%p"), week: addingDate.strftime("%a"), away_fga: away_fga_value, away_fta: away_fta_value, away_toValue: away_to_value, away_orValue: away_or_value, home_fga: home_fga_value, home_fta: home_fta_value, home_toValue: home_to_value, home_orValue: home_or_value)
+        addingDate = date + 4.hours + @team_timezone[home_team].hours
+        game.update(
+          away_team: away_team,
+          home_team: home_team,
+          home_abbr: home_abbr,
+          away_abbr: away_abbr,
+          game_date: date,
+          year: addingDate.strftime("%Y"),
+          date: addingDate.strftime("%b %e"),
+          time: addingDate.strftime("%I:%M%p"),
+          est_time: date.strftime("%I:%M%p"),
+          week: addingDate.strftime("%a"),
+          away_fga: away_fga_value,
+          away_fta: away_fta_value,
+          away_toValue: away_to_value,
+          away_orValue: away_or_value,
+          home_fga: home_fga_value,
+          home_fta: home_fta_value,
+          home_toValue: home_to_value,
+          home_orValue: home_or_value
+        )
       end
       index_date = index_date + 1.days
     end
@@ -111,32 +129,65 @@ namespace :job do
       home_team = game.home_team
       away_team = game.away_team
       game_date = game.game_date
+      home_team_timezone = @team_timezone[home_team]
+      away_team_timezone = @team_timezone[away_team]
 
-      away_last_game = ""
+      away_last_game_city = ""
+      away_last_game_home = ""
+      away_last_game_rest_days = ""
       away_team_prev = Wnba.where("home_team = ? AND game_date < ?", away_team, game_date).or(Wnba.where("away_team = ? AND game_date < ?", away_team, game_date)).order(:game_date).last
       if away_team_prev
-        away_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+        away_last_game_city = @city[away_team_prev.home_team]
+        away_last_game_home = away_team_prev.home_team === away_team ? "YES" : "NO"
+        away_last_game_rest_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(away_team_prev.game_date).in_time_zone.to_date ).to_i - 1
       end
 
-      away_next_game = ""
+      away_next_game_city = ""
+      away_next_game_home = ""
+      away_next_game_rest_days = ""
       away_team_next = Wnba.where("home_team = ? AND game_date > ?", away_team, game_date).or(Wnba.where("away_team = ? AND game_date > ?", away_team, game_date)).order(:game_date).first
       if away_team_next
-        away_next_game = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+        away_next_game_city = @city[away_team_next.home_team]
+        away_next_game_home = away_team_next.home_team === away_team ? "YES" : "NO"
+        away_next_game_rest_days = (DateTime.parse(away_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
       end
 
-      home_last_game = ""
+      home_last_game_city = ""
+      home_last_game_home = ""
+      home_last_game_rest_days = ""
       home_team_prev = Wnba.where("home_team = ? AND game_date < ?", home_team, game_date).or(Wnba.where("away_team = ? AND game_date < ?", home_team, game_date)).order(:game_date).last
       if home_team_prev
-        home_last_game = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
+        home_last_game_city = @city[home_team_prev.home_team]
+        home_last_game_home = home_team_prev.home_team === home_team ? "YES" : "NO"
+        home_last_game_rest_days = (DateTime.parse(game_date).in_time_zone.to_date - DateTime.parse(home_team_prev.game_date).in_time_zone.to_date ).to_i - 1
       end
 
-      home_next_game = ""
+      home_next_game_city = ""
+      home_next_game_home = ""
+      home_next_game_rest_days = ""
       home_team_next = Wnba.where("home_team = ? AND game_date > ?", home_team, game_date).or(Wnba.where("away_team = ? AND game_date > ?", home_team, game_date)).order(:game_date).first
       if home_team_next
-        home_next_game = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
+        home_next_game_city = @city[home_team_next.home_team]
+        home_next_game_home = home_team_next.home_team === home_team ? "YES" : "NO"
+        home_next_game_rest_days = (DateTime.parse(home_team_next.game_date).in_time_zone.to_date  - DateTime.parse(game_date).in_time_zone.to_date ).to_i - 1
       end
 
-      game.update(away_last_game: away_last_game, away_next_game: away_next_game, home_last_game: home_last_game, home_next_game: home_next_game)
+      game.update(
+        away_last_game: away_last_game_rest_days,
+        away_next_game: away_next_game_rest_days,
+        home_last_game: home_last_game_rest_days,
+        home_next_game: home_next_game_rest_days,
+        home_team_timezone: home_team_timezone,
+        away_team_timezone: away_team_timezone,
+        away_last_game_city: away_last_game_city,
+        away_next_game_city: away_next_game_city,
+        home_last_game_city: home_last_game_city,
+        home_next_game_city: home_next_game_city,
+        away_last_game_home: away_last_game_home,
+        away_next_game_home: away_next_game_home,
+        home_last_game_home: home_last_game_home,
+        home_next_game_home: home_next_game_home
+      )
     end
   end
 
@@ -169,7 +220,7 @@ namespace :job do
 
           if elements[0].children.size > 6
             away_ot_quarter = elements[0].children[5].text.to_i
-              home_ot_quarter = elements[1].children[5].text.to_i
+            home_ot_quarter = elements[1].children[5].text.to_i
           end
         end
       else
@@ -222,8 +273,8 @@ namespace :job do
     games = Wnba.all
     puts "----------Get First Lines----------"
 
-    index_date = Date.new(2010, 5, 15)
-    while index_date <= Date.new(2017, 9 ,3) do
+    index_date = Date.new(2010, 5, 4)
+    while index_date <= Date.new(2010, 9, 16) do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "https://classic.sportsbookreview.com/betting-odds/wnba-basketball/1st-half/?date=#{game_day}"
@@ -268,7 +319,7 @@ namespace :job do
           hour = 24
         end
 
-        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
+        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
 
         line_one = opener.index(" ")
         opener_side = line_one ? opener[0..line_one] : ""
@@ -312,8 +363,8 @@ namespace :job do
     type = args[:type]
     puts "----------Get #{type} Lines----------"
 
-    index_date = Date.new(2010, 5, 15)
-    while index_date <= Date.new(2017, 9 ,3) do
+    index_date = Date.new(2010, 5, 4)
+    while index_date <= Date.new(2010, 9, 16) do
       game_day = index_date.strftime("%Y%m%d")
       puts game_day
       url = "#{game_link}#{game_day}"
@@ -358,7 +409,7 @@ namespace :job do
           hour = 24
         end
 
-        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 5.hours +  hour.hours
+        date = Time.new(game_day[0..3], game_day[4..5], game_day[6..7]).change(hour: 0, min: min).in_time_zone('Eastern Time (US & Canada)') + 4.hours +  hour.hours
 
         line_one = opener.index(" ")
         opener_side = line_one ? opener[0..line_one] : ""
@@ -687,6 +738,23 @@ namespace :job do
     'Tulsa' => -5,
     'Detroit' => -4,
     'Sacramento' => -7
+  }
+
+  @city = {
+    'Las Vegas' => 'Las Vegas',
+    'Seattle' => 'Seattle',
+    'Washington' => 'Washington',
+    'New York' => 'New York',
+    'Chicago' => 'Chicago',
+    'Minnesota' => 'Minneapolis',
+    'Connecticut' => 'Uncasville',
+    'Phoenix' => 'Phoenix',
+    'Atlanta' => 'Atlanta',
+    'Los Angeles' => 'Los Angeles',
+    'Indiana' => 'Indianapolis',
+    'Dallas' => 'Arlington',
+    'San Antonio' => 'San Antonio',
+    'Tulsa' => 'Tulsa',
   }
 
   ### NBA DATABASE IGNORE

@@ -486,7 +486,7 @@
       <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("firstou = 'under'").count.to_i : "" %>-<%=  fullseason15 ? fullseason15.where("firstou = 'over'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason15 ? fullseason15.where("secondou = 'over'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason15 ? fullseason15.where("totalou = 'over'").count.to_i : "" %></td>
-      <td bgcolor="gray"></td>
+      <td bgcolor="lightgray"><%= @game.away_abbr %></td>
       <td bgcolor="skyblue"><%= "#{away_team_city} (#{@game.away_last_game}) (" %> <%= @game.away_next_fly.nil? || @game.away_next_fly.empty? ? "" : @game.away_next_fly.chars.first.upcase %>)</td>
       <td colspan="15">AWAY LAST CITY (P) + (J) + (L)</td>
       <td class="black"></td>
@@ -506,7 +506,7 @@
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("firstou = 'under'").count.to_i : "" %>-<%=  fullseason17 ? fullseason17.where("firstou = 'over'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("secondou = 'under'").count.to_i : "" %>-<%= fullseason17 ? fullseason17.where("secondou = 'over'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("totalou = 'under'").count.to_i : ""  %>-<%= fullseason17 ? fullseason17.where("totalou = 'over'").count.to_i : "" %></td>
-      <td bgcolor="gray"></td>
+      <td bgcolor="lightgray"><%= @game.home_abbr %></td>
       <td bgcolor="skyblue"><%= "#{home_team_city} (#{@game.home_last_game}) (" %> <%= @game.home_next_fly.nil? || @game.home_next_fly.empty? ? "" : @game.home_next_fly.chars.first.upcase %>)</td>
       <td colspan="15">HOME LAST CITY (AK) + (AF) + (AE)</td>
       <td class="black"></td>
@@ -816,7 +816,7 @@
             filter_element = @game.filters.find_by(index: index, year: year)
             if filter_element
               filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
-%>
+        %>
           <tr class="filterElement">
             <% if index == 0 %>
               <td>under</td>
@@ -941,7 +941,7 @@
           <% end %>
         <% end %>
         <% end %>
-        <% end %>
+        <!-- removed end -->
         <tr class="redgradient">
           <td class="yellow">Away</td>
           <td class="yellow">Home</td>
@@ -990,6 +990,7 @@
             if filter_element
               filter = filter_element.first_one.split("-") unless filter_element.first_one.nil?
 %>
+
           <tr>
             <td><%= filter_element[:first_half_away] ? filter_element[:first_half_away] : "" %></td>
             <td><%= filter_element[:first_half_home] ? filter_element[:first_half_home] : "" %></td>
@@ -1039,7 +1040,7 @@
         end
       end
         %>
-        <tr class="redgradient">
+          <tr class="redgradient">
           <td class="yellow"></td>
           <td class="yellow"></td>
           <td class="gradient"></td>
@@ -1066,6 +1067,8 @@
           <td colspan="5" class="green border">2nd Half</td>
           <td></td>
         </tr>
+
+        <% end %>
         </tbody>
       </table>
     <% end %>
@@ -1353,8 +1356,8 @@
           <% end %>
         <% end %>
         <% end %>
-        <% end %>
-        <tr class="redgradient">
+        <!-- removed end--> 
+          <tr class="redgradient">
           <td class="yellow">Away</td>
           <td class="yellow">Home</td>
           <td class="gradient"></td>
@@ -1376,7 +1379,7 @@
           <td></td>
           <td></td>
           <td></td>
-        </tr>
+          </tr>
         <%
           borders = [1, 5]
           values = [0, 1, 19, 18, 10, 11, 20, 21, 12, 13, 16, 17, 22, 14, 15]
@@ -1444,6 +1447,8 @@
           <td></td>
           <td></td>
         </tr>
+
+        <% end %>
         </tbody>
       </table>
     <% end %>
@@ -1604,7 +1609,7 @@
       <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason15 ? fullseason15.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason15 ? fullseason15.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason15 ? fullseason15.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason15 ? fullseason15.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="gray"></td>
+      <td bgcolor="lightgray"><%= @game.away_abbr %></td>
       <td bgcolor="skyblue"><%= "#{away_team_city} (#{@game.away_last_game}) (" %> <%= @game.away_next_fly.nil? || @game.away_next_fly.empty? ? "" : @game.away_next_fly.chars.first.upcase %>)</td>
       <td colspan="15">AWAY (M) team + LAST CITY (P)</td>
       <td class="black"></td>
@@ -1624,7 +1629,7 @@
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("first_half_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason17 ? fullseason17.where("first_half_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("second_half_bigger = 'AWAY'").count.to_i : "" %>-<%= fullseason17 ? fullseason17.where("second_half_bigger = 'HOME'").count.to_i : "" %></td>
       <td bgcolor="skyblue"><%= fullseason17 ? fullseason17.where("fullgame_bigger = 'AWAY'").count.to_i : ""  %>-<%= fullseason17 ? fullseason17.where("fullgame_bigger = 'HOME'").count.to_i : "" %></td>
-      <td bgcolor="gray"></td>
+      <td bgcolor="lightgray"><%= @game.home_abbr %></td>
       <td bgcolor="skyblue"><%= "#{home_team_city} (#{@game.home_last_game}) (" %> <%= @game.home_next_fly.nil? || @game.home_next_fly.empty? ? "" : @game.home_next_fly.chars.first.upcase %>)</td>
       <td colspan="15">AWAY (M) team + NEXT CITY (P)</td>
       <td class="black"></td>
