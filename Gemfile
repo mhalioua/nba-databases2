@@ -59,7 +59,7 @@ gem 'imgkit'
 
 gem 'wkhtmltoimage-binary'
 
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 2'
 
 gem 'jquery-ui-rails'
 
